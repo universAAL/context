@@ -1,4 +1,4 @@
-PERSONA Jena Conversion
+Jena Conversion
 
 Copyright 2008-2010 Fraunhofer IGD, http://www.igd.fraunhofer.de
 Fraunhofer-Gesellschaft - Institute of Computer Graphics Research 

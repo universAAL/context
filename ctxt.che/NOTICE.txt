@@ -1,4 +1,4 @@
-PERSONA Context History Entrepôt
+Context History Entrepôt
 
 Copyright 2008-2010 Fraunhofer IGD, http://www.igd.fraunhofer.de
 Fraunhofer-Gesellschaft - Institute of Computer Graphics Research 
@@ -10,7 +10,9 @@ Bienestar (TSB)
 
 I. Included Software
 
-This does not include any software developed by 3rd parties
+Software developed by ITACA-TSB within the PERSONA project is 
+used as the initial version for further developments within 
+the universAAL project.
 
 
 II. Used Software

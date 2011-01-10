@@ -1,4 +1,4 @@
-PERSONA Context History Entrepôt Mobile
+Context History Entrepôt Mobile
 
 Copyright 2008-2010 ITACA-TSB, http://www.tsb.upv.es
 Instituto Tecnologico de Aplicaciones de Comunicacion 
@@ -7,6 +7,10 @@ Bienestar (TSB)
 
 
 I. Included Software
+
+Software developed by ITACA-TSB within the PERSONA project is 
+used as the initial version for further developments within 
+the universAAL project.
 
 This product includes software developed by
 Xstream. (http://xstream.codehaus.org/)

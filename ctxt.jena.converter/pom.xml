@@ -1,26 +1,25 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-	<modelVersion>4.0.0</modelVersion>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<parent>
 		<groupId>org.universAAL.context</groupId>
 		<artifactId>ctxt.pom</artifactId>
 		<version>1.0.0</version>
 		<relativePath>../pom/pom.xml</relativePath>
 	</parent>
+	<modelVersion>4.0.0</modelVersion>
+	<artifactId>ctxt.jena.converter</artifactId>
 	<packaging>bundle</packaging>
-	<artifactId>ctxt.che.mobile</artifactId>
-	<version>0.2.0-SNAPSHOT</version>
-	<name>Compact Context History Entrepot for PMD</name>
-	<description>The mobile version of the component managing the history of all context events published to the PERSONA context bus.</description>
-	<url />
+	<name>jena.model_converter</name>
+	<version>0.3.0-SNAPSHOT</version>
+	<description>The module for converting the representation of resources from PERSONA to Jena and vice versa.</description>
 	
 	  <inceptionYear>2008</inceptionYear>
   <organization>
     <name><![CDATA[
-    Instituto Tecnologico de Aplicaciones de Comunicacion Avanzadas - Grupo Tecnologias para la Salud y el Bienestar (TSB)
+    Fraunhofer-Gesellschaft - Institute of Computer Graphics Research
     ]]></name>
     <url><![CDATA[
-    http://www.itaca.upv.es/
+    http://www.igd.fraunhofer.de/
     ]]></url>
   </organization> 
   
@@ -31,36 +30,17 @@
       <distribution>repo</distribution>
     </license>
   </licenses>
-
+  
 	<dependencies>
-		<dependency>
-			<groupId>org.apache.felix</groupId>
-			<artifactId>org.osgi.core</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.felix</groupId>
-			<artifactId>org.osgi.compendium</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>com.thoughtworks.xstream</groupId>
-			<artifactId>xstream</artifactId>
-			<version>1.3.1</version>
-		</dependency>
 		<dependency>
 			<groupId>org.ops4j.pax.logging</groupId>
 			<artifactId>pax-logging-api</artifactId>
 			<version>1.4</version>
-			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.ops4j.pax.logging</groupId>
 			<artifactId>pax-logging-service</artifactId>
 			<version>1.4</version>
-			<scope>provided</scope>
 			<exclusions>
 				<exclusion>
 					<artifactId>log4j</artifactId>
@@ -69,8 +49,34 @@
 			</exclusions>
 		</dependency>
 		<dependency>
+			<groupId>com.hp.hpl.jena</groupId>
+			<artifactId>jena</artifactId>
+			<version>2.5.4</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.felix</groupId>
+			<artifactId>org.osgi.core</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
 			<groupId>org.universAAL.middleware</groupId>
 			<artifactId>mw.data.representation</artifactId>
+			<version>0.3.0-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>org.universAAL.middleware</groupId>
+			<artifactId>mw.bus.service</artifactId>
+			<version>0.3.0-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>org.universAAL.middleware</groupId>
+			<artifactId>mw.bus.io</artifactId>
 			<version>0.3.0-SNAPSHOT</version>
 		</dependency>
 		<dependency>
@@ -79,8 +85,6 @@
 			<version>0.3.0-SNAPSHOT</version>
 		</dependency>
 	</dependencies>
-		
-		
 
 	<build>
 		<plugins>
@@ -91,10 +95,11 @@
 				<configuration>
 					<instructions>
 						<Bundle-Name>${pom.name}</Bundle-Name>
-						<Bundle-Activator>org.universAAL.context.chepmd.Activator</Bundle-Activator>
 						<Bundle-Description>${pom.description}</Bundle-Description>
 						<Bundle-SymbolicName>${pom.artifactId}</Bundle-SymbolicName>
-						<Private-Package>org.universAAL.context.chemobile</Private-Package>
+						<Export-Package>org.universAAL.context.conversion.jena</Export-Package>
+						<Bundle-Activator>org.universAAL.context.conversion.jena.impl.Activator</Bundle-Activator>
+						<Private-Package>org.universAAL.context.conversion.jena.impl</Private-Package>
 					</instructions>
 				</configuration>
 			</plugin>

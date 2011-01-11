@@ -91,7 +91,7 @@
 				<configuration>
 					<instructions>
 						<Bundle-Name>${pom.name}</Bundle-Name>
-						<Bundle-Activator>org.universAAL.context.chepmd.Activator</Bundle-Activator>
+						<Bundle-Activator>org.universAAL.context.chemobile.Activator</Bundle-Activator>
 						<Bundle-Description>${pom.description}</Bundle-Description>
 						<Bundle-SymbolicName>${pom.artifactId}</Bundle-SymbolicName>
 						<Private-Package>org.universAAL.context.chemobile</Private-Package>

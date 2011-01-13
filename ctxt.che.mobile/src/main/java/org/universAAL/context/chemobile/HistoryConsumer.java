@@ -40,7 +40,7 @@ import com.thoughtworks.xstream.XStream;
 public class HistoryConsumer extends ContextSubscriber {
 	private static final String FILE="PMD-Events.txt";
 	private XStream xs;
-	private File confHome = new File(new File(Constants.getSpaceConfRoot()), "casf.che.mobile");
+	private File confHome = new File(new File(Constants.getSpaceConfRoot()), "ctxt.che.mobile");
 	
 	public HistoryConsumer(BundleContext context){
 		super(context, new ContextEventPattern[] {new ContextEventPattern()});

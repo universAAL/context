@@ -50,7 +50,7 @@ import org.universAAL.middleware.service.AggregatingFilter;
 import org.universAAL.middleware.service.ServiceCall;
 import org.universAAL.middleware.service.ServiceRequest;
 import org.universAAL.middleware.service.ServiceResponse;
-import org.universAAL.middleware.service.impl.ServiceRealization;
+//import org.universAAL.middleware.service.impl.ServiceRealization;//not exported by bus.service
 import org.universAAL.middleware.service.owls.profile.ServiceProfile;
 import org.universAAL.middleware.util.LogUtils;
 
@@ -595,7 +595,7 @@ public class JenaModelConverter implements JenaConverter {
 		middlewareResources.put(PropertyPath.TYPE_PROPERTY_PATH, PropertyPath.class);
 		middlewareResources.put(ServiceCall.MY_URI, ServiceCall.class);
 		middlewareResources.put(ServiceRequest.MY_URI, ServiceRequest.class);
-		middlewareResources.put(ServiceRealization.MY_URI, ServiceRealization.class);
+//		middlewareResources.put(ServiceRealization.MY_URI, ServiceRealization.class);
 		middlewareResources.put(ServiceResponse.MY_URI, ServiceResponse.class);
 		middlewareResources.put(ServiceProfile.MY_URI, ServiceProfile.class);
 		middlewareResources.put(OutputEvent.MY_URI, OutputEvent.class);

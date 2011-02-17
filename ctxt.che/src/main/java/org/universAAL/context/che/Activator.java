@@ -21,6 +21,7 @@
  */
 package org.universAAL.context.che;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileWriter;
 import java.io.InputStream;
@@ -41,6 +42,7 @@ import org.universAAL.context.che.database.Converter;
 import org.universAAL.context.che.database.impl.JenaDBBackend;
 import org.universAAL.context.conversion.jena.JenaConverter;
 import org.universAAL.middleware.rdf.TypeMapper;
+import org.universAAL.middleware.util.Constants;
 
 
 /**
@@ -52,6 +54,7 @@ public class Activator implements BundleActivator, ServiceListener {
 	public static final String PROPS_FILE="CHe.properties";
 	public static final String COMMENTS="This file stores configuration parameters for the " +
 			"Context History Entrepot";
+	private static File confHome = new File(new File(Constants.getSpaceConfRoot()), "ctxt.che");
 	
 	private final static Logger log=LoggerFactory.getLogger(Activator.class);
 	public static BundleContext context=null;
@@ -117,7 +120,7 @@ public class Activator implements BundleActivator, ServiceListener {
 	public static synchronized void setProperties(Properties prop){
 		try {
 			FileWriter out;
-			out = new FileWriter(PROPS_FILE);
+			out = new FileWriter(new File(confHome, PROPS_FILE));
 			prop.store(out, COMMENTS);
 			out.close();
 		} catch (Exception e) {
@@ -135,16 +138,16 @@ public class Activator implements BundleActivator, ServiceListener {
 		Properties prop=new Properties();
 		try {
 			prop=new Properties();
-			InputStream in = new FileInputStream(PROPS_FILE);
+			InputStream in = new FileInputStream(new File(confHome, PROPS_FILE));
 			prop.load(in);
 			in.close();
 		} catch (java.io.FileNotFoundException e) {
 			log.warn("Properties file does not exist; generating default...");
-			prop.setProperty("DB.URL","jdbc:mysql://localhost:3306/persona_aal_space");
-			prop.setProperty("DB.USER","casf_che");
-			prop.setProperty("DB.PWD","casf_che");
+			prop.setProperty("DB.URL","jdbc:mysql://localhost:3306/universaal_history");
+			prop.setProperty("DB.USER","uaal_ctxt_che");
+			prop.setProperty("DB.PWD","uaal_ctxt_che");
 			prop.setProperty("DB.TYPE","MySQL");
-			prop.setProperty("MODEL.NAME","PERSONA_AAL_Space");
+			prop.setProperty("MODEL.NAME","universAAL_Context_History");
 			prop.setProperty("PMD.StorageFile","PMD-Events.txt");
 			prop.setProperty("PMD.BorderFlag","<!--CEv-->");
 			prop.setProperty("RECYCLE.KEEP_MSEC","15552000000");//6 months

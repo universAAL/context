@@ -57,7 +57,7 @@ import org.universAAL.middleware.rdf.Resource;
  * 
  */
 public class ContextEvent extends ManagedIndividual {
-	public static final String PERSONA_CONTEXT_NAMESPACE;
+	public static final String uAAL_CONTEXT_NAMESPACE;
 	public static final String MY_URI;
 	public static final String CONTEXT_EVENT_URI_PREFIX ;
 	public static final String LOCAL_NAME_SUBJECT;
@@ -78,9 +78,9 @@ public class ContextEvent extends ManagedIndividual {
 	public static final String PROP_CONTEXT_TIMESTAMP;
 	
 	static{
-		PERSONA_CONTEXT_NAMESPACE = uAAL_NAMESPACE_PREFIX + "Context.owl#";
-		MY_URI = PERSONA_CONTEXT_NAMESPACE + "ContextEvent";
-		CONTEXT_EVENT_URI_PREFIX = "urn:org.persona.ontology:ContextEvent#";
+		uAAL_CONTEXT_NAMESPACE = uAAL_NAMESPACE_PREFIX + "Context.owl#";
+		MY_URI = uAAL_CONTEXT_NAMESPACE + "ContextEvent";
+		CONTEXT_EVENT_URI_PREFIX = "urn:org.universAAL.middleware.context.rdf:ContextEvent#";
 		LOCAL_NAME_SUBJECT = "subject";
 		PROP_RDF_SUBJECT = RDF_NAMESPACE + LOCAL_NAME_SUBJECT;
 		LOCAL_NAME_PREDICATE = "predicate";
@@ -89,18 +89,18 @@ public class ContextEvent extends ManagedIndividual {
 		PROP_RDF_OBJECT = RDF_NAMESPACE + LOCAL_NAME_OBJECT;
 		LOCAL_NAME_CONFIDENCE = "hasConfidence";
 		PROP_CONTEXT_CONFIDENCE = 
-			PERSONA_CONTEXT_NAMESPACE + LOCAL_NAME_CONFIDENCE;
+			uAAL_CONTEXT_NAMESPACE + LOCAL_NAME_CONFIDENCE;
 		LOCAL_NAME_ACCURACY = "hasAccuracy";
 		PROP_CONTEXT_ACCURACY = 
-			PERSONA_CONTEXT_NAMESPACE + LOCAL_NAME_ACCURACY;
+			uAAL_CONTEXT_NAMESPACE + LOCAL_NAME_ACCURACY;
 		LOCAL_NAME_PROVIDER = "hasProvider";
-		PROP_CONTEXT_PROVIDER = PERSONA_CONTEXT_NAMESPACE + LOCAL_NAME_PROVIDER;
+		PROP_CONTEXT_PROVIDER = uAAL_CONTEXT_NAMESPACE + LOCAL_NAME_PROVIDER;
 		LOCAL_NAME_EXPIRATION_TIME = "hasExpirationTime";
 		PROP_CONTEXT_EXPIRATION_TIME = 
-			PERSONA_CONTEXT_NAMESPACE + LOCAL_NAME_EXPIRATION_TIME;
+			uAAL_CONTEXT_NAMESPACE + LOCAL_NAME_EXPIRATION_TIME;
 		LOCAL_NAME_TIMESTAMP = "hasTimestamp";
 		PROP_CONTEXT_TIMESTAMP = 
-			PERSONA_CONTEXT_NAMESPACE + LOCAL_NAME_TIMESTAMP;
+			uAAL_CONTEXT_NAMESPACE + LOCAL_NAME_TIMESTAMP;
 		register(ContextEvent.class);
 	}
 	
@@ -150,7 +150,7 @@ public class ContextEvent extends ManagedIndividual {
 		setRDFSubject(subject);
 		setRDFPredicate(predicate);
 		setRDFObject(eventObject);
-		setTimestamp(new Long(System.currentTimeMillis()));
+//		setTimestamp(new Long(System.currentTimeMillis()));
 	}
 
 	public Rating getAccuracy() {
@@ -203,7 +203,7 @@ public class ContextEvent extends ManagedIndividual {
 
 	public boolean isWellFormed() {
 		return (getRDFSubject() != null && getRDFPredicate() != null
-				&& getRDFObject() != null && getTimestamp() != null);
+				&& getRDFObject() != null /*&& getTimestamp() != null*/);
 	}
 
 	public void setAccuracy(Rating accuracy) {

@@ -100,12 +100,12 @@ public class JenaDBBackend implements Backend {
 	public static final Property xsdduration = m_model.createProperty( "http://www.w3.org/2001/XMLSchema#duration" );
 	public static final Property xsddatetime = m_model.createProperty( "http://www.w3.org/2001/XMLSchema#dateTime" );
 	public static final Property xsdlanguage = m_model.createProperty( "http://www.w3.org/2001/XMLSchema#language" );
-	public static final Property ctxtcontextevent = m_model.createProperty( "http://ontology.aal-persona.org/Context.owl#ContextEvent" );
-	public static final Property ctxthastimestamp = m_model.createProperty( "http://ontology.aal-persona.org/Context.owl#hasTimestamp" );
-	public static final Property ctxthasaccuracy = m_model.createProperty( "http://ontology.aal-persona.org/Context.owl#hasAccuracy" );
-	public static final Property ctxthasconfidence = m_model.createProperty( "http://ontology.aal-persona.org/Context.owl#hasConfidence" );
-	public static final Property ctxthasexpirationtime = m_model.createProperty( "http://ontology.aal-persona.org/Context.owl#hasExpirationTime" );
-	public static final Property ctxthasprovider = m_model.createProperty( "http://ontology.aal-persona.org/Context.owl#hasProvider" );
+	public static final Property ctxtcontextevent = m_model.createProperty( "http://ontology.universAAL.org/Context.owl#ContextEvent" );
+	public static final Property ctxthastimestamp = m_model.createProperty( "http://ontology.universAAL.org/Context.owl#hasTimestamp" );
+	public static final Property ctxthasaccuracy = m_model.createProperty( "http://ontology.universAAL.org/Context.owl#hasAccuracy" );
+	public static final Property ctxthasconfidence = m_model.createProperty( "http://ontology.universAAL.org/Context.owl#hasConfidence" );
+	public static final Property ctxthasexpirationtime = m_model.createProperty( "http://ontology.universAAL.org/Context.owl#hasExpirationTime" );
+	public static final Property ctxthasprovider = m_model.createProperty( "http://ontology.universAAL.org/Context.owl#hasProvider" );
 	
 	private static final boolean DEBUG_DB = false;//Set to true to refill the DB every time (for debugging)
 	private String DB_URL;

@@ -621,7 +621,7 @@ public class JenaDBBackend implements Backend {
 		ElementFilter filter = new ElementFilter(expr);
 		elg.addElementFilter(filter);
 		query.setQueryPattern(elg);
-
+System.out.println(query.toString());
 		synchronized (getLock()) {
 			log.info("Removing Events prior to {} ",Long.toString(tst));
 			try {

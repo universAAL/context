@@ -299,9 +299,9 @@ public class JenaDBBackend implements Backend {
 					ResultSet results = qexec.execSelect() ;
 					ResultSetFormatter.asRDF(resultsModel, results);
 				}else if(query.isConstructType()){
-					resultsModel = qexec.execConstruct() ;
+					qexec.execConstruct(resultsModel) ;
 				}else if(query.isDescribeType()){
-					resultsModel = qexec.execDescribe();
+					qexec.execDescribe(resultsModel) ;
 				}else if(query.isAskType()){
 					boolean results = qexec.execAsk() ;
 					ResultSetFormatter.asRDF(resultsModel, results);

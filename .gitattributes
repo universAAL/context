@@ -41,7 +41,6 @@ ctxt.gen.reasoner/src/main/c/README.txt -text
 ctxt.gen.reasoner/src/main/c/persona_sr_notifier.c -text
 ctxt.gen.reasoner/src/main/java/org/universAAL/context/reasoner/Activator.java -text
 ctxt.gen.reasoner/src/main/resources/log4j.properties -text
-ctxt.gen.reasoner/src/main/resources/org/persona/platform/casf/sr/create_db.sql -text
 ctxt.gen.reasoner/src/main/resources/org/persona/platform/casf/sr/create_db_sr_only.sql -text
 ctxt.jena.converter/LICENSE-BSD-Jena.txt -text
 ctxt.jena.converter/LICENSE-CPL-JUnit.txt -text

@@ -19,12 +19,15 @@
  */
 package org.universAAL.context.reasoner;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.InputStream;
 import java.io.StringWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.Enumeration;
+import java.util.Properties;
 
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
@@ -37,6 +40,7 @@ import org.universAAL.middleware.context.DefaultContextPublisher;
 import org.universAAL.middleware.context.owl.ContextProvider;
 import org.universAAL.middleware.context.owl.ContextProviderType;
 import org.universAAL.middleware.rdf.Resource;
+import org.universAAL.middleware.util.Constants;
 
 import com.hp.hpl.jena.db.DBConnection;
 import com.hp.hpl.jena.db.ModelRDB;
@@ -52,52 +56,17 @@ import com.mysql.jdbc.Driver;
  */
 public class Activator extends Thread implements BundleActivator {
 
-	static final String JENA_DB_URL = System.getProperty("org.persona.platform.jena_db.url",
-			"jdbc:mysql://localhost:3306/persona_aal_space");
-	static final String JENA_DB_USER = System.getProperty("org.persona.platform.casf.sr.db_user", "casf_sr");
-	static final String JENA_DB_PASSWORD = System.getProperty("org.persona.platform.casf.sr.db_passwd", "casf_sr");
-	static final String JENA_MODEL_NAME = System.getProperty("org.persona.platform.jena_db.model_name", "PERSONA_AAL_Space");
+	public static final String PROPS_FILE="CHe.properties";
+	private static File confHome = new File(new File(Constants.getSpaceConfRoot()), "ctxt.che");
 	
-//	private class SRTest extends Thread {
-//		public void run() {
-//			try {
-//				DBConnection conn=new DBConnection(
-//						JENA_DB_URL,
-//						JENA_DB_USER,
-//						JENA_DB_PASSWORD,
-//						"MySQL"); 
-//				if (conn.containsModel(JENA_MODEL_NAME)) {
-//					ModelRDB CHModel = ModelRDB.open(conn, JENA_MODEL_NAME);
-//					PResource lr = new PResource("urn:org.persona.aal_space:itaca_home_lab#livingRoom");
-//					PResource os = new PResource("urn:org.persona.aal_space:itaca_home_lab#outside");
-//					PResource at = new PResource();
-//					at.addType("http://ontology.persona.ratio.it/action.owl#ActionType", true);
-//					at.setProperty("http://ontology.persona.ratio.it/action.owl#description", "WatchingTV");
-//					PResource ca = new PResource();
-//					ca.addType("http://ontology.persona.ratio.it/action.owl#CompositeAction", true);
-//					ca.setProperty("http://ontology.persona.ratio.it/action.owl#hasStatus", new Integer(1));
-//					ca.setProperty("http://ontology.persona.ratio.it/action.owl#hasActionType", at);
-//					PResource user = new PResource("urn:org.aal_persona.aal_space:itaca_living_lab#ella");
-//					user.addType("http://ontology.persona.upm.es/User.owl#User", true);
-//					user.setProperty(PhysicalThing.PROP_PHYSICAL_LOCATION, lr);
-//					user.setProperty("http://ontology.persona.upm.es/User.owl#currentActivity", ca);
-//					CHModel.add(mc.toJenaResource(user).getModel());
-//					lr.setProperty("http://ontology.aal-persona.org/PERSONA.owl#hasTemperature", new Integer(18));
-//					CHModel.add(mc.toJenaResource(lr).getModel());
-//					os.setProperty("http://ontology.aal-persona.org/PERSONA.owl#hasTemperature", new Integer(8));
-//					CHModel.add(mc.toJenaResource(os).getModel());
-//					CHModel.close();
-//				}
-//				conn.close();
-//			} catch (Exception e) {
-//				logger.warn("A query string could not be processed: {}", e);
-//			} finally {
-//			}
-//		}
-//	}
+	static final String JENA_DB_URL = getProperties().getProperty("DB.URL",
+			"jdbc:mysql://localhost:3306/universaal_history");
+	static final String JENA_DB_USER = getProperties().getProperty("DB.USER", "uaal_ctxt_sr");
+	static final String JENA_DB_PASSWORD = getProperties().getProperty("DB.PWD", "uaal_ctxt_sr");
+	static final String JENA_MODEL_NAME = getProperties().getProperty("MODEL.NAME", "universAAL_Context_History");
 	
-	public static final String PERSONA_SITUATION_REASONER_NAMESPACE = 
-		Resource.uAAL_NAMESPACE_PREFIX + "SituationReasoner.owl#";
+	public static final String uAAL_SITUATION_REASONER_NAMESPACE = 
+		Resource.uAAL_NAMESPACE_PREFIX + "GenericReasoner.owl#";
 	
 	private class QueryHandler extends Thread {
 		private Socket s;
@@ -117,6 +86,7 @@ public class Activator extends Thread implements BundleActivator {
 		}
 		
 		public void run() {
+			logger.info("Starting the Query handler thread");
 			InputStream is = null;
 			try {
 				DBConnection conn=new DBConnection(
@@ -124,18 +94,17 @@ public class Activator extends Thread implements BundleActivator {
 						JENA_DB_USER,
 						JENA_DB_PASSWORD,
 						"MySQL"); 
+				logger.debug("Connected to DB");
 				if (conn.containsModel(JENA_MODEL_NAME)) {
 					ModelRDB CHModel = ModelRDB.open(conn, JENA_MODEL_NAME);
-
+					logger.debug("Connected to model");
 					StringWriter sw = new StringWriter(2048);
 					is = s.getInputStream();
 					for (int i=0; i<2048 && is.available() > 0; i++)
 						sw.append((char) is.read());
-
 					String queryStr = sw.toString();
-					logger.info("Received notification: {}", queryStr);
-					
 					Query query = QueryFactory.create(queryStr);
+					logger.info("Checking stored query: {}",query.toString());
 					QueryExecution qexec = QueryExecutionFactory.create(query, CHModel) ;
 					Model m = qexec.execConstruct();
 					Resource pr = mc.toPersonaResource(mc.getJenaRootResource(m));
@@ -143,13 +112,15 @@ public class Activator extends Thread implements BundleActivator {
 						logger.info("Publishing events on: {}", pr.getURI());
 						for (String pred : getPreds(pr)) {
 							logger.info("{} = {}", pred, pr.getProperty(pred));
-							cp.publish(new ContextEvent(pr, pred));
+							ContextEvent cev=new ContextEvent(pr, pred);
+							cp.publish(cev);
 						}
 						logger.info("Event publishing finished!");
 					}
 					qexec.close();
 					CHModel.close();
 				}
+				logger.debug("Clossing connection to DB");
 				conn.close();
 			} catch (Exception e) {
 				logger.warn("A query string could not be processed: {}", e);
@@ -175,12 +146,12 @@ public class Activator extends Thread implements BundleActivator {
 	private int port = 3309;
 	private ContextPublisher cp;
 	private JenaConverter mc;
-	private Logger logger = LoggerFactory.getLogger(Activator.class);
+	private final static Logger logger = LoggerFactory.getLogger(Activator.class);
 	private boolean continueListening;
 	
 	public void start(BundleContext context) throws Exception {
 		
-		String portParam = System.getProperty("org.persona.platform.casf.sr.server_port");
+		String portParam = System.getProperty("org.universAAL.ctxt.sr.server_port");
 		if (portParam != null) {
 			try {
 				port = Integer.parseInt(portParam);
@@ -191,18 +162,17 @@ public class Activator extends Thread implements BundleActivator {
 
 		// prepare for context publishing
 		ContextProvider info =  new ContextProvider(
-				PERSONA_SITUATION_REASONER_NAMESPACE + "situReasoner");
+				uAAL_SITUATION_REASONER_NAMESPACE + "genReasoner");
 		info.setType(ContextProviderType.reasoner);
 		cp = new DefaultContextPublisher(context, info);
 	
 		continueListening = true;
 		start();
 		
-		// test
-		// new SRTest().start();
 	}
 
 	public void run() {
+		logger.info("Starting the Reasoner thread");
 		ServerSocket serverSocket = null;
 		try {
 			Driver dr = new Driver();
@@ -233,6 +203,25 @@ public class Activator extends Thread implements BundleActivator {
 	
 	public void stop(BundleContext arg0) throws Exception {
 		continueListening = false;
+	}
+	
+	/**
+	 * Gets the properties of the CHe
+	 * 
+	 * @return The properties of the CHe
+	 * @see #setProperties(Properties)
+	 */
+	public static synchronized Properties getProperties(){
+		Properties prop=new Properties();
+		try {
+			prop=new Properties();
+			InputStream in = new FileInputStream(new File(confHome, PROPS_FILE));
+			prop.load(in);
+			in.close();
+		}catch (Exception e) {
+			logger.error("Could not access properties file: {} "+e);
+		}
+		return prop;
 	}
 
 }

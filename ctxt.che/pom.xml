@@ -102,6 +102,11 @@
 			<artifactId>ctxt.jena.converter</artifactId>
 			<version>0.3.0-SNAPSHOT</version>
 		</dependency>
+		<dependency>
+			<groupId>org.universAAL.ontology</groupId>
+			<artifactId>ont.lighting</artifactId>
+			<version>0.2.0-SNAPSHOT</version>
+		</dependency>
 	</dependencies>
 
 	<build>
@@ -117,24 +122,44 @@
 						<Bundle-Description>${pom.description}</Bundle-Description>
 						<Bundle-SymbolicName>${pom.artifactId}</Bundle-SymbolicName>
 						<Export-Package>org.persona.platform.casf.che</Export-Package>
+						<!-- uncomment this import section if you want the synchronization
+						with the mobile version work properly -->
 						<!-- <Import-Package>
-							javax.xml.datatype,com.mysql.jdbc,com.thoughtworks.xstream.converters.reflection,
-							com.thoughtworks.xstream,
+							com.mysql.jdbc,
+							com.hp.hpl.jena.datatypes, com.hp.hpl.jena.datatypes.xsd, 
+							com.hp.hpl.jena.datatypes.xsd.impl, com.hp.hpl.jena.db, com.hp.hpl.jena.graph, 
+							com.hp.hpl.jena.query, com.hp.hpl.jena.rdf.model, com.hp.hpl.jena.shared, 
+							com.hp.hpl.jena.sparql.core, com.hp.hpl.jena.sparql.expr, 
+							com.hp.hpl.jena.sparql.syntax, com.hp.hpl.jena.util.iterator, 
+							com.hp.hpl.jena.vocabulary, 
+							com.thoughtworks.xstream, com.thoughtworks.xstream.converters.reflection, 
+							javax.xml.datatype, org.osgi.framework, org.slf4j, 
+							org.universAAL.context.conversion.jena, org.universAAL.middleware.context, 
+							org.universAAL.middleware.context.owl, org.universAAL.middleware.input, 
+							org.universAAL.middleware.io.rdf, org.universAAL.middleware.output, 
+							org.universAAL.middleware.owl, org.universAAL.middleware.owl.supply, 
+							org.universAAL.middleware.rdf, org.universAAL.middleware.service, 
+							org.universAAL.middleware.service.owl, 
+							org.universAAL.middleware.service.owls.process, 
+							org.universAAL.middleware.service.owls.profile,
+							org.universAAL.middleware.util,
 							
-							org.osgi.framework,org.slf4j,
-							
-							com.hp.hpl.jena.query,com.hp.hpl.jena.db,com.hp.hpl.jena.db.impl,com.hp.hpl.jena.rdf.model,
-							com.hp.hpl.jena.shared,com.hp.hpl.jena.util, com.hp.hpl.jena.util.iterator,com.hp.hpl.jena.sparql.expr,
-							com.hp.hpl.jena.datatypes,com.hp.hpl.jena.datatypes.xsd,com.hp.hpl.jena.datatypes.xsd.impl,
-							com.hp.hpl.jena.vocabulary,com.hp.hpl.jena.graph,com.hp.hpl.jena.sparql.core,com.hp.hpl.jena.sparql.syntax,com.hp.hpl.jena.rdf.model.impl,
-							
-							org.persona.middleware,org.persona.middleware.context,org.persona.platform.tools.conversion.jena,
-							org.persona.middleware.service,org.persona.middleware.service.process,org.persona.middleware.service.profile, 
-							org.persona.ontology,org.persona.ontology.context,org.persona.ontology.expr,
-							
-							org.persona.platform.casf.ontology.device,org.persona.platform.casf.ontology.device.lighting,
-							org.persona.platform.casf.ontology.location,org.persona.platform.casf.ontology.weather,
-							org.persona.platform.profiling.ontology
+							org.universAAL.ontology.lighting,
+							org.universAAL.ontology.blind,
+							org.universAAL.ontology.device.home,
+							org.universAAL.ontology.device.wearable,
+							org.universAAL.ontology.furniture,
+							org.universAAL.ontology.measurement,
+							org.universAAL.ontology.medication,
+							org.universAAL.ontology.phThing,
+							org.universAAL.ontology.shape,
+							org.universAAL.ontology.space,	
+							org.universAAL.ontology.powersocket,
+							org.universAAL.ontology.profile,
+							org.universAAL.ontology.weather,
+							org.universAAL.ontology.location,
+							org.universAAL.ontology.location.extra,
+							org.universAAL.ontology.window
 						</Import-Package>-->
 						<Private-Package>org.universAAL.context.che.database,org.universAAL.context.che.database.impl</Private-Package>
 						<Export-Package>org.universAAL.context.che.ontology,org.universAAL.context.che</Export-Package>

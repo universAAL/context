@@ -19,44 +19,38 @@
 	See the License for the specific language governing permissions and
 	limitations under the License.
  */
-package org.universAAL.context.che;
+package org.universAAL.context.chemobile;
 
+import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.universAAL.context.che.database.Backend;
-import org.universAAL.middleware.context.ContextEvent;
-import org.universAAL.middleware.context.ContextEventPattern;
-import org.universAAL.middleware.context.ContextSubscriber;
 
 /**
  * @author <a href="mailto:alfiva@itaca.upv.es">Alvaro Fides Valero</a>
  * 
  */
-public class ContextHistorySubscriber extends ContextSubscriber {
-    private Backend db;
-    private final static Logger log = LoggerFactory
-	    .getLogger(ContextHistorySubscriber.class);
+public class Activator implements BundleActivator {
 
-    public ContextHistorySubscriber(BundleContext context, Backend db) {
-	// My context event pattern is zero-restrictions (ALL)
-	super(context, new ContextEventPattern[] { new ContextEventPattern() });
-	this.db = db;
-	log.info("CHe: Subscriber Ready");
+    public static BundleContext context = null;
+    private static Object fileLock;
+    private HistoryConsumer hc;
+    protected final static Logger log = LoggerFactory
+	    .getLogger(Activator.class);
+
+    public void start(BundleContext context) throws Exception {
+	Activator.context = context;
+	Activator.fileLock = new Object();
+	hc = new HistoryConsumer(context);
     }
 
-    public void communicationChannelBroken() {
+    public void stop(BundleContext context) throws Exception {
 	// TODO Auto-generated method stub
-
+	hc.close();
     }
 
-    public void handleContextEvent(ContextEvent event) {
-	db.storeEvent(event);
-	log.info("CHe: Stored a Context Event");
-    }
-
-    public void close() {
-	db.close();
+    public static Object getLock() {
+	return fileLock;
     }
 
 }

@@ -35,49 +35,54 @@ import com.thoughtworks.xstream.XStream;
 
 /**
  * @author <a href="mailto:alfiva@itaca.upv.es">Alvaro Fides Valero</a>
- *
+ * 
  */
 public class HistoryConsumer extends ContextSubscriber {
-	private static final String FILE="PMD-Events.txt";
-	private XStream xs;
-	private File confHome = new File(new File(Constants.getSpaceConfRoot()), "ctxt.che.mobile");
-	
-	public HistoryConsumer(BundleContext context){
-		super(context, new ContextEventPattern[] {new ContextEventPattern()});
-		xs = new XStream(new WriteOnlyJavaReflectionProvider());
-		synchronized(Activator.getLock()){
-			try {
-				BufferedWriter out = new BufferedWriter(new FileWriter(new File(confHome, FILE),false));
-				out.close();
-			} catch (Exception e) {
-				Activator.log.debug("COULD NOT CREATE FILE "+e.getMessage()+"---"+e.toString());
-			}
-		}
-	}
+    private static final String FILE = "PMD-Events.txt";
+    private XStream xs;
+    private File confHome = new File(new File(Constants.getSpaceConfRoot()),
+	    "ctxt.che.mobile");
 
-	public void communicationChannelBroken() {
-		// TODO Auto-generated method stub
+    public HistoryConsumer(BundleContext context) {
+	super(context, new ContextEventPattern[] { new ContextEventPattern() });
+	xs = new XStream(new WriteOnlyJavaReflectionProvider());
+	synchronized (Activator.getLock()) {
+	    try {
+		BufferedWriter out = new BufferedWriter(new FileWriter(
+			new File(confHome, FILE), false));
+		out.close();
+	    } catch (Exception e) {
+		Activator.log.debug("COULD NOT CREATE FILE " + e.getMessage()
+			+ "---" + e.toString());
+	    }
 	}
+    }
 
-	public void handleContextEvent(ContextEvent event) {
-		Activator.log.debug("PMD CHe: Received a Context Event");
-		synchronized(Activator.getLock()){
-			try {
-				BufferedWriter out = new BufferedWriter(new FileWriter(new File(confHome, FILE),true));
-				String xmlOut=xs.toXML(event);
-				out.write(xmlOut);
-				out.newLine();
-				out.write("<!--CEv-->");
-				out.newLine();
-				out.close();
-			} catch (Exception e) {
-				Activator.log.debug("COULD NOT ACCESS FILE: "+e.getMessage()+"---"+e.toString());
-			}
-		}
+    public void communicationChannelBroken() {
+	// TODO Auto-generated method stub
+    }
+
+    public void handleContextEvent(ContextEvent event) {
+	Activator.log.debug("PMD CHe: Received a Context Event");
+	synchronized (Activator.getLock()) {
+	    try {
+		BufferedWriter out = new BufferedWriter(new FileWriter(
+			new File(confHome, FILE), true));
+		String xmlOut = xs.toXML(event);
+		out.write(xmlOut);
+		out.newLine();
+		out.write("<!--CEv-->");
+		out.newLine();
+		out.close();
+	    } catch (Exception e) {
+		Activator.log.debug("COULD NOT ACCESS FILE: " + e.getMessage()
+			+ "---" + e.toString());
+	    }
 	}
-	
-	public void close(){
-		xs=null;
-	}
+    }
+
+    public void close() {
+	xs = null;
+    }
 
 }

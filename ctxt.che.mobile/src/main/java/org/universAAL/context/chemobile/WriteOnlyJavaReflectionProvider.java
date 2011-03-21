@@ -46,152 +46,175 @@ import java.util.Iterator;
 import java.util.Map;
 
 /**
- * Modification of PureJavaReflectionProvider from XStream that allows to serialize final fields even with JVM´s 
- * versions < 1.5. Therefore it is only intended for serializing. Deserialization may result in unexpected behavior.
+ * Modification of PureJavaReflectionProvider from XStream that allows to
+ * serialize final fields even with JVM´s versions < 1.5. Therefore it is only
+ * intended for serializing. Deserialization may result in unexpected behavior.
  */
 public class WriteOnlyJavaReflectionProvider implements ReflectionProvider {
 
-    private transient Map serializedDataCache = Collections.synchronizedMap(new HashMap());
+    private transient Map serializedDataCache = Collections
+	    .synchronizedMap(new HashMap());
     protected FieldDictionary fieldDictionary;
 
-	public WriteOnlyJavaReflectionProvider() {
-		this(new FieldDictionary(new ImmutableFieldKeySorter()));
-	}
+    public WriteOnlyJavaReflectionProvider() {
+	this(new FieldDictionary(new ImmutableFieldKeySorter()));
+    }
 
-	public WriteOnlyJavaReflectionProvider(FieldDictionary fieldDictionary) {
-		this.fieldDictionary = fieldDictionary;
-	}
+    public WriteOnlyJavaReflectionProvider(FieldDictionary fieldDictionary) {
+	this.fieldDictionary = fieldDictionary;
+    }
 
-	public Object newInstance(Class type) {
-        try {
-            Constructor[] constructors = type.getDeclaredConstructors();
-            for (int i = 0; i < constructors.length; i++) {
-                if (constructors[i].getParameterTypes().length == 0) {
-                    if (!Modifier.isPublic(constructors[i].getModifiers())) {
-                        constructors[i].setAccessible(true);
-                    }
-                    return constructors[i].newInstance(new Object[0]);
-                }
-            }
-            if (Serializable.class.isAssignableFrom(type)) {
-                return instantiateUsingSerialization(type);
-            } else {
-                throw new ObjectAccessException("Cannot construct " + type.getName()
-                        + " as it does not have a no-args constructor");
-            }
-        } catch (InstantiationException e) {
-            throw new ObjectAccessException("Cannot construct " + type.getName(), e);
-        } catch (IllegalAccessException e) {
-            throw new ObjectAccessException("Cannot construct " + type.getName(), e);
-        } catch (InvocationTargetException e) {
-            if (e.getTargetException() instanceof RuntimeException) {
-                throw (RuntimeException)e.getTargetException();
-            } else if (e.getTargetException() instanceof Error) {
-                throw (Error)e.getTargetException();
-            } else {
-                throw new ObjectAccessException("Constructor for " + type.getName() + " threw an exception", e.getTargetException());
-            }
-        }
+    public Object newInstance(Class type) {
+	try {
+	    Constructor[] constructors = type.getDeclaredConstructors();
+	    for (int i = 0; i < constructors.length; i++) {
+		if (constructors[i].getParameterTypes().length == 0) {
+		    if (!Modifier.isPublic(constructors[i].getModifiers())) {
+			constructors[i].setAccessible(true);
+		    }
+		    return constructors[i].newInstance(new Object[0]);
+		}
+	    }
+	    if (Serializable.class.isAssignableFrom(type)) {
+		return instantiateUsingSerialization(type);
+	    } else {
+		throw new ObjectAccessException("Cannot construct "
+			+ type.getName()
+			+ " as it does not have a no-args constructor");
+	    }
+	} catch (InstantiationException e) {
+	    throw new ObjectAccessException("Cannot construct "
+		    + type.getName(), e);
+	} catch (IllegalAccessException e) {
+	    throw new ObjectAccessException("Cannot construct "
+		    + type.getName(), e);
+	} catch (InvocationTargetException e) {
+	    if (e.getTargetException() instanceof RuntimeException) {
+		throw (RuntimeException) e.getTargetException();
+	    } else if (e.getTargetException() instanceof Error) {
+		throw (Error) e.getTargetException();
+	    } else {
+		throw new ObjectAccessException("Constructor for "
+			+ type.getName() + " threw an exception", e
+			.getTargetException());
+	    }
+	}
     }
 
     private Object instantiateUsingSerialization(Class type) {
-        try {
-            byte[] data;
-            if (serializedDataCache.containsKey(type)) {
-                data = (byte[]) serializedDataCache.get(type);
-            } else {
-                ByteArrayOutputStream bytes = new ByteArrayOutputStream();
-                DataOutputStream stream = new DataOutputStream(bytes);
-                stream.writeShort(ObjectStreamConstants.STREAM_MAGIC);
-                stream.writeShort(ObjectStreamConstants.STREAM_VERSION);
-                stream.writeByte(ObjectStreamConstants.TC_OBJECT);
-                stream.writeByte(ObjectStreamConstants.TC_CLASSDESC);
-                stream.writeUTF(type.getName());
-                stream.writeLong(ObjectStreamClass.lookup(type).getSerialVersionUID());
-                stream.writeByte(2);  // classDescFlags (2 = Serializable)
-                stream.writeShort(0); // field count
-                stream.writeByte(ObjectStreamConstants.TC_ENDBLOCKDATA);
-                stream.writeByte(ObjectStreamConstants.TC_NULL);
-                data = bytes.toByteArray();
-                serializedDataCache.put(type, data);
-            }
+	try {
+	    byte[] data;
+	    if (serializedDataCache.containsKey(type)) {
+		data = (byte[]) serializedDataCache.get(type);
+	    } else {
+		ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+		DataOutputStream stream = new DataOutputStream(bytes);
+		stream.writeShort(ObjectStreamConstants.STREAM_MAGIC);
+		stream.writeShort(ObjectStreamConstants.STREAM_VERSION);
+		stream.writeByte(ObjectStreamConstants.TC_OBJECT);
+		stream.writeByte(ObjectStreamConstants.TC_CLASSDESC);
+		stream.writeUTF(type.getName());
+		stream.writeLong(ObjectStreamClass.lookup(type)
+			.getSerialVersionUID());
+		stream.writeByte(2); // classDescFlags (2 = Serializable)
+		stream.writeShort(0); // field count
+		stream.writeByte(ObjectStreamConstants.TC_ENDBLOCKDATA);
+		stream.writeByte(ObjectStreamConstants.TC_NULL);
+		data = bytes.toByteArray();
+		serializedDataCache.put(type, data);
+	    }
 
-            ObjectInputStream in = new ObjectInputStream(new ByteArrayInputStream(data));
-            return in.readObject();
-        } catch (IOException e) {
-            throw new ObjectAccessException("Cannot create " + type.getName() + " by JDK serialization", e);
-        } catch (ClassNotFoundException e) {
-            throw new ObjectAccessException("Cannot find class " + e.getMessage());
-        }
+	    ObjectInputStream in = new ObjectInputStream(
+		    new ByteArrayInputStream(data));
+	    return in.readObject();
+	} catch (IOException e) {
+	    throw new ObjectAccessException("Cannot create " + type.getName()
+		    + " by JDK serialization", e);
+	} catch (ClassNotFoundException e) {
+	    throw new ObjectAccessException("Cannot find class "
+		    + e.getMessage());
+	}
     }
 
-    public void visitSerializableFields(Object object, ReflectionProvider.Visitor visitor) {
-        for (Iterator iterator = fieldDictionary.fieldsFor(object.getClass()); iterator.hasNext();) {
-            Field field = (Field) iterator.next();
-            if (!fieldModifiersSupported(field)) {
-                continue;
-            }
-            validateFieldAccess(field);
-            try {
-                Object value = field.get(object);
-                visitor.visit(field.getName(), field.getType(), field.getDeclaringClass(), value);
-            } catch (IllegalArgumentException e) {
-                throw new ObjectAccessException("Could not get field " + field.getClass() + "." + field.getName(), e);
-            } catch (IllegalAccessException e) {
-                throw new ObjectAccessException("Could not get field " + field.getClass() + "." + field.getName(), e);
-            }
-        }
+    public void visitSerializableFields(Object object,
+	    ReflectionProvider.Visitor visitor) {
+	for (Iterator iterator = fieldDictionary.fieldsFor(object.getClass()); iterator
+		.hasNext();) {
+	    Field field = (Field) iterator.next();
+	    if (!fieldModifiersSupported(field)) {
+		continue;
+	    }
+	    validateFieldAccess(field);
+	    try {
+		Object value = field.get(object);
+		visitor.visit(field.getName(), field.getType(), field
+			.getDeclaringClass(), value);
+	    } catch (IllegalArgumentException e) {
+		throw new ObjectAccessException("Could not get field "
+			+ field.getClass() + "." + field.getName(), e);
+	    } catch (IllegalAccessException e) {
+		throw new ObjectAccessException("Could not get field "
+			+ field.getClass() + "." + field.getName(), e);
+	    }
+	}
     }
 
-    public void writeField(Object object, String fieldName, Object value, Class definedIn) {
-        Field field = fieldDictionary.field(object.getClass(), fieldName, definedIn);
-        validateFieldAccess(field);
-        try {
-            field.set(object, value);
-        } catch (IllegalArgumentException e) {
-            throw new ObjectAccessException("Could not set field " + object.getClass() + "." + field.getName(), e);
-        } catch (IllegalAccessException e) {
-            throw new ObjectAccessException("Could not set field " + object.getClass() + "." + field.getName(), e);
-        }
+    public void writeField(Object object, String fieldName, Object value,
+	    Class definedIn) {
+	Field field = fieldDictionary.field(object.getClass(), fieldName,
+		definedIn);
+	validateFieldAccess(field);
+	try {
+	    field.set(object, value);
+	} catch (IllegalArgumentException e) {
+	    throw new ObjectAccessException("Could not set field "
+		    + object.getClass() + "." + field.getName(), e);
+	} catch (IllegalAccessException e) {
+	    throw new ObjectAccessException("Could not set field "
+		    + object.getClass() + "." + field.getName(), e);
+	}
     }
 
     public Class getFieldType(Object object, String fieldName, Class definedIn) {
-        return fieldDictionary.field(object.getClass(), fieldName, definedIn).getType();
+	return fieldDictionary.field(object.getClass(), fieldName, definedIn)
+		.getType();
     }
 
     public boolean fieldDefinedInClass(String fieldName, Class type) {
-        try {
-            Field field = fieldDictionary.field(type, fieldName, null);
-            return fieldModifiersSupported(field) || Modifier.isTransient(field.getModifiers());
-        } catch (ObjectAccessException e) {
-            return false;
-        }
+	try {
+	    Field field = fieldDictionary.field(type, fieldName, null);
+	    return fieldModifiersSupported(field)
+		    || Modifier.isTransient(field.getModifiers());
+	} catch (ObjectAccessException e) {
+	    return false;
+	}
     }
 
     protected boolean fieldModifiersSupported(Field field) {
-        return !(Modifier.isStatic(field.getModifiers())
-                || Modifier.isTransient(field.getModifiers()));
+	return !(Modifier.isStatic(field.getModifiers()) || Modifier
+		.isTransient(field.getModifiers()));
     }
 
     protected void validateFieldAccess(Field field) {
-        if (Modifier.isFinal(field.getModifiers())) {
+	if (Modifier.isFinal(field.getModifiers())) {
 
-                field.setAccessible(true);//This is the difference with original XStream: always true
+	    field.setAccessible(true);// This is the difference with original
+				      // XStream: always true
 
-        }
+	}
     }
 
     public Field getField(Class definedIn, String fieldName) {
-        return fieldDictionary.field(definedIn, fieldName, null);
+	return fieldDictionary.field(definedIn, fieldName, null);
     }
 
     public void setFieldDictionary(FieldDictionary dictionary) {
-        this.fieldDictionary = dictionary;
+	this.fieldDictionary = dictionary;
     }
 
     protected Object readResolve() {
-        serializedDataCache = Collections.synchronizedMap(new HashMap());
-        return this;
+	serializedDataCache = Collections.synchronizedMap(new HashMap());
+	return this;
     }
 
 }

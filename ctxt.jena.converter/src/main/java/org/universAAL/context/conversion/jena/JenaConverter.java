@@ -23,16 +23,17 @@ import org.universAAL.middleware.rdf.Resource;
 
 import com.hp.hpl.jena.rdf.model.Model;
 
-
-
-
 /**
  * @author mtazari
- *
+ * 
  */
 public interface JenaConverter {
-	public com.hp.hpl.jena.rdf.model.Resource getJenaRootResource(Model m);
-	public com.hp.hpl.jena.rdf.model.Resource toJenaResource(Resource r);
-	public Resource toPersonaResource(com.hp.hpl.jena.rdf.model.Resource r);
-	public boolean updateDBResource(com.hp.hpl.jena.rdf.model.Resource dbRes, com.hp.hpl.jena.rdf.model.Resource updater);
+    public com.hp.hpl.jena.rdf.model.Resource getJenaRootResource(Model m);
+
+    public com.hp.hpl.jena.rdf.model.Resource toJenaResource(Resource r);
+
+    public Resource toPersonaResource(com.hp.hpl.jena.rdf.model.Resource r);
+
+    public boolean updateDBResource(com.hp.hpl.jena.rdf.model.Resource dbRes,
+	    com.hp.hpl.jena.rdf.model.Resource updater);
 }

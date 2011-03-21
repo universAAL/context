@@ -38,176 +38,233 @@ import org.universAAL.middleware.service.owls.process.ProcessOutput;
 
 /**
  * @author <a href="mailto:alfiva@itaca.upv.es">Alvaro Fides Valero</a>
- *
+ * 
  */
-public class ContextHistoryCallee extends ServiceCallee{
-	private static final ServiceResponse invalidInput = new ServiceResponse(
-			CallStatus.serviceSpecificFailure);
-	private final static Logger log=LoggerFactory.getLogger(ContextHistoryCallee.class);
-	
-	static {
-		invalidInput.addOutput(new ProcessOutput(ServiceResponse.PROP_SERVICE_SPECIFIC_ERROR,
-				"Invalid input!"));
+public class ContextHistoryCallee extends ServiceCallee {
+    private static final ServiceResponse invalidInput = new ServiceResponse(
+	    CallStatus.serviceSpecificFailure);
+    private final static Logger log = LoggerFactory
+	    .getLogger(ContextHistoryCallee.class);
+
+    static {
+	invalidInput.addOutput(new ProcessOutput(
+		ServiceResponse.PROP_SERVICE_SPECIFIC_ERROR, "Invalid input!"));
+    }
+
+    private Backend db;
+
+    ContextHistoryCallee(BundleContext context, Backend db) {
+	super(context, ContextHistoryServices.profiles);
+	this.db = db;
+    }
+
+    public void communicationChannelBroken() {
+	// TODO Auto-generated method stub
+
+    }
+
+    public ServiceResponse handleCall(ServiceCall call) {
+	log.info("CHe received a service call");
+	if (call == null) {
+	    invalidInput
+		    .addOutput(new ProcessOutput(
+			    ServiceResponse.PROP_SERVICE_SPECIFIC_ERROR,
+			    "Corrupt call"));
+	    return invalidInput;
 	}
 
-	private Backend db;
-
-	ContextHistoryCallee(BundleContext context, Backend db) {
-		super(context, ContextHistoryServices.profiles);
-		this.db=db;
+	String operation = call.getProcessURI();
+	if (operation == null) {
+	    invalidInput
+		    .addOutput(new ProcessOutput(
+			    ServiceResponse.PROP_SERVICE_SPECIFIC_ERROR,
+			    "Corrupt call"));
+	    return invalidInput;
 	}
 
-	public void communicationChannelBroken() {
-		// TODO Auto-generated method stub
-		
-	}
+	if (operation
+		.startsWith(ContextHistoryServices.SERVICE_DO_SPARQL_QUERY)) {
+	    log.info("Received call was SERVICE_DO_SPARQL_QUERY");
 
-	public ServiceResponse handleCall(ServiceCall call) {
-		log.info("CHe received a service call");
-		if (call == null){
-			invalidInput.addOutput(new ProcessOutput(ServiceResponse.PROP_SERVICE_SPECIFIC_ERROR,"Corrupt call"));
-			return invalidInput;
-		}
-		
-		String operation = call.getProcessURI();
-		if (operation == null){
-			invalidInput.addOutput(new ProcessOutput(ServiceResponse.PROP_SERVICE_SPECIFIC_ERROR,"Corrupt call"));
-			return invalidInput;
-		}
-		
-		if (operation.startsWith(ContextHistoryServices.SERVICE_DO_SPARQL_QUERY)){
-			log.info("Received call was SERVICE_DO_SPARQL_QUERY");
-			
-			Object input = call.getInputValue(ContextHistoryServices.INPUT_QUERY);
-			if (input == null){
-				invalidInput.addOutput(new ProcessOutput(ServiceResponse.PROP_SERVICE_SPECIFIC_ERROR,"Invalid input"));
-				return invalidInput;
-			}
-			return execSPARQLQuery((String)input);
-			
-		}else if(operation.startsWith(ContextHistoryServices.SERVICE_GET_EVENTS_BY_SPARQL)){
-			log.info("Received call was SERVICE_GET_EVENTS_BY_SPARQL");
-			
-			Object input = call.getInputValue(ContextHistoryServices.INPUT_QUERY);
-			if (input == null){
-				invalidInput.addOutput(new ProcessOutput(ServiceResponse.PROP_SERVICE_SPECIFIC_ERROR,"Invalid input"));
-				return invalidInput;
-			}
-				
-			return execSPARQLQueryForEvents((String)input);
-
-		}else{
-			
-			Object input = call.getInputValue(ContextHistoryServices.INPUT_EVENT);
-			ContextEvent inputevent;
-			
-			if ((input == null)||(!(input instanceof ContextEvent))){
-				invalidInput.addOutput(new ProcessOutput(ServiceResponse.PROP_SERVICE_SPECIFIC_ERROR,"Invalid input (ContextEvent)"));
-				return invalidInput;
-			}else{
-				inputevent=(ContextEvent)input;
-			}
-			
-			String sub, typ, pre;
-			Object obj;
-			Integer acc, con;
-			Long exp, tst;
-			ContextProvider cop;
-			
-			sub = (inputevent.getSubjectURI()!=null && !inputevent.getRDFSubject().isAnon()) ? inputevent.getSubjectURI() : null;
-			typ = (inputevent.getSubjectTypeURI()!=null) ? inputevent.getSubjectTypeURI() : null;
-			pre = (inputevent.getRDFPredicate()!=null) ? inputevent.getRDFPredicate() : null;
-			obj = (inputevent.getRDFObject()!=null) ? inputevent.getRDFObject() : null;
-			acc = (inputevent.getAccuracy()!=null) ? new Integer(inputevent.getAccuracy().ord()) : null;
-			con = (inputevent.getConfidence()!=null) ? inputevent.getConfidence() : null;
-			exp = (inputevent.getExpirationTime()!=null) ? inputevent.getExpirationTime() : null;
-			tst = (inputevent.getTimestamp()!=null) ? inputevent.getTimestamp() : null;
-			cop = (inputevent.getProvider()!=null) ? inputevent.getProvider() : null;
-				
-			if (operation.startsWith(ContextHistoryServices.SERVICE_GET_EVENTS_FROM_TIMESTAMP)){
-				log.info("Received call was SERVICE_GET_EVENTS_FROM_TIMESTAMP");
-				
-				Object tstinput = call.getInputValue(ContextHistoryServices.INPUT_TIMESTAMP_FROM);
-				Long tstinputValue=new Long("0");
-				if ((tstinput == null)||(!(tstinput instanceof Long))){
-					invalidInput.addOutput(new ProcessOutput(ServiceResponse.PROP_SERVICE_SPECIFIC_ERROR,"Invalid input (Timestamp)"));
-					return invalidInput;
-				}else{
-					tstinputValue=(Long)tstinput;
-				}
-				List results=db.retrieveEventsFromTstmp(sub,typ,pre,obj,acc,con,exp,cop,tst,tstinputValue);
-				ServiceResponse response= new ServiceResponse(CallStatus.succeeded);
-				response.addOutput(new ProcessOutput(ContextHistoryServices.OUTPUT_EVENTS, results));
-				return response;
-			}
-			
-			else if (operation.startsWith(ContextHistoryServices.SERVICE_GET_EVENTS_TO_TIMESTAMP)){
-				log.info("Received call was SERVICE_GET_EVENTS_TO_TIMESTAMP");
-				Object tstinput = call.getInputValue(ContextHistoryServices.INPUT_TIMESTAMP_TO);
-				Long tstinputValue=new Long("0");
-				if ((tstinput == null)||(!(tstinput instanceof Long))){
-					invalidInput.addOutput(new ProcessOutput(ServiceResponse.PROP_SERVICE_SPECIFIC_ERROR,"Invalid input (Timestamp)"));
-					return invalidInput;
-				}else{
-					tstinputValue=(Long)tstinput;
-				}
-				List results=db.retrieveEventsToTstmp(sub,typ,pre,obj,acc,con,exp,cop,tst,tstinputValue);
-				ServiceResponse response= new ServiceResponse(CallStatus.succeeded);
-				response.addOutput(new ProcessOutput(ContextHistoryServices.OUTPUT_EVENTS, results));
-				return response;
-			}
-			
-			else if (operation.startsWith(ContextHistoryServices.SERVICE_GET_EVENTS_BETWEEN_TIMESTAMPS)){
-				log.info("Received call was SERVICE_GET_EVENTS_BETWEEN_TIMESTAMPS");
-				Object tstinput1 = call.getInputValue(ContextHistoryServices.INPUT_TIMESTAMP_FROM);
-				Object tstinput2 = call.getInputValue(ContextHistoryServices.INPUT_TIMESTAMP_TO);
-				Long tstinput1Value=new Long("0");
-				if ((tstinput1 == null)||(!(tstinput1 instanceof Long))){
-					invalidInput.addOutput(new ProcessOutput(ServiceResponse.PROP_SERVICE_SPECIFIC_ERROR,"Invalid input (Timestamp)"));
-					return invalidInput;
-				}else{
-					tstinput1Value=(Long)tstinput1;
-				}
-				Long tstinput2Value=new Long("0");
-				if ((tstinput2 == null)||(!(tstinput2 instanceof Long))){
-					invalidInput.addOutput(new ProcessOutput(ServiceResponse.PROP_SERVICE_SPECIFIC_ERROR,"Invalid input (Timestamp)"));
-					return invalidInput;
-				}else{
-					tstinput2Value=(Long)tstinput2;
-				}
-				List results=db.retrieveEventsBetweenTstmp(sub,typ,pre,obj,acc,con,exp,cop,tst,tstinput1Value,tstinput2Value);
-				ServiceResponse response= new ServiceResponse(CallStatus.succeeded);
-				response.addOutput(new ProcessOutput(ContextHistoryServices.OUTPUT_EVENTS, results));
-				return response;
-			}
-			
-		}
-		invalidInput.addOutput(new ProcessOutput(ServiceResponse.PROP_SERVICE_SPECIFIC_ERROR,"Invalid call"));
+	    Object input = call
+		    .getInputValue(ContextHistoryServices.INPUT_QUERY);
+	    if (input == null) {
+		invalidInput.addOutput(new ProcessOutput(
+			ServiceResponse.PROP_SERVICE_SPECIFIC_ERROR,
+			"Invalid input"));
 		return invalidInput;
-	}
-	
-	private ServiceResponse execSPARQLQuery(String input) {
-		try {
-			String results=db.queryBySPARQL(input);
-			ServiceResponse response= new ServiceResponse(CallStatus.succeeded);
-			response.addOutput(new ProcessOutput(ContextHistoryServices.OUTPUT_RESULT, results));
-			return response;
-		} catch (Exception e) {
-			log.error("Error executing specific SPARQL: {} ", e);
-			return invalidInput;
+	    }
+	    return execSPARQLQuery((String) input);
+
+	} else if (operation
+		.startsWith(ContextHistoryServices.SERVICE_GET_EVENTS_BY_SPARQL)) {
+	    log.info("Received call was SERVICE_GET_EVENTS_BY_SPARQL");
+
+	    Object input = call
+		    .getInputValue(ContextHistoryServices.INPUT_QUERY);
+	    if (input == null) {
+		invalidInput.addOutput(new ProcessOutput(
+			ServiceResponse.PROP_SERVICE_SPECIFIC_ERROR,
+			"Invalid input"));
+		return invalidInput;
+	    }
+
+	    return execSPARQLQueryForEvents((String) input);
+
+	} else {
+
+	    Object input = call
+		    .getInputValue(ContextHistoryServices.INPUT_EVENT);
+	    ContextEvent inputevent;
+
+	    if ((input == null) || (!(input instanceof ContextEvent))) {
+		invalidInput.addOutput(new ProcessOutput(
+			ServiceResponse.PROP_SERVICE_SPECIFIC_ERROR,
+			"Invalid input (ContextEvent)"));
+		return invalidInput;
+	    } else {
+		inputevent = (ContextEvent) input;
+	    }
+
+	    String sub, typ, pre;
+	    Object obj;
+	    Integer acc, con;
+	    Long exp, tst;
+	    ContextProvider cop;
+
+	    sub = (inputevent.getSubjectURI() != null && !inputevent
+		    .getRDFSubject().isAnon()) ? inputevent.getSubjectURI()
+		    : null;
+	    typ = (inputevent.getSubjectTypeURI() != null) ? inputevent
+		    .getSubjectTypeURI() : null;
+	    pre = (inputevent.getRDFPredicate() != null) ? inputevent
+		    .getRDFPredicate() : null;
+	    obj = (inputevent.getRDFObject() != null) ? inputevent
+		    .getRDFObject() : null;
+	    acc = (inputevent.getAccuracy() != null) ? new Integer(inputevent
+		    .getAccuracy().ord()) : null;
+	    con = (inputevent.getConfidence() != null) ? inputevent
+		    .getConfidence() : null;
+	    exp = (inputevent.getExpirationTime() != null) ? inputevent
+		    .getExpirationTime() : null;
+	    tst = (inputevent.getTimestamp() != null) ? inputevent
+		    .getTimestamp() : null;
+	    cop = (inputevent.getProvider() != null) ? inputevent.getProvider()
+		    : null;
+
+	    if (operation
+		    .startsWith(ContextHistoryServices.SERVICE_GET_EVENTS_FROM_TIMESTAMP)) {
+		log.info("Received call was SERVICE_GET_EVENTS_FROM_TIMESTAMP");
+
+		Object tstinput = call
+			.getInputValue(ContextHistoryServices.INPUT_TIMESTAMP_FROM);
+		Long tstinputValue = new Long("0");
+		if ((tstinput == null) || (!(tstinput instanceof Long))) {
+		    invalidInput.addOutput(new ProcessOutput(
+			    ServiceResponse.PROP_SERVICE_SPECIFIC_ERROR,
+			    "Invalid input (Timestamp)"));
+		    return invalidInput;
+		} else {
+		    tstinputValue = (Long) tstinput;
 		}
-	}
-	
-	private ServiceResponse execSPARQLQueryForEvents(String input) {
-		try {
-			ServiceResponse response= new ServiceResponse(CallStatus.succeeded);
-			ArrayList results=db.retrieveEventsBySPARQL(input);
-			response.addOutput(new ProcessOutput(ContextHistoryServices.OUTPUT_EVENTS, results));
-			return response;
-		} catch (Exception e) {
-			log.error("Error executing SPARQL for events: {} ", e);
-			return invalidInput;
+		List results = db.retrieveEventsFromTstmp(sub, typ, pre, obj,
+			acc, con, exp, cop, tst, tstinputValue);
+		ServiceResponse response = new ServiceResponse(
+			CallStatus.succeeded);
+		response.addOutput(new ProcessOutput(
+			ContextHistoryServices.OUTPUT_EVENTS, results));
+		return response;
+	    }
+
+	    else if (operation
+		    .startsWith(ContextHistoryServices.SERVICE_GET_EVENTS_TO_TIMESTAMP)) {
+		log.info("Received call was SERVICE_GET_EVENTS_TO_TIMESTAMP");
+		Object tstinput = call
+			.getInputValue(ContextHistoryServices.INPUT_TIMESTAMP_TO);
+		Long tstinputValue = new Long("0");
+		if ((tstinput == null) || (!(tstinput instanceof Long))) {
+		    invalidInput.addOutput(new ProcessOutput(
+			    ServiceResponse.PROP_SERVICE_SPECIFIC_ERROR,
+			    "Invalid input (Timestamp)"));
+		    return invalidInput;
+		} else {
+		    tstinputValue = (Long) tstinput;
 		}
+		List results = db.retrieveEventsToTstmp(sub, typ, pre, obj,
+			acc, con, exp, cop, tst, tstinputValue);
+		ServiceResponse response = new ServiceResponse(
+			CallStatus.succeeded);
+		response.addOutput(new ProcessOutput(
+			ContextHistoryServices.OUTPUT_EVENTS, results));
+		return response;
+	    }
+
+	    else if (operation
+		    .startsWith(ContextHistoryServices.SERVICE_GET_EVENTS_BETWEEN_TIMESTAMPS)) {
+		log
+			.info("Received call was SERVICE_GET_EVENTS_BETWEEN_TIMESTAMPS");
+		Object tstinput1 = call
+			.getInputValue(ContextHistoryServices.INPUT_TIMESTAMP_FROM);
+		Object tstinput2 = call
+			.getInputValue(ContextHistoryServices.INPUT_TIMESTAMP_TO);
+		Long tstinput1Value = new Long("0");
+		if ((tstinput1 == null) || (!(tstinput1 instanceof Long))) {
+		    invalidInput.addOutput(new ProcessOutput(
+			    ServiceResponse.PROP_SERVICE_SPECIFIC_ERROR,
+			    "Invalid input (Timestamp)"));
+		    return invalidInput;
+		} else {
+		    tstinput1Value = (Long) tstinput1;
+		}
+		Long tstinput2Value = new Long("0");
+		if ((tstinput2 == null) || (!(tstinput2 instanceof Long))) {
+		    invalidInput.addOutput(new ProcessOutput(
+			    ServiceResponse.PROP_SERVICE_SPECIFIC_ERROR,
+			    "Invalid input (Timestamp)"));
+		    return invalidInput;
+		} else {
+		    tstinput2Value = (Long) tstinput2;
+		}
+		List results = db.retrieveEventsBetweenTstmp(sub, typ, pre,
+			obj, acc, con, exp, cop, tst, tstinput1Value,
+			tstinput2Value);
+		ServiceResponse response = new ServiceResponse(
+			CallStatus.succeeded);
+		response.addOutput(new ProcessOutput(
+			ContextHistoryServices.OUTPUT_EVENTS, results));
+		return response;
+	    }
+
 	}
+	invalidInput.addOutput(new ProcessOutput(
+		ServiceResponse.PROP_SERVICE_SPECIFIC_ERROR, "Invalid call"));
+	return invalidInput;
+    }
+
+    private ServiceResponse execSPARQLQuery(String input) {
+	try {
+	    String results = db.queryBySPARQL(input);
+	    ServiceResponse response = new ServiceResponse(CallStatus.succeeded);
+	    response.addOutput(new ProcessOutput(
+		    ContextHistoryServices.OUTPUT_RESULT, results));
+	    return response;
+	} catch (Exception e) {
+	    log.error("Error executing specific SPARQL: {} ", e);
+	    return invalidInput;
+	}
+    }
+
+    private ServiceResponse execSPARQLQueryForEvents(String input) {
+	try {
+	    ServiceResponse response = new ServiceResponse(CallStatus.succeeded);
+	    ArrayList results = db.retrieveEventsBySPARQL(input);
+	    response.addOutput(new ProcessOutput(
+		    ContextHistoryServices.OUTPUT_EVENTS, results));
+	    return response;
+	} catch (Exception e) {
+	    log.error("Error executing SPARQL for events: {} ", e);
+	    return invalidInput;
+	}
+    }
 
 }

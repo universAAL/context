@@ -30,6 +30,9 @@ import org.universAAL.middleware.context.ContextEventPattern;
 import org.universAAL.middleware.context.ContextSubscriber;
 
 /**
+ * The CHe subscriber subscribes for all context events in order to save them to
+ * the database
+ * 
  * @author <a href="mailto:alfiva@itaca.upv.es">Alvaro Fides Valero</a>
  * 
  */

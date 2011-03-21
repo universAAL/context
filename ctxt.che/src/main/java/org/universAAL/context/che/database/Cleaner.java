@@ -29,19 +29,18 @@ import java.util.TimerTask;
 import org.universAAL.context.che.Activator;
 
 /**
- * @author <a href="mailto:alfiva@itaca.upv.es">Alvaro Fides Valero</a>
+ * This class is used to remove events from the database periodically, to avoid
+ * the uncontrolled growth of the history
  * 
- *         This class is used to remove events from the database periodically,
- *         to avoid the uncontrolled growth of the history
+ * @author <a href="mailto:alfiva@itaca.upv.es">Alvaro Fides Valero</a>
  * 
  */
 public class Cleaner extends TimerTask {
 
     /**
+     * Auxiliar class used to perform the removal at a specified hour
+     * 
      * @author alfiva
-     * 
-     *         Auxiliar class used to perform the removal at a specified hour
-     * 
      */
     private class Punctual extends TimerTask {
 

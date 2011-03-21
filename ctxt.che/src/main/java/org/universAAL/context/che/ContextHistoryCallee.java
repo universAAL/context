@@ -37,6 +37,9 @@ import org.universAAL.middleware.service.ServiceResponse;
 import org.universAAL.middleware.service.owls.process.ProcessOutput;
 
 /**
+ * The CHe service callee receives all service calls issued to the CHe through
+ * the service bus
+ * 
  * @author <a href="mailto:alfiva@itaca.upv.es">Alvaro Fides Valero</a>
  * 
  */

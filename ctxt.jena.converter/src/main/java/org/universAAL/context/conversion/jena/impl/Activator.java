@@ -28,47 +28,49 @@ import org.universAAL.context.conversion.jena.JenaConverter;
 import org.universAAL.middleware.rdf.TypeMapper;
 
 /**
- * The Jena ontology factory is an implementation of {@link MessageContentSerializer}
- * using JENA as the underlying tool.
+ * The Jena ontology factory is an implementation of
+ * {@link MessageContentSerializer} using JENA as the underlying tool.
  * 
  * @author mtazari
  * 
  */
 public class Activator implements BundleActivator, ServiceListener {
-	
-	static BundleContext context = null;
-	JenaModelConverter ser;
-	
-	public void start(BundleContext context) throws Exception {
-		Activator.context = context;
-		
-		ser = new JenaModelConverter();
-		
-		context.registerService(
-				new String[] {JenaConverter.class.getName()},
-				ser, null);
-		
-		String filter = "(objectclass=" + TypeMapper.class.getName() + ")";
-		context.addServiceListener(this, filter);
-		ServiceReference references[] = context.getServiceReferences(null, filter);
-		for (int i = 0; references != null && i < references.length; i++)
-			this.serviceChanged(new ServiceEvent(ServiceEvent.REGISTERED, references[i]));
-				
-	}
 
-	public void stop(BundleContext arg0) throws Exception {
-		// TODO Auto-generated method stub	
-	}
+    static BundleContext context = null;
+    JenaModelConverter ser;
 
-	public void serviceChanged(ServiceEvent event) {
-		switch (event.getType()) {
-		case ServiceEvent.REGISTERED:
-		case ServiceEvent.MODIFIED:
-			ser.setTypeMapper((TypeMapper) context.getService(event.getServiceReference()));
-			break;
-		case ServiceEvent.UNREGISTERING:
-			ser.setTypeMapper(null);
-			break;
-		}		
+    public void start(BundleContext context) throws Exception {
+	Activator.context = context;
+
+	ser = new JenaModelConverter();
+
+	context.registerService(new String[] { JenaConverter.class.getName() },
+		ser, null);
+
+	String filter = "(objectclass=" + TypeMapper.class.getName() + ")";
+	context.addServiceListener(this, filter);
+	ServiceReference references[] = context.getServiceReferences(null,
+		filter);
+	for (int i = 0; references != null && i < references.length; i++)
+	    this.serviceChanged(new ServiceEvent(ServiceEvent.REGISTERED,
+		    references[i]));
+
+    }
+
+    public void stop(BundleContext arg0) throws Exception {
+	// TODO Auto-generated method stub
+    }
+
+    public void serviceChanged(ServiceEvent event) {
+	switch (event.getType()) {
+	case ServiceEvent.REGISTERED:
+	case ServiceEvent.MODIFIED:
+	    ser.setTypeMapper((TypeMapper) context.getService(event
+		    .getServiceReference()));
+	    break;
+	case ServiceEvent.UNREGISTERING:
+	    ser.setTypeMapper(null);
+	    break;
 	}
+    }
 }

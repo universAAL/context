@@ -33,43 +33,47 @@ import org.universAAL.context.che.Activator;
  * 
  *         This class is used to remove events from the database periodically,
  *         to avoid the uncontrolled growth of the history
- *
+ * 
  */
-public class Cleaner extends TimerTask{
-	
-	/**
-	 * @author alfiva
-	 * 
-	 *         Auxiliar class used to perform the removal at a specified hour
-	 * 
-	 */
-	private class Punctual extends TimerTask{
+public class Cleaner extends TimerTask {
 
-		private Backend db;
-		
-		public Punctual(Backend db){
-			this.db=db;
-		}
-		public void run() {
-			long tst=Long.parseLong(Activator.getProperties().getProperty("RECYCLE.KEEP","0"));
-			db.removeOldEvents(System.currentTimeMillis()-tst);
-		}
-		
-	}
-	
+    /**
+     * @author alfiva
+     * 
+     *         Auxiliar class used to perform the removal at a specified hour
+     * 
+     */
+    private class Punctual extends TimerTask {
+
 	private Backend db;
-	private Timer t;
-	
-	public Cleaner(Backend db){
-		this.db=db;
+
+	public Punctual(Backend db) {
+	    this.db = db;
 	}
 
 	public void run() {
-		t=new Timer();
-		Calendar now=Calendar.getInstance();
-		now.set(Calendar.HOUR_OF_DAY, Integer.parseInt(Activator.getProperties().getProperty("RECYCLE.HOUR","22")));
-		if(now.getTimeInMillis()<System.currentTimeMillis())now.add(Calendar.DAY_OF_YEAR, 1);
-		t.schedule(new Punctual(db), new Date(now.getTimeInMillis()));
+	    long tst = Long.parseLong(Activator.getProperties().getProperty(
+		    "RECYCLE.KEEP", "0"));
+	    db.removeOldEvents(System.currentTimeMillis() - tst);
 	}
+
+    }
+
+    private Backend db;
+    private Timer t;
+
+    public Cleaner(Backend db) {
+	this.db = db;
+    }
+
+    public void run() {
+	t = new Timer();
+	Calendar now = Calendar.getInstance();
+	now.set(Calendar.HOUR_OF_DAY, Integer.parseInt(Activator
+		.getProperties().getProperty("RECYCLE.HOUR", "22")));
+	if (now.getTimeInMillis() < System.currentTimeMillis())
+	    now.add(Calendar.DAY_OF_YEAR, 1);
+	t.schedule(new Punctual(db), new Date(now.getTimeInMillis()));
+    }
 
 }

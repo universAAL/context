@@ -29,34 +29,34 @@ import org.universAAL.middleware.context.ContextEvent;
 import org.universAAL.middleware.context.ContextEventPattern;
 import org.universAAL.middleware.context.ContextSubscriber;
 
-
 /**
  * @author <a href="mailto:alfiva@itaca.upv.es">Alvaro Fides Valero</a>
- *
+ * 
  */
 public class ContextHistorySubscriber extends ContextSubscriber {
-	private Backend db;
-	private final static Logger log=LoggerFactory.getLogger(ContextHistorySubscriber.class);
-	
-	public ContextHistorySubscriber(BundleContext context,Backend db){
-		//My context event pattern is zero-restrictions (ALL)
-		super(context, new ContextEventPattern[] {new ContextEventPattern()});
-		this.db=db;
-		log.info("CHe: Subscriber Ready");
-	}
+    private Backend db;
+    private final static Logger log = LoggerFactory
+	    .getLogger(ContextHistorySubscriber.class);
 
-	public void communicationChannelBroken() {
-		// TODO Auto-generated method stub
+    public ContextHistorySubscriber(BundleContext context, Backend db) {
+	// My context event pattern is zero-restrictions (ALL)
+	super(context, new ContextEventPattern[] { new ContextEventPattern() });
+	this.db = db;
+	log.info("CHe: Subscriber Ready");
+    }
 
-	}
+    public void communicationChannelBroken() {
+	// TODO Auto-generated method stub
 
-	public void handleContextEvent(ContextEvent event) {
-		db.storeEvent(event);
-		log.info("CHe: Stored a Context Event");
-	}
-	
-	public void close(){
-		db.close();
-	}
+    }
+
+    public void handleContextEvent(ContextEvent event) {
+	db.storeEvent(event);
+	log.info("CHe: Stored a Context Event");
+    }
+
+    public void close() {
+	db.close();
+    }
 
 }

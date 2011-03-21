@@ -72,11 +72,11 @@ import org.universAAL.middleware.context.owl.ContextProvider;
 import org.universAAL.middleware.rdf.Resource;
 
 /**
- * @author <a href="mailto:alfiva@itaca.upv.es">Alvaro Fides Valero</a>
+ * Implementation of {@link org.universAAL.context.che.database.Backend} that
+ * uses Jena DB to store and retrieve the context events in/from an underlying
+ * database server.
  * 
- *         Implementation of {@link org.universAAL.context.che.database.Backend}
- *         that uses Jena DB to store and retrieve the context events in/from an
- *         underlying database server.
+ * @author <a href="mailto:alfiva@itaca.upv.es">Alvaro Fides Valero</a>
  * 
  */
 public class JenaDBBackend implements Backend {
@@ -127,14 +127,14 @@ public class JenaDBBackend implements Backend {
 	    .createProperty("http://ontology.universAAL.org/Context.owl#hasProvider");
 
     private static final boolean DEBUG_DB = false;// Set to true to refill the
-						  // DB every time (for
-						  // debugging)
+    // DB every time (for
+    // debugging)
     private String DB_URL;
     private String DB_USER;
     private String DB_PWD;
     private String DB_TYPE;
     private String MODEL_NAME = "ContextHistoryModel";// TODO CHANGE FOR URI IN
-						      // THE FUTURE
+    // THE FUTURE
 
     private final static Logger log = LoggerFactory
 	    .getLogger(JenaDBBackend.class);
@@ -194,10 +194,20 @@ public class JenaDBBackend implements Backend {
 	synchronizePMDDB();
     }
 
+    /**
+     * Get a lock on the database access for synchronization purposes
+     * 
+     * @return The object that acts as lock to the database
+     */
     public Object getLock() {
 	return theLock;
     }
 
+    /**
+     * Get a lock on the file access for synchronization purposes
+     * 
+     * @return The object that acts as lock to the file
+     */
     public Object getFileLock() {
 	return theFileLock;
     }
@@ -283,7 +293,7 @@ public class JenaDBBackend implements Backend {
 		CHModel.add(m);
 		log.debug("Successfully added event to database");
 	    } catch (Exception ex) {// TODO Specialize to
-				    // CommunicationsException
+		// CommunicationsException
 		log
 			.error(
 				"Error trying to get connection to database while trying to store an event: {} \n "
@@ -356,7 +366,7 @@ public class JenaDBBackend implements Backend {
 	}
 	StringWriter sw = new StringWriter(4096);
 	resultsModel.write(sw, "RDF/XML-ABBREV");// TO DO: Analyze convenience
-						 // of other formats
+	// of other formats
 	return sw.toString();
     }
 

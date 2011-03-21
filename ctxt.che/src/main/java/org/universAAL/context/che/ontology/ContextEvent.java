@@ -37,22 +37,21 @@ import org.universAAL.middleware.owl.supply.Rating;
 import org.universAAL.middleware.rdf.Resource;
 
 /**
+ * Helper class that replicates
+ * {@link org.persona.middleware.context.ContextEvent} as a ManagedIndividual
+ * with the possibility of not defining some of its properties.
+ * <p>
+ * This is the class that must be used by service callers that wish to call CHe
+ * services, instead of the middleware one (
+ * {@link org.persona.middleware.context.ContextEvent}). The events received in
+ * a service response will have to be casted to
+ * {@link org.persona.middleware.context.ContextEvent} however, thus performing
+ * the conversion from
+ * <code>org.persona.platform.casf.che.ontology.ContextEvent</code> to
+ * {@link org.persona.middleware.context.ContextEvent} in the casting.
+ * 
  * @author <a href="mailto:alfiva@itaca.upv.es">Alvaro Fides Valero</a>
  * @author <a href="mailto:Saied.Tazari@igd.fraunhofer.de">Saied Tazari</a>
- * 
- *         Helper class that replicates
- *         {@link org.persona.middleware.context.ContextEvent} as a
- *         ManagedIndividual with the possibility of not defining some of its
- *         properties.
- *         <p>
- *         This is the class that must be used by service callers that wish to
- *         call CHe services, instead of the middleware one (
- *         {@link org.persona.middleware.context.ContextEvent}). The events
- *         received in a service response will have to be casted to
- *         {@link org.persona.middleware.context.ContextEvent} however, thus
- *         performing the conversion from
- *         <code>org.persona.platform.casf.che.ontology.ContextEvent</code> to
- *         {@link org.persona.middleware.context.ContextEvent} in the casting.
  * 
  */
 public class ContextEvent extends ManagedIndividual {
@@ -101,6 +100,19 @@ public class ContextEvent extends ManagedIndividual {
 	register(ContextEvent.class);
     }
 
+    /**
+     * Constructs a CHe stub ContextEvent according to the parameters passed
+     * 
+     * @param subjectURI
+     *            URI of the subject. Must not be null.
+     * @param subjectTypeURI
+     *            URI of the subject type. Must not be null.
+     * @param predicate
+     *            URI of the predicate. Must not be null.
+     * @param object
+     *            The object of the event. Must not be null.
+     * @return
+     */
     public static ContextEvent constructSimpleEvent(String subjectURI,
 	    String subjectTypeURI, String predicate, Object object) {
 	if (subjectURI == null || subjectTypeURI == null || predicate == null
@@ -119,6 +131,9 @@ public class ContextEvent extends ManagedIndividual {
 	return new ContextEvent(subject, predicate);
     }
 
+    /**
+     * Empty constructor
+     */
     public ContextEvent() {
 
     }
@@ -135,6 +150,18 @@ public class ContextEvent extends ManagedIndividual {
 	addType(MY_URI, true);
     }
 
+    /**
+     * Construct a CHe stub ContextEvent inferring the object from the predicate
+     * which URI is present in the propeorties of the subject
+     * 
+     * @param subject
+     *            The Resource representing the subject of the event. Must
+     *            include the property specified in the second parameter, and
+     *            must have a certain value
+     * @param predicate
+     *            The property of the subject that will be used as object in the
+     *            event
+     */
     public ContextEvent(Resource subject, String predicate) {
 	super(CONTEXT_EVENT_URI_PREFIX, 8);
 
@@ -152,14 +179,31 @@ public class ContextEvent extends ManagedIndividual {
 	// setTimestamp(new Long(System.currentTimeMillis()));
     }
 
+    /**
+     * Get the accuracy of the event
+     * 
+     * @return The accuracy represented as
+     *         {@link org.universAAL.middleware.owl.supply.Rating}
+     */
     public Rating getAccuracy() {
 	return (Rating) getProperty(PROP_CONTEXT_ACCURACY);
     }
 
+    /**
+     * Get the confidence of the event
+     * 
+     * @return The confidence represented as a percentage (0 to 100)
+     */
     public Integer getConfidence() {
 	return (Integer) getProperty(PROP_CONTEXT_CONFIDENCE);
     }
 
+    /**
+     * Get the expiration time
+     * 
+     * @return The amount of milliseconds after reception from which the
+     *         information in the event is no longer valid
+     */
     public Long getExpirationTime() {
 	return (Long) getProperty(PROP_CONTEXT_EXPIRATION_TIME);
     }
@@ -170,48 +214,83 @@ public class ContextEvent extends ManagedIndividual {
 		: PROP_SERIALIZATION_FULL;
     }
 
+    /**
+     * Get the object of the event
+     * 
+     * @return The object of the event (a Resource)
+     */
     public Object getRDFObject() {
 	return getProperty(PROP_RDF_OBJECT);
     }
 
+    /**
+     * Get the predicate of the event
+     * 
+     * @return The URI of the predicate of the event
+     */
     public String getRDFPredicate() {
 	Object o = getProperty(PROP_RDF_PREDICATE);
 	return (o instanceof Resource) ? o.toString() : null;
     }
 
+    /**
+     * Get the ContextProvider of the event
+     * 
+     * @return The {@link org.universAAL.middleware.context.owl.ContextProvider}
+     *         representing the provider that originated the event
+     */
     public ContextProvider getProvider() {
 	return (ContextProvider) props.get(PROP_CONTEXT_PROVIDER);
     }
 
+    /**
+     * Get the subject of the event
+     * 
+     * @return The {@link org.universAAL.middleware.rdf.Resource} that is the
+     *         subject to the event
+     */
     public Resource getRDFSubject() {
 	return (Resource) getProperty(PROP_RDF_SUBJECT);
     }
 
+    /**
+     * Get the type of the subject of the event
+     * 
+     * @return The URI of the type of the subject to the event
+     */
     public String getSubjectTypeURI() {
 	Resource subject = (Resource) getProperty(PROP_RDF_SUBJECT);
 	return (subject == null) ? null : subject.getType();
     }
 
+    /**
+     * Get the URI of the subject of the event
+     * 
+     * @return The URI of the individual that is the subject to the event
+     */
     public String getSubjectURI() {
 	Resource subject = (Resource) getProperty(PROP_RDF_SUBJECT);
 	return (subject == null) ? null : subject.getURI();
     }
 
+    /**
+     * Get the timestamp of the event
+     * 
+     * @return The timestamp, in UNIX format, associated to the event
+     */
     public Long getTimestamp() {
 	return (Long) getProperty(PROP_CONTEXT_TIMESTAMP);
     }
 
     public boolean isWellFormed() {
-	return (getRDFSubject() != null && getRDFPredicate() != null && getRDFObject() != null /*
-											        * &&
-											        * getTimestamp
-											        * (
-											        * )
-											        * !=
-											        * null
-											        */);
+	return (getRDFSubject() != null && getRDFPredicate() != null && getRDFObject() != null);
     }
 
+    /**
+     * Set the accuracy
+     * 
+     * @param accuracy
+     */
     public void setAccuracy(Rating accuracy) {
 	if (accuracy == null) {
 	    props.remove(PROP_CONTEXT_ACCURACY);
@@ -221,6 +300,12 @@ public class ContextEvent extends ManagedIndividual {
 	    props.put(PROP_CONTEXT_ACCURACY, accuracy);
     }
 
+    /**
+     * Set the confidence
+     * 
+     * @param confidence
+     *            The confidence in percentage (0 to 100)
+     */
     public void setConfidence(Integer confidence) {
 	if (confidence == null) {
 	    props.remove(PROP_CONTEXT_CONFIDENCE);
@@ -232,6 +317,13 @@ public class ContextEvent extends ManagedIndividual {
 	    props.put(PROP_CONTEXT_CONFIDENCE, confidence);
     }
 
+    /**
+     * Set the expiration time
+     * 
+     * @param expirationTime
+     *            The amount of millisecond after which the event is not valid
+     *            afer reception
+     */
     public void setExpirationTime(Long expirationTime) {
 	if (expirationTime == null) {
 	    props.remove(PROP_CONTEXT_EXPIRATION_TIME);
@@ -242,6 +334,11 @@ public class ContextEvent extends ManagedIndividual {
 	    props.put(PROP_CONTEXT_EXPIRATION_TIME, expirationTime);
     }
 
+    /**
+     * Set the object
+     * 
+     * @param o
+     */
     public void setRDFObject(Object o) {
 	if (o == null) {
 	    props.remove(PROP_RDF_OBJECT);
@@ -251,6 +348,12 @@ public class ContextEvent extends ManagedIndividual {
 	    props.put(PROP_RDF_OBJECT, o);
     }
 
+    /**
+     * Set the predicate
+     * 
+     * @param propURI
+     *            The URI of the predicate
+     */
     public void setRDFPredicate(String propURI) {
 	if (propURI == null) {
 	    props.remove(PROP_RDF_PREDICATE);
@@ -261,6 +364,11 @@ public class ContextEvent extends ManagedIndividual {
 	    props.put(PROP_RDF_PREDICATE, new Resource(propURI));
     }
 
+    /**
+     * Set the Context Provider
+     * 
+     * @param src
+     */
     public void setProvider(ContextProvider src) {
 	if (src == null) {
 	    props.remove(PROP_CONTEXT_PROVIDER);
@@ -270,6 +378,11 @@ public class ContextEvent extends ManagedIndividual {
 	    props.put(PROP_CONTEXT_PROVIDER, src);
     }
 
+    /**
+     * Set the subject
+     * 
+     * @param subj
+     */
     public void setRDFSubject(Resource subj) {
 	if (subj == null) {
 	    props.remove(PROP_RDF_SUBJECT);
@@ -279,6 +392,12 @@ public class ContextEvent extends ManagedIndividual {
 	    props.put(PROP_RDF_SUBJECT, subj);
     }
 
+    /**
+     * Set the timestamp
+     * 
+     * @param timestamp
+     *            The timestamp in UNIX format
+     */
     public void setTimestamp(Long timestamp) {
 	if (timestamp == null) {
 	    props.remove(PROP_CONTEXT_TIMESTAMP);

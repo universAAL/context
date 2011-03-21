@@ -30,6 +30,11 @@ import org.universAAL.middleware.rdf.TypeMapper;
 import org.universAAL.middleware.service.owl.Service;
 
 /**
+ * The ontological description of the Context History related services. This
+ * class can be used by other components that wish to implement and provide
+ * their own Context History storage services, such as short term history
+ * storage
+ * 
  * @author <a href="mailto:alfiva@itaca.upv.es">Alvaro Fides Valero</a>
  * 
  */
@@ -83,7 +88,7 @@ public class ContextHistoryService extends Service {
 	if (r instanceof Restriction)
 	    return (Restriction) r;
 	return Service.getClassRestrictionsOnProperty(propURI);// WARNING. NOT
-							       // IN MW C.E.
+	// IN MW C.E.
     }
 
     public static String getRDFSComment() {

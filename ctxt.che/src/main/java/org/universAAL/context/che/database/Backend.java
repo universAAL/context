@@ -27,10 +27,11 @@ import org.universAAL.middleware.context.ContextEvent;
 import org.universAAL.middleware.context.owl.ContextProvider;
 
 /**
+ * Interface that represents a database back end where the context history is
+ * stored.
+ * 
  * @author <a href="mailto:alfiva@itaca.upv.es">Alvaro Fides Valero</a>
  * 
- *        Interface that represents a database back end where the context
- *         history is stored.
  */
 public interface Backend {
 

@@ -78,16 +78,17 @@ import com.hp.hpl.jena.vocabulary.RDFS;
 import com.hp.hpl.jena.vocabulary.XSD;
 
 /**
+ * Implementation of {@link org.persona.conversion.jena.ModelConverter} tailored
+ * specifically for CHe. It avoids to check the well-formedness of PResources
+ * due to the lack of this check when events are stored. The method
+ * <code>updateDBResource</code> is empty and always returns false, since this
+ * converter is not used for accessing the database. In addition, modification
+ * of the history would not be allowed. What´s more: this converter is not
+ * published to the OSGi platform, and therefore is not available for any other
+ * bundle.
+ * 
  * @author <a href="mailto:alfiva@itaca.upv.es">Alvaro Fides Valero</a>
  * 
- *         Implementation of {@link org.persona.conversion.jena.ModelConverter}
- *         tailored specifically for CHe. It avoids to check the well-formedness
- *         of PResources due to the lack of this check when events are stored.
- *         The method <code>updateDBResource</code> is empty and always returns
- *         false, since this converter is not used for accessing the database.
- *         In addition, modification of the history would not be allowed. What´s
- *         more: this converter is not published to the OSGi platform, and
- *         therefore is not available for any other bundle.
  */
 public class Converter implements JenaConverter {
 
@@ -145,6 +146,15 @@ public class Converter implements JenaConverter {
 	return jr;
     }
 
+    /**
+     * Deserializes a complex object that is not an XML literal, that is, a
+     * {@link org.universAAL.middleware.rdf.Resource} root element.
+     * 
+     * @param serialized
+     *            The serialized object in RDF
+     * @return The deserialized <code>Object</code>. Returns <code>null</code>
+     *         if there was an error.
+     */
     public Object deserialize(String serialized) {
 	return deserialize(serialized, false);
     }
@@ -337,6 +347,16 @@ public class Converter implements JenaConverter {
 	return true;
     }
 
+    /**
+     * Serializes an object into RDF format. The object to serialize must be a
+     * {@link org.universAAL.middleware.rdf.Resource}
+     * 
+     * @param messageContent
+     *            The object to serialize
+     * @return The <String> representing the serialized object. Returns
+     *         <code>null</code> if could not serialize or the argument is not a
+     *         {@link org.universAAL.middleware.rdf.Resource}
+     */
     public String serialize(Object messageContent) {
 	if (messageContent instanceof Resource) {
 	    Model m = toJenaResource((Resource) messageContent).getModel();
@@ -349,6 +369,12 @@ public class Converter implements JenaConverter {
 	return null;
     }
 
+    /**
+     * Set the TypeMapper to use for resolving literals.
+     * 
+     * @param tm
+     *            The {@link org.universAAL.middleware.rdf.TypeMapper} to use
+     */
     public void setTypeMapper(TypeMapper tm) {
 	this.tm = tm;
     }
@@ -371,6 +397,23 @@ public class Converter implements JenaConverter {
 	return false;
     }
 
+    /**
+     * Helper method that returns an instance of a
+     * {@link org.universAAL.middleware.rdf.Resource} given its class and
+     * individual URis
+     * 
+     * @param classURI
+     *            URI of the class of the
+     *            {@link org.universAAL.middleware.rdf.Resource} to get an
+     *            instance of
+     * @param instanceURI
+     *            URI of the individual of the
+     *            {@link org.universAAL.middleware.rdf.Resource} to get an
+     *            instance of
+     * @return The desired {@link org.universAAL.middleware.rdf.Resource}
+     *         instance, or <code>null</code> if the instance could not be
+     *         created
+     */
     public static Resource getResourceInstance(String classURI,
 	    String instanceURI) {
 	Hashtable middlewareResources = new Hashtable();

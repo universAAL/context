@@ -1,9 +1,9 @@
 Context History Entrepôt
 
-Copyright 2008-2014 Fraunhofer IGD, http://www.igd.fraunhofer.de
+Copyright 2008-2010 Fraunhofer IGD, http://www.igd.fraunhofer.de
 Fraunhofer-Gesellschaft - Institute of Computer Graphics Research 
 
-Copyright 2008-2014 ITACA-TSB, http://www.tsb.upv.es
+Copyright 2008-2010 ITACA-TSB, http://www.tsb.upv.es
 Instituto Tecnologico de Aplicaciones de Comunicacion 
 Avanzadas - Grupo Tecnologias para la Salud y el 
 Bienestar (TSB)
@@ -26,16 +26,43 @@ Junit (http://www.junit.org/).
 Licensed under Common Public License 1.0.
 
 This product uses software developed at
+Hewlett-Packard Development Company
+Labs Semantic Web Research (http://www.hpl.hp.com/semweb/).
+Copyright (c) 2000-2009 Hewlett-Packard Development Company, LP
+Licensed under modified BSD license.
+
+This product uses software developed at
 The OPS4J (http://www.ops4j.org)
 Licensed under the Apache License 2.0.
 
 This product uses software developed at
-OpenRDF (http://www.openrdf.org)
-Copyright (c) 2001 - 2011 Aduna
-Licensed under modified BSD License.
+Xstream (http://xstream.codehaus.org/)
+Copyright (c) 2003-2006, Joe Walnes
+Copyright (c) 2006-2007, XStream Committers
+Licensed under modified BSD license.
+
+This product uses software developed at
+The Extreme! Lab, Indiana University. (http://www.extreme.indiana.edu/)
+Copyright (c) 2002 Extreme! Lab, Indiana University
+Licensed under the Indiana University Extreme! Lab Software License,
+Version 1.2
+
+This product uses software developed at
+The Legion Of The Bouncy Castle (http://www.bouncycastle.org)
+Copyright (c) 2000 - 2009 The Legion Of The Bouncy Castle
+Licensed under modified MIT X11 License.
+
+This product uses software developed at
+MySQL (http://www.mysql.com/).
+Licensed under the GNU General Public License version 2, with 
+EXCEPTIONS-CONNECTOR-J.
 
 
 III. License Summary
 - Apache License 2.0
+- GNU GPL 2 With EXCEPTIONS-CONNECTOR-J
 - Common Public License 1.0
 - Modified BSD License
+- Indiana University Extreme! Lab Software License 1.2
+- Modified MIT X11 License
+

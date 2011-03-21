@@ -34,6 +34,9 @@ import org.universAAL.middleware.util.Constants;
 import com.thoughtworks.xstream.XStream;
 
 /**
+ * The subscriber of the mobile CHe, which subscribes to all context events in
+ * order to store them
+ * 
  * @author <a href="mailto:alfiva@itaca.upv.es">Alvaro Fides Valero</a>
  * 
  */

@@ -67,6 +67,9 @@ import com.hp.hpl.jena.vocabulary.RDF;
 import com.hp.hpl.jena.vocabulary.RDFS;
 
 /**
+ * This is the reference implementation of the
+ * {@link org.universAAL.context.conversion.jena.JenaConverter}.
+ * 
  * @author mtazari
  * 
  */
@@ -155,6 +158,15 @@ public class JenaModelConverter implements JenaConverter {
     // return deserialize(serialized, false);
     // }
 
+    /**
+     * Deserializes a complex object that is not an XML literal, that is, a
+     * {@link org.universAAL.middleware.rdf.Resource} root element.
+     * 
+     * @param serialized
+     *            The serialized object in RDF
+     * @return The deserialized <code>Object</code>. Returns <code>null</code>
+     *         if there was an error.
+     */
     private Object deserialize(String serialized, boolean wasXMLLiteral) {
 	if (serialized == null)
 	    return null;
@@ -387,6 +399,16 @@ public class JenaModelConverter implements JenaConverter {
 	return true;
     }
 
+    /**
+     * Serializes an object into RDF format. The object to serialize must be a
+     * {@link org.universAAL.middleware.rdf.Resource}
+     * 
+     * @param messageContent
+     *            The object to serialize
+     * @return The <String> representing the serialized object. Returns
+     *         <code>null</code> if could not serialize or the argument is not a
+     *         {@link org.universAAL.middleware.rdf.Resource}
+     */
     private String serialize(Object messageContent) {
 	if (messageContent instanceof Resource) {
 	    Model m = toJenaResource((Resource) messageContent).getModel();
@@ -399,6 +421,12 @@ public class JenaModelConverter implements JenaConverter {
 	return null;
     }
 
+    /**
+     * Set the TypeMapper to use for resolving literals.
+     * 
+     * @param tm
+     *            The {@link org.universAAL.middleware.rdf.TypeMapper} to use
+     */
     void setTypeMapper(TypeMapper tm) {
 	this.tm = tm;
     }
@@ -619,6 +647,23 @@ public class JenaModelConverter implements JenaConverter {
 	}
     }
 
+    /**
+     * Helper method that returns an instance of a
+     * {@link org.universAAL.middleware.rdf.Resource} given its class and
+     * individual URis
+     * 
+     * @param classURI
+     *            URI of the class of the
+     *            {@link org.universAAL.middleware.rdf.Resource} to get an
+     *            instance of
+     * @param instanceURI
+     *            URI of the individual of the
+     *            {@link org.universAAL.middleware.rdf.Resource} to get an
+     *            instance of
+     * @return The desired {@link org.universAAL.middleware.rdf.Resource}
+     *         instance, or <code>null</code> if the instance could not be
+     *         created
+     */
     public static Resource getResourceInstance(String classURI,
 	    String instanceURI) {
 	Hashtable middlewareResources = new Hashtable();

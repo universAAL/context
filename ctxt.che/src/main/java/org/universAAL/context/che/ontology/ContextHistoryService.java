@@ -59,7 +59,7 @@ public class ContextHistoryService extends Service {
 	PROP_DURATION_TO = "http://ontology.persona.tsb.itaca.es/ContextHistory.owl#durationTo";
 	register(ContextHistoryService.class);
 	addRestriction(Restriction.getAllValuesRestriction(PROP_MANAGES,
-		ContextEvent.MY_URI), new String[] { PROP_MANAGES },
+		org.universAAL.context.che.ontology.ContextEvent.MY_URI), new String[] { PROP_MANAGES },
 		CHRestrictions);
 	addRestriction(Restriction.getAllValuesRestriction(PROP_PROCESSES,
 		TypeMapper.getDatatypeURI(String.class)),

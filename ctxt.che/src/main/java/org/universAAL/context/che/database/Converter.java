@@ -29,8 +29,6 @@ import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.List;
 
-import javax.xml.XMLConstants;
-
 import org.universAAL.context.conversion.jena.JenaConverter;
 import org.universAAL.middleware.context.ContextEvent;
 import org.universAAL.middleware.context.ContextEventPattern;
@@ -92,6 +90,7 @@ import com.hp.hpl.jena.vocabulary.XSD;
  */
 public class Converter implements JenaConverter {
 
+    private static final String W3C_XML_SCHEMA_NS_URI = "http://www.w3.org/2001/XMLSchema";
     private TypeMapper tm;
 
     private RDFNode addDescription(Model m, Resource pr, boolean reduced,
@@ -271,7 +270,7 @@ public class Converter implements JenaConverter {
 	    if (tm != null) {
 		String par[] = tm.getXMLInstance(o);
 		return m.createTypedLiteral(par[0], new XSDDatatype(
-			par[1].substring(XMLConstants.W3C_XML_SCHEMA_NS_URI
+			par[1].substring(W3C_XML_SCHEMA_NS_URI
 				.length() + 1)));
 	    }
 	}

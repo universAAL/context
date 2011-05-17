@@ -43,10 +43,11 @@ import org.universAAL.middleware.rdf.Resource;
  * <p>
  * This is the class that must be used by service callers that wish to call CHe
  * services, instead of the middleware one (
- * {@link org.persona.middleware.context.ContextEvent}). The events received in
- * a service response will have to be casted to
- * {@link org.persona.middleware.context.ContextEvent} however, thus performing
- * the conversion from
+ * {@link org.persona.middleware.context.ContextEvent}), in the ServiceRequests
+ * they build (as input or outputs). Then, the output events received in a
+ * service response will have to be casted to
+ * {@link org.persona.middleware.context.ContextEvent}, thus performing the
+ * conversion from
  * <code>org.persona.platform.casf.che.ontology.ContextEvent</code> to
  * {@link org.persona.middleware.context.ContextEvent} in the casting.
  * 
@@ -77,7 +78,7 @@ public class ContextEvent extends ManagedIndividual {
 
     static {
 	uAAL_CONTEXT_NAMESPACE = uAAL_NAMESPACE_PREFIX + "Context.owl#";
-	MY_URI = uAAL_CONTEXT_NAMESPACE + "ContextEvent";
+	MY_URI = uAAL_CONTEXT_NAMESPACE + "ContextEventCHE";
 	CONTEXT_EVENT_URI_PREFIX = "urn:org.universAAL.middleware.context.rdf:ContextEvent#";
 	LOCAL_NAME_SUBJECT = "subject";
 	PROP_RDF_SUBJECT = RDF_NAMESPACE + LOCAL_NAME_SUBJECT;

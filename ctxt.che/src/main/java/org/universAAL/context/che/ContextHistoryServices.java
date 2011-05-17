@@ -23,8 +23,8 @@ package org.universAAL.context.che;
 
 import java.util.Hashtable;
 
+import org.universAAL.context.che.ontology.ContextEvent;
 import org.universAAL.context.che.ontology.ContextHistoryService;
-import org.universAAL.middleware.context.ContextEvent;
 import org.universAAL.middleware.owl.Restriction;
 import org.universAAL.middleware.rdf.PropertyPath;
 import org.universAAL.middleware.rdf.TypeMapper;

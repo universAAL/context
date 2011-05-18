@@ -1,25 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <modelVersion>4.0.0</modelVersion>
-  <parent>
-    <groupId>org.universAAL.context</groupId>
-    <artifactId>ctxt.pom</artifactId>
-    <version>2.0.3-SNAPSHOT</version>
-    <relativePath>../pom/pom.xml</relativePath>
-  </parent>
-  <artifactId>ctxt.che</artifactId>
-  <version>2.0.4-SNAPSHOT</version>
-  <packaging>bundle</packaging>
-  <name>universAAL Context CHE - Context History Entrepot</name>
-  <description>The component managing the history of all context events published to the context bus.</description>
-  <inceptionYear>2008</inceptionYear>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>org.universAAL.context</groupId>
+		<artifactId>ctxt.pom</artifactId>
+		<version>1.0.0</version>
+		<relativePath>../pom/pom.xml</relativePath>
+	</parent>
+	<packaging>bundle</packaging>
+	<artifactId>ctxt.che</artifactId>
+	<version>0.2.0-SNAPSHOT</version>
+	<name>Context History Entrepot</name>
+	<description>The component managing the history of all context events published to the context bus.</description>
+	<url />
+	
+	  <inceptionYear>2008</inceptionYear>
   <organization>
-    <name>Instituto Tecnologico de Aplicaciones de Comunicacion Avanzadas - Grupo Tecnologias para la Salud y el Bienestar (TSB)
-    Fraunhofer-Gesellschaft - Institute of Computer Graphics Research</name>
-    <url>http://www.itaca.upv.es/
-    http://www.igd.fraunhofer.de/</url>
-  </organization>
+    <name><![CDATA[
+    Instituto Tecnologico de Aplicaciones de Comunicacion Avanzadas - Grupo Tecnologias para la Salud y el Bienestar (TSB)
+    Fraunhofer-Gesellschaft - Institute of Computer Graphics Research
+    ]]></name>
+    <url><![CDATA[
+    http://www.itaca.upv.es/
+    http://www.igd.fraunhofer.de/
+    ]]></url>
+  </organization> 
+  
   <licenses>
     <license>
       <name>The Apache Software License, Version 2.0</name>
@@ -27,133 +33,148 @@
       <distribution>repo</distribution>
     </license>
   </licenses>
-  <scm>
-    <connection>${svn.base}/${project.artifactId}</connection>
-    <developerConnection>${svn.base}/${project.artifactId}</developerConnection>
-    <url>${svn.base.url}${project.artifactId}</url>
-  </scm>
-  <dependencies>
-    <dependency>
-      <groupId>org.universAAL.support</groupId>
-      <artifactId>itests</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.felix</groupId>
-      <artifactId>org.osgi.core</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.universAAL.ontology</groupId>
-      <artifactId>ont.che</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.openrdf.sesame</groupId>
-      <artifactId>sesame-model</artifactId>
-      <version>2.5.1</version>
-      <scope>provided</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.openrdf.sesame</groupId>
-      <artifactId>sesame-repository-api</artifactId>
-      <version>2.5.1</version>
-      <scope>provided</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.openrdf.sesame</groupId>
-      <artifactId>sesame-repository-sail</artifactId>
-      <version>2.5.1</version>
-      <scope>provided</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.openrdf.sesame</groupId>
-      <artifactId>sesame-sail-nativerdf</artifactId>
-      <version>2.5.1</version>
-      <scope>provided</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.openrdf.sesame</groupId>
-      <artifactId>sesame-rio-turtle</artifactId>
-      <version>2.5.1</version>
-      <scope>provided</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.openrdf.sesame</groupId>
-      <artifactId>sesame-queryresultio-sparqlxml</artifactId>
-      <version>2.5.1</version>
-      <scope>provided</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.openrdf.sesame</groupId>
-      <artifactId>sesame-rio-rdfxml</artifactId>
-      <version>2.5.1</version>
-      <scope>provided</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.universAAL.middleware</groupId>
-      <artifactId>mw.bus.model.osgi</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.universAAL.middleware</groupId>
-      <artifactId>mw.container.osgi</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.universAAL.middleware</groupId>
-      <artifactId>mw.data.representation.osgi</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.universAAL.middleware</groupId>
-      <artifactId>mw.data.serialization.osgi</artifactId>
-      <scope>runtime</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.universAAL.middleware</groupId>
-      <artifactId>mw.bus.service.osgi</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.universAAL.middleware</groupId>
-      <artifactId>mw.bus.context.osgi</artifactId>
-    </dependency>
-  </dependencies>
-  <pluginRepositories>
-    <pluginRepository>
-      <id>uaal-snapshots</id>
-      <name>universAAL Snapshot Repositories</name>
-      <url>http://depot.universaal.org/maven-repo/snapshots/</url>
-    </pluginRepository>
-    <pluginRepository>
-      <id>uaal</id>
-      <name>universAAL Repositories</name>
-      <url>http://depot.universaal.org/maven-repo/releases/</url>
-    </pluginRepository>
-  </pluginRepositories>
-  <build>
-    <plugins>
-      <plugin>
-        <groupId>org.apache.felix</groupId>
-        <artifactId>maven-bundle-plugin</artifactId>
-        <configuration>
-          <instructions>
-            <Bundle-Name>${project.name}</Bundle-Name>
-            <Bundle-Activator>org.universAAL.context.che.osgi.Activator</Bundle-Activator>
-            <Bundle-Description>${project.description}</Bundle-Description>
-            <Bundle-SymbolicName>${project.artifactId}</Bundle-SymbolicName>
-            <Private-Package>org.universAAL.context.che.database.impl</Private-Package>
-            <Export-Package>org.universAAL.context.che,org.universAAL.context.che.database,org.universAAL.context.che.osgi</Export-Package>
-          </instructions>
-        </configuration>
-      </plugin>
-    </plugins>
-  </build>
-  <profiles>
-    <profile>
-      <id>uAAL-Runtime</id>
-      <dependencies>
-        <dependency>
-          <groupId>org.openrdf.sesame</groupId>
-          <artifactId>sesame-runtime-osgi</artifactId>
-          <version>2.6.0</version>
-          <scope>provided</scope>
-        </dependency>
-      </dependencies>
-    </profile>
-  </profiles>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.apache.felix</groupId>
+			<artifactId>org.osgi.core</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.felix</groupId>
+			<artifactId>org.osgi.compendium</artifactId>
+			<scope>provided</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>com.hp.hpl.jena</groupId>
+			<artifactId>jena</artifactId>
+			<version>2.5.4</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.thoughtworks.xstream</groupId>
+			<artifactId>xstream</artifactId>
+			<version>1.3.1</version>
+		</dependency>
+		<dependency>
+			<groupId>org.ops4j.pax.logging</groupId>
+			<artifactId>pax-logging-api</artifactId>
+			<version>1.4</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.ops4j.pax.logging</groupId>
+			<artifactId>pax-logging-service</artifactId>
+			<version>1.4</version>
+			<scope>provided</scope>
+			<exclusions>
+				<exclusion>
+					<artifactId>log4j</artifactId>
+					<groupId>log4j</groupId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.universAAL.middleware</groupId>
+			<artifactId>mw.data.representation</artifactId>
+			<version>0.3.0-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>org.universAAL.middleware</groupId>
+			<artifactId>mw.bus.service</artifactId>
+			<version>0.3.0-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>org.universAAL.middleware</groupId>
+			<artifactId>mw.bus.context</artifactId>
+			<version>0.3.0-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>org.universAAL.context</groupId>
+			<artifactId>ctxt.jena.converter</artifactId>
+			<version>0.3.0-SNAPSHOT</version>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.felix</groupId>
+				<artifactId>maven-bundle-plugin</artifactId>
+				<extensions>true</extensions>
+				<configuration>
+					<instructions>
+						<Bundle-Name>${pom.name}</Bundle-Name>
+						<Bundle-Activator>org.universAAL.context.che.Activator</Bundle-Activator>
+						<Bundle-Description>${pom.description}</Bundle-Description>
+						<Bundle-SymbolicName>${pom.artifactId}</Bundle-SymbolicName>
+						<Export-Package>org.persona.platform.casf.che</Export-Package>
+						<!-- uncomment this import section if you want the synchronization
+						with the mobile version work properly -->
+						<!-- <Import-Package>
+							com.mysql.jdbc,
+							com.hp.hpl.jena.datatypes, com.hp.hpl.jena.datatypes.xsd, 
+							com.hp.hpl.jena.datatypes.xsd.impl, com.hp.hpl.jena.db, com.hp.hpl.jena.graph, 
+							com.hp.hpl.jena.query, com.hp.hpl.jena.rdf.model, com.hp.hpl.jena.shared, 
+							com.hp.hpl.jena.sparql.core, com.hp.hpl.jena.sparql.expr, 
+							com.hp.hpl.jena.sparql.syntax, com.hp.hpl.jena.util.iterator, 
+							com.hp.hpl.jena.vocabulary, 
+							com.thoughtworks.xstream, com.thoughtworks.xstream.converters.reflection, 
+							javax.xml.datatype, org.osgi.framework, org.slf4j, 
+							org.universAAL.context.conversion.jena, org.universAAL.middleware.context, 
+							org.universAAL.middleware.context.owl, org.universAAL.middleware.input, 
+							org.universAAL.middleware.io.rdf, org.universAAL.middleware.output, 
+							org.universAAL.middleware.owl, org.universAAL.middleware.owl.supply, 
+							org.universAAL.middleware.rdf, org.universAAL.middleware.service, 
+							org.universAAL.middleware.service.owl, 
+							org.universAAL.middleware.service.owls.process, 
+							org.universAAL.middleware.service.owls.profile,
+							org.universAAL.middleware.util,
+							
+							org.universAAL.ontology.lighting,
+							org.universAAL.ontology.blind,
+							org.universAAL.ontology.device.home,
+							org.universAAL.ontology.device.wearable,
+							org.universAAL.ontology.furniture,
+							org.universAAL.ontology.measurement,
+							org.universAAL.ontology.medication,
+							org.universAAL.ontology.phThing,
+							org.universAAL.ontology.shape,
+							org.universAAL.ontology.space,	
+							org.universAAL.ontology.powersocket,
+							org.universAAL.ontology.profile,
+							org.universAAL.ontology.weather,
+							org.universAAL.ontology.location,
+							org.universAAL.ontology.location.extra,
+							org.universAAL.ontology.window
+						</Import-Package>-->
+						<Private-Package>org.universAAL.context.che.database,org.universAAL.context.che.database.impl</Private-Package>
+						<Export-Package>org.universAAL.context.che.ontology,org.universAAL.context.che</Export-Package>
+					</instructions>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+	
+	<distributionManagement>
+		<repository>
+			<id>releases</id>
+			<name>universAAL Releases</name>
+			<url>http://a1gforge.igd.fraunhofer.de/nexus/content/repositories/releases/</url>
+		</repository>
+		<snapshotRepository>
+			<id>snapshots</id>
+			<name>universAAL Snapshots</name>
+			<url>http://a1gforge.igd.fraunhofer.de/nexus/content/repositories/snapshots/</url>
+		</snapshotRepository>
+	</distributionManagement>
+	
 </project>

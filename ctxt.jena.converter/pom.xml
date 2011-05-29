@@ -110,12 +110,12 @@
 		<repository>
 			<id>releases</id>
 			<name>universAAL Releases</name>
-			<url>http://a1gforge.igd.fraunhofer.de/nexus/content/repositories/releases/</url>
+			<url>http://depot.universaal.org/nexus/content/repositories/releases/</url>
 		</repository>
 		<snapshotRepository>
 			<id>snapshots</id>
 			<name>universAAL Snapshots</name>
-			<url>http://a1gforge.igd.fraunhofer.de/nexus/content/repositories/snapshots/</url>
+			<url>http://depot.universaal.org/nexus/content/repositories/snapshots/</url>
 		</snapshotRepository>
 	</distributionManagement>
 </project>

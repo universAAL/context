@@ -1,5 +1,5 @@
 /*
-	Copyright 2008-2014 ITACA-TSB, http://www.tsb.upv.es
+	Copyright 2008-2010 ITACA-TSB, http://www.tsb.upv.es
 	Instituto Tecnologico de Aplicaciones de Comunicacion 
 	Avanzadas - Grupo Tecnologias para la Salud y el 
 	Bienestar (TSB)
@@ -21,75 +21,45 @@
  */
 package org.universAAL.context.che;
 
-import org.universAAL.context.che.Hub.Log;
+import org.osgi.framework.BundleContext;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.universAAL.context.che.database.Backend;
-import org.universAAL.middleware.container.ModuleContext;
 import org.universAAL.middleware.context.ContextEvent;
 import org.universAAL.middleware.context.ContextEventPattern;
 import org.universAAL.middleware.context.ContextSubscriber;
 
 /**
  * The CHe subscriber subscribes for all context events in order to save them to
- * the store.
+ * the database
  * 
  * @author <a href="mailto:alfiva@itaca.upv.es">Alvaro Fides Valero</a>
  * 
  */
 public class ContextHistorySubscriber extends ContextSubscriber {
-    /**
-     * The instance of the underlying store.
-     */
     private Backend db;
-    /**
-     * Logger.
-     */
-    private static Log log = Hub.getLog(ContextHistorySubscriber.class);
+    private final static Logger log = LoggerFactory
+	    .getLogger(ContextHistorySubscriber.class);
 
-    /**
-     * Main constructor.
-     * 
-     * @param context
-     *            The uaal module context
-     * @param dbstore
-     *            The store
-     */
-    public ContextHistorySubscriber(ModuleContext context, Backend dbstore) {
+    public ContextHistorySubscriber(BundleContext context, Backend db) {
 	// My context event pattern is zero-restrictions (ALL)
 	super(context, new ContextEventPattern[] { new ContextEventPattern() });
-	this.db = dbstore;
-	log.info("init", "CHe: Subscriber Ready");
+	this.db = db;
+	log.info("CHe: Subscriber Ready");
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.universAAL.middleware.context.ContextSubscriber#
-     * communicationChannelBroken()
-     */
     public void communicationChannelBroken() {
 	// TODO Auto-generated method stub
 
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see
-     * org.universAAL.middleware.context.ContextSubscriber#handleContextEvent
-     * (org.universAAL.middleware.context.ContextEvent)
-     */
     public void handleContextEvent(ContextEvent event) {
 	db.storeEvent(event);
-	log.info("handleContextEvent", "CHe: Stored a Context Event");
+	log.info("CHe: Stored a Context Event");
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.universAAL.middleware.context.ContextSubscriber#close()
-     */
     public void close() {
-	// db.close();//Already closed by Activator
+	db.close();
     }
 
 }

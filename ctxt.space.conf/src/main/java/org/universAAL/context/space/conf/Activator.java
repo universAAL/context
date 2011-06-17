@@ -47,10 +47,7 @@ public class Activator implements BundleActivator {
 	 */
 	private static Logger logger = LoggerFactory.getLogger("de.fhg.igd.ima.persona.space.conf");
 	
-	/*
-	 * (non-Javadoc)
-	 * @see org.osgi.framework.BundleActivator#start(org.osgi.framework.BundleContext)
-	 */
+
 	public void start(final BundleContext context) throws Exception {
 		Activator.context = context;
 		

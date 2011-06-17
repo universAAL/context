@@ -47,8 +47,6 @@ my_bool notify_sr_init(UDF_INIT *initid, UDF_ARGS *args, char *message) {
 void notify_sr_deinit(UDF_INIT *initid) {
 }
 
-// this method open a socket at port 3309 using the local machine
-// and pushes the string given in args->args[0] on it
 long long notify_sr(UDF_INIT *initid, UDF_ARGS *args, char *is_null, char *error) {
 	long rc;
 	SOCKET s;

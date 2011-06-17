@@ -219,8 +219,8 @@ public class JenaPersistenceAccessor {
 	 *            besides it is the location object, which contains the way object
 	 * @return a Vector with the marked physical things
 	 */
-	private Vector<PhysicalThing> getByWayDirect(Way way, Location loc) {
-		Vector<PhysicalThing> pts = new Vector<PhysicalThing>();
+	private Vector getByWayDirect(Way way, Location loc) {
+		Vector pts = new Vector();
 		Location[] containedLocations = loc.getContainedLocations();
 		
 		if(containedLocations != null)	

@@ -57,7 +57,6 @@ ctxt.jena.converter/src/test/java/org/universAAL/context/conversion/jena/impl/UI
 ctxt.jena.converter/src/test/java/org/universAAL/context/conversion/jena/impl/util/HearingImpairment.java -text
 ctxt.jena.converter/src/test/java/org/universAAL/context/conversion/jena/impl/util/PhysicalImpairment.java -text
 ctxt.jena.converter/src/test/java/org/universAAL/context/conversion/jena/impl/util/SightImpairment.java -text
-ctxt.space.conf/.classpath -text
 ctxt.space.conf/.project -text
 ctxt.space.conf/.settings/org.eclipse.jdt.core.prefs -text
 ctxt.space.conf/.settings/org.maven.ide.eclipse.prefs -text

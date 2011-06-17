@@ -102,7 +102,7 @@ public class WorldConfigurationProvider extends ServiceCallee {
 	public void communicationChannelBroken() {
 	}
 	
-	// TODO: has to be corrected
+	// TODO: has to be corrected and customized
 	private void createWorld(){
 		//##################################################################################
 		//place creation

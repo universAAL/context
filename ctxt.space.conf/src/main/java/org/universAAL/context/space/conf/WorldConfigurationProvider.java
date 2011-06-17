@@ -383,7 +383,7 @@ public class WorldConfigurationProvider extends ServiceCallee {
 			
 			ServiceResponse sr = new ServiceResponse(CallStatus.succeeded);
 	
-			List<PhysicalThing> things = new ArrayList<PhysicalThing>();
+			List things = new ArrayList();
 			for (int i = 0; i < pts.length; i++)
 				things.add(pts[i]);
 			

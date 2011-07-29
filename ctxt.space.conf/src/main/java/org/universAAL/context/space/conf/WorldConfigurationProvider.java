@@ -35,6 +35,8 @@ import org.universAAL.middleware.owl.ManagedIndividual;
 
 import org.universAAL.ontology.phThing.PhysicalThing;
 import org.universAAL.ontology.shape.Box;
+import org.universAAL.ontology.window.BlindActuator;
+import org.universAAL.ontology.window.WindowActuator;
 import org.universAAL.ontology.furniture.Furniture;
 import org.universAAL.ontology.furniture.FurnitureType;
 import org.universAAL.ontology.location.Location;
@@ -47,6 +49,7 @@ import org.universAAL.ontology.location.outdoor.City;
 import org.universAAL.ontology.location.position.CoordinateSystem;
 import org.universAAL.ontology.location.position.OriginedMetric;
 import org.universAAL.ontology.location.position.Point;
+import org.universAAL.ontology.multimedia.TV;
 
 public class WorldConfigurationProvider extends ServiceCallee {
 	static final String LOCATION_URI_PREFIX = ProvidedWorldConfigurator.LOCATION_SERVER_NAMESPACE
@@ -176,7 +179,9 @@ public class WorldConfigurationProvider extends ServiceCallee {
 		sleepingroomBed.setLocationRelativeToCorner(bedroom, 1.38f, 3.23f, 0f);
 		
 		Box sleepingroomTVShape = new Box(Constants.uAAL_MIDDLEWARE_LOCAL_ID_PREFIX+"sleepingroomTVShape",0.79f,0.51f,0.15f);
-		Furniture sleepingroomTV = new Furniture(Constants.uAAL_MIDDLEWARE_LOCAL_ID_PREFIX+"sleepingroomTV",FurnitureType.Other,sleepingroomTVShape);
+		//Furniture sleepingroomTV = new Furniture(Constants.uAAL_MIDDLEWARE_LOCAL_ID_PREFIX+"sleepingroomTV",FurnitureType.Other,sleepingroomTVShape);
+		TV sleepingroomTV = new TV(Constants.uAAL_MIDDLEWARE_LOCAL_ID_PREFIX+"sleepingroomTV");
+		sleepingroomTV.setShape(sleepingroomTVShape);
 		sleepingroomTV.setLocationRelativeToCorner(bedroom, 1.44f, 0.06f, 0.74f);
 	
 		
@@ -198,7 +203,8 @@ public class WorldConfigurationProvider extends ServiceCallee {
 		livingroomShelf1.setLocationRelativeToCorner(livingroom, 2.93f, 5.06f, 0f);
 		
 		Box livingroomTV1Shape = new Box(Constants.uAAL_MIDDLEWARE_LOCAL_ID_PREFIX+"livingroomTV1Shape",0.15f,0.51f,0.79f);
-		Furniture livingroomTV1 = new Furniture(Constants.uAAL_MIDDLEWARE_LOCAL_ID_PREFIX+"livingroomTV1",FurnitureType.Other,livingroomTV1Shape);
+		TV livingroomTV1 = new TV(Constants.uAAL_MIDDLEWARE_LOCAL_ID_PREFIX+"livingroomTV1");
+		livingroomTV1.setShape(livingroomTV1Shape);
 		livingroomTV1.setLocationRelativeToCorner(livingroom, 3.23f, 5.38f, 0.65f);
 		
 		Box livingroomSofa1Shape = new Box(Constants.uAAL_MIDDLEWARE_LOCAL_ID_PREFIX+"livingroomSofa1Shape",2.2f,0.75f,1.2f);
@@ -222,7 +228,8 @@ public class WorldConfigurationProvider extends ServiceCallee {
 		livingroomShelf2.setLocationRelativeToCorner(livingroom, 1.09f, 0f, 1.95f);
 		
 		Box livingroomTVShape = new Box(Constants.uAAL_MIDDLEWARE_LOCAL_ID_PREFIX+"livingroomTVShape",1.4f,0.98f,0.12f);
-		Furniture livingroomTV = new Furniture(Constants.uAAL_MIDDLEWARE_LOCAL_ID_PREFIX+"LivingroomTV",FurnitureType.Other,livingroomTVShape);
+		TV livingroomTV = new TV(Constants.uAAL_MIDDLEWARE_LOCAL_ID_PREFIX+"LivingroomTV");
+		livingroomTV.setShape(livingroomTVShape);
 		livingroomTV.setLocationRelativeToCorner(livingroom, 1.67f, 0.15f, 0.75f);
 		
 		
@@ -249,8 +256,13 @@ public class WorldConfigurationProvider extends ServiceCallee {
 		kitchenUnit2.setLocationRelativeToCorner(kitchen, 0.66f, 3.33f, 0f);
 		
 		Box kitchenWindowShape = new Box(Constants.uAAL_MIDDLEWARE_LOCAL_ID_PREFIX+"kitchenWindowShape",1f,1f,0.01f);
-		Furniture kitchenWindow = new Furniture(Constants.uAAL_MIDDLEWARE_LOCAL_ID_PREFIX+"kitchenWindow",FurnitureType.Other,kitchenWindowShape);
+		WindowActuator kitchenWindow = new WindowActuator(Constants.uAAL_MIDDLEWARE_LOCAL_ID_PREFIX+"kitchenWindow");
+		kitchenWindow.setShape(kitchenWindowShape);
 		kitchenWindow.setLocationRelativeToCorner(kitchen, 2.0f, 0f, 1.2f);
+		
+		BlindActuator kitchenWindowBlind = new BlindActuator(Constants.uAAL_MIDDLEWARE_LOCAL_ID_PREFIX+"kitchenWindow");
+		kitchenWindowBlind.setShape(kitchenWindowShape);
+		kitchenWindowBlind.setLocationRelativeToCorner(kitchen, 2.0f, 0f, 1.2f);
 		
 		
 		//##################################################################################

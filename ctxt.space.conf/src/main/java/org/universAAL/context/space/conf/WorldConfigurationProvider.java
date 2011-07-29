@@ -83,8 +83,11 @@ public class WorldConfigurationProvider extends ServiceCallee {
 			}
 		} else {
 			// TODO: Duplicate Check
-			theServer = new JenaPersistenceAccessor(bundles[i]);
-			
+		    	try {
+		    	    	theServer = new JenaPersistenceAccessor(bundles[i]);
+		    	} catch (Exception e) {
+		    	}
+
 			LogUtils.logInfo(Activator.getLogger(), "LocationServiceProvider", "LocationServiceProvider", new Object[] {
 			"LocationServiceProvider started!" },
 			null);
@@ -292,8 +295,9 @@ public class WorldConfigurationProvider extends ServiceCallee {
 			return null;
 	
 		// wait till the server is fully initialized
-		while (theServer == null)
-			try {Thread.sleep(50);} catch (InterruptedException e) {e.printStackTrace();}
+		// TODO: reactivate when the server is integrated
+//		while (theServer == null)
+//			try {Thread.sleep(50);} catch (InterruptedException e) {e.printStackTrace();}
 			
 		if (operation.startsWith(ProvidedWorldConfigurator.SERVICE_GET_LOCATION)) {
 			Object input = call

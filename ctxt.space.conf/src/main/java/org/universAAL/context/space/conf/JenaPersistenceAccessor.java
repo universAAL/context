@@ -29,7 +29,8 @@ import java.util.Vector;
 
 import org.osgi.framework.Bundle;
 import org.universAAL.middleware.rdf.Resource;
-import org.universAAL.middleware.util.LogUtils;
+import org.universAAL.middleware.container.ModuleContext;
+import org.universAAL.middleware.container.utils.LogUtils;
 import org.universAAL.middleware.owl.ManagedIndividual;
 
 import com.hp.hpl.jena.db.DBConnection;
@@ -114,7 +115,7 @@ public class JenaPersistenceAccessor {
 			DriverManager.registerDriver(new DriverWrap(d));
 			sqlconn = DriverManager.getConnection(M_DB_URL,M_DB_USER,M_DB_PASSWD);
 		} catch (Exception e) {
-			LogUtils.logInfo(Activator.getLogger(), "JenaPersistanceAccessor", "JenaPersistanceAccessor", new Object[] {
+			LogUtils.logInfo(Activator.mc, JenaPersistenceAccessor.class, "JenaPersistanceAccessor", new Object[] {
 			"Error occured while connecting to Database! " },
 			e);
 			e.printStackTrace();

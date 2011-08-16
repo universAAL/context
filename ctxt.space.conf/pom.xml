@@ -8,7 +8,7 @@
 	<modelVersion>4.0.0</modelVersion>
   <artifactId>ctxt.space.conf</artifactId>
   <packaging>bundle</packaging>
-  <version>0.1.0-SNAPSHOT</version>
+  <version>0.1.1-SNAPSHOT</version>
   
   <dependencies>
 		<dependency>
@@ -24,17 +24,17 @@
 		<dependency>
 			<groupId>org.universAAL.middleware</groupId>
 			<artifactId>mw.data.representation</artifactId>
-			<version>0.3.0-SNAPSHOT</version>
+			<version>0.3.1-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<groupId>org.universAAL.middleware</groupId>
 			<artifactId>mw.bus.service</artifactId>
-			<version>0.3.0-SNAPSHOT</version>
+			<version>0.3.1-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<groupId>org.universAAL.ontology</groupId>
 			<artifactId>ont.phWorld</artifactId>
-			<version>0.2.2-SNAPSHOT</version>
+			<version>0.2.3-SNAPSHOT</version>
 			<type>bundle</type>
 		</dependency>
 		<dependency>
@@ -67,7 +67,12 @@
 			<artifactId>ont.window</artifactId>
 			<version>0.2.1-SNAPSHOT</version>
 		</dependency>
-	</dependencies>
+		<dependency>
+			<groupId>org.universAAL.middleware</groupId>
+			<artifactId>mw.container.xfaces</artifactId>
+			<version>0.1.0-SNAPSHOT</version>
+		</dependency>
+  </dependencies>
   
   <build>
 		<plugins>

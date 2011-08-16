@@ -50,7 +50,8 @@ import org.universAAL.middleware.service.ServiceCall;
 import org.universAAL.middleware.service.ServiceRequest;
 import org.universAAL.middleware.service.ServiceResponse; //import org.universAAL.middleware.service.impl.ServiceRealization;//not exported by bus.service
 import org.universAAL.middleware.service.owls.profile.ServiceProfile;
-import org.universAAL.middleware.util.LogUtils;
+import org.universAAL.middleware.container.ModuleContext;
+import org.universAAL.middleware.container.utils.LogUtils;
 
 import com.hp.hpl.jena.datatypes.xsd.XSDDatatype;
 import com.hp.hpl.jena.datatypes.xsd.impl.XMLLiteralType;
@@ -191,7 +192,7 @@ public class JenaModelConverter implements JenaConverter {
 	    } else
 		return result;
 	} catch (Exception e) {
-	    LogUtils.logError(logger, "JenaModelConverter", "deserialize",
+	    LogUtils.logError((ModuleContext) logger, JenaModelConverter.class, "deserialize",
 		    new Object[] { "Jena-Serializer: Failed to parse\n   ",
 			    serialized, "   returning null!" }, e);
 	}

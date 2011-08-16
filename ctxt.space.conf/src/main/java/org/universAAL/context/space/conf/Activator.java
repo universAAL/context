@@ -25,6 +25,8 @@ import org.universAAL.context.conversion.jena.JenaConverter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import org.universAAL.middleware.container.ModuleContext;
+import org.universAAL.middleware.container.osgi.uAALBundleContainer;
 import org.universAAL.ontology.phThing.PhysicalThing;
 import org.universAAL.ontology.location.Place;
 import org.universAAL.ontology.location.Way;
@@ -34,10 +36,11 @@ import org.universAAL.ontology.shape.Shape;
 
 public class Activator implements BundleActivator {
 
-	private static JenaConverter mc = null;
+	private static JenaConverter jenaConv = null;
+	public static ModuleContext mc;
 	
 	static JenaConverter getModelConverter() {
-		return mc;
+		return jenaConv;
 	}
 	
 	private static BundleContext context;
@@ -45,11 +48,12 @@ public class Activator implements BundleActivator {
 	/**
 	 * the logger for the provider bundle
 	 */
-	private static Logger logger = LoggerFactory.getLogger("de.fhg.igd.ima.persona.space.conf");
+	//private static Logger logger = LoggerFactory.getLogger("de.fhg.igd.ima.persona.space.conf");
 	
 
 	public void start(final BundleContext context) throws Exception {
 		Activator.context = context;
+		mc = uAALBundleContainer.THE_CONTAINER.registerModule(new Object[] { context });
 		
 		Way.getClassRestrictionsOnProperty(null);
 		PhysicalThing.getClassRestrictionsOnProperty(null);
@@ -58,13 +62,13 @@ public class Activator implements BundleActivator {
 		Box.getClassRestrictionsOnProperty(null);
 		OriginedMetric.getClassRestrictionsOnProperty(null);
 		
-		mc = (JenaConverter) context.getService(
+		jenaConv = (JenaConverter) context.getService(
 				context.getServiceReference(JenaConverter.class.getName()));
 		
 		new Thread() {
 			public void run() {
 				
-				new WorldConfigurationProvider(context);
+				new WorldConfigurationProvider(mc);
 				
 			}
 		}.start();
@@ -74,9 +78,9 @@ public class Activator implements BundleActivator {
 		return context;
 	}
 	
-	public static Logger getLogger(){
-		return logger;
-	}
+//	public static Logger getLogger(){
+//		return logger;
+//	}
 	
 
 	/*

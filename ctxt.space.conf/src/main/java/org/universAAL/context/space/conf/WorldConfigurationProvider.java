@@ -30,7 +30,8 @@ import org.universAAL.middleware.service.ServiceCallee;
 import org.universAAL.middleware.service.ServiceResponse;
 import org.universAAL.middleware.service.owls.process.ProcessOutput;
 import org.universAAL.middleware.util.Constants;
-import org.universAAL.middleware.util.LogUtils;
+import org.universAAL.middleware.container.ModuleContext;
+import org.universAAL.middleware.container.utils.LogUtils;
 import org.universAAL.middleware.owl.ManagedIndividual;
 
 import org.universAAL.ontology.phThing.PhysicalThing;
@@ -67,10 +68,10 @@ public class WorldConfigurationProvider extends ServiceCallee {
 	
 	private Location world;
 	
-	public WorldConfigurationProvider(BundleContext context) {
+	public WorldConfigurationProvider(ModuleContext context) {
 		super(context, ProvidedWorldConfigurator.profiles);
 
-		Bundle[] bundles = context.getBundles();
+		Bundle[] bundles = Activator.getContext().getBundles();
 		int i = 0;
 		while (i < bundles.length && !bundles[i].toString().contains("mysql-connector-java"))
 			i++;
@@ -79,7 +80,7 @@ public class WorldConfigurationProvider extends ServiceCallee {
 			try {
 				throw new Exception("No Mysql Connector Bundle found");
 			} catch (Exception e) {
-				LogUtils.logInfo(Activator.getLogger(), "LocationServiceProvider", "LocationServiceProvider", new Object[] {
+				LogUtils.logInfo(Activator.mc, WorldConfigurationProvider.class, "LocationServiceProvider", new Object[] {
 				"No Mysql Connector Bundle found" },
 				e);
 				e.printStackTrace();
@@ -91,7 +92,7 @@ public class WorldConfigurationProvider extends ServiceCallee {
 		    	} catch (Exception e) {
 		    	}
 
-			LogUtils.logInfo(Activator.getLogger(), "LocationServiceProvider", "LocationServiceProvider", new Object[] {
+			LogUtils.logInfo(Activator.mc, WorldConfigurationProvider.class, "LocationServiceProvider", new Object[] {
 			"LocationServiceProvider started!" },
 			null);
 		}
@@ -363,7 +364,7 @@ public class WorldConfigurationProvider extends ServiceCallee {
 					ProvidedWorldConfigurator.OUTPUT_LOCATION_OBJECT, loc));
 			return sr;
 		} catch (Exception e) {
-			LogUtils.logInfo(Activator.getLogger(), "LocationServiceProvider", "getLocation", new Object[] {
+			LogUtils.logInfo(Activator.mc, WorldConfigurationProvider.class, "getLocation", new Object[] {
 			"An error occured while delivering a getLocation service" },
 			e);
 			e.printStackTrace();
@@ -379,7 +380,7 @@ public class WorldConfigurationProvider extends ServiceCallee {
 			sr.addOutput(new ProcessOutput(ProvidedWorldConfigurator.OUTPUT_PHYSICAL_THING, pt));
 			return sr;
 		} catch (Exception e) {
-			LogUtils.logInfo(Activator.getLogger(), "LocationServiceProvider", "getPhysicalThing", new Object[] {
+			LogUtils.logInfo(Activator.mc, WorldConfigurationProvider.class, "getPhysicalThing", new Object[] {
 			"An error occured while delivering a getPhysicalThing service" },
 			e);
 			e.printStackTrace();
@@ -407,7 +408,7 @@ public class WorldConfigurationProvider extends ServiceCallee {
 			
 			return sr;
 		} catch (Exception e) {
-			LogUtils.logInfo(Activator.getLogger(), "LocationServiceProvider", "getByWay", new Object[] {
+			LogUtils.logInfo(Activator.mc, WorldConfigurationProvider.class, "getByWay", new Object[] {
 			"An error occured while delivering a getByWay service" },
 			e);
 			e.printStackTrace();
@@ -421,7 +422,7 @@ public class WorldConfigurationProvider extends ServiceCallee {
 			ServiceResponse sr = new ServiceResponse(CallStatus.succeeded);
 			return sr;
 		} catch (Exception e) {
-			LogUtils.logInfo(Activator.getLogger(), "LocationServiceProvider", "addResource", new Object[] {
+			LogUtils.logInfo(Activator.mc, WorldConfigurationProvider.class, "addResource", new Object[] {
 			"An error occured while delivering an addResource service" },
 			e);
 			e.printStackTrace();

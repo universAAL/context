@@ -245,6 +245,7 @@
 		<module>../ctxt.che.mobile</module>
 		<module>../ctxt.gen.reasoner</module>
 		<module>../ctxt.jena.converter</module>
+		<module>../ctxt.space.conf</module>
 	</modules>
 
 </project>

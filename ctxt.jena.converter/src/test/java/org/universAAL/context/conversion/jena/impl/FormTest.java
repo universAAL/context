@@ -96,7 +96,6 @@ public class FormTest extends TestCase {
 				LevelRating.middle, Locale.ENGLISH, PrivacyLevel.insensible);
 
 		JenaModelConverter jmc = new JenaModelConverter();
-		jmc.setTypeMapper(TypeMapper.getTypeMapper());
 
 		new ResourceComparator().printDiffs(oe,
 				jmc.toPersonaResource(jmc.toJenaResource(oe)));

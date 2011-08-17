@@ -13,7 +13,6 @@ import org.universAAL.middleware.owl.Restriction;
 import org.universAAL.middleware.owl.TypeURI;
 import org.universAAL.middleware.owl.supply.Rating;
 import org.universAAL.middleware.rdf.Resource;
-import org.universAAL.middleware.rdf.TypeMapper;
 import org.universAAL.middleware.util.ResourceComparator;
 //import org.persona.platform.profiling.ontology.ElderlyProfile;
 //import org.persona.platform.profiling.ontology.ElderlyUser;
@@ -33,7 +32,6 @@ public class InitialTest extends TestCase {
 		super(name);
 
 		jmc = new JenaModelConverter();
-		jmc.setTypeMapper(TypeMapper.getTypeMapper());
 	}
 
 	public void testContextEvent()

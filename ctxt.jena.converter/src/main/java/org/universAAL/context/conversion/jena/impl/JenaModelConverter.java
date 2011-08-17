@@ -76,7 +76,6 @@ import com.hp.hpl.jena.vocabulary.RDFS;
  */
 public class JenaModelConverter implements JenaConverter {
 
-    private TypeMapper tm;
     private Logger logger = LoggerFactory.getLogger(JenaModelConverter.class);
 
     private RDFNode addDescription(Model m, Resource pr, boolean reduced,
@@ -295,15 +294,13 @@ public class JenaModelConverter implements JenaConverter {
 	    else
 		return addDescription(m, (Resource) o, reduced, resources);
 	} else {
-	    if (tm != null) {
-		String par[] = tm.getXMLInstance(o);
+		String par[] = TypeMapper.getXMLInstance(o);
 		return m.createTypedLiteral(par[0], new XSDDatatype(
 			par[1].substring(XMLConstants.W3C_XML_SCHEMA_NS_URI
 				.length() + 1)));
-	    }
 	}
 
-	return null;
+	//return null;
 
 	/*
 	 * old code refactored return (o instanceof Resource)? (((Resource)
@@ -342,7 +339,7 @@ public class JenaModelConverter implements JenaConverter {
 	    if (XMLLiteralType.theXMLLiteralType.equals(literal.getDatatype()))
 		o = deserialize(literal.getLexicalForm(), true);
 	    else
-		o = tm.getJavaInstance(literal.getLexicalForm(), literal
+		o = TypeMapper.getJavaInstance(literal.getLexicalForm(), literal
 			.getDatatypeURI());
 	    l.add(o);
 	} else {
@@ -420,16 +417,6 @@ public class JenaModelConverter implements JenaConverter {
 	}
 
 	return null;
-    }
-
-    /**
-     * Set the TypeMapper to use for resolving literals.
-     * 
-     * @param tm
-     *            The {@link org.universAAL.middleware.rdf.TypeMapper} to use
-     */
-    void setTypeMapper(TypeMapper tm) {
-	this.tm = tm;
     }
 
     public com.hp.hpl.jena.rdf.model.Resource toJenaResource(Resource r) {

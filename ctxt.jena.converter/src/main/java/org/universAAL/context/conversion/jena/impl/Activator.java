@@ -65,12 +65,7 @@ public class Activator implements BundleActivator, ServiceListener {
 	switch (event.getType()) {
 	case ServiceEvent.REGISTERED:
 	case ServiceEvent.MODIFIED:
-	    ser.setTypeMapper((TypeMapper) context.getService(event
-		    .getServiceReference()));
-	    break;
 	case ServiceEvent.UNREGISTERING:
-	    ser.setTypeMapper(null);
-	    break;
 	}
     }
 }

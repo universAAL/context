@@ -16,7 +16,6 @@ import org.universAAL.middleware.owl.Enumeration;
 import org.universAAL.middleware.owl.Restriction;
 import org.universAAL.middleware.owl.supply.LevelRating;
 import org.universAAL.middleware.rdf.Resource;
-import org.universAAL.middleware.rdf.TypeMapper;
 import org.universAAL.middleware.service.ServiceRequest;
 import org.universAAL.middleware.service.owl.InitialServiceDialog;
 import org.universAAL.middleware.util.Constants;
@@ -36,7 +35,6 @@ public class UIFrameworkTest extends TestCase {
 		super(name);
 
 		jmc = new JenaModelConverter();
-		jmc.setTypeMapper(TypeMapper.getTypeMapper());
 	}
 	
 	public void testMenuRequest() {

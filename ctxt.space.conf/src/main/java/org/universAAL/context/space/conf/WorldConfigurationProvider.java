@@ -120,37 +120,37 @@ public class WorldConfigurationProvider extends ServiceCallee {
 		// darmstadt
 		Box cityShape = new Box(Constants.uAAL_MIDDLEWARE_LOCAL_ID_PREFIX+"cityShape", 0, 0, 0);
 		City darmstadt = new City(Constants.uAAL_MIDDLEWARE_LOCAL_ID_PREFIX+"darmstadt","Darmstadt",cityShape);
-		((Place)world).addContainedLocation(darmstadt,0f,0f,0f);
+		((Place)world).addContainedLocation(darmstadt, 0f, 0f, 0f);
 		
 		// lab
-		Box labShape = new Box(Constants.uAAL_MIDDLEWARE_LOCAL_ID_PREFIX+"labShape", 7.18, 2.5, 11.96);
+		Box labShape = new Box(Constants.uAAL_MIDDLEWARE_LOCAL_ID_PREFIX+"labShape", 7.18, 2.5, 11.95);
 		Building lab = new Building(Constants.uAAL_MIDDLEWARE_LOCAL_ID_PREFIX+"lab",labShape);
 		darmstadt.addContainedLocationRelativeToCorner(lab, 0, 0, 0);
 		
 		// workroom
-		Box workroomShape = new Box(Constants.uAAL_MIDDLEWARE_LOCAL_ID_PREFIX+"workroomShape",7.18,2.5,3.78);
+		Box workroomShape = new Box(Constants.uAAL_MIDDLEWARE_LOCAL_ID_PREFIX+"workroomShape", 7.18, 2.5, 3.78);
 		Room workroom = new Room(Constants.uAAL_MIDDLEWARE_LOCAL_ID_PREFIX+"workroom",RoomFunction.WorkRoom,workroomShape);
-		lab.addContainedLocationRelativeToCorner(workroom,0,0,0);
+		lab.addContainedLocationRelativeToCorner(workroom, 0, 0, 0);
 		
 		// kitchen
-		Box kitchenShape = new Box(Constants.uAAL_MIDDLEWARE_LOCAL_ID_PREFIX+"kitchenShape",3.48,2.5,3.94);
+		Box kitchenShape = new Box(Constants.uAAL_MIDDLEWARE_LOCAL_ID_PREFIX+"kitchenShape", 3.48, 2.5, 3.94);
 		Room kitchen = new Room(Constants.uAAL_MIDDLEWARE_LOCAL_ID_PREFIX+"kitchen",RoomFunction.Kitchen,kitchenShape);
-		lab.addContainedLocationRelativeToCorner(kitchen,0f,3.9f,0f);
+		lab.addContainedLocationRelativeToCorner(kitchen, 0f, 0f, 3.9f);
 		
 		// livingroom
-		Box livingroomShape = new Box(Constants.uAAL_MIDDLEWARE_LOCAL_ID_PREFIX+"livingroomShape",3.58,2.5,6.26);
+		Box livingroomShape = new Box(Constants.uAAL_MIDDLEWARE_LOCAL_ID_PREFIX+"livingroomShape",3.58, 2.5, 6.26);
 		Room livingroom = new Room(Constants.uAAL_MIDDLEWARE_LOCAL_ID_PREFIX+"livingroom",RoomFunction.SleepingRoom,livingroomShape);
-		lab.addContainedLocationRelativeToCorner(livingroom,3.6f,3.9f,0f);
+		lab.addContainedLocationRelativeToCorner(livingroom, 3.6f, 0f, 3.9f);
 		
 		// sleeping room
-		Box bedroomShape = new Box(Constants.uAAL_MIDDLEWARE_LOCAL_ID_PREFIX+"bedroomShape",3.48,2.5,4.01);
+		Box bedroomShape = new Box(Constants.uAAL_MIDDLEWARE_LOCAL_ID_PREFIX+"bedroomShape", 3.48, 2.5, 4.01);
 		Room bedroom = new Room(Constants.uAAL_MIDDLEWARE_LOCAL_ID_PREFIX+"bedroom",RoomFunction.SleepingRoom,bedroomShape);
-		lab.addContainedLocationRelativeToCorner(bedroom, 0f,7.94f,0f);
+		lab.addContainedLocationRelativeToCorner(bedroom, 0f, 0f, 7.94f);
 		
 		// wardrobe
-		Box wardrobeShape = new Box(Constants.uAAL_MIDDLEWARE_LOCAL_ID_PREFIX+"wardrobeShape",3.58,2.5,1.70);
+		Box wardrobeShape = new Box(Constants.uAAL_MIDDLEWARE_LOCAL_ID_PREFIX+"wardrobeShape", 3.58, 2.5, 1.70);
 		Room wardrobe = new Room(Constants.uAAL_MIDDLEWARE_LOCAL_ID_PREFIX+"wardrobe",RoomFunction.Wardrobe,wardrobeShape);
-		lab.addContainedLocationRelativeToCorner(wardrobe, 3.6f,10.25f,0f);
+		lab.addContainedLocationRelativeToCorner(wardrobe, 3.6f, 0f, 10.25f);
 		
 		
 		//##################################################################################

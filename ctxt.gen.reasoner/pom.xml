@@ -2,44 +2,47 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
+
 	<parent>
 		<groupId>org.universAAL.context</groupId>
 		<artifactId>ctxt.pom</artifactId>
 		<version>1.0.0</version>
 		<relativePath>../pom/pom.xml</relativePath>
 	</parent>
-	<packaging>bundle</packaging>
 	<artifactId>ctxt.gen.reasoner</artifactId>
 	<version>0.1.0-SNAPSHOT</version>
+	<packaging>bundle</packaging>
+
+	<!-- ______________________________________________________ -->
+
 	<name>The Situation Reasoner</name>
 	<description>The component that uses SPARQL to persistently store rules for recognizing situations.</description>
-	<url />
-
-  <inceptionYear>2008</inceptionYear>
-  <organization>
-    <name><![CDATA[
+	<inceptionYear>2008</inceptionYear>
+	<licenses>
+		<license>
+			<name>The Apache Software License, Version 2.0</name>
+			<url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+			<distribution>repo</distribution>
+		</license>
+	</licenses>
+	<organization>
+		<name><![CDATA[
     Fraunhofer-Gesellschaft - Institute of Computer Graphics Research
     ]]></name>
-    <url><![CDATA[
+		<url><![CDATA[
     http://www.igd.fraunhofer.de/
     ]]></url>
-  </organization> 
-  
-  <licenses>
-    <license>
-      <name>The Apache Software License, Version 2.0</name>
-      <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
-      <distribution>repo</distribution>
-    </license>
-  </licenses>
-  
+	</organization>
+	<developers />
+	<contributors />
+
+	<!-- ______________________________________________________ -->
+
 	<dependencies>
 		<dependency>
 			<groupId>org.apache.felix</groupId>
 			<artifactId>org.osgi.core</artifactId>
 		</dependency>
-		
-		
 		<dependency>
 			<groupId>com.hp.hpl.jena</groupId>
 			<artifactId>jena</artifactId>
@@ -49,28 +52,27 @@
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
 			<version>5.1.6</version>
-		</dependency><dependency>
-        <groupId>org.ops4j.pax.logging</groupId>
-        <artifactId>pax-logging-api</artifactId>
-        <version>1.4</version>
-      </dependency>
-		
-      <dependency>
-        <groupId>org.ops4j.pax.logging</groupId>
-        <artifactId>pax-logging-service</artifactId>
-        <version>1.4</version>
-        <exclusions>
-          <exclusion>
-            <artifactId>log4j</artifactId>
-            <groupId>log4j</groupId>
-          </exclusion>
-        </exclusions>
-      </dependency>
+		</dependency>
+		<dependency>
+			<groupId>org.ops4j.pax.logging</groupId>
+			<artifactId>pax-logging-api</artifactId>
+			<version>1.4</version>
+		</dependency>
+		<dependency>
+			<groupId>org.ops4j.pax.logging</groupId>
+			<artifactId>pax-logging-service</artifactId>
+			<version>1.4</version>
+			<exclusions>
+				<exclusion>
+					<artifactId>log4j</artifactId>
+					<groupId>log4j</groupId>
+				</exclusion>
+			</exclusions>
+		</dependency>
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
 		</dependency>
-		
 		<dependency>
 			<groupId>org.universAAL.middleware</groupId>
 			<artifactId>mw.data.representation</artifactId>
@@ -92,6 +94,13 @@
 			<version>0.3.0-SNAPSHOT</version>
 		</dependency>
 	</dependencies>
+	
+	<properties>
+		<maven.compile.source>1.5</maven.compile.source>
+		<maven.compile.target>1.5</maven.compile.target>
+	</properties>
+	
+	<!-- ______________________________________________________ -->
 
 	<build>
 		<plugins>
@@ -112,21 +121,13 @@
 			</plugin>
 		</plugins>
 	</build>
+
+	<!-- ______________________________________________________ -->
+
+	<scm>
+		<connection>scm:svn:http://forge.universaal.org/svn/uaal_context/trunk/ctxt.gen.reasoner</connection>
+		<developerConnection>scm:svn:http://forge.universaal.org/svn/uaal_context/trunk/ctxt.gen.reasoner</developerConnection>
+		<url>http://forge.universaal.org/gf/project/uaal_context/scmsvn/?path=%2Ftrunk%2F</url>
+	</scm>
 	
-	<distributionManagement>
-		<repository>
-			<id>releases</id>
-			<name>universAAL Releases</name>
-			<url>http://depot.universaal.org/nexus/content/repositories/releases/</url>
-		</repository>
-		<snapshotRepository>
-			<id>snapshots</id>
-			<name>universAAL Snapshots</name>
-			<url>http://depot.universaal.org/nexus/content/repositories/snapshots/</url>
-		</snapshotRepository>
-	</distributionManagement>
-	<properties>
-		<maven.compile.source>1.5</maven.compile.source>
-		<maven.compile.target>1.5</maven.compile.target>
-	</properties>
 </project>

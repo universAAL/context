@@ -1,36 +1,42 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
+
 	<parent>
 		<groupId>org.universAAL.context</groupId>
 		<artifactId>ctxt.pom</artifactId>
 		<version>1.0.0</version>
 		<relativePath>../pom/pom.xml</relativePath>
 	</parent>
-	<packaging>bundle</packaging>
 	<artifactId>ctxt.che.mobile</artifactId>
 	<version>0.2.0-SNAPSHOT</version>
+	<packaging>bundle</packaging>
+
+	<!-- ______________________________________________________ -->
+
 	<name>Compact Context History Entrepot for PMD</name>
 	<description>The mobile version of the component managing the history of all context events published to the PERSONA context bus.</description>
-	<url />
-	
-	  <inceptionYear>2008</inceptionYear>
-  <organization>
-    <name><![CDATA[
+	<inceptionYear>2008</inceptionYear>
+	<licenses>
+		<license>
+			<name>The Apache Software License, Version 2.0</name>
+			<url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+			<distribution>repo</distribution>
+		</license>
+	</licenses>
+	<organization>
+		<name><![CDATA[
     Instituto Tecnologico de Aplicaciones de Comunicacion Avanzadas - Grupo Tecnologias para la Salud y el Bienestar (TSB)
     ]]></name>
-    <url><![CDATA[
+		<url><![CDATA[
     http://www.itaca.upv.es/
     ]]></url>
-  </organization> 
-  
-  <licenses>
-    <license>
-      <name>The Apache Software License, Version 2.0</name>
-      <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
-      <distribution>repo</distribution>
-    </license>
-  </licenses>
+	</organization>
+	<developers />
+	<contributors />
+
+	<!-- ______________________________________________________ -->
 
 	<dependencies>
 		<dependency>
@@ -79,8 +85,8 @@
 			<version>0.3.0-SNAPSHOT</version>
 		</dependency>
 	</dependencies>
-		
-		
+
+	<!-- ______________________________________________________ -->
 
 	<build>
 		<plugins>
@@ -100,17 +106,13 @@
 			</plugin>
 		</plugins>
 	</build>
+
+	<!-- ______________________________________________________ -->
+
+	<scm>
+		<connection>scm:svn:http://forge.universaal.org/svn/uaal_context/trunk/ctxt.che.mobile</connection>
+		<developerConnection>scm:svn:http://forge.universaal.org/svn/uaal_context/trunk/ctxt.che.mobile</developerConnection>
+		<url>http://forge.universaal.org/gf/project/uaal_context/scmsvn/?path=%2Ftrunk%2F</url>
+	</scm>
 	
-	<distributionManagement>
-		<repository>
-			<id>releases</id>
-			<name>universAAL Releases</name>
-			<url>http://depot.universaal.org/nexus/content/repositories/releases/</url>
-		</repository>
-		<snapshotRepository>
-			<id>snapshots</id>
-			<name>universAAL Snapshots</name>
-			<url>http://depot.universaal.org/nexus/content/repositories/snapshots/</url>
-		</snapshotRepository>
-	</distributionManagement>
 </project>

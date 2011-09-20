@@ -6,28 +6,30 @@
 	<groupId>org.universAAL.context</groupId>
 	<artifactId>ctxt.pom</artifactId>
 	<version>1.0.0</version>
-
 	<packaging>pom</packaging>
+
+	<!-- ______________________________________________________ -->
+
 	<name>universAAL context Suite</name>
 	<description>The set of artefacts defining the universAAL context tools.</description>
 	<url>
 		<![CDATA[http://forge.universaal.org/gf/project/uaal_context/]]>
 	</url>
+	<inceptionYear>2010</inceptionYear>
+	<licenses>
+		<license>
+			<name>The Apache Software License, Version 2.0</name>
+			<url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+		</license>
+	</licenses>
+	<organization>
+		<name>universAAL Consortium</name>
+		<url>http://www.universAAL.org/</url>
+	</organization>
+	<developers />
+	<contributors />
 
-	<issueManagement>
-		<system>GForge - Tracker</system>
-		<url>
-			<![CDATA[http://forge.universaal.org/gf/project/uaal_context/tracker/]]>
-		</url>
-	</issueManagement>
-
-	<mailingLists />
-
-	<scm>
-		<connection>scm:svn:http://forge.universaal.org/svn/uaal_context/trunk</connection>
-		<developerConnection>scm:svn:http://forge.universaal.org/svn/uaal_context/trunk</developerConnection>
-		<url>http://forge.universaal.org/gf/project/uaal_context/scmsvn/?path=%2Ftrunk%2F</url>
-	</scm>
+	<!-- ______________________________________________________ -->
 
 	<dependencyManagement>
 		<dependencies>
@@ -52,75 +54,22 @@
 		</dependencies>
 	</dependencyManagement>
 
-	<repositories>
-		<repository>
-			<id>central</id>
-			<name>Central Maven Repository</name>
-			<url>http://repo1.maven.org/maven2</url>
-			<snapshots>
-				<enabled>false</enabled>
-			</snapshots>
-		</repository>
-		<repository>
-			<id>apache-snapshots</id>
-			<name>Apache Snapshots</name>
-			<url>http://people.apache.org/repo/m2-snapshot-repository</url>
-			<releases>
-				<enabled>false</enabled>
-			</releases>
-			<snapshots>
-				<updatePolicy>daily</updatePolicy>
-			</snapshots>
-		</repository>
-		<repository>
-			<id>iks-repository</id>
-			<name>ETH Zurich IKS Repository</name>
-			<url>http://www.flowsgi.inf.ethz.ch/repository/maven2</url>
-		</repository>
-		<repository>
-			<id>uaal</id>
-			<name>universAAL Repositories</name>
-			<url>http://depot.universaal.org/maven-repo/releases/</url>
-			<snapshots>
-				<enabled>false</enabled>
-			</snapshots>
-		</repository>
-		<repository>
-			<id>uaal-snapshots</id>
-			<name>universAAL Snapshot Repositories</name>
-			<url>http://depot.universaal.org/maven-repo/snapshots/</url>
-			<releases>
-				<enabled>false</enabled>
-			</releases>
-		</repository>
-		<repository>
-			<id>uaal-thirdparty</id>
-			<name>universAAL ThirdParty Repositories</name>
-			<url>http://depot.universaal.org/maven-repo/thirdparty/</url>
-		</repository>
-	</repositories>
+	<modules>
+		<module>../ctxt.che</module>
+		<module>../ctxt.che.mobile</module>
+		<module>../ctxt.gen.reasoner</module>
+		<module>../ctxt.jena.converter</module>
+		<module>../ctxt.space.conf</module>
+	</modules>
 
-	<pluginRepositories>
-		<pluginRepository>
-			<id>central</id>
-			<name>Central Maven Repository</name>
-			<url>http://repo1.maven.org/maven2</url>
-			<layout>default</layout>
-			<snapshots>
-				<enabled>false</enabled>
-			</snapshots>
-			<releases>
-				<updatePolicy>never</updatePolicy>
-			</releases>
-		</pluginRepository>
-	</pluginRepositories>
+	<properties>
+		<remoteOBR />
+		<!-- Default configuration for compiler source and target JVM -->
+		<maven.compile.source>1.4</maven.compile.source>
+		<maven.compile.target>1.4</maven.compile.target>
+	</properties>
 
-	<organization>
-		<name>universAAL Consortium</name>
-		<url>http://www.universAAL.org/</url>
-	</organization>
-
-	<contributors />
+	<!-- ______________________________________________________ -->
 
 	<build>
 		<pluginManagement>
@@ -188,8 +137,10 @@
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-pmd-plugin</artifactId>
 			</plugin>
-			<!-- <plugin> <groupId>org.codehaus.mojo</groupId> <artifactId>cobertura-maven-plugin</artifactId> 
-				</plugin> -->
+			<!-- <plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>cobertura-maven-plugin</artifactId>
+			</plugin>-->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-jxr-plugin</artifactId>
@@ -233,12 +184,89 @@
 		</plugins>
 	</reporting>
 
-	<properties>
-		<remoteOBR />
-		<!-- Default configuration for compiler source and target JVM -->
-		<maven.compile.source>1.4</maven.compile.source>
-		<maven.compile.target>1.4</maven.compile.target>
-	</properties>
+	<!-- ______________________________________________________ -->
+
+	<issueManagement>
+		<system>GForge - Tracker</system>
+		<url>
+			<![CDATA[http://forge.universaal.org/gf/project/uaal_context/tracker/]]>
+		</url>
+	</issueManagement>
+
+	<ciManagement />
+
+	<mailingLists />
+
+	<scm>
+		<connection>scm:svn:http://forge.universaal.org/svn/uaal_context/trunk</connection>
+		<developerConnection>scm:svn:http://forge.universaal.org/svn/uaal_context/trunk</developerConnection>
+		<url>http://forge.universaal.org/gf/project/uaal_context/scmsvn/?path=%2Ftrunk%2F</url>
+	</scm>
+
+	<prerequisites />
+
+	<repositories>
+		<repository>
+			<id>central</id>
+			<name>Central Maven Repository</name>
+			<url>http://repo1.maven.org/maven2</url>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+		</repository>
+		<repository>
+			<id>apache-snapshots</id>
+			<name>Apache Snapshots</name>
+			<url>http://people.apache.org/repo/m2-snapshot-repository</url>
+			<releases>
+				<enabled>false</enabled>
+			</releases>
+			<snapshots>
+				<updatePolicy>daily</updatePolicy>
+			</snapshots>
+		</repository>
+		<repository>
+			<id>iks-repository</id>
+			<name>ETH Zurich IKS Repository</name>
+			<url>http://www.flowsgi.inf.ethz.ch/repository/maven2</url>
+		</repository>
+		<repository>
+			<id>uaal</id>
+			<name>universAAL Repositories</name>
+			<url>http://depot.universaal.org/maven-repo/releases/</url>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+		</repository>
+		<repository>
+			<id>uaal-snapshots</id>
+			<name>universAAL Snapshot Repositories</name>
+			<url>http://depot.universaal.org/maven-repo/snapshots/</url>
+			<releases>
+				<enabled>false</enabled>
+			</releases>
+		</repository>
+		<repository>
+			<id>uaal-thirdparty</id>
+			<name>universAAL ThirdParty Repositories</name>
+			<url>http://depot.universaal.org/maven-repo/thirdparty/</url>
+		</repository>
+	</repositories>
+
+	<pluginRepositories>
+		<pluginRepository>
+			<id>central</id>
+			<name>Central Maven Repository</name>
+			<url>http://repo1.maven.org/maven2</url>
+			<layout>default</layout>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+			<releases>
+				<updatePolicy>never</updatePolicy>
+			</releases>
+		</pluginRepository>
+	</pluginRepositories>
 
 	<distributionManagement>
 		<repository>
@@ -253,12 +281,6 @@
 		</snapshotRepository>
 	</distributionManagement>
 
-	<modules>
-		<module>../ctxt.che</module>
-		<module>../ctxt.che.mobile</module>
-		<module>../ctxt.gen.reasoner</module>
-		<module>../ctxt.jena.converter</module>
-		<module>../ctxt.space.conf</module>
-	</modules>
+	<profiles />
 
 </project>

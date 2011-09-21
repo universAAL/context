@@ -97,11 +97,12 @@
 				<extensions>true</extensions>
 				<configuration>
 					<instructions>
-						<Bundle-Name>${pom.name}</Bundle-Name>
+						<Bundle-Name>${project.name}</Bundle-Name>
 						<Bundle-Activator>org.universAAL.context.space.conf.Activator</Bundle-Activator>
-						<Bundle-Description>${pom.description}</Bundle-Description>
-						<Bundle-SymbolicName>${pom.artifactId}</Bundle-SymbolicName>
-						<!--<Export-Package></Export-Package> <Private-Package></Private-Package> -->
+						<Bundle-Description>${project.description}</Bundle-Description>
+						<Bundle-SymbolicName>${project.artifactId}</Bundle-SymbolicName>
+						<Export-Package>org.universAAL.context.space.conf</Export-Package>
+						<Private-Package></Private-Package>
 					</instructions>
 				</configuration>
 			</plugin>

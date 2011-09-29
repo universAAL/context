@@ -296,9 +296,9 @@ public class JenaModelConverter implements JenaConverter {
 	} else {
 		String par[] = TypeMapper.getXMLInstance(o);
 		return m.createTypedLiteral(par[0], new XSDDatatype(
-			par[1].substring(XMLConstants.W3C_XML_SCHEMA_NS_URI
+			par[1].substring("http://www.w3.org/2001/XMLSchema"
 				.length() + 1)));
-	}
+	}//was XMLConstants.W3C_XML_SCHEMA_NS_URI
 
 	//return null;
 

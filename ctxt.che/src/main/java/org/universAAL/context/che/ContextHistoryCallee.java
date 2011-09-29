@@ -24,11 +24,11 @@ package org.universAAL.context.che;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.osgi.framework.BundleContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.universAAL.context.che.database.Backend;
 import org.universAAL.context.che.ontology.ContextEvent;
+import org.universAAL.middleware.container.ModuleContext;
 import org.universAAL.middleware.context.owl.ContextProvider;
 import org.universAAL.middleware.service.CallStatus;
 import org.universAAL.middleware.service.ServiceCall;
@@ -56,7 +56,7 @@ public class ContextHistoryCallee extends ServiceCallee {
 
     private Backend db;
 
-    ContextHistoryCallee(BundleContext context, Backend db) {
+    ContextHistoryCallee(ModuleContext context, Backend db) {
 	super(context, ContextHistoryServices.profiles);
 	this.db = db;
     }

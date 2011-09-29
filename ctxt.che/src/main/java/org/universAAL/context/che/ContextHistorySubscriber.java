@@ -21,10 +21,10 @@
  */
 package org.universAAL.context.che;
 
-import org.osgi.framework.BundleContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.universAAL.context.che.database.Backend;
+import org.universAAL.middleware.container.ModuleContext;
 import org.universAAL.middleware.context.ContextEvent;
 import org.universAAL.middleware.context.ContextEventPattern;
 import org.universAAL.middleware.context.ContextSubscriber;
@@ -41,7 +41,7 @@ public class ContextHistorySubscriber extends ContextSubscriber {
     private final static Logger log = LoggerFactory
 	    .getLogger(ContextHistorySubscriber.class);
 
-    public ContextHistorySubscriber(BundleContext context, Backend db) {
+    public ContextHistorySubscriber(ModuleContext context, Backend db) {
 	// My context event pattern is zero-restrictions (ALL)
 	super(context, new ContextEventPattern[] { new ContextEventPattern() });
 	this.db = db;

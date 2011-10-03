@@ -75,7 +75,7 @@ public class Activator implements BundleActivator, ServiceListener {
 		// converter = (ModelConverter)
 		// context.getService(context.getServiceReference(ModelConverter.class.getName()));;
 
-		// ------Remove this section once CHe realizes ontological restrictions
+		// **Remove this section once CHe realizes ontological restrictions
 		converter = new Converter();
 		String filter = "(objectclass=" + TypeMapper.class.getName() + ")";
 		context.addServiceListener(this, filter);
@@ -84,7 +84,7 @@ public class Activator implements BundleActivator, ServiceListener {
 		for (int i = 0; references != null && i < references.length; i++)
 			this.serviceChanged(new ServiceEvent(ServiceEvent.REGISTERED,
 					references[i]));
-		// ------
+
 		// Use parameterized constructor to explicitly define connection params.
 		// Otherwise config file will be used
 		// this.db=new
@@ -108,7 +108,7 @@ public class Activator implements BundleActivator, ServiceListener {
 		this.HC.close();
 	}
 
-	// ------Remove this method (and implementation of ServiceListener) once CHe
+	// **Remove this method (and implementation of ServiceListener) once CHe
 	// realizes ontological restrictions
 	public void serviceChanged(ServiceEvent event) {
 		switch (event.getType()) {

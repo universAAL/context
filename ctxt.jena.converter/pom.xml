@@ -94,9 +94,9 @@
 				<extensions>true</extensions>
 				<configuration>
 					<instructions>
-						<Bundle-Name>${pom.name}</Bundle-Name>
-						<Bundle-Description>${pom.description}</Bundle-Description>
-						<Bundle-SymbolicName>${pom.artifactId}</Bundle-SymbolicName>
+						<Bundle-Name>${project.name}</Bundle-Name>
+						<Bundle-Description>${project.description}</Bundle-Description>
+						<Bundle-SymbolicName>${project.artifactId}</Bundle-SymbolicName>
 						<Export-Package>org.universAAL.context.conversion.jena</Export-Package>
 						<Bundle-Activator>org.universAAL.context.conversion.jena.impl.Activator</Bundle-Activator>
 						<Private-Package>org.universAAL.context.conversion.jena.impl</Private-Package>

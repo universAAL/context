@@ -117,10 +117,10 @@
 				<extensions>true</extensions>
 				<configuration>
 					<instructions>
-						<Bundle-Name>${pom.name}</Bundle-Name>
+						<Bundle-Name>${project.name}</Bundle-Name>
 						<Bundle-Activator>org.universAAL.context.che.Activator</Bundle-Activator>
-						<Bundle-Description>${pom.description}</Bundle-Description>
-						<Bundle-SymbolicName>${pom.artifactId}</Bundle-SymbolicName>
+						<Bundle-Description>${project.description}</Bundle-Description>
+						<Bundle-SymbolicName>${project.artifactId}</Bundle-SymbolicName>
 						<Export-Package>org.persona.platform.casf.che</Export-Package>
 						<!-- uncomment this import section if you want the synchronization 
 							with the mobile version work properly -->

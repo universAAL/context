@@ -44,7 +44,6 @@ import org.universAAL.context.conversion.jena.JenaConverter;
 import org.universAAL.middleware.container.ModuleContext;
 import org.universAAL.middleware.container.osgi.uAALBundleContainer;
 import org.universAAL.middleware.rdf.TypeMapper;
-import org.universAAL.middleware.util.Constants;
 
 /**
  * @author <a href="mailto:alfiva@itaca.upv.es">Alvaro Fides Valero</a>
@@ -113,12 +112,9 @@ public class Activator implements BundleActivator, ServiceListener {
 	public void serviceChanged(ServiceEvent event) {
 		switch (event.getType()) {
 		case ServiceEvent.REGISTERED:
-		case ServiceEvent.MODIFIED:
-			((Converter) converter).setTypeMapper((TypeMapper) context
-					.getService(event.getServiceReference()));
+		case ServiceEvent.MODIFIED:;
 			break;
-		case ServiceEvent.UNREGISTERING:
-			((Converter) converter).setTypeMapper(null);
+		case ServiceEvent.UNREGISTERING:;
 			break;
 		}
 	}

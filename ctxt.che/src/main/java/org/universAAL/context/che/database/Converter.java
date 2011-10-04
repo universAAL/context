@@ -91,7 +91,6 @@ import com.hp.hpl.jena.vocabulary.XSD;
 public class Converter implements JenaConverter {
 
     private static final String W3C_XML_SCHEMA_NS_URI = "http://www.w3.org/2001/XMLSchema";
-    private TypeMapper tm;
 
     private RDFNode addDescription(Model m, Resource pr, boolean reduced,
 	    Hashtable resources) {
@@ -267,15 +266,11 @@ public class Converter implements JenaConverter {
 	    else
 		return addDescription(m, (Resource) o, reduced, resources);
 	} else {
-	    if (tm != null) {
-		String par[] = tm.getXMLInstance(o);
+		String par[] = TypeMapper.getXMLInstance(o);
 		return m.createTypedLiteral(par[0], new XSDDatatype(
 			par[1].substring(W3C_XML_SCHEMA_NS_URI
 				.length() + 1)));
-	    }
 	}
-
-	return null;
     }
 
     private Resource getUnmanagedResource(com.hp.hpl.jena.rdf.model.Resource r,
@@ -297,7 +292,7 @@ public class Converter implements JenaConverter {
 		o = new Resource(literal.getLexicalForm(), true);
 	    if (o == null) {
 		// o = ((Literal) n).getValue();
-		o = tm.getJavaInstance(literal.getLexicalForm(), literal
+		o = TypeMapper.getJavaInstance(literal.getLexicalForm(), literal
 			.getDatatypeURI());
 	    }
 	    l.add(o);
@@ -366,16 +361,6 @@ public class Converter implements JenaConverter {
 	}
 
 	return null;
-    }
-
-    /**
-     * Set the TypeMapper to use for resolving literals.
-     * 
-     * @param tm
-     *            The {@link org.universAAL.middleware.rdf.TypeMapper} to use
-     */
-    public void setTypeMapper(TypeMapper tm) {
-	this.tm = tm;
     }
 
     public com.hp.hpl.jena.rdf.model.Resource toJenaResource(Resource r) {

@@ -6,16 +6,16 @@
 	<parent>
 		<groupId>org.universAAL.context</groupId>
 		<artifactId>ctxt.pom</artifactId>
-		<version>1.0.2-SNAPSHOT</version>
+		<version>1.0.0</version>
 		<relativePath>../pom/pom.xml</relativePath>
 	</parent>
 	<artifactId>ctxt.gen.reasoner</artifactId>
-	<version>1.0.1-SNAPSHOT</version>
+	<version>0.1.0-SNAPSHOT</version>
 	<packaging>bundle</packaging>
 
 	<!-- ______________________________________________________ -->
 
-	<name>universAAL Context Situation Reasoner</name>
+	<name>The Situation Reasoner</name>
 	<description>The component that uses SPARQL to persistently store rules for recognizing situations.</description>
 	<inceptionYear>2008</inceptionYear>
 	<licenses>
@@ -54,37 +54,44 @@
 			<version>5.1.6</version>
 		</dependency>
 		<dependency>
+			<groupId>org.ops4j.pax.logging</groupId>
+			<artifactId>pax-logging-api</artifactId>
+			<version>1.4</version>
+		</dependency>
+		<dependency>
+			<groupId>org.ops4j.pax.logging</groupId>
+			<artifactId>pax-logging-service</artifactId>
+			<version>1.4</version>
+			<exclusions>
+				<exclusion>
+					<artifactId>log4j</artifactId>
+					<groupId>log4j</groupId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.universAAL.middleware</groupId>
 			<artifactId>mw.data.representation</artifactId>
-			<version>1.0.0</version>
+			<version>0.3.0-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<groupId>org.universAAL.middleware</groupId>
 			<artifactId>mw.bus.service</artifactId>
-			<version>1.0.0</version>
+			<version>0.3.0-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<groupId>org.universAAL.middleware</groupId>
 			<artifactId>mw.bus.context</artifactId>
-			<version>1.0.0</version>
+			<version>0.3.0-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<groupId>org.universAAL.context</groupId>
 			<artifactId>ctxt.jena.converter</artifactId>
-			<version>1.0.0</version>
-		</dependency>
-		<dependency>
-			<groupId>org.universAAL.middleware</groupId>
-			<artifactId>mw.container.osgi</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.universAAL.middleware</groupId>
-			<artifactId>mw.bus.model</artifactId>
-			<version>1.0.0</version>
+			<version>0.3.0-SNAPSHOT</version>
 		</dependency>
 	</dependencies>
 	
@@ -103,46 +110,14 @@
 				<extensions>true</extensions>
 				<configuration>
 					<instructions>
-						<Bundle-Name>${project.name}</Bundle-Name>
+						<Bundle-Name>${pom.name}</Bundle-Name>
 						<Bundle-Activator>org.universAAL.context.reasoner.Activator</Bundle-Activator>
-						<Bundle-Description>${project.description}</Bundle-Description>
-						<Bundle-SymbolicName>${project.artifactId}</Bundle-SymbolicName>
+						<Bundle-Description>${pom.description}</Bundle-Description>
+						<Bundle-SymbolicName>${pom.artifactId}</Bundle-SymbolicName>
 						<Export-Package>org.universAAL.context.reasoner</Export-Package>
 						<Private-Package></Private-Package>
 					</instructions>
 				</configuration>
-			</plugin>
-			<plugin>
-				<!--
-					ctxt.space.conf uses mw 1.0.0 so uaal-maven-plugin cannot be used
-				-->
-				<groupId>org.universAAL.support</groupId>
-				<artifactId>uaal-maven-plugin</artifactId>
-				<version>1.0.1-SNAPSHOT</version>
-				<executions>
-					<execution>
-						<id>CompositeMojo</id>
-						<phase>none</phase>
-					</execution>
-					<execution>
-						<id>TestMojo</id>
-						<phase>none</phase>
-					</execution>
-				</executions>
-			</plugin>
-			<plugin>
-				<!--
-					ctxt.space.conf uses mw 1.0.0 so uaal-maven-plugin cannot be used
-				-->
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>build-helper-maven-plugin</artifactId>
-				<version>1.7</version>
-				<executions>
-					<execution>
-						<id>attach-composite</id>
-						<phase>none</phase>
-					</execution>
-				</executions>
 			</plugin>
 		</plugins>
 	</build>
@@ -150,9 +125,9 @@
 	<!-- ______________________________________________________ -->
 
 	<scm>
-		<connection>${svn.base}/${project.artifactId}</connection>
-		<developerConnection>${svn.base}/${project.artifactId}</developerConnection>
-		<url>${svn.base.url}${project.artifactId}</url>
+		<connection>scm:svn:http://forge.universaal.org/svn/uaal_context/trunk/ctxt.gen.reasoner</connection>
+		<developerConnection>scm:svn:http://forge.universaal.org/svn/uaal_context/trunk/ctxt.gen.reasoner</developerConnection>
+		<url>http://forge.universaal.org/gf/project/uaal_context/scmsvn/?path=%2Ftrunk%2F</url>
 	</scm>
-
+	
 </project>

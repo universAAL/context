@@ -1,8 +1,8 @@
 /*
-	Copyright 2008-2010 Fraunhofer IGD, http://www.igd.fraunhofer.de
+	Copyright 2008-2011 Fraunhofer IGD, http://www.igd.fraunhofer.de
 	Fraunhofer-Gesellschaft - Institute of Computer Graphics Research
 	
-	Copyright 2008-2010 ITACA-TSB, http://www.tsb.upv.es
+	Copyright 2008-2011 ITACA-TSB, http://www.tsb.upv.es
 	Instituto Tecnologico de Aplicaciones de Comunicacion 
 	Avanzadas - Grupo Tecnologias para la Salud y el 
 	Bienestar (TSB)
@@ -23,7 +23,7 @@
 	limitations under the License.
  */
 /**
- * This is a modification of org.persona.middleware.context.ContextEvent
+ * This is a modification of org.universAAL.middleware.context.ContextEvent
  * redefined as extension of ManagedIdividual so it can be registered and used
  * in a service definition and call (specially, or solely, for the context history).
  * It allows for defining all of its properties as null (after construction), 
@@ -33,23 +33,22 @@ package org.universAAL.context.che.ontology;
 
 import org.universAAL.middleware.context.owl.ContextProvider;
 import org.universAAL.middleware.owl.ManagedIndividual;
-import org.universAAL.middleware.owl.supply.Rating;
 import org.universAAL.middleware.rdf.Resource;
 
 /**
  * Helper class that replicates
- * {@link org.persona.middleware.context.ContextEvent} as a ManagedIndividual
+ * {@link org.universAAL.middleware.context.ContextEvent} as a ManagedIndividual
  * with the possibility of not defining some of its properties.
  * <p>
  * This is the class that must be used by service callers that wish to call CHe
  * services, instead of the middleware one (
- * {@link org.persona.middleware.context.ContextEvent}), in the ServiceRequests
+ * {@link org.universAAL.middleware.context.ContextEvent}), in the ServiceRequests
  * they build (as input or outputs). Then, the output events received in a
  * service response will have to be casted to
- * {@link org.persona.middleware.context.ContextEvent}, thus performing the
+ * {@link org.universAAL.middleware.context.ContextEvent}, thus performing the
  * conversion from
- * <code>org.persona.platform.casf.che.ontology.ContextEvent</code> to
- * {@link org.persona.middleware.context.ContextEvent} in the casting.
+ * <code>org.universAAL.platform.casf.che.ontology.ContextEvent</code> to
+ * {@link org.universAAL.middleware.context.ContextEvent} in the casting.
  * 
  * @author <a href="mailto:alfiva@itaca.upv.es">Alvaro Fides Valero</a>
  * @author <a href="mailto:Saied.Tazari@igd.fraunhofer.de">Saied Tazari</a>
@@ -67,8 +66,6 @@ public class ContextEvent extends ManagedIndividual {
     public static final String PROP_RDF_OBJECT;
     public static final String LOCAL_NAME_CONFIDENCE;
     public static final String PROP_CONTEXT_CONFIDENCE;
-    public static final String LOCAL_NAME_ACCURACY;
-    public static final String PROP_CONTEXT_ACCURACY;
     public static final String LOCAL_NAME_PROVIDER;
     public static final String PROP_CONTEXT_PROVIDER;
     public static final String LOCAL_NAME_EXPIRATION_TIME;
@@ -89,8 +86,6 @@ public class ContextEvent extends ManagedIndividual {
 	LOCAL_NAME_CONFIDENCE = "hasConfidence";
 	PROP_CONTEXT_CONFIDENCE = uAAL_CONTEXT_NAMESPACE
 		+ LOCAL_NAME_CONFIDENCE;
-	LOCAL_NAME_ACCURACY = "hasAccuracy";
-	PROP_CONTEXT_ACCURACY = uAAL_CONTEXT_NAMESPACE + LOCAL_NAME_ACCURACY;
 	LOCAL_NAME_PROVIDER = "hasProvider";
 	PROP_CONTEXT_PROVIDER = uAAL_CONTEXT_NAMESPACE + LOCAL_NAME_PROVIDER;
 	LOCAL_NAME_EXPIRATION_TIME = "hasExpirationTime";
@@ -133,7 +128,7 @@ public class ContextEvent extends ManagedIndividual {
     }
 
     /**
-     * Empty constructor
+     * Empty constructor, needed because this is a ManagedIndividual
      */
     public ContextEvent() {
 
@@ -142,7 +137,8 @@ public class ContextEvent extends ManagedIndividual {
     /**
      * This constructor is NOT for the exclusive usage by deserializers. Not
      * anymore!! You can construct one of these ContextEvents without
-     * properties, only with a URI. Or without it.
+     * properties, only with a URI. Or without it. Because this is a
+     * ManagedIndividual
      */
     public ContextEvent(String uri) {
 	super(uri);
@@ -177,17 +173,9 @@ public class ContextEvent extends ManagedIndividual {
 	setRDFSubject(subject);
 	setRDFPredicate(predicate);
 	setRDFObject(eventObject);
-	// setTimestamp(new Long(System.currentTimeMillis()));
-    }
-
-    /**
-     * Get the accuracy of the event
-     * 
-     * @return The accuracy represented as
-     *         {@link org.universAAL.middleware.owl.supply.Rating}
-     */
-    public Rating getAccuracy() {
-	return (Rating) getProperty(PROP_CONTEXT_ACCURACY);
+	// setTimestamp(new Long(System.currentTimeMillis()))
+	// The timestamp can in this case be unset for wildcarding, and set
+	// later
     }
 
     /**
@@ -285,20 +273,7 @@ public class ContextEvent extends ManagedIndividual {
 
     public boolean isWellFormed() {
 	return (getRDFSubject() != null && getRDFPredicate() != null && getRDFObject() != null);
-    }
-
-    /**
-     * Set the accuracy
-     * 
-     * @param accuracy
-     */
-    public void setAccuracy(Rating accuracy) {
-	if (accuracy == null) {
-	    props.remove(PROP_CONTEXT_ACCURACY);
-	    return;
-	}
-	if (accuracy != null && !props.containsKey(PROP_CONTEXT_ACCURACY))
-	    props.put(PROP_CONTEXT_ACCURACY, accuracy);
+	// We don´t evaluate timestamp in this case
     }
 
     /**
@@ -403,7 +378,7 @@ public class ContextEvent extends ManagedIndividual {
 	if (timestamp == null) {
 	    props.remove(PROP_CONTEXT_TIMESTAMP);
 	    return;
-	}
+	}// We can remove the timestamp in this case
 	if (timestamp != null && timestamp.longValue() > 0
 		&& !props.containsKey(PROP_CONTEXT_TIMESTAMP))
 	    props.put(PROP_CONTEXT_TIMESTAMP, timestamp);
@@ -415,10 +390,7 @@ public class ContextEvent extends ManagedIndividual {
 
 	if (propURI.equals(PROP_RDF_OBJECT))
 	    setRDFObject(value);
-	else if (value instanceof Rating) {
-	    if (propURI.equals(PROP_CONTEXT_ACCURACY))
-		setAccuracy((Rating) value);
-	} else if (value instanceof ContextProvider) {
+	else if (value instanceof ContextProvider) {
 	    if (propURI.equals(PROP_CONTEXT_PROVIDER))
 		setProvider((ContextProvider) value);
 	} else if (value instanceof Resource) {

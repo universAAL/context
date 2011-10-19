@@ -1,5 +1,5 @@
 /*
-	Copyright 2008-2010 ITACA-TSB, http://www.tsb.upv.es
+	Copyright 2008-2011 ITACA-TSB, http://www.tsb.upv.es
 	Instituto Tecnologico de Aplicaciones de Comunicacion 
 	Avanzadas - Grupo Tecnologias para la Salud y el 
 	Bienestar (TSB)
@@ -49,14 +49,14 @@ public class ContextHistoryService extends Service {
     public static final String PROP_DURATION_TO;
     public static Hashtable CHRestrictions = new Hashtable();
     static {
-	MY_URI = "http://ontology.persona.tsb.itaca.es/ContextHistory.owl#ContextHistoryService";
-	PROP_MANAGES = "http://ontology.persona.tsb.itaca.es/ContextHistory.owl#manages";
-	PROP_PROCESSES = "http://ontology.persona.tsb.itaca.es/ContextHistory.owl#processes";
-	PROP_RETURNS = "http://ontology.persona.tsb.itaca.es/ContextHistory.owl#returns";
-	PROP_TIMESTAMP_FROM = "http://ontology.persona.tsb.itaca.es/ContextHistory.owl#timestampFrom";
-	PROP_TIMESTAMP_TO = "http://ontology.persona.tsb.itaca.es/ContextHistory.owl#timestampTo";
-	PROP_DURATION_FROM = "http://ontology.persona.tsb.itaca.es/ContextHistory.owl#durationFrom";
-	PROP_DURATION_TO = "http://ontology.persona.tsb.itaca.es/ContextHistory.owl#durationTo";
+	MY_URI = "http://ontology.universAAL.org/ContextHistory.owl#ContextHistoryService";
+	PROP_MANAGES = "http://ontology.universAAL.org/ContextHistory.owl#manages";
+	PROP_PROCESSES = "http://ontology.universAAL.org/ContextHistory.owl#processes";
+	PROP_RETURNS = "http://ontology.universAAL.org/ContextHistory.owl#returns";
+	PROP_TIMESTAMP_FROM = "http:/ontology.universAAL.org/ContextHistory.owl#timestampFrom";
+	PROP_TIMESTAMP_TO = "http://ontology.universAAL.org/ContextHistory.owl#timestampTo";
+	PROP_DURATION_FROM = "http://ontology.universAAL.org/ContextHistory.owl#durationFrom";
+	PROP_DURATION_TO = "http://ontology.universAAL.org/ContextHistory.owl#durationTo";
 	register(ContextHistoryService.class);
 	addRestriction(Restriction.getAllValuesRestriction(PROP_MANAGES,
 		org.universAAL.context.che.ontology.ContextEvent.MY_URI), new String[] { PROP_MANAGES },

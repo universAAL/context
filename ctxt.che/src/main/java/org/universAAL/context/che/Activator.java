@@ -1,5 +1,5 @@
 /*
-	Copyright 2008-2010 ITACA-TSB, http://www.tsb.upv.es
+	Copyright 2008-2011 ITACA-TSB, http://www.tsb.upv.es
 	Instituto Tecnologico de Aplicaciones de Comunicacion 
 	Avanzadas - Grupo Tecnologias para la Salud y el 
 	Bienestar (TSB)
@@ -38,12 +38,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.universAAL.context.che.database.Backend;
 import org.universAAL.context.che.database.Cleaner;
-import org.universAAL.context.che.database.Converter;
-import org.universAAL.context.che.database.impl.JenaDBBackend;
-import org.universAAL.context.conversion.jena.JenaConverter;
+import org.universAAL.context.che.database.impl.SesameBackend;
 import org.universAAL.middleware.container.ModuleContext;
 import org.universAAL.middleware.container.osgi.uAALBundleContainer;
-import org.universAAL.middleware.rdf.TypeMapper;
+import org.universAAL.middleware.container.osgi.util.BundleConfigHome;
+import org.universAAL.middleware.sodapop.msg.MessageContentSerializer;
 
 /**
  * @author <a href="mailto:alfiva@itaca.upv.es">Alvaro Fides Valero</a>
@@ -51,124 +50,128 @@ import org.universAAL.middleware.rdf.TypeMapper;
  */
 public class Activator implements BundleActivator, ServiceListener {
 
-	public static final String PROPS_FILE = "CHe.properties";
-	public static final String COMMENTS = "This file stores configuration parameters for the Context History Entrepot";
-	private static File confHome =  new File(new File(System.getProperty("user.dir")), "ctxt.che");
+    public static final String PROPS_FILE = "CHe.properties";
+    public static final String COMMENTS = "This file stores configuration parameters for the "
+	    + "Context History Entrepot";
+    private static File confHome = new File(new BundleConfigHome("ui.handler.gui").getAbsolutePath());
 
-	private final static Logger log = LoggerFactory.getLogger(Activator.class);
-	public static BundleContext context = null;
-	public static ModuleContext moduleContext = null;
-	public static JenaConverter converter;
-	private Backend db;
-	private ContextHistorySubscriber HC;
-	private ContextHistoryCallee CHC;
-	private Timer t;
+    private final static Logger log = LoggerFactory.getLogger(Activator.class);
+    public static BundleContext context = null;
+    private static ModuleContext moduleContext=null;
+    private Backend db;
+    private ContextHistorySubscriber HC;
+    private ContextHistoryCallee CHC;
+    private Timer t;
 
-	public void start(BundleContext context) throws Exception {
-		Activator.context = context;
-		Activator.moduleContext = uAALBundleContainer.THE_CONTAINER
-				.registerModule(new Object[] { context });
-
-		// Converter provided by Jena Serializer must only be used once CHe
-		// realizes ontological restrictions
-		// converter = (ModelConverter)
-		// context.getService(context.getServiceReference(ModelConverter.class.getName()));;
-
-		// **Remove this section once CHe realizes ontological restrictions
-		converter = new Converter();
-		String filter = "(objectclass=" + TypeMapper.class.getName() + ")";
-		context.addServiceListener(this, filter);
-		ServiceReference references[] = context.getServiceReferences(null,
-				filter);
-		for (int i = 0; references != null && i < references.length; i++)
-			this.serviceChanged(new ServiceEvent(ServiceEvent.REGISTERED,
-					references[i]));
-
-		// Use parameterized constructor to explicitly define connection params.
-		// Otherwise config file will be used
-		// this.db=new
-		// JenaDBBackend("jdbc:mysql://localhost:3306/persona_aal_space","casf_che","casf_che","MySQL");
-		this.db = new JenaDBBackend();
-		this.HC = new ContextHistorySubscriber(Activator.moduleContext, db);
-		this.CHC = new ContextHistoryCallee(Activator.moduleContext, db);
-		t = new Timer();
-		long tst = Long.parseLong(getProperties().getProperty(
-				"RECYCLE.PERIOD_MSEC"));
-		t.scheduleAtFixedRate(new Cleaner(db), tst, tst);
-		log.info(
-				"Removal scheduled for {} ms with a periodicity of {} ms ",
-				new Object[] {
-						Long.toString(Calendar.getInstance().getTimeInMillis()
-								+ tst), Long.toString(tst) });
+    public void start(BundleContext context) throws Exception {
+	Activator.context = context;
+	Activator.moduleContext = uAALBundleContainer.THE_CONTAINER
+			.registerModule(new Object[] { context });
+	
+	//Start the store you want
+	try {
+	    String storeclass = getProperties().getProperty("STORE.IMPL",
+		    "org.universAAL.context.che.database.impl.SesameBackend");
+	    this.db = (Backend) Class.forName(storeclass)
+		    .getConstructor(new Class[] {}).newInstance(new Object[]{});
+	} catch (Exception e) {
+	    log.error("The store implementation passed as configuration parameter could not be used. "
+		    + "Make sure it is a class that implements org.universAAL.context.che.database.Backend "
+		    + "or remove that configuration parameter to use the default engine.");
+	    log.warn("Falling back to default store engine implementation");
+	    this.db = new SesameBackend();
 	}
+	this.db.connect();
+	
+	//Look for MessageContentSerializer of mw.data.serialization
+	String filter = "(objectclass=" + MessageContentSerializer.class.getName() + ")";
+	context.addServiceListener(this, filter);
+	ServiceReference references[] = context.getServiceReferences(null,
+		filter);
+	for (int i = 0; references != null && i < references.length; i++)
+	    this.serviceChanged(new ServiceEvent(ServiceEvent.REGISTERED,
+		    references[i]));
+	
+	//Start uAAL wrappers
+	this.HC = new ContextHistorySubscriber(moduleContext, db);
+	this.CHC = new ContextHistoryCallee(moduleContext, db);
+	
+	//Start the removal timer
+	t = new Timer();
+	long tst = Long.parseLong(getProperties().getProperty(
+		"RECYCLE.PERIOD_MSEC"));
+	t.scheduleAtFixedRate(new Cleaner(db), tst, tst);
+	log.info("Removal scheduled for {} ms with a periodicity of {} ms ",
+		new Object[] {
+			Long.toString(Calendar.getInstance().getTimeInMillis()
+				+ tst), Long.toString(tst) });
+    }
 
-	public void stop(BundleContext context) throws Exception {
-		this.CHC.close();
-		this.HC.close();
-	}
+    public void stop(BundleContext context) throws Exception {
+	//Stop the store and wrappers
+	this.db.close();
+	this.CHC.close();
+	this.HC.close();
+    }
 
-	// **Remove this method (and implementation of ServiceListener) once CHe
-	// realizes ontological restrictions
-	public void serviceChanged(ServiceEvent event) {
-		switch (event.getType()) {
-		case ServiceEvent.REGISTERED:
-		case ServiceEvent.MODIFIED:;
-			break;
-		case ServiceEvent.UNREGISTERING:;
-			break;
-		}
+    public void serviceChanged(ServiceEvent event) {
+	//Update the MessageContentSerializer
+	switch (event.getType()) {
+	case ServiceEvent.REGISTERED:
+	case ServiceEvent.MODIFIED:
+	    this.db.setuAALParser((MessageContentSerializer) context.getService(event.getServiceReference()));
+	    break;
+	case ServiceEvent.UNREGISTERING:
+	    this.db.setuAALParser(null);
+	    break;
 	}
+    }
 
-	/**
-	 * Sets the properties of the CHe
-	 * 
-	 * @param prop
-	 *            The Properties object containing ALL of the properties of the
-	 *            CHe
-	 * @see #getProperties()
-	 */
-	public static synchronized void setProperties(Properties prop) {
-		try {
-			FileWriter out;
-			out = new FileWriter(new File(confHome, PROPS_FILE));
-			prop.store(out, COMMENTS);
-			out.close();
-		} catch (Exception e) {
-			log.error("Could not set properties file: {} " + e);
-		}
+    /**
+     * Sets the properties of the CHe
+     * 
+     * @param prop
+     *            The Properties object containing ALL of the properties of the
+     *            CHe
+     * @see #getProperties()
+     */
+    public static synchronized void setProperties(Properties prop) {
+	try {
+	    FileWriter out;
+	    out = new FileWriter(new File(confHome, PROPS_FILE));
+	    prop.store(out, COMMENTS);
+	    out.close();
+	} catch (Exception e) {
+	    log.error("Could not set properties file: {} " + e);
 	}
+    }
 
-	/**
-	 * Gets the properties of the CHe
-	 * 
-	 * @return The properties of the CHe
-	 * @see #setProperties(Properties)
-	 */
-	public static synchronized Properties getProperties() {
-		Properties prop = new Properties();
-		try {
-			prop = new Properties();
-			InputStream in = new FileInputStream(new File(confHome, PROPS_FILE));
-			prop.load(in);
-			in.close();
-		} catch (java.io.FileNotFoundException e) {
-			log.warn("Properties file does not exist; generating default...");
-			prop.setProperty("DB.URL",
-					"jdbc:mysql://localhost:3306/universaal_history");
-			prop.setProperty("DB.USER", "uaal_ctxt_che");
-			prop.setProperty("DB.PWD", "uaal_ctxt_che");
-			prop.setProperty("DB.TYPE", "MySQL");
-			prop.setProperty("MODEL.NAME", "universAAL_Context_History");
-			prop.setProperty("PMD.StorageFile", "PMD-Events.txt");
-			prop.setProperty("PMD.BorderFlag", "<!--CEv-->");
-			prop.setProperty("RECYCLE.KEEP_MSEC", "15552000000");// 6 months
-			prop.setProperty("RECYCLE.PERIOD_MSEC", "5184000000");// 2 months
-			prop.setProperty("RECYCLE.HOUR", "22");// at 22:00
-			setProperties(prop);
-		} catch (Exception e) {
-			log.error("Could not access properties file: {} " + e);
-		}
-		return prop;
+    /**
+     * Gets the properties of the CHe
+     * 
+     * @return The properties of the CHe
+     * @see #setProperties(Properties)
+     */
+    public static synchronized Properties getProperties() {
+	Properties prop = new Properties();
+	try {
+	    prop = new Properties();
+	    InputStream in = new FileInputStream(new File(confHome, PROPS_FILE));
+	    prop.load(in);
+	    in.close();
+	} catch (java.io.FileNotFoundException e) {
+	    log.warn("Properties file does not exist; generating default...");
+	    prop.setProperty("STORE.IMPL", "org.universAAL.context.che.database.impl.SesameBackend");
+	    prop.setProperty("MOBILE.FILE", "PMD-Events.txt");
+	    prop.setProperty("MOBILE.FLAG", "<!--CEv-->");
+	    prop.setProperty("RECYCLE.KEEP_MSEC", "15552000000");// 6 months
+	    prop.setProperty("RECYCLE.PERIOD_MSEC", "5184000000");// 2 months
+	    prop.setProperty("RECYCLE.HOUR", "22");// at 22:00
+	    setProperties(prop);
+	} catch (Exception e) {
+	    log.error("Could not access properties file: {} " + e);
 	}
+	return prop;
+    }
 
 }

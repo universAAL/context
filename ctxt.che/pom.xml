@@ -10,7 +10,7 @@
 		<relativePath>../pom/pom.xml</relativePath>
 	</parent>
 	<artifactId>ctxt.che</artifactId>
-	<version>0.3.1-SNAPSHOT</version>
+	<version>0.6.0-SNAPSHOT</version>
 	<packaging>bundle</packaging>
 
 	<!-- ______________________________________________________ -->
@@ -56,12 +56,7 @@
 			<artifactId>junit</artifactId>
 			<scope>test</scope>
 		</dependency>
-		<dependency>
-			<groupId>com.hp.hpl.jena</groupId>
-			<artifactId>jena</artifactId>
-			<version>2.5.4</version>
-			<scope>provided</scope>
-		</dependency>
+		
 		<dependency>
 			<groupId>com.thoughtworks.xstream</groupId>
 			<artifactId>xstream</artifactId>
@@ -101,10 +96,41 @@
 			<version>0.3.1-SNAPSHOT</version>
 		</dependency>
 		<dependency>
-			<groupId>org.universAAL.context</groupId>
-			<artifactId>ctxt.jena.converter</artifactId>
-			<version>0.3.1-SNAPSHOT</version>
+			<groupId>org.openrdf.sesame</groupId>
+			<artifactId>sesame-model</artifactId>
+			<version>2.5.1</version>
 		</dependency>
+		<dependency>
+			<groupId>org.openrdf.sesame</groupId>
+			<artifactId>sesame-repository-api</artifactId>
+			<version>2.5.1</version>
+		</dependency>
+		<dependency>
+			<groupId>org.openrdf.sesame</groupId>
+			<artifactId>sesame-repository-sail</artifactId>
+			<version>2.5.1</version>
+		</dependency>
+		<dependency>
+			<groupId>org.openrdf.sesame</groupId>
+			<artifactId>sesame-sail-nativerdf</artifactId>
+			<version>2.5.1</version>
+		</dependency>
+		<dependency>
+			<groupId>org.openrdf.sesame</groupId>
+			<artifactId>sesame-rio-turtle</artifactId>
+			<version>2.5.1</version>
+		</dependency>
+		<dependency>
+			<groupId>org.openrdf.sesame</groupId>
+			<artifactId>sesame-queryresultio-sparqlxml</artifactId>
+			<version>2.5.1</version>
+		</dependency>
+		<dependency>
+			<groupId>org.openrdf.sesame</groupId>
+			<artifactId>sesame-rio-rdfxml</artifactId>
+			<version>2.5.1</version>
+		</dependency>
+
 	</dependencies>
 
 	<!-- ______________________________________________________ -->
@@ -121,7 +147,6 @@
 						<Bundle-Activator>org.universAAL.context.che.Activator</Bundle-Activator>
 						<Bundle-Description>${project.description}</Bundle-Description>
 						<Bundle-SymbolicName>${project.artifactId}</Bundle-SymbolicName>
-						<Export-Package>org.persona.platform.casf.che</Export-Package>
 						<!-- uncomment this import section if you want the synchronization 
 							with the mobile version work properly -->
 						<!-- <Import-Package> com.mysql.jdbc, com.hp.hpl.jena.datatypes, com.hp.hpl.jena.datatypes.xsd, 
@@ -142,8 +167,8 @@
 							org.universAAL.ontology.powersocket, org.universAAL.ontology.profile, org.universAAL.ontology.weather, 
 							org.universAAL.ontology.location, org.universAAL.ontology.location.extra, 
 							org.universAAL.ontology.window </Import-Package> -->
-						<Private-Package>org.universAAL.context.che.database,org.universAAL.context.che.database.impl</Private-Package>
-						<Export-Package>org.universAAL.context.che.ontology,org.universAAL.context.che</Export-Package>
+						<Private-Package>org.universAAL.context.che.database.impl</Private-Package>
+						<Export-Package>org.universAAL.context.che.ontology,org.universAAL.context.che,org.universAAL.context.che.database</Export-Package>
 					</instructions>
 				</configuration>
 			</plugin>

@@ -1,5 +1,5 @@
 /*
-	Copyright 2008-2010 ITACA-TSB, http://www.tsb.upv.es
+	Copyright 2008-2011 ITACA-TSB, http://www.tsb.upv.es
 	Instituto Tecnologico de Aplicaciones de Comunicacion 
 	Avanzadas - Grupo Tecnologias para la Salud y el 
 	Bienestar (TSB)
@@ -29,7 +29,7 @@ import java.util.TimerTask;
 import org.universAAL.context.che.Activator;
 
 /**
- * This class is used to remove events from the database periodically, to avoid
+ * This class is used to remove events from the store periodically, to avoid
  * the uncontrolled growth of the history
  * 
  * @author <a href="mailto:alfiva@itaca.upv.es">Alvaro Fides Valero</a>

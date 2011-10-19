@@ -9,11 +9,10 @@ ctxt.che.mobile/pom.xml -text
 ctxt.che.mobile/src/main/java/org/universAAL/context/chemobile/Activator.java -text
 ctxt.che.mobile/src/main/java/org/universAAL/context/chemobile/HistoryConsumer.java -text
 ctxt.che.mobile/src/main/java/org/universAAL/context/chemobile/WriteOnlyJavaReflectionProvider.java -text
-ctxt.che/EXCEPTIONS-CONNECTOR-J -text
-ctxt.che/LICENSE-BSD-Jena.txt -text
+ctxt.che/LICENSE-Aduna-OpenRDF.txt -text
 ctxt.che/LICENSE-BSD-XStream.txt -text
+ctxt.che/LICENSE-CPL-JUnit.txt -text
 ctxt.che/LICENSE-Extreme.txt -text
-ctxt.che/LICENSE-GPL-MYSQL -text
 ctxt.che/LICENSE-MIT11-Bouncycastle.txt -text
 ctxt.che/LICENSE.txt -text
 ctxt.che/NOTICE.txt -text
@@ -24,8 +23,8 @@ ctxt.che/src/main/java/org/universAAL/context/che/ContextHistoryServices.java -t
 ctxt.che/src/main/java/org/universAAL/context/che/ContextHistorySubscriber.java -text
 ctxt.che/src/main/java/org/universAAL/context/che/database/Backend.java -text
 ctxt.che/src/main/java/org/universAAL/context/che/database/Cleaner.java -text
-ctxt.che/src/main/java/org/universAAL/context/che/database/Converter.java -text
-ctxt.che/src/main/java/org/universAAL/context/che/database/impl/JenaDBBackend.java -text
+ctxt.che/src/main/java/org/universAAL/context/che/database/impl/SesameBackend.java -text
+ctxt.che/src/main/java/org/universAAL/context/che/database/impl/SesameBackendWithConfidence.java -text
 ctxt.che/src/main/java/org/universAAL/context/che/ontology/ContextEvent.java -text
 ctxt.che/src/main/java/org/universAAL/context/che/ontology/ContextHistoryService.java -text
 ctxt.gen.reasoner/EXCEPTIONS-CONNECTOR-J -text

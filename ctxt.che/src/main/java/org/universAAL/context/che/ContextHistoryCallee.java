@@ -1,5 +1,5 @@
 /*
-	Copyright 2008-2010 ITACA-TSB, http://www.tsb.upv.es
+	Copyright 2008-2011 ITACA-TSB, http://www.tsb.upv.es
 	Instituto Tecnologico de Aplicaciones de Comunicacion 
 	Avanzadas - Grupo Tecnologias para la Salud y el 
 	Bienestar (TSB)
@@ -131,7 +131,7 @@ public class ContextHistoryCallee extends ServiceCallee {
 
 	    String sub, typ, pre;
 	    Object obj;
-	    Integer acc, con;
+	    Integer con;
 	    Long exp, tst;
 	    ContextProvider cop;
 
@@ -144,8 +144,6 @@ public class ContextHistoryCallee extends ServiceCallee {
 		    .getRDFPredicate() : null;
 	    obj = (inputevent.getRDFObject() != null) ? inputevent
 		    .getRDFObject() : null;
-	    acc = (inputevent.getAccuracy() != null) ? new Integer(inputevent
-		    .getAccuracy().ord()) : null;
 	    con = (inputevent.getConfidence() != null) ? inputevent
 		    .getConfidence() : null;
 	    exp = (inputevent.getExpirationTime() != null) ? inputevent
@@ -171,7 +169,7 @@ public class ContextHistoryCallee extends ServiceCallee {
 		    tstinputValue = (Long) tstinput;
 		}
 		List results = db.retrieveEventsFromTstmp(sub, typ, pre, obj,
-			acc, con, exp, cop, tst, tstinputValue);
+			con, exp, cop, tst, tstinputValue);
 		ServiceResponse response = new ServiceResponse(
 			CallStatus.succeeded);
 		response.addOutput(new ProcessOutput(
@@ -194,7 +192,7 @@ public class ContextHistoryCallee extends ServiceCallee {
 		    tstinputValue = (Long) tstinput;
 		}
 		List results = db.retrieveEventsToTstmp(sub, typ, pre, obj,
-			acc, con, exp, cop, tst, tstinputValue);
+			con, exp, cop, tst, tstinputValue);
 		ServiceResponse response = new ServiceResponse(
 			CallStatus.succeeded);
 		response.addOutput(new ProcessOutput(
@@ -229,7 +227,7 @@ public class ContextHistoryCallee extends ServiceCallee {
 		    tstinput2Value = (Long) tstinput2;
 		}
 		List results = db.retrieveEventsBetweenTstmp(sub, typ, pre,
-			obj, acc, con, exp, cop, tst, tstinput1Value,
+			obj, con, exp, cop, tst, tstinput1Value,
 			tstinput2Value);
 		ServiceResponse response = new ServiceResponse(
 			CallStatus.succeeded);

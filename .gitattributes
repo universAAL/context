@@ -1,0 +1,20 @@
+* text=auto !eol
+/EXCEPTIONS-CONNECTOR-J -text
+/LICENSE-BSD-Jena.txt -text
+/LICENSE-BSD-XStream.txt -text
+/LICENSE-Extreme.txt -text
+/LICENSE-GPL-MYSQL -text
+/LICENSE-MIT11-Bouncycastle.txt -text
+/LICENSE.txt -text
+/NOTICE.txt -text
+/pom.xml -text
+src/main/java/org/universAAL/context/che/Activator.java -text
+src/main/java/org/universAAL/context/che/ContextHistoryCallee.java -text
+src/main/java/org/universAAL/context/che/ContextHistoryServices.java -text
+src/main/java/org/universAAL/context/che/ContextHistorySubscriber.java -text
+src/main/java/org/universAAL/context/che/database/Backend.java -text
+src/main/java/org/universAAL/context/che/database/Cleaner.java -text
+src/main/java/org/universAAL/context/che/database/Converter.java -text
+src/main/java/org/universAAL/context/che/database/impl/JenaDBBackend.java -text
+src/main/java/org/universAAL/context/che/ontology/ContextEvent.java -text
+src/main/java/org/universAAL/context/che/ontology/ContextHistoryService.java -text

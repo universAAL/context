@@ -56,7 +56,6 @@
 			<artifactId>junit</artifactId>
 			<scope>test</scope>
 		</dependency>
-		
 		<dependency>
 			<groupId>com.thoughtworks.xstream</groupId>
 			<artifactId>xstream</artifactId>
@@ -130,8 +129,12 @@
 			<artifactId>sesame-rio-rdfxml</artifactId>
 			<version>2.5.1</version>
 		</dependency>
-
 	</dependencies>
+	
+	<properties>
+		<maven.compile.source>1.5</maven.compile.source>
+		<maven.compile.target>1.5</maven.compile.target>
+	</properties>
 
 	<!-- ______________________________________________________ -->
 

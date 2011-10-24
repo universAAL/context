@@ -38,7 +38,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.universAAL.context.che.database.Backend;
 import org.universAAL.context.che.database.Cleaner;
-import org.universAAL.context.che.database.impl.SesameBackend;
 import org.universAAL.middleware.container.ModuleContext;
 import org.universAAL.middleware.container.osgi.uAALBundleContainer;
 import org.universAAL.middleware.container.osgi.util.BundleConfigHome;
@@ -65,8 +64,6 @@ public class Activator implements BundleActivator, ServiceListener {
 
     public void start(BundleContext context) throws Exception {
 	Activator.context = context;
-	Activator.moduleContext = uAALBundleContainer.THE_CONTAINER
-			.registerModule(new Object[] { context });
 	
 	//Start the store you want
 	try {
@@ -75,11 +72,11 @@ public class Activator implements BundleActivator, ServiceListener {
 	    this.db = (Backend) Class.forName(storeclass)
 		    .getConstructor(new Class[] {}).newInstance(new Object[]{});
 	} catch (Exception e) {
-	    log.error("The store implementation passed as configuration parameter could not be used. "
+	    //If we cannot get the Backend, abort.
+	    String cause="The store implementation passed as configuration parameter could not be used. "
 		    + "Make sure it is a class that implements org.universAAL.context.che.database.Backend "
-		    + "or remove that configuration parameter to use the default engine.");
-	    log.warn("Falling back to default store engine implementation");
-	    this.db = new SesameBackend();
+		    + "or remove that configuration parameter to use the default engine.";
+	    throw new Exception(cause,e);//TODO: Create a new kind of exception?
 	}
 	this.db.connect();
 	
@@ -93,6 +90,8 @@ public class Activator implements BundleActivator, ServiceListener {
 		    references[i]));
 	
 	//Start uAAL wrappers
+	Activator.moduleContext = uAALBundleContainer.THE_CONTAINER
+		.registerModule(new Object[] { context });
 	this.HC = new ContextHistorySubscriber(moduleContext, db);
 	this.CHC = new ContextHistoryCallee(moduleContext, db);
 	
@@ -108,7 +107,7 @@ public class Activator implements BundleActivator, ServiceListener {
     }
 
     public void stop(BundleContext context) throws Exception {
-	//Stop the store and wrappers
+	// Stop the store and wrappers
 	this.db.close();
 	this.CHC.close();
 	this.HC.close();

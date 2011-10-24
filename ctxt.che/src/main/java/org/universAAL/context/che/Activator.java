@@ -52,7 +52,7 @@ public class Activator implements BundleActivator, ServiceListener {
     public static final String PROPS_FILE = "CHe.properties";
     public static final String COMMENTS = "This file stores configuration parameters for the "
 	    + "Context History Entrepot";
-    private static File confHome = new File(new BundleConfigHome("ui.handler.gui").getAbsolutePath());
+    private static File confHome = new File(new BundleConfigHome("ctxt.che").getAbsolutePath());
 
     private final static Logger log = LoggerFactory.getLogger(Activator.class);
     public static BundleContext context = null;

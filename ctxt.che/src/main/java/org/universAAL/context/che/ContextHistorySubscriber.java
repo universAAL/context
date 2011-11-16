@@ -59,7 +59,7 @@ public class ContextHistorySubscriber extends ContextSubscriber {
     }
 
     public void close() {
-	db.close();
+	// db.close();//Already closed by Activator
     }
 
 }

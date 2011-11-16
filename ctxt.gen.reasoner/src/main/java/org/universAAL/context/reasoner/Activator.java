@@ -32,17 +32,16 @@ import java.util.Properties;
 
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.universAAL.context.conversion.jena.JenaConverter;
-import org.universAAL.middleware.container.ModuleContext;
-import org.universAAL.middleware.container.osgi.uAALBundleContainer;
-import org.universAAL.middleware.container.osgi.util.BundleConfigHome;
-import org.universAAL.middleware.container.utils.LogUtils;
 import org.universAAL.middleware.context.ContextEvent;
 import org.universAAL.middleware.context.ContextPublisher;
 import org.universAAL.middleware.context.DefaultContextPublisher;
 import org.universAAL.middleware.context.owl.ContextProvider;
 import org.universAAL.middleware.context.owl.ContextProviderType;
 import org.universAAL.middleware.rdf.Resource;
+import org.universAAL.middleware.util.Constants;
 
 import com.hp.hpl.jena.db.DBConnection;
 import com.hp.hpl.jena.db.ModelRDB;
@@ -97,316 +96,257 @@ import com.mysql.jdbc.Driver;
  */
 public class Activator extends Thread implements BundleActivator {
 
-    /**
-     * The properties file is mainly used to save connect information to the
-     * database and config times for refreshment of the needed data.
-     */
-    public static final String PROPS_FILE = "CHe.properties";
-    private static File confHome = new File(new BundleConfigHome("ctxt.che").getAbsolutePath());
-
-    static final String JENA_DB_URL = getProperties().getProperty("DB.URL",
-	    "jdbc:mysql://localhost:3306/universaal_history");
-    static final String JENA_DB_USER = getProperties().getProperty("DB.USER",
-	    "uaal_ctxt_sr");
-    static final String JENA_DB_PASSWORD = getProperties().getProperty(
-	    "DB.PWD", "uaal_ctxt_sr");
-    static final String JENA_MODEL_NAME = getProperties().getProperty(
-	    "MODEL.NAME", "universAAL_Context_History");
-
-    public static final String uAAL_SITUATION_REASONER_NAMESPACE = Resource.uAAL_NAMESPACE_PREFIX
-	    + "GenericReasoner.owl#";
-
-    private int port = 3309; // Port for MySQL plugin with default value 3309
-    private ContextPublisher cp; // Standard context-publisher
-    private JenaConverter mc; // Jena interface
-    private boolean continueListening; // used to control the runtime of the
-    private static ModuleContext moduleContext;
-
-    // listener thread
-
-    /**
-     * 
-     * @author amarinc
-     * 
-     *         This internal class is used to handle queries that are passed to
-     *         the Reasoner and publish resulting events on the context-bus.
-     * 
-     */
-    private class QueryHandler extends Thread {
-	private Socket s;
-	
-
-	QueryHandler(Socket s) {
-	    this.s = s;
-	}
-
 	/**
-	 * Take an object based on Resource and create a list with all of its
-	 * properties (except of its type).
-	 * 
-	 * @param pr
-	 *            Resource the properties should be listed
-	 * @return List of all properties except of the type
+	 * The properties file is mainly used to save connect information to the
+	 * database and config times for refreshment of the needed data.
 	 */
-	private ArrayList<String> getPreds(Resource pr) {
-	    ArrayList<String> result = new ArrayList<String>();
-	    for (Enumeration<?> e = pr.getPropertyURIs(); e.hasMoreElements();) {
-		String uri = e.nextElement().toString();
-		if (!Resource.PROP_RDF_TYPE.equals(uri))
-		    result.add(uri);
-	    }
-	    return result;
+	public static final String PROPS_FILE = "CHe.properties";
+	private static File confHome = new File(new File(Constants
+			.getSpaceConfRoot()), "ctxt.che");
+
+	static final String JENA_DB_URL = getProperties().getProperty("DB.URL",
+			"jdbc:mysql://localhost:3306/universaal_history");
+	static final String JENA_DB_USER = getProperties().getProperty("DB.USER",
+			"uaal_ctxt_sr");
+	static final String JENA_DB_PASSWORD = getProperties().getProperty(
+			"DB.PWD", "uaal_ctxt_sr");
+	static final String JENA_MODEL_NAME = getProperties().getProperty(
+			"MODEL.NAME", "universAAL_Context_History");
+
+	public static final String uAAL_SITUATION_REASONER_NAMESPACE = Resource.uAAL_NAMESPACE_PREFIX
+			+ "GenericReasoner.owl#";
+
+	private int port = 3309; // Port for MySQL plugin with default value 3309
+	private ContextPublisher cp; // Standard context-publisher
+	private JenaConverter mc; // Jena interface
+	private boolean continueListening; // used to control the runtime of the
+	// listener thread
+
+	private final static Logger logger = LoggerFactory
+			.getLogger(Activator.class);
+
+	/**
+	 * 
+	 * @author amarinc
+	 * 
+	 *         This internal class is used to handle queries that are passed to
+	 *         the Reasoner and publish resulting events on the context-bus.
+	 * 
+	 */
+	private class QueryHandler extends Thread {
+		private Socket s;
+
+		QueryHandler(Socket s) {
+			this.s = s;
+		}
+
+		/**
+		 * Take an object based on Resource and create a list with all of its
+		 * properties (except of its type).
+		 * 
+		 * @param pr
+		 *            Resource the properties should be listed
+		 * @return List of all properties except of the type
+		 */
+		private ArrayList<String> getPreds(Resource pr) {
+			ArrayList<String> result = new ArrayList<String>();
+			for (Enumeration<?> e = pr.getPropertyURIs(); e.hasMoreElements();) {
+				String uri = e.nextElement().toString();
+				if (!Resource.PROP_RDF_TYPE.equals(uri))
+					result.add(uri);
+			}
+			return result;
+		}
+
+		/**
+		 * One thread is started for every query passed to the reasoner. First a
+		 * connection to JenaDB is established and then the query will be read
+		 * out of the socket.
+		 */
+		public void run() {
+			logger.info("Starting the Query handler thread");
+			InputStream is = null;
+			try {
+				// Open a connection to the DB
+				DBConnection conn = new DBConnection(JENA_DB_URL, JENA_DB_USER,
+						JENA_DB_PASSWORD, "MySQL");
+				logger.debug("Connected to DB");
+
+				// Ensure that JenaDB is active
+				if (conn.containsModel(JENA_MODEL_NAME)) {
+					// Connect to JenaDB Model
+					ModelRDB CHModel = ModelRDB.open(conn, JENA_MODEL_NAME);
+					logger.debug("Connected to model");
+
+					// Get the query-string from the socket
+					StringWriter sw = new StringWriter(2048);
+					is = s.getInputStream();
+					for (int i = 0; i < 2048 && is.available() > 0; i++)
+						sw.append((char) is.read());
+					String queryStr = sw.toString();
+
+					// create and perform the query on the DB
+					Query query = QueryFactory.create(queryStr);
+					logger.info("Checking stored query: {}", query.toString());
+					QueryExecution qexec = QueryExecutionFactory.create(query,
+							CHModel);
+					Model m = qexec.execConstruct();
+
+					// using JenaConverter to make a Resource object out of the
+					// root element of the model (see descriptions at the
+					// beginning) --> convert from JenaOWL to uAAL OWL-Java
+					// representation.
+					Resource pr = mc.toPersonaResource(mc
+							.getJenaRootResource(m));
+
+					if (pr != null) {
+						logger.info("Publishing events on: {}", pr.getURI());
+						// Now publish a context-event for every subject (must
+						// be exact one) / predicate pair
+						for (String pred : getPreds(pr)) {
+							logger.info("{} = {}", pred, pr.getProperty(pred));
+							ContextEvent cev = new ContextEvent(pr, pred);
+							cp.publish(cev);
+						}
+						logger.info("Event publishing finished!");
+					}
+					// Finally clear up
+					qexec.close();
+					CHModel.close();
+				}
+				logger.debug("Clossing connection to DB");
+				conn.close();
+			} catch (Exception e) {
+				logger.warn("A query string could not be processed: {}", e);
+			} finally {
+				if (is != null) {
+					try {
+						is.close();
+					} catch (Exception e2) {
+						logger.warn(
+								"A query input stream could not be closed: {}",
+								e2);
+					}
+				}
+				if (s != null && !s.isClosed()) {
+					try {
+						s.close();
+					} catch (Exception e2) {
+						logger.warn(
+								"A query input socket could not be closed: {}",
+								e2);
+					}
+				}
+			}
+		}
 	}
 
 	/**
-	 * One thread is started for every query passed to the reasoner. First a
-	 * connection to JenaDB is established and then the query will be read
-	 * out of the socket.
+	 * Standard start-method of the BundleActivator interface. Here used to get
+	 * the port of MySQL, get the JenaDB interface class, create the
+	 * ContextPublisher and start the listening for queries.
+	 */
+	public void start(BundleContext context) throws Exception {
+		// get MySQL port
+		String portParam = System
+				.getProperty("org.universAAL.ctxt.sr.server_port");
+		if (portParam != null) {
+			try {
+				port = Integer.parseInt(portParam);
+			} catch (Exception e) {
+			}
+		}
+
+		// Get JenaDB service
+		mc = (JenaConverter) context.getService(context
+				.getServiceReference(JenaConverter.class.getName()));
+
+		// prepare for context publishing
+		ContextProvider info = new ContextProvider(
+				uAAL_SITUATION_REASONER_NAMESPACE + "genReasoner");
+		info.setType(ContextProviderType.reasoner);
+		cp = new DefaultContextPublisher(context, info);
+
+		// start listening
+		continueListening = true;
+		start();
+
+	}
+
+	/**
+	 * Run method of the Reasoner listening thread. First checks if MySQl is
+	 * reachable and connect per socket to the MySQL plug-in. Then starts
+	 * listening to incoming queries and starts a new QueryHandler for everyone.
 	 */
 	public void run() {
-	    LogUtils.logInfo(moduleContext, this.getClass(), "run",
-		    new Object[] { "Starting the Query handler thread" }, null);
-	    InputStream is = null;
-	    try {
-		// Open a connection to the DB
-		DBConnection conn = new DBConnection(JENA_DB_URL, JENA_DB_USER,
-			JENA_DB_PASSWORD, "MySQL");
-		LogUtils.logDebug(moduleContext, this.getClass(), "run",
-			new Object[] { "Connected to DB" }, null);
-
-		// Ensure that JenaDB is active
-		if (conn.containsModel(JENA_MODEL_NAME)) {
-		    // Connect to JenaDB Model
-		    ModelRDB CHModel = ModelRDB.open(conn, JENA_MODEL_NAME);
-		    LogUtils.logDebug(moduleContext, this.getClass(), "run",
-			    new Object[] { "Connected to model" }, null);
-
-		    // Get the query-string from the socket
-		    StringWriter sw = new StringWriter(2048);
-		    is = s.getInputStream();
-		    for (int i = 0; i < 2048 && is.available() > 0; i++)
-			sw.append((char) is.read());
-		    String queryStr = sw.toString();
-
-		    // create and perform the query on the DB
-		    Query query = QueryFactory.create(queryStr);
-		    LogUtils.logDebug(
-			    moduleContext,
-			    this.getClass(),
-			    "run",
-			    new Object[] { "Checking stored query: {}",
-				    query.toString() }, null);
-		    QueryExecution qexec = QueryExecutionFactory.create(query,
-			    CHModel);
-		    Model m = qexec.execConstruct();
-
-		    // using JenaConverter to make a Resource object out of the
-		    // root element of the model (see descriptions at the
-		    // beginning) --> convert from JenaOWL to uAAL OWL-Java
-		    // representation.
-		    Resource pr = mc.toPersonaResource(mc
-			    .getJenaRootResource(m));
-
-		    if (pr != null) {
-			LogUtils.logDebug(
-				moduleContext,
-				this.getClass(),
-				"run",
-				new Object[] { "Publishing events on: {}",
-					pr.getURI() }, null);
-			// Now publish a context-event for every subject (must
-			// be exact one) / predicate pair
-			for (String pred : getPreds(pr)) {
-			    LogUtils.logDebug(
-				    moduleContext,
-				    this.getClass(),
-				    "run",
-				    new Object[] { "{} = {}", pred,
-					    pr.getProperty(pred) }, null);
-			    ContextEvent cev = new ContextEvent(pr, pred);
-			    cp.publish(cev);
+		logger.info("Starting the Reasoner thread");
+		ServerSocket serverSocket = null;
+		try {
+			// Check DB-Driver
+			Driver dr = new Driver();
+			if (dr == null)
+				logger
+						.warn("No instance of the mysql jdbc driver could be built!");
+			// Create socket connection to the MySQL plug-in
+			serverSocket = new ServerSocket(port, 5);
+			synchronized (this) {
+				notify();
 			}
-			LogUtils.logWarn(
-				moduleContext,
-				this.getClass(),
-				"run",
-				new Object[] { "Event publishing finished!"},null);
-		    }
-		    // Finally clear up
-		    qexec.close();
-		    CHModel.close();
-		}
-		LogUtils.logDebug(
-			moduleContext,
-			this.getClass(),
-			"run",
-			new Object[] { "Clossing connection to DB"},null);
-		conn.close();
-	    } catch (Exception e) {
-		LogUtils.logError(
-			moduleContext,
-			this.getClass(),
-			"run",
-			new Object[] { "A query string could not be processed: {}", e},null);
-	    } finally {
-		if (is != null) {
-		    try {
-			is.close();
-		    } catch (Exception e2) {
-			LogUtils.logWarn(
-				moduleContext,
-				this.getClass(),
-				"run",
-				new Object[] {
-					"A query input stream could not be closed: {}",
-					e2 }, null);
-		    }
-		}
-		if (s != null && !s.isClosed()) {
-		    try {
-			s.close();
-		    } catch (Exception e2) {
-			LogUtils.logWarn(
-				moduleContext,
-				this.getClass(),
-				"run",
-				new Object[] {
-					"A query input socket could not be closed: {}",
-					e2 }, null);
-		    }
-		}
-	    }
-	}
-    }
 
-    /**
-     * Standard start-method of the BundleActivator interface. Here used to get
-     * the port of MySQL, get the JenaDB interface class, create the
-     * ContextPublisher and start the listening for queries.
-     */
-    public void start(BundleContext context) throws Exception {
-	moduleContext = uAALBundleContainer.THE_CONTAINER
-		.registerModule(new Object[] { context });
-	// get MySQL port
-	String portParam = System
-		.getProperty("org.universAAL.ctxt.sr.server_port");
-	if (portParam != null) {
-	    try {
-		port = Integer.parseInt(portParam);
-	    } catch (Exception e) {
-	    }
+			// start an infinite loop that always blocks by using
+			// serverSocket.accept() until a new query comes in and endsafter
+			// the bundle stops (continueListening is false).
+			while (continueListening) {
+				try {
+					new QueryHandler(serverSocket.accept()).start();
+				} catch (Exception e1) {
+					logger
+							.warn(
+									"Retrying the Situation Reasoner DB listener due to: {}",
+									e1);
+				}
+			}
+		} catch (Exception e) {
+			logger.error("The Situation Reasoner DB listener interrupted: {}",
+					e);
+		} finally {
+			if (serverSocket != null)
+				try {
+					serverSocket.close();
+				} catch (Exception e2) {
+					logger
+							.warn(
+									"Problems while trying to close the server socket: {}",
+									e2);
+				}
+		}
 	}
 
-	// Get JenaDB service
-	mc = (JenaConverter) context.getService(context
-		.getServiceReference(JenaConverter.class.getName()));
+	/**
+	 * Standard stop-method of the BundleActivator interface that is here used
+	 * to stop the Reasoner thread
+	 */
+	public void stop(BundleContext arg0) throws Exception {
+		continueListening = false;
+	}
 
-	// prepare for context publishing
-	ContextProvider info = new ContextProvider(
-		uAAL_SITUATION_REASONER_NAMESPACE + "genReasoner");
-	info.setType(ContextProviderType.reasoner);
-	cp = new DefaultContextPublisher(moduleContext, info);
-
-	// start listening
-	continueListening = true;
-	start();
-
-    }
-
-    /**
-     * Run method of the Reasoner listening thread. First checks if MySQl is
-     * reachable and connect per socket to the MySQL plug-in. Then starts
-     * listening to incoming queries and starts a new QueryHandler for everyone.
-     */
-    public void run() {
-	LogUtils.logInfo(
-		moduleContext,
-		this.getClass(),
-		"run",
-		new Object[] {"Starting the Reasoner thread"},null);
-	ServerSocket serverSocket = null;
-	try {
-	    // Check DB-Driver
-	    Driver dr = new Driver();
-	    if (dr == null)
-		LogUtils.logWarn(
-			moduleContext,
-			this.getClass(),
-			"run",
-			new Object[] {"No instance of the mysql jdbc driver could be built!"},null);
-	    // Create socket connection to the MySQL plug-in
-	    serverSocket = new ServerSocket(port, 5);
-	    synchronized (this) {
-		notify();
-	    }
-
-	    // start an infinite loop that always blocks by using
-	    // serverSocket.accept() until a new query comes in and endsafter
-	    // the bundle stops (continueListening is false).
-	    while (continueListening) {
+	/**
+	 * Gets the properties of the CHe
+	 * 
+	 * @return The properties of the CHe
+	 * @see #setProperties(Properties)
+	 */
+	public static synchronized Properties getProperties() {
+		Properties prop = new Properties();
 		try {
-		    new QueryHandler(serverSocket.accept()).start();
-		} catch (Exception e1) {
-		    LogUtils.logWarn(
-				moduleContext,
-				this.getClass(),
-				"run",
-				new Object[] {"Retrying the Situation Reasoner DB listener due to: {}",
-			    e1},null);
+			prop = new Properties();
+			InputStream in = new FileInputStream(new File(confHome, PROPS_FILE));
+			prop.load(in);
+			in.close();
+		} catch (Exception e) {
+			logger.error("Could not access properties file: {} " + e);
 		}
-	    }
-	} catch (Exception e) {
-	    LogUtils.logError(
-			moduleContext,
-			this.getClass(),
-			"run",
-			new Object[] {"The Situation Reasoner DB listener interrupted: {}",
-		    e},null);
-	} finally {
-	    if (serverSocket != null)
-		try {
-		    serverSocket.close();
-		} catch (Exception e2) {
-		    LogUtils.logWarn(
-				moduleContext,
-				this.getClass(),
-				"run",
-				new Object[] {
-			    "Problems while trying to close the server socket: {}",
-			    e2},null);
-		}
+		return prop;
 	}
-    }
-
-    /**
-     * Standard stop-method of the BundleActivator interface that is here used
-     * to stop the Reasoner thread
-     */
-    public void stop(BundleContext arg0) throws Exception {
-	continueListening = false;
-    }
-
-    /**
-     * Gets the properties of the CHe
-     * 
-     * @return The properties of the CHe
-     * @see #setProperties(Properties)
-     */
-    public static synchronized Properties getProperties() {
-	Properties prop = new Properties();
-	try {
-	    prop = new Properties();
-	    InputStream in = new FileInputStream(new File(confHome, PROPS_FILE));
-	    prop.load(in);
-	    in.close();
-	} catch (Exception e) {
-	    LogUtils.logError(
-			moduleContext,
-			Activator.class,
-			"getProperties",
-			new Object[] {"Could not access properties file: {} " + e},null);
-	}
-	return prop;
-    }
 
 }

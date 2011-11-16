@@ -1,5 +1,5 @@
 /*
-	Copyright 2008-2014 ITACA-TSB, http://www.tsb.upv.es
+	Copyright 2008-2011 ITACA-TSB, http://www.tsb.upv.es
 	Instituto Tecnologico de Aplicaciones de Comunicacion 
 	Avanzadas - Grupo Tecnologias para la Salud y el 
 	Bienestar (TSB)
@@ -21,14 +21,11 @@
  */
 package org.universAAL.context.che.database;
 
-import java.io.IOException;
 import java.util.ArrayList;
 
-import org.openrdf.repository.RepositoryException;
-import org.openrdf.rio.RDFParseException;
 import org.universAAL.middleware.context.ContextEvent;
 import org.universAAL.middleware.context.owl.ContextProvider;
-import org.universAAL.middleware.serialization.MessageContentSerializer;
+import org.universAAL.middleware.sodapop.msg.MessageContentSerializer;
 
 /**
  * Interface that represents a store back end where the context history is
@@ -38,16 +35,16 @@ import org.universAAL.middleware.serialization.MessageContentSerializer;
  * 
  */
 public interface Backend {
-
+    
     /**
-     * Establishes the connection to the store.
+     * Establishes the connection to the store
      */
-    void connect();
-
+    public void connect();
+    
     /**
-     * Closes the connection to the store.
+     * Closes the connection to the store
      */
-    void close();
+    public void close();
 
     /**
      * Stores a {@link org.universAAL.middleware.context.ContextEvent} in the
@@ -56,14 +53,13 @@ public interface Backend {
      * @param e
      *            The context event to be stored.
      */
-    void storeEvent(ContextEvent e);
+    public void storeEvent(ContextEvent e);
 
     /**
-     * Retrieves a list of
-     * {@link org.universAAL.middleware.context.ContextEvent} from the
-     * underlying store, which members are the context events that match the
-     * parameters passed. A parameter can be passed a value of <code>null</code>
-     * for wildcarding.
+     * Retrieves a list of {@link org.universAAL.middleware.context.ContextEvent}
+     * from the underlying store, which members are the context events that
+     * match the parameters passed. A parameter can be passed a value of
+     * <code>null</code> for wildcarding.
      * <p>
      * This is not used in the current version. Will probably be deprecated.
      * 
@@ -76,6 +72,8 @@ public interface Backend {
      * @param object
      *            The Object of the event to be matched. It depends on the
      *            implementer of this method how to match the object.
+     * @param acc
+     *            The accuracy of the event to be matched
      * @param confidence
      *            The confidence of the event to be matched
      * @param expiration
@@ -87,16 +85,16 @@ public interface Backend {
      * @return The list of context events that matched the values passed as
      *         parameters.
      */
-    ArrayList retrieveEvent(String subject, String subjecttype,
+    public ArrayList retrieveEvent(String subject, String subjecttype,
 	    String predicate, Object object, Integer confidence,
 	    Long expiration, Object provider, Long tstamp);
 
     /**
-     * Retrieves a list of
-     * {@link org.universAAL.middleware.context.ContextEvent} from the
-     * underlying store, which members are the context events that match the
-     * parameters passed, and were received after the specified timestamp. A
-     * parameter can be passed a value of <code>null</code> for wildcarding.
+     * Retrieves a list of {@link org.universAAL.middleware.context.ContextEvent}
+     * from the underlying store, which members are the context events that
+     * match the parameters passed, and were received after the specified
+     * timestamp. A parameter can be passed a value of <code>null</code> for
+     * wildcarding.
      * 
      * @param subject
      *            The URI of the subject of the event to be matched
@@ -107,6 +105,8 @@ public interface Backend {
      * @param object
      *            The Object of the event to be matched. It depends on the
      *            implementer of this method how to match the object.
+     * @param acc
+     *            The accuracy of the event to be matched
      * @param confidence
      *            The confidence of the event to be matched
      * @param expiration
@@ -124,17 +124,17 @@ public interface Backend {
      * @return The list of context events that matched the values passed as
      *         parameters.
      */
-    ArrayList retrieveEventsFromTstmp(String subject,
+    public ArrayList retrieveEventsFromTstmp(String subject,
 	    String subjecttype, String predicate, Object object,
 	    Integer confidence, Long expiration, ContextProvider provider,
 	    Long tstamp, Long tstfrom);
 
     /**
-     * Retrieves a list of
-     * {@link org.universAAL.middleware.context.ContextEvent} from the
-     * underlying store, which members are the context events that match the
-     * parameters passed, and were received before the specified timestamp. A
-     * parameter can be passed a value of <code>null</code> for wildcarding.
+     * Retrieves a list of {@link org.universAAL.middleware.context.ContextEvent}
+     * from the underlying store, which members are the context events that
+     * match the parameters passed, and were received before the specified
+     * timestamp. A parameter can be passed a value of <code>null</code> for
+     * wildcarding.
      * 
      * @param subject
      *            The URI of the subject of the event to be matched
@@ -145,7 +145,8 @@ public interface Backend {
      * @param object
      *            The Object of the event to be matched. It depends on the
      *            implementer of this method how to match the object.
-
+     * @param acc
+     *            The accuracy of the event to be matched
      * @param confidence
      *            The confidence of the event to be matched
      * @param expiration
@@ -164,16 +165,16 @@ public interface Backend {
      * @return The list of context events that matched the values passed as
      *         parameters.
      */
-    ArrayList retrieveEventsToTstmp(String subject, String subjecttype,
+    public ArrayList retrieveEventsToTstmp(String subject, String subjecttype,
 	    String predicate, Object object, Integer confidence,
 	    Long expiration, ContextProvider provider, Long tstamp, Long tstto);
 
     /**
-     * Retrieves a list of
-     * {@link org.universAAL.middleware.context.ContextEvent} from the
-     * underlying store, which members are the context events that match the
-     * parameters passed, and were received within the specified time range. A
-     * parameter can be passed a value of <code>null</code> for wildcarding.
+     * Retrieves a list of {@link org.universAAL.middleware.context.ContextEvent}
+     * from the underlying store, which members are the context events that
+     * match the parameters passed, and were received within the specified time
+     * range. A parameter can be passed a value of <code>null</code> for
+     * wildcarding.
      * 
      * @param subject
      *            The URI of the subject of the event to be matched
@@ -184,6 +185,8 @@ public interface Backend {
      * @param object
      *            The Object of the event to be matched. It depends on the
      *            implementer of this method how to match the object.
+     * @param acc
+     *            The accuracy of the event to be matched
      * @param confidence
      *            The confidence of the event to be matched
      * @param expiration
@@ -205,15 +208,14 @@ public interface Backend {
      * @return The list of context events that matched the values passed as
      *         parameters.
      */
-    ArrayList retrieveEventsBetweenTstmp(String subject,
+    public ArrayList retrieveEventsBetweenTstmp(String subject,
 	    String subjecttype, String predicate, Object object,
 	    Integer confidence, Long expiration, ContextProvider provider,
 	    Long tstamp, Long tstfrom, Long tstto);
 
     /**
-     * Retrieves a list of
-     * {@link org.universAAL.middleware.context.ContextEvent} from the
-     * underlying store, as a result of a SPARQL query.
+     * Retrieves a list of {@link org.universAAL.middleware.context.ContextEvent}
+     * from the underlying store, as a result of a SPARQL query.
      * 
      * @param input
      *            The SPARQL query that defines the events to be returned. The
@@ -222,7 +224,7 @@ public interface Backend {
      *            SELECT queries are allowed.
      * @return The list of context events that matched the query.
      */
-    ArrayList retrieveEventsBySPARQL(String input);
+    public ArrayList retrieveEventsBySPARQL(String input);
 
     /**
      * Returns the result of a SPARQL query issued to the underlying store.
@@ -244,17 +246,17 @@ public interface Backend {
      * @return The serialized form of the result from the execution of the
      *         query.
      */
-    String queryBySPARQL(String input);
+    public String queryBySPARQL(String input);
 
     /**
-     * Removes all events from the underlying store that were received until the
-     * specified timestamp.
+     * Removes all events from the underlying store that were received until
+     * the specified timestamp.
      * 
      * @param tstamp
      *            The timestamp in milliseconds until which events are removed.
      *            A value of 0 does nothing.
      */
-    void removeOldEvents(long tstamp);
+    public void removeOldEvents(long tstamp);
 
     /**
      * Set the MessageContentSerializer universAAL Parser that can be used to
@@ -272,17 +274,6 @@ public interface Backend {
      *            The MessageContentSerializer service implementation found in
      *            OSGi
      */
-    void setuAALParser(MessageContentSerializer service);
+    public void setuAALParser(MessageContentSerializer service);
 
-    /**
-     * Fills the initial store with the OWL data of the ontologies from the OWL
-     * files in the config folder (or registered in the system). Also used for
-     * updates when new ontologies are installed.
-     * 
-     * @throws RepositoryException
-     * @throws RDFParseException
-     * @throws IOException
-     */
-    public void populate() throws RepositoryException, RDFParseException,
-	    IOException;
 }

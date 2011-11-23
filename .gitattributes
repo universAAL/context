@@ -1,0 +1,11 @@
+* text=auto !eol
+/LICENSE-BSD-XStream.txt -text
+/LICENSE-CPL-JUnit.txt -text
+/LICENSE-Extreme.txt -text
+/LICENSE-MIT11-Bouncycastle.txt -text
+/LICENSE.txt -text
+/NOTICE.txt -text
+/pom.xml -text
+src/main/java/org/universAAL/context/chemobile/Activator.java -text
+src/main/java/org/universAAL/context/chemobile/HistoryConsumer.java -text
+src/main/java/org/universAAL/context/chemobile/WriteOnlyJavaReflectionProvider.java -text

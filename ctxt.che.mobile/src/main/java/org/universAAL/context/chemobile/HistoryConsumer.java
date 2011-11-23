@@ -25,11 +25,11 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 
-import org.osgi.framework.BundleContext;
+import org.universAAL.middleware.container.ModuleContext;
+import org.universAAL.middleware.container.osgi.util.BundleConfigHome;
 import org.universAAL.middleware.context.ContextEvent;
 import org.universAAL.middleware.context.ContextEventPattern;
 import org.universAAL.middleware.context.ContextSubscriber;
-import org.universAAL.middleware.util.Constants;
 
 import com.thoughtworks.xstream.XStream;
 
@@ -43,10 +43,9 @@ import com.thoughtworks.xstream.XStream;
 public class HistoryConsumer extends ContextSubscriber {
     private static final String FILE = "PMD-Events.txt";
     private XStream xs;
-    private File confHome = new File(new File(Constants.getSpaceConfRoot()),
-	    "ctxt.che.mobile");
+    private File confHome = new File(new BundleConfigHome("ctxt.che.mobile").getAbsolutePath());
 
-    public HistoryConsumer(BundleContext context) {
+    public HistoryConsumer(ModuleContext context) {
 	super(context, new ContextEventPattern[] { new ContextEventPattern() });
 	xs = new XStream(new WriteOnlyJavaReflectionProvider());
 	synchronized (Activator.getLock()) {

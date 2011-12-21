@@ -7,10 +7,10 @@
 		<groupId>org.universAAL.context</groupId>
 		<artifactId>ctxt.pom</artifactId>
 		<version>1.0.0</version>
-		<relativePath>../ctxt.pom/pom.xml</relativePath>
+		<relativePath>../pom/pom.xml</relativePath>
 	</parent>
 	<artifactId>ctxt.che</artifactId>
-	<version>1.0.0</version>
+	<version>0.6.0-SNAPSHOT</version>
 	<packaging>bundle</packaging>
 
 	<!-- ______________________________________________________ -->
@@ -44,6 +44,17 @@
 		<dependency>
 			<groupId>org.apache.felix</groupId>
 			<artifactId>org.osgi.core</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.felix</groupId>
+			<artifactId>org.osgi.compendium</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>com.thoughtworks.xstream</groupId>
@@ -55,6 +66,33 @@
 			<artifactId>pax-logging-api</artifactId>
 			<version>1.4</version>
 			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.ops4j.pax.logging</groupId>
+			<artifactId>pax-logging-service</artifactId>
+			<version>1.4</version>
+			<scope>provided</scope>
+			<exclusions>
+				<exclusion>
+					<artifactId>log4j</artifactId>
+					<groupId>log4j</groupId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>org.universAAL.middleware</groupId>
+			<artifactId>mw.data.representation</artifactId>
+			<version>0.3.1-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>org.universAAL.middleware</groupId>
+			<artifactId>mw.bus.service</artifactId>
+			<version>0.3.1-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>org.universAAL.middleware</groupId>
+			<artifactId>mw.bus.context</artifactId>
+			<version>0.3.1-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<groupId>org.openrdf.sesame</groupId>
@@ -90,22 +128,6 @@
 			<groupId>org.openrdf.sesame</groupId>
 			<artifactId>sesame-rio-rdfxml</artifactId>
 			<version>2.5.1</version>
-		</dependency>
-		<dependency>
-			<groupId>org.universAAL.middleware</groupId>
-			<artifactId>mw.container.osgi</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.universAAL.middleware</groupId>
-			<artifactId>mw.data.representation</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.universAAL.middleware</groupId>
-			<artifactId>mw.bus.service</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.universAAL.middleware</groupId>
-			<artifactId>mw.bus.context</artifactId>
 		</dependency>
 	</dependencies>
 	
@@ -153,14 +175,16 @@
 					</instructions>
 				</configuration>
 			</plugin>
-			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>build-helper-maven-plugin</artifactId>
-			</plugin>
 		</plugins>
 	</build>
 
 	<!-- ______________________________________________________ -->
+
+	<scm>
+		<connection>scm:svn:http://forge.universaal.org/svn/uaal_context/trunk/ctxt.che</connection>
+		<developerConnection>scm:svn:http://forge.universaal.org/svn/uaal_context/trunk/ctxt.che</developerConnection>
+		<url>http://forge.universaal.org/gf/project/uaal_context/scmsvn/?path=%2Ftrunk%2F</url>
+	</scm>
 	
 	<repositories>
 		<repository>

@@ -7,10 +7,10 @@
 		<groupId>org.universAAL.context</groupId>
 		<artifactId>ctxt.pom</artifactId>
 		<version>1.0.0</version>
-		<relativePath>../ctxt.pom/pom.xml</relativePath>
+		<relativePath>../pom/pom.xml</relativePath>
 	</parent>
 	<artifactId>ctxt.che.mobile</artifactId>
-	<version>1.0.0</version>
+	<version>0.2.0-SNAPSHOT</version>
 	<packaging>bundle</packaging>
 
 	<!-- ______________________________________________________ -->
@@ -44,21 +44,45 @@
 			<artifactId>org.osgi.core</artifactId>
 		</dependency>
 		<dependency>
+			<groupId>org.apache.felix</groupId>
+			<artifactId>org.osgi.compendium</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+		</dependency>
+		<dependency>
 			<groupId>com.thoughtworks.xstream</groupId>
 			<artifactId>xstream</artifactId>
 			<version>1.3.1</version>
 		</dependency>
 		<dependency>
-			<groupId>org.universAAL.middleware</groupId>
-			<artifactId>mw.container.osgi</artifactId>
+			<groupId>org.ops4j.pax.logging</groupId>
+			<artifactId>pax-logging-api</artifactId>
+			<version>1.4</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.ops4j.pax.logging</groupId>
+			<artifactId>pax-logging-service</artifactId>
+			<version>1.4</version>
+			<scope>provided</scope>
+			<exclusions>
+				<exclusion>
+					<artifactId>log4j</artifactId>
+					<groupId>log4j</groupId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 		<dependency>
 			<groupId>org.universAAL.middleware</groupId>
 			<artifactId>mw.data.representation</artifactId>
+			<version>0.3.0-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<groupId>org.universAAL.middleware</groupId>
 			<artifactId>mw.bus.context</artifactId>
+			<version>0.3.0-SNAPSHOT</version>
 		</dependency>
 	</dependencies>
 
@@ -80,13 +104,15 @@
 					</instructions>
 				</configuration>
 			</plugin>
-			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>build-helper-maven-plugin</artifactId>
-			</plugin>
 		</plugins>
 	</build>
 
 	<!-- ______________________________________________________ -->
+
+	<scm>
+		<connection>scm:svn:http://forge.universaal.org/svn/uaal_context/trunk/ctxt.che.mobile</connection>
+		<developerConnection>scm:svn:http://forge.universaal.org/svn/uaal_context/trunk/ctxt.che.mobile</developerConnection>
+		<url>http://forge.universaal.org/gf/project/uaal_context/scmsvn/?path=%2Ftrunk%2F</url>
+	</scm>
 	
 </project>

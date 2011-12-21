@@ -7,7 +7,7 @@
 		<groupId>org.universAAL.context</groupId>
 		<artifactId>ctxt.pom</artifactId>
 		<version>1.0.0</version>
-		<relativePath>../ctxt.pom/pom.xml</relativePath>
+		<relativePath>../pom/pom.xml</relativePath>
 	</parent>
 	<artifactId>ctxt.che</artifactId>
 	<version>1.0.0</version>
@@ -93,10 +93,6 @@
 		</dependency>
 		<dependency>
 			<groupId>org.universAAL.middleware</groupId>
-			<artifactId>mw.container.osgi</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.universAAL.middleware</groupId>
 			<artifactId>mw.data.representation</artifactId>
 		</dependency>
 		<dependency>
@@ -152,10 +148,6 @@
 						<Export-Package>org.universAAL.context.che.ontology,org.universAAL.context.che,org.universAAL.context.che.database</Export-Package>
 					</instructions>
 				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>build-helper-maven-plugin</artifactId>
 			</plugin>
 		</plugins>
 	</build>

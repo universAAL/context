@@ -4,7 +4,7 @@
 		<groupId>org.universAAL.context</groupId>
 		<artifactId>ctxt.pom</artifactId>
 		<version>1.0.0</version>
-		<relativePath>../ctxt.pom/pom.xml</relativePath>
+		<relativePath>../pom/pom.xml</relativePath>
 	</parent>
 	<modelVersion>4.0.0</modelVersion>
 	<artifactId>ctxt.jena.converter</artifactId>
@@ -53,10 +53,6 @@
 		</dependency>
 		<dependency>
 			<groupId>org.universAAL.middleware</groupId>
-			<artifactId>mw.container.osgi</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.universAAL.middleware</groupId>
 			<artifactId>mw.data.representation</artifactId>
 		</dependency>
 		<dependency>
@@ -89,10 +85,6 @@
 						<Private-Package>org.universAAL.context.conversion.jena.impl</Private-Package>
 					</instructions>
 				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>build-helper-maven-plugin</artifactId>
 			</plugin>
 		</plugins>
 	</build>

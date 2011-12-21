@@ -2,3 +2,7 @@ ctxt.che/.classpath
 ctxt.che/.project
 ctxt.che/.settings
 ctxt.che/target
+ctxt.jena.converter/.classpath
+ctxt.jena.converter/.project
+ctxt.jena.converter/.settings
+ctxt.jena.converter/target

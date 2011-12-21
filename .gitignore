@@ -10,3 +10,6 @@ ctxt.jena.converter/.classpath
 ctxt.jena.converter/.project
 ctxt.jena.converter/.settings
 ctxt.jena.converter/target
+pom/.project
+pom/.settings
+pom/target

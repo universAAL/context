@@ -42,3 +42,4 @@ ctxt.jena.converter/src/test/java/org/universAAL/context/conversion/jena/impl/UI
 ctxt.jena.converter/src/test/java/org/universAAL/context/conversion/jena/impl/util/HearingImpairment.java -text
 ctxt.jena.converter/src/test/java/org/universAAL/context/conversion/jena/impl/util/PhysicalImpairment.java -text
 ctxt.jena.converter/src/test/java/org/universAAL/context/conversion/jena/impl/util/SightImpairment.java -text
+pom/pom.xml -text

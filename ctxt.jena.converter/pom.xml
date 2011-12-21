@@ -10,7 +10,7 @@
 	<artifactId>ctxt.jena.converter</artifactId>
 	<packaging>bundle</packaging>
 	<name>jena.model_converter</name>
-	<version>0.3.1-SNAPSHOT</version>
+	<version>1.0.0</version>
 	<description>The module for converting the representation of resources from PERSONA to Jena and vice versa.</description>
 	
 	  <inceptionYear>2008</inceptionYear>
@@ -38,17 +38,6 @@
 			<version>1.4</version>
 		</dependency>
 		<dependency>
-			<groupId>org.ops4j.pax.logging</groupId>
-			<artifactId>pax-logging-service</artifactId>
-			<version>1.4</version>
-			<exclusions>
-				<exclusion>
-					<artifactId>log4j</artifactId>
-					<groupId>log4j</groupId>
-				</exclusion>
-			</exclusions>
-		</dependency>
-		<dependency>
 			<groupId>com.hp.hpl.jena</groupId>
 			<artifactId>jena</artifactId>
 			<version>2.5.4</version>
@@ -57,32 +46,26 @@
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
-			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.felix</groupId>
 			<artifactId>org.osgi.core</artifactId>
-			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.universAAL.middleware</groupId>
 			<artifactId>mw.data.representation</artifactId>
-			<version>0.3.1-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<groupId>org.universAAL.middleware</groupId>
 			<artifactId>mw.bus.service</artifactId>
-			<version>0.3.1-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<groupId>org.universAAL.middleware</groupId>
 			<artifactId>mw.bus.io</artifactId>
-			<version>0.3.1-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<groupId>org.universAAL.middleware</groupId>
 			<artifactId>mw.bus.context</artifactId>
-			<version>0.3.1-SNAPSHOT</version>
 		</dependency>
 	</dependencies>
 
@@ -106,16 +89,4 @@
 		</plugins>
 	</build>
 	
-	<distributionManagement>
-		<repository>
-			<id>releases</id>
-			<name>universAAL Releases</name>
-			<url>http://depot.universaal.org/nexus/content/repositories/releases/</url>
-		</repository>
-		<snapshotRepository>
-			<id>snapshots</id>
-			<name>universAAL Snapshots</name>
-			<url>http://depot.universaal.org/nexus/content/repositories/snapshots/</url>
-		</snapshotRepository>
-	</distributionManagement>
 </project>

@@ -53,6 +53,16 @@
 			</dependency>
 			<dependency>
 				<groupId>org.universAAL.middleware</groupId>
+				<artifactId>mw.container.osgi</artifactId>
+				<version>1.0.0</version>
+			</dependency>
+			<dependency>
+				<groupId>org.universAAL.middleware</groupId>
+				<artifactId>mw.container.xfaces</artifactId>
+				<version>1.0.0</version>
+			</dependency>
+			<dependency>
+				<groupId>org.universAAL.middleware</groupId>
 				<artifactId>mw.data.representation</artifactId>
 				<version>1.0.0</version>
 			</dependency>

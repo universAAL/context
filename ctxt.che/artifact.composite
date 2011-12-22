@@ -1,0 +1,9 @@
+#needed Libraries:
+
+#uAAL Dependencies:
+scan-composite:mvn:org.universAAL.middleware/mw.container.osgi/1.0.0/composite
+scan-composite:mvn:org.universAAL.middleware/mw.data.representation/1.0.0/composite
+scan-composite:mvn:org.universAAL.middleware/mw.bus.service/1.0.0/composite
+scan-composite:mvn:org.universAAL.middleware/mw.bus.context/1.0.0/composite
+## Self:
+scan-bundle:mvn:org.universAAL.context/ctxt.che/1.0.0

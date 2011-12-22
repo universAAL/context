@@ -1,0 +1,11 @@
+#needed Libraries:
+
+scan-bundle:mvn:org.universAAL.support/jena.osgi/1.0.0
+#uAAL Dependencies:
+scan-composite:mvn:org.universAAL.middleware/mw.container.osgi/1.0.0/composite
+scan-composite:mvn:org.universAAL.middleware/mw.data.representation/1.0.0/composite
+scan-composite:mvn:org.universAAL.middleware/mw.bus.service/1.0.0/composite
+scan-composite:mvn:org.universAAL.middleware/mw.bus.context/1.0.0/composite
+scan-composite:mvn:org.universAAL.middleware/mw.bus.io/1.0.0/composite
+## Self:
+scan-bundle:mvn:org.universAAL.context/ctxt.jena.converter/1.0.0

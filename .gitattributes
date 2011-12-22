@@ -5,6 +5,7 @@ ctxt.che.mobile/LICENSE-Extreme.txt -text
 ctxt.che.mobile/LICENSE-MIT11-Bouncycastle.txt -text
 ctxt.che.mobile/LICENSE.txt -text
 ctxt.che.mobile/NOTICE.txt -text
+ctxt.che.mobile/artifact.composite -text
 ctxt.che.mobile/pom.xml -text
 ctxt.che.mobile/src/main/java/org/universAAL/context/chemobile/Activator.java -text
 ctxt.che.mobile/src/main/java/org/universAAL/context/chemobile/HistoryConsumer.java -text
@@ -16,6 +17,7 @@ ctxt.che/LICENSE-Extreme.txt -text
 ctxt.che/LICENSE-MIT11-Bouncycastle.txt -text
 ctxt.che/LICENSE.txt -text
 ctxt.che/NOTICE.txt -text
+ctxt.che/artifact.composite -text
 ctxt.che/pom.xml -text
 ctxt.che/src/main/java/org/universAAL/context/che/Activator.java -text
 ctxt.che/src/main/java/org/universAAL/context/che/ContextHistoryCallee.java -text
@@ -32,6 +34,7 @@ ctxt.jena.converter/LICENSE-CPL-JUnit.txt -text
 ctxt.jena.converter/LICENSE-MIT11-Bouncycastle.txt -text
 ctxt.jena.converter/LICENSE.txt -text
 ctxt.jena.converter/NOTICE.txt -text
+ctxt.jena.converter/artifact.composite -text
 ctxt.jena.converter/pom.xml -text
 ctxt.jena.converter/src/main/java/org/universAAL/context/conversion/jena/JenaConverter.java -text
 ctxt.jena.converter/src/main/java/org/universAAL/context/conversion/jena/impl/Activator.java -text

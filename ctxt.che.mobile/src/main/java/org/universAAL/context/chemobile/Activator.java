@@ -23,8 +23,8 @@ package org.universAAL.context.chemobile;
 
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.universAAL.middleware.container.ModuleContext;
+import org.universAAL.middleware.container.osgi.uAALBundleContainer;
 
 /**
  * @author <a href="mailto:alfiva@itaca.upv.es">Alvaro Fides Valero</a>
@@ -32,20 +32,18 @@ import org.slf4j.LoggerFactory;
  */
 public class Activator implements BundleActivator {
 
-    public static BundleContext context = null;
+    public static ModuleContext moduleContext = null;
     private static Object fileLock;
     private HistoryConsumer hc;
-    protected final static Logger log = LoggerFactory
-	    .getLogger(Activator.class);
 
     public void start(BundleContext context) throws Exception {
-	Activator.context = context;
+	Activator.moduleContext = uAALBundleContainer.THE_CONTAINER
+		.registerModule(new Object[] { context });
 	Activator.fileLock = new Object();
-	hc = new HistoryConsumer(context);
+	hc = new HistoryConsumer(moduleContext);
     }
 
     public void stop(BundleContext context) throws Exception {
-	// TODO Auto-generated method stub
 	hc.close();
     }
 

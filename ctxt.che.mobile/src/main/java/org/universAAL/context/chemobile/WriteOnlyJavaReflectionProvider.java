@@ -47,7 +47,7 @@ import java.util.Map;
 
 /**
  * Modification of PureJavaReflectionProvider from XStream that allows to
- * serialize final fields even with JVM´s versions < 1.5. Therefore it is only
+ * serialize final fields even with JVMs versions < 1.5. Therefore it is only
  * intended for serializing. Deserialization may result in unexpected behavior.
  */
 public class WriteOnlyJavaReflectionProvider implements ReflectionProvider {

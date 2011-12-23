@@ -1,5 +1,8 @@
 #needed Libraries:
-
+scan-bundle:wrap:mvn:de.jflex/jflex/1.4.3
+scan-bundle:wrap:mvn:mysql/mysql-connector-java/5.1.6
+scan-bundle:wrap:mvn:xpp3/xpp3_min/1.1.4c
+scan-bundle:wrap:mvn:com.hp.hpl.jena/arq/2.5.0
 scan-bundle:mvn:org.universAAL.support/jena.osgi/1.0.0
 #uAAL Dependencies:
 scan-composite:mvn:org.universAAL.middleware/mw.container.osgi/1.0.0/composite

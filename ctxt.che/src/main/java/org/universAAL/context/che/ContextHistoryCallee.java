@@ -202,8 +202,7 @@ public class ContextHistoryCallee extends ServiceCallee {
 
 	    else if (operation
 		    .startsWith(ContextHistoryServices.SERVICE_GET_EVENTS_BETWEEN_TIMESTAMPS)) {
-		log
-			.info("Received call was SERVICE_GET_EVENTS_BETWEEN_TIMESTAMPS");
+		log.info("Received call was SERVICE_GET_EVENTS_BETWEEN_TIMESTAMPS");
 		Object tstinput1 = call
 			.getInputValue(ContextHistoryServices.INPUT_TIMESTAMP_FROM);
 		Object tstinput2 = call
@@ -226,9 +225,9 @@ public class ContextHistoryCallee extends ServiceCallee {
 		} else {
 		    tstinput2Value = (Long) tstinput2;
 		}
-		List results = db.retrieveEventsBetweenTstmp(sub, typ, pre,
-			obj, con, exp, cop, tst, tstinput1Value,
-			tstinput2Value);
+		List results = db
+			.retrieveEventsBetweenTstmp(sub, typ, pre, obj, con,
+				exp, cop, tst, tstinput1Value, tstinput2Value);
 		ServiceResponse response = new ServiceResponse(
 			CallStatus.succeeded);
 		response.addOutput(new ProcessOutput(

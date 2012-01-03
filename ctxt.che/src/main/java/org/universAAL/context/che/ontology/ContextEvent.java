@@ -39,12 +39,12 @@ import org.universAAL.middleware.rdf.Resource;
  * Helper class that replicates
  * {@link org.universAAL.middleware.context.ContextEvent} as a ManagedIndividual
  * with the possibility of not defining some of its properties.
- * <p>
+ * <p/>
  * This is the class that must be used by service callers that wish to call CHe
  * services, instead of the middleware one (
- * {@link org.universAAL.middleware.context.ContextEvent}), in the ServiceRequests
- * they build (as input or outputs). Then, the output events received in a
- * service response will have to be casted to
+ * {@link org.universAAL.middleware.context.ContextEvent}), in the
+ * ServiceRequests they build (as input or outputs). Then, the output events
+ * received in a service response will have to be casted to
  * {@link org.universAAL.middleware.context.ContextEvent}, thus performing the
  * conversion from
  * <code>org.universAAL.platform.casf.che.ontology.ContextEvent</code> to
@@ -55,46 +55,51 @@ import org.universAAL.middleware.rdf.Resource;
  * 
  */
 public class ContextEvent extends ManagedIndividual {
-    public static final String uAAL_CONTEXT_NAMESPACE;
-    public static final String MY_URI;
-    public static final String CONTEXT_EVENT_URI_PREFIX;
-    public static final String LOCAL_NAME_SUBJECT;
-    public static final String PROP_RDF_SUBJECT;
-    public static final String LOCAL_NAME_PREDICATE;
-    public static final String PROP_RDF_PREDICATE;
-    public static final String LOCAL_NAME_OBJECT;
-    public static final String PROP_RDF_OBJECT;
-    public static final String LOCAL_NAME_CONFIDENCE;
-    public static final String PROP_CONTEXT_CONFIDENCE;
-    public static final String LOCAL_NAME_PROVIDER;
-    public static final String PROP_CONTEXT_PROVIDER;
-    public static final String LOCAL_NAME_EXPIRATION_TIME;
-    public static final String PROP_CONTEXT_EXPIRATION_TIME;
-    public static final String LOCAL_NAME_TIMESTAMP;
-    public static final String PROP_CONTEXT_TIMESTAMP;
+    public static final String uAAL_CONTEXT_NAMESPACE = uAAL_NAMESPACE_PREFIX
+	    + "Context.owl#";
+    public static final String MY_URI = uAAL_CONTEXT_NAMESPACE
+	    + "ContextEventCHE";
+    public static final String CONTEXT_EVENT_URI_PREFIX = "urn:org.universAAL.middleware.context.rdf:ContextEvent#";
+    public static final String LOCAL_NAME_SUBJECT = "subject";
+    public static final String PROP_RDF_SUBJECT = RDF_NAMESPACE
+	    + LOCAL_NAME_SUBJECT;
+    public static final String LOCAL_NAME_PREDICATE = "predicate";
+    public static final String PROP_RDF_PREDICATE = RDF_NAMESPACE
+	    + LOCAL_NAME_PREDICATE;
+    public static final String LOCAL_NAME_OBJECT = "object";
+    public static final String PROP_RDF_OBJECT = RDF_NAMESPACE
+	    + LOCAL_NAME_OBJECT;
+    public static final String LOCAL_NAME_CONFIDENCE = "hasConfidence";
+    public static final String PROP_CONTEXT_CONFIDENCE = uAAL_CONTEXT_NAMESPACE
+	    + LOCAL_NAME_CONFIDENCE;
+    public static final String LOCAL_NAME_PROVIDER = "hasProvider";
+    public static final String PROP_CONTEXT_PROVIDER = uAAL_CONTEXT_NAMESPACE
+	    + LOCAL_NAME_PROVIDER;
+    public static final String LOCAL_NAME_EXPIRATION_TIME = "hasExpirationTime";
+    public static final String PROP_CONTEXT_EXPIRATION_TIME = uAAL_CONTEXT_NAMESPACE
+	    + LOCAL_NAME_EXPIRATION_TIME;
+    public static final String LOCAL_NAME_TIMESTAMP = "hasTimestamp";
+    public static final String PROP_CONTEXT_TIMESTAMP = uAAL_CONTEXT_NAMESPACE
+	    + LOCAL_NAME_TIMESTAMP;
 
-    static {
-	uAAL_CONTEXT_NAMESPACE = uAAL_NAMESPACE_PREFIX + "Context.owl#";
-	MY_URI = uAAL_CONTEXT_NAMESPACE + "ContextEventCHE";
-	CONTEXT_EVENT_URI_PREFIX = "urn:org.universAAL.middleware.context.rdf:ContextEvent#";
-	LOCAL_NAME_SUBJECT = "subject";
-	PROP_RDF_SUBJECT = RDF_NAMESPACE + LOCAL_NAME_SUBJECT;
-	LOCAL_NAME_PREDICATE = "predicate";
-	PROP_RDF_PREDICATE = RDF_NAMESPACE + LOCAL_NAME_PREDICATE;
-	LOCAL_NAME_OBJECT = "object";
-	PROP_RDF_OBJECT = RDF_NAMESPACE + LOCAL_NAME_OBJECT;
-	LOCAL_NAME_CONFIDENCE = "hasConfidence";
-	PROP_CONTEXT_CONFIDENCE = uAAL_CONTEXT_NAMESPACE
-		+ LOCAL_NAME_CONFIDENCE;
-	LOCAL_NAME_PROVIDER = "hasProvider";
-	PROP_CONTEXT_PROVIDER = uAAL_CONTEXT_NAMESPACE + LOCAL_NAME_PROVIDER;
-	LOCAL_NAME_EXPIRATION_TIME = "hasExpirationTime";
-	PROP_CONTEXT_EXPIRATION_TIME = uAAL_CONTEXT_NAMESPACE
-		+ LOCAL_NAME_EXPIRATION_TIME;
-	LOCAL_NAME_TIMESTAMP = "hasTimestamp";
-	PROP_CONTEXT_TIMESTAMP = uAAL_CONTEXT_NAMESPACE + LOCAL_NAME_TIMESTAMP;
-	register(ContextEvent.class);
-    }
+    /*
+     * static { uAAL_CONTEXT_NAMESPACE = uAAL_NAMESPACE_PREFIX + "Context.owl#";
+     * MY_URI = uAAL_CONTEXT_NAMESPACE + "ContextEventCHE";
+     * CONTEXT_EVENT_URI_PREFIX =
+     * "urn:org.universAAL.middleware.context.rdf:ContextEvent#";
+     * LOCAL_NAME_SUBJECT = "subject"; PROP_RDF_SUBJECT = RDF_NAMESPACE +
+     * LOCAL_NAME_SUBJECT; LOCAL_NAME_PREDICATE = "predicate";
+     * PROP_RDF_PREDICATE = RDF_NAMESPACE + LOCAL_NAME_PREDICATE;
+     * LOCAL_NAME_OBJECT = "object"; PROP_RDF_OBJECT = RDF_NAMESPACE +
+     * LOCAL_NAME_OBJECT; LOCAL_NAME_CONFIDENCE = "hasConfidence";
+     * PROP_CONTEXT_CONFIDENCE = uAAL_CONTEXT_NAMESPACE + LOCAL_NAME_CONFIDENCE;
+     * LOCAL_NAME_PROVIDER = "hasProvider"; PROP_CONTEXT_PROVIDER =
+     * uAAL_CONTEXT_NAMESPACE + LOCAL_NAME_PROVIDER; LOCAL_NAME_EXPIRATION_TIME
+     * = "hasExpirationTime"; PROP_CONTEXT_EXPIRATION_TIME =
+     * uAAL_CONTEXT_NAMESPACE + LOCAL_NAME_EXPIRATION_TIME; LOCAL_NAME_TIMESTAMP
+     * = "hasTimestamp"; PROP_CONTEXT_TIMESTAMP = uAAL_CONTEXT_NAMESPACE +
+     * LOCAL_NAME_TIMESTAMP; register(ContextEvent.class); }
+     */
 
     /**
      * Constructs a CHe stub ContextEvent according to the parameters passed
@@ -131,7 +136,7 @@ public class ContextEvent extends ManagedIndividual {
      * Empty constructor, needed because this is a ManagedIndividual
      */
     public ContextEvent() {
-
+	super();
     }
 
     /**
@@ -273,7 +278,7 @@ public class ContextEvent extends ManagedIndividual {
 
     public boolean isWellFormed() {
 	return (getRDFSubject() != null && getRDFPredicate() != null && getRDFObject() != null);
-	// We don´t evaluate timestamp in this case
+	// We do not evaluate timestamp in this case
     }
 
     /**
@@ -378,8 +383,7 @@ public class ContextEvent extends ManagedIndividual {
 	if (timestamp == null) {
 	    props.remove(PROP_CONTEXT_TIMESTAMP);
 	    return;
-	}// We can remove the timestamp in this case
-	if (timestamp != null && timestamp.longValue() > 0
+	} else if (timestamp.longValue() > 0
 		&& !props.containsKey(PROP_CONTEXT_TIMESTAMP))
 	    props.put(PROP_CONTEXT_TIMESTAMP, timestamp);
     }
@@ -410,5 +414,9 @@ public class ContextEvent extends ManagedIndividual {
 	    if (propURI.equals(PROP_CONTEXT_CONFIDENCE))
 		setConfidence((Integer) value);
 	}
+    }
+
+    public String getClassURI() {
+	return MY_URI;
     }
 }

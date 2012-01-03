@@ -90,7 +90,7 @@ public class SesameBackend implements Backend {
     public void connect() {
 	String dataPath = Activator.getProperties().getProperty(
 		"STORE.LOCATION");
-	// I use C:\Proyectos\UNIVERSAAL\ContextStore\Stores\SAIL_FCRDFS_Native
+	// I use C:/Proyectos/UNIVERSAAL/ContextStore/Stores/SAIL_FCRDFS_Native
 	if (dataPath != null) {
 	    File dataDir = new File(dataPath);
 	    String indexes = "spoc,posc,cosp";// TODO: Change indexes (specially
@@ -514,7 +514,7 @@ public class SesameBackend implements Backend {
 	    Long tstto) {
 
 	// We could use Jena ARQ to build a query programatically and then
-	// serialize it. But that´s not going to happen.
+	// serialize it. But that is not going to happen.
 	StringBuffer query = new StringBuffer(
 		"SELECT ?c WHERE { ?c <http://www.w3.org/1999/02/22-rdf-syntax-ns#type>  <http://ontology.universAAL.org/Context.owl#ContextEvent> ; \n");
 

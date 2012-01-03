@@ -35,12 +35,12 @@ import org.universAAL.middleware.sodapop.msg.MessageContentSerializer;
  * 
  */
 public interface Backend {
-    
+
     /**
      * Establishes the connection to the store
      */
     public void connect();
-    
+
     /**
      * Closes the connection to the store
      */
@@ -56,10 +56,11 @@ public interface Backend {
     public void storeEvent(ContextEvent e);
 
     /**
-     * Retrieves a list of {@link org.universAAL.middleware.context.ContextEvent}
-     * from the underlying store, which members are the context events that
-     * match the parameters passed. A parameter can be passed a value of
-     * <code>null</code> for wildcarding.
+     * Retrieves a list of
+     * {@link org.universAAL.middleware.context.ContextEvent} from the
+     * underlying store, which members are the context events that match the
+     * parameters passed. A parameter can be passed a value of <code>null</code>
+     * for wildcarding.
      * <p>
      * This is not used in the current version. Will probably be deprecated.
      * 
@@ -90,11 +91,11 @@ public interface Backend {
 	    Long expiration, Object provider, Long tstamp);
 
     /**
-     * Retrieves a list of {@link org.universAAL.middleware.context.ContextEvent}
-     * from the underlying store, which members are the context events that
-     * match the parameters passed, and were received after the specified
-     * timestamp. A parameter can be passed a value of <code>null</code> for
-     * wildcarding.
+     * Retrieves a list of
+     * {@link org.universAAL.middleware.context.ContextEvent} from the
+     * underlying store, which members are the context events that match the
+     * parameters passed, and were received after the specified timestamp. A
+     * parameter can be passed a value of <code>null</code> for wildcarding.
      * 
      * @param subject
      *            The URI of the subject of the event to be matched
@@ -130,11 +131,11 @@ public interface Backend {
 	    Long tstamp, Long tstfrom);
 
     /**
-     * Retrieves a list of {@link org.universAAL.middleware.context.ContextEvent}
-     * from the underlying store, which members are the context events that
-     * match the parameters passed, and were received before the specified
-     * timestamp. A parameter can be passed a value of <code>null</code> for
-     * wildcarding.
+     * Retrieves a list of
+     * {@link org.universAAL.middleware.context.ContextEvent} from the
+     * underlying store, which members are the context events that match the
+     * parameters passed, and were received before the specified timestamp. A
+     * parameter can be passed a value of <code>null</code> for wildcarding.
      * 
      * @param subject
      *            The URI of the subject of the event to be matched
@@ -170,11 +171,11 @@ public interface Backend {
 	    Long expiration, ContextProvider provider, Long tstamp, Long tstto);
 
     /**
-     * Retrieves a list of {@link org.universAAL.middleware.context.ContextEvent}
-     * from the underlying store, which members are the context events that
-     * match the parameters passed, and were received within the specified time
-     * range. A parameter can be passed a value of <code>null</code> for
-     * wildcarding.
+     * Retrieves a list of
+     * {@link org.universAAL.middleware.context.ContextEvent} from the
+     * underlying store, which members are the context events that match the
+     * parameters passed, and were received within the specified time range. A
+     * parameter can be passed a value of <code>null</code> for wildcarding.
      * 
      * @param subject
      *            The URI of the subject of the event to be matched
@@ -214,8 +215,9 @@ public interface Backend {
 	    Long tstamp, Long tstfrom, Long tstto);
 
     /**
-     * Retrieves a list of {@link org.universAAL.middleware.context.ContextEvent}
-     * from the underlying store, as a result of a SPARQL query.
+     * Retrieves a list of
+     * {@link org.universAAL.middleware.context.ContextEvent} from the
+     * underlying store, as a result of a SPARQL query.
      * 
      * @param input
      *            The SPARQL query that defines the events to be returned. The
@@ -249,8 +251,8 @@ public interface Backend {
     public String queryBySPARQL(String input);
 
     /**
-     * Removes all events from the underlying store that were received until
-     * the specified timestamp.
+     * Removes all events from the underlying store that were received until the
+     * specified timestamp.
      * 
      * @param tstamp
      *            The timestamp in milliseconds until which events are removed.

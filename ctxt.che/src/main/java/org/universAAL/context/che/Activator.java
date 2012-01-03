@@ -38,25 +38,28 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.universAAL.context.che.database.Backend;
 import org.universAAL.context.che.database.Cleaner;
+import org.universAAL.context.che.ontology.ContextHistoryOntology;
 import org.universAAL.middleware.container.ModuleContext;
 import org.universAAL.middleware.container.osgi.uAALBundleContainer;
 import org.universAAL.middleware.container.osgi.util.BundleConfigHome;
+import org.universAAL.middleware.owl.OntologyManagement;
 import org.universAAL.middleware.sodapop.msg.MessageContentSerializer;
 
 /**
  * @author <a href="mailto:alfiva@itaca.upv.es">Alvaro Fides Valero</a>
- * 
  */
 public class Activator implements BundleActivator, ServiceListener {
 
+    private ContextHistoryOntology ontology = new ContextHistoryOntology();
     public static final String PROPS_FILE = "CHe.properties";
-    public static final String COMMENTS = "This file stores configuration parameters for the "
-	    + "Context History Entrepot";
-    private static File confHome = new File(new BundleConfigHome("ctxt.che").getAbsolutePath());
+    public static final String COMMENTS = "This file stores configuration "
+	    + "parameters for the " + "Context History Entrepot";
+    private static File confHome = new File(
+	    new BundleConfigHome("ctxt.che").getAbsolutePath());
 
     private final static Logger log = LoggerFactory.getLogger(Activator.class);
     public static BundleContext context = null;
-    private static ModuleContext moduleContext=null;
+    private static ModuleContext moduleContext = null;
     private Backend db;
     private ContextHistorySubscriber HC;
     private ContextHistoryCallee CHC;
@@ -64,77 +67,90 @@ public class Activator implements BundleActivator, ServiceListener {
 
     public void start(BundleContext context) throws Exception {
 	Activator.context = context;
-	
-	//Start the store you want
+	// Register ont
+	OntologyManagement.getInstance().register(ontology);
+	// Start the store you want
 	try {
 	    String storeclass = getProperties().getProperty("STORE.IMPL",
 		    "org.universAAL.context.che.database.impl.SesameBackend");
 	    this.db = (Backend) Class.forName(storeclass)
-		    .getConstructor(new Class[] {}).newInstance(new Object[]{});
+		    .getConstructor(new Class[] {})
+		    .newInstance(new Object[] {});
 	} catch (Exception e) {
-	    //If we cannot get the Backend, abort.
-	    String cause="The store implementation passed as configuration parameter could not be used. "
-		    + "Make sure it is a class that implements org.universAAL.context.che.database.Backend "
-		    + "or remove that configuration parameter to use the default engine.";
-	    throw new Exception(cause,e);//TODO: Create a new kind of exception?
+	    // If we cannot get the Backend, abort.
+	    String cause = "The store implementation passed as configuration"
+		    + " parameter could not be used. Make sure it is a "
+		    + "class that implements "
+		    + "org.universAAL.context.che.database.Backend or "
+		    + "remove that configuration parameter to use the "
+		    + "default engine.";
+	    throw new Exception(cause, e);// TODO: Create a new kind of
+					  // exception?
 	}
 	this.db.connect();
-	
-	//Look for MessageContentSerializer of mw.data.serialization
-	String filter = "(objectclass=" + MessageContentSerializer.class.getName() + ")";
+
+	// Look for MessageContentSerializer of mw.data.serialization
+	String filter = "(objectclass="
+		+ MessageContentSerializer.class.getName() + ")";
 	context.addServiceListener(this, filter);
-	ServiceReference references[] = context.getServiceReferences(null,
+	ServiceReference[] references = context.getServiceReferences(null,
 		filter);
-	for (int i = 0; references != null && i < references.length; i++)
+	for (int i = 0; references != null && i < references.length; i++) {
 	    this.serviceChanged(new ServiceEvent(ServiceEvent.REGISTERED,
 		    references[i]));
-	
-	//Start uAAL wrappers
+	}
+
+	// Start uAAL wrappers
 	Activator.moduleContext = uAALBundleContainer.THE_CONTAINER
 		.registerModule(new Object[] { context });
 	this.HC = new ContextHistorySubscriber(moduleContext, db);
 	this.CHC = new ContextHistoryCallee(moduleContext, db);
-	
-	//Start the removal timer
+
+	// Start the removal timer
 	t = new Timer();
 	long tst = Long.parseLong(getProperties().getProperty(
 		"RECYCLE.PERIOD_MSEC"));
 	t.scheduleAtFixedRate(new Cleaner(db), tst, tst);
-	log.info("Removal scheduled for {} ms with a periodicity of {} ms ",
+	log.info(
+		"Removal scheduled for {} ms with a periodicity of {} ms ",
 		new Object[] {
 			Long.toString(Calendar.getInstance().getTimeInMillis()
 				+ tst), Long.toString(tst) });
     }
 
-    public void stop(BundleContext context) throws Exception {
-	// Stop the store and wrappers
+    public final void stop(final BundleContext bcontext) throws Exception {
+	// Stop the store and wrappers and deregister ont
 	this.db.close();
 	this.CHC.close();
 	this.HC.close();
+	OntologyManagement.getInstance().unregister(ontology);
     }
 
-    public void serviceChanged(ServiceEvent event) {
-	//Update the MessageContentSerializer
+    public final void serviceChanged(final ServiceEvent event) {
+	// Update the MessageContentSerializer
 	switch (event.getType()) {
 	case ServiceEvent.REGISTERED:
 	case ServiceEvent.MODIFIED:
-	    this.db.setuAALParser((MessageContentSerializer) context.getService(event.getServiceReference()));
+	    this.db.setuAALParser((MessageContentSerializer) context
+		    .getService(event.getServiceReference()));
 	    break;
 	case ServiceEvent.UNREGISTERING:
 	    this.db.setuAALParser(null);
+	    break;
+	default:
 	    break;
 	}
     }
 
     /**
-     * Sets the properties of the CHe
+     * Sets the properties of the CHe.
      * 
      * @param prop
      *            The Properties object containing ALL of the properties of the
      *            CHe
      * @see #getProperties()
      */
-    public static synchronized void setProperties(Properties prop) {
+    public static synchronized void setProperties(final Properties prop) {
 	try {
 	    FileWriter out;
 	    out = new FileWriter(new File(confHome, PROPS_FILE));
@@ -146,7 +162,7 @@ public class Activator implements BundleActivator, ServiceListener {
     }
 
     /**
-     * Gets the properties of the CHe
+     * Gets the properties of the CHe.
      * 
      * @return The properties of the CHe
      * @see #setProperties(Properties)
@@ -160,12 +176,13 @@ public class Activator implements BundleActivator, ServiceListener {
 	    in.close();
 	} catch (java.io.FileNotFoundException e) {
 	    log.warn("Properties file does not exist; generating default...");
-	    prop.setProperty("STORE.IMPL", "org.universAAL.context.che.database.impl.SesameBackend");
+	    prop.setProperty("STORE.IMPL",
+		    "org.universAAL.context.che.database.impl.SesameBackend");
 	    prop.setProperty("MOBILE.FILE", "PMD-Events.txt");
 	    prop.setProperty("MOBILE.FLAG", "<!--CEv-->");
-	    prop.setProperty("RECYCLE.KEEP_MSEC", "15552000000");// 6 months
-	    prop.setProperty("RECYCLE.PERIOD_MSEC", "5184000000");// 2 months
-	    prop.setProperty("RECYCLE.HOUR", "22");// at 22:00
+	    prop.setProperty("RECYCLE.KEEP_MSEC", "15552000000"); // 6 months
+	    prop.setProperty("RECYCLE.PERIOD_MSEC", "5184000000"); // 2 months
+	    prop.setProperty("RECYCLE.HOUR", "22"); // at 22:00
 	    setProperties(prop);
 	} catch (Exception e) {
 	    log.error("Could not access properties file: {} " + e);

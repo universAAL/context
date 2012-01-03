@@ -25,9 +25,14 @@ import java.util.Hashtable;
 
 import org.universAAL.context.che.ontology.ContextEvent;
 import org.universAAL.context.che.ontology.ContextHistoryService;
-import org.universAAL.middleware.owl.Restriction;
+import org.universAAL.middleware.owl.MergedRestriction;
+import org.universAAL.middleware.owl.OntologyManagement;
+//import org.universAAL.middleware.owl.Restriction;
+import org.universAAL.middleware.owl.SimpleOntology;
 import org.universAAL.middleware.rdf.PropertyPath;
+import org.universAAL.middleware.rdf.Resource;
 import org.universAAL.middleware.rdf.TypeMapper;
+import org.universAAL.middleware.rdf.impl.ResourceFactoryImpl;
 import org.universAAL.middleware.service.owls.process.ProcessInput;
 import org.universAAL.middleware.service.owls.process.ProcessOutput;
 import org.universAAL.middleware.service.owls.profile.ServiceProfile;
@@ -66,27 +71,48 @@ public class ContextHistoryServices extends ContextHistoryService {
     static final ServiceProfile[] profiles = new ServiceProfile[5];
     private static Hashtable serverLevelRestrictions = new Hashtable();
     static {
-	register(ContextHistoryServices.class);
-	addRestriction((Restriction) ContextHistoryService
-		.getClassRestrictionsOnProperty(
-			ContextHistoryService.PROP_MANAGES).copy(),
+	// register(ContextHistoryServices.class);
+	OntologyManagement.getInstance().register(
+		new SimpleOntology(MY_URI, ContextHistoryService.MY_URI,
+			new ResourceFactoryImpl() {
+			    @Override
+			    public Resource createInstance(String classURI,
+				    String instanceURI, int factoryIndex) {
+				return new ContextHistoryServices(instanceURI);
+			    }
+			}));
+
+	addRestriction(
+		(MergedRestriction) ContextHistoryService
+			.getClassRestrictionsOnProperty(
+				ContextHistoryService.MY_URI,
+				ContextHistoryService.PROP_MANAGES).copy(),
 		new String[] { ContextHistoryService.PROP_MANAGES },
 		serverLevelRestrictions);
-	addRestriction((Restriction) ContextHistoryService
-		.getClassRestrictionsOnProperty(
-			ContextHistoryService.PROP_PROCESSES).copy(),
+	addRestriction(
+		(MergedRestriction) ContextHistoryService
+			.getClassRestrictionsOnProperty(
+				ContextHistoryService.MY_URI,
+				ContextHistoryService.PROP_PROCESSES).copy(),
 		new String[] { PROP_PROCESSES }, serverLevelRestrictions);
-	addRestriction((Restriction) ContextHistoryService
-		.getClassRestrictionsOnProperty(
-			ContextHistoryService.PROP_RETURNS).copy(),
+	addRestriction(
+		(MergedRestriction) ContextHistoryService
+			.getClassRestrictionsOnProperty(
+				ContextHistoryService.MY_URI,
+				ContextHistoryService.PROP_RETURNS).copy(),
 		new String[] { PROP_RETURNS }, serverLevelRestrictions);
-	addRestriction((Restriction) ContextHistoryService
-		.getClassRestrictionsOnProperty(
-			ContextHistoryService.PROP_TIMESTAMP_FROM).copy(),
-		new String[] { PROP_TIMESTAMP_FROM }, serverLevelRestrictions);
-	addRestriction((Restriction) ContextHistoryService
-		.getClassRestrictionsOnProperty(
-			ContextHistoryService.PROP_TIMESTAMP_TO).copy(),
+	addRestriction(
+		(MergedRestriction) ContextHistoryService
+			.getClassRestrictionsOnProperty(
+				ContextHistoryService.MY_URI,
+				ContextHistoryService.PROP_TIMESTAMP_FROM)
+			.copy(), new String[] { PROP_TIMESTAMP_FROM },
+		serverLevelRestrictions);
+	addRestriction(
+		(MergedRestriction) ContextHistoryService
+			.getClassRestrictionsOnProperty(
+				ContextHistoryService.MY_URI,
+				ContextHistoryService.PROP_TIMESTAMP_TO).copy(),
 		new String[] { PROP_TIMESTAMP_TO }, serverLevelRestrictions);
 
 	ProcessInput eventInput = new ProcessInput(INPUT_EVENT);
@@ -105,21 +131,23 @@ public class ContextHistoryServices extends ContextHistoryService {
 	tstToInput.setParameterType(TypeMapper.getDatatypeURI(Long.class));
 	tstToInput.setCardinality(1, 1);
 
-	Restriction eventRestr = Restriction.getFixedValueRestriction(
-		ContextHistoryService.PROP_MANAGES, eventInput
-			.asVariableReference());
+	MergedRestriction eventRestr = MergedRestriction
+		.getFixedValueRestriction(ContextHistoryService.PROP_MANAGES,
+			eventInput.asVariableReference());
 
-	Restriction queryr = Restriction.getFixedValueRestriction(
-		ContextHistoryService.PROP_PROCESSES, queryInput
-			.asVariableReference());
+	MergedRestriction queryr = MergedRestriction.getFixedValueRestriction(
+		ContextHistoryService.PROP_PROCESSES,
+		queryInput.asVariableReference());
 
-	Restriction tstFromRestr = Restriction.getFixedValueRestriction(
-		ContextHistoryService.PROP_TIMESTAMP_FROM, tstFromInput
-			.asVariableReference());
+	MergedRestriction tstFromRestr = MergedRestriction
+		.getFixedValueRestriction(
+			ContextHistoryService.PROP_TIMESTAMP_FROM,
+			tstFromInput.asVariableReference());
 
-	Restriction tstToRestr = Restriction.getFixedValueRestriction(
-		ContextHistoryService.PROP_TIMESTAMP_TO, tstToInput
-			.asVariableReference());
+	MergedRestriction tstToRestr = MergedRestriction
+		.getFixedValueRestriction(
+			ContextHistoryService.PROP_TIMESTAMP_TO,
+			tstToInput.asVariableReference());
 
 	ProcessOutput output = new ProcessOutput(OUTPUT_EVENTS);
 	output.setParameterType(ContextEvent.MY_URI);
@@ -143,8 +171,8 @@ public class ContextHistoryServices extends ContextHistoryService {
 	doSPARQL.addInstanceLevelRestriction(queryr,
 		new String[] { ContextHistoryService.PROP_PROCESSES });
 	profiles[0].addOutput(resultoutput);
-	profiles[0].addSimpleOutputBinding(resultoutput, returnsPath
-		.getThePath());
+	profiles[0].addSimpleOutputBinding(resultoutput,
+		returnsPath.getThePath());
 
 	// GET_EVENTS_FROM_TIMESTAMP
 	ContextHistoryServices getEventsFromTimestamp = new ContextHistoryServices(

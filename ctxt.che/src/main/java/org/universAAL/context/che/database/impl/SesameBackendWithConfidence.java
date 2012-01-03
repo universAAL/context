@@ -23,16 +23,17 @@ import org.universAAL.middleware.context.ContextEvent;
  * as in {@link org.universAAL.context.che.database.impl.SesameBackend}.
  * Otherwise, only statements having the event as subject will be stored, but
  * not reified statements about its subject nor object.
- * 
+ * <p/>
  * Example:
- * 
+ * <p/>
  * An "event1" with "subject2" "predicate3" and "object4" with enough confidence
  * will result in having the statements in the store:
- * "event1" "hasSubject" "subject2"
- * "event1" "hasPredicate" "predicate3"
- * "event1" "hasObject" "object4"
- * "subject2" "predicate3" "object4"
- * 
+ * <p/>
+ * <p/>"event1" "hasSubject" "subject2"
+ * <p/>"event1" "hasPredicate" "predicate3"
+ * <p/>"event1" "hasObject" "object4"
+ * <p/>"subject2" "predicate3" "object4"
+ * <p/>
  * But if the confidence is below the threshold, the last reified statement is
  * not stored.
  * 
@@ -111,7 +112,7 @@ public class SesameBackendWithConfidence extends SesameBackend{
 	    exc.printStackTrace();
 	}
     }
-    
+
     public int getThreshold() {
 	return threshold;
     }

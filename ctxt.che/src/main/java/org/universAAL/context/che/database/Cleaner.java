@@ -29,8 +29,8 @@ import java.util.TimerTask;
 import org.universAAL.context.che.Activator;
 
 /**
- * This class is used to remove events from the store periodically, to avoid
- * the uncontrolled growth of the history
+ * This class is used to remove events from the store periodically, to avoid the
+ * uncontrolled growth of the history
  * 
  * @author <a href="mailto:alfiva@itaca.upv.es">Alvaro Fides Valero</a>
  * 
@@ -68,8 +68,9 @@ public class Cleaner extends TimerTask {
     public void run() {
 	t = new Timer();
 	Calendar now = Calendar.getInstance();
-	now.set(Calendar.HOUR_OF_DAY, Integer.parseInt(Activator
-		.getProperties().getProperty("RECYCLE.HOUR", "22")));
+	now.set(Calendar.HOUR_OF_DAY,
+		Integer.parseInt(Activator.getProperties().getProperty(
+			"RECYCLE.HOUR", "22")));
 	if (now.getTimeInMillis() < System.currentTimeMillis())
 	    now.add(Calendar.DAY_OF_YEAR, 1);
 	t.schedule(new Punctual(db), new Date(now.getTimeInMillis()));

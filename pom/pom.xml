@@ -5,7 +5,7 @@
 
 	<groupId>org.universAAL.context</groupId>
 	<artifactId>ctxt.pom</artifactId>
-	<version>1.0.0</version>
+	<version>1.0.1-SNAPSHOT</version>
 	<packaging>pom</packaging>
 
 	<!-- ______________________________________________________ -->
@@ -51,14 +51,44 @@
 				<version>1.0.1</version>
 				<scope>provided</scope>
 			</dependency>
+			<dependency>
+				<groupId>org.universAAL.middleware</groupId>
+				<artifactId>mw.container.osgi</artifactId>
+				<version>1.0.1-SNAPSHOT</version>
+			</dependency>
+			<dependency>
+				<groupId>org.universAAL.middleware</groupId>
+				<artifactId>mw.container.xfaces</artifactId>
+				<version>1.0.1-SNAPSHOT</version>
+			</dependency>
+			<dependency>
+				<groupId>org.universAAL.middleware</groupId>
+				<artifactId>mw.data.representation</artifactId>
+				<version>1.0.1-SNAPSHOT</version>
+			</dependency>
+			<dependency>
+				<groupId>org.universAAL.middleware</groupId>
+				<artifactId>mw.bus.service</artifactId>
+				<version>1.0.1-SNAPSHOT</version>
+			</dependency>
+			<dependency>
+				<groupId>org.universAAL.middleware</groupId>
+				<artifactId>mw.bus.io</artifactId>
+				<version>1.0.1-SNAPSHOT</version>
+			</dependency>
+			<dependency>
+				<groupId>org.universAAL.middleware</groupId>
+				<artifactId>mw.bus.context</artifactId>
+				<version>1.0.1-SNAPSHOT</version>
+			</dependency>
 		</dependencies>
 	</dependencyManagement>
 
 	<modules>
 		<module>../ctxt.che</module>
 		<module>../ctxt.che.mobile</module>
-		<module>../ctxt.gen.reasoner</module>
 		<module>../ctxt.jena.converter</module>
+		<module>../ctxt.gen.reasoner</module>
 		<module>../ctxt.space.conf</module>
 	</modules>
 
@@ -67,6 +97,9 @@
 		<!-- Default configuration for compiler source and target JVM -->
 		<maven.compile.source>1.4</maven.compile.source>
 		<maven.compile.target>1.4</maven.compile.target>
+		<gforge.project.name>uaal_context</gforge.project.name>
+		<svn.base>scm:svn:http://forge.universaal.org/svn/${gforge.project.name}/trunk</svn.base>
+		<svn.base.url>http://forge.universaal.org/gf/project/${gforge.project.name}/scmsvn/?path=%2Ftrunk%2F</svn.base.url>
 	</properties>
 
 	<!-- ______________________________________________________ -->
@@ -85,8 +118,7 @@
 					<version>2.3.2</version>
 					<inherited>true</inherited>
 					<configuration>
-						<testSource>1.5</testSource>
-						<testTarget>1.5</testTarget>
+						<showWarnings>true</showWarnings>
 						<source>${maven.compile.source}</source>
 						<target>${maven.compile.target}</target>
 					</configuration>
@@ -125,7 +157,7 @@
 					<version>1.7</version>
 					<executions>
 						<execution>
-							<id>attach-artifacts</id>
+							<id>attach-composite</id>
 							<phase>package</phase>
 							<goals>
 								<goal>attach-artifact</goal>
@@ -145,7 +177,6 @@
 		</pluginManagement>
 	</build>
 
-
 	<reporting>
 		<plugins>
 			<plugin>
@@ -157,30 +188,30 @@
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-checkstyle-plugin</artifactId>
 				<version>2.7</version>
-				<!-- Default Checkstyle configuration is the Sun Microsystems Definition. 
-					As defined in D2.3 -->
-				<!-- <configuration> 
-						<configLocation>http://svn.apache.org/repos/asf/maven/plugins/trunk/maven-checkstyle-plugin/src/main/resources/config/maven_checks.xml</configLocation> 
-						<headerLocation>http://svn.apache.org/repos/asf/maven/plugins/trunk/maven-checkstyle-plugin/src/main/resources/config/maven-header.txt</headerLocation> 
-					</configuration> -->
+				<!-- Default Checkstyle configuration is the Sun Microsystems Definition. As defined in D2.3 -->
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-pmd-plugin</artifactId>
 				<version>2.5</version>
 			</plugin>
-			<!-- <plugin> <groupId>org.codehaus.mojo</groupId> <artifactId>cobertura-maven-plugin</artifactId> 
-				<version>2.5.1</version> </plugin> -->
+			<!--  
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>cobertura-maven-plugin</artifactId>
+				<version>2.5.1</version>
+			</plugin>
+			-->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-jxr-plugin</artifactId>
 				<version>2.3</version>
 			</plugin>
 			<plugin>
-  				<groupId>org.codehaus.mojo</groupId> 
-  				<artifactId>javancss-maven-plugin</artifactId> 
-  				<version>2.0-beta-2</version> 
-  			</plugin>			
+	        	<groupId>org.codehaus.mojo</groupId>
+		        <artifactId>javancss-maven-plugin</artifactId>
+		        <version>2.0-beta-2</version>
+		      </plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-javadoc-plugin</artifactId>
@@ -200,8 +231,6 @@
 						<link>http://jakarta.apache.org/velocity/api/</link>
 					</links>
 					<doclet>org.umlgraph.doclet.UmlGraphDoc</doclet>
-
-					<!-- <docletPath>/path/to/UmlGraph.jar</docletPath> -->
 					<docletArtifact>
 						<groupId>org.umlgraph</groupId>
 						<artifactId>doclet</artifactId>
@@ -238,9 +267,9 @@
 	<mailingLists />
 
 	<scm>
-		<connection>scm:svn:http://forge.universaal.org/svn/uaal_context/trunk</connection>
-		<developerConnection>scm:svn:http://forge.universaal.org/svn/uaal_context/trunk</developerConnection>
-		<url>http://forge.universaal.org/gf/project/uaal_context/scmsvn/?path=%2Ftrunk%2F</url>
+		<connection>${svn.base}/pom</connection>
+		<developerConnection>${svn.base}/pom</developerConnection>
+		<url>${svn.base.url}pom</url>
 	</scm>
 
 	<prerequisites />

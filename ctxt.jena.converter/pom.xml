@@ -3,14 +3,14 @@
 	<parent>
 		<groupId>org.universAAL.context</groupId>
 		<artifactId>ctxt.pom</artifactId>
-		<version>1.0.0</version>
+		<version>1.0.1-SNAPSHOT</version>
 		<relativePath>../pom/pom.xml</relativePath>
 	</parent>
 	<modelVersion>4.0.0</modelVersion>
 	<artifactId>ctxt.jena.converter</artifactId>
 	<packaging>bundle</packaging>
 	<name>jena.model_converter</name>
-	<version>0.3.1-SNAPSHOT</version>
+	<version>1.0.1-SNAPSHOT</version>
 	<description>The module for converting the representation of resources from PERSONA to Jena and vice versa.</description>
 	
 	  <inceptionYear>2008</inceptionYear>
@@ -38,17 +38,6 @@
 			<version>1.4</version>
 		</dependency>
 		<dependency>
-			<groupId>org.ops4j.pax.logging</groupId>
-			<artifactId>pax-logging-service</artifactId>
-			<version>1.4</version>
-			<exclusions>
-				<exclusion>
-					<artifactId>log4j</artifactId>
-					<groupId>log4j</groupId>
-				</exclusion>
-			</exclusions>
-		</dependency>
-		<dependency>
 			<groupId>com.hp.hpl.jena</groupId>
 			<artifactId>jena</artifactId>
 			<version>2.5.4</version>
@@ -57,37 +46,35 @@
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
-			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.felix</groupId>
 			<artifactId>org.osgi.core</artifactId>
-			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.universAAL.middleware</groupId>
-			<artifactId>mw.container.xfaces</artifactId>
-			<version>0.1.0-SNAPSHOT</version>
+			<artifactId>mw.container.osgi</artifactId>
+			<version>1.0.0</version>
 		</dependency>
 		<dependency>
 			<groupId>org.universAAL.middleware</groupId>
 			<artifactId>mw.data.representation</artifactId>
-			<version>0.3.1-SNAPSHOT</version>
+			<version>1.0.0</version>
 		</dependency>
 		<dependency>
 			<groupId>org.universAAL.middleware</groupId>
 			<artifactId>mw.bus.service</artifactId>
-			<version>0.3.1-SNAPSHOT</version>
+			<version>1.0.0</version>
 		</dependency>
 		<dependency>
 			<groupId>org.universAAL.middleware</groupId>
 			<artifactId>mw.bus.io</artifactId>
-			<version>0.3.1-SNAPSHOT</version>
+			<version>1.0.0</version>
 		</dependency>
 		<dependency>
 			<groupId>org.universAAL.middleware</groupId>
 			<artifactId>mw.bus.context</artifactId>
-			<version>0.3.1-SNAPSHOT</version>
+			<version>1.0.0</version>
 		</dependency>
 	</dependencies>
 
@@ -108,19 +95,17 @@
 					</instructions>
 				</configuration>
 			</plugin>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>build-helper-maven-plugin</artifactId>
+			</plugin>
 		</plugins>
 	</build>
 	
-	<distributionManagement>
-		<repository>
-			<id>releases</id>
-			<name>universAAL Releases</name>
-			<url>http://depot.universaal.org/nexus/content/repositories/releases/</url>
-		</repository>
-		<snapshotRepository>
-			<id>snapshots</id>
-			<name>universAAL Snapshots</name>
-			<url>http://depot.universaal.org/nexus/content/repositories/snapshots/</url>
-		</snapshotRepository>
-	</distributionManagement>
+	<scm>
+		<connection>${svn.base}/${artifactId}</connection>
+		<developerConnection>${svn.base}/${artifactId}</developerConnection>
+		<url>${svn.base.url}${artifactId}</url>
+	</scm>
+	
 </project>

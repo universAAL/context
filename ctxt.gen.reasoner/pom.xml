@@ -77,6 +77,15 @@
 			<artifactId>ctxt.jena.converter</artifactId>
 			<version>1.0.0</version>
 		</dependency>
+		<dependency>
+			<groupId>org.universAAL.middleware</groupId>
+			<artifactId>mw.container.osgi</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.universAAL.middleware</groupId>
+			<artifactId>mw.bus.model</artifactId>
+			<version>1.0.0</version>
+		</dependency>
 	</dependencies>
 	
 	<properties>

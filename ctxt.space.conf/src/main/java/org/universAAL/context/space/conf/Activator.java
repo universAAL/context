@@ -22,8 +22,6 @@ package org.universAAL.context.space.conf;
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
 import org.universAAL.context.conversion.jena.JenaConverter;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import org.universAAL.middleware.container.ModuleContext;
 import org.universAAL.middleware.container.osgi.uAALBundleContainer;
@@ -53,7 +51,8 @@ public class Activator implements BundleActivator {
 
 	public void start(final BundleContext context) throws Exception {
 		Activator.context = context;
-		mc = uAALBundleContainer.THE_CONTAINER.registerModule(new Object[] { context });
+		mc = uAALBundleContainer.THE_CONTAINER
+			.registerModule(new Object[] { context });
 		
 		Way.getClassRestrictionsOnProperty(null);
 		PhysicalThing.getClassRestrictionsOnProperty(null);

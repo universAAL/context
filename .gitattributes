@@ -1,2 +1,18 @@
 * text=auto !eol
+ctxt.jena.converter-1.0.1-SNAPSHOT/LICENSE-BSD-Jena.txt -text
+ctxt.jena.converter-1.0.1-SNAPSHOT/LICENSE-CPL-JUnit.txt -text
+ctxt.jena.converter-1.0.1-SNAPSHOT/LICENSE-MIT11-Bouncycastle.txt -text
+ctxt.jena.converter-1.0.1-SNAPSHOT/LICENSE.txt -text
+ctxt.jena.converter-1.0.1-SNAPSHOT/NOTICE.txt -text
+ctxt.jena.converter-1.0.1-SNAPSHOT/artifact.composite -text
+ctxt.jena.converter-1.0.1-SNAPSHOT/pom.xml -text
+ctxt.jena.converter-1.0.1-SNAPSHOT/src/main/java/org/universAAL/context/conversion/jena/JenaConverter.java -text
+ctxt.jena.converter-1.0.1-SNAPSHOT/src/main/java/org/universAAL/context/conversion/jena/impl/Activator.java -text
+ctxt.jena.converter-1.0.1-SNAPSHOT/src/main/java/org/universAAL/context/conversion/jena/impl/JenaModelConverter.java -text
+ctxt.jena.converter-1.0.1-SNAPSHOT/src/test/java/org/universAAL/context/conversion/jena/impl/FormTest.java -text
+ctxt.jena.converter-1.0.1-SNAPSHOT/src/test/java/org/universAAL/context/conversion/jena/impl/InitialTest.java -text
+ctxt.jena.converter-1.0.1-SNAPSHOT/src/test/java/org/universAAL/context/conversion/jena/impl/UIFrameworkTest.java -text
+ctxt.jena.converter-1.0.1-SNAPSHOT/src/test/java/org/universAAL/context/conversion/jena/impl/util/HearingImpairment.java -text
+ctxt.jena.converter-1.0.1-SNAPSHOT/src/test/java/org/universAAL/context/conversion/jena/impl/util/PhysicalImpairment.java -text
+ctxt.jena.converter-1.0.1-SNAPSHOT/src/test/java/org/universAAL/context/conversion/jena/impl/util/SightImpairment.java -text
 pom-1.0.1-SNAPSHOT/pom.xml -text

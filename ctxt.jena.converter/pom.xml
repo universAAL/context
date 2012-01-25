@@ -10,7 +10,7 @@
 	<artifactId>ctxt.jena.converter</artifactId>
 	<packaging>bundle</packaging>
 	<name>jena.model_converter</name>
-	<version>1.0.1-SNAPSHOT</version>
+	<version>1.0.2-SNAPSHOT</version>
 	<description>The module for converting the representation of resources from PERSONA to Jena and vice versa.</description>
 	
 	  <inceptionYear>2008</inceptionYear>
@@ -54,31 +54,32 @@
 		<dependency>
 			<groupId>org.universAAL.middleware</groupId>
 			<artifactId>mw.container.osgi</artifactId>
-			<version>1.0.0</version>
+			<version>1.0.1-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<groupId>org.universAAL.middleware</groupId>
 			<artifactId>mw.data.representation</artifactId>
-			<version>1.0.0</version>
+			<version>1.0.1-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<groupId>org.universAAL.middleware</groupId>
 			<artifactId>mw.bus.service</artifactId>
-			<version>1.0.0</version>
+			<version>1.0.1-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<groupId>org.universAAL.middleware</groupId>
-			<artifactId>mw.bus.io</artifactId>
-			<version>1.0.0</version>
+			<artifactId>mw.bus.ui</artifactId>
+			<version>1.0.1-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<groupId>org.universAAL.middleware</groupId>
 			<artifactId>mw.bus.context</artifactId>
-			<version>1.0.0</version>
+			<version>1.0.1-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<groupId>org.universAAL.middleware</groupId>
 			<artifactId>mw.container.xfaces</artifactId>
+			<version>1.0.1-SNAPSHOT</version>
 		</dependency>
 	</dependencies>
 
@@ -107,9 +108,9 @@
 	</build>
 	
 	<scm>
-		<connection>${svn.base}/${artifactId}</connection>
-		<developerConnection>${svn.base}/${artifactId}</developerConnection>
-		<url>${svn.base.url}${artifactId}</url>
+		<connection>${svn.base}/${project.artifactId}</connection>
+		<developerConnection>${svn.base}/${project.artifactId}</developerConnection>
+		<url>${svn.base.url}${project.artifactId}</url>
 	</scm>
 	
 </project>

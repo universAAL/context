@@ -5,20 +5,30 @@ package org.universAAL.context.conversion.jena.impl;
 
 import java.util.Locale;
 
-import org.universAAL.context.conversion.jena.impl.JenaModelConverter;
-import org.universAAL.middleware.io.owl.PrivacyLevel;
-import org.universAAL.middleware.io.rdf.*;
-import org.universAAL.middleware.output.OutputEvent;
-import org.universAAL.middleware.owl.OrderingRestriction;
-import org.universAAL.middleware.owl.Restriction;
+import junit.framework.TestCase;
+
+import org.universAAL.middleware.owl.BoundingValueRestriction;
+import org.universAAL.middleware.owl.DataRepOntology;
+import org.universAAL.middleware.owl.MergedRestriction;
+import org.universAAL.middleware.owl.OntologyManagement;
 import org.universAAL.middleware.owl.supply.LevelRating;
 import org.universAAL.middleware.rdf.PropertyPath;
 import org.universAAL.middleware.rdf.Resource;
 import org.universAAL.middleware.rdf.TypeMapper;
+import org.universAAL.middleware.ui.UIRequest;
+import org.universAAL.middleware.ui.owl.PrivacyLevel;
+import org.universAAL.middleware.ui.owl.UIBusOntology;
+import org.universAAL.middleware.ui.rdf.ChoiceItem;
+import org.universAAL.middleware.ui.rdf.Form;
+import org.universAAL.middleware.ui.rdf.Group;
+import org.universAAL.middleware.ui.rdf.Label;
+import org.universAAL.middleware.ui.rdf.MediaObject;
+import org.universAAL.middleware.ui.rdf.Range;
+import org.universAAL.middleware.ui.rdf.Select;
+import org.universAAL.middleware.ui.rdf.SubdialogTrigger;
+import org.universAAL.middleware.ui.rdf.Submit;
+import org.universAAL.middleware.ui.rdf.TextArea;
 import org.universAAL.middleware.util.Constants;
-import org.universAAL.middleware.util.ResourceComparator;
-
-import junit.framework.TestCase;
 
 /**
  * @author mtazari
@@ -34,9 +44,15 @@ public class FormTest extends TestCase {
 
 	public FormTest(String name) {
 		super(name);
+		
+		OntologyManagement.getInstance().register(new DataRepOntology());
+		OntologyManagement.getInstance().register(new UIBusOntology());
 	}
 
 	public void testForm() {
+//	    if (true)
+//		return;
+	    
 		PropertyPath pp1 = new PropertyPath(null, false,
 				new String[] { DUMMY_PROP_1 });
 		PropertyPath pp2 = new PropertyPath(null, false,
@@ -44,14 +60,17 @@ public class FormTest extends TestCase {
 		PropertyPath pp3 = new PropertyPath(null, false,
 				new String[] { DUMMY_PROP_3 });
 		
-		Restriction restr = Restriction.getAllValuesRestriction(
+		MergedRestriction restr = MergedRestriction.getAllValuesRestriction(
 				DUMMY_PROP_2, TypeMapper.getDatatypeURI(String.class));
-		Restriction selectRestr = Restriction.getAllValuesRestriction(
+		MergedRestriction selectRestr = MergedRestriction.getAllValuesRestriction(
 				DUMMY_PROP_3, TypeMapper.getDatatypeURI(Integer.class));
-		OrderingRestriction ordrRestr = OrderingRestriction.newOrderingRestriction(
-				new Integer(30), new Integer(0), true, true,
-				Restriction.getAllValuesRestriction(DUMMY_PROP_1,
-						TypeMapper.getDatatypeURI(Integer.class)));
+		
+	MergedRestriction ordrRestr = MergedRestriction
+		.getAllValuesRestriction(DUMMY_PROP_1,
+			TypeMapper.getDatatypeURI(Integer.class))
+		.addRestriction(
+			new BoundingValueRestriction(DUMMY_PROP_1, new Integer(
+				0), true, new Integer(30), true));
 
 		Form f = Form.newDialog("Test Form", testUser);
 		f.setDialogCreator("Test Component");
@@ -92,12 +111,12 @@ public class FormTest extends TestCase {
 		new Submit(mySubmits, new Label("My PROFILE", null), "myProfile");
 		new Submit(mySubmits, new Label("HOME", null), "startPage");
 
-		OutputEvent oe = new OutputEvent(testUser, f,
-				LevelRating.middle, Locale.ENGLISH, PrivacyLevel.insensible);
+		UIRequest ur = new UIRequest(testUser, f, LevelRating.middle, Locale.ENGLISH, PrivacyLevel.insensible);
 
 		JenaModelConverter jmc = new JenaModelConverter();
 
-		new ResourceComparator().printDiffs(oe,
-				jmc.toPersonaResource(jmc.toJenaResource(oe)));
+		// TODO
+//		new ResourceComparator().printDiffs(ur,
+//				jmc.toPersonaResource(jmc.toJenaResource(ur)));
 	}
 }

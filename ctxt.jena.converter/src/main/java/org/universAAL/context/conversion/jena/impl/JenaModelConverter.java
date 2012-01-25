@@ -28,30 +28,17 @@ import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.List;
 
-import javax.xml.XMLConstants;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.universAAL.context.conversion.jena.JenaConverter;
-import org.universAAL.middleware.context.ContextEvent;
-import org.universAAL.middleware.context.ContextEventPattern;
-import org.universAAL.middleware.input.InputEvent;
-import org.universAAL.middleware.io.rdf.*;
-import org.universAAL.middleware.output.OutputEvent;
-import org.universAAL.middleware.output.OutputEventPattern;
-import org.universAAL.middleware.owl.ClassExpression;
-import org.universAAL.middleware.owl.ManagedIndividual;
-import org.universAAL.middleware.owl.Restriction;
-import org.universAAL.middleware.rdf.PropertyPath;
-import org.universAAL.middleware.rdf.Resource;
-import org.universAAL.middleware.rdf.TypeMapper;
-import org.universAAL.middleware.service.AggregatingFilter;
-import org.universAAL.middleware.service.ServiceCall;
-import org.universAAL.middleware.service.ServiceRequest;
-import org.universAAL.middleware.service.ServiceResponse; //import org.universAAL.middleware.service.impl.ServiceRealization;//not exported by bus.service
-import org.universAAL.middleware.service.owls.profile.ServiceProfile;
 import org.universAAL.middleware.container.ModuleContext;
 import org.universAAL.middleware.container.utils.LogUtils;
+import org.universAAL.middleware.owl.ClassExpression;
+import org.universAAL.middleware.owl.ManagedIndividual;
+import org.universAAL.middleware.owl.MergedRestriction;
+import org.universAAL.middleware.rdf.Resource;
+import org.universAAL.middleware.rdf.ResourceRegistry;
+import org.universAAL.middleware.rdf.TypeMapper;
 
 import com.hp.hpl.jena.datatypes.xsd.XSDDatatype;
 import com.hp.hpl.jena.datatypes.xsd.impl.XMLLiteralType;
@@ -542,7 +529,7 @@ public class JenaModelConverter implements JenaConverter {
 		    } else if (sink.isLiteral())
 			s.changeObject(src.inModel(m));
 		    else {
-			Restriction r = ManagedIndividual
+			MergedRestriction r = ManagedIndividual
 				.getClassRestrictionsOnProperty(sigType, p
 					.getURI());
 			if (!checkEquality(((r == null) ? -1 : r
@@ -654,59 +641,63 @@ public class JenaModelConverter implements JenaConverter {
      */
     public static Resource getResourceInstance(String classURI,
 	    String instanceURI) {
-	Hashtable middlewareResources = new Hashtable();
-	middlewareResources.put(ContextEvent.MY_URI, ContextEvent.class);
-	middlewareResources.put(ContextEventPattern.MY_URI,
-		ContextEventPattern.class);
-	middlewareResources.put(AggregatingFilter.MY_URI,
-		AggregatingFilter.class);
-	middlewareResources.put(PropertyPath.TYPE_PROPERTY_PATH,
-		PropertyPath.class);
-	middlewareResources.put(ServiceCall.MY_URI, ServiceCall.class);
-	middlewareResources.put(ServiceRequest.MY_URI, ServiceRequest.class);
-	// middlewareResources.put(ServiceRealization.MY_URI,
-	// ServiceRealization.class);
-	middlewareResources.put(ServiceResponse.MY_URI, ServiceResponse.class);
-	middlewareResources.put(ServiceProfile.MY_URI, ServiceProfile.class);
-	middlewareResources.put(OutputEvent.MY_URI, OutputEvent.class);
-	middlewareResources.put(OutputEventPattern.MY_URI,
-		OutputEventPattern.class);
-	middlewareResources.put(InputEvent.MY_URI, InputEvent.class);
-	middlewareResources.put(Form.MY_URI, Form.class);
-	middlewareResources.put(Label.MY_URI, Label.class);
-	middlewareResources.put(ChoiceItem.MY_URI, ChoiceItem.class);
-	middlewareResources.put(ChoiceList.MY_URI, ChoiceList.class);
-	middlewareResources.put(Group.MY_URI, Group.class);
-	middlewareResources.put(Submit.MY_URI, Submit.class);
-	middlewareResources
-		.put(SubdialogTrigger.MY_URI, SubdialogTrigger.class);
-	middlewareResources.put(SimpleOutput.MY_URI, SimpleOutput.class);
-	middlewareResources.put(MediaObject.MY_URI, MediaObject.class);
-	middlewareResources.put(InputField.MY_URI, InputField.class);
-	middlewareResources.put(TextArea.MY_URI, TextArea.class);
-	middlewareResources.put(Select.MY_URI, Select.class);
-	middlewareResources.put(Select1.MY_URI, Select1.class);
-	middlewareResources.put(Range.MY_URI, Range.class);
-	if (classURI == null)
-	    return null;
-
-	Class clz = (Class) middlewareResources.get(classURI);
-	if (clz == null)
-	    return null;
-
-	try {
-	    if (clz == ServiceCall.class
-		    && ServiceCall.THIS_SERVICE_CALL.getURI().equals(
-			    instanceURI))
-		return ServiceCall.THIS_SERVICE_CALL;
-	    if (Resource.isAnonymousURI(instanceURI))
-		return (Resource) clz.newInstance();
-	    else
-		return (Resource) clz.getConstructor(
-			new Class[] { String.class }).newInstance(
-			new Object[] { instanceURI });
-	} catch (Exception e) {
-	    return null;
-	}
+	
+	return ResourceRegistry.getInstance().getResource(classURI, instanceURI);
+	
+//	Hashtable middlewareResources = new Hashtable();
+//	middlewareResources.put(ContextEvent.MY_URI, ContextEvent.class);
+//	middlewareResources.put(ContextEventPattern.MY_URI,
+//		ContextEventPattern.class);
+//	middlewareResources.put(AggregatingFilter.MY_URI,
+//		AggregatingFilter.class);
+//	middlewareResources.put(PropertyPath.TYPE_PROPERTY_PATH,
+//		PropertyPath.class);
+//	middlewareResources.put(ServiceCall.MY_URI, ServiceCall.class);
+//	middlewareResources.put(ServiceRequest.MY_URI, ServiceRequest.class);
+//	// middlewareResources.put(ServiceRealization.MY_URI,
+//	// ServiceRealization.class);
+//	middlewareResources.put(ServiceResponse.MY_URI, ServiceResponse.class);
+//	middlewareResources.put(ServiceProfile.MY_URI, ServiceProfile.class);
+//	middlewareResources.put(OutputEvent.MY_URI, OutputEvent.class);
+//	middlewareResources.put(OutputEventPattern.MY_URI,
+//		OutputEventPattern.class);
+//	middlewareResources.put(InputEvent.MY_URI, InputEvent.class);
+//	middlewareResources.put(Form.MY_URI, Form.class);
+//	middlewareResources.put(Label.MY_URI, Label.class);
+//	middlewareResources.put(ChoiceItem.MY_URI, ChoiceItem.class);
+//	middlewareResources.put(ChoiceList.MY_URI, ChoiceList.class);
+//	middlewareResources.put(Group.MY_URI, Group.class);
+//	middlewareResources.put(Submit.MY_URI, Submit.class);
+//	middlewareResources
+//		.put(SubdialogTrigger.MY_URI, SubdialogTrigger.class);
+//	middlewareResources.put(SimpleOutput.MY_URI, SimpleOutput.class);
+//	middlewareResources.put(MediaObject.MY_URI, MediaObject.class);
+//	middlewareResources.put(InputField.MY_URI, InputField.class);
+//	middlewareResources.put(TextArea.MY_URI, TextArea.class);
+//	middlewareResources.put(Select.MY_URI, Select.class);
+//	middlewareResources.put(Select1.MY_URI, Select1.class);
+//	middlewareResources.put(Range.MY_URI, Range.class);
+//	if (classURI == null)
+//	    return null;
+//
+//	
+//	Class clz = (Class) middlewareResources.get(classURI);
+//	if (clz == null)
+//	    return null;
+//
+//	try {
+//	    if (clz == ServiceCall.class
+//		    && ServiceCall.THIS_SERVICE_CALL.getURI().equals(
+//			    instanceURI))
+//		return ServiceCall.THIS_SERVICE_CALL;
+//	    if (Resource.isAnonymousURI(instanceURI))
+//		return (Resource) clz.newInstance();
+//	    else
+//		return (Resource) clz.getConstructor(
+//			new Class[] { String.class }).newInstance(
+//			new Object[] { instanceURI });
+//	} catch (Exception e) {
+//	    return null;
+//	}
     }
 }

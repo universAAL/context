@@ -3,8 +3,8 @@
  */
 package org.universAAL.context.conversion.jena.impl.util;
 
-import org.universAAL.middleware.io.owl.AccessImpairment;
 import org.universAAL.middleware.owl.supply.LevelRating;
+import org.universAAL.middleware.ui.owl.AccessImpairment;
 
 
 /**
@@ -16,7 +16,7 @@ public class HearingImpairment extends AccessImpairment {
 	
 	static {
 		MY_URI = uAAL_VOCABULARY_NAMESPACE + "HearingImpairment";
-		register(HearingImpairment.class);
+//		register(HearingImpairment.class);
 	}
 	
 	public static String getRDFSComment() {

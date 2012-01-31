@@ -93,10 +93,10 @@ public class Cleaner extends TimerTask {
 	    // DB removes values prior to the argument passed
 	    db.removeOldEvents(System.currentTimeMillis() - keepl);
 	    // This will keep info that arrived in the last "keep" ms
-	    // And now update the time of the last removal to "now"
+	    // And now update the time of the next removal to now+keep
 	    Properties props = Hub.getProperties();
 	    props.setProperty("RECYCLE.DATE",
-		    String.valueOf(System.currentTimeMillis()));
+		    String.valueOf(System.currentTimeMillis() + keepl));
 	    Hub.setProperties(props);
 	}
 

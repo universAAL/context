@@ -30,64 +30,32 @@ import org.universAAL.middleware.context.ContextSubscriber;
 
 /**
  * The CHe subscriber subscribes for all context events in order to save them to
- * the store.
+ * the store
  * 
  * @author <a href="mailto:alfiva@itaca.upv.es">Alvaro Fides Valero</a>
  * 
  */
 public class ContextHistorySubscriber extends ContextSubscriber {
-    /**
-     * The instance of the underlying store.
-     */
     private Backend db;
-    /**
-     * Logger.
-     */
-    private static Log log = Hub.getLog(ContextHistorySubscriber.class);
+    private final static Log log = Hub.getLog(ContextHistorySubscriber.class);
 
-    /**
-     * Main constructor.
-     * 
-     * @param context
-     *            The uaal module context
-     * @param dbstore
-     *            The store
-     */
-    public ContextHistorySubscriber(ModuleContext context, Backend dbstore) {
+    public ContextHistorySubscriber(ModuleContext context, Backend db) {
 	// My context event pattern is zero-restrictions (ALL)
 	super(context, new ContextEventPattern[] { new ContextEventPattern() });
-	this.db = dbstore;
+	this.db = db;
 	log.info("init", "CHe: Subscriber Ready");
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.universAAL.middleware.context.ContextSubscriber#
-     * communicationChannelBroken()
-     */
     public void communicationChannelBroken() {
 	// TODO Auto-generated method stub
 
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see
-     * org.universAAL.middleware.context.ContextSubscriber#handleContextEvent
-     * (org.universAAL.middleware.context.ContextEvent)
-     */
     public void handleContextEvent(ContextEvent event) {
 	db.storeEvent(event);
 	log.info("handleContextEvent", "CHe: Stored a Context Event");
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.universAAL.middleware.context.ContextSubscriber#close()
-     */
     public void close() {
 	// db.close();//Already closed by Activator
     }

@@ -1,5 +1,5 @@
 /*
-	Copyright 2008-2010 ITACA-TSB, http://www.tsb.upv.es
+	Copyright 2008-2014 ITACA-TSB, http://www.tsb.upv.es
 	Instituto Tecnologico de Aplicaciones de Comunicacion 
 	Avanzadas - Grupo Tecnologias para la Salud y el 
 	Bienestar (TSB)
@@ -31,63 +31,60 @@ import org.universAAL.middleware.container.utils.LogUtils;
 import org.universAAL.middleware.context.ContextEvent;
 import org.universAAL.middleware.context.ContextEventPattern;
 import org.universAAL.middleware.context.ContextSubscriber;
+import org.universAAL.middleware.sodapop.msg.MessageContentSerializer;
 
-import com.thoughtworks.xstream.XStream;
+public class MobileHistorySubscriber extends ContextSubscriber {
 
-/**
- * The subscriber of the mobile CHe, which subscribes to all context events in
- * order to store them
- * 
- * @author <a href="mailto:alfiva@itaca.upv.es">Alvaro Fides Valero</a>
- * 
- */
-public class HistoryConsumer extends ContextSubscriber {
-    private static final String FILE = "PMD-Events.txt";
-    private XStream xs;
-    private File confHome = new File(
-	    new BundleConfigHome("ctxt.che.mobile").getAbsolutePath());
+    private static final String FILE = "Mobile-Events.txt";
+    private static File confHome = new File(new BundleConfigHome(
+	    "ctxt.che.mobile").getAbsolutePath());
 
-    public HistoryConsumer(ModuleContext context) {
+    private Object fileLock = new Object();
+    private MessageContentSerializer uAALParser;
+    private ModuleContext moduleContext;
+
+    protected MobileHistorySubscriber(ModuleContext context) {
 	super(context, new ContextEventPattern[] { new ContextEventPattern() });
-	xs = new XStream(new WriteOnlyJavaReflectionProvider());
-	synchronized (Activator.getLock()) {
+	this.moduleContext = context;
+	synchronized (fileLock) {
 	    try {
 		BufferedWriter out = new BufferedWriter(new FileWriter(
 			new File(confHome, FILE), false));
 		out.close();
 	    } catch (Exception e) {
-		LogUtils.logError(Activator.moduleContext, this.getClass(),
-			"init", new Object[] { "COULD NOT CREATE FILE " }, e);
+		LogUtils.logError(moduleContext, this.getClass(), "init",
+			new Object[] { "COULD NOT CREATE FILE " }, e);
 	    }
 	}
     }
 
     public void communicationChannelBroken() {
 	// TODO Auto-generated method stub
+
     }
 
     public void handleContextEvent(ContextEvent event) {
-	LogUtils.logDebug(Activator.moduleContext, this.getClass(), "init",
-		new Object[] { "PMD CHe: Received a Context Event" }, null);
-	synchronized (Activator.getLock()) {
+	LogUtils.logDebug(moduleContext, this.getClass(), "handleContextEvent",
+		new Object[] { "Mobile CHe: Received a Context Event" }, null);
+	synchronized (fileLock) {
 	    try {
 		BufferedWriter out = new BufferedWriter(new FileWriter(
 			new File(confHome, FILE), true));
-		String xmlOut = xs.toXML(event);
-		out.write(xmlOut);
+		String turtleOut = uAALParser.serialize(event);
+		out.write(turtleOut);
 		out.newLine();
 		out.write("<!--CEv-->");
 		out.newLine();
 		out.close();
 	    } catch (Exception e) {
-		LogUtils.logError(Activator.moduleContext, this.getClass(),
-			"init", new Object[] { "COULD NOT ACCESS FILE: " }, e);
+		LogUtils.logError(moduleContext, this.getClass(), "init",
+			new Object[] { "COULD NOT ACCESS FILE: " }, e);
 	    }
 	}
     }
 
-    public void close() {
-	xs = null;
+    public void setuAALParser(MessageContentSerializer service) {
+	this.uAALParser = service;
     }
 
 }

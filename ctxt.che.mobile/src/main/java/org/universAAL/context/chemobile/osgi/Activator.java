@@ -29,87 +29,43 @@ import org.osgi.framework.ServiceReference;
 import org.universAAL.context.chemobile.Hub;
 import org.universAAL.middleware.container.ModuleContext;
 import org.universAAL.middleware.container.osgi.uAALBundleContainer;
-import org.universAAL.middleware.container.osgi.util.BundleConfigHome;
-import org.universAAL.middleware.serialization.MessageContentSerializer;
+import org.universAAL.middleware.sodapop.msg.MessageContentSerializer;
 
 /**
- * OSGI activator. Relays start and stop to Hub.
- * 
  * @author <a href="mailto:alfiva@itaca.upv.es">Alvaro Fides Valero</a>
  * 
  */
 public class Activator implements BundleActivator, ServiceListener {
-    /**
-     * uAAL module context.
-     */
-    private static ModuleContext moduleContext;
-    /**
-     * OSGI bundle context.
-     */
-    private BundleContext osgiContext;
-    /**
-     * The application hub independent from OSGi.
-     */
-    private Hub hub = new Hub();
-    /**
-     * The path to the config file. Here so it's decoupled from Hub.
-     */
-    public static final String osgiConfigPath = new BundleConfigHome(
-	    "ctxt.che.mobile").getAbsolutePath();
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see
-     * org.osgi.framework.BundleActivator#start(org.osgi.framework.BundleContext
-     * )
-     */
-    public void start(BundleContext context) {
+    private ModuleContext moduleContext;
+    private BundleContext osgiContext;
+    private Hub hub = new Hub();
+
+    public void start(BundleContext context) throws Exception {
 	osgiContext = context;
 	// create the context
 	moduleContext = uAALBundleContainer.THE_CONTAINER
 		.registerModule(new Object[] { context });
 	// Start the core
-	try {
-	    hub.start(moduleContext);
-	    // Look for MessageContentSerializer of mw.data.serialization
-	    // And set parser
-	    String filter = "(objectclass="
-		    + MessageContentSerializer.class.getName() + ")";
-	    context.addServiceListener(this, filter);
-	    ServiceReference[] references = context.getServiceReferences((String)null,
-		    filter);
-	    for (int i = 0; references != null && i < references.length; i++) {
-		this.serviceChanged(new ServiceEvent(ServiceEvent.REGISTERED,
-			references[i]));
-	    }
-	} catch (Exception e) {
-	    e.printStackTrace();
+	hub.start(moduleContext);
+	// Look for MessageContentSerializer of mw.data.serialization
+	// And set parser
+	String filter = "(objectclass="
+		+ MessageContentSerializer.class.getName() + ")";
+	context.addServiceListener(this, filter);
+	ServiceReference[] references = context.getServiceReferences(null,
+		filter);
+	for (int i = 0; references != null && i < references.length; i++) {
+	    this.serviceChanged(new ServiceEvent(ServiceEvent.REGISTERED,
+		    references[i]));
 	}
 
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see
-     * org.osgi.framework.BundleActivator#stop(org.osgi.framework.BundleContext)
-     */
-    public void stop(BundleContext context) {
-	try {
-	    hub.stop();
-	} catch (Exception e) {
-	    e.printStackTrace();
-	}
+    public void stop(BundleContext context) throws Exception {
+	hub.stop(moduleContext);
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see
-     * org.osgi.framework.ServiceListener#serviceChanged(org.osgi.framework.
-     * ServiceEvent)
-     */
     public void serviceChanged(ServiceEvent event) {
 	// Update the MessageContentSerializer
 	switch (event.getType()) {
@@ -124,15 +80,6 @@ public class Activator implements BundleActivator, ServiceListener {
 	default:
 	    break;
 	}
-    }
-
-    /**
-     * Get the uAAL Module Context.
-     * 
-     * @return The module context.
-     */
-    public static ModuleContext getModuleContext() {
-	return moduleContext;
     }
 
 }

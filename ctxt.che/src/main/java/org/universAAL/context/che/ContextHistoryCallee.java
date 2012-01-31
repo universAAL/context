@@ -1,5 +1,5 @@
 /*
-	Copyright 2008-2011 ITACA-TSB, http://www.tsb.upv.es
+	Copyright 2008-2014 ITACA-TSB, http://www.tsb.upv.es
 	Instituto Tecnologico de Aplicaciones de Comunicacion 
 	Avanzadas - Grupo Tecnologias para la Salud y el 
 	Bienestar (TSB)
@@ -24,8 +24,7 @@ package org.universAAL.context.che;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.universAAL.context.che.Hub.Log;
 import org.universAAL.context.che.database.Backend;
 import org.universAAL.context.che.ontology.ContextEvent;
 import org.universAAL.middleware.container.ModuleContext;
@@ -46,8 +45,7 @@ import org.universAAL.middleware.service.owls.process.ProcessOutput;
 public class ContextHistoryCallee extends ServiceCallee {
     private static final ServiceResponse invalidInput = new ServiceResponse(
 	    CallStatus.serviceSpecificFailure);
-    private final static Logger log = LoggerFactory
-	    .getLogger(ContextHistoryCallee.class);
+    private final static Log log = Hub.getLog(ContextHistoryCallee.class);
 
     static {
 	invalidInput.addOutput(new ProcessOutput(
@@ -67,7 +65,7 @@ public class ContextHistoryCallee extends ServiceCallee {
     }
 
     public ServiceResponse handleCall(ServiceCall call) {
-	log.info("CHe received a service call");
+	log.info("handleCall", "CHe received a service call");
 	if (call == null) {
 	    invalidInput
 		    .addOutput(new ProcessOutput(
@@ -87,7 +85,7 @@ public class ContextHistoryCallee extends ServiceCallee {
 
 	if (operation
 		.startsWith(ContextHistoryServices.SERVICE_DO_SPARQL_QUERY)) {
-	    log.info("Received call was SERVICE_DO_SPARQL_QUERY");
+	    log.info("handleCall", "Received call was SERVICE_DO_SPARQL_QUERY");
 
 	    Object input = call
 		    .getInputValue(ContextHistoryServices.INPUT_QUERY);
@@ -101,7 +99,8 @@ public class ContextHistoryCallee extends ServiceCallee {
 
 	} else if (operation
 		.startsWith(ContextHistoryServices.SERVICE_GET_EVENTS_BY_SPARQL)) {
-	    log.info("Received call was SERVICE_GET_EVENTS_BY_SPARQL");
+	    log.info("handleCall",
+		    "Received call was SERVICE_GET_EVENTS_BY_SPARQL");
 
 	    Object input = call
 		    .getInputValue(ContextHistoryServices.INPUT_QUERY);
@@ -155,7 +154,8 @@ public class ContextHistoryCallee extends ServiceCallee {
 
 	    if (operation
 		    .startsWith(ContextHistoryServices.SERVICE_GET_EVENTS_FROM_TIMESTAMP)) {
-		log.info("Received call was SERVICE_GET_EVENTS_FROM_TIMESTAMP");
+		log.info("handleCall",
+			"Received call was SERVICE_GET_EVENTS_FROM_TIMESTAMP");
 
 		Object tstinput = call
 			.getInputValue(ContextHistoryServices.INPUT_TIMESTAMP_FROM);
@@ -179,7 +179,8 @@ public class ContextHistoryCallee extends ServiceCallee {
 
 	    else if (operation
 		    .startsWith(ContextHistoryServices.SERVICE_GET_EVENTS_TO_TIMESTAMP)) {
-		log.info("Received call was SERVICE_GET_EVENTS_TO_TIMESTAMP");
+		log.info("handleCall",
+			"Received call was SERVICE_GET_EVENTS_TO_TIMESTAMP");
 		Object tstinput = call
 			.getInputValue(ContextHistoryServices.INPUT_TIMESTAMP_TO);
 		Long tstinputValue = new Long("0");
@@ -202,7 +203,8 @@ public class ContextHistoryCallee extends ServiceCallee {
 
 	    else if (operation
 		    .startsWith(ContextHistoryServices.SERVICE_GET_EVENTS_BETWEEN_TIMESTAMPS)) {
-		log.info("Received call was SERVICE_GET_EVENTS_BETWEEN_TIMESTAMPS");
+		log.info("handleCall",
+			"Received call was SERVICE_GET_EVENTS_BETWEEN_TIMESTAMPS");
 		Object tstinput1 = call
 			.getInputValue(ContextHistoryServices.INPUT_TIMESTAMP_FROM);
 		Object tstinput2 = call
@@ -249,7 +251,8 @@ public class ContextHistoryCallee extends ServiceCallee {
 		    ContextHistoryServices.OUTPUT_RESULT, results));
 	    return response;
 	} catch (Exception e) {
-	    log.error("Error executing specific SPARQL: {} ", e);
+	    log.error("execSPARQLQuery",
+		    "Error executing specific SPARQL: {} ", e);
 	    return invalidInput;
 	}
     }
@@ -262,7 +265,8 @@ public class ContextHistoryCallee extends ServiceCallee {
 		    ContextHistoryServices.OUTPUT_EVENTS, results));
 	    return response;
 	} catch (Exception e) {
-	    log.error("Error executing SPARQL for events: {} ", e);
+	    log.error("execSPARQLQueryForEvents",
+		    "Error executing SPARQL for events: {} ", e);
 	    return invalidInput;
 	}
     }

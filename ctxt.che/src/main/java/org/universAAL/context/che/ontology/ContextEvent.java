@@ -1,8 +1,8 @@
 /*
-	Copyright 2008-2011 Fraunhofer IGD, http://www.igd.fraunhofer.de
+	Copyright 2008-2014 Fraunhofer IGD, http://www.igd.fraunhofer.de
 	Fraunhofer-Gesellschaft - Institute of Computer Graphics Research
 	
-	Copyright 2008-2011 ITACA-TSB, http://www.tsb.upv.es
+	Copyright 2008-2014 ITACA-TSB, http://www.tsb.upv.es
 	Instituto Tecnologico de Aplicaciones de Comunicacion 
 	Avanzadas - Grupo Tecnologias para la Salud y el 
 	Bienestar (TSB)
@@ -81,25 +81,6 @@ public class ContextEvent extends ManagedIndividual {
     public static final String LOCAL_NAME_TIMESTAMP = "hasTimestamp";
     public static final String PROP_CONTEXT_TIMESTAMP = uAAL_CONTEXT_NAMESPACE
 	    + LOCAL_NAME_TIMESTAMP;
-
-    /*
-     * static { uAAL_CONTEXT_NAMESPACE = uAAL_NAMESPACE_PREFIX + "Context.owl#";
-     * MY_URI = uAAL_CONTEXT_NAMESPACE + "ContextEventCHE";
-     * CONTEXT_EVENT_URI_PREFIX =
-     * "urn:org.universAAL.middleware.context.rdf:ContextEvent#";
-     * LOCAL_NAME_SUBJECT = "subject"; PROP_RDF_SUBJECT = RDF_NAMESPACE +
-     * LOCAL_NAME_SUBJECT; LOCAL_NAME_PREDICATE = "predicate";
-     * PROP_RDF_PREDICATE = RDF_NAMESPACE + LOCAL_NAME_PREDICATE;
-     * LOCAL_NAME_OBJECT = "object"; PROP_RDF_OBJECT = RDF_NAMESPACE +
-     * LOCAL_NAME_OBJECT; LOCAL_NAME_CONFIDENCE = "hasConfidence";
-     * PROP_CONTEXT_CONFIDENCE = uAAL_CONTEXT_NAMESPACE + LOCAL_NAME_CONFIDENCE;
-     * LOCAL_NAME_PROVIDER = "hasProvider"; PROP_CONTEXT_PROVIDER =
-     * uAAL_CONTEXT_NAMESPACE + LOCAL_NAME_PROVIDER; LOCAL_NAME_EXPIRATION_TIME
-     * = "hasExpirationTime"; PROP_CONTEXT_EXPIRATION_TIME =
-     * uAAL_CONTEXT_NAMESPACE + LOCAL_NAME_EXPIRATION_TIME; LOCAL_NAME_TIMESTAMP
-     * = "hasTimestamp"; PROP_CONTEXT_TIMESTAMP = uAAL_CONTEXT_NAMESPACE +
-     * LOCAL_NAME_TIMESTAMP; register(ContextEvent.class); }
-     */
 
     /**
      * Constructs a CHe stub ContextEvent according to the parameters passed

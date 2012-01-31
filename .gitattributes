@@ -1,15 +1,12 @@
 * text=auto !eol
-ctxt.che.mobile/LICENSE-BSD-XStream.txt -text
 ctxt.che.mobile/LICENSE-CPL-JUnit.txt -text
-ctxt.che.mobile/LICENSE-Extreme.txt -text
-ctxt.che.mobile/LICENSE-MIT11-Bouncycastle.txt -text
 ctxt.che.mobile/LICENSE.txt -text
 ctxt.che.mobile/NOTICE.txt -text
 ctxt.che.mobile/artifact.composite -text
 ctxt.che.mobile/pom.xml -text
-ctxt.che.mobile/src/main/java/org/universAAL/context/chemobile/Activator.java -text
-ctxt.che.mobile/src/main/java/org/universAAL/context/chemobile/HistoryConsumer.java -text
-ctxt.che.mobile/src/main/java/org/universAAL/context/chemobile/WriteOnlyJavaReflectionProvider.java -text
+ctxt.che.mobile/src/main/java/org/universAAL/context/chemobile/Hub.java -text
+ctxt.che.mobile/src/main/java/org/universAAL/context/chemobile/MobileHistorySubscriber.java -text
+ctxt.che.mobile/src/main/java/org/universAAL/context/chemobile/osgi/Activator.java -text
 ctxt.che/LICENSE-Aduna-OpenRDF.txt -text
 ctxt.che/LICENSE-CPL-JUnit.txt -text
 ctxt.che/LICENSE.txt -text

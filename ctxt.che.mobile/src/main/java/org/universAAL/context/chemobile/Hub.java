@@ -1,5 +1,5 @@
 /*
-	Copyright 2008-2010 ITACA-TSB, http://www.tsb.upv.es
+	Copyright 2008-2014 ITACA-TSB, http://www.tsb.upv.es
 	Instituto Tecnologico de Aplicaciones de Comunicacion 
 	Avanzadas - Grupo Tecnologias para la Salud y el 
 	Bienestar (TSB)
@@ -21,34 +21,23 @@
  */
 package org.universAAL.context.chemobile;
 
-import org.osgi.framework.BundleActivator;
-import org.osgi.framework.BundleContext;
 import org.universAAL.middleware.container.ModuleContext;
-import org.universAAL.middleware.container.osgi.uAALBundleContainer;
+import org.universAAL.middleware.sodapop.msg.MessageContentSerializer;
 
-/**
- * @author <a href="mailto:alfiva@itaca.upv.es">Alvaro Fides Valero</a>
- * 
- */
-public class Activator implements BundleActivator {
+public class Hub {
 
-    public static ModuleContext moduleContext = null;
-    private static Object fileLock;
-    private HistoryConsumer hc;
+    private MobileHistorySubscriber hc;
 
-    public void start(BundleContext context) throws Exception {
-	Activator.moduleContext = uAALBundleContainer.THE_CONTAINER
-		.registerModule(new Object[] { context });
-	Activator.fileLock = new Object();
-	hc = new HistoryConsumer(moduleContext);
+    public void start(ModuleContext context) throws Exception {
+	hc = new MobileHistorySubscriber(context);
     }
 
-    public void stop(BundleContext context) throws Exception {
+    public void stop(ModuleContext context) throws Exception {
 	hc.close();
     }
 
-    public static Object getLock() {
-	return fileLock;
+    public void setuAALParser(MessageContentSerializer service) {
+	hc.setuAALParser(service);
     }
 
 }

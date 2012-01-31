@@ -10,12 +10,12 @@
 		<relativePath>../pom/pom.xml</relativePath>
 	</parent>
 	<artifactId>ctxt.che.mobile</artifactId>
-	<version>1.0.1-SNAPSHOT</version>
+	<version>1.0.2-SNAPSHOT</version>
 	<packaging>bundle</packaging>
 
 	<!-- ______________________________________________________ -->
 
-	<name>Compact Context History Entrepot for PMD</name>
+	<name>Compact Context History Entrepot for Mobile</name>
 	<description>The mobile version of the component managing the history of all context events published to the PERSONA context bus.</description>
 	<inceptionYear>2008</inceptionYear>
 	<licenses>
@@ -44,17 +44,16 @@
 			<artifactId>org.osgi.core</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>com.thoughtworks.xstream</groupId>
-			<artifactId>xstream</artifactId>
-			<version>1.3.1</version>
-		</dependency>
-		<dependency>
 			<groupId>org.universAAL.middleware</groupId>
 			<artifactId>mw.container.osgi</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.universAAL.middleware</groupId>
 			<artifactId>mw.data.representation</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.universAAL.middleware</groupId>
+			<artifactId>mw.data.serialization</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.universAAL.middleware</groupId>
@@ -73,7 +72,7 @@
 				<configuration>
 					<instructions>
 						<Bundle-Name>${project.name}</Bundle-Name>
-						<Bundle-Activator>org.universAAL.context.chemobile.Activator</Bundle-Activator>
+						<Bundle-Activator>org.universAAL.context.chemobile.osgi.Activator</Bundle-Activator>
 						<Bundle-Description>${project.description}</Bundle-Description>
 						<Bundle-SymbolicName>${project.artifactId}</Bundle-SymbolicName>
 						<Private-Package>org.universAAL.context.chemobile</Private-Package>
@@ -88,11 +87,11 @@
 	</build>
 
 	<!-- ______________________________________________________ -->
-	
+
 	<scm>
 		<connection>${svn.base}/${artifactId}</connection>
 		<developerConnection>${svn.base}/${artifactId}</developerConnection>
 		<url>${svn.base.url}${artifactId}</url>
 	</scm>
-	
+
 </project>

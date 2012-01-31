@@ -1,5 +1,5 @@
 /*
-	Copyright 2011 ITACA-TSB, http://www.tsb.upv.es
+	Copyright 2014 ITACA-TSB, http://www.tsb.upv.es
 	Instituto Tecnologico de Aplicaciones de Comunicacion 
 	Avanzadas - Grupo Tecnologias para la Salud y el 
 	Bienestar (TSB)
@@ -32,9 +32,8 @@ import java.util.Locale;
 import javax.xml.datatype.Duration;
 import javax.xml.datatype.XMLGregorianCalendar;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.universAAL.context.che.Activator;
+import org.universAAL.context.che.Hub;
+import org.universAAL.context.che.Hub.Log;
 import org.universAAL.context.che.database.Backend;
 import org.universAAL.middleware.context.ContextEvent;
 import org.universAAL.middleware.context.owl.ContextProvider;
@@ -59,7 +58,6 @@ import org.openrdf.rio.RDFFormat;
 import org.openrdf.rio.RDFWriter;
 import org.openrdf.rio.turtle.TurtleWriterFactory;
 import org.openrdf.sail.nativerdf.NativeStore;
-
 import org.openrdf.sail.inferencer.fc.ForwardChainingRDFSInferencer;
 
 /**
@@ -76,9 +74,10 @@ public class SesameBackend implements Backend {
     Repository myRepository;
 
     protected MessageContentSerializer uAALParser;
-    private final static Logger log = LoggerFactory
-	    .getLogger(SesameBackend.class);
-    private static final boolean DEBUG_DB = true;// TODO: Remove this
+    private final static Log log = Hub.getLog(SesameBackend.class);
+    // TODO: Remove this DEBUG
+    private static final boolean DEBUG_DB = Boolean.parseBoolean(Hub
+	    .getProperties().getProperty("RECYCLE.DEBUG", "true"));
     private static final int SELECT = 0, CONSTRUCT = 1, DESCRIBE = 2, ASK = 3,
 	    UPDATE = 4, NONE = -1;
 
@@ -88,28 +87,30 @@ public class SesameBackend implements Backend {
      * @see org.universAAL.context.che.database.Backend#connect()
      */
     public void connect() {
-	String dataPath = Activator.getProperties().getProperty(
-		"STORE.LOCATION");
+	String dataPath = Hub.getProperties().getProperty("STORE.LOCATION");
 	// I use C:/Proyectos/UNIVERSAAL/ContextStore/Stores/SAIL_FCRDFS_Native
 	if (dataPath != null) {
 	    File dataDir = new File(dataPath);
 	    String indexes = "spoc,posc,cosp";// TODO: Change indexes (specially
 					      // if we dont use contexts)
 	    log.info("CHe connects to {} ", dataDir.toString());
-	    // TODO: Evaluate the inference, and study other reasoners, if any
+	    // TODO: Study other reasoners, if any
 	    try {
 		myRepository = new SailRepository(
 			new ForwardChainingRDFSInferencer(new NativeStore(
 				dataDir, indexes)));
 		myRepository.initialize();
 	    } catch (Exception e) {
-		log.error("Exception trying to initilaize the store: {} ", e);
+		log.error("connect",
+			"Exception trying to initilaize the store: {} ", e);
 		e.printStackTrace();
 	    }
 	} else {
-	    log.error("No location specified for the store. "
-		    + "Add and specify the configuration parameter STORE.LOCATION "
-		    + "to the configuration file of the CHE pointing to a valid folder path.");
+	    log.error(
+		    "connect",
+		    "No location specified for the store. "
+			    + "Add and specify the configuration parameter STORE.LOCATION "
+			    + "to the configuration file of the CHE pointing to a valid folder path.");
 	}
     }
 
@@ -120,7 +121,7 @@ public class SesameBackend implements Backend {
      */
     public void close() {
 	try {
-	    if (DEBUG_DB) {// TODO CLEAR THE FULL STORE WHEN STOPPED. For tests.
+	    if (DEBUG_DB) {// TODO: Remove this
 		RepositoryConnection con = myRepository.getConnection();
 		try {
 		    con.clear();
@@ -130,7 +131,8 @@ public class SesameBackend implements Backend {
 	    }
 	    myRepository.shutDown();
 	} catch (OpenRDFException exc) {
-	    log.error("Exception trying to shutdown the store: {} ", exc);
+	    log.error("close", "Exception trying to shutdown the store: {} ",
+		    exc);
 	    exc.printStackTrace();
 	}
     }
@@ -146,21 +148,24 @@ public class SesameBackend implements Backend {
 	try {
 	    RepositoryConnection con = myRepository.getConnection();
 	    try {
-		log.debug("Adding event to store");
+		log.debug("storeEvent", "Adding event to store");
 		con.add(new StringReader(uAALParser.serialize(e)), e.getURI(),
 			RDFFormat.TURTLE);
-		log.debug("Successfully added event to store");
+		log.debug("storeEvent", "Successfully added event to store");
 	    } catch (IOException exc) {
-		log.error("Error trying to add event to the store. "
-			+ "In older versions this usually happened because "
-			+ "of the underlying connection closing due to "
-			+ "inactivity, but now it is because: {}", exc);
+		log.error(
+			"storeEvent",
+			"Error trying to add event to the store. "
+				+ "In older versions this usually happened because "
+				+ "of the underlying connection closing due to "
+				+ "inactivity, but now it is because: {}", exc);
 		exc.printStackTrace();
 	    } finally {
 		con.close();
 	    }
 	} catch (OpenRDFException exc) {
-	    log.error("Error trying to get connection to store: {}", exc);
+	    log.error("storeEvent",
+		    "Error trying to get connection to store: {}", exc);
 	    exc.printStackTrace();
 	}
     }
@@ -173,7 +178,7 @@ public class SesameBackend implements Backend {
      * )
      */
     public String queryBySPARQL(String input) {
-	log.debug("queryBySPARQL");
+	log.debug("queryBySPARQL", "queryBySPARQL");
 	String result = null;
 	try {
 	    RepositoryConnection con = myRepository.getConnection();
@@ -183,7 +188,8 @@ public class SesameBackend implements Backend {
 		// is
 		// We have to find out ourselves with get
 		switch (getQueryType(input)) {
-		case SELECT:// TODO is it possible with Turtle?
+		case SELECT:// TODO Put a selector in uAAL service for XML,
+			    // because this is not possible with Turtle
 		    SPARQLResultsXMLWriter selectWriter = new SPARQLResultsXMLWriter(
 			    stream);
 		    TupleQuery tquery = con.prepareTupleQuery(
@@ -229,13 +235,15 @@ public class SesameBackend implements Backend {
 		    throw new MalformedQueryException("Unknown SPARQL Query.");
 		}
 	    } catch (UnsupportedEncodingException e) {
-		log.error("Could not parse results to UTF-8 encoding");
+		log.error("queryBySPARQL",
+			"Could not parse results to UTF-8 encoding");
 		e.printStackTrace();
 	    } finally {
 		con.close();
 	    }
 	} catch (OpenRDFException exc) {
-	    log.error("Error trying to get connection to store: {}", exc);
+	    log.error("queryBySPARQL",
+		    "Error trying to get connection to store: {}", exc);
 	    exc.printStackTrace();
 	}
 	return result;
@@ -249,7 +257,7 @@ public class SesameBackend implements Backend {
      * .lang.String)
      */
     public ArrayList retrieveEventsBySPARQL(String input) {
-	log.debug("retrieveEventsBySPARQL");
+	log.debug("retrieveEventsBySPARQL", "retrieveEventsBySPARQL");
 	ArrayList solution = new ArrayList();
 	try {
 	    RepositoryConnection con = myRepository.getConnection();
@@ -268,25 +276,27 @@ public class SesameBackend implements Backend {
 			if (valueOfC instanceof URI) {
 			    // Then we must describe them fully
 			    con.exportStatements((URI) valueOfC, null, null,
-				    true, writer);// TODO: DO all this AFTER
-			    // closing the result?
+				    true, writer);
 			    // Instead of using a Converter, we parse the Turtle
 			    // result
 			    solution.add((ContextEvent) uAALParser
 				    .deserialize(stream.toString("UTF-8")));
 			    stream.reset();
 			} else {
-			    log.error("Returned value was not a Resource, "
-				    + "and therefore not a Context Event. "
-				    + "When querying for Context Events, "
-				    + "the SPARQL query must be a SELECT "
-				    + "of asingle value ?c where a resource of "
-				    + "rdf:type Context Event must be placed "
-				    + "according to clauses like WHERE");
+			    log.error(
+				    "retrieveEventsBySPARQL",
+				    "Returned value was not a Resource, "
+					    + "and therefore not a Context Event. "
+					    + "When querying for Context Events, "
+					    + "the SPARQL query must be a SELECT "
+					    + "of asingle value ?c where a resource of "
+					    + "rdf:type Context Event must be placed "
+					    + "according to clauses like WHERE");
 			}
 		    }
 		} catch (UnsupportedEncodingException e) {
-		    log.error("Could not parse results to UTF-8 encoding");
+		    log.error("retrieveEventsBySPARQL",
+			    "Could not parse results to UTF-8 encoding");
 		    e.printStackTrace();
 		} finally {
 		    result.close();
@@ -295,7 +305,8 @@ public class SesameBackend implements Backend {
 		con.close();
 	    }
 	} catch (OpenRDFException exc) {
-	    log.error("Error trying to get connection to store: {}", exc);
+	    log.error("retrieveEventsBySPARQL",
+		    "Error trying to get connection to store: {}", exc);
 	    exc.printStackTrace();
 	}
 	return solution.isEmpty() ? null : solution;
@@ -312,7 +323,7 @@ public class SesameBackend implements Backend {
     public ArrayList retrieveEvent(String subject, String subjecttype,
 	    String predicate, Object object, Integer confidence,
 	    Long expiration, Object provider, Long tstamp) {
-	log.debug("retrieveEvent");
+	log.debug("retrieveEvent", "retrieveEvent");
 	return retrieveEventsBySPARQL(prepareQuery(subject, subjecttype,
 		predicate, object, confidence, expiration, provider, tstamp,
 		null, null));
@@ -332,7 +343,7 @@ public class SesameBackend implements Backend {
 	    String subjecttype, String predicate, Object object,
 	    Integer confidence, Long expiration, ContextProvider provider,
 	    Long tstamp, Long tstfrom, Long tstto) {
-	log.debug("retrieveEventsBetweenTstmp");
+	log.debug("retrieveEventsBetweenTstmp", "retrieveEventsBetweenTstmp");
 	return retrieveEventsBySPARQL(prepareQuery(subject, subjecttype,
 		predicate, object, confidence, expiration, provider, tstamp,
 		tstfrom, tstto));
@@ -352,7 +363,7 @@ public class SesameBackend implements Backend {
 	    String subjecttype, String predicate, Object object,
 	    Integer confidence, Long expiration, ContextProvider provider,
 	    Long tstamp, Long tstfrom) {
-	log.debug("retrieveEventsFromTstmp");
+	log.debug("retrieveEventsFromTstmp", "retrieveEventsFromTstmp");
 	return retrieveEventsBySPARQL(prepareQuery(subject, subjecttype,
 		predicate, object, confidence, expiration, provider, tstamp,
 		tstfrom, null));
@@ -371,7 +382,7 @@ public class SesameBackend implements Backend {
     public ArrayList retrieveEventsToTstmp(String subject, String subjecttype,
 	    String predicate, Object object, Integer confidence,
 	    Long expiration, ContextProvider provider, Long tstamp, Long tstto) {
-	log.debug("retrieveEventsToTstmp");
+	log.debug("retrieveEventsToTstmp", "retrieveEventsToTstmp");
 	return retrieveEventsBySPARQL(prepareQuery(subject, subjecttype,
 		predicate, object, confidence, expiration, provider, tstamp,
 		null, tstto));
@@ -383,7 +394,7 @@ public class SesameBackend implements Backend {
      * @see org.universAAL.context.che.database.Backend#removeOldEvents(long)
      */
     public void removeOldEvents(long tst) {
-	log.debug("removeOldEvents");
+	log.debug("removeOldEvents", "removeOldEvents");
 	// String removeQuery = "SELECT  ?c "
 	// + "WHERE"
 	// +
@@ -412,7 +423,6 @@ public class SesameBackend implements Backend {
 		// Value valueOfC = bindingSet.getValue("c");
 		// //With this we get the URI of events to remove
 		// if (valueOfC instanceof URI) {
-		// // TODO: DO all this AFTER closing the result?
 		// // Then we remove per event
 		// con.remove((URI) valueOfC, null, null);
 		// } else {
@@ -430,7 +440,8 @@ public class SesameBackend implements Backend {
 		con.close();
 	    }
 	} catch (OpenRDFException exc) {
-	    log.error("Error trying to get connection to store: {}", exc);
+	    log.error("removeOldEvents",
+		    "Error trying to get connection to store: {}", exc);
 	    exc.printStackTrace();
 	}
     }

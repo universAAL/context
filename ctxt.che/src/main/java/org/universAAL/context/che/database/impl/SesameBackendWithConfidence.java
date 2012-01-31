@@ -1,3 +1,24 @@
+/*
+	Copyright 2008-2014 ITACA-TSB, http://www.tsb.upv.es
+	Instituto Tecnologico de Aplicaciones de Comunicacion 
+	Avanzadas - Grupo Tecnologias para la Salud y el 
+	Bienestar (TSB)
+	
+	See the NOTICE file distributed with this work for additional 
+	information regarding copyright ownership
+	
+	Licensed under the Apache License, Version 2.0 (the "License");
+	you may not use this file except in compliance with the License.
+	You may obtain a copy of the License at
+	
+	  http://www.apache.org/licenses/LICENSE-2.0
+	
+	Unless required by applicable law or agreed to in writing, software
+	distributed under the License is distributed on an "AS IS" BASIS,
+	WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+	See the License for the specific language governing permissions and
+	limitations under the License.
+ */
 package org.universAAL.context.che.database.impl;
 
 import java.io.IOException;
@@ -10,9 +31,8 @@ import org.openrdf.repository.RepositoryConnection;
 import org.openrdf.rio.RDFFormat;
 import org.openrdf.rio.helpers.StatementCollector;
 import org.openrdf.rio.turtle.TurtleParser;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.universAAL.context.che.Activator;
+import org.universAAL.context.che.Hub;
+import org.universAAL.context.che.Hub.Log;
 import org.universAAL.middleware.context.ContextEvent;
 
 /**
@@ -29,10 +49,14 @@ import org.universAAL.middleware.context.ContextEvent;
  * An "event1" with "subject2" "predicate3" and "object4" with enough confidence
  * will result in having the statements in the store:
  * <p/>
- * <p/>"event1" "hasSubject" "subject2"
- * <p/>"event1" "hasPredicate" "predicate3"
- * <p/>"event1" "hasObject" "object4"
- * <p/>"subject2" "predicate3" "object4"
+ * <p/>
+ * "event1" "hasSubject" "subject2"
+ * <p/>
+ * "event1" "hasPredicate" "predicate3"
+ * <p/>
+ * "event1" "hasObject" "object4"
+ * <p/>
+ * "subject2" "predicate3" "object4"
  * <p/>
  * But if the confidence is below the threshold, the last reified statement is
  * not stored.
@@ -40,75 +64,87 @@ import org.universAAL.middleware.context.ContextEvent;
  * @author alfiva
  * 
  */
-public class SesameBackendWithConfidence extends SesameBackend{
-    private final static Logger log = LoggerFactory
-	    .getLogger(SesameBackendWithConfidence.class);
+public class SesameBackendWithConfidence extends SesameBackend {
+    private final static Log log = Hub
+	    .getLog(SesameBackendWithConfidence.class);
     private int threshold = 0;
-    
-    public SesameBackendWithConfidence(){
+
+    public SesameBackendWithConfidence() {
 	super();
-	String conf=Activator.getProperties().getProperty("STORE.CONFIDENCE");
-	if(conf!=null){
-	    try{
+	String conf = Hub.getProperties().getProperty("STORE.CONFIDENCE");
+	if (conf != null) {
+	    try {
 		setThreshold(Integer.parseInt(conf));
-	    }catch (Exception e) {
-		log.error("Invalid confidence threshold. Using 0.",e);
+	    } catch (Exception e) {
+		log.error("init", "Invalid confidence threshold. Using 0.", e);
 		setThreshold(0);
 	    }
-	    
-	}else{
+
+	} else {
 	    setThreshold(0);
 	}
     }
-    
-    public SesameBackendWithConfidence(int confidence){
+
+    public SesameBackendWithConfidence(int confidence) {
 	super();
 	this.setThreshold(confidence);
     }
-    
+
     @Override
     public void storeEvent(ContextEvent e) {
 	try {
 	    RepositoryConnection con = myRepository.getConnection();
 	    try {
-		log.debug("Adding event to store, if enough confidence");
+		log.debug("storeEvent",
+			"Adding event to store, if enough confidence");
 		Integer conf = e.getConfidence();
 		if (conf != null) {
 		    if (conf.intValue() < threshold) {
-			TurtleParser sesameParser=new TurtleParser();
-			StatementCollector stHandler=new StatementCollector();
+			TurtleParser sesameParser = new TurtleParser();
+			StatementCollector stHandler = new StatementCollector();
 			sesameParser.setRDFHandler(stHandler);
-			sesameParser.parse(new StringReader(uAALParser.serialize(e)), e.getURI());
-			Iterator<Statement> sts=stHandler.getStatements().iterator();
-			while(sts.hasNext()){
-			    Statement st=sts.next();
-			    if(st.getSubject().stringValue().equals(e.getURI())){
-				con.add(st);//store only stmts having event as subject
+			sesameParser.parse(
+				new StringReader(uAALParser.serialize(e)),
+				e.getURI());
+			Iterator<Statement> sts = stHandler.getStatements()
+				.iterator();
+			while (sts.hasNext()) {
+			    Statement st = sts.next();
+			    if (st.getSubject().stringValue()
+				    .equals(e.getURI())) {
+				con.add(st);// store only stmts having event as
+					    // subject
 			    }
 			}
-			log.info("CHe: Stored a Context Event with low Confidence: Not reified.");
-		    }else{
-			con.add(new StringReader(uAALParser.serialize(e)), e.getURI(),
-				RDFFormat.TURTLE);
-			log.info("CHe: Stored a Context Event with high Confidence");
+			log.info("storeEvent",
+				"CHe: Stored a Context Event with low Confidence: Not reified.");
+		    } else {
+			con.add(new StringReader(uAALParser.serialize(e)),
+				e.getURI(), RDFFormat.TURTLE);
+			log.info("storeEvent",
+				"CHe: Stored a Context Event with high Confidence");
 		    }
-		} else {//TODO: What to do if events have no confidence?
-		    con.add(new StringReader(uAALParser.serialize(e)), e.getURI(),
-			RDFFormat.TURTLE);
-		    log.info("CHe: Stored a Context Event without Confidence");
+		} else {// TODO: What to do if events have no confidence?
+		    con.add(new StringReader(uAALParser.serialize(e)),
+			    e.getURI(), RDFFormat.TURTLE);
+		    log.info("storeEvent",
+			    "CHe: Stored a Context Event without Confidence");
 		}
-		log.debug("Successfully added event to store");
+		log.debug("storeEvent", "Successfully added event to store");
 	    } catch (IOException exc) {
-		log.error("Error trying to add event to the store. "
-			+ "In older versions this usually happened because "
-			+ "of the underlying connection closing due to "
-			+ "inactivity, but now it is because: {}", exc);
+		log.error(
+			"storeEvent",
+			"Error trying to add event to the store. "
+				+ "In older versions this usually happened because "
+				+ "of the underlying connection closing due to "
+				+ "inactivity, but now it is because: {}", exc);
 		exc.printStackTrace();
 	    } finally {
 		con.close();
 	    }
 	} catch (OpenRDFException exc) {
-	    log.error("Error trying to get connection to store: {}",exc);
+	    log.error("storeEvent",
+		    "Error trying to get connection to store: {}", exc);
 	    exc.printStackTrace();
 	}
     }

@@ -1,5 +1,5 @@
 /*
-	Copyright 2008-2011 ITACA-TSB, http://www.tsb.upv.es
+	Copyright 2008-2014 ITACA-TSB, http://www.tsb.upv.es
 	Instituto Tecnologico de Aplicaciones de Comunicacion 
 	Avanzadas - Grupo Tecnologias para la Salud y el 
 	Bienestar (TSB)
@@ -21,8 +21,7 @@
  */
 package org.universAAL.context.che;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.universAAL.context.che.Hub.Log;
 import org.universAAL.context.che.database.Backend;
 import org.universAAL.middleware.container.ModuleContext;
 import org.universAAL.middleware.context.ContextEvent;
@@ -38,14 +37,13 @@ import org.universAAL.middleware.context.ContextSubscriber;
  */
 public class ContextHistorySubscriber extends ContextSubscriber {
     private Backend db;
-    private final static Logger log = LoggerFactory
-	    .getLogger(ContextHistorySubscriber.class);
+    private final static Log log = Hub.getLog(ContextHistorySubscriber.class);
 
     public ContextHistorySubscriber(ModuleContext context, Backend db) {
 	// My context event pattern is zero-restrictions (ALL)
 	super(context, new ContextEventPattern[] { new ContextEventPattern() });
 	this.db = db;
-	log.info("CHe: Subscriber Ready");
+	log.info("init", "CHe: Subscriber Ready");
     }
 
     public void communicationChannelBroken() {
@@ -55,7 +53,7 @@ public class ContextHistorySubscriber extends ContextSubscriber {
 
     public void handleContextEvent(ContextEvent event) {
 	db.storeEvent(event);
-	log.info("CHe: Stored a Context Event");
+	log.info("handleContextEvent", "CHe: Stored a Context Event");
     }
 
     public void close() {

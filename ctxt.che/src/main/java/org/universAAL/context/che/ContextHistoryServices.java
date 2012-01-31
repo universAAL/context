@@ -1,5 +1,5 @@
 /*
-	Copyright 2008-2011 ITACA-TSB, http://www.tsb.upv.es
+	Copyright 2008-2014 ITACA-TSB, http://www.tsb.upv.es
 	Instituto Tecnologico de Aplicaciones de Comunicacion 
 	Avanzadas - Grupo Tecnologias para la Salud y el 
 	Bienestar (TSB)
@@ -21,18 +21,11 @@
  */
 package org.universAAL.context.che;
 
-import java.util.Hashtable;
-
 import org.universAAL.context.che.ontology.ContextEvent;
 import org.universAAL.context.che.ontology.ContextHistoryService;
 import org.universAAL.middleware.owl.MergedRestriction;
-import org.universAAL.middleware.owl.OntologyManagement;
-//import org.universAAL.middleware.owl.Restriction;
-import org.universAAL.middleware.owl.SimpleOntology;
 import org.universAAL.middleware.rdf.PropertyPath;
-import org.universAAL.middleware.rdf.Resource;
 import org.universAAL.middleware.rdf.TypeMapper;
-import org.universAAL.middleware.rdf.impl.ResourceFactoryImpl;
 import org.universAAL.middleware.service.owls.process.ProcessInput;
 import org.universAAL.middleware.service.owls.process.ProcessOutput;
 import org.universAAL.middleware.service.owls.profile.ServiceProfile;
@@ -46,7 +39,7 @@ import org.universAAL.middleware.service.owls.profile.ServiceProfile;
  */
 public class ContextHistoryServices extends ContextHistoryService {
 
-    public static final String CHE_NAMESPACE = "http://ontology.tsb.itaca.es/CHE.owl#";
+    public static final String CHE_NAMESPACE = "http://ontology.universAAL.org/CHE.owl#";
     public static final String MY_URI = CHE_NAMESPACE + "CHeService";
 
     static final String SERVICE_GET_EVENTS_FROM_TIMESTAMP = CHE_NAMESPACE
@@ -69,52 +62,8 @@ public class ContextHistoryServices extends ContextHistoryService {
     static final String OUTPUT_RESULT = CHE_NAMESPACE + "sparqlResult";
 
     static final ServiceProfile[] profiles = new ServiceProfile[5];
-    private static Hashtable serverLevelRestrictions = new Hashtable();
+
     static {
-	// register(ContextHistoryServices.class);
-	OntologyManagement.getInstance().register(
-		new SimpleOntology(MY_URI, ContextHistoryService.MY_URI,
-			new ResourceFactoryImpl() {
-			    @Override
-			    public Resource createInstance(String classURI,
-				    String instanceURI, int factoryIndex) {
-				return new ContextHistoryServices(instanceURI);
-			    }
-			}));
-
-	addRestriction(
-		(MergedRestriction) ContextHistoryService
-			.getClassRestrictionsOnProperty(
-				ContextHistoryService.MY_URI,
-				ContextHistoryService.PROP_MANAGES).copy(),
-		new String[] { ContextHistoryService.PROP_MANAGES },
-		serverLevelRestrictions);
-	addRestriction(
-		(MergedRestriction) ContextHistoryService
-			.getClassRestrictionsOnProperty(
-				ContextHistoryService.MY_URI,
-				ContextHistoryService.PROP_PROCESSES).copy(),
-		new String[] { PROP_PROCESSES }, serverLevelRestrictions);
-	addRestriction(
-		(MergedRestriction) ContextHistoryService
-			.getClassRestrictionsOnProperty(
-				ContextHistoryService.MY_URI,
-				ContextHistoryService.PROP_RETURNS).copy(),
-		new String[] { PROP_RETURNS }, serverLevelRestrictions);
-	addRestriction(
-		(MergedRestriction) ContextHistoryService
-			.getClassRestrictionsOnProperty(
-				ContextHistoryService.MY_URI,
-				ContextHistoryService.PROP_TIMESTAMP_FROM)
-			.copy(), new String[] { PROP_TIMESTAMP_FROM },
-		serverLevelRestrictions);
-	addRestriction(
-		(MergedRestriction) ContextHistoryService
-			.getClassRestrictionsOnProperty(
-				ContextHistoryService.MY_URI,
-				ContextHistoryService.PROP_TIMESTAMP_TO).copy(),
-		new String[] { PROP_TIMESTAMP_TO }, serverLevelRestrictions);
-
 	ProcessInput eventInput = new ProcessInput(INPUT_EVENT);
 	eventInput.setParameterType(ContextEvent.MY_URI);
 	eventInput.setCardinality(1, 1);

@@ -1,5 +1,5 @@
 /*
-	Copyright 2008-2011 ITACA-TSB, http://www.tsb.upv.es
+	Copyright 2008-2014 ITACA-TSB, http://www.tsb.upv.es
 	Instituto Tecnologico de Aplicaciones de Comunicacion 
 	Avanzadas - Grupo Tecnologias para la Salud y el 
 	Bienestar (TSB)
@@ -21,12 +21,6 @@
  */
 package org.universAAL.context.che.ontology;
 
-//import java.util.Hashtable;
-
-//import javax.xml.datatype.Duration;
-
-//import org.universAAL.middleware.owl.Restriction;
-//import org.universAAL.middleware.rdf.TypeMapper;
 import org.universAAL.middleware.service.owl.Service;
 
 /**
@@ -39,68 +33,22 @@ import org.universAAL.middleware.service.owl.Service;
  * 
  */
 public class ContextHistoryService extends Service {
-    public static final String MY_URI = "http://ontology.universAAL.org/ContextHistory.owl#ContextHistoryService";
-    public static final String PROP_MANAGES = "http://ontology.universAAL.org/ContextHistory.owl#manages";
-    public static final String PROP_PROCESSES = "http://ontology.universAAL.org/ContextHistory.owl#processes";
-    public static final String PROP_RETURNS = "http://ontology.universAAL.org/ContextHistory.owl#returns";
-    public static final String PROP_TIMESTAMP_FROM = "http:/ontology.universAAL.org/ContextHistory.owl#timestampFrom";
-    public static final String PROP_TIMESTAMP_TO = "http://ontology.universAAL.org/ContextHistory.owl#timestampTo";
-    public static final String PROP_DURATION_FROM = "http://ontology.universAAL.org/ContextHistory.owl#durationFrom";
-    public static final String PROP_DURATION_TO = "http://ontology.universAAL.org/ContextHistory.owl#durationTo";
-
-    // public static Hashtable CHRestrictions = new Hashtable();
-    // static {
-    // MY_URI =
-    // "http://ontology.universAAL.org/ContextHistory.owl#ContextHistoryService";
-    // PROP_MANAGES =
-    // "http://ontology.universAAL.org/ContextHistory.owl#manages";
-    // PROP_PROCESSES =
-    // "http://ontology.universAAL.org/ContextHistory.owl#processes";
-    // PROP_RETURNS =
-    // "http://ontology.universAAL.org/ContextHistory.owl#returns";
-    // PROP_TIMESTAMP_FROM =
-    // "http:/ontology.universAAL.org/ContextHistory.owl#timestampFrom";
-    // PROP_TIMESTAMP_TO =
-    // "http://ontology.universAAL.org/ContextHistory.owl#timestampTo";
-    // PROP_DURATION_FROM =
-    // "http://ontology.universAAL.org/ContextHistory.owl#durationFrom";
-    // PROP_DURATION_TO =
-    // "http://ontology.universAAL.org/ContextHistory.owl#durationTo";
-    // register(ContextHistoryService.class);
-    // addRestriction(Restriction.getAllValuesRestriction(PROP_MANAGES,
-    // org.universAAL.context.che.ontology.ContextEvent.MY_URI), new String[] {
-    // PROP_MANAGES },
-    // CHRestrictions);
-    // addRestriction(Restriction.getAllValuesRestriction(PROP_PROCESSES,
-    // TypeMapper.getDatatypeURI(String.class)),
-    // new String[] { PROP_PROCESSES }, CHRestrictions);
-    // addRestriction(Restriction.getAllValuesRestriction(PROP_RETURNS,
-    // TypeMapper.getDatatypeURI(String.class)),
-    // new String[] { PROP_RETURNS }, CHRestrictions);
-    // addRestriction(Restriction.getAllValuesRestriction(PROP_TIMESTAMP_FROM,
-    // TypeMapper.getDatatypeURI(Long.class)),
-    // new String[] { PROP_TIMESTAMP_FROM }, CHRestrictions);
-    // addRestriction(Restriction.getAllValuesRestriction(PROP_TIMESTAMP_TO,
-    // TypeMapper.getDatatypeURI(Long.class)),
-    // new String[] { PROP_TIMESTAMP_TO }, CHRestrictions);
-    // addRestriction(Restriction.getAllValuesRestriction(PROP_DURATION_FROM,
-    // TypeMapper.getDatatypeURI(Duration.class)),
-    // new String[] { PROP_DURATION_FROM }, CHRestrictions);
-    // addRestriction(Restriction.getAllValuesRestriction(PROP_DURATION_TO,
-    // TypeMapper.getDatatypeURI(Duration.class)),
-    // new String[] { PROP_DURATION_TO }, CHRestrictions);
-    // }
-
-    // public static Restriction getClassRestrictionsOnProperty(String propURI)
-    // {
-    // if (propURI == null)
-    // return null;
-    // Object r = CHRestrictions.get(propURI);
-    // if (r instanceof Restriction)
-    // return (Restriction) r;
-    // return Service.getClassRestrictionsOnProperty(propURI);// WARNING. NOT
-    // // IN MW C.E.
-    // }
+    public static final String MY_URI = ContextHistoryOntology.NAMESPACE
+	    + "ContextHistoryService";
+    public static final String PROP_MANAGES = ContextHistoryOntology.NAMESPACE
+	    + "manages";
+    public static final String PROP_PROCESSES = ContextHistoryOntology.NAMESPACE
+	    + "processes";
+    public static final String PROP_RETURNS = ContextHistoryOntology.NAMESPACE
+	    + "returns";
+    public static final String PROP_TIMESTAMP_FROM = ContextHistoryOntology.NAMESPACE
+	    + "timestampFrom";
+    public static final String PROP_TIMESTAMP_TO = ContextHistoryOntology.NAMESPACE
+	    + "timestampTo";
+    public static final String PROP_DURATION_FROM = ContextHistoryOntology.NAMESPACE
+	    + "durationFrom";
+    public static final String PROP_DURATION_TO = ContextHistoryOntology.NAMESPACE
+	    + "durationTo";
 
     public static String getRDFSComment() {
 	return "The class of services for querying the Context History.";

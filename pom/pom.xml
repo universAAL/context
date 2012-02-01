@@ -33,27 +33,27 @@
 			<dependency>
 				<groupId>org.universAAL.context</groupId>
 				<artifactId>ctxt.che</artifactId>
-				<version>(${release.previous}, ${release.next}]</version>
+				<version>1.0.2-SNAPSHOT</version>
 			</dependency>
 			<dependency>
 				<groupId>org.universAAL.context</groupId>
 				<artifactId>ctxt.che.mobile</artifactId>
-				<version>(${release.previous}, ${release.next}]</version>
+				<version>1.0.2-SNAPSHOT</version>
 			</dependency>
 			<dependency>
 				<groupId>org.universAAL.context</groupId>
 				<artifactId>ctxt.jena.converter</artifactId>
-				<version>(${release.previous}, ${release.next}]</version>
+				<version>1.0.2-SNAPSHOT</version>
 			</dependency>
 			<dependency>
 				<groupId>org.universAAL.context</groupId>
 				<artifactId>ctxt.space.conf</artifactId>
-				<version>(${release.previous}, ${release.next}]</version>
+				<version>1.0.1-SNAPSHOT</version>
 			</dependency>
 			<dependency>
 				<groupId>org.universAAL.context</groupId>
 				<artifactId>ctxt.gen.reasoner</artifactId>
-				<version>(${release.previous}, ${release.next}]</version>
+				<version>1.0.1-SNAPSHOT</version>
 			</dependency>			
 		</dependencies>
 	</dependencyManagement>
@@ -72,8 +72,6 @@
 		<maven.compile.source>1.4</maven.compile.source>
 		<maven.compile.target>1.4</maven.compile.target>
 		<gforge.project.name>uaal_context</gforge.project.name>
-		<release.previous>1.0.0</release.previous>
-		<release.next>1.1.0</release.next>
 	</properties>
 
 

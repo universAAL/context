@@ -15,7 +15,7 @@
 
 	<!-- ______________________________________________________ -->
 
-	<name>universAAL Context Situation Reasoner</name>
+	<name>The Situation Reasoner</name>
 	<description>The component that uses SPARQL to persistently store rules for recognizing situations.</description>
 	<inceptionYear>2008</inceptionYear>
 	<licenses>
@@ -112,47 +112,15 @@
 					</instructions>
 				</configuration>
 			</plugin>
-			<plugin>
-				<!--
-					ctxt.space.conf uses mw 1.0.0 so uaal-maven-plugin cannot be used
-				-->
-				<groupId>org.universAAL.support</groupId>
-				<artifactId>uaal-maven-plugin</artifactId>
-				<version>1.0.1-SNAPSHOT</version>
-				<executions>
-					<execution>
-						<id>CompositeMojo</id>
-						<phase>none</phase>
-					</execution>
-					<execution>
-						<id>TestMojo</id>
-						<phase>none</phase>
-					</execution>
-				</executions>
-			</plugin>
-			<plugin>
-				<!--
-					ctxt.space.conf uses mw 1.0.0 so uaal-maven-plugin cannot be used
-				-->
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>build-helper-maven-plugin</artifactId>
-				<version>1.7</version>
-				<executions>
-					<execution>
-						<id>attach-composite</id>
-						<phase>none</phase>
-					</execution>
-				</executions>
-			</plugin>
 		</plugins>
 	</build>
 
 	<!-- ______________________________________________________ -->
 
 	<scm>
-		<connection>${svn.base}/${project.artifactId}</connection>
-		<developerConnection>${svn.base}/${project.artifactId}</developerConnection>
-		<url>${svn.base.url}${project.artifactId}</url>
+		<connection>${svn.base}/${artifactId}</connection>
+		<developerConnection>${svn.base}/${artifactId}</developerConnection>
+		<url>${svn.base.url}${artifactId}</url>
 	</scm>
-
+	
 </project>

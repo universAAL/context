@@ -19,25 +19,35 @@
 	See the License for the specific language governing permissions and
 	limitations under the License.
  */
-package org.universAAL.context.chemobile;
+package org.universAAL.context.che.ontology;
 
-import org.universAAL.middleware.container.ModuleContext;
-import org.universAAL.middleware.sodapop.msg.MessageContentSerializer;
+import org.universAAL.middleware.rdf.Resource;
+import org.universAAL.middleware.rdf.impl.ResourceFactoryImpl;
 
-public class Hub {
+/**
+ * Ontology factory for serialization.
+ * 
+ * @author alfiva
+ * 
+ */
+public class ContextHistoryFactory extends ResourceFactoryImpl {
 
-    private MobileHistorySubscriber hc;
-
-    public void start(ModuleContext context) throws Exception {
-	hc = new MobileHistorySubscriber(context);
-    }
-
-    public void stop(ModuleContext context) throws Exception {
-	hc.close();
-    }
-
-    public void setuAALParser(MessageContentSerializer service) {
-	hc.setuAALParser(service);
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * org.universAAL.middleware.rdf.impl.ResourceFactoryImpl#createInstance
+     * (java.lang.String, java.lang.String, int)
+     */
+    public Resource createInstance(String classURI, String instanceURI,
+	    int factoryIndex) {
+	switch (factoryIndex) {
+	case 0:
+	    return new ContextEvent(instanceURI);
+	case 1:
+	    return new ContextHistoryService(instanceURI);
+	}
+	return null;
     }
 
 }

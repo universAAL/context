@@ -27,7 +27,7 @@ import org.universAAL.middleware.service.owl.Service;
  * The ontological description of the Context History related services. This
  * class can be used by other components that wish to implement and provide
  * their own Context History storage services, such as short term history
- * storage
+ * storage.
  * 
  * @author <a href="mailto:alfiva@itaca.upv.es">Alvaro Fides Valero</a>
  * 
@@ -50,23 +50,23 @@ public class ContextHistoryService extends Service {
     public static final String PROP_DURATION_TO = ContextHistoryOntology.NAMESPACE
 	    + "durationTo";
 
-    public static String getRDFSComment() {
-	return "The class of services for querying the Context History.";
-    }
-
-    public static String getRDFSLabel() {
-	return "Context History";
-    }
-
+    /**
+     * Main constructor.
+     * 
+     * @param uri
+     *            URI
+     */
     public ContextHistoryService(String uri) {
 	super(uri);
     }
 
     /*
-     * protected Hashtable getClassLevelRestrictions() { return CHRestrictions;
-     * }
+     * (non-Javadoc)
+     * 
+     * @see
+     * org.universAAL.middleware.service.owl.Service#getPropSerializationType
+     * (java.lang.String)
      */
-
     public int getPropSerializationType(String propURI) {
 	return PROP_MANAGES.equals(propURI) || PROP_PROCESSES.equals(propURI)
 		|| PROP_RETURNS.equals(propURI)
@@ -77,6 +77,11 @@ public class ContextHistoryService extends Service {
 		: PROP_SERIALIZATION_OPTIONAL;
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.universAAL.middleware.owl.ManagedIndividual#isWellFormed()
+     */
     public boolean isWellFormed() {
 	return true;
     }

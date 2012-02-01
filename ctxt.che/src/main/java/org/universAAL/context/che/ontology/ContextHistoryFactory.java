@@ -24,8 +24,21 @@ package org.universAAL.context.che.ontology;
 import org.universAAL.middleware.rdf.Resource;
 import org.universAAL.middleware.rdf.impl.ResourceFactoryImpl;
 
+/**
+ * Ontology factory for serialization.
+ * 
+ * @author alfiva
+ * 
+ */
 public class ContextHistoryFactory extends ResourceFactoryImpl {
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * org.universAAL.middleware.rdf.impl.ResourceFactoryImpl#createInstance
+     * (java.lang.String, java.lang.String, int)
+     */
     public Resource createInstance(String classURI, String instanceURI,
 	    int factoryIndex) {
 	switch (factoryIndex) {

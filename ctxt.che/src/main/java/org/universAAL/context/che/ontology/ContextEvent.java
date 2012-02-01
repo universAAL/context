@@ -83,7 +83,7 @@ public class ContextEvent extends ManagedIndividual {
 	    + LOCAL_NAME_TIMESTAMP;
 
     /**
-     * Constructs a CHe stub ContextEvent according to the parameters passed
+     * Constructs a CHe stub ContextEvent according to the parameters passed.
      * 
      * @param subjectURI
      *            URI of the subject. Must not be null.
@@ -114,7 +114,7 @@ public class ContextEvent extends ManagedIndividual {
     }
 
     /**
-     * Empty constructor, needed because this is a ManagedIndividual
+     * Empty constructor, needed because this is a ManagedIndividual.
      */
     public ContextEvent() {
 	super();
@@ -124,7 +124,7 @@ public class ContextEvent extends ManagedIndividual {
      * This constructor is NOT for the exclusive usage by deserializers. Not
      * anymore!! You can construct one of these ContextEvents without
      * properties, only with a URI. Or without it. Because this is a
-     * ManagedIndividual
+     * ManagedIndividual.
      */
     public ContextEvent(String uri) {
 	super(uri);
@@ -135,7 +135,7 @@ public class ContextEvent extends ManagedIndividual {
 
     /**
      * Construct a CHe stub ContextEvent inferring the object from the predicate
-     * which URI is present in the propeorties of the subject
+     * which URI is present in the propeorties of the subject.
      * 
      * @param subject
      *            The Resource representing the subject of the event. Must
@@ -165,7 +165,7 @@ public class ContextEvent extends ManagedIndividual {
     }
 
     /**
-     * Get the confidence of the event
+     * Get the confidence of the event.
      * 
      * @return The confidence represented as a percentage (0 to 100)
      */
@@ -174,7 +174,7 @@ public class ContextEvent extends ManagedIndividual {
     }
 
     /**
-     * Get the expiration time
+     * Get the expiration time.
      * 
      * @return The amount of milliseconds after reception from which the
      *         information in the event is no longer valid
@@ -190,7 +190,7 @@ public class ContextEvent extends ManagedIndividual {
     }
 
     /**
-     * Get the object of the event
+     * Get the object of the event.
      * 
      * @return The object of the event (a Resource)
      */
@@ -199,7 +199,7 @@ public class ContextEvent extends ManagedIndividual {
     }
 
     /**
-     * Get the predicate of the event
+     * Get the predicate of the event.
      * 
      * @return The URI of the predicate of the event
      */
@@ -209,7 +209,7 @@ public class ContextEvent extends ManagedIndividual {
     }
 
     /**
-     * Get the ContextProvider of the event
+     * Get the ContextProvider of the event.
      * 
      * @return The {@link org.universAAL.middleware.context.owl.ContextProvider}
      *         representing the provider that originated the event
@@ -219,7 +219,7 @@ public class ContextEvent extends ManagedIndividual {
     }
 
     /**
-     * Get the subject of the event
+     * Get the subject of the event.
      * 
      * @return The {@link org.universAAL.middleware.rdf.Resource} that is the
      *         subject to the event
@@ -229,7 +229,7 @@ public class ContextEvent extends ManagedIndividual {
     }
 
     /**
-     * Get the type of the subject of the event
+     * Get the type of the subject of the event.
      * 
      * @return The URI of the type of the subject to the event
      */
@@ -239,7 +239,7 @@ public class ContextEvent extends ManagedIndividual {
     }
 
     /**
-     * Get the URI of the subject of the event
+     * Get the URI of the subject of the event.
      * 
      * @return The URI of the individual that is the subject to the event
      */
@@ -249,7 +249,7 @@ public class ContextEvent extends ManagedIndividual {
     }
 
     /**
-     * Get the timestamp of the event
+     * Get the timestamp of the event.
      * 
      * @return The timestamp, in UNIX format, associated to the event
      */
@@ -263,7 +263,7 @@ public class ContextEvent extends ManagedIndividual {
     }
 
     /**
-     * Set the confidence
+     * Set the confidence.
      * 
      * @param confidence
      *            The confidence in percentage (0 to 100)
@@ -280,7 +280,7 @@ public class ContextEvent extends ManagedIndividual {
     }
 
     /**
-     * Set the expiration time
+     * Set the expiration time.
      * 
      * @param expirationTime
      *            The amount of millisecond after which the event is not valid
@@ -297,7 +297,7 @@ public class ContextEvent extends ManagedIndividual {
     }
 
     /**
-     * Set the object
+     * Set the object.
      * 
      * @param o
      */
@@ -311,7 +311,7 @@ public class ContextEvent extends ManagedIndividual {
     }
 
     /**
-     * Set the predicate
+     * Set the predicate.
      * 
      * @param propURI
      *            The URI of the predicate
@@ -327,7 +327,7 @@ public class ContextEvent extends ManagedIndividual {
     }
 
     /**
-     * Set the Context Provider
+     * Set the Context Provider.
      * 
      * @param src
      */
@@ -341,7 +341,7 @@ public class ContextEvent extends ManagedIndividual {
     }
 
     /**
-     * Set the subject
+     * Set the subject.
      * 
      * @param subj
      */
@@ -355,7 +355,7 @@ public class ContextEvent extends ManagedIndividual {
     }
 
     /**
-     * Set the timestamp
+     * Set the timestamp.
      * 
      * @param timestamp
      *            The timestamp in UNIX format

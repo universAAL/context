@@ -32,7 +32,7 @@ import org.universAAL.middleware.service.owls.profile.ServiceProfile;
 
 /**
  * Here are described the provided services that are registered by the CHe in
- * the service bus
+ * the service bus.
  * 
  * @author <a href="mailto:alfiva@itaca.upv.es">Alvaro Fides Valero</a>
  * 
@@ -61,7 +61,7 @@ public class ContextHistoryServices extends ContextHistoryService {
     static final String OUTPUT_EVENTS = CHE_NAMESPACE + "matchingContextEvents";
     static final String OUTPUT_RESULT = CHE_NAMESPACE + "sparqlResult";
 
-    static final ServiceProfile[] profiles = new ServiceProfile[5];
+    static final ServiceProfile[] PROFILES = new ServiceProfile[5];
 
     static {
 	ProcessInput eventInput = new ProcessInput(INPUT_EVENT);
@@ -115,68 +115,74 @@ public class ContextHistoryServices extends ContextHistoryService {
 	// SPARQL_QUERY
 	ContextHistoryServices doSPARQL = new ContextHistoryServices(
 		SERVICE_DO_SPARQL_QUERY);
-	profiles[0] = doSPARQL.getProfile();
-	profiles[0].addInput(queryInput);
+	PROFILES[0] = doSPARQL.getProfile();
+	PROFILES[0].addInput(queryInput);
 	doSPARQL.addInstanceLevelRestriction(queryr,
 		new String[] { ContextHistoryService.PROP_PROCESSES });
-	profiles[0].addOutput(resultoutput);
-	profiles[0].addSimpleOutputBinding(resultoutput,
+	PROFILES[0].addOutput(resultoutput);
+	PROFILES[0].addSimpleOutputBinding(resultoutput,
 		returnsPath.getThePath());
 
 	// GET_EVENTS_FROM_TIMESTAMP
 	ContextHistoryServices getEventsFromTimestamp = new ContextHistoryServices(
 		SERVICE_GET_EVENTS_FROM_TIMESTAMP);
-	profiles[1] = getEventsFromTimestamp.getProfile();
-	profiles[1].addInput(eventInput);
+	PROFILES[1] = getEventsFromTimestamp.getProfile();
+	PROFILES[1].addInput(eventInput);
 	getEventsFromTimestamp.addInstanceLevelRestriction(eventRestr,
 		new String[] { ContextHistoryService.PROP_MANAGES });
-	profiles[1].addInput(tstFromInput);
+	PROFILES[1].addInput(tstFromInput);
 	getEventsFromTimestamp.addInstanceLevelRestriction(tstFromRestr,
 		new String[] { ContextHistoryService.PROP_TIMESTAMP_FROM });
-	profiles[1].addOutput(output);
-	profiles[1].addSimpleOutputBinding(output, managesPath.getThePath());
+	PROFILES[1].addOutput(output);
+	PROFILES[1].addSimpleOutputBinding(output, managesPath.getThePath());
 
 	// GET_EVENTS_TO_TIMESTAMP
 	ContextHistoryServices getEventsToTimestamp = new ContextHistoryServices(
 		SERVICE_GET_EVENTS_TO_TIMESTAMP);
-	profiles[2] = getEventsToTimestamp.getProfile();
-	profiles[2].addInput(eventInput);
+	PROFILES[2] = getEventsToTimestamp.getProfile();
+	PROFILES[2].addInput(eventInput);
 	getEventsToTimestamp.addInstanceLevelRestriction(eventRestr,
 		new String[] { ContextHistoryService.PROP_MANAGES });
-	profiles[2].addInput(tstToInput);
+	PROFILES[2].addInput(tstToInput);
 	getEventsToTimestamp.addInstanceLevelRestriction(tstToRestr,
 		new String[] { ContextHistoryService.PROP_TIMESTAMP_TO });
-	profiles[2].addOutput(output);
-	profiles[2].addSimpleOutputBinding(output, managesPath.getThePath());
+	PROFILES[2].addOutput(output);
+	PROFILES[2].addSimpleOutputBinding(output, managesPath.getThePath());
 
 	// GET_EVENTS_BETWEEN_TIMESTAMPS
 	ContextHistoryServices getEventsBetweenTimestamp = new ContextHistoryServices(
 		SERVICE_GET_EVENTS_BETWEEN_TIMESTAMPS);
-	profiles[3] = getEventsBetweenTimestamp.getProfile();
-	profiles[3].addInput(eventInput);
+	PROFILES[3] = getEventsBetweenTimestamp.getProfile();
+	PROFILES[3].addInput(eventInput);
 	getEventsBetweenTimestamp.addInstanceLevelRestriction(eventRestr,
 		new String[] { ContextHistoryService.PROP_MANAGES });
-	profiles[3].addInput(tstFromInput);
+	PROFILES[3].addInput(tstFromInput);
 	getEventsBetweenTimestamp.addInstanceLevelRestriction(tstFromRestr,
 		new String[] { ContextHistoryService.PROP_TIMESTAMP_FROM });
-	profiles[3].addInput(tstToInput);
+	PROFILES[3].addInput(tstToInput);
 	getEventsBetweenTimestamp.addInstanceLevelRestriction(tstToRestr,
 		new String[] { ContextHistoryService.PROP_TIMESTAMP_TO });
-	profiles[3].addOutput(output);
-	profiles[3].addSimpleOutputBinding(output, managesPath.getThePath());
+	PROFILES[3].addOutput(output);
+	PROFILES[3].addSimpleOutputBinding(output, managesPath.getThePath());
 
 	// GET_EVENTS_BY_SPARQL_QUERY
 	ContextHistoryServices doSPARQLforEvents = new ContextHistoryServices(
 		SERVICE_GET_EVENTS_BY_SPARQL);
-	profiles[4] = doSPARQLforEvents.getProfile();
-	profiles[4].addInput(queryInput);
+	PROFILES[4] = doSPARQLforEvents.getProfile();
+	PROFILES[4].addInput(queryInput);
 	doSPARQLforEvents.addInstanceLevelRestriction(queryr,
 		new String[] { ContextHistoryService.PROP_PROCESSES });
-	profiles[4].addOutput(output);
-	profiles[4].addSimpleOutputBinding(output, managesPath.getThePath());
+	PROFILES[4].addOutput(output);
+	PROFILES[4].addSimpleOutputBinding(output, managesPath.getThePath());
 
     }
 
+    /**
+     * Main constructor
+     * 
+     * @param uri
+     *            URI
+     */
     protected ContextHistoryServices(String uri) {
 	super(uri);
     }

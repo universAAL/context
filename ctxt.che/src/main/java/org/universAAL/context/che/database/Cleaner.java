@@ -38,13 +38,30 @@ import org.universAAL.context.che.Hub;
  */
 public class Cleaner extends TimerTask {
 
+    /**
+     * The store.
+     */
     private Backend db;
+    /**
+     * Secondary timer for the right hour.
+     */
     private Timer t;
 
+    /**
+     * Main constructor
+     * 
+     * @param db
+     *            The store
+     */
     public Cleaner(Backend db) {
 	this.db = db;
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see java.util.TimerTask#run()
+     */
     public void run() {
 	// This happens every 24 hours
 	// Get the date for which auto-removal is scheduled (default: a long
@@ -61,9 +78,10 @@ public class Cleaner extends TimerTask {
 		    Integer.parseInt(Hub.getProperties().getProperty(
 			    "RECYCLE.HOUR", "22")));
 	    // If it has passed, do it tomorrow
-	    if (now.getTimeInMillis() < System.currentTimeMillis())
-		now.add(Calendar.DAY_OF_YEAR, 1);// TODO: What if Dec 31st!? It
-						 // should work...
+	    if (now.getTimeInMillis() < System.currentTimeMillis()) {
+		now.add(Calendar.DAY_OF_YEAR, 1);
+		// TODO: What if Dec 31st!? It should work...
+	    }
 	    t.schedule(new Punctual(db), new Date(now.getTimeInMillis()));
 	}
 
@@ -76,20 +94,34 @@ public class Cleaner extends TimerTask {
      */
     private class Punctual extends TimerTask {
 
+	/**
+	 * The store.
+	 */
 	private Backend db;
 
+	/**
+	 * Main constructor.
+	 * 
+	 * @param db
+	 *            the store
+	 */
 	public Punctual(Backend db) {
 	    this.db = db;
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see java.util.TimerTask#run()
+	 */
 	public void run() {
 	    // This happens only when it´s time to remove
 	    int keep = Integer.parseInt(Hub.getProperties().getProperty(
 		    "RECYCLE.KEEP", "2"));
 	    if (keep <= 0) {
-		keep = 1;// At least 1 month. 0 not allowed.
+		keep = 1; // At least 1 month. 0 not allowed.
 	    }
-	    long keepl = keep * 2592000000l;// Months in ms
+	    long keepl = keep * 2592000000L; // Months in ms
 	    // DB removes values prior to the argument passed
 	    db.removeOldEvents(System.currentTimeMillis() - keepl);
 	    // This will keep info that arrived in the last "keep" ms

@@ -42,8 +42,15 @@ import org.universAAL.middleware.context.ContextEvent;
 import org.universAAL.middleware.owl.OntologyManagement;
 import org.universAAL.middleware.sodapop.msg.MessageContentSerializer;
 
+/**
+ * Central class that takes care of starting and stopping application. It used
+ * to be the Activator class before splitting the OSGi logic.
+ * 
+ * @author alfiva
+ * 
+ */
 public class Hub {
-    private final static Log log = Hub.getLog(SesameBackend.class);
+    private static Log log = Hub.getLog(SesameBackend.class);
 
     public static final String PROPS_FILE = "CHe.properties";
     public static final String COMMENTS = "This file stores configuration "
@@ -53,14 +60,43 @@ public class Hub {
 	    new BundleConfigHome("ctxt.che").getAbsolutePath());
     private static ModuleContext moduleContext = null;
 
+    /**
+     * The store.
+     */
     private Backend db;
-    private ContextHistorySubscriber HC;
-    private ContextHistoryCallee CHC;
+    /**
+     * Context subscriber.
+     */
+    private ContextHistorySubscriber hc;
+    /**
+     * Service callee.
+     */
+    private ContextHistoryCallee chc;
+    /**
+     * Timer for autoremoval.
+     */
     private Timer t;
+    /**
+     * Ontology loading.
+     */
     private ContextHistoryOntology ontology = new ContextHistoryOntology();
+    /**
+     * Lock for sync file access.
+     */
     private Object fileLock = new Object();
-    protected MessageContentSerializer uAALParser;
+    /**
+     * Turtle-uAAL parser
+     */
+    private MessageContentSerializer uAALParser;
 
+    /**
+     * To be called when application starts. Used to be Activator.start().
+     * 
+     * @param context
+     *            uaal module context
+     * @throws Exception
+     *             If anything goes wrong
+     */
     public void start(ModuleContext context) throws Exception {
 	moduleContext = context;
 	// Register ont
@@ -85,8 +121,8 @@ public class Hub {
 	}
 	this.db.connect();
 	// Start the wrappers
-	this.HC = new ContextHistorySubscriber(moduleContext, db);
-	this.CHC = new ContextHistoryCallee(moduleContext, db);
+	this.hc = new ContextHistorySubscriber(moduleContext, db);
+	this.chc = new ContextHistoryCallee(moduleContext, db);
 	// Start the removal timer
 	t = new Timer();
 	// Every 24 hours do the "Cleaner thing" (see Cleaner class)
@@ -94,14 +130,25 @@ public class Hub {
 	log.info("start", "Removal period will be checked in 24 hours from now");
     }
 
+    /**
+     * To be called when application stops. Used to be Activator.stop().
+     * 
+     * @throws Exception
+     */
     public final void stop() throws Exception {
 	// Stop the store and wrappers and deregister ont
 	this.db.close();
-	this.CHC.close();
-	this.HC.close();
+	this.chc.close();
+	this.hc.close();
 	OntologyManagement.getInstance().unregister(ontology);
     }
 
+    /**
+     * Set the turtle-uaal parser. Make sure it´s called after start().
+     * 
+     * @param service
+     *            The parser
+     */
     public void setuAALParser(MessageContentSerializer service) {
 	this.uAALParser = service;
 	this.db.setuAALParser(service);
@@ -157,6 +204,9 @@ public class Hub {
 	return prop;
     }
 
+    /**
+     * Start the mobile events synchronization.
+     */
     public void synchronizeMobile() {
 	// Sync Mobile Events. When platform can, sync when mobile arrives
 	log.debug("start", "Looking for mobile events to synchronize");
@@ -247,52 +297,142 @@ public class Hub {
 	return true;
     }
 
+    /**
+     * Gets a Log helper class
+     * 
+     * @param cl
+     *            Class that asks for a logger
+     * @return the logger
+     */
     public static Log getLog(Class cl) {
 	return new Log(cl);
     }
 
+    /**
+     * helper class to simplify the calls to LogUtils of MW.
+     * 
+     * @author alfiva
+     */
     public static class Log {
 	private Class logclass;
 
+	/**
+	 * Main constructor.
+	 * 
+	 * @param cl
+	 *            Class that asks for a logger
+	 */
 	public Log(Class cl) {
 	    this.logclass = cl;
 	}
 
+	/**
+	 * LogUtils.info.
+	 * 
+	 * @param method
+	 *            Method that logs
+	 * @param msg
+	 *            Message to log
+	 */
 	public void info(String method, String msg) {
 	    LogUtils.logInfo(moduleContext, logclass, method,
 		    new Object[] { msg }, null);
 	}
 
+	/**
+	 * LogUtils.debug.
+	 * 
+	 * @param method
+	 *            Method that logs
+	 * @param msg
+	 *            Message to log
+	 */
 	public void debug(String method, String msg) {
 	    LogUtils.logDebug(moduleContext, logclass, method,
 		    new Object[] { msg }, null);
 	}
 
+	/**
+	 * LogUtils.warn.
+	 * 
+	 * @param method
+	 *            Method that logs
+	 * @param msg
+	 *            Message to log
+	 */
 	public void warn(String method, String msg) {
 	    LogUtils.logWarn(moduleContext, logclass, method,
 		    new Object[] { msg }, null);
 	}
 
+	/**
+	 * LogUtils.error.
+	 * 
+	 * @param method
+	 *            Method that logs
+	 * @param msg
+	 *            Message to log
+	 */
 	public void error(String method, String msg) {
 	    LogUtils.logError(moduleContext, logclass, method,
 		    new Object[] { msg }, null);
 	}
 
+	/**
+	 * LogUtils.info.
+	 * 
+	 * @param method
+	 *            Method that logs
+	 * @param msg
+	 *            Message to log
+	 * @param e
+	 *            Throwable
+	 */
 	public void info(String method, String msg, Throwable e) {
 	    LogUtils.logInfo(moduleContext, logclass, method,
 		    new Object[] { msg }, e);
 	}
 
+	/**
+	 * LogUtils.debug.
+	 * 
+	 * @param method
+	 *            Method that logs
+	 * @param msg
+	 *            Message to log
+	 * @param e
+	 *            Throwable
+	 */
 	public void debug(String method, String msg, Throwable e) {
 	    LogUtils.logDebug(moduleContext, logclass, method,
 		    new Object[] { msg }, e);
 	}
 
+	/**
+	 * LogUtils.warn.
+	 * 
+	 * @param method
+	 *            Method that logs
+	 * @param msg
+	 *            Message to log
+	 * @param e
+	 *            Throwable
+	 */
 	public void warn(String method, String msg, Throwable e) {
 	    LogUtils.logWarn(moduleContext, logclass, method,
 		    new Object[] { msg }, e);
 	}
 
+	/**
+	 * LogUtils.error.
+	 * 
+	 * @param method
+	 *            Method that logs
+	 * @param msg
+	 *            Message to log
+	 * @param e
+	 *            Throwable
+	 */
 	public void error(String method, String msg, Throwable e) {
 	    LogUtils.logError(moduleContext, logclass, method,
 		    new Object[] { msg }, e);

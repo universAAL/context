@@ -22,6 +22,19 @@
 	<contributors />
 
 	<!-- ______________________________________________________ -->
+	
+	<!--  Delete the following secion when this artifact is adapted -->
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+					<groupId>org.universAAL.middleware</groupId>
+					<artifactId>mw.pom</artifactId>
+					<version>1.0.0</version>
+					<type>pom</type>
+					<scope>import</scope>
+				</dependency>
+			</dependencies>
+	</dependencyManagement>
 
 	<dependencies>
 		<dependency>
@@ -49,22 +62,18 @@
 		<dependency>
 			<groupId>org.universAAL.middleware</groupId>
 			<artifactId>mw.bus.model</artifactId>
-			<version>1.0.0</version>
 		</dependency>
 		<dependency>
 			<groupId>org.universAAL.middleware</groupId>
 			<artifactId>mw.bus.service</artifactId>
-			<version>1.0.0</version>
 		</dependency>
 		<dependency>
 			<groupId>org.universAAL.middleware</groupId>
 			<artifactId>mw.data.representation</artifactId>
-			<version>1.0.0</version>
 		</dependency>
 		<dependency>
 			<groupId>org.universAAL.middleware</groupId>
 			<artifactId>mw.container.osgi</artifactId>
-			<version>1.0.0</version>
 		</dependency>
 		<dependency>
 			<groupId>org.universAAL.ontology</groupId>

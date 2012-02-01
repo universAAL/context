@@ -32,40 +32,80 @@ import org.universAAL.middleware.container.osgi.uAALBundleContainer;
 import org.universAAL.middleware.sodapop.msg.MessageContentSerializer;
 
 /**
+ * OSGI activator. Relays start and stop to Hub.
+ * 
  * @author <a href="mailto:alfiva@itaca.upv.es">Alvaro Fides Valero</a>
  * 
  */
 public class Activator implements BundleActivator, ServiceListener {
-
+    /**
+     * uAAL module context.
+     */
     private ModuleContext moduleContext;
+    /**
+     * OSGI bundle context.
+     */
     private BundleContext osgiContext;
+    /**
+     * The application hub independent from OSGi.
+     */
     private Hub hub = new Hub();
 
-    public void start(BundleContext context) throws Exception {
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * org.osgi.framework.BundleActivator#start(org.osgi.framework.BundleContext
+     * )
+     */
+    public void start(BundleContext context) {
 	osgiContext = context;
 	// create the context
 	moduleContext = uAALBundleContainer.THE_CONTAINER
 		.registerModule(new Object[] { context });
 	// Start the core
-	hub.start(moduleContext);
-	// Look for MessageContentSerializer of mw.data.serialization
-	// And set parser
-	String filter = "(objectclass="
-		+ MessageContentSerializer.class.getName() + ")";
-	context.addServiceListener(this, filter);
-	ServiceReference[] references = context.getServiceReferences(null,
-		filter);
-	for (int i = 0; references != null && i < references.length; i++) {
-	    this.serviceChanged(new ServiceEvent(ServiceEvent.REGISTERED,
-		    references[i]));
+	try {
+	    hub.start(moduleContext);
+	    // Look for MessageContentSerializer of mw.data.serialization
+	    // And set parser
+	    String filter = "(objectclass="
+		    + MessageContentSerializer.class.getName() + ")";
+	    context.addServiceListener(this, filter);
+	    ServiceReference[] references = context.getServiceReferences(null,
+		    filter);
+	    for (int i = 0; references != null && i < references.length; i++) {
+		this.serviceChanged(new ServiceEvent(ServiceEvent.REGISTERED,
+			references[i]));
+	    }
+	} catch (Exception e) {
+	    // TODO Auto-generated catch block
+	    e.printStackTrace();
 	}
 
     }
 
-    public void stop(BundleContext context) throws Exception {
-	hub.stop(moduleContext);
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * org.osgi.framework.BundleActivator#stop(org.osgi.framework.BundleContext)
+     */
+    public void stop(BundleContext context) {
+	try {
+	    hub.stop();
+	} catch (Exception e) {
+	    // TODO Auto-generated catch block
+	    e.printStackTrace();
+	}
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * org.osgi.framework.ServiceListener#serviceChanged(org.osgi.framework.
+     * ServiceEvent)
+     */
     public void serviceChanged(ServiceEvent event) {
 	// Update the MessageContentSerializer
 	switch (event.getType()) {

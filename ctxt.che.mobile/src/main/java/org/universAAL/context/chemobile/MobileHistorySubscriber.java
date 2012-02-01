@@ -33,16 +33,38 @@ import org.universAAL.middleware.context.ContextEventPattern;
 import org.universAAL.middleware.context.ContextSubscriber;
 import org.universAAL.middleware.sodapop.msg.MessageContentSerializer;
 
+/**
+ * The CHe subscriber subscribes for all context events in order to save them.
+ * 
+ * @author <a href="mailto:alfiva@itaca.upv.es">Alvaro Fides Valero</a>
+ * 
+ */
 public class MobileHistorySubscriber extends ContextSubscriber {
 
     private static final String FILE = "Mobile-Events.txt";
     private static File confHome = new File(new BundleConfigHome(
 	    "ctxt.che.mobile").getAbsolutePath());
 
+    /**
+     * File lock to synchronize access to "store".
+     * 
+     */
     private Object fileLock = new Object();
+    /**
+     * Turtle-uaal parser.
+     */
     private MessageContentSerializer uAALParser;
+    /**
+     * uaal module context.
+     */
     private ModuleContext moduleContext;
 
+    /**
+     * Main constructor.
+     * 
+     * @param context
+     *            uaal module context
+     */
     protected MobileHistorySubscriber(ModuleContext context) {
 	super(context, new ContextEventPattern[] { new ContextEventPattern() });
 	this.moduleContext = context;
@@ -58,11 +80,24 @@ public class MobileHistorySubscriber extends ContextSubscriber {
 	}
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.universAAL.middleware.context.ContextSubscriber#
+     * communicationChannelBroken()
+     */
     public void communicationChannelBroken() {
 	// TODO Auto-generated method stub
 
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * org.universAAL.middleware.context.ContextSubscriber#handleContextEvent
+     * (org.universAAL.middleware.context.ContextEvent)
+     */
     public void handleContextEvent(ContextEvent event) {
 	LogUtils.logDebug(moduleContext, this.getClass(), "handleContextEvent",
 		new Object[] { "Mobile CHe: Received a Context Event" }, null);
@@ -83,6 +118,12 @@ public class MobileHistorySubscriber extends ContextSubscriber {
 	}
     }
 
+    /**
+     * Sets the uaal parser.
+     * 
+     * @param service
+     *            the parser
+     */
     public void setuAALParser(MessageContentSerializer service) {
 	this.uAALParser = service;
     }

@@ -24,18 +24,47 @@ package org.universAAL.context.chemobile;
 import org.universAAL.middleware.container.ModuleContext;
 import org.universAAL.middleware.sodapop.msg.MessageContentSerializer;
 
+/**
+ * Central class that takes care of starting and stopping application. It used
+ * to be the Activator class before splitting the OSGi logic.
+ * 
+ * @author alfiva
+ * 
+ */
 public class Hub {
 
+    /**
+     * The context subscriber.
+     */
     private MobileHistorySubscriber hc;
 
+    /**
+     * To be called when application starts. Used to be Activator.start().
+     * 
+     * @param context
+     *            uaal module context
+     * @throws Exception
+     *             If anything goes wrong
+     */
     public void start(ModuleContext context) throws Exception {
 	hc = new MobileHistorySubscriber(context);
     }
 
-    public void stop(ModuleContext context) throws Exception {
+    /**
+     * To be called when application stops. Used to be Activator.stop().
+     * 
+     * @throws Exception
+     */
+    public void stop() throws Exception {
 	hc.close();
     }
 
+    /**
+     * Set the turtle-uaal parser. Make sure it´s called after start().
+     * 
+     * @param service
+     *            The parser
+     */
     public void setuAALParser(MessageContentSerializer service) {
 	hc.setuAALParser(service);
     }

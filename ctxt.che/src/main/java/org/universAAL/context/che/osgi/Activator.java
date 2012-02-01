@@ -40,15 +40,15 @@ import org.universAAL.middleware.sodapop.msg.MessageContentSerializer;
 public class Activator implements BundleActivator, ServiceListener {
 
     /**
-     * uAAL module context
+     * uAAL module context.
      */
     private ModuleContext moduleContext;
     /**
-     * OSGI bundle context
+     * OSGI bundle context.
      */
     private BundleContext osgiContext;
     /**
-     * The application hub independent from OSGi
+     * The application hub independent from OSGi.
      */
     private Hub hub = new Hub();
 

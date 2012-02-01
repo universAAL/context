@@ -70,14 +70,26 @@ import org.openrdf.sail.inferencer.fc.ForwardChainingRDFSInferencer;
  * 
  */
 public class SesameBackend implements Backend {
-
+    private static Log log = Hub.getLog(SesameBackend.class);
+    /**
+     * The sesame store.
+     */
     Repository myRepository;
 
+    /**
+     * uaal-turtle parser.
+     */
     protected MessageContentSerializer uAALParser;
-    private final static Log log = Hub.getLog(SesameBackend.class);
+
     // TODO: Remove this DEBUG
+    /**
+     * If true cleans the store when stopped.
+     */
     private static final boolean DEBUG_DB = Boolean.parseBoolean(Hub
 	    .getProperties().getProperty("RECYCLE.DEBUG", "true"));
+    /**
+     * Constants to identify SPARQL queries.
+     */
     private static final int SELECT = 0, CONSTRUCT = 1, DESCRIBE = 2, ASK = 3,
 	    UPDATE = 4, NONE = -1;
 
@@ -220,7 +232,7 @@ public class SesameBackend implements Backend {
 			    QueryLanguage.SPARQL, input);
 		    dquery.evaluate(describeWriter);
 		    result = stream.toString("UTF-8");
-		    factory2 = null;// Just in case...
+		    factory2 = null; // Just in case...
 		    break;
 		case UPDATE:
 		    Update uquery = con.prepareUpdate(QueryLanguage.SPARQL,
@@ -230,7 +242,9 @@ public class SesameBackend implements Backend {
 		    break;
 		case NONE:
 		    throw new MalformedQueryException(
-			    "A SPARQL query must contain one of SELECT, CONSTRUCT, DESCRIBE, ASK, or UPDATE in case of SPARQL Updates.");
+			    "A SPARQL query must contain one of SELECT, " +
+			    "CONSTRUCT, DESCRIBE, ASK, or UPDATE in " +
+			    "case of SPARQL Updates.");
 		default:
 		    throw new MalformedQueryException("Unknown SPARQL Query.");
 		}
@@ -405,7 +419,9 @@ public class SesameBackend implements Backend {
 	// + "\"^^<http://www.w3.org/2001/XMLSchema#decimal> )  }";
 	String removeQuery = "REMOVE  ?s ?p ?o "
 		+ "WHERE"
-		+ "  { ?s  <http://www.w3.org/1999/02/22-rdf-syntax-ns#type>  <http://ontology.universAAL.org/Context.owl#ContextEvent> ;"
+		+ "  { ?s " +
+		" <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> " +
+		" <http://ontology.universAAL.org/Context.owl#ContextEvent> ;"
 		+ "        ?p ?o ;"
 		+ "        <http://ontology.universAAL.org/Context.owl#hasTimestamp>  ?t ."
 		+ "    FILTER ( ?t <= \"" + tst
@@ -527,7 +543,8 @@ public class SesameBackend implements Backend {
 	// We could use Jena ARQ to build a query programatically and then
 	// serialize it. But that is not going to happen.
 	StringBuffer query = new StringBuffer(
-		"SELECT ?c WHERE { ?c <http://www.w3.org/1999/02/22-rdf-syntax-ns#type>  <http://ontology.universAAL.org/Context.owl#ContextEvent> ; \n");
+		"SELECT ?c WHERE { ?c <http://www.w3.org/1999/02/22-rdf-syntax-ns#type>" +
+		"  <http://ontology.universAAL.org/Context.owl#ContextEvent> ; \n");
 
 	if (subject != null) {
 	    query.append(" <http://www.w3.org/1999/02/22-rdf-syntax-ns#subject> <"

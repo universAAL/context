@@ -31,12 +31,34 @@ import org.universAAL.middleware.container.ModuleContext;
 import org.universAAL.middleware.container.osgi.uAALBundleContainer;
 import org.universAAL.middleware.sodapop.msg.MessageContentSerializer;
 
+/**
+ * OSGI activator. Relays start and stop to Hub.
+ * 
+ * @author alfiva
+ * 
+ */
 public class Activator implements BundleActivator, ServiceListener {
 
+    /**
+     * uAAL module context
+     */
     private ModuleContext moduleContext;
+    /**
+     * OSGI bundle context
+     */
     private BundleContext osgiContext;
+    /**
+     * The application hub independent from OSGi
+     */
     private Hub hub = new Hub();
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * org.osgi.framework.BundleActivator#start(org.osgi.framework.BundleContext
+     * )
+     */
     public void start(BundleContext context) throws Exception {
 	osgiContext = context;
 	// create the context
@@ -55,14 +77,27 @@ public class Activator implements BundleActivator, ServiceListener {
 	    this.serviceChanged(new ServiceEvent(ServiceEvent.REGISTERED,
 		    references[i]));
 	}
-	//Sync mobile (after setting parser)
+	// Sync mobile (after setting parser)
 	hub.synchronizeMobile();
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * org.osgi.framework.BundleActivator#stop(org.osgi.framework.BundleContext)
+     */
     public void stop(BundleContext arg0) throws Exception {
 	hub.stop();
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * org.osgi.framework.ServiceListener#serviceChanged(org.osgi.framework.
+     * ServiceEvent)
+     */
     public void serviceChanged(ServiceEvent event) {
 	// Update the MessageContentSerializer
 	switch (event.getType()) {

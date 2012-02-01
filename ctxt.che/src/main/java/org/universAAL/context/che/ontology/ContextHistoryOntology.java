@@ -35,20 +35,46 @@ import org.universAAL.middleware.rdf.Resource;
 import org.universAAL.middleware.rdf.TypeMapper;
 import org.universAAL.middleware.service.owl.Service;
 
+/**
+ * Ontology main class that defines the ontology concepts.
+ * 
+ * @author alfiva
+ * 
+ */
 public class ContextHistoryOntology extends Ontology {
 
+    /**
+     * Factory for serialization.
+     */
     private static ContextHistoryFactory factory = new ContextHistoryFactory();
 
+    /**
+     * Ontology domain namespace.
+     */
     public static final String NAMESPACE = "http://ontology.universAAL.org/ContextHistory.owl#";
 
+    /**
+     * Main constructor.
+     * 
+     * @param ontURI
+     *            Domain namespace
+     */
     public ContextHistoryOntology(String ontURI) {
 	super(ontURI);
     }
 
+    /**
+     * Constructor that automatically sets namespace.
+     */
     public ContextHistoryOntology() {
 	super(NAMESPACE);
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.universAAL.middleware.owl.Ontology#create()
+     */
     @Override
     public void create() {
 	Resource r = getInfo();
@@ -101,8 +127,9 @@ public class ContextHistoryOntology extends Ontology {
 			TypeMapper.getDatatypeURI(Long.class), 0, 1)
 		.addRestriction(
 			new BoundingValueRestriction(
-				ContextEvent.PROP_CONTEXT_CONFIDENCE,
-				new Integer(0), true, new Integer(100), true)));
+				ContextEvent.PROP_CONTEXT_CONFIDENCE, Integer
+					.valueOf(0), true,
+				Integer.valueOf(100), true)));
 
 	oci.addDatatypeProperty(ContextEvent.PROP_CONTEXT_PROVIDER)
 		.setFunctional();

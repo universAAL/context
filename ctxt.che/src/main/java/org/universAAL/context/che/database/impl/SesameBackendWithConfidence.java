@@ -65,10 +65,15 @@ import org.universAAL.middleware.context.ContextEvent;
  * 
  */
 public class SesameBackendWithConfidence extends SesameBackend {
-    private final static Log log = Hub
-	    .getLog(SesameBackendWithConfidence.class);
+    private static Log log = Hub.getLog(SesameBackendWithConfidence.class);
+    /**
+     * Threshold for confidence.
+     */
     private int threshold = 0;
 
+    /**
+     * Main constructor.
+     */
     public SesameBackendWithConfidence() {
 	super();
 	String conf = Hub.getProperties().getProperty("STORE.CONFIDENCE");
@@ -85,11 +90,24 @@ public class SesameBackendWithConfidence extends SesameBackend {
 	}
     }
 
+    /**
+     * Constructor with initial confidence.
+     * 
+     * @param confidence
+     *            Threshold for confidence
+     */
     public SesameBackendWithConfidence(int confidence) {
 	super();
 	this.setThreshold(confidence);
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * org.universAAL.context.che.database.impl.SesameBackend#storeEvent(org
+     * .universAAL.middleware.context.ContextEvent)
+     */
     @Override
     public void storeEvent(ContextEvent e) {
 	try {
@@ -149,10 +167,21 @@ public class SesameBackendWithConfidence extends SesameBackend {
 	}
     }
 
+    /**
+     * Get the threshold for confidence.
+     * 
+     * @return threshold
+     */
     public int getThreshold() {
 	return threshold;
     }
 
+    /**
+     * Set the threshold for confidence.
+     * 
+     * @param threshold
+     *            for confidence
+     */
     public void setThreshold(int threshold) {
 	if (threshold < 100) {
 	    this.threshold = threshold;

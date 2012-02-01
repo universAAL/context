@@ -39,12 +39,12 @@ public interface Backend {
     /**
      * Establishes the connection to the store
      */
-    public void connect();
+    void connect();
 
     /**
      * Closes the connection to the store
      */
-    public void close();
+    void close();
 
     /**
      * Stores a {@link org.universAAL.middleware.context.ContextEvent} in the
@@ -53,7 +53,7 @@ public interface Backend {
      * @param e
      *            The context event to be stored.
      */
-    public void storeEvent(ContextEvent e);
+    void storeEvent(ContextEvent e);
 
     /**
      * Retrieves a list of
@@ -73,8 +73,6 @@ public interface Backend {
      * @param object
      *            The Object of the event to be matched. It depends on the
      *            implementer of this method how to match the object.
-     * @param acc
-     *            The accuracy of the event to be matched
      * @param confidence
      *            The confidence of the event to be matched
      * @param expiration
@@ -86,7 +84,7 @@ public interface Backend {
      * @return The list of context events that matched the values passed as
      *         parameters.
      */
-    public ArrayList retrieveEvent(String subject, String subjecttype,
+    ArrayList retrieveEvent(String subject, String subjecttype,
 	    String predicate, Object object, Integer confidence,
 	    Long expiration, Object provider, Long tstamp);
 
@@ -106,8 +104,6 @@ public interface Backend {
      * @param object
      *            The Object of the event to be matched. It depends on the
      *            implementer of this method how to match the object.
-     * @param acc
-     *            The accuracy of the event to be matched
      * @param confidence
      *            The confidence of the event to be matched
      * @param expiration
@@ -125,7 +121,7 @@ public interface Backend {
      * @return The list of context events that matched the values passed as
      *         parameters.
      */
-    public ArrayList retrieveEventsFromTstmp(String subject,
+    ArrayList retrieveEventsFromTstmp(String subject,
 	    String subjecttype, String predicate, Object object,
 	    Integer confidence, Long expiration, ContextProvider provider,
 	    Long tstamp, Long tstfrom);
@@ -146,8 +142,7 @@ public interface Backend {
      * @param object
      *            The Object of the event to be matched. It depends on the
      *            implementer of this method how to match the object.
-     * @param acc
-     *            The accuracy of the event to be matched
+
      * @param confidence
      *            The confidence of the event to be matched
      * @param expiration
@@ -166,7 +161,7 @@ public interface Backend {
      * @return The list of context events that matched the values passed as
      *         parameters.
      */
-    public ArrayList retrieveEventsToTstmp(String subject, String subjecttype,
+    ArrayList retrieveEventsToTstmp(String subject, String subjecttype,
 	    String predicate, Object object, Integer confidence,
 	    Long expiration, ContextProvider provider, Long tstamp, Long tstto);
 
@@ -186,8 +181,6 @@ public interface Backend {
      * @param object
      *            The Object of the event to be matched. It depends on the
      *            implementer of this method how to match the object.
-     * @param acc
-     *            The accuracy of the event to be matched
      * @param confidence
      *            The confidence of the event to be matched
      * @param expiration
@@ -209,7 +202,7 @@ public interface Backend {
      * @return The list of context events that matched the values passed as
      *         parameters.
      */
-    public ArrayList retrieveEventsBetweenTstmp(String subject,
+    ArrayList retrieveEventsBetweenTstmp(String subject,
 	    String subjecttype, String predicate, Object object,
 	    Integer confidence, Long expiration, ContextProvider provider,
 	    Long tstamp, Long tstfrom, Long tstto);
@@ -226,7 +219,7 @@ public interface Backend {
      *            SELECT queries are allowed.
      * @return The list of context events that matched the query.
      */
-    public ArrayList retrieveEventsBySPARQL(String input);
+    ArrayList retrieveEventsBySPARQL(String input);
 
     /**
      * Returns the result of a SPARQL query issued to the underlying store.
@@ -248,7 +241,7 @@ public interface Backend {
      * @return The serialized form of the result from the execution of the
      *         query.
      */
-    public String queryBySPARQL(String input);
+    String queryBySPARQL(String input);
 
     /**
      * Removes all events from the underlying store that were received until the
@@ -258,7 +251,7 @@ public interface Backend {
      *            The timestamp in milliseconds until which events are removed.
      *            A value of 0 does nothing.
      */
-    public void removeOldEvents(long tstamp);
+    void removeOldEvents(long tstamp);
 
     /**
      * Set the MessageContentSerializer universAAL Parser that can be used to
@@ -276,6 +269,6 @@ public interface Backend {
      *            The MessageContentSerializer service implementation found in
      *            OSGi
      */
-    public void setuAALParser(MessageContentSerializer service);
+    void setuAALParser(MessageContentSerializer service);
 
 }

@@ -29,8 +29,7 @@ import org.osgi.framework.ServiceReference;
 import org.universAAL.context.chemobile.Hub;
 import org.universAAL.middleware.container.ModuleContext;
 import org.universAAL.middleware.container.osgi.uAALBundleContainer;
-import org.universAAL.middleware.container.osgi.util.BundleConfigHome;
-import org.universAAL.middleware.serialization.MessageContentSerializer;
+import org.universAAL.middleware.sodapop.msg.MessageContentSerializer;
 
 /**
  * OSGI activator. Relays start and stop to Hub.
@@ -42,7 +41,7 @@ public class Activator implements BundleActivator, ServiceListener {
     /**
      * uAAL module context.
      */
-    private static ModuleContext moduleContext;
+    private ModuleContext moduleContext;
     /**
      * OSGI bundle context.
      */
@@ -51,11 +50,6 @@ public class Activator implements BundleActivator, ServiceListener {
      * The application hub independent from OSGi.
      */
     private Hub hub = new Hub();
-    /**
-     * The path to the config file. Here so it's decoupled from Hub.
-     */
-    public static final String osgiConfigPath = new BundleConfigHome(
-	    "ctxt.che.mobile").getAbsolutePath();
 
     /*
      * (non-Javadoc)
@@ -77,13 +71,14 @@ public class Activator implements BundleActivator, ServiceListener {
 	    String filter = "(objectclass="
 		    + MessageContentSerializer.class.getName() + ")";
 	    context.addServiceListener(this, filter);
-	    ServiceReference[] references = context.getServiceReferences((String)null,
+	    ServiceReference[] references = context.getServiceReferences(null,
 		    filter);
 	    for (int i = 0; references != null && i < references.length; i++) {
 		this.serviceChanged(new ServiceEvent(ServiceEvent.REGISTERED,
 			references[i]));
 	    }
 	} catch (Exception e) {
+	    // TODO Auto-generated catch block
 	    e.printStackTrace();
 	}
 
@@ -99,6 +94,7 @@ public class Activator implements BundleActivator, ServiceListener {
 	try {
 	    hub.stop();
 	} catch (Exception e) {
+	    // TODO Auto-generated catch block
 	    e.printStackTrace();
 	}
     }
@@ -124,15 +120,6 @@ public class Activator implements BundleActivator, ServiceListener {
 	default:
 	    break;
 	}
-    }
-
-    /**
-     * Get the uAAL Module Context.
-     * 
-     * @return The module context.
-     */
-    public static ModuleContext getModuleContext() {
-	return moduleContext;
     }
 
 }

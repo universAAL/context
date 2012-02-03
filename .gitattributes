@@ -26,6 +26,7 @@ ctxt.che/src/main/java/org/universAAL/context/che/ontology/ContextHistoryFactory
 ctxt.che/src/main/java/org/universAAL/context/che/ontology/ContextHistoryOntology.java -text
 ctxt.che/src/main/java/org/universAAL/context/che/ontology/ContextHistoryService.java -text
 ctxt.che/src/main/java/org/universAAL/context/che/osgi/Activator.java -text
+ctxt.che/src/test/java/org/universAAL/context/che/test/ArtifactIntegrationTest.java -text
 ctxt.gen.reasoner/EXCEPTIONS-CONNECTOR-J -text
 ctxt.gen.reasoner/LICENSE-BSD-Jena.txt -text
 ctxt.gen.reasoner/LICENSE-CPL-JUnit.txt -text

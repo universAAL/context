@@ -42,7 +42,17 @@ public class Activator implements BundleActivator, ServiceListener {
     /**
      * uAAL module context.
      */
-    private ModuleContext moduleContext;
+    private static ModuleContext moduleContext;
+
+    /**
+     * Get the uaal module context
+     * 
+     * @return the module context
+     */
+    public static ModuleContext getModuleContext() {
+	return moduleContext;
+    }
+
     /**
      * OSGI bundle context.
      */

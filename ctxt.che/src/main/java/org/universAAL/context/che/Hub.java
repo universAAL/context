@@ -165,6 +165,9 @@ public class Hub {
     public static synchronized void setProperties(final Properties prop) {
 	try {
 	    FileWriter out;
+	    if(!confHome.exists()){
+		confHome.mkdir();
+	    }
 	    out = new FileWriter(new File(confHome, PROPS_FILE));
 	    prop.store(out, COMMENTS);
 	    out.close();
@@ -191,6 +194,7 @@ public class Hub {
 		    "Properties file does not exist; generating default...");
 	    prop.setProperty("STORE.IMPL",
 		    "org.universAAL.context.che.database.impl.SesameBackend");
+	    prop.setProperty("STORE.LOCATION", confHome.getAbsolutePath()+"/store");
 	    prop.setProperty("MOBILE.FILE", "Mobile-Events.txt");
 	    prop.setProperty("MOBILE.FLAG", "<!--CEv-->");
 	    prop.setProperty("RECYCLE.KEEP", "2"); // 2 months
@@ -227,7 +231,7 @@ public class Hub {
      */
     private boolean synchronizeMobileTurtle() {
 	log.info("synchronizeMobileTurtle",
-		"Synchronizing with Mobile events - Parsed");
+		"Synchronizing with Mobile events");
 	ContextEvent ev = null;
 	synchronized (fileLock) {
 	    try {
@@ -284,7 +288,7 @@ public class Hub {
 			    "Could not delete the Mobile events file");
 		}
 	    } catch (FileNotFoundException e) {
-		log.error("synchronizeMobileTurtle",
+		log.warn("synchronizeMobileTurtle",
 			"Could not find the Mobile events file, synchronization will not take place: "
 				+ e.getMessage());
 		return false;

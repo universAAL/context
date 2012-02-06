@@ -119,7 +119,7 @@
 		</dependency>
 		<dependency>
 			<groupId>org.universAAL.middleware</groupId>
-			<artifactId>mw.data.representation</artifactId>
+			<artifactId>mw.data.serialization</artifactId>
 			<scope>runtime</scope>
 		</dependency>
 		<dependency>

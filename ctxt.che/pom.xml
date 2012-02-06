@@ -240,6 +240,11 @@
 			<id>uAAL-Runtime</id>
 			<dependencies>
 				<dependency>
+					<groupId>org.universAAL.middleware</groupId>
+					<artifactId>mw.data.serialization</artifactId>
+					<scope>provided</scope>
+				</dependency>
+				<dependency>
 					<groupId>org.openrdf.sesame</groupId>
 					<artifactId>sesame-runtime-osgi</artifactId>
 					<version>2.6.0</version>

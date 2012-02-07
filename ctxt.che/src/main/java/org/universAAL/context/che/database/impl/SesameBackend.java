@@ -212,7 +212,7 @@ public class SesameBackend implements Backend {
 		case ASK:
 		    BooleanQuery bquery = con.prepareBooleanQuery(
 			    QueryLanguage.SPARQL, input);
-		    result = bquery.evaluate() ? "true" : "false";
+		    result = bquery.evaluate() ? "yes" : "no";
 		    break;
 		case CONSTRUCT:// TODO: Put a selector in uAAL service for XML
 			       // results instead of Turtle

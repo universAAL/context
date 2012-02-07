@@ -26,11 +26,12 @@ import java.io.File;
 import java.io.FileWriter;
 
 import org.universAAL.middleware.container.ModuleContext;
+import org.universAAL.middleware.container.osgi.util.BundleConfigHome;
 import org.universAAL.middleware.container.utils.LogUtils;
 import org.universAAL.middleware.context.ContextEvent;
 import org.universAAL.middleware.context.ContextEventPattern;
 import org.universAAL.middleware.context.ContextSubscriber;
-import org.universAAL.middleware.serialization.MessageContentSerializer;
+import org.universAAL.middleware.sodapop.msg.MessageContentSerializer;
 
 /**
  * The CHe subscriber subscribes for all context events in order to save them.
@@ -39,18 +40,16 @@ import org.universAAL.middleware.serialization.MessageContentSerializer;
  * 
  */
 public class MobileHistorySubscriber extends ContextSubscriber {
-    // I don't want to make this non-private so remember if you change the name
-    // to change it in the tests
-    /**
-     * The file where events are stored.
-     */
+
     private static final String FILE = "Mobile-Events.txt";
+    private static File confHome = new File(new BundleConfigHome(
+	    "ctxt.che.mobile").getAbsolutePath());
 
     /**
      * File lock to synchronize access to "store".
      * 
      */
-    private static Object fileLock = new Object();
+    private Object fileLock = new Object();
     /**
      * Turtle-uaal parser.
      */
@@ -71,14 +70,8 @@ public class MobileHistorySubscriber extends ContextSubscriber {
 	this.moduleContext = context;
 	synchronized (fileLock) {
 	    try {
-		if (!Hub.confHome.exists()) {
-		    if(!Hub.confHome.mkdir()){
-			LogUtils.logError(moduleContext, this.getClass(), "init",
-				new Object[] { "COULD NOT CREATE FILE " }, null);
-		    }
-		}
 		BufferedWriter out = new BufferedWriter(new FileWriter(
-			new File(Hub.confHome, FILE), false));
+			new File(confHome, FILE), false));
 		out.close();
 	    } catch (Exception e) {
 		LogUtils.logError(moduleContext, this.getClass(), "init",
@@ -111,7 +104,7 @@ public class MobileHistorySubscriber extends ContextSubscriber {
 	synchronized (fileLock) {
 	    try {
 		BufferedWriter out = new BufferedWriter(new FileWriter(
-			new File(Hub.confHome, FILE), true));
+			new File(confHome, FILE), true));
 		String turtleOut = uAALParser.serialize(event);
 		out.write(turtleOut);
 		out.newLine();

@@ -68,7 +68,7 @@ public class InitialTest extends TestCase {
         
         MergedRestriction r = new MergedRestriction(HasValueRestriction.PROP_OWL_HAS_VALUE);
         r.addRestriction(new AllValuesFromRestriction(HasValueRestriction.PROP_OWL_HAS_VALUE, new TypeURI(Rating.MY_URI, false)));
-        r.addRestriction(new ExactCardinalityRestriction(HasValueRestriction.PROP_OWL_HAS_VALUE, one));
+        r.addRestriction(new ExactCardinalityRestriction(HasValueRestriction.PROP_OWL_HAS_VALUE, one.intValue()));
         r.addRestriction(new SomeValuesFromRestriction(HasValueRestriction.PROP_OWL_HAS_VALUE, e));
 
         // TODO

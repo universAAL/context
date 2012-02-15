@@ -36,8 +36,8 @@ import org.universAAL.middleware.container.utils.LogUtils;
 import org.universAAL.middleware.owl.ClassExpression;
 import org.universAAL.middleware.owl.ManagedIndividual;
 import org.universAAL.middleware.owl.MergedRestriction;
+import org.universAAL.middleware.owl.OntologyManagement;
 import org.universAAL.middleware.rdf.Resource;
-import org.universAAL.middleware.rdf.ResourceRegistry;
 import org.universAAL.middleware.rdf.TypeMapper;
 
 import com.hp.hpl.jena.datatypes.xsd.XSDDatatype;
@@ -305,7 +305,7 @@ public class JenaModelConverter implements JenaConverter {
 	    al.add(i.nextStatement().getResource().getURI());
 	if (al.size() == 0)
 	    return null;
-	String result = ManagedIndividual.getMostSpecializedClass((String[]) al
+	String result = OntologyManagement.getInstance().getMostSpecializedClass((String[]) al
 		.toArray(new String[al.size()]));
 	return (result == null) ? (String) al.get(0) : result;
     }
@@ -641,8 +641,8 @@ public class JenaModelConverter implements JenaConverter {
      */
     public static Resource getResourceInstance(String classURI,
 	    String instanceURI) {
-	
-	return ResourceRegistry.getInstance().getResource(classURI, instanceURI);
+
+	return OntologyManagement.getInstance().getResource(classURI, instanceURI);
 	
 //	Hashtable middlewareResources = new Hashtable();
 //	middlewareResources.put(ContextEvent.MY_URI, ContextEvent.class);

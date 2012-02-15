@@ -40,7 +40,8 @@ import org.universAAL.middleware.sodapop.msg.MessageContentSerializer;
  * 
  */
 public class MobileHistorySubscriber extends ContextSubscriber {
-
+    // I don´t want to make this non-private so remember if you change the name
+    // to change it in the tests
     private static final String FILE = "Mobile-Events.txt";
     private static File confHome = new File(new BundleConfigHome(
 	    "ctxt.che.mobile").getAbsolutePath());
@@ -70,6 +71,9 @@ public class MobileHistorySubscriber extends ContextSubscriber {
 	this.moduleContext = context;
 	synchronized (fileLock) {
 	    try {
+		if (!confHome.exists()) {
+		    confHome.mkdir();
+		}
 		BufferedWriter out = new BufferedWriter(new FileWriter(
 			new File(confHome, FILE), false));
 		out.close();

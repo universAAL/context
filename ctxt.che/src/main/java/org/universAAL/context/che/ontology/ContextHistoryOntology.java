@@ -25,8 +25,8 @@ import javax.xml.datatype.Duration;
 
 import org.universAAL.context.che.ContextHistoryServices;
 import org.universAAL.middleware.context.owl.ContextProvider;
-import org.universAAL.middleware.owl.BoundingValueRestriction;
 import org.universAAL.middleware.owl.DataRepOntology;
+import org.universAAL.middleware.owl.LongRestriction;
 import org.universAAL.middleware.owl.ManagedIndividual;
 import org.universAAL.middleware.owl.MergedRestriction;
 import org.universAAL.middleware.owl.OntClassInfoSetup;
@@ -124,12 +124,8 @@ public class ContextHistoryOntology extends Ontology {
 	oci.addRestriction(MergedRestriction
 		.getAllValuesRestrictionWithCardinality(
 			ContextEvent.PROP_CONTEXT_CONFIDENCE,
-			TypeMapper.getDatatypeURI(Long.class), 0, 1)
-		.addRestriction(
-			new BoundingValueRestriction(
-				ContextEvent.PROP_CONTEXT_CONFIDENCE, Integer
-					.valueOf(0), true,
-				Integer.valueOf(100), true)));
+			new LongRestriction(Integer.valueOf(0), true, Integer
+				.valueOf(100), true), 0, 1));
 
 	oci.addDatatypeProperty(ContextEvent.PROP_CONTEXT_PROVIDER)
 		.setFunctional();

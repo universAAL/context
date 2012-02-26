@@ -7,8 +7,8 @@ import java.util.Locale;
 
 import junit.framework.TestCase;
 
-import org.universAAL.middleware.owl.BoundingValueRestriction;
 import org.universAAL.middleware.owl.DataRepOntology;
+import org.universAAL.middleware.owl.IntRestriction;
 import org.universAAL.middleware.owl.MergedRestriction;
 import org.universAAL.middleware.owl.OntologyManagement;
 import org.universAAL.middleware.owl.supply.LevelRating;
@@ -67,9 +67,7 @@ public class FormTest extends TestCase {
 		
 	MergedRestriction ordrRestr = MergedRestriction
 		.getAllValuesRestriction(DUMMY_PROP_1,
-			TypeMapper.getDatatypeURI(Integer.class))
-		.addRestriction(
-			new BoundingValueRestriction(DUMMY_PROP_1, new Integer(
+			new IntRestriction(new Integer(
 				0), true, new Integer(30), true));
 
 		Form f = Form.newDialog("Test Form", testUser);

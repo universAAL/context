@@ -23,7 +23,6 @@ package org.universAAL.context.che.database.impl;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.FilenameFilter;
 import java.io.IOException;
 import java.io.StringReader;
 import java.io.UnsupportedEncodingException;
@@ -36,11 +35,10 @@ import javax.xml.datatype.XMLGregorianCalendar;
 import org.universAAL.context.che.Hub;
 import org.universAAL.context.che.Hub.Log;
 import org.universAAL.context.che.database.Backend;
-import org.universAAL.middleware.container.osgi.util.BundleConfigHome;
 import org.universAAL.middleware.context.ContextEvent;
 import org.universAAL.middleware.context.owl.ContextProvider;
 import org.universAAL.middleware.rdf.Resource;
-import org.universAAL.middleware.serialization.MessageContentSerializer;
+import org.universAAL.middleware.sodapop.msg.MessageContentSerializer;
 import org.openrdf.OpenRDFException;
 import org.openrdf.model.URI;
 import org.openrdf.model.Value;
@@ -55,10 +53,8 @@ import org.openrdf.query.Update;
 import org.openrdf.query.resultio.sparqlxml.SPARQLResultsXMLWriter;
 import org.openrdf.repository.Repository;
 import org.openrdf.repository.RepositoryConnection;
-import org.openrdf.repository.RepositoryException;
 import org.openrdf.repository.sail.SailRepository;
 import org.openrdf.rio.RDFFormat;
-import org.openrdf.rio.RDFParseException;
 import org.openrdf.rio.RDFWriter;
 import org.openrdf.rio.turtle.TurtleWriterFactory;
 import org.openrdf.sail.nativerdf.NativeStore;
@@ -74,9 +70,6 @@ import org.openrdf.sail.inferencer.fc.ForwardChainingRDFSInferencer;
  * 
  */
 public class SesameBackend implements Backend {
-    /**
-     * Logger.
-     */
     private static Log log = Hub.getLog(SesameBackend.class);
     /**
      * The sesame store.
@@ -93,7 +86,7 @@ public class SesameBackend implements Backend {
      * If true cleans the store when stopped.
      */
     private static final boolean DEBUG_DB = Boolean.parseBoolean(Hub
-	    .getProperties().getProperty("RECYCLE.DEBUG", "false"));
+	    .getProperties().getProperty("RECYCLE.DEBUG", "true"));
     /**
      * Constants to identify SPARQL queries.
      */
@@ -105,13 +98,13 @@ public class SesameBackend implements Backend {
      * 
      * @see org.universAAL.context.che.database.Backend#connect()
      */
-    synchronized public void connect() {
+    public void connect() {
 	String dataPath = Hub.getProperties().getProperty("STORE.LOCATION");
 	// I use C:/Proyectos/UNIVERSAAL/ContextStore/Stores/SAIL_FCRDFS_Native
 	if (dataPath != null) {
 	    File dataDir = new File(dataPath);
-	    String indexes = "spoc,posc,cosp";
-	    // TODO: Change indexes (specially if we dont use contexts)
+	    String indexes = "spoc,posc,cosp";// TODO: Change indexes (specially
+					      // if we dont use contexts)
 	    log.info("CHe connects to {} ", dataDir.toString());
 	    // TODO: Study other reasoners, if any
 	    try {
@@ -119,50 +112,17 @@ public class SesameBackend implements Backend {
 			new ForwardChainingRDFSInferencer(new NativeStore(
 				dataDir, indexes)));
 		myRepository.initialize();
-		if (Boolean.parseBoolean(Hub.getProperties().getProperty(
-			"STORE.PRELOAD"))) {
-		    this.populate();
-		}
 	    } catch (Exception e) {
 		log.error("connect",
 			"Exception trying to initilaize the store: {} ", e);
 		e.printStackTrace();
 	    }
 	} else {
-	    log.error("connect", "No location specified for the store. "
-		    + "Add and specify the configuration parameter "
-		    + "STORE.LOCATION to the configuration file of "
-		    + "the CHE pointing to a valid folder path.");
-	}
-    }
-    
-    /* (non-Javadoc)
-     * @see org.universAAL.context.che.database.Backend#populate()
-     */
-    public void populate() throws RepositoryException, RDFParseException,
-	    IOException {
-	RepositoryConnection con = myRepository.getConnection();
-	try {
-	    File confHome = new File(
-		    new BundleConfigHome("ctxt.che").getAbsolutePath());
-	    File[] files = confHome.listFiles(new FilenameFilter() {
-		public boolean accept(File dir, String name) {
-		    return name.toLowerCase().endsWith(".owl");
-		}
-	    });
-	    for (int i = 0; i < files.length; i++) {
-		// TODO: Guess the default namespace. Otherwise the file
-		// should not use default namespace prefix : .
-		try { // TODO: Handle format
-		    con.add(files[i], null, RDFFormat.TURTLE);
-		} catch (RDFParseException e) {
-		    con.add(files[i], null, RDFFormat.RDFXML);
-		}
-		log.debug("populate",
-			"populated store with: " + files[i].getName());
-	    }
-	} finally {
-	    con.close();
+	    log.error(
+		    "connect",
+		    "No location specified for the store. "
+			    + "Add and specify the configuration parameter STORE.LOCATION "
+			    + "to the configuration file of the CHE pointing to a valid folder path.");
 	}
     }
 
@@ -173,7 +133,7 @@ public class SesameBackend implements Backend {
      */
     public void close() {
 	try {
-	    if (DEBUG_DB) { // TODO: Remove this
+	    if (DEBUG_DB) {// TODO: Remove this
 		RepositoryConnection con = myRepository.getConnection();
 		try {
 		    con.clear();
@@ -196,7 +156,7 @@ public class SesameBackend implements Backend {
      * org.universAAL.context.che.database.Backend#storeEvent(org.universAAL
      * .middleware.context.ContextEvent)
      */
-    synchronized public void storeEvent(ContextEvent e) {
+    public void storeEvent(ContextEvent e) {
 	try {
 	    RepositoryConnection con = myRepository.getConnection();
 	    try {
@@ -205,12 +165,12 @@ public class SesameBackend implements Backend {
 			RDFFormat.TURTLE);
 		log.debug("storeEvent", "Successfully added event to store");
 	    } catch (IOException exc) {
-		log.error("storeEvent",
+		log.error(
+			"storeEvent",
 			"Error trying to add event to the store. "
-				+ "In older versions this usually happened"
-				+ " because of the underlying connection "
-				+ "closing due to inactivity, but now it is"
-				+ " because: {}", exc);
+				+ "In older versions this usually happened because "
+				+ "of the underlying connection closing due to "
+				+ "inactivity, but now it is because: {}", exc);
 		exc.printStackTrace();
 	    } finally {
 		con.close();
@@ -226,9 +186,10 @@ public class SesameBackend implements Backend {
      * (non-Javadoc)
      * 
      * @see
-     * org.universAAL.context.che.database.Backend#queryBySPARQL(java.lang.String)
+     * org.universAAL.context.che.database.Backend#queryBySPARQL(java.lang.String
+     * )
      */
-    synchronized public String queryBySPARQL(String input) {
+    public String queryBySPARQL(String input) {
 	log.debug("queryBySPARQL", "queryBySPARQL");
 	String result = null;
 	try {
@@ -261,7 +222,7 @@ public class SesameBackend implements Backend {
 			    QueryLanguage.SPARQL, input);
 		    cquery.evaluate(construtWriter);
 		    result = stream.toString("UTF-8");
-		    factory1 = null; // Just in case...
+		    factory1 = null;// Just in case...
 		    break;
 		case DESCRIBE:// TODO: Put a selector in uAAL service for XML
 			      // results instead of Turtle
@@ -281,9 +242,9 @@ public class SesameBackend implements Backend {
 		    break;
 		case NONE:
 		    throw new MalformedQueryException(
-			    "A SPARQL query must contain one of SELECT, "
-				    + "CONSTRUCT, DESCRIBE, ASK, or UPDATE in "
-				    + "case of SPARQL Updates.");
+			    "A SPARQL query must contain one of SELECT, " +
+			    "CONSTRUCT, DESCRIBE, ASK, or UPDATE in " +
+			    "case of SPARQL Updates.");
 		default:
 		    throw new MalformedQueryException("Unknown SPARQL Query.");
 		}
@@ -298,10 +259,6 @@ public class SesameBackend implements Backend {
 	    log.error("queryBySPARQL",
 		    "Error trying to get connection to store: {}", exc);
 	    exc.printStackTrace();
-	} catch (Exception exc) {
-	    log.error("queryBySPARQL",
-		    "Unknown Error handling SPARQL: {}", exc);
-	    exc.printStackTrace();
 	}
 	return result;
     }
@@ -313,7 +270,7 @@ public class SesameBackend implements Backend {
      * org.universAAL.context.che.database.Backend#retrieveEventsBySPARQL(java
      * .lang.String)
      */
-    synchronized public ArrayList retrieveEventsBySPARQL(String input) {
+    public ArrayList retrieveEventsBySPARQL(String input) {
 	log.debug("retrieveEventsBySPARQL", "retrieveEventsBySPARQL");
 	ArrayList solution = new ArrayList();
 	try {
@@ -450,20 +407,48 @@ public class SesameBackend implements Backend {
      * 
      * @see org.universAAL.context.che.database.Backend#removeOldEvents(long)
      */
-    synchronized public void removeOldEvents(long tst) {
-	log.debug("removeOldEvents", "removeOldEvents stored before: " + tst);
-	String removeQuery = "DELETE { ?s ?p ?o } "
+    public void removeOldEvents(long tst) {
+	log.debug("removeOldEvents", "removeOldEvents");
+	// String removeQuery = "SELECT  ?c "
+	// + "WHERE"
+	// +
+	// "  { ?c  <http://www.w3.org/1999/02/22-rdf-syntax-ns#type>  <http://ontology.universAAL.org/Context.owl#ContextEvent> ;"
+	// +
+	// "        <http://ontology.universAAL.org/Context.owl#hasTimestamp>  ?t ."
+	// + "    FILTER ( ?t <= \"" + tst
+	// + "\"^^<http://www.w3.org/2001/XMLSchema#decimal> )  }";
+	String removeQuery = "REMOVE  ?s ?p ?o "
 		+ "WHERE"
-		+ "  { ?s " 
-		+ " <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> " 
-		+ " <http://ontology.universAAL.org/Context.owl#ContextEvent> ;"
-		+ "  ?p ?o ;"
-		+ "  <http://ontology.universAAL.org/Context.owl#hasTimestamp> ?t ."
-		+ " FILTER ( ?t <= \"" + tst
+		+ "  { ?s " +
+		" <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> " +
+		" <http://ontology.universAAL.org/Context.owl#ContextEvent> ;"
+		+ "        ?p ?o ;"
+		+ "        <http://ontology.universAAL.org/Context.owl#hasTimestamp>  ?t ."
+		+ "    FILTER ( ?t <= \"" + tst
 		+ "\"^^<http://www.w3.org/2001/XMLSchema#decimal> )  }";
 	try {
 	    RepositoryConnection con = myRepository.getConnection();
 	    try {
+		// TupleQuery tquery =
+		// con.prepareTupleQuery(QueryLanguage.SPARQL,
+		// removeQuery);
+		// TupleQueryResult result = tquery.evaluate();
+		// try {
+		// while (result.hasNext()) {
+		// BindingSet bindingSet = result.next();
+		// Value valueOfC = bindingSet.getValue("c");
+		// //With this we get the URI of events to remove
+		// if (valueOfC instanceof URI) {
+		// // Then we remove per event
+		// con.remove((URI) valueOfC, null, null);
+		// } else {
+		// log.error("Returned value was not a Resource? " +
+		// "The query is preset, look at the code");
+		// }
+		// }
+		// } finally {
+		// result.close();
+		// }
 		Update uquery = con.prepareUpdate(QueryLanguage.SPARQL,
 			removeQuery);
 		uquery.execute();
@@ -514,10 +499,9 @@ public class SesameBackend implements Backend {
 		value = current;
 		index = i;
 	    }
-	} // Finds out what SPARQL keyword goes first
-	if (index > UPDATE){
-	    return UPDATE; // If DELETE treat as INSERT
-	}
+	}// Finds out what SPARQL keyword goes first
+	if (index > UPDATE)
+	    return UPDATE;// If DELETE treat as INSERT
 	return index;
     }
 
@@ -559,8 +543,8 @@ public class SesameBackend implements Backend {
 	// We could use Jena ARQ to build a query programatically and then
 	// serialize it. But that is not going to happen.
 	StringBuffer query = new StringBuffer(
-		"SELECT ?c WHERE { ?c <http://www.w3.org/1999/02/22-rdf-syntax-ns#type>"
-			+ "  <http://ontology.universAAL.org/Context.owl#ContextEvent> ; \n");
+		"SELECT ?c WHERE { ?c <http://www.w3.org/1999/02/22-rdf-syntax-ns#type>" +
+		"  <http://ontology.universAAL.org/Context.owl#ContextEvent> ; \n");
 
 	if (subject != null) {
 	    query.append(" <http://www.w3.org/1999/02/22-rdf-syntax-ns#subject> <"
@@ -576,15 +560,14 @@ public class SesameBackend implements Backend {
 	if (object != null) {
 	    // Object can be a Resource or a literal
 	    String objExpr = getObjectExpression(object);
-	    if (objExpr != null){
+	    if (objExpr != null)
 		query.append(" <http://www.w3.org/1999/02/22-rdf-syntax-ns#object> "
 			+ objExpr + " ; \n");
-	    }
 	}
 	if (confidence != null) {
 	    query.append(" <http://ontology.universAAL.org/Context.owl#hasConfidence> \""
 		    + confidence
-		    + "\"^^<http://www.w3.org/2001/XMLSchema#int> ; \n");
+		    + "\"^^<http://www.w3.org/2001/XMLSchema#integer> ; \n");
 	}
 	if (expiration != null) {
 	    query.append(" <http://ontology.universAAL.org/Context.owl#hasExpirationTime> \""
@@ -599,10 +582,9 @@ public class SesameBackend implements Backend {
 	    } else {
 		cProv = null;
 	    }
-	    if (cProv != null){
+	    if (cProv != null)
 		query.append(" <http://ontology.universAAL.org/Context.owl#hasProvider> <"
 			+ cProv.getURI() + "> ; \n");
-	    }
 	}
 	if (tstamp != null) {
 	    query.append(" <http://ontology.universAAL.org/Context.owl#hasTimestamp> \""
@@ -658,7 +640,7 @@ public class SesameBackend implements Backend {
 	    return "<" + ((Resource) obj).getURI() + ">";
 	} else if (obj instanceof Integer) {
 	    return "\"" + ((Integer) obj).toString()
-		    + "\"^^<http://www.w3.org/2001/XMLSchema#int>";
+		    + "\"^^<http://www.w3.org/2001/XMLSchema#integer>";
 	} else if (obj instanceof Float) {
 	    return "\"" + ((Float) obj).toString()
 		    + "\"^^<http://www.w3.org/2001/XMLSchema#float>";

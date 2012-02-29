@@ -54,7 +54,12 @@
 				<groupId>org.universAAL.context</groupId>
 				<artifactId>ctxt.gen.reasoner</artifactId>
 				<version>1.0.1-SNAPSHOT</version>
-			</dependency>			
+			</dependency>
+			<dependency>
+				<groupId>org.universAAL.context</groupId>
+				<artifactId>ctxt.prof.server</artifactId>
+				<version>0.2.0-SNAPSHOT</version>
+			</dependency>	
 		</dependencies>
 	</dependencyManagement>
 
@@ -64,6 +69,7 @@
 		<module>../ctxt.jena.converter</module>
 		<module>../ctxt.gen.reasoner</module>
 		<module>../ctxt.space.conf</module>
+		<module>../ctxt.prof.server</module>
 	</modules>
 
 	<properties>

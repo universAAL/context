@@ -21,19 +21,14 @@
  */
 package org.universAAL.context.che;
 
-import org.universAAL.context.che.osgi.Activator;
+import org.universAAL.context.che.ontology.ContextEvent;
+import org.universAAL.context.che.ontology.ContextHistoryService;
 import org.universAAL.middleware.owl.MergedRestriction;
-import org.universAAL.middleware.owl.OntologyManagement;
-import org.universAAL.middleware.owl.SimpleOntology;
 import org.universAAL.middleware.rdf.PropertyPath;
-import org.universAAL.middleware.rdf.Resource;
-import org.universAAL.middleware.rdf.ResourceFactory;
 import org.universAAL.middleware.rdf.TypeMapper;
 import org.universAAL.middleware.service.owls.process.ProcessInput;
 import org.universAAL.middleware.service.owls.process.ProcessOutput;
 import org.universAAL.middleware.service.owls.profile.ServiceProfile;
-import org.universAAL.ontology.che.ContextEvent;
-import org.universAAL.ontology.che.ContextHistoryService;
 
 /**
  * Here are described the provided services that are registered by the CHe in
@@ -69,15 +64,6 @@ public class ContextHistoryServices extends ContextHistoryService {
     static final ServiceProfile[] PROFILES = new ServiceProfile[5];
 
     static {
-	OntologyManagement.getInstance().register(Activator.getModuleContext(),
-		new SimpleOntology(MY_URI, ContextHistoryService.MY_URI,
-			new ResourceFactory() {
-			    public Resource createInstance(String classURI,
-				    String instanceURI, int factoryIndex) {
-				return new ContextHistoryServices(instanceURI);
-			    }
-			}));
-	
 	ProcessInput eventInput = new ProcessInput(INPUT_EVENT);
 	eventInput.setParameterType(ContextEvent.MY_URI);
 	eventInput.setCardinality(1, 1);
@@ -192,27 +178,13 @@ public class ContextHistoryServices extends ContextHistoryService {
     }
 
     /**
-     * Main constructor.
+     * Main constructor
      * 
      * @param uri
      *            URI
      */
-    public ContextHistoryServices(String uri) {
+    protected ContextHistoryServices(String uri) {
 	super(uri);
-    }
-    
-    /**
-     * Default constructor.
-     */
-    public ContextHistoryServices() {
-	super();
-    }
-    
-    /* (non-Javadoc)
-     * @see org.universAAL.ontology.che.ContextHistoryService#getClassURI()
-     */
-    public String getClassURI() {
-	return MY_URI;
     }
 
 }

@@ -120,6 +120,12 @@
 		<profile>
 			<id>uAAL-Runtime</id>
 			<dependencies>
+				<dependency>
+					<groupId>mysql</groupId>
+					<artifactId>mysql-connector-java</artifactId>
+					<version>5.1.17</version>
+					<scope>provided</scope>
+				</dependency>			
 				<!--
 					This dependency has to be duplicated because regular dependencies
 					of provided scope are ignored by uaal-maven-plugin
@@ -130,6 +136,12 @@
 					<version>2.5.4</version>
 					<scope>provided</scope>
 				</dependency>
+				<dependency>
+					<groupId>org.universAAL.support</groupId>
+					<artifactId>jena.osgi</artifactId>
+					<version>1.0.0</version>
+					<scope>provided</scope>
+				</dependency>			
 			</dependencies>
 		</profile>
 	</profiles>	

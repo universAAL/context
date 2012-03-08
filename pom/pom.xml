@@ -45,7 +45,7 @@
 				<artifactId>ctxt.jena.converter</artifactId>
 				<version>1.0.2-SNAPSHOT</version>
 			</dependency>
-			<dependency>
+			<!-- <dependency>
 				<groupId>org.universAAL.context</groupId>
 				<artifactId>ctxt.space.conf</artifactId>
 				<version>1.0.1-SNAPSHOT</version>
@@ -54,7 +54,7 @@
 				<groupId>org.universAAL.context</groupId>
 				<artifactId>ctxt.gen.reasoner</artifactId>
 				<version>1.0.1-SNAPSHOT</version>
-			</dependency>
+			</dependency>--><!-- did not qualify for 1.1.0 -->
 			<dependency>
 				<groupId>org.universAAL.context</groupId>
 				<artifactId>ctxt.prof.server</artifactId>
@@ -67,8 +67,8 @@
 		<module>../ctxt.che</module>
 		<module>../ctxt.che.mobile</module>
 		<module>../ctxt.jena.converter</module>
-		<module>../ctxt.gen.reasoner</module>
-		<module>../ctxt.space.conf</module>
+		<!-- <module>../ctxt.gen.reasoner</module>
+		<module>../ctxt.space.conf</module>--><!-- did not qualify for 1.1.0 -->
 		<module>../ctxt.prof.server</module>
 	</modules>
 

@@ -29,8 +29,7 @@ import org.osgi.framework.ServiceReference;
 import org.universAAL.context.che.Hub;
 import org.universAAL.middleware.container.ModuleContext;
 import org.universAAL.middleware.container.osgi.uAALBundleContainer;
-import org.universAAL.middleware.container.osgi.util.BundleConfigHome;
-import org.universAAL.middleware.serialization.MessageContentSerializer;
+import org.universAAL.middleware.sodapop.msg.MessageContentSerializer;
 
 /**
  * OSGI activator. Relays start and stop to Hub.
@@ -46,20 +45,22 @@ public class Activator implements BundleActivator, ServiceListener {
     private static ModuleContext moduleContext;
 
     /**
+     * Get the uaal module context
+     * 
+     * @return the module context
+     */
+    public static ModuleContext getModuleContext() {
+	return moduleContext;
+    }
+
+    /**
      * OSGI bundle context.
      */
     private BundleContext osgiContext;
-
     /**
      * The application hub independent from OSGi.
      */
-    private Hub hub;
-    
-    /**
-     * The path to the config file. Here so it's decoupled from Hub.
-     */
-    public static final String osgiConfigPath = new BundleConfigHome("ctxt.che")
-	    .getAbsolutePath();
+    private Hub hub = new Hub();
 
     /*
      * (non-Javadoc)
@@ -73,26 +74,21 @@ public class Activator implements BundleActivator, ServiceListener {
 	// create the context
 	moduleContext = uAALBundleContainer.THE_CONTAINER
 		.registerModule(new Object[] { context });
-	// Initialize the CHE hub (needed before setting parsers)
-	this.hub = new Hub();
-
-	// Look for MessageContentSerializer and set parser
+	// Start the core
+	hub.start(moduleContext);
+	// Look for MessageContentSerializer of mw.data.serialization
+	// And set parser
 	String filter = "(objectclass="
 		+ MessageContentSerializer.class.getName() + ")";
 	context.addServiceListener(this, filter);
-	ServiceReference[] references = context.getServiceReferences((String)null,
+	ServiceReference[] references = context.getServiceReferences(null,
 		filter);
 	for (int i = 0; references != null && i < references.length; i++) {
 	    this.serviceChanged(new ServiceEvent(ServiceEvent.REGISTERED,
 		    references[i]));
 	}
-
-	// Start the CHE hub. May be heavy, use thread.
-	new Thread() {
-	    public void run() {
-		hub.start(moduleContext);
-	    }
-	}.start();
+	// Sync mobile (after setting parser)
+	hub.synchronizeMobile();
     }
 
     /*
@@ -113,7 +109,7 @@ public class Activator implements BundleActivator, ServiceListener {
      * ServiceEvent)
      */
     public void serviceChanged(ServiceEvent event) {
-	// Update the parser of Hub (& store)
+	// Update the MessageContentSerializer
 	switch (event.getType()) {
 	case ServiceEvent.REGISTERED:
 	case ServiceEvent.MODIFIED:
@@ -126,15 +122,6 @@ public class Activator implements BundleActivator, ServiceListener {
 	default:
 	    break;
 	}
-    }
-
-    /**
-     * Get the uaal module context. This is only needed for integration test.
-     * 
-     * @return the module context
-     */
-    public static ModuleContext getModuleContext() {
-	return moduleContext;
     }
 
 }

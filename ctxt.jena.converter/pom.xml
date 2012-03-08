@@ -32,11 +32,14 @@
   </licenses>
   
 	<dependencies>
-		<!-- <dependency>
-			<groupId>org.ops4j.pax.logging</groupId>
-			<artifactId>pax-logging-api</artifactId>
-			<version>1.4</version>
-		</dependency>-->
+<!--		Had to ommit this dependency because of conflict-->
+<!--		with version 1.6.2 specified in mw.container.osgi-->
+<!--		-->
+<!--		<dependency>-->
+<!--			<groupId>org.ops4j.pax.logging</groupId>-->
+<!--			<artifactId>pax-logging-api</artifactId>-->
+<!--			<version>1.4</version>-->
+<!--		</dependency>-->
 		<dependency>
 			<groupId>com.hp.hpl.jena</groupId>
 			<artifactId>jena</artifactId>
@@ -47,6 +50,10 @@
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
 		</dependency>
+		<dependency>
+			<groupId>org.universAAL.support</groupId>
+			<artifactId>itests</artifactId>
+		</dependency>		
 		<dependency>
 			<groupId>org.apache.felix</groupId>
 			<artifactId>org.osgi.core</artifactId>
@@ -89,15 +96,6 @@
 				<groupId>org.apache.felix</groupId>
 				<artifactId>maven-bundle-plugin</artifactId>
 				<extensions>true</extensions>
-				<executions>
-					<execution>
-						<id>bundle-manifest</id>
-						<phase>process-classes</phase>
-						<goals>
-							<goal>manifest</goal>
-						</goals>
-					</execution>
-				</executions>
 				<configuration>
 					<instructions>
 						<Bundle-Name>${project.name}</Bundle-Name>
@@ -109,54 +107,6 @@
 					</instructions>
 				</configuration>
 			</plugin>
-			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>build-helper-maven-plugin</artifactId>
-				<version>1.7</version>
-				<executions>
-					<execution>
-						<id>attach-composite</id>
-						<phase>package</phase>
-						<goals>
-							<goal>attach-artifact</goal>
-						</goals>
-						<configuration>
-							<artifacts>
-								<artifact>
-									<file>target/artifact.composite</file>
-									<type>composite</type>
-								</artifact>
-							</artifacts>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>
-			<plugin>
-				<groupId>org.universAAL.support</groupId>
-				<artifactId>uaal-maven-plugin</artifactId>
-				<version>1.0.1-SNAPSHOT</version>
-				<executions>
-					<execution>
-						<phase>generate-resources</phase>
-						<goals>
-							<goal>composite</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
-			<plugin>
-				<groupId>org.universAAL.support</groupId>
-				<artifactId>uaal-maven-plugin</artifactId>
-				<version>1.0.1-SNAPSHOT</version>
-				<executions>
-					<execution>
-						<phase>generate-resources</phase>
-						<goals>
-							<goal>test</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
 		</plugins>
 	</build>
 	
@@ -165,5 +115,23 @@
 		<developerConnection>${svn.base}/${project.artifactId}</developerConnection>
 		<url>${svn.base.url}${project.artifactId}</url>
 	</scm>
+
+	<profiles>
+		<profile>
+			<id>uAAL-Runtime</id>
+			<dependencies>
+				<!--
+					This dependency has to be duplicated because regular dependencies
+					of provided scope are ignored by uaal-maven-plugin
+				-->
+				<dependency>
+					<groupId>com.hp.hpl.jena</groupId>
+					<artifactId>jena</artifactId>
+					<version>2.5.4</version>
+					<scope>provided</scope>
+				</dependency>
+			</dependencies>
+		</profile>
+	</profiles>	
 	
 </project>

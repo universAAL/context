@@ -22,30 +22,25 @@
 package org.universAAL.context.che;
 
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
-import java.io.FilenameFilter;
-import java.io.IOException;
 import java.io.InputStream;
-import java.util.ArrayList;
 import java.util.Properties;
 import java.util.Timer;
 
 import org.universAAL.context.che.database.Backend;
 import org.universAAL.context.che.database.Cleaner;
-import org.universAAL.context.che.osgi.Activator;
+import org.universAAL.context.che.database.impl.SesameBackend;
+import org.universAAL.context.che.ontology.ContextHistoryOntology;
 import org.universAAL.middleware.container.ModuleContext;
 import org.universAAL.middleware.container.osgi.util.BundleConfigHome;
 import org.universAAL.middleware.container.utils.LogUtils;
 import org.universAAL.middleware.context.ContextEvent;
-import org.universAAL.middleware.owl.Ontology;
 import org.universAAL.middleware.owl.OntologyManagement;
-import org.universAAL.middleware.serialization.MessageContentSerializer;
-import org.universAAL.middleware.util.OntologyListener;
+import org.universAAL.middleware.sodapop.msg.MessageContentSerializer;
 
 /**
  * Central class that takes care of starting and stopping application. It used
@@ -54,33 +49,15 @@ import org.universAAL.middleware.util.OntologyListener;
  * @author alfiva
  * 
  */
-public class Hub implements OntologyListener {
-    /**
-     * Logger.
-     */
-    private static Log log = Hub.getLog(Hub.class);
+public class Hub {
+    private static Log log = Hub.getLog(SesameBackend.class);
 
-    /**
-     * Name of the config properties file.
-     */
     public static final String PROPS_FILE = "CHe.properties";
-    /**
-     * This is prepended to the above file.
-     */
     public static final String COMMENTS = "This file stores configuration "
-	    + "parameters for the Context History Entrepot";
+	    + "parameters for the " + "Context History Entrepot";
 
-    /**
-     * Milliseconds in 24 hours.
-     */
-    private static final long HOURS24 = 86400000;
-    /**
-     * Config folder.
-     */
-    private static File confHome = new File(Activator.osgiConfigPath);
-    /**
-     * uAAL Module context.
-     */
+    private static File confHome = new File(
+	    new BundleConfigHome("ctxt.che").getAbsolutePath());
     private static ModuleContext moduleContext = null;
 
     /**
@@ -100,32 +77,37 @@ public class Hub implements OntologyListener {
      */
     private Timer t;
     /**
+     * Ontology loading.
+     */
+    private ContextHistoryOntology ontology = new ContextHistoryOntology();
+    /**
      * Lock for sync file access.
      */
     private Object fileLock = new Object();
     /**
-     * Turtle-uAAL parser.
+     * Turtle-uAAL parser
      */
     private MessageContentSerializer uAALParser;
 
     /**
-     * Flag for knowing when store is connected, used only for ontology updates
+     * To be called when application starts. Used to be Activator.start().
+     * 
+     * @param context
+     *            uaal module context
+     * @throws Exception
+     *             If anything goes wrong
      */
-    private boolean connected = false;
-
-    /**
-     * Default constructor.
-     */
-    public Hub() {
-	// Instantiate the store you want
+    public void start(ModuleContext context) throws Exception {
+	moduleContext = context;
+	// Register ont
+	OntologyManagement.getInstance().register(ontology);
+	// Start the store you want
 	try {
 	    String storeclass = getProperties().getProperty("STORE.IMPL",
 		    "org.universAAL.context.che.database.impl.SesameBackend");
 	    this.db = (Backend) Class.forName(storeclass)
 		    .getConstructor(new Class[] {})
 		    .newInstance(new Object[] {});
-	} catch (RuntimeException ex){
-	    ex.printStackTrace();
 	} catch (Exception e) {
 	    // If we cannot get the Backend, abort.
 	    String cause = "The store implementation passed as configuration"
@@ -134,77 +116,18 @@ public class Hub implements OntologyListener {
 		    + "org.universAAL.context.che.database.Backend or "
 		    + "remove that configuration parameter to use the "
 		    + "default engine.";
-	    log.error("init", cause);
-	}	
-    }
-    
-    /**
-     * To be called when application starts. Used to be Activator.start().
-     * 
-     * @param context
-     *            uaal module context
-     */
-    public void start(ModuleContext context) {
-	moduleContext = context;
-	OntologyManagement.getInstance().addOntologyListener(context, this);
-	createOWLFiles();
-	// Start the store and wrappers
+	    throw new Exception(cause, e);// TODO: Create a new kind of
+					  // exception?
+	}
 	this.db.connect();
-	this.connected=true;
+	// Start the wrappers
 	this.hc = new ContextHistorySubscriber(moduleContext, db);
 	this.chc = new ContextHistoryCallee(moduleContext, db);
-	// Every 24 hours do the "Cleaner thing" (see Cleaner class)
+	// Start the removal timer
 	t = new Timer();
-	t.scheduleAtFixedRate(new Cleaner(db), HOURS24, HOURS24);
-	log.info("start", "Removal period will be checked"
-		+ " in 24 hours from now");
-	// Sync Mobile Events. When platform can, sync when mobile arrives
-	log.debug("start", "Looking for mobile events to synchronize");
-	if (synchronizeMobileTurtle()) {
-	    log.info("start", "Synchronized Mobile Events!!!");
-	} else {
-	    log.warn("start", "Could not Synchronize Mobile Events!!!");
-	}
-    }
-
-    /**
-     * Create the OWL files for the registered ontologies, and put them in the
-     * config folder.
-     */
-    private synchronized void createOWLFiles() {
-	File[] files = confHome.listFiles(new FilenameFilter() {
-	    public boolean accept(File dir, String name) {
-		return name.toLowerCase().endsWith(".owl");
-	    }
-	});
-
-	ArrayList names = new ArrayList(files.length);
-	for (int i = 0; i < files.length; i++) {
-	    names.add(files[i].getName());
-	}
-
-	OntologyManagement manager = OntologyManagement.getInstance();
-
-	String[] ontURIs = manager.getOntoloyURIs();
-	for (int i = 0; i < ontURIs.length; i++) {
-	    String filename = ontURIs[i].replaceAll("[:/#]", ".");
-	    if (!filename.endsWith(".owl")) {
-		filename += ".owl";
-	    }
-	    if (!names.contains(filename)) {
-		try {
-		    BufferedWriter out = new BufferedWriter(new FileWriter(
-			    new File(confHome, filename), false));
-		    Ontology ont = manager.getOntology(ontURIs[i]);
-		    String str = this.uAALParser.serialize(ont);
-		    out.write(str);
-		    out.close();
-		} catch (IOException e) {
-		    // TODO Auto-generated catch block
-		    e.printStackTrace();
-		}
-	    }
-	}
+	// Every 24 hours do the "Cleaner thing" (see Cleaner class)
+	t.scheduleAtFixedRate(new Cleaner(db), 86400000, 86400000);
+	log.info("start", "Removal period will be checked in 24 hours from now");
     }
 
     /**
@@ -213,19 +136,15 @@ public class Hub implements OntologyListener {
      * @throws Exception
      */
     public final void stop() throws Exception {
-	// Stop the store and wrappers
-	if(moduleContext!=null){
-	    OntologyManagement.getInstance().removeOntologyListener(moduleContext, this);
-	}
+	// Stop the store and wrappers and deregister ont
+	this.db.close();
 	this.chc.close();
 	this.hc.close();
-	this.db.close();
-	this.connected=false;
+	OntologyManagement.getInstance().unregister(ontology);
     }
 
     /**
-     * Set the turtle-uaal parser. Make sure it's set at least once before
-     * start().
+     * Set the turtle-uaal parser. Make sure it´s called after start().
      * 
      * @param service
      *            The parser
@@ -246,10 +165,8 @@ public class Hub implements OntologyListener {
     public static synchronized void setProperties(final Properties prop) {
 	try {
 	    FileWriter out;
-	    if (!confHome.exists()) {
-		if(!confHome.mkdir()){
-		    log.error("setproperties", "Could not set properties file");
-		}
+	    if(!confHome.exists()){
+		confHome.mkdir();
 	    }
 	    out = new FileWriter(new File(confHome, PROPS_FILE));
 	    prop.store(out, COMMENTS);
@@ -277,8 +194,7 @@ public class Hub implements OntologyListener {
 		    "Properties file does not exist; generating default...");
 	    prop.setProperty("STORE.IMPL",
 		    "org.universAAL.context.che.database.impl.SesameBackend");
-	    prop.setProperty("STORE.LOCATION", confHome.getAbsolutePath()
-		    + "/store");
+	    prop.setProperty("STORE.LOCATION", confHome.getAbsolutePath()+"/store");
 	    prop.setProperty("MOBILE.FILE", "Mobile-Events.txt");
 	    prop.setProperty("MOBILE.FLAG", "<!--CEv-->");
 	    prop.setProperty("RECYCLE.KEEP", "2"); // 2 months
@@ -290,6 +206,19 @@ public class Hub implements OntologyListener {
 		    e);
 	}
 	return prop;
+    }
+
+    /**
+     * Start the mobile events synchronization.
+     */
+    public void synchronizeMobile() {
+	// Sync Mobile Events. When platform can, sync when mobile arrives
+	log.debug("start", "Looking for mobile events to synchronize");
+	if (synchronizeMobileTurtle()) {
+	    log.info("start", "Synchronized Mobile Events!!!");
+	} else {
+	    log.warn("start", "Could not Synchronize Mobile Events!!!");
+	}
     }
 
     /**
@@ -317,7 +246,7 @@ public class Hub implements OntologyListener {
 			"Mobile events were last synchronized in "
 				+ lastKnownOf);
 		String readline = "";
-		StringBuffer turtleIn=new StringBuffer();
+		String turtleIn = "";
 		int count = 0;
 		long start = System.currentTimeMillis();
 		File fileref = new File(
@@ -327,20 +256,19 @@ public class Hub implements OntologyListener {
 		readline = br.readLine();
 		while (readline != null) {
 		    while (readline != null && !readline.equals(flag)) {
-			turtleIn.append(readline);
+			turtleIn += readline;
 			readline = br.readLine();
 		    }
-		    if (turtleIn.length()>0) {
-			ev = (ContextEvent) uAALParser.deserialize(turtleIn.toString());
+		    if (!turtleIn.isEmpty()) {
+			ev = (ContextEvent) uAALParser.deserialize(turtleIn);
 			if (lKO < ev.getTimestamp().longValue()) {
 			    log.debug("synchronizeMobileTurtle",
-				    "Parsed an event from Mobile "
-					    + "file, storing in DB");
+				    "Parsed an event from Mobile file, storing in DB");
 			    this.db.storeEvent(ev);
 			    count++;
 			}
 		    }
-		    turtleIn =new StringBuffer();
+		    turtleIn = "";
 		    readline = br.readLine();
 		}
 		if (ev != null) {
@@ -360,10 +288,8 @@ public class Hub implements OntologyListener {
 			    "Could not delete the Mobile events file");
 		}
 	    } catch (FileNotFoundException e) {
-		log.warn(
-			"synchronizeMobileTurtle",
-			"Could not find the Mobile events file,"
-				+ " synchronization will not take place: "
+		log.warn("synchronizeMobileTurtle",
+			"Could not find the Mobile events file, synchronization will not take place: "
 				+ e.getMessage());
 		return false;
 	    } catch (Exception e) {
@@ -376,7 +302,7 @@ public class Hub implements OntologyListener {
     }
 
     /**
-     * Gets a Log helper class.
+     * Gets a Log helper class
      * 
      * @param cl
      *            Class that asks for a logger
@@ -392,9 +318,6 @@ public class Hub implements OntologyListener {
      * @author alfiva
      */
     public static class Log {
-	/**
-	 * Custom log helper.
-	 */
 	private Class logclass;
 
 	/**
@@ -518,22 +441,5 @@ public class Hub implements OntologyListener {
 	    LogUtils.logError(moduleContext, logclass, method,
 		    new Object[] { msg }, e);
 	}
-    }
-
-    public void ontologyAdded(String ontURI) {
-	createOWLFiles();
-	if (this.connected) {
-	    try {
-		this.db.populate();
-	    } catch (Exception e) {
-		log.error("ontologyAdded",
-			"Exception updating the store with new ontologies ", e);
-		e.printStackTrace();
-	    }
-	}
-    }
-
-    public void ontologyRemoved(String ontURI) {
-	// Do nothing, I cant just remove an owl from the backend 
     }
 }

@@ -19,6 +19,15 @@ ctxt.che-1.0.2-SNAPSHOT/src/main/java/org/universAAL/context/che/ontology/Contex
 ctxt.che-1.0.2-SNAPSHOT/src/main/java/org/universAAL/context/che/ontology/ContextHistoryService.java -text
 ctxt.che-1.0.2-SNAPSHOT/src/main/java/org/universAAL/context/che/osgi/Activator.java -text
 ctxt.che-1.0.2-SNAPSHOT/src/test/java/org/universAAL/context/che/test/ArtifactIntegrationTest.java -text
+ctxt.che.mobile-1.0.2-SNAPSHOT/LICENSE-CPL-JUnit.txt -text
+ctxt.che.mobile-1.0.2-SNAPSHOT/LICENSE.txt -text
+ctxt.che.mobile-1.0.2-SNAPSHOT/NOTICE.txt -text
+ctxt.che.mobile-1.0.2-SNAPSHOT/artifact_manual.composite -text
+ctxt.che.mobile-1.0.2-SNAPSHOT/pom.xml -text
+ctxt.che.mobile-1.0.2-SNAPSHOT/src/main/java/org/universAAL/context/chemobile/Hub.java -text
+ctxt.che.mobile-1.0.2-SNAPSHOT/src/main/java/org/universAAL/context/chemobile/MobileHistorySubscriber.java -text
+ctxt.che.mobile-1.0.2-SNAPSHOT/src/main/java/org/universAAL/context/chemobile/osgi/Activator.java -text
+ctxt.che.mobile-1.0.2-SNAPSHOT/src/test/java/org/universAAL/context/chemobile/test/ArtifactIntegrationTest.java -text
 ctxt.jena.converter-1.0.1-SNAPSHOT/LICENSE-BSD-Jena.txt -text
 ctxt.jena.converter-1.0.1-SNAPSHOT/LICENSE-CPL-JUnit.txt -text
 ctxt.jena.converter-1.0.1-SNAPSHOT/LICENSE-MIT11-Bouncycastle.txt -text

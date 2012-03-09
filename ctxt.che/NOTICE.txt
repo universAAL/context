@@ -1,0 +1,41 @@
+Context History Entrepôt
+
+Copyright 2008-2014 Fraunhofer IGD, http://www.igd.fraunhofer.de
+Fraunhofer-Gesellschaft - Institute of Computer Graphics Research 
+
+Copyright 2008-2014 ITACA-TSB, http://www.tsb.upv.es
+Instituto Tecnologico de Aplicaciones de Comunicacion 
+Avanzadas - Grupo Tecnologias para la Salud y el 
+Bienestar (TSB)
+
+I. Included Software
+
+Software developed by ITACA-TSB within the PERSONA project is 
+used as the initial version for further developments within 
+the universAAL project.
+
+
+II. Used Software
+
+This product uses software developed at
+The Apache Software Foundation (http://www.apache.org/).
+Licensed under the Apache License 2.0.
+
+This product uses software developed at
+Junit (http://www.junit.org/).
+Licensed under Common Public License 1.0.
+
+This product uses software developed at
+The OPS4J (http://www.ops4j.org)
+Licensed under the Apache License 2.0.
+
+This product uses software developed at
+OpenRDF (http://www.openrdf.org)
+Copyright (c) 2001 - 2011 Aduna
+Licensed under modified BSD License.
+
+
+III. License Summary
+- Apache License 2.0
+- Common Public License 1.0
+- Modified BSD License

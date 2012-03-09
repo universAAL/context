@@ -82,7 +82,7 @@
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>build-helper-maven-plugin</artifactId>
         <configuration>
-          <skipAttach>false</skipAttach>
+          <skipAttach>true</skipAttach>
         </configuration>
       </plugin>
     </plugins>

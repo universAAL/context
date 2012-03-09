@@ -15,4 +15,5 @@ ctxt.jena.converter-1.0.1-SNAPSHOT/src/test/java/org/universAAL/context/conversi
 ctxt.jena.converter-1.0.1-SNAPSHOT/src/test/java/org/universAAL/context/conversion/jena/impl/util/HearingImpairment.java -text
 ctxt.jena.converter-1.0.1-SNAPSHOT/src/test/java/org/universAAL/context/conversion/jena/impl/util/PhysicalImpairment.java -text
 ctxt.jena.converter-1.0.1-SNAPSHOT/src/test/java/org/universAAL/context/conversion/jena/impl/util/SightImpairment.java -text
+ctxt.pom-1.0.2-SNAPSHOT/pom.xml -text
 pom-1.0.1-SNAPSHOT/pom.xml -text

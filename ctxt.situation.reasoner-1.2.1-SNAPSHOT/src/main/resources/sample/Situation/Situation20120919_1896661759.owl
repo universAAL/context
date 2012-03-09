@@ -1,8 +1,0 @@
-
-@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
-@prefix : <http://reasoner.universAAL.org/ReasoningOntology#> .
-<http://ontology.igd.fhg.de/ReasonerClient.owl#Situation4786962> :rdfObject "http://ontology.igd.fhg.de/LightingServer.owl#controlledLamp3"^^xsd:string ;
-  a :Situation ;
-  :rdfSubject "http://ontology.igd.fhg.de/LightingServer.owl#controlledLamp1"^^xsd:string ;
-  :rdfPredicate "http://ontology.universaal.org/Lighting.owl#srcBrightness"^^xsd:string ;
-  :saveIt true .

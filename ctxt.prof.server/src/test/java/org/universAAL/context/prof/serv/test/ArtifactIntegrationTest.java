@@ -33,7 +33,7 @@ import org.universAAL.ontology.profile.service.ProfilingService;
 public class ArtifactIntegrationTest extends IntegrationTest {
 
     private static final String NAMESPACE = "http://ontology.itaca.es/ProfileTest.owl#";
-    private static final String NOTHING = "nothting";
+    private static final String NOTHING = "nothing";
     private static final String ARG_OUT = NAMESPACE+"argout";
     private ServiceCaller caller;
 
@@ -50,9 +50,9 @@ public class ArtifactIntegrationTest extends IntegrationTest {
 	AssistedPerson user2 = new AssistedPerson(NAMESPACE + "ap2");
 
 	Assert.isTrue(getProfilable(user1).equals(NOTHING),
-		"Should have retruned nothing");
+		"Should have retruned nothing 1");
 	Assert.isTrue(getUsers().equals(NOTHING),
-		"Should have retruned nothing");
+		"Should have retruned nothing 2");
 
 	addProfilable(user1);
 	Assert.isTrue(getProfilable(user1).equals(user1.getURI()),
@@ -71,7 +71,7 @@ public class ArtifactIntegrationTest extends IntegrationTest {
 
 	removeProfilable(user1);
 	Assert.isTrue(getProfilable(user1).equals(NOTHING),
-		"Should have retruned nothing");
+		"Should have retruned nothing 3");
     }
 
     public void testProfile() {
@@ -83,7 +83,7 @@ public class ArtifactIntegrationTest extends IntegrationTest {
 		+ "apProf2");
 
 	Assert.isTrue(getProfile(prof1).equals(NOTHING),
-		"Should have returned nothing");
+		"Should have returned nothing 1");
 
 	addProfile(prof1);
 	Assert.isTrue(getProfile(prof1).equals(prof1.getURI()),
@@ -99,7 +99,7 @@ public class ArtifactIntegrationTest extends IntegrationTest {
 
 	removeProfile(prof1);
 	Assert.isTrue(getProfile(prof1).equals(NOTHING),
-		"Should have returned nothing");
+		"Should have returned nothing 2");
     }
 
     public void testSubProfile() {
@@ -109,7 +109,7 @@ public class ArtifactIntegrationTest extends IntegrationTest {
 	SubProfile subprof1 = new SubProfile(NAMESPACE + "userSubProf1");
 
 	Assert.isTrue(getSubProfile(subprof1).equals(NOTHING),
-		"Should have returned nothing");
+		"Should have returned nothing 1");
 
 	addSubProfile(subprof1);
 	Assert.isTrue(getSubProfile(subprof1).equals(subprof1.getURI()),
@@ -121,7 +121,7 @@ public class ArtifactIntegrationTest extends IntegrationTest {
 
 	removeSubProfile(subprof1);
 	Assert.isTrue(getSubProfile(subprof1).equals(NOTHING),
-		"Should have returned nothing");
+		"Should have returned nothing 2");
     }
 
     // :::::::::::::PROFILABLE GET/ADD/CHANGE/REMOVE:::::::::::::::::

@@ -68,7 +68,7 @@ ctxt.prof.server/src/main/java/org/universAAL/context/prof/serv/Queries.java -te
 ctxt.prof.server/src/main/java/org/universAAL/context/prof/serv/SCallee.java -text
 ctxt.prof.server/src/main/java/org/universAAL/context/prof/serv/SCalleeProvidedService.java -text
 ctxt.prof.server/src/main/java/org/universAAL/context/prof/serv/SCaller.java -text
-ctxt.prof.server/src/test/java/org/universAAL/context/prof/serv/test/ArtifactIntegrationTest.java -text
+ctxt.prof.server/src/test/java/org/universAAL/context/prof/serv/ArtifactIntegrationTest.java -text
 ctxt.space.conf/pom.xml -text
 ctxt.space.conf/src/main/java/org/universAAL/context/space/conf/Activator.java -text
 ctxt.space.conf/src/main/java/org/universAAL/context/space/conf/JenaPersistenceAccessor.java -text

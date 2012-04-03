@@ -1,4 +1,4 @@
-package org.universAAL.context.prof.serv.test;
+package org.universAAL.context.prof.serv;
 
 import java.util.Iterator;
 import java.util.List;
@@ -49,29 +49,36 @@ public class ArtifactIntegrationTest extends IntegrationTest {
 	User user1 = new User(NAMESPACE + "user1");
 	AssistedPerson user2 = new AssistedPerson(NAMESPACE + "ap2");
 
-	Assert.isTrue(getProfilable(user1).equals(NOTHING),
-		"Should have retruned nothing 1");
-	Assert.isTrue(getUsers().equals(NOTHING),
-		"Should have retruned nothing 2");
+	String str1=getProfilable(user1);
+	Assert.isTrue(str1.equals(NOTHING),
+		"Should have retruned nothing (1), but not "+str1);
+	String str2=getUsers();
+	Assert.isTrue(str2.equals(NOTHING),
+		"Should have retruned nothing (2), nut not "+str2);
 
 	addProfilable(user1);
-	Assert.isTrue(getProfilable(user1).equals(user1.getURI()),
-		"Should have retruned a User");
+	String str3=getProfilable(user1);
+	Assert.isTrue(str3.equals(user1.getURI()),
+		"Should have retruned a User, but not "+str3);
 
 	addProfilable(user2);
-	Assert.isTrue(getProfilable(user2).equals(user2.getURI()),
-		"Should have retruned a AP");
+	String str4=getProfilable(user2);
+	Assert.isTrue(str4.equals(user2.getURI()),
+		"Should have retruned a AP, but not "+str4);
 
-	Assert.isTrue(getUsers().contains(","),
-		"Should have retruned several users");
+	String str5=getUsers();
+	Assert.isTrue(str5.contains(","),
+		"Should have retruned several users, but not "+str5);
 
 	changeProfilable(user1);
-	Assert.isTrue(getProfilable(user1).equals(user1.getURI()),
-		"Should have retruned a User");
+	String str6=getProfilable(user1);
+	Assert.isTrue(str6.equals(user1.getURI()),
+		"Should have retruned a User, but not "+str6);
 
 	removeProfilable(user1);
-	Assert.isTrue(getProfilable(user1).equals(NOTHING),
-		"Should have retruned nothing 3");
+	String str7=getProfilable(user1);
+	Assert.isTrue(str7.equals(NOTHING),
+		"Should have retruned nothing (3), but not "+str7);
     }
 
     public void testProfile() {
@@ -82,24 +89,29 @@ public class ArtifactIntegrationTest extends IntegrationTest {
 	AssistedPersonProfile prof2 = new AssistedPersonProfile(NAMESPACE
 		+ "apProf2");
 
-	Assert.isTrue(getProfile(prof1).equals(NOTHING),
-		"Should have returned nothing 1");
+	String str1=getProfile(prof1);
+	Assert.isTrue(str1.equals(NOTHING),
+		"Should have returned nothing (1), but not "+str1);
 
 	addProfile(prof1);
-	Assert.isTrue(getProfile(prof1).equals(prof1.getURI()),
-		"Should have returned a UserProfile");
+	String str2=getProfile(prof1);
+	Assert.isTrue(str2.equals(prof1.getURI()),
+		"Should have returned a UserProfile, but not "+str2);
 
 	addProfile(prof2);
-	Assert.isTrue(getProfile(prof2).equals(prof2.getURI()),
-		"Should have returned a APProfile");
+	String str3=getProfile(prof2);
+	Assert.isTrue(str3.equals(prof2.getURI()),
+		"Should have returned a APProfile, but not "+str3);
 
 	changeProfile(prof1);
-	Assert.isTrue(getProfile(prof1).equals(prof1.getURI()),
-		"Should have returned a UserProfile");
+	String str4=getProfile(prof1);
+	Assert.isTrue(str4.equals(prof1.getURI()),
+		"Should have returned a UserProfile, but not "+str4);
 
 	removeProfile(prof1);
-	Assert.isTrue(getProfile(prof1).equals(NOTHING),
-		"Should have returned nothing 2");
+	String str5=getProfile(prof1);
+	Assert.isTrue(str5.equals(NOTHING),
+		"Should have returned nothing (2), but not "+str5);
     }
 
     public void testSubProfile() {
@@ -108,20 +120,24 @@ public class ArtifactIntegrationTest extends IntegrationTest {
 		"testSubProfile", new String[] { "-Test 3-" }, null);
 	SubProfile subprof1 = new SubProfile(NAMESPACE + "userSubProf1");
 
-	Assert.isTrue(getSubProfile(subprof1).equals(NOTHING),
-		"Should have returned nothing 1");
+	String str1=getSubProfile(subprof1);
+	Assert.isTrue(str1.equals(NOTHING),
+		"Should have returned nothing (1), but not "+str1);
 
 	addSubProfile(subprof1);
-	Assert.isTrue(getSubProfile(subprof1).equals(subprof1.getURI()),
-		"Should have returned a SubProfile");
+	String str2=getSubProfile(subprof1);
+	Assert.isTrue(str2.equals(subprof1.getURI()),
+		"Should have returned a SubProfile, but not "+str2);
 
 	changeSubProfile(subprof1);
-	Assert.isTrue(getSubProfile(subprof1).equals(subprof1.getURI()),
-		"Should have returned a UserProfile");
+	String str3=getSubProfile(subprof1);
+	Assert.isTrue(str3.equals(subprof1.getURI()),
+		"Should have returned a UserProfile, but not "+str3);
 
 	removeSubProfile(subprof1);
-	Assert.isTrue(getSubProfile(subprof1).equals(NOTHING),
-		"Should have returned nothing 2");
+	String str4=getSubProfile(subprof1);
+	Assert.isTrue(str4.equals(NOTHING),
+		"Should have returned nothing (2), but not "+str4);
     }
 
     // :::::::::::::PROFILABLE GET/ADD/CHANGE/REMOVE:::::::::::::::::

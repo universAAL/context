@@ -1,11 +1,10 @@
 #needed Libraries:
 scan-bundle:mvn:org.openrdf.sesame/sesame-runtime-osgi/2.6.0
 #uAAL Dependencies:
-scan-composite:mvn:org.universAAL.middleware/mw.container.osgi/1.1.1-SNAPSHOT/composite
-scan-composite:mvn:org.universAAL.middleware/mw.data.representation/1.1.1-SNAPSHOT/composite
-scan-composite:mvn:org.universAAL.middleware/mw.data.serialization/1.1.1-SNAPSHOT/composite
-scan-composite:mvn:org.universAAL.middleware/mw.bus.service/1.1.1-SNAPSHOT/composite
-scan-composite:mvn:org.universAAL.middleware/mw.bus.context/1.1.1-SNAPSHOT/composite
-scan-bundle:mvn:org.universAAL.ontology/che.ont/1.1.1-SNAPSHOT
+scan-composite:mvn:org.universAAL.middleware/mw.container.osgi/1.0.1-SNAPSHOT/composite
+scan-composite:mvn:org.universAAL.middleware/mw.data.representation/1.0.1-SNAPSHOT/composite
+scan-composite:mvn:org.universAAL.middleware/mw.data.serialization/1.0.1-SNAPSHOT/composite
+scan-composite:mvn:org.universAAL.middleware/mw.bus.service/1.0.1-SNAPSHOT/composite
+scan-composite:mvn:org.universAAL.middleware/mw.bus.context/1.0.1-SNAPSHOT/composite
 ## Self:
-scan-bundle:mvn:org.universAAL.context/ctxt.che/1.1.2-SNAPSHOT
+scan-bundle:mvn:org.universAAL.context/ctxt.che/1.0.2-SNAPSHOT

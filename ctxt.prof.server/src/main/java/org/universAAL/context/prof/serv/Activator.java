@@ -40,19 +40,19 @@ public class Activator implements BundleActivator, ServiceListener {
     /**
      * The OSGi Bundle context
      */
-    public static BundleContext osgiContext = null;
+    protected static BundleContext osgiContext = null;
     /**
      * The uAAL module context
      */
-    public static ModuleContext context = null;
+    protected static ModuleContext context = null;
     /**
      * Service Callee
      */
-    public static SCallee scallee = null;
+    protected static SCallee scallee = null;
     /**
      * Service Caller
      */
-    public static SCaller scaller = null;
+    protected static SCaller scaller = null;
     /**
      * Turtle parser
      */

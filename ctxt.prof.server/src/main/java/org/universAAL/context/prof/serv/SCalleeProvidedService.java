@@ -88,7 +88,7 @@ public class SCalleeProvidedService extends ProfilingService {
     /**
      * Where the service profiles are stored.
      */
-    public static ServiceProfile[] profiles = new ServiceProfile[4];
+    protected static ServiceProfile[] profiles = new ServiceProfile[4];
 
     static {
 	OntologyManagement.getInstance().register(

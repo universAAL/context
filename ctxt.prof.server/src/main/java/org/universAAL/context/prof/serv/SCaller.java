@@ -72,7 +72,7 @@ public class SCaller {
 	String result = getResult(defaultCaller
 		.call(getDoSPARQLRequest(Queries.Q_GET_PROFILABLE
 			.replace(Queries.ARG1, input.getURI()))));
-	return (Resource) Activator.parser.deserialize(result);
+	return (Resource) Activator.parser.deserialize(result,input.getURI());
     }
 
     // SPARQL UPDATE queries would include serialized uAAL data, but this
@@ -117,7 +117,7 @@ public class SCaller {
 	String result = getResult(defaultCaller
 		.call(getDoSPARQLRequest(Queries.Q_GET_PROFILE
 			.replace(Queries.ARG1, input.getURI()))));
-	return (Resource) Activator.parser.deserialize(result);
+	return (Resource) Activator.parser.deserialize(result,input.getURI());
     }
 
     protected void addProfile(Resource input) {
@@ -150,7 +150,7 @@ public class SCaller {
 	String result = getResult(defaultCaller
 		.call(getDoSPARQLRequest(Queries.Q_GET_SUBPROFILE
 			.replace(Queries.ARG1, input.getURI()))));
-	return (Resource) Activator.parser.deserialize(result);
+	return (Resource) Activator.parser.deserialize(result,input.getURI());
     }
 
     protected void addSubProfile(Resource input) {
@@ -182,7 +182,7 @@ public class SCaller {
 	String result = getResult(defaultCaller
 		.call(getDoSPARQLRequest(Queries.Q_GET_IN_PROFILABLE_OUT_PROFILE
 			.replace(Queries.ARG1, input.getURI()))));
-	return (Resource) Activator.parser.deserialize(result);
+	return (Resource) Activator.parser.deserialize(result,input.getURI());
     }
 
     protected void addProfile(Resource input, Resource input2) {

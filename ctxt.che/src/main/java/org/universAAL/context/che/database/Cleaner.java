@@ -93,7 +93,7 @@ public class Cleaner extends TimerTask {
      * @author alfiva
      */
     private class Punctual extends TimerTask {
-
+	//TODO: Make this class static
 	/**
 	 * The store.
 	 */

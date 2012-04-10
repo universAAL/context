@@ -47,11 +47,6 @@ public class ContextHistoryCallee extends ServiceCallee {
 	    CallStatus.serviceSpecificFailure);
     private static Log log = Hub.getLog(ContextHistoryCallee.class);
 
-    static {
-	INVALID_INPUT.addOutput(new ProcessOutput(
-		ServiceResponse.PROP_SERVICE_SPECIFIC_ERROR, "Invalid input!"));
-    }
-
     /**
      * The DB of the store.
      */
@@ -285,6 +280,9 @@ public class ContextHistoryCallee extends ServiceCallee {
 	} catch (Exception e) {
 	    log.error("execSPARQLQuery",
 		    "Error executing specific SPARQL: {} ", e);
+	    INVALID_INPUT.addOutput(new ProcessOutput(
+		    ServiceResponse.PROP_SERVICE_SPECIFIC_ERROR,
+		    "Error executing specific SPARQL"));
 	    return INVALID_INPUT;
 	}
     }
@@ -306,6 +304,9 @@ public class ContextHistoryCallee extends ServiceCallee {
 	} catch (Exception e) {
 	    log.error("execSPARQLQueryForEvents",
 		    "Error executing SPARQL for events: {} ", e);
+	    INVALID_INPUT.addOutput(new ProcessOutput(
+		    ServiceResponse.PROP_SERVICE_SPECIFIC_ERROR,
+		    "Error executing specific SPARQL"));
 	    return INVALID_INPUT;
 	}
     }

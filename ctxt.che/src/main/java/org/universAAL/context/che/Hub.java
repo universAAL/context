@@ -34,12 +34,12 @@ import java.util.Timer;
 import org.universAAL.context.che.database.Backend;
 import org.universAAL.context.che.database.Cleaner;
 import org.universAAL.context.che.database.impl.SesameBackend;
-import org.universAAL.context.che.ontology.ContextHistoryOntology;
+//import org.universAAL.context.che.ontology.ContextHistoryOntology;
 import org.universAAL.middleware.container.ModuleContext;
 import org.universAAL.middleware.container.osgi.util.BundleConfigHome;
 import org.universAAL.middleware.container.utils.LogUtils;
 import org.universAAL.middleware.context.ContextEvent;
-import org.universAAL.middleware.owl.OntologyManagement;
+//import org.universAAL.middleware.owl.OntologyManagement;
 import org.universAAL.middleware.sodapop.msg.MessageContentSerializer;
 
 /**
@@ -77,10 +77,6 @@ public class Hub {
      */
     private Timer t;
     /**
-     * Ontology loading.
-     */
-    private ContextHistoryOntology ontology = new ContextHistoryOntology();
-    /**
      * Lock for sync file access.
      */
     private Object fileLock = new Object();
@@ -99,8 +95,6 @@ public class Hub {
      */
     public void start(ModuleContext context) throws Exception {
 	moduleContext = context;
-	// Register ont
-	OntologyManagement.getInstance().register(ontology);
 	// Start the store you want
 	try {
 	    String storeclass = getProperties().getProperty("STORE.IMPL",
@@ -140,7 +134,6 @@ public class Hub {
 	this.db.close();
 	this.chc.close();
 	this.hc.close();
-	OntologyManagement.getInstance().unregister(ontology);
     }
 
     /**
@@ -246,7 +239,7 @@ public class Hub {
 			"Mobile events were last synchronized in "
 				+ lastKnownOf);
 		String readline = "";
-		String turtleIn = "";
+		String turtleIn = "";//TODO: Use string builder
 		int count = 0;
 		long start = System.currentTimeMillis();
 		File fileref = new File(

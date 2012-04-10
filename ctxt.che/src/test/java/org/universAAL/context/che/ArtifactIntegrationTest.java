@@ -1,4 +1,4 @@
-package org.universAAL.context.che.test;
+package org.universAAL.context.che;
 
 import java.util.Iterator;
 import java.util.List;

@@ -28,7 +28,7 @@ import org.osgi.framework.ServiceListener;
 import org.osgi.framework.ServiceReference;
 import org.universAAL.middleware.container.ModuleContext;
 import org.universAAL.middleware.container.osgi.uAALBundleContainer;
-import org.universAAL.middleware.sodapop.msg.MessageContentSerializer;
+import org.universAAL.middleware.sodapop.msg.MessageContentSerializerEx;
 
 /**
  * OSGI Activator. Initializes provided services and SCallee.
@@ -56,7 +56,7 @@ public class Activator implements BundleActivator, ServiceListener {
     /**
      * Turtle parser
      */
-    protected static MessageContentSerializer parser = null;
+    protected static MessageContentSerializerEx parser = null;
 
     /*
      * (non-Javadoc)
@@ -72,7 +72,7 @@ public class Activator implements BundleActivator, ServiceListener {
 	scallee = new SCallee(context);
 	scaller = new SCaller(context);
 	String filter = "(objectclass="
-		+ MessageContentSerializer.class.getName() + ")";
+		+ MessageContentSerializerEx.class.getName() + ")";
 	osgiContext.addServiceListener(this, filter);
 	ServiceReference[] references = osgiContext.getServiceReferences(null,
 		filter);
@@ -105,7 +105,7 @@ public class Activator implements BundleActivator, ServiceListener {
 	switch (event.getType()) {
 	case ServiceEvent.REGISTERED:
 	case ServiceEvent.MODIFIED:
-	    parser = (MessageContentSerializer) osgiContext.getService(event
+	    parser = (MessageContentSerializerEx) osgiContext.getService(event
 		    .getServiceReference());
 	    break;
 	case ServiceEvent.UNREGISTERING:

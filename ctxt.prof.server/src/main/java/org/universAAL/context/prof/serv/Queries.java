@@ -22,6 +22,8 @@
 package org.universAAL.context.prof.serv;
 
 import org.universAAL.ontology.profile.Profilable;
+import org.universAAL.ontology.profile.Profile;
+import org.universAAL.ontology.profile.SubProfile;
 
 /**
  * Class that holds the constant representation of the SPARQL queries to be
@@ -42,39 +44,39 @@ public class Queries {
     // in case...
     // :::::::::::::PROFILABLE GET/ADD/CHANGE/REMOVE:::::::::::::::::
     protected static final String Q_GET_PROFILABLE = "DESCRIBE <"
-	    + ARG1 + ">";
+	    + ARG1 + "> WHERE { <"+ARG1+"> a <"+Profilable.MY_URI+"> } ";
     protected static final String Q_ADD_PROFILABLE = "INSERT DATA { "
 	    + ARGTURTLE + " }";
     protected static final String Q_CHANGE_PROFILABLE = "DELETE { <" + ARG1
 	    + "> ?p ?o } INSERT { " + ARGTURTLE + " } WHERE { <" + ARG1
-	    + "> ?p ?o }";
+	    + "> ?p ?o ; a <"+Profilable.MY_URI+"> }";
     protected static final String Q_REMOVE_PROFILABLE = "DELETE { <" + ARG1
 	    + "> ?p ?o . ?ss ?pp <" + ARG1 + "> } WHERE { <" + ARG1
-	    + "> ?p ?o . OPTIONAL { ?ss ?pp <" + ARG1 + "> } }";
+	    + "> ?p ?o ; a <"+Profilable.MY_URI+"> . OPTIONAL { ?ss ?pp <" + ARG1 + "> } }";
 
     // :::::::::::::PROFILE GET/ADD/CHANGE/REMOVE:::::::::::::::::
     protected static final String Q_GET_PROFILE = "DESCRIBE <"
-	    + ARG1 + ">";
+	    + ARG1 + "> WHERE { <"+ARG1+"> a <"+Profile.MY_URI+"> } ";
     protected static final String Q_ADD_PROFILE = "INSERT DATA { "
 	    + ARGTURTLE + " }";
     protected static final String Q_CHANGE_PROFILE = "DELETE { <" + ARG1
 	    + "> ?p ?o } INSERT { " + ARGTURTLE + " } WHERE { <" + ARG1
-	    + "> ?p ?o }";
+	    + "> ?p ?o ; a <"+Profile.MY_URI+"> }";
     protected static final String Q_REMOVE_PROFILE = "DELETE { <" + ARG1
 	    + "> ?p ?o . ?ss ?pp <" + ARG1 + "> } WHERE { <" + ARG1
-	    + "> ?p ?o . OPTIONAL { ?ss ?pp <" + ARG1 + "> } }";
+	    + "> ?p ?o ; a <"+Profile.MY_URI+"> . OPTIONAL { ?ss ?pp <" + ARG1 + "> } }";
 
     // :::::::::::::SUBPROFILE GET/ADD/CHANGE/REMOVE:::::::::::::::::
     protected static final String Q_GET_SUBPROFILE = "DESCRIBE <"
-	    + ARG1 + ">";
+	    + ARG1 + "> WHERE { <"+ARG1+"> a <"+SubProfile.MY_URI+"> } ";
     protected static final String Q_ADD_SUBPROFILE = "INSERT DATA { "
 	    + ARGTURTLE + " }";
     protected static final String Q_CHANGE_SUBPROFILE = "DELETE { <" + ARG1
 	    + "> ?p ?o } INSERT { " + ARGTURTLE + " } WHERE { <" + ARG1
-	    + "> ?p ?o }";
+	    + "> ?p ?o ; a <"+SubProfile.MY_URI+"> }";
     protected static final String Q_REMOVE_SUBPROFILE = "DELETE { <" + ARG1
 	    + "> ?p ?o . ?ss ?pp <" + ARG1 + "> } WHERE { <" + ARG1
-	    + "> ?p ?o . OPTIONAL { ?ss ?pp <" + ARG1 + "> } }";
+	    + "> ?p ?o ; a <"+SubProfile.MY_URI+"> . OPTIONAL { ?ss ?pp <" + ARG1 + "> } }";
 
     // :::::::::::::OTHERS:::::::::::::::::
     protected static final String Q_GET_IN_PROFILABLE_OUT_PROFILE = "DESCRIBE ?p WHERE {<"

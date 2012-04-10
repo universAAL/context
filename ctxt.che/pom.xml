@@ -9,7 +9,7 @@
     <relativePath>../pom/pom.xml</relativePath>
   </parent>
   <artifactId>ctxt.che</artifactId>
-  <version>1.1.1-SNAPSHOT</version>
+  <version>1.1.2-SNAPSHOT</version>
   <packaging>bundle</packaging>
   <name>Context History Entrepot</name>
   <description>The component managing the history of all context events published to the context bus.</description>
@@ -49,6 +49,11 @@
     <dependency>
       <groupId>org.apache.felix</groupId>
       <artifactId>org.osgi.core</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.universAAL.ontology</groupId>
+      <artifactId>ont.che</artifactId>
+      <version>1.1.1-SNAPSHOT</version>
     </dependency>
     <dependency>
       <groupId>org.openrdf.sesame</groupId>
@@ -148,7 +153,7 @@
             <Bundle-Description>${project.description}</Bundle-Description>
             <Bundle-SymbolicName>${project.artifactId}</Bundle-SymbolicName>
             <Private-Package>org.universAAL.context.che.database.impl</Private-Package>
-            <Export-Package>org.universAAL.context.che.ontology,org.universAAL.context.che,org.universAAL.context.che.database,org.universAAL.context.che.osgi</Export-Package>
+            <Export-Package>org.universAAL.context.che,org.universAAL.context.che.database,org.universAAL.context.che.osgi</Export-Package>
           </instructions>
         </configuration>
       </plugin>

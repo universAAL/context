@@ -9,7 +9,7 @@
   </parent>
   <groupId>org.universAAL.context</groupId>
   <artifactId>ctxt.pom</artifactId>
-  <version>1.1.1-SNAPSHOT</version>
+  <version>1.1.2-SNAPSHOT</version>
   <packaging>pom</packaging>
   <name>universAAL context Suite</name>
   <description>The set of artefacts defining the universAAL context tools.</description>
@@ -17,7 +17,6 @@
   <modules>
     <module>../ctxt.che</module>
     <module>../ctxt.che.mobile</module>
-    <module>../ctxt.jena.converter</module>
     <module>../ctxt.prof.server</module>
   </modules>
   <scm>
@@ -35,30 +34,25 @@
     <dependencies>
       <dependency>
         <groupId>org.universAAL.middleware</groupId>
-        <artifactId>mw.pom</artifactId>
-        <version>1.1.1-SNAPSHOT</version>
+        <artifactId>mw.pom.osgi</artifactId>
+        <version>1.1.2-SNAPSHOT</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
       <dependency>
         <groupId>org.universAAL.context</groupId>
         <artifactId>ctxt.che</artifactId>
-        <version>1.1.1-SNAPSHOT</version>
+        <version>1.1.2-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.universAAL.context</groupId>
         <artifactId>ctxt.che.mobile</artifactId>
-        <version>1.1.1-SNAPSHOT</version>
-      </dependency>
-      <dependency>
-        <groupId>org.universAAL.context</groupId>
-        <artifactId>ctxt.jena.converter</artifactId>
-        <version>1.1.1-SNAPSHOT</version>
+        <version>1.1.2-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.universAAL.context</groupId>
         <artifactId>ctxt.prof.server</artifactId>
-        <version>1.1.1-SNAPSHOT</version>
+        <version>1.1.2-SNAPSHOT</version>
       </dependency>
     </dependencies>
   </dependencyManagement>

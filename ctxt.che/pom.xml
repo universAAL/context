@@ -5,7 +5,7 @@
   <parent>
     <groupId>org.universAAL.context</groupId>
     <artifactId>ctxt.pom</artifactId>
-    <version>1.1.1-SNAPSHOT</version>
+    <version>1.1.2-SNAPSHOT</version>
     <relativePath>../pom/pom.xml</relativePath>
   </parent>
   <artifactId>ctxt.che</artifactId>
@@ -50,10 +50,10 @@
       <groupId>org.apache.felix</groupId>
       <artifactId>org.osgi.core</artifactId>
     </dependency>
-    <dependency>
+    <dependency> 
       <groupId>org.universAAL.ontology</groupId>
-      <artifactId>ont.che</artifactId>
-      <version>1.1.1-SNAPSHOT</version>
+      <artifactId>ont.che.osgi</artifactId>
+      <version>1.1.2-SNAPSHOT</version>
     </dependency>
     <dependency>
       <groupId>org.openrdf.sesame</groupId>
@@ -99,24 +99,28 @@
     </dependency>
     <dependency>
       <groupId>org.universAAL.middleware</groupId>
+      <artifactId>mw.bus.model.osgi</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.universAAL.middleware</groupId>
       <artifactId>mw.container.osgi</artifactId>
     </dependency>
     <dependency>
       <groupId>org.universAAL.middleware</groupId>
-      <artifactId>mw.data.representation</artifactId>
+      <artifactId>mw.data.representation.osgi</artifactId>
     </dependency>
-    <dependency>
+    <dependency> 
       <groupId>org.universAAL.middleware</groupId>
-      <artifactId>mw.data.serialization</artifactId>
+      <artifactId>mw.data.serialization.osgi</artifactId>
       <scope>runtime</scope>
     </dependency>
     <dependency>
       <groupId>org.universAAL.middleware</groupId>
-      <artifactId>mw.bus.service</artifactId>
+      <artifactId>mw.bus.service.osgi</artifactId>
     </dependency>
     <dependency>
       <groupId>org.universAAL.middleware</groupId>
-      <artifactId>mw.bus.context</artifactId>
+      <artifactId>mw.bus.context.osgi</artifactId>
     </dependency>
   </dependencies>
   <repositories>
@@ -165,7 +169,7 @@
       <dependencies>
         <dependency>
           <groupId>org.universAAL.middleware</groupId>
-          <artifactId>mw.data.serialization</artifactId>
+          <artifactId>mw.data.serialization.osgi</artifactId>
           <scope>provided</scope>
         </dependency>
         <dependency>

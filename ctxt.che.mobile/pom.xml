@@ -5,11 +5,11 @@
   <parent>
     <groupId>org.universAAL.context</groupId>
     <artifactId>ctxt.pom</artifactId>
-    <version>1.1.1-SNAPSHOT</version>
+    <version>1.1.2-SNAPSHOT</version>
     <relativePath>../pom/pom.xml</relativePath>
   </parent>
   <artifactId>ctxt.che.mobile</artifactId>
-  <version>1.1.1-SNAPSHOT</version>
+  <version>1.1.2-SNAPSHOT</version>
   <packaging>bundle</packaging>
   <name>Compact Context History Entrepot for Mobile</name>
   <description>The mobile version of the component managing the history of all context events published to the PERSONA context bus.</description>
@@ -46,19 +46,23 @@
     </dependency>
     <dependency>
       <groupId>org.universAAL.middleware</groupId>
+      <artifactId>mw.bus.model.osgi</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.universAAL.middleware</groupId>
       <artifactId>mw.container.osgi</artifactId>
     </dependency>
     <dependency>
       <groupId>org.universAAL.middleware</groupId>
-      <artifactId>mw.data.representation</artifactId>
+      <artifactId>mw.data.representation.osgi</artifactId>
     </dependency>
     <dependency>
       <groupId>org.universAAL.middleware</groupId>
-      <artifactId>mw.data.serialization</artifactId>
+      <artifactId>mw.data.serialization.osgi</artifactId>
     </dependency>
     <dependency>
       <groupId>org.universAAL.middleware</groupId>
-      <artifactId>mw.bus.context</artifactId>
+      <artifactId>mw.bus.context.osgi</artifactId>
     </dependency>
   </dependencies>
   <pluginRepositories>

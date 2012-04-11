@@ -5,13 +5,13 @@
   <parent>
     <groupId>org.universAAL.context</groupId>
     <artifactId>ctxt.pom</artifactId>
-    <version>2.0.3-SNAPSHOT</version>
+    <version>1.1.2-SNAPSHOT</version>
     <relativePath>../pom/pom.xml</relativePath>
   </parent>
   <artifactId>ctxt.che.mobile</artifactId>
-  <version>2.0.3-SNAPSHOT</version>
+  <version>1.1.2-SNAPSHOT</version>
   <packaging>bundle</packaging>
-  <name>universAAL Context CHE - Context History Entrepot for Mobile</name>
+  <name>Compact Context History Entrepot for Mobile</name>
   <description>The mobile version of the component managing the history of all context events published to the PERSONA context bus.</description>
   <inceptionYear>2008</inceptionYear>
   <organization>
@@ -26,9 +26,9 @@
     </license>
   </licenses>
   <scm>
-    <connection>${svn.base}/${project.artifactId}</connection>
-    <developerConnection>${svn.base}/${project.artifactId}</developerConnection>
-    <url>${svn.base.url}${project.artifactId}</url>
+    <connection>${svn.base}/${artifactId}</connection>
+    <developerConnection>${svn.base}/${artifactId}</developerConnection>
+    <url>${svn.base.url}${artifactId}</url>
   </scm>
   <dependencies>
     <dependency>

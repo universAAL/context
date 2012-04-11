@@ -5,7 +5,7 @@
   <parent>
     <groupId>org.universAAL.context</groupId>
     <artifactId>ctxt.pom</artifactId>
-    <version>1.1.1-SNAPSHOT</version>
+    <version>1.1.2-SNAPSHOT</version>
     <relativePath>../pom/pom.xml</relativePath>
   </parent>
   <artifactId>ctxt.prof.server</artifactId>
@@ -50,35 +50,38 @@
     </dependency>
     <dependency>
       <groupId>org.universAAL.middleware</groupId>
-      <artifactId>mw.data.representation</artifactId>
+      <artifactId>mw.bus.model.osgi</artifactId>
     </dependency>
     <dependency>
       <groupId>org.universAAL.middleware</groupId>
-      <artifactId>mw.data.serialization</artifactId>
+      <artifactId>mw.data.representation.osgi</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.universAAL.middleware</groupId>
+      <artifactId>mw.data.serialization.osgi</artifactId>
       <scope>runtime</scope>
     </dependency>
     <dependency>
       <groupId>org.universAAL.middleware</groupId>
-      <artifactId>mw.bus.service</artifactId>
+      <artifactId>mw.bus.service.osgi</artifactId>
     </dependency>
     <dependency>
       <groupId>org.universAAL.middleware</groupId>
-      <artifactId>mw.bus.context</artifactId>
+      <artifactId>mw.bus.context.osgi</artifactId>
     </dependency>
     <dependency>
       <groupId>org.universAAL.ontology</groupId>
-      <artifactId>ont.profile</artifactId>
-      <version>1.1.1-SNAPSHOT</version>
+      <artifactId>ont.profile.osgi</artifactId>
+      <version>1.1.2-SNAPSHOT</version>
     </dependency>
     <dependency>
       <groupId>org.universAAL.context</groupId>
       <artifactId>ctxt.che</artifactId>
-      <version>1.1.2-SNAPSHOT</version>
     </dependency>
-    <dependency>
+    <dependency> 
       <groupId>org.universAAL.ontology</groupId>
-      <artifactId>ont.che</artifactId>
-      <version>1.1.1-SNAPSHOT</version>
+      <artifactId>ont.che.osgi</artifactId>
+      <version>1.1.2-SNAPSHOT</version>
     </dependency>
   </dependencies>
   <repositories>
@@ -125,7 +128,8 @@
       <dependencies>
         <dependency>
           <groupId>org.universAAL.middleware</groupId>
-          <artifactId>mw.data.serialization</artifactId>
+          <artifactId>mw.data.serialization.osgi</artifactId>
+          <version>1.1.2-SNAPSHOT</version>
           <scope>provided</scope>
         </dependency>
       </dependencies>

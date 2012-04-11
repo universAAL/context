@@ -22,8 +22,9 @@
 package org.universAAL.context.prof.serv;
 
 import org.universAAL.ontology.profile.Profilable;
-import org.universAAL.ontology.profile.Profile;
 import org.universAAL.ontology.profile.SubProfile;
+import org.universAAL.ontology.profile.User;
+import org.universAAL.ontology.profile.UserProfile;
 
 /**
  * Class that holds the constant representation of the SPARQL queries to be
@@ -44,27 +45,27 @@ public class Queries {
     // in case...
     // :::::::::::::PROFILABLE GET/ADD/CHANGE/REMOVE:::::::::::::::::
     protected static final String Q_GET_PROFILABLE = "DESCRIBE <"
-	    + ARG1 + "> WHERE { <"+ARG1+"> a <"+Profilable.MY_URI+"> } ";
+	    + ARG1 + "> WHERE { <"+ARG1+"> a <"+User.MY_URI+"> } ";
     protected static final String Q_ADD_PROFILABLE = "INSERT DATA { "
 	    + ARGTURTLE + " }";
     protected static final String Q_CHANGE_PROFILABLE = "DELETE { <" + ARG1
 	    + "> ?p ?o } INSERT { " + ARGTURTLE + " } WHERE { <" + ARG1
-	    + "> ?p ?o ; a <"+Profilable.MY_URI+"> }";
+	    + "> ?p ?o ; a <"+User.MY_URI+"> }";
     protected static final String Q_REMOVE_PROFILABLE = "DELETE { <" + ARG1
 	    + "> ?p ?o . ?ss ?pp <" + ARG1 + "> } WHERE { <" + ARG1
-	    + "> ?p ?o ; a <"+Profilable.MY_URI+"> . OPTIONAL { ?ss ?pp <" + ARG1 + "> } }";
+	    + "> ?p ?o ; a <"+User.MY_URI+"> . OPTIONAL { ?ss ?pp <" + ARG1 + "> } }";
 
     // :::::::::::::PROFILE GET/ADD/CHANGE/REMOVE:::::::::::::::::
     protected static final String Q_GET_PROFILE = "DESCRIBE <"
-	    + ARG1 + "> WHERE { <"+ARG1+"> a <"+Profile.MY_URI+"> } ";
+	    + ARG1 + "> WHERE { <"+ARG1+"> a <"+UserProfile.MY_URI+"> } ";
     protected static final String Q_ADD_PROFILE = "INSERT DATA { "
 	    + ARGTURTLE + " }";
     protected static final String Q_CHANGE_PROFILE = "DELETE { <" + ARG1
 	    + "> ?p ?o } INSERT { " + ARGTURTLE + " } WHERE { <" + ARG1
-	    + "> ?p ?o ; a <"+Profile.MY_URI+"> }";
+	    + "> ?p ?o ; a <"+UserProfile.MY_URI+"> }";
     protected static final String Q_REMOVE_PROFILE = "DELETE { <" + ARG1
 	    + "> ?p ?o . ?ss ?pp <" + ARG1 + "> } WHERE { <" + ARG1
-	    + "> ?p ?o ; a <"+Profile.MY_URI+"> . OPTIONAL { ?ss ?pp <" + ARG1 + "> } }";
+	    + "> ?p ?o ; a <"+UserProfile.MY_URI+"> . OPTIONAL { ?ss ?pp <" + ARG1 + "> } }";
 
     // :::::::::::::SUBPROFILE GET/ADD/CHANGE/REMOVE:::::::::::::::::
     protected static final String Q_GET_SUBPROFILE = "DESCRIBE <"
@@ -113,6 +114,11 @@ public class Queries {
 	    + "> <"
 	    + AUXBAGPROP
 	    + "> ?y } WHERE { ?y a <http://ontology.universAAL.org/Profile.owl#User> } ";
+    protected static final String Q_GET_USERS2 = "CONSTRUCT { <"
+	    + AUXBAG
+	    + "> <"
+	    + AUXBAGPROP
+	    + "> ?y . ?y a ?t . } WHERE { ?y a <http://ontology.universAAL.org/Profile.owl#User> ; a ?t . } ";
 
     protected static final String Q_AUX_ASK_EXISTS = "ASK <" + ARG1 + " ?p ?o>";
 

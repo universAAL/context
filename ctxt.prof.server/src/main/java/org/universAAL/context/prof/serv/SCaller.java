@@ -28,6 +28,7 @@ import java.util.List;
 import org.universAAL.context.che.ontology.ContextHistoryService;
 import org.universAAL.middleware.container.ModuleContext;
 import org.universAAL.middleware.owl.MergedRestriction;
+import org.universAAL.middleware.owl.OntologyManagement;
 import org.universAAL.middleware.rdf.PropertyPath;
 import org.universAAL.middleware.rdf.Resource;
 import org.universAAL.middleware.service.DefaultServiceCaller;
@@ -228,21 +229,28 @@ public class SCaller {
     // 1: Import Sesame and spend time in the 3-way parsing of SELECT
     // 2: Create a get* for all kind of current and future types of User
     // 3: Use this getUser and then call a DESCRIBE on each
+    // ...Or a final choice: construct a bag with the results and a bag with the
+    // types. Then combine the RDF in a single string and deserialize. It´s
+    // cheating but it works. And it only uses 2 calls and a serialize.
     protected ArrayList getUsers() {
 	String result = getResult(defaultCaller
 		.call(getDoSPARQLRequest(Queries.Q_GET_USERS)));
-	Resource bag = (Resource) Activator.parser.deserialize(result);
+	String result2 = getResult(defaultCaller
+		.call(getDoSPARQLRequest(Queries.Q_GET_USERS2)));
+	Resource bag = (Resource) Activator.parser.deserialize(result+" "+result2,Queries.AUXBAG);
 	if (bag != null) {
 	    Object content = bag.getProperty(Queries.AUXBAGPROP);
 	    ArrayList list = new ArrayList();
+	    OntologyManagement mng=OntologyManagement.getInstance();
 	    if (content instanceof List) {
 		Iterator iter = ((ArrayList) content).iterator();
 		while (iter.hasNext()) {
-		    Resource res = (Resource) iter.next();
-		    list.add(new User(res.getURI()));
+		    Resource res=(Resource) iter.next();
+		    list.add(mng.getResource(mng.getMostSpecializedClass(res.getTypes()),res.getURI()));
 		}
 	    } else {
-		list.add(new User(((Resource) content).getURI()));
+		Resource res=(Resource) content;
+		list.add(mng.getResource(mng.getMostSpecializedClass(res.getTypes()),res.getURI()));
 	    }
 	    return list;
 	} else {

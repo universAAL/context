@@ -56,29 +56,31 @@ public class ArtifactIntegrationTest extends IntegrationTest {
 	Assert.isTrue(str2.equals(NOTHING),
 		"Should have retruned nothing (2), nut not "+str2);
 
-	addProfilable(user1);
+	String out1=addProfilable(user1);
 	String str3=getProfilable(user1);
 	Assert.isTrue(str3.equals(user1.getURI()),
-		"Should have retruned a User, but not "+str3);
+		"Should have retruned a User (1), but not "+str3+" with "+out1);
 
-	addProfilable(user2);
+	String out2=addProfilable(user2);
 	String str4=getProfilable(user2);
 	Assert.isTrue(str4.equals(user2.getURI()),
-		"Should have retruned a AP, but not "+str4);
+		"Should have retruned a AP, but not "+str4+" with "+out2);
 
 	String str5=getUsers();
 	Assert.isTrue(str5.contains(","),
 		"Should have retruned several users, but not "+str5);
 
-	changeProfilable(user1);
+	String out3=changeProfilable(user1);
 	String str6=getProfilable(user1);
 	Assert.isTrue(str6.equals(user1.getURI()),
-		"Should have retruned a User, but not "+str6);
+		"Should have retruned a User (2), but not "+str6+" with "+out3);
 
-	removeProfilable(user1);
+	String out4=removeProfilable(user1);
 	String str7=getProfilable(user1);
 	Assert.isTrue(str7.equals(NOTHING),
-		"Should have retruned nothing (3), but not "+str7);
+		"Should have retruned nothing (3), but not "+str7+" with "+out4);
+	//Clean
+	removeProfilable(user2);
     }
 
     public void testProfile() {
@@ -93,25 +95,27 @@ public class ArtifactIntegrationTest extends IntegrationTest {
 	Assert.isTrue(str1.equals(NOTHING),
 		"Should have returned nothing (1), but not "+str1);
 
-	addProfile(prof1);
+	String out1=addProfile(prof1);
 	String str2=getProfile(prof1);
 	Assert.isTrue(str2.equals(prof1.getURI()),
-		"Should have returned a UserProfile, but not "+str2);
+		"Should have returned a UserProfile (1), but not "+str2+" with "+out1);
 
-	addProfile(prof2);
+	String out2=addProfile(prof2);
 	String str3=getProfile(prof2);
 	Assert.isTrue(str3.equals(prof2.getURI()),
-		"Should have returned a APProfile, but not "+str3);
+		"Should have returned a APProfile, but not "+str3+" with "+out2);
 
-	changeProfile(prof1);
+	String out3=changeProfile(prof1);
 	String str4=getProfile(prof1);
 	Assert.isTrue(str4.equals(prof1.getURI()),
-		"Should have returned a UserProfile, but not "+str4);
+		"Should have returned a UserProfile (2), but not "+str4+" with "+out3);
 
-	removeProfile(prof1);
+	String out4=removeProfile(prof1);
 	String str5=getProfile(prof1);
 	Assert.isTrue(str5.equals(NOTHING),
-		"Should have returned nothing (2), but not "+str5);
+		"Should have returned nothing (2), but not "+str5+" with "+out4);
+	//Clean
+	removeProfile(prof2);
     }
 
     public void testSubProfile() {
@@ -124,24 +128,24 @@ public class ArtifactIntegrationTest extends IntegrationTest {
 	Assert.isTrue(str1.equals(NOTHING),
 		"Should have returned nothing (1), but not "+str1);
 
-	addSubProfile(subprof1);
+	String out1=addSubProfile(subprof1);
 	String str2=getSubProfile(subprof1);
 	Assert.isTrue(str2.equals(subprof1.getURI()),
-		"Should have returned a SubProfile, but not "+str2);
+		"Should have returned a SubProfile, but not "+str2+" with "+out1);
 
-	changeSubProfile(subprof1);
+	String out2=changeSubProfile(subprof1);
 	String str3=getSubProfile(subprof1);
 	Assert.isTrue(str3.equals(subprof1.getURI()),
-		"Should have returned a UserProfile, but not "+str3);
+		"Should have returned a UserProfile, but not "+str3+" with "+out2);
 
-	removeSubProfile(subprof1);
+	String out3=removeSubProfile(subprof1);
 	String str4=getSubProfile(subprof1);
 	Assert.isTrue(str4.equals(NOTHING),
-		"Should have returned nothing (2), but not "+str4);
+		"Should have returned nothing (2), but not "+str4+" with "+out3);
     }
 
     // :::::::::::::PROFILABLE GET/ADD/CHANGE/REMOVE:::::::::::::::::
-    private String removeProfilable(User profilable) {
+    private String removeProfilable(Resource profilable) {
 	ServiceRequest req = new ServiceRequest(new ProfilingService(null),
 		null);
 	MergedRestriction r1 = MergedRestriction.getFixedValueRestriction(

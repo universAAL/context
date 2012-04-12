@@ -22,6 +22,7 @@
 package org.universAAL.context.prof.serv;
 
 import org.universAAL.ontology.profile.Profilable;
+import org.universAAL.ontology.profile.Profile;
 import org.universAAL.ontology.profile.SubProfile;
 import org.universAAL.ontology.profile.User;
 import org.universAAL.ontology.profile.UserProfile;
@@ -41,29 +42,27 @@ public class Queries {
     protected static final String AUXBAG = SCallee.NAMESPACE + "auxBag";
     protected static final String AUXBAGPROP = SCallee.NAMESPACE + "auxBagProp";
 
-    // TODO: All GET/ADD/CHANGE/REMOVE queries are the same, but keep them just
-    // in case...
-    // :::::::::::::PROFILABLE GET/ADD/CHANGE/REMOVE:::::::::::::::::
-    protected static final String Q_GET_PROFILABLE = "DESCRIBE <"
+    // :::::::::::::USER GET/ADD/CHANGE/REMOVE:::::::::::::::::
+    protected static final String Q_GET_USER = "DESCRIBE <"
 	    + ARG1 + "> WHERE { <"+ARG1+"> a <"+User.MY_URI+"> } ";
-    protected static final String Q_ADD_PROFILABLE = "INSERT DATA { "
+    protected static final String Q_ADD_USER = "INSERT DATA { "
 	    + ARGTURTLE + " }";
-    protected static final String Q_CHANGE_PROFILABLE = "DELETE { <" + ARG1
+    protected static final String Q_CHANGE_USER = "DELETE { <" + ARG1
 	    + "> ?p ?o } INSERT { " + ARGTURTLE + " } WHERE { <" + ARG1
 	    + "> ?p ?o ; a <"+User.MY_URI+"> }";
-    protected static final String Q_REMOVE_PROFILABLE = "DELETE { <" + ARG1
+    protected static final String Q_REMOVE_USER = "DELETE { <" + ARG1
 	    + "> ?p ?o . ?ss ?pp <" + ARG1 + "> } WHERE { <" + ARG1
 	    + "> ?p ?o ; a <"+User.MY_URI+"> . OPTIONAL { ?ss ?pp <" + ARG1 + "> } }";
 
-    // :::::::::::::PROFILE GET/ADD/CHANGE/REMOVE:::::::::::::::::
-    protected static final String Q_GET_PROFILE = "DESCRIBE <"
+    // :::::::::::::USER PROFILE GET/ADD/CHANGE/REMOVE:::::::::::::::::
+    protected static final String Q_GET_UPROFILE = "DESCRIBE <"
 	    + ARG1 + "> WHERE { <"+ARG1+"> a <"+UserProfile.MY_URI+"> } ";
-    protected static final String Q_ADD_PROFILE = "INSERT DATA { "
+    protected static final String Q_ADD_UPROFILE = "INSERT DATA { "
 	    + ARGTURTLE + " }";
-    protected static final String Q_CHANGE_PROFILE = "DELETE { <" + ARG1
+    protected static final String Q_CHANGE_UPROFILE = "DELETE { <" + ARG1
 	    + "> ?p ?o } INSERT { " + ARGTURTLE + " } WHERE { <" + ARG1
 	    + "> ?p ?o ; a <"+UserProfile.MY_URI+"> }";
-    protected static final String Q_REMOVE_PROFILE = "DELETE { <" + ARG1
+    protected static final String Q_REMOVE_UPROFILE = "DELETE { <" + ARG1
 	    + "> ?p ?o . ?ss ?pp <" + ARG1 + "> } WHERE { <" + ARG1
 	    + "> ?p ?o ; a <"+UserProfile.MY_URI+"> . OPTIONAL { ?ss ?pp <" + ARG1 + "> } }";
 
@@ -79,47 +78,73 @@ public class Queries {
 	    + "> ?p ?o . ?ss ?pp <" + ARG1 + "> } WHERE { <" + ARG1
 	    + "> ?p ?o ; a <"+SubProfile.MY_URI+"> . OPTIONAL { ?ss ?pp <" + ARG1 + "> } }";
 
-    // :::::::::::::OTHERS:::::::::::::::::
-    protected static final String Q_GET_IN_PROFILABLE_OUT_PROFILE = "DESCRIBE ?p WHERE {<"
+    // :::::::::::::OTHER GETS:::::::::::::::::
+    protected static final String Q_GET_USRS = "CONSTRUCT { <"
+	    + AUXBAG
+	    + "> <"
+	    + AUXBAGPROP
+	    + "> ?u } WHERE { ?u a <"+User.MY_URI+"> } ";
+    protected static final String Q_GET_USRS_XTRA = "CONSTRUCT { <"
+	    + AUXBAG
+	    + "> <"
+	    + AUXBAGPROP
+	    + "> ?u . ?u a ?t . } WHERE { ?u a <"+User.MY_URI+"> ; a ?t . } ";
+    protected static final String Q_GET_PRF_OF_USR = "DESCRIBE ?p WHERE {<"
 	    + ARG1 + "> <" + Profilable.PROP_HAS_PROFILE + "> ?p}";
-    protected static final String Q_ADD_IN_PROFILABLE_PROFILE = "INSERT DATA { <"
+    protected static final String Q_GET_PRF_OF_USR_XTRA = "CONSTRUCT { ?p a ?t } WHERE {<"
+	    + ARG1 + "> <" + Profilable.PROP_HAS_PROFILE + "> ?p . ?p a ?t}";
+    public static final String Q_GET_SUBS_OF_USR = "CONSTRUCT { <"
+	    + AUXBAG
+	    + "> <"
+	    + AUXBAGPROP
+	    + "> ?s } WHERE { <"+ARG1+"> <"+Profilable.PROP_HAS_PROFILE+"> ?p . "
+	    + " ?p <"+Profile.PROP_HAS_SUB_PROFILE+"> ?s . "
+	    + " ?s a <"+SubProfile.MY_URI+"> } ";
+    public static final String Q_GET_SUBS_OF_USR_XTRA = "CONSTRUCT { <"
+	    + AUXBAG
+	    + "> <"
+	    + AUXBAGPROP
+	    + "> ?s . ?s a ?t } WHERE { <"+ARG1+"> <"+Profilable.PROP_HAS_PROFILE+"> ?p . "
+	    + " ?p <"+Profile.PROP_HAS_SUB_PROFILE+"> ?s . "
+	    + " ?s a <"+SubProfile.MY_URI+"> ; a ?t } ";
+    public static final String Q_GET_SUBS_OF_PRF = "CONSTRUCT { <"
+	    + AUXBAG
+	    + "> <"
+	    + AUXBAGPROP
+	    + "> ?s } WHERE { <"+ARG1+"> <"+Profile.PROP_HAS_SUB_PROFILE+"> ?s . "
+	    + " ?s a <"+SubProfile.MY_URI+"> } ";
+    public static final String Q_GET_SUBS_OF_PRF_XTRA = "CONSTRUCT { <"
+	    + AUXBAG
+	    + "> <"
+	    + AUXBAGPROP
+	    + "> ?s . ?s a ?t } WHERE { <"+ARG1+"> <"+Profile.PROP_HAS_SUB_PROFILE+"> ?s . "
+	    + " ?s a <"+SubProfile.MY_URI+"> ; a ?t } ";
+    
+    // :::::::::::::OTHER ADDS:::::::::::::::::
+    protected static final String Q_ADD_PRF_TO_USR = "INSERT DATA { <"
 	    + ARG1
 	    + "> <"
 	    + Profilable.PROP_HAS_PROFILE
 	    + "> <"
 	    + ARG2
 	    + "> . " + ARGTURTLE + " }";
-    protected static final String Q_REPLACE_IN_PROFILABLE_PROFILE = "DELETE { ?s ?p ?old . ?old ?pp ?o . <"
+    protected static final String Q_ADD_SUB_TO_USR = "INSERT { ?p <"
+	    + Profile.PROP_HAS_SUB_PROFILE 
+	    + "> <" 
+	    + ARG2 
+	    + "> . " + ARGTURTLE + " } WHERE {<" 
+	    + ARG1 
+	    + "> <" 
+	    + Profilable.PROP_HAS_PROFILE
+	    + "> ?p}";
+    protected static final String Q_ADD_SUB_TO_PRF = "INSERT DATA { <"
 	    + ARG1
 	    + "> <"
-	    + Profilable.PROP_HAS_PROFILE
-	    + "> ?old } INSERT { <"
-	    + ARG1
-	    + "> <"
-	    + Profilable.PROP_HAS_PROFILE
+	    + Profile.PROP_HAS_SUB_PROFILE
 	    + "> <"
 	    + ARG2
-	    + "> . "
-	    + ARGTURTLE
-	    + " } WHERE { <"
-	    + ARG1
-	    + "> <"
-	    + Profilable.PROP_HAS_PROFILE
-	    + "> ?old . ?s ?p ?old . ?old ?pp ?o }";
-
-    protected static final String Q_GET_IN_PROFILABLE_OUT_SUBPROFILES = "";
-
-    protected static final String Q_GET_USERS = "CONSTRUCT { <"
-	    + AUXBAG
-	    + "> <"
-	    + AUXBAGPROP
-	    + "> ?y } WHERE { ?y a <http://ontology.universAAL.org/Profile.owl#User> } ";
-    protected static final String Q_GET_USERS2 = "CONSTRUCT { <"
-	    + AUXBAG
-	    + "> <"
-	    + AUXBAGPROP
-	    + "> ?y . ?y a ?t . } WHERE { ?y a <http://ontology.universAAL.org/Profile.owl#User> ; a ?t . } ";
-
+	    + "> . " + ARGTURTLE + " }";
+    
     protected static final String Q_AUX_ASK_EXISTS = "ASK <" + ARG1 + " ?p ?o>";
 
 }

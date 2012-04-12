@@ -35,7 +35,6 @@ import org.universAAL.middleware.service.DefaultServiceCaller;
 import org.universAAL.middleware.service.ServiceRequest;
 import org.universAAL.middleware.service.ServiceResponse;
 import org.universAAL.middleware.service.owls.process.ProcessOutput;
-import org.universAAL.ontology.profile.User;
 
 /**
  * Takes care of asking the CHE the equivalent request to the call received by
@@ -66,12 +65,19 @@ public class SCaller {
 	defaultCaller = new DefaultServiceCaller(context);
     }
 
+    /**
+     * Relay for the actual SCaller.
+     */
+    public void close() {
+	defaultCaller.close();
+    }
+    
     // TODO: All get/add/... seem to do the same. Do something about it?
-    // :::::::::::::PROFILABLE GET/ADD/CHANGE/REMOVE:::::::::::::::::
+    // :::::::::::::USER GET/ADD/CHANGE/REMOVE:::::::::::::::::
 
-    protected Resource getProfilableDetails(Resource input) {
+    protected Resource getUser(Resource input) {
 	String result = getResult(defaultCaller
-		.call(getDoSPARQLRequest(Queries.Q_GET_PROFILABLE
+		.call(getDoSPARQLRequest(Queries.Q_GET_USER
 			.replace(Queries.ARG1, input.getURI()))));
 	return (Resource) Activator.parser.deserialize(result,input.getURI());
     }
@@ -89,34 +95,34 @@ public class SCaller {
     // serializing (CHE would take care of that)
     // and then use SPARUL to simply make the connection between owner of data
     // and data (in scenarios like adding 'User hasProf Profile')
-    protected void addProfilable(Resource input) {
+    protected void addUser(Resource input) {
 	String serialized = Activator.parser.serialize(input);
 	String[] split = splitPrefixes(serialized);
 	defaultCaller.call(getDoSPARQLRequest(split[0]
 		+ " "
-		+ Queries.Q_ADD_PROFILABLE.replace(Queries.ARGTURTLE,
+		+ Queries.Q_ADD_USER.replace(Queries.ARGTURTLE,
 			split[1])));
     }
 
-    protected void changeProfilable(Resource input) {
+    protected void changeUser(Resource input) {
 	String serialized = Activator.parser.serialize(input);
 	String[] split = splitPrefixes(serialized);
 	defaultCaller.call(getDoSPARQLRequest(split[0]
 		+ " "
-		+ Queries.Q_CHANGE_PROFILABLE.replace(Queries.ARG1,
+		+ Queries.Q_CHANGE_USER.replace(Queries.ARG1,
 			input.getURI()).replace(Queries.ARGTURTLE, split[1])));
     }
 
-    protected void removeProfilable(Resource input) {
-	defaultCaller.call(getDoSPARQLRequest(Queries.Q_REMOVE_PROFILABLE
+    protected void removeUser(Resource input) {
+	defaultCaller.call(getDoSPARQLRequest(Queries.Q_REMOVE_USER
 		.replace(Queries.ARG1, input.getURI())));
     }
 
     // :::::::::::::PROFILE GET/ADD/CHANGE/REMOVE:::::::::::::::::
 
-    protected Resource getProfileDetails(Resource input) {
+    protected Resource getProfile(Resource input) {
 	String result = getResult(defaultCaller
-		.call(getDoSPARQLRequest(Queries.Q_GET_PROFILE
+		.call(getDoSPARQLRequest(Queries.Q_GET_UPROFILE
 			.replace(Queries.ARG1, input.getURI()))));
 	return (Resource) Activator.parser.deserialize(result,input.getURI());
     }
@@ -127,7 +133,7 @@ public class SCaller {
 	defaultCaller
 		.call(getDoSPARQLRequest(split[0]
 			+ " "
-			+ Queries.Q_ADD_PROFILE.replace(Queries.ARGTURTLE,
+			+ Queries.Q_ADD_UPROFILE.replace(Queries.ARGTURTLE,
 				split[1])));
     }
 
@@ -136,18 +142,18 @@ public class SCaller {
 	String[] split = splitPrefixes(serialized);
 	defaultCaller.call(getDoSPARQLRequest(split[0]
 		+ " "
-		+ Queries.Q_CHANGE_PROFILE.replace(Queries.ARG1,
+		+ Queries.Q_CHANGE_UPROFILE.replace(Queries.ARG1,
 			input.getURI()).replace(Queries.ARGTURTLE, split[1])));
     }
 
     protected void removeProfile(Resource input) {
-	defaultCaller.call(getDoSPARQLRequest(Queries.Q_REMOVE_PROFILE
+	defaultCaller.call(getDoSPARQLRequest(Queries.Q_REMOVE_UPROFILE
 		.replace(Queries.ARG1, input.getURI())));
     }
 
     // :::::::::::::SUBPROFILE GET/ADD/CHANGE/REMOVE:::::::::::::::::
 
-    protected Resource getSubProfileDetails(Resource input) {
+    protected Resource getSubProfile(Resource input) {
 	String result = getResult(defaultCaller
 		.call(getDoSPARQLRequest(Queries.Q_GET_SUBPROFILE
 			.replace(Queries.ARG1, input.getURI()))));
@@ -177,40 +183,8 @@ public class SCaller {
 		.replace(Queries.ARG1, input.getURI())));
     }
 
-    // :::::::::::::OTHERS:::::::::::::::::
-
-    protected Resource getProfile(Resource input) {
-	String result = getResult(defaultCaller
-		.call(getDoSPARQLRequest(Queries.Q_GET_IN_PROFILABLE_OUT_PROFILE
-			.replace(Queries.ARG1, input.getURI()))));
-	return (Resource) Activator.parser.deserialize(result,input.getURI());
-    }
-
-    protected void addProfile(Resource input, Resource input2) {
-	String serialized = Activator.parser.serialize(input2);
-	String[] split = splitPrefixes(serialized);
-	defaultCaller.call(getDoSPARQLRequest(split[0]
-		+ " "
-		+ Queries.Q_ADD_IN_PROFILABLE_PROFILE
-			.replace(Queries.ARG1, input.getURI())
-			.replace(Queries.ARG2, input2.getURI())
-			.replace(Queries.ARGTURTLE, split[1])));
-    }
-
-    // Take into account that since cardinality of hasProfile is only 1,
-    // changeProfile removes the previous value of profile, no matter if the
-    // URI of the old profile is not equal to the new profile
-    protected void changeProfile(Resource input, Resource input2) {
-	String serialized = Activator.parser.serialize(input2);
-	String[] split = splitPrefixes(serialized);
-	defaultCaller.call(getDoSPARQLRequest(split[0]
-		+ " "
-		+ Queries.Q_REPLACE_IN_PROFILABLE_PROFILE
-			.replace(Queries.ARG1, input.getURI())
-			.replace(Queries.ARG2, input2.getURI())
-			.replace(Queries.ARGTURTLE, split[1])));
-    }
-
+    // :::::::::::::OTHER GETS:::::::::::::::::
+    
     // For getting several results maybe it´s better to issue a SELECT query to
     // CHE. The result will be in SPARQL result XML
     // format, so it will have to be processed here. It will have to use
@@ -234,9 +208,9 @@ public class SCaller {
     // cheating but it works. And it only uses 2 calls and a serialize.
     protected ArrayList getUsers() {
 	String result = getResult(defaultCaller
-		.call(getDoSPARQLRequest(Queries.Q_GET_USERS)));
+		.call(getDoSPARQLRequest(Queries.Q_GET_USRS)));
 	String result2 = getResult(defaultCaller
-		.call(getDoSPARQLRequest(Queries.Q_GET_USERS2)));
+		.call(getDoSPARQLRequest(Queries.Q_GET_USRS_XTRA)));
 	Resource bag = (Resource) Activator.parser.deserialize(result+" "+result2,Queries.AUXBAG);
 	if (bag != null) {
 	    Object content = bag.getProperty(Queries.AUXBAGPROP);
@@ -258,19 +232,107 @@ public class SCaller {
 	}
     }
 
-    protected Resource[] getSubprofiles(Resource input) {
-	// TODO
-	// String
-	// result=getResult(defaultCaller.call(getDoSPARQLRequest(Queries.Q_GET_IN_PROFILABLE_OUT_SUBPROFILES.replace(Queries.ARG1,
-	// in.getURI()))));
-	return null;
+    protected Resource getProfileOfUser(Resource user) {
+	// I need this extra query to get only the URI of profile to deserialize
+	// it correctly later.
+	String resultx = getResult(defaultCaller
+		.call(getDoSPARQLRequest(Queries.Q_GET_PRF_OF_USR_XTRA.replace(
+			Queries.ARG1, user.getURI()))));
+	Object objx = Activator.parser.deserialize(resultx);
+	if (objx == null)
+	    return null;
+	String result = getResult(defaultCaller
+		.call(getDoSPARQLRequest(Queries.Q_GET_PRF_OF_USR.replace(
+			Queries.ARG1, user.getURI()))));
+	String uri = ((Resource) objx).getURI();
+	return (Resource) Activator.parser.deserialize(result, uri);
+    }
+    
+    protected ArrayList getSubProfilesOfUser(Resource user) {
+	String result1 = getResult(defaultCaller
+		.call(getDoSPARQLRequest(Queries.Q_GET_SUBS_OF_USR.replace(Queries.ARG1, user.getURI()))));
+	String result2 = getResult(defaultCaller
+		.call(getDoSPARQLRequest(Queries.Q_GET_SUBS_OF_USR_XTRA.replace(Queries.ARG1, user.getURI()))));
+	Resource bag = (Resource) Activator.parser.deserialize(result1+" "+result2,Queries.AUXBAG);
+	if (bag != null) {
+	    Object content = bag.getProperty(Queries.AUXBAGPROP);
+	    ArrayList list = new ArrayList();
+	    OntologyManagement mng=OntologyManagement.getInstance();
+	    if (content instanceof List) {
+		Iterator iter = ((ArrayList) content).iterator();
+		while (iter.hasNext()) {
+		    Resource res=(Resource) iter.next();
+		    list.add(mng.getResource(mng.getMostSpecializedClass(res.getTypes()),res.getURI()));
+		}
+	    } else {
+		Resource res=(Resource) content;
+		list.add(mng.getResource(mng.getMostSpecializedClass(res.getTypes()),res.getURI()));
+	    }
+	    return list;
+	} else {
+	    return null;
+	}
+    }
+    
+    protected ArrayList getSubProfilesOfProfile(Resource profile) {
+	String result1 = getResult(defaultCaller
+		.call(getDoSPARQLRequest(Queries.Q_GET_SUBS_OF_PRF.replace(Queries.ARG1, profile.getURI()))));
+	String result2 = getResult(defaultCaller
+		.call(getDoSPARQLRequest(Queries.Q_GET_SUBS_OF_PRF_XTRA.replace(Queries.ARG1, profile.getURI()))));
+	Resource bag = (Resource) Activator.parser.deserialize(result1+" "+result2,Queries.AUXBAG);
+	if (bag != null) {
+	    Object content = bag.getProperty(Queries.AUXBAGPROP);
+	    ArrayList list = new ArrayList();
+	    OntologyManagement mng=OntologyManagement.getInstance();
+	    if (content instanceof List) {
+		Iterator iter = ((ArrayList) content).iterator();
+		while (iter.hasNext()) {
+		    Resource res=(Resource) iter.next();
+		    list.add(mng.getResource(mng.getMostSpecializedClass(res.getTypes()),res.getURI()));
+		}
+	    } else {
+		Resource res=(Resource) content;
+		list.add(mng.getResource(mng.getMostSpecializedClass(res.getTypes()),res.getURI()));
+	    }
+	    return list;
+	} else {
+	    return null;
+	}
     }
 
-    /**
-     * Relay for the actual SCaller.
-     */
-    public void close() {
-	defaultCaller.close();
+    // :::::::::::::OTHER ADDS:::::::::::::::::
+    
+    protected void addProfileToUser(Resource user, Resource profile) {
+	String serialized = Activator.parser.serialize(profile);
+	String[] split = splitPrefixes(serialized);
+	defaultCaller.call(getDoSPARQLRequest(split[0]
+		+ " "
+		+ Queries.Q_ADD_PRF_TO_USR
+			.replace(Queries.ARG1, user.getURI())
+			.replace(Queries.ARG2, profile.getURI())
+			.replace(Queries.ARGTURTLE, split[1])));
+    }
+    
+    protected void addSubProfileToUser(Resource user, Resource subprofile) {
+	String serialized = Activator.parser.serialize(subprofile);
+	String[] split = splitPrefixes(serialized);
+	defaultCaller.call(getDoSPARQLRequest(split[0]
+		+ " "
+		+ Queries.Q_ADD_SUB_TO_USR
+			.replace(Queries.ARG1, user.getURI())
+			.replace(Queries.ARG2, subprofile.getURI())
+			.replace(Queries.ARGTURTLE, split[1])));
+    }
+    
+    protected void addSubProfileToProf(Resource profile, Resource subprofile) {
+	String serialized = Activator.parser.serialize(subprofile);
+	String[] split = splitPrefixes(serialized);
+	defaultCaller.call(getDoSPARQLRequest(split[0]
+		+ " "
+		+ Queries.Q_ADD_SUB_TO_PRF
+			.replace(Queries.ARG1, profile.getURI())
+			.replace(Queries.ARG2, subprofile.getURI())
+			.replace(Queries.ARGTURTLE, split[1])));
     }
 
     /**

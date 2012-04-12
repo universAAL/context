@@ -151,60 +151,60 @@ public class SCallee extends ServiceCallee {
 	// and in the client part they are parsed to the most specialized class,
 	// which is supposed to be known by the client.
 	if (operation.startsWith(NAMESPACE_PROFILABLE
-		+ SCalleeProvidedService.SERVICE_GET)) {
+		+ SCalleeProvidedService.SRV_GET_X)) {
 	    LogUtils.logDebug(mc, SCallee.class, "handleCall",
 		    new String[] { "CALLED: GET_PROFILABLE_DETAILS" }, null);
 	    Object input = call.getInputValue(NAMESPACE_PROFILABLE
-		    + SCalleeProvidedService.IN_GET);
+		    + SCalleeProvidedService.INP_GET_X);
 	    if (input == null) {
 		return ERROR_INPUT;
 	    }
 	    Resource result = Activator.scaller
-		    .getProfilableDetails((Resource) input);
+		    .getUser((Resource) input);
 	    ServiceResponse response = new ServiceResponse(CallStatus.succeeded);
 	    response.addOutput(new ProcessOutput(NAMESPACE_PROFILABLE
-		    + SCalleeProvidedService.OUT_GET, result));
+		    + SCalleeProvidedService.OUT_GET_X, result));
 	    return response;
 	}
 
 	if (operation.startsWith(NAMESPACE_PROFILABLE
-		+ SCalleeProvidedService.SERVICE_ADD)) {
+		+ SCalleeProvidedService.SRV_ADD_X)) {
 	    LogUtils.logDebug(mc, SCallee.class, "handleCall",
 		    new String[] { "CALLED: ADD_PROFILABLE" }, null);
 	    Object input = call.getInputValue(NAMESPACE_PROFILABLE
-		    + SCalleeProvidedService.IN_ADD);
+		    + SCalleeProvidedService.INP_ADD_X);
 	    if (input == null) {
 		return ERROR_INPUT;
 	    }
-	    Activator.scaller.addProfilable((Resource) input);
+	    Activator.scaller.addUser((Resource) input);
 	    ServiceResponse response = new ServiceResponse(CallStatus.succeeded);
 	    return response;
 	}
 
 	if (operation.startsWith(NAMESPACE_PROFILABLE
-		+ SCalleeProvidedService.SERVICE_CHANGE)) {
+		+ SCalleeProvidedService.SRV_CHN_X)) {
 	    LogUtils.logDebug(mc, SCallee.class, "handleCall",
 		    new String[] { "CALLED: CHANGE_PROFILABLE" }, null);
 	    Object input = call.getInputValue(NAMESPACE_PROFILABLE
-		    + SCalleeProvidedService.IN_CHANGE);
+		    + SCalleeProvidedService.INP_CHN_X);
 	    if (input == null) {
 		return ERROR_INPUT;
 	    }
-	    Activator.scaller.changeProfilable((Resource) input);
+	    Activator.scaller.changeUser((Resource) input);
 	    ServiceResponse response = new ServiceResponse(CallStatus.succeeded);
 	    return response;
 	}
 
 	if (operation.startsWith(NAMESPACE_PROFILABLE
-		+ SCalleeProvidedService.SERVICE_REMOVE)) {
+		+ SCalleeProvidedService.SRV_REM_X)) {
 	    LogUtils.logDebug(mc, SCallee.class, "handleCall",
 		    new String[] { "CALLED: REMOVE_PROFILABLE" }, null);
 	    Object input = call.getInputValue(NAMESPACE_PROFILABLE
-		    + SCalleeProvidedService.IN_REMOVE);
+		    + SCalleeProvidedService.INP_REM_X);
 	    if (input == null) {
 		return ERROR_INPUT;
 	    }
-	    Activator.scaller.removeProfilable((Resource) input);
+	    Activator.scaller.removeUser((Resource) input);
 	    ServiceResponse response = new ServiceResponse(CallStatus.succeeded);
 	    return response;
 	}
@@ -212,28 +212,28 @@ public class SCallee extends ServiceCallee {
 	// :::::::::::::PROFILE GET/ADD/CHANGE/REMOVE:::::::::::::::::
 
 	if (operation.startsWith(NAMESPACE_PROFILE
-		+ SCalleeProvidedService.SERVICE_GET)) {
+		+ SCalleeProvidedService.SRV_GET_X)) {
 	    LogUtils.logDebug(mc, SCallee.class, "handleCall",
 		    new String[] { "CALLED: GET_PROFILE_DETAILS" }, null);
 	    Object input = call.getInputValue(NAMESPACE_PROFILE
-		    + SCalleeProvidedService.IN_GET);
+		    + SCalleeProvidedService.INP_GET_X);
 	    if (input == null) {
 		return ERROR_INPUT;
 	    }
 	    Resource result = Activator.scaller
-		    .getProfileDetails((Resource) input);
+		    .getProfile((Resource) input);
 	    ServiceResponse response = new ServiceResponse(CallStatus.succeeded);
 	    response.addOutput(new ProcessOutput(NAMESPACE_PROFILE
-		    + SCalleeProvidedService.OUT_GET, result));
+		    + SCalleeProvidedService.OUT_GET_X, result));
 	    return response;
 	}
 
 	if (operation.startsWith(NAMESPACE_PROFILE
-		+ SCalleeProvidedService.SERVICE_ADD)) {
+		+ SCalleeProvidedService.SRV_ADD_X)) {
 	    LogUtils.logDebug(mc, SCallee.class, "handleCall",
 		    new String[] { "CALLED: ADD_PROFILE" }, null);
 	    Object input = call.getInputValue(NAMESPACE_PROFILE
-		    + SCalleeProvidedService.IN_ADD);
+		    + SCalleeProvidedService.INP_ADD_X);
 	    if (input == null) {
 		return ERROR_INPUT;
 	    }
@@ -243,11 +243,11 @@ public class SCallee extends ServiceCallee {
 	}
 
 	if (operation.startsWith(NAMESPACE_PROFILE
-		+ SCalleeProvidedService.SERVICE_CHANGE)) {
+		+ SCalleeProvidedService.SRV_CHN_X)) {
 	    LogUtils.logDebug(mc, SCallee.class, "handleCall",
 		    new String[] { "CALLED: CHANGE_PROFILE" }, null);
 	    Object input = call.getInputValue(NAMESPACE_PROFILE
-		    + SCalleeProvidedService.IN_CHANGE);
+		    + SCalleeProvidedService.INP_CHN_X);
 	    if (input == null) {
 		return ERROR_INPUT;
 	    }
@@ -257,11 +257,11 @@ public class SCallee extends ServiceCallee {
 	}
 
 	if (operation.startsWith(NAMESPACE_PROFILE
-		+ SCalleeProvidedService.SERVICE_REMOVE)) {
+		+ SCalleeProvidedService.SRV_REM_X)) {
 	    LogUtils.logDebug(mc, SCallee.class, "handleCall",
 		    new String[] { "CALLED: REMOVE_PROFILE" }, null);
 	    Object input = call.getInputValue(NAMESPACE_PROFILE
-		    + SCalleeProvidedService.IN_REMOVE);
+		    + SCalleeProvidedService.INP_REM_X);
 	    if (input == null) {
 		return ERROR_INPUT;
 	    }
@@ -273,28 +273,28 @@ public class SCallee extends ServiceCallee {
 	// :::::::::::::SUBPROFILE GET/ADD/CHANGE/REMOVE:::::::::::::::::
 
 	if (operation.startsWith(NAMESPACE_SUBPROFILE
-		+ SCalleeProvidedService.SERVICE_GET)) {
+		+ SCalleeProvidedService.SRV_GET_X)) {
 	    LogUtils.logDebug(mc, SCallee.class, "handleCall",
 		    new String[] { "CALLED: GET_SUBPROFILE_DETAILS" }, null);
 	    Object input = call.getInputValue(NAMESPACE_SUBPROFILE
-		    + SCalleeProvidedService.IN_GET);
+		    + SCalleeProvidedService.INP_GET_X);
 	    if (input == null) {
 		return ERROR_INPUT;
 	    }
 	    Resource result = Activator.scaller
-		    .getSubProfileDetails((Resource) input);
+		    .getSubProfile((Resource) input);
 	    ServiceResponse response = new ServiceResponse(CallStatus.succeeded);
 	    response.addOutput(new ProcessOutput(NAMESPACE_SUBPROFILE
-		    + SCalleeProvidedService.OUT_GET, result));
+		    + SCalleeProvidedService.OUT_GET_X, result));
 	    return response;
 	}
 
 	if (operation.startsWith(NAMESPACE_SUBPROFILE
-		+ SCalleeProvidedService.SERVICE_ADD)) {
+		+ SCalleeProvidedService.SRV_ADD_X)) {
 	    LogUtils.logDebug(mc, SCallee.class, "handleCall",
 		    new String[] { "CALLED: ADD_SUBPROFILE" }, null);
 	    Object input = call.getInputValue(NAMESPACE_SUBPROFILE
-		    + SCalleeProvidedService.IN_ADD);
+		    + SCalleeProvidedService.INP_ADD_X);
 	    if (input == null) {
 		return ERROR_INPUT;
 	    }
@@ -304,11 +304,11 @@ public class SCallee extends ServiceCallee {
 	}
 
 	if (operation.startsWith(NAMESPACE_SUBPROFILE
-		+ SCalleeProvidedService.SERVICE_CHANGE)) {
+		+ SCalleeProvidedService.SRV_CHN_X)) {
 	    LogUtils.logDebug(mc, SCallee.class, "handleCall",
 		    new String[] { "CALLED: CHANGE_SUBPROFILE" }, null);
 	    Object input = call.getInputValue(NAMESPACE_SUBPROFILE
-		    + SCalleeProvidedService.IN_CHANGE);
+		    + SCalleeProvidedService.INP_CHN_X);
 	    if (input == null) {
 		return ERROR_INPUT;
 	    }
@@ -318,11 +318,11 @@ public class SCallee extends ServiceCallee {
 	}
 
 	if (operation.startsWith(NAMESPACE_SUBPROFILE
-		+ SCalleeProvidedService.SERVICE_REMOVE)) {
+		+ SCalleeProvidedService.SRV_REM_X)) {
 	    LogUtils.logDebug(mc, SCallee.class, "handleCall",
 		    new String[] { "CALLED: REMOVE_SUBPROFILE" }, null);
 	    Object input = call.getInputValue(NAMESPACE_SUBPROFILE
-		    + SCalleeProvidedService.IN_REMOVE);
+		    + SCalleeProvidedService.INP_REM_X);
 	    if (input == null) {
 		return ERROR_INPUT;
 	    }
@@ -331,77 +331,111 @@ public class SCallee extends ServiceCallee {
 	    return response;
 	}
 
-	// :::::::::::::OTHERS:::::::::::::::::
-
-	// if (operation.startsWith(SCalleeProvidedService.GET_PROFILE)) {
-	// LogUtils.logDebug(mc, SCallee.class, "handleCall", new
-	// String[]{"CALLED: GET_PROFILE"}, null);
-	// Object input =
-	// call.getInputValue(SCalleeProvidedService.INPUT_GET_PROFILE);
-	// if (input == null) {
-	// return errorInput;
-	// }
-	// Resource result=Activator.scaller.getProfile((Resource) input);
-	// ServiceResponse response = new ServiceResponse(CallStatus.succeeded);
-	// response.addOutput(new
-	// ProcessOutput(SCalleeProvidedService.OUT_GET_PROFILE,result));
-	// return response;
-	// }
-
-	if (operation.startsWith(SCalleeProvidedService.ADD_PROFILE)) {
+	// :::::::::::::OTHER GETS:::::::::::::::::
+	
+	if (operation.startsWith(SCalleeProvidedService.SRV_GET_USRS)) {
 	    LogUtils.logDebug(mc, SCallee.class, "handleCall",
-		    new String[] { "CALLED: ADD_PROFILE" }, null);
-	    Object input = call
-		    .getInputValue(SCalleeProvidedService.INPUT_ADD_PROFILE);
-	    Object input2 = call
-		    .getInputValue(SCalleeProvidedService.INPUT2_ADD_PROFILE);
-	    if (input == null || input2 == null) {
-		return ERROR_INPUT;
-	    }
-	    Activator.scaller.addProfile((Resource) input, (Resource) input2);
-	    ServiceResponse response = new ServiceResponse(CallStatus.succeeded);
-	    return response;
-	}
-
-	if (operation.startsWith(SCalleeProvidedService.CHANGE_PROFILE)) {
-	    LogUtils.logDebug(mc, SCallee.class, "handleCall",
-		    new String[] { "CALLED: CHANGE_PROFILE" }, null);
-	    Object input = call
-		    .getInputValue(SCalleeProvidedService.INPUT_CHANGE_PROFILE);
-	    Object input2 = call
-		    .getInputValue(SCalleeProvidedService.INPUT2_CHANGE_PROFILE);
-	    if (input == null || input2 == null) {
-		return ERROR_INPUT;
-	    }
-	    Activator.scaller
-		    .changeProfile((Resource) input, (Resource) input2);
-	    ServiceResponse response = new ServiceResponse(CallStatus.succeeded);
-	    return response;
-	}
-
-	if (operation.startsWith(SCalleeProvidedService.GET_USERS)) {
-	    LogUtils.logDebug(mc, SCallee.class, "handleCall",
-		    new String[] { "CALLED: GET_USERS" }, null);
+		    new String[] { "CALLED: SRV_GET_USRS" }, null);
 	    ArrayList result = Activator.scaller.getUsers();
 	    ServiceResponse response = new ServiceResponse(CallStatus.succeeded);
 	    response.addOutput(new ProcessOutput(
-		    SCalleeProvidedService.OUTPUT_GET_USERS, result));
+		    SCalleeProvidedService.OUT_GET_USRS, result));
 	    return response;
 	}
-
-	if (operation.startsWith(SCalleeProvidedService.GET_SUBPROFILES)) {
+	
+	if (operation.startsWith(SCalleeProvidedService.SRV_GET_PRF_OF_USR)) {
 	    LogUtils.logDebug(mc, SCallee.class, "handleCall",
-		    new String[] { "CALLED: GET_SUBPROFILES" }, null);
+		    new String[] { "CALLED: SRV_GET_PRF_OF_USR" }, null);
 	    Object input = call
-		    .getInputValue(SCalleeProvidedService.INPUT_GET_SUBPROFILES);
+		    .getInputValue(SCalleeProvidedService.INP_GET_PRF_OF_USR);
 	    if (input == null) {
 		return ERROR_INPUT;
 	    }
-	    Resource[] result = Activator.scaller
-		    .getSubprofiles((Resource) input);
+	    Resource result = Activator.scaller
+		    .getProfileOfUser((Resource) input);
 	    ServiceResponse response = new ServiceResponse(CallStatus.succeeded);
 	    response.addOutput(new ProcessOutput(
-		    SCalleeProvidedService.OUT_GET_SUBPROFILES, result));
+		    SCalleeProvidedService.OUT_GET_PRF_OF_USR, result));
+	    return response;
+	    
+	}
+
+	if (operation.startsWith(SCalleeProvidedService.SRV_GET_SUBS_OF_USR)) {
+	    LogUtils.logDebug(mc, SCallee.class, "handleCall",
+		    new String[] { "CALLED: SRV_GET_SUBS_OF_USR" }, null);
+	    Object input = call
+		    .getInputValue(SCalleeProvidedService.INP_GET_SUBS_OF_USR);
+	    if (input == null) {
+		return ERROR_INPUT;
+	    }
+	    ArrayList result = Activator.scaller
+		    .getSubProfilesOfUser((Resource) input);
+	    ServiceResponse response = new ServiceResponse(CallStatus.succeeded);
+	    response.addOutput(new ProcessOutput(
+		    SCalleeProvidedService.OUT_GET_SUBS_OF_USR, result));
+	    return response;
+	}
+	
+	if (operation.startsWith(SCalleeProvidedService.SRV_GET_SUBS_OF_PRF)) {
+	    LogUtils.logDebug(mc, SCallee.class, "handleCall",
+		    new String[] { "CALLED: SRV_GET_SUBS_OF_PRF" }, null);
+	    Object input = call
+		    .getInputValue(SCalleeProvidedService.INP_GET_SUBS_OF_PRF);
+	    if (input == null) {
+		return ERROR_INPUT;
+	    }
+	    ArrayList result = Activator.scaller
+		    .getSubProfilesOfProfile((Resource) input);
+	    ServiceResponse response = new ServiceResponse(CallStatus.succeeded);
+	    response.addOutput(new ProcessOutput(
+		    SCalleeProvidedService.OUT_GET_SUBS_OF_PRF, result));
+	    return response;
+	}
+	
+	// :::::::::::::OTHER ADDS:::::::::::::::::
+
+	if (operation.startsWith(SCalleeProvidedService.SRV_ADD_PRF_TO_USR)) {
+	    LogUtils.logDebug(mc, SCallee.class, "handleCall",
+		    new String[] { "CALLED: SRV_ADD_PRF_TO_USR" }, null);
+	    Object inWhere = call
+		    .getInputValue(SCalleeProvidedService.IN_ADD_PRF_TO_USR_WHERE);
+	    Object inWhat = call
+		    .getInputValue(SCalleeProvidedService.IN_ADD_PRF_TO_USR_WHAT);
+	    if (inWhere == null || inWhat==null) {
+		return ERROR_INPUT;
+	    }
+	    Activator.scaller.addProfileToUser((Resource)inWhere, (Resource)inWhat);
+	    ServiceResponse response = new ServiceResponse(CallStatus.succeeded);
+	    return response;
+	}
+	
+	if (operation.startsWith(SCalleeProvidedService.SRV_ADD_SUB_TO_USR)) {
+	    LogUtils.logDebug(mc, SCallee.class, "handleCall",
+		    new String[] { "CALLED: SRV_ADD_SUB_TO_USR" }, null);
+	    Object inWhere = call
+		    .getInputValue(SCalleeProvidedService.IN_ADD_SUB_TO_USR_WHERE);
+	    Object inWhat = call
+		    .getInputValue(SCalleeProvidedService.IN_ADD_SUB_TO_USR_WHAT);
+	    if (inWhere == null || inWhat==null) {
+		return ERROR_INPUT;
+	    }
+	    Activator.scaller.addSubProfileToUser((Resource)inWhere, (Resource)inWhat);
+	    ServiceResponse response = new ServiceResponse(CallStatus.succeeded);
+	    return response;
+	}
+
+	if (operation.startsWith(SCalleeProvidedService.SRV_ADD_SUB_TO_PRF)) {
+	    LogUtils.logDebug(mc, SCallee.class, "handleCall",
+		    new String[] { "CALLED: SRV_ADD_SUB_TO_PRF" }, null);
+	    Object inWhere = call
+		    .getInputValue(SCalleeProvidedService.IN_ADD_SUB_TO_PRF_WHERE);
+	    Object inWhat = call
+		    .getInputValue(SCalleeProvidedService.IN_ADD_SUB_TO_PRF_WHAT);
+	    if (inWhere == null || inWhat==null) {
+		return ERROR_INPUT;
+	    }
+	    Activator.scaller.addSubProfileToProf((Resource)inWhere, (Resource)inWhat);
+	    ServiceResponse response = new ServiceResponse(CallStatus.succeeded);
 	    return response;
 	}
 

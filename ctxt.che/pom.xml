@@ -5,13 +5,13 @@
   <parent>
     <groupId>org.universAAL.context</groupId>
     <artifactId>ctxt.pom</artifactId>
-    <version>2.0.3-SNAPSHOT</version>
+    <version>1.1.2-SNAPSHOT</version>
     <relativePath>../pom/pom.xml</relativePath>
   </parent>
   <artifactId>ctxt.che</artifactId>
-  <version>2.0.4-SNAPSHOT</version>
+  <version>1.1.2-SNAPSHOT</version>
   <packaging>bundle</packaging>
-  <name>universAAL Context CHE - Context History Entrepot</name>
+  <name>Context History Entrepot</name>
   <description>The component managing the history of all context events published to the context bus.</description>
   <inceptionYear>2008</inceptionYear>
   <organization>
@@ -28,22 +28,32 @@
     </license>
   </licenses>
   <scm>
-    <connection>${svn.base}/${project.artifactId}</connection>
-    <developerConnection>${svn.base}/${project.artifactId}</developerConnection>
-    <url>${svn.base.url}${project.artifactId}</url>
+    <connection>${svn.base}/${artifactId}</connection>
+    <developerConnection>${svn.base}/${artifactId}</developerConnection>
+    <url>${svn.base.url}${artifactId}</url>
   </scm>
+  <properties>
+    <maven.compile.source>1.5</maven.compile.source>
+    <maven.compile.target>1.5</maven.compile.target>
+  </properties>
   <dependencies>
     <dependency>
       <groupId>org.universAAL.support</groupId>
       <artifactId>itests</artifactId>
     </dependency>
     <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
       <groupId>org.apache.felix</groupId>
       <artifactId>org.osgi.core</artifactId>
     </dependency>
-    <dependency>
+    <dependency> 
       <groupId>org.universAAL.ontology</groupId>
-      <artifactId>ont.che</artifactId>
+      <artifactId>ont.che.osgi</artifactId>
+      <version>1.1.2-SNAPSHOT</version>
     </dependency>
     <dependency>
       <groupId>org.openrdf.sesame</groupId>
@@ -99,7 +109,7 @@
       <groupId>org.universAAL.middleware</groupId>
       <artifactId>mw.data.representation.osgi</artifactId>
     </dependency>
-    <dependency>
+    <dependency> 
       <groupId>org.universAAL.middleware</groupId>
       <artifactId>mw.data.serialization.osgi</artifactId>
       <scope>runtime</scope>
@@ -113,6 +123,16 @@
       <artifactId>mw.bus.context.osgi</artifactId>
     </dependency>
   </dependencies>
+  <repositories>
+    <repository>
+      <snapshots>
+        <enabled>false</enabled>
+      </snapshots>
+      <id>sesame</id>
+      <name>Open RDF Sesame Repository</name>
+      <url>http://repo.aduna-software.org/maven2/releases/</url>
+    </repository>
+  </repositories>
   <pluginRepositories>
     <pluginRepository>
       <id>uaal-snapshots</id>
@@ -147,6 +167,11 @@
     <profile>
       <id>uAAL-Runtime</id>
       <dependencies>
+        <dependency>
+          <groupId>org.universAAL.middleware</groupId>
+          <artifactId>mw.data.serialization.osgi</artifactId>
+          <scope>provided</scope>
+        </dependency>
         <dependency>
           <groupId>org.openrdf.sesame</groupId>
           <artifactId>sesame-runtime-osgi</artifactId>

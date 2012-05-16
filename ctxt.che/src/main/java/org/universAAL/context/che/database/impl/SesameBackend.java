@@ -134,23 +134,27 @@ public class SesameBackend implements Backend {
     public void populate() throws RepositoryException, RDFParseException,
 	    IOException {
 	RepositoryConnection con = myRepository.getConnection();
-	if (con.isEmpty()) {
-	    try {
-		File confHome = new File(
-			new BundleConfigHome("ctxt.che").getAbsolutePath());
-		File[] files = confHome.listFiles(new FilenameFilter() {
-		    public boolean accept(File dir, String name) {
-			return name.toLowerCase().endsWith(".owl");
-		    }
-		});
-		for (int i = 0; i < files.length; i++) {
-		    // TODO: Guess the default namespace. Otherwise the file
-		    // should not use default namespace prefix : .
+	try {
+	    File confHome = new File(
+		    new BundleConfigHome("ctxt.che").getAbsolutePath());
+	    File[] files = confHome.listFiles(new FilenameFilter() {
+		public boolean accept(File dir, String name) {
+		    return name.toLowerCase().endsWith(".owl");
+		}
+	    });
+	    for (int i = 0; i < files.length; i++) {
+		// TODO: Guess the default namespace. Otherwise the file
+		// should not use default namespace prefix : .
+		try {// TODO: Handle format
+		    con.add(files[i], null, RDFFormat.TURTLE);
+		} catch (RDFParseException e) {
 		    con.add(files[i], null, RDFFormat.RDFXML);
 		}
-	    } finally {
-		con.close();
+		log.debug("populate",
+			"populated store with: " + files[i].getName());
 	    }
+	} finally {
+	    con.close();
 	}
     }
 

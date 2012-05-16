@@ -33,13 +33,10 @@ import java.util.Timer;
 
 import org.universAAL.context.che.database.Backend;
 import org.universAAL.context.che.database.Cleaner;
-import org.universAAL.context.che.database.impl.SesameBackend;
-//import org.universAAL.context.che.ontology.ContextHistoryOntology;
 import org.universAAL.middleware.container.ModuleContext;
 import org.universAAL.middleware.container.osgi.util.BundleConfigHome;
 import org.universAAL.middleware.container.utils.LogUtils;
 import org.universAAL.middleware.context.ContextEvent;
-//import org.universAAL.middleware.owl.OntologyManagement;
 import org.universAAL.middleware.sodapop.msg.MessageContentSerializer;
 
 /**
@@ -50,11 +47,11 @@ import org.universAAL.middleware.sodapop.msg.MessageContentSerializer;
  * 
  */
 public class Hub {
-    private static Log log = Hub.getLog(SesameBackend.class);
+    private static Log log = Hub.getLog(Hub.class);
 
     public static final String PROPS_FILE = "CHe.properties";
     public static final String COMMENTS = "This file stores configuration "
-	    + "parameters for the " + "Context History Entrepot";
+	    + "parameters for the Context History Entrepot";
 
     private static File confHome = new File(
 	    new BundleConfigHome("ctxt.che").getAbsolutePath());
@@ -85,17 +82,8 @@ public class Hub {
      */
     private MessageContentSerializer uAALParser;
 
-    /**
-     * To be called when application starts. Used to be Activator.start().
-     * 
-     * @param context
-     *            uaal module context
-     * @throws Exception
-     *             If anything goes wrong
-     */
-    public void start(ModuleContext context) throws Exception {
-	moduleContext = context;
-	// Start the store you want
+    public Hub() {
+	// Instantiate the store you want
 	try {
 	    String storeclass = getProperties().getProperty("STORE.IMPL",
 		    "org.universAAL.context.che.database.impl.SesameBackend");
@@ -110,18 +98,33 @@ public class Hub {
 		    + "org.universAAL.context.che.database.Backend or "
 		    + "remove that configuration parameter to use the "
 		    + "default engine.";
-	    throw new Exception(cause, e);// TODO: Create a new kind of
-					  // exception?
-	}
+	    log.error("init", cause);
+	}	
+    }
+    
+    /**
+     * To be called when application starts. Used to be Activator.start().
+     * 
+     * @param context
+     *            uaal module context
+     */
+    public void start(ModuleContext context) {
+	moduleContext = context;
+	// Start the store and wrappers
 	this.db.connect();
-	// Start the wrappers
 	this.hc = new ContextHistorySubscriber(moduleContext, db);
 	this.chc = new ContextHistoryCallee(moduleContext, db);
-	// Start the removal timer
-	t = new Timer();
 	// Every 24 hours do the "Cleaner thing" (see Cleaner class)
+	t = new Timer();
 	t.scheduleAtFixedRate(new Cleaner(db), 86400000, 86400000);
 	log.info("start", "Removal period will be checked in 24 hours from now");
+	// Sync Mobile Events. When platform can, sync when mobile arrives
+	log.debug("start", "Looking for mobile events to synchronize");
+	if (synchronizeMobileTurtle()) {
+	    log.info("start", "Synchronized Mobile Events!!!");
+	} else {
+	    log.warn("start", "Could not Synchronize Mobile Events!!!");
+	}
     }
 
     /**
@@ -130,14 +133,15 @@ public class Hub {
      * @throws Exception
      */
     public final void stop() throws Exception {
-	// Stop the store and wrappers and deregister ont
+	// Stop the store and wrappers
 	this.db.close();
 	this.chc.close();
 	this.hc.close();
     }
 
     /**
-     * Set the turtle-uaal parser. Make sure it´s called after start().
+     * Set the turtle-uaal parser. Make sure it´s set at least once before
+     * start().
      * 
      * @param service
      *            The parser
@@ -199,19 +203,6 @@ public class Hub {
 		    e);
 	}
 	return prop;
-    }
-
-    /**
-     * Start the mobile events synchronization.
-     */
-    public void synchronizeMobile() {
-	// Sync Mobile Events. When platform can, sync when mobile arrives
-	log.debug("start", "Looking for mobile events to synchronize");
-	if (synchronizeMobileTurtle()) {
-	    log.info("start", "Synchronized Mobile Events!!!");
-	} else {
-	    log.warn("start", "Could not Synchronize Mobile Events!!!");
-	}
     }
 
     /**

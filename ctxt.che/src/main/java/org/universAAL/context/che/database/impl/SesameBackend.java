@@ -23,6 +23,7 @@ package org.universAAL.context.che.database.impl;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FilenameFilter;
 import java.io.IOException;
 import java.io.StringReader;
 import java.io.UnsupportedEncodingException;
@@ -35,6 +36,7 @@ import javax.xml.datatype.XMLGregorianCalendar;
 import org.universAAL.context.che.Hub;
 import org.universAAL.context.che.Hub.Log;
 import org.universAAL.context.che.database.Backend;
+import org.universAAL.middleware.container.osgi.util.BundleConfigHome;
 import org.universAAL.middleware.context.ContextEvent;
 import org.universAAL.middleware.context.owl.ContextProvider;
 import org.universAAL.middleware.rdf.Resource;
@@ -53,8 +55,10 @@ import org.openrdf.query.Update;
 import org.openrdf.query.resultio.sparqlxml.SPARQLResultsXMLWriter;
 import org.openrdf.repository.Repository;
 import org.openrdf.repository.RepositoryConnection;
+import org.openrdf.repository.RepositoryException;
 import org.openrdf.repository.sail.SailRepository;
 import org.openrdf.rio.RDFFormat;
+import org.openrdf.rio.RDFParseException;
 import org.openrdf.rio.RDFWriter;
 import org.openrdf.rio.turtle.TurtleWriterFactory;
 import org.openrdf.sail.nativerdf.NativeStore;
@@ -112,6 +116,7 @@ public class SesameBackend implements Backend {
 			new ForwardChainingRDFSInferencer(new NativeStore(
 				dataDir, indexes)));
 		myRepository.initialize();
+		this.populate();
 	    } catch (Exception e) {
 		log.error("connect",
 			"Exception trying to initilaize the store: {} ", e);
@@ -123,6 +128,29 @@ public class SesameBackend implements Backend {
 		    "No location specified for the store. "
 			    + "Add and specify the configuration parameter STORE.LOCATION "
 			    + "to the configuration file of the CHE pointing to a valid folder path.");
+	}
+    }
+    
+    public void populate() throws RepositoryException, RDFParseException,
+	    IOException {
+	RepositoryConnection con = myRepository.getConnection();
+	if (con.isEmpty()) {
+	    try {
+		File confHome = new File(
+			new BundleConfigHome("ctxt.che").getAbsolutePath());
+		File[] files = confHome.listFiles(new FilenameFilter() {
+		    public boolean accept(File dir, String name) {
+			return name.toLowerCase().endsWith(".owl");
+		    }
+		});
+		for (int i = 0; i < files.length; i++) {
+		    // TODO: Guess the default namespace. Otherwise the file
+		    // should not use default namespace prefix : .
+		    con.add(files[i], null, RDFFormat.RDFXML);
+		}
+	    } finally {
+		con.close();
+	    }
 	}
     }
 

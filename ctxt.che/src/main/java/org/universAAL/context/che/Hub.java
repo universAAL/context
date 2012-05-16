@@ -22,12 +22,16 @@
 package org.universAAL.context.che;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
+import java.io.FilenameFilter;
+import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.Properties;
 import java.util.Timer;
 
@@ -37,6 +41,8 @@ import org.universAAL.middleware.container.ModuleContext;
 import org.universAAL.middleware.container.osgi.util.BundleConfigHome;
 import org.universAAL.middleware.container.utils.LogUtils;
 import org.universAAL.middleware.context.ContextEvent;
+import org.universAAL.middleware.owl.Ontology;
+import org.universAAL.middleware.owl.OntologyManagement;
 import org.universAAL.middleware.sodapop.msg.MessageContentSerializer;
 
 /**
@@ -110,6 +116,7 @@ public class Hub {
      */
     public void start(ModuleContext context) {
 	moduleContext = context;
+	createOWLFiles();
 	// Start the store and wrappers
 	this.db.connect();
 	this.hc = new ContextHistorySubscriber(moduleContext, db);
@@ -124,6 +131,44 @@ public class Hub {
 	    log.info("start", "Synchronized Mobile Events!!!");
 	} else {
 	    log.warn("start", "Could not Synchronize Mobile Events!!!");
+	}
+    }
+
+    private void createOWLFiles() {
+	File confHome = new File(
+		new BundleConfigHome("ctxt.che").getAbsolutePath());
+	File[] files = confHome.listFiles(new FilenameFilter() {
+	    public boolean accept(File dir, String name) {
+		return name.toLowerCase().endsWith(".owl");
+	    }
+	});
+
+	ArrayList names = new ArrayList(files.length);
+	for (int i = 0; i < files.length; i++) {
+	    names.add(files[i].getName());
+	}
+
+	OntologyManagement manager = OntologyManagement.getInstance();
+
+	String[] ontURIs = manager.getOntoloyURIs();
+	for (int i = 0; i < ontURIs.length; i++) {
+	    String filename = ontURIs[i].replaceAll("[:/#]", ".");
+	    if (!filename.endsWith(".owl")){
+		filename+=".owl";
+	    }
+	    if (!names.contains(filename)) {
+		try {
+		    BufferedWriter out = new BufferedWriter(new FileWriter(
+			    new File(confHome, filename), false));
+		    Ontology ont = manager.getOntology(ontURIs[i]);
+		    String str = this.uAALParser.serialize(ont);
+		    out.write(str);
+		    out.close();
+		} catch (IOException e) {
+		    // TODO Auto-generated catch block
+		    e.printStackTrace();
+		}
+	    }
 	}
     }
 

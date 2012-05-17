@@ -29,8 +29,7 @@ import org.osgi.framework.ServiceReference;
 import org.universAAL.context.che.Hub;
 import org.universAAL.middleware.container.ModuleContext;
 import org.universAAL.middleware.container.osgi.uAALBundleContainer;
-import org.universAAL.middleware.container.osgi.util.BundleConfigHome;
-import org.universAAL.middleware.serialization.MessageContentSerializer;
+import org.universAAL.middleware.sodapop.msg.MessageContentSerializer;
 
 /**
  * OSGI activator. Relays start and stop to Hub.
@@ -49,17 +48,11 @@ public class Activator implements BundleActivator, ServiceListener {
      * OSGI bundle context.
      */
     private BundleContext osgiContext;
-
+    
     /**
      * The application hub independent from OSGi.
      */
     private Hub hub;
-    
-    /**
-     * The path to the config file. Here so it's decoupled from Hub.
-     */
-    public static final String osgiConfigPath = new BundleConfigHome("ctxt.che")
-	    .getAbsolutePath();
 
     /*
      * (non-Javadoc)
@@ -74,19 +67,19 @@ public class Activator implements BundleActivator, ServiceListener {
 	moduleContext = uAALBundleContainer.THE_CONTAINER
 		.registerModule(new Object[] { context });
 	// Initialize the CHE hub (needed before setting parsers)
-	this.hub = new Hub();
-
+	this.hub=new Hub();
+	
 	// Look for MessageContentSerializer and set parser
 	String filter = "(objectclass="
 		+ MessageContentSerializer.class.getName() + ")";
 	context.addServiceListener(this, filter);
-	ServiceReference[] references = context.getServiceReferences((String)null,
+	ServiceReference[] references = context.getServiceReferences(null,
 		filter);
 	for (int i = 0; references != null && i < references.length; i++) {
 	    this.serviceChanged(new ServiceEvent(ServiceEvent.REGISTERED,
 		    references[i]));
 	}
-
+	
 	// Start the CHE hub. May be heavy, use thread.
 	new Thread() {
 	    public void run() {

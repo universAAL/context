@@ -73,10 +73,6 @@
       <groupId>org.universAAL.ontology</groupId>
       <artifactId>ont.profile.osgi</artifactId>
     </dependency>
-    <dependency>
-      <groupId>org.universAAL.context</groupId>
-      <artifactId>ctxt.che</artifactId>
-    </dependency>
     <dependency> 
       <groupId>org.universAAL.ontology</groupId>
       <artifactId>ont.che.osgi</artifactId>

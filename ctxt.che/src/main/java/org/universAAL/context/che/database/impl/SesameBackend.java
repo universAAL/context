@@ -116,7 +116,9 @@ public class SesameBackend implements Backend {
 			new ForwardChainingRDFSInferencer(new NativeStore(
 				dataDir, indexes)));
 		myRepository.initialize();
-		this.populate();
+		if(Boolean.parseBoolean(Hub.getProperties().getProperty("STORE.PRELOAD"))){
+		    this.populate();
+		}
 	    } catch (Exception e) {
 		log.error("connect",
 			"Exception trying to initilaize the store: {} ", e);
@@ -290,6 +292,10 @@ public class SesameBackend implements Backend {
 	} catch (OpenRDFException exc) {
 	    log.error("queryBySPARQL",
 		    "Error trying to get connection to store: {}", exc);
+	    exc.printStackTrace();
+	} catch (Exception exc) {
+	    log.error("queryBySPARQL",
+		    "Unknown Error handling SPARQL: {}", exc);
 	    exc.printStackTrace();
 	}
 	return result;

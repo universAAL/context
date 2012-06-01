@@ -105,18 +105,24 @@ public class ArtifactIntegrationTest extends IntegrationTest {
 	// Create and send first event
 	org.universAAL.middleware.context.ContextEvent cevA = org.universAAL.middleware.context.ContextEvent
 		.constructSimpleEvent(DUMMYUSER, USER, HAS_LOCATION, new Resource(LOCATION));
+	// Must wait for the CHE to start and load OWLs...
+	try {
+	    Thread.sleep(5000L);
+	} catch (InterruptedException e) {
+	    e.printStackTrace();
+	}
 	pub.publish(cevA);
 	log.info("testStoreAndService", "Published event 1: " + cevA);
 	// Wait for the event to be stored...
 	try {
 	    Thread.sleep(3000L);
 	} catch (InterruptedException e) {
-	    // TODO Auto-generated catch block
 	    e.printStackTrace();
 	}
 	// Create CHE match for the event
 	ContextEvent cevB = ContextEvent.constructSimpleEvent(DUMMYUSER, USER,
 		HAS_LOCATION,  new Resource(LOCATION));
+	
 	// Test service GET EVENT
 	// log.info("testStoreAndService", "Test service GET EVENT");
 	// Assert.notNull(callGetEvents(cevB, 0L, 0L));
@@ -224,7 +230,7 @@ public class ArtifactIntegrationTest extends IntegrationTest {
 			    "History Client: List of events corrupt!", e);
 		}
 	    } else {
-		log.warn("callGetEventsSPARQL",
+		log.warn("callGetEvents",
 			"History Client: No returned events");
 	    }
 	} else

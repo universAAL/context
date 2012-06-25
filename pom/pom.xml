@@ -9,7 +9,7 @@
   </parent>
   <groupId>org.universAAL.context</groupId>
   <artifactId>ctxt.pom</artifactId>
-  <version>1.1.2-SNAPSHOT</version>
+  <version>1.1.3-SNAPSHOT</version>
   <packaging>pom</packaging>
   <name>universAAL context Suite</name>
   <description>The set of artefacts defining the universAAL context tools.</description>
@@ -42,27 +42,27 @@
       <dependency>
         <groupId>org.universAAL.context</groupId>
         <artifactId>ctxt.che</artifactId>
-        <version>1.1.3-SNAPSHOT</version>
+        <version>1.1.4-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.universAAL.context</groupId>
         <artifactId>ctxt.che.mobile</artifactId>
-        <version>1.1.2-SNAPSHOT</version>
+        <version>1.1.3-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.universAAL.context</groupId>
         <artifactId>ctxt.prof.server</artifactId>
-        <version>1.1.2-SNAPSHOT</version>
-      </dependency>
-      <dependency>
-      <groupId>org.universAAL.ontology</groupId>
-      <artifactId>ont.profile.osgi</artifactId>
         <version>1.1.3-SNAPSHOT</version>
       </dependency>
       <dependency>
       <groupId>org.universAAL.ontology</groupId>
-      <artifactId>ont.che.osgi</artifactId>
-        <version>1.1.2-SNAPSHOT</version>
+      <artifactId>ont.profile</artifactId>
+        <version>1.1.5-SNAPSHOT</version>
+      </dependency>
+      <dependency>
+      <groupId>org.universAAL.ontology</groupId>
+      <artifactId>ont.che</artifactId>
+        <version>1.1.4-SNAPSHOT</version>
       </dependency>
     </dependencies>
   </dependencyManagement>

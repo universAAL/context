@@ -15,7 +15,7 @@
 
 	<!-- ______________________________________________________ -->
 
-	<name>universAAL Context Situation Reasoner</name>
+	<name>The Situation Reasoner</name>
 	<description>The component that uses SPARQL to persistently store rules for recognizing situations.</description>
 	<inceptionYear>2008</inceptionYear>
 	<licenses>
@@ -150,9 +150,9 @@
 	<!-- ______________________________________________________ -->
 
 	<scm>
-		<connection>${svn.base}/${project.artifactId}</connection>
-		<developerConnection>${svn.base}/${project.artifactId}</developerConnection>
-		<url>${svn.base.url}${project.artifactId}</url>
+		<connection>${svn.base}/${artifactId}</connection>
+		<developerConnection>${svn.base}/${artifactId}</developerConnection>
+		<url>${svn.base.url}${artifactId}</url>
 	</scm>
 
 </project>

@@ -33,7 +33,7 @@ import org.slf4j.LoggerFactory;
 import org.universAAL.context.conversion.jena.JenaConverter;
 import org.universAAL.middleware.container.ModuleContext;
 import org.universAAL.middleware.container.utils.LogUtils;
-import org.universAAL.middleware.owl.ClassExpression;
+import org.universAAL.middleware.owl.TypeExpression;
 import org.universAAL.middleware.owl.ManagedIndividual;
 import org.universAAL.middleware.owl.MergedRestriction;
 import org.universAAL.middleware.owl.OntologyManagement;
@@ -186,14 +186,14 @@ public class JenaModelConverter implements JenaConverter {
 	return null;
     }
 
-    private ClassExpression getClassExpression(
+    private TypeExpression getTypeExpression(
 	    com.hp.hpl.jena.rdf.model.Resource r, String uri) {
-	ClassExpression result = null;
+	TypeExpression result = null;
 	for (StmtIterator i = r.listProperties(RDFS.subClassOf); i.hasNext();) {
 	    com.hp.hpl.jena.rdf.model.Resource superclass = i.nextStatement()
 		    .getResource();
 	    if (!superclass.isAnon()) {
-		result = ClassExpression.getClassExpressionInstance(superclass
+		result = TypeExpression.getClassExpressionInstance(superclass
 			.getURI(), null, uri);
 		if (result != null)
 		    return result;
@@ -203,14 +203,14 @@ public class JenaModelConverter implements JenaConverter {
 	for (StmtIterator i = r.listProperties(); i.hasNext();) {
 	    Property p = i.nextStatement().getPredicate();
 	    if (!RDF.type.equals(p)) {
-		result = ClassExpression.getClassExpressionInstance(null, p
+		result = TypeExpression.getClassExpressionInstance(null, p
 			.getURI(), uri);
 		num++;
 	    }
 	    if (result != null)
 		return result;
 	}
-	return (r.isAnon() || num > 0) ? null : ClassExpression
+	return (r.isAnon() || num > 0) ? null : TypeExpression
 		.getClassExpressionInstance(null, null, uri);
     }
 
@@ -248,11 +248,11 @@ public class JenaModelConverter implements JenaConverter {
 	    if (ManagedIndividual.isRegisteredClassURI(classURI))
 		return getIndividual(r, classURI, resources);
 
-	    pr = ClassExpression.getClassExpressionInstance(classURI, uri);
+	    pr = TypeExpression.getClassExpressionInstance(classURI, uri);
 
 	    if (pr == null) {
-		if (ClassExpression.OWL_CLASS.equals(classURI))
-		    pr = getClassExpression(r, uri);
+		if (TypeExpression.OWL_CLASS.equals(classURI))
+		    pr = getTypeExpression(r, uri);
 		if (pr == null)
 		    return getUnmanagedResource(r, resources, wasXMLLiteral);
 	    }

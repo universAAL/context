@@ -26,7 +26,6 @@ import org.universAAL.ontology.profile.Profile;
 import org.universAAL.ontology.profile.SubProfile;
 import org.universAAL.ontology.profile.User;
 import org.universAAL.ontology.profile.UserProfile;
-//import org.universAAL.ontology.profile.userid.UserIDProfile;
 
 /**
  * Class that holds the constant representation of the SPARQL queries to be
@@ -120,14 +119,6 @@ public class Queries {
 	    + AUXBAGPROP
 	    + "> ?s . ?s a ?t } WHERE { <"+ARG1+"> <"+Profile.PROP_HAS_SUB_PROFILE+"> ?s . "
 	    + " ?s a <"+SubProfile.MY_URI+"> ; a ?t } ";
-//    public static final String Q_GET_SECPRF_OF_USR="DESCRIBE ?sp WHERE {<"
-//	    + ARG1 + "> <" + Profilable.PROP_HAS_PROFILE + "> ?p . " 
-//	    + " ?p <"+Profile.PROP_HAS_SUB_PROFILE+"> ?sp . "
-//	    + " ?sp a <"+UserIDProfile.MY_URI+"> }";
-//    protected static final String Q_GET_SECPRF_OF_USR_XTRA = "CONSTRUCT { ?sp a ?t } WHERE {<"
-//	    + ARG1 + "> <" + Profilable.PROP_HAS_PROFILE + "> ?p . " 
-//	    + " ?p <"+Profile.PROP_HAS_SUB_PROFILE+"> ?sp . "
-//	    + " ?sp a <"+UserIDProfile.MY_URI+">  . ?sp a ?t}";
     
     // :::::::::::::OTHER ADDS:::::::::::::::::
     protected static final String Q_ADD_PRF_TO_USR = "INSERT DATA { <"

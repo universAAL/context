@@ -26,7 +26,6 @@ import java.util.List;
 
 import org.universAAL.context.che.Hub.Log;
 import org.universAAL.context.che.database.Backend;
-import org.universAAL.context.che.ontology.ContextEvent;
 import org.universAAL.middleware.container.ModuleContext;
 import org.universAAL.middleware.context.owl.ContextProvider;
 import org.universAAL.middleware.service.CallStatus;
@@ -34,6 +33,7 @@ import org.universAAL.middleware.service.ServiceCall;
 import org.universAAL.middleware.service.ServiceCallee;
 import org.universAAL.middleware.service.ServiceResponse;
 import org.universAAL.middleware.service.owls.process.ProcessOutput;
+import org.universAAL.ontology.che.ContextEvent;
 
 /**
  * The CHe service callee receives all service calls issued to the CHe through

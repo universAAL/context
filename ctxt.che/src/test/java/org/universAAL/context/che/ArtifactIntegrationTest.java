@@ -6,8 +6,6 @@ import java.util.List;
 import org.springframework.util.Assert;
 import org.universAAL.context.che.Hub;
 import org.universAAL.context.che.Hub.Log;
-import org.universAAL.context.che.ontology.ContextEvent;
-import org.universAAL.context.che.ontology.ContextHistoryService;
 import org.universAAL.context.che.osgi.Activator;
 import org.universAAL.itests.IntegrationTest;
 import org.universAAL.middleware.context.ContextEventPattern;
@@ -24,6 +22,8 @@ import org.universAAL.middleware.service.ServiceCaller;
 import org.universAAL.middleware.service.ServiceRequest;
 import org.universAAL.middleware.service.ServiceResponse;
 import org.universAAL.middleware.service.owls.process.ProcessOutput;
+import org.universAAL.ontology.che.ContextEvent;
+import org.universAAL.ontology.che.ContextHistoryService;
 
 /**
  * Here developer's of this artifact should code their integration tests.
@@ -242,7 +242,7 @@ public class ArtifactIntegrationTest extends IntegrationTest {
     }
 
     private ServiceRequest getGetEventsRequest(
-	    org.universAAL.context.che.ontology.ContextEvent matchEvent,
+	    org.universAAL.ontology.che.ContextEvent matchEvent,
 	    long tstFrom, long tstTo) {
 	ServiceRequest getEvents = new ServiceRequest(
 		new ContextHistoryService(null), null);

@@ -21,8 +21,6 @@
  */
 package org.universAAL.context.che;
 
-import org.universAAL.context.che.ontology.ContextEvent;
-import org.universAAL.context.che.ontology.ContextHistoryService;
 import org.universAAL.middleware.owl.MergedRestriction;
 import org.universAAL.middleware.owl.OntologyManagement;
 import org.universAAL.middleware.owl.SimpleOntology;
@@ -33,6 +31,8 @@ import org.universAAL.middleware.rdf.impl.ResourceFactoryImpl;
 import org.universAAL.middleware.service.owls.process.ProcessInput;
 import org.universAAL.middleware.service.owls.process.ProcessOutput;
 import org.universAAL.middleware.service.owls.profile.ServiceProfile;
+import org.universAAL.ontology.che.ContextEvent;
+import org.universAAL.ontology.che.ContextHistoryService;
 
 /**
  * Here are described the provided services that are registered by the CHe in

@@ -1,13 +1,4 @@
 * text=auto !eol
-ctxt.che.mobile/LICENSE-CPL-JUnit.txt -text
-ctxt.che.mobile/LICENSE.txt -text
-ctxt.che.mobile/NOTICE.txt -text
-ctxt.che.mobile/artifact_manual.composite -text
-ctxt.che.mobile/pom.xml -text
-ctxt.che.mobile/src/main/java/org/universAAL/context/chemobile/Hub.java -text
-ctxt.che.mobile/src/main/java/org/universAAL/context/chemobile/MobileHistorySubscriber.java -text
-ctxt.che.mobile/src/main/java/org/universAAL/context/chemobile/osgi/Activator.java -text
-ctxt.che.mobile/src/test/java/org/universAAL/context/chemobile/test/ArtifactIntegrationTest.java -text
 ctxt.che/LICENSE-Aduna-OpenRDF.txt -text
 ctxt.che/LICENSE-CPL-JUnit.txt -text
 ctxt.che/LICENSE.txt -text
@@ -24,14 +15,4 @@ ctxt.che/src/main/java/org/universAAL/context/che/database/impl/SesameBackend.ja
 ctxt.che/src/main/java/org/universAAL/context/che/database/impl/SesameBackendWithConfidence.java -text
 ctxt.che/src/main/java/org/universAAL/context/che/osgi/Activator.java -text
 ctxt.che/src/test/java/org/universAAL/context/che/ArtifactIntegrationTest.java -text
-ctxt.prof.server/LICENSE-CPL-JUnit.txt -text
-ctxt.prof.server/LICENSE.txt -text
-ctxt.prof.server/NOTICE.txt -text
-ctxt.prof.server/pom.xml -text
-ctxt.prof.server/src/main/java/org/universAAL/context/prof/serv/Activator.java -text
-ctxt.prof.server/src/main/java/org/universAAL/context/prof/serv/Queries.java -text
-ctxt.prof.server/src/main/java/org/universAAL/context/prof/serv/SCallee.java -text
-ctxt.prof.server/src/main/java/org/universAAL/context/prof/serv/SCalleeProvidedService.java -text
-ctxt.prof.server/src/main/java/org/universAAL/context/prof/serv/SCaller.java -text
-ctxt.prof.server/src/test/java/org/universAAL/context/prof/serv/ArtifactIntegrationTest.java -text
 pom/pom.xml -text

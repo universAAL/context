@@ -24,14 +24,4 @@ ctxt.che/src/main/java/org/universAAL/context/che/database/impl/SesameBackend.ja
 ctxt.che/src/main/java/org/universAAL/context/che/database/impl/SesameBackendWithConfidence.java -text
 ctxt.che/src/main/java/org/universAAL/context/che/osgi/Activator.java -text
 ctxt.che/src/test/java/org/universAAL/context/che/ArtifactIntegrationTest.java -text
-ctxt.prof.server/LICENSE-CPL-JUnit.txt -text
-ctxt.prof.server/LICENSE.txt -text
-ctxt.prof.server/NOTICE.txt -text
-ctxt.prof.server/pom.xml -text
-ctxt.prof.server/src/main/java/org/universAAL/context/prof/serv/Activator.java -text
-ctxt.prof.server/src/main/java/org/universAAL/context/prof/serv/Queries.java -text
-ctxt.prof.server/src/main/java/org/universAAL/context/prof/serv/SCallee.java -text
-ctxt.prof.server/src/main/java/org/universAAL/context/prof/serv/SCalleeProvidedService.java -text
-ctxt.prof.server/src/main/java/org/universAAL/context/prof/serv/SCaller.java -text
-ctxt.prof.server/src/test/java/org/universAAL/context/prof/serv/ArtifactIntegrationTest.java -text
 pom/pom.xml -text

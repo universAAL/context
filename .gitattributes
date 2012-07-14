@@ -1,2 +1,18 @@
 * text=auto !eol
+ctxt.che/LICENSE-Aduna-OpenRDF.txt -text
+ctxt.che/LICENSE-CPL-JUnit.txt -text
+ctxt.che/LICENSE.txt -text
+ctxt.che/NOTICE.txt -text
+ctxt.che/artifact_manual.composite -text
+ctxt.che/pom.xml -text
+ctxt.che/src/main/java/org/universAAL/context/che/ContextHistoryCallee.java -text
+ctxt.che/src/main/java/org/universAAL/context/che/ContextHistoryServices.java -text
+ctxt.che/src/main/java/org/universAAL/context/che/ContextHistorySubscriber.java -text
+ctxt.che/src/main/java/org/universAAL/context/che/Hub.java -text
+ctxt.che/src/main/java/org/universAAL/context/che/database/Backend.java -text
+ctxt.che/src/main/java/org/universAAL/context/che/database/Cleaner.java -text
+ctxt.che/src/main/java/org/universAAL/context/che/database/impl/SesameBackend.java -text
+ctxt.che/src/main/java/org/universAAL/context/che/database/impl/SesameBackendWithConfidence.java -text
+ctxt.che/src/main/java/org/universAAL/context/che/osgi/Activator.java -text
+ctxt.che/src/test/java/org/universAAL/context/che/ArtifactIntegrationTest.java -text
 pom/pom.xml -text

@@ -73,4 +73,16 @@
     <maven.compile.source>1.4</maven.compile.source>
     <maven.compile.target>1.4</maven.compile.target>
   </properties>
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.universAAL.support</groupId>
+        <artifactId>uaal-maven-plugin</artifactId>
+      </plugin>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>build-helper-maven-plugin</artifactId>
+      </plugin>
+    </plugins>
+  </build>  
 </project>

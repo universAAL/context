@@ -46,25 +46,6 @@
       </plugin>
     </plugins>
   </build>
-  <profiles>
-    <profile>
-      <id>uAAL-Runtime</id>
-      <dependencies>
-        <dependency>
-          <groupId>org.universAAL.middleware</groupId>
-          <artifactId>mw.data.serialization.osgi</artifactId>
-          <version>1.1.2-SNAPSHOT</version>
-          <scope>provided</scope>
-        </dependency>
-        <dependency>
-          <groupId>org.universAAL.context</groupId>
-          <artifactId>ctxt.che</artifactId>
-          <version>1.1.4-SNAPSHOT</version>
-          <scope>provided</scope>
-        </dependency>
-      </dependencies>
-    </profile>
-  </profiles>
   <repositories>
     <repository>
       <snapshots>
@@ -135,4 +116,16 @@
     <maven.compile.source>1.5</maven.compile.source>
     <maven.compile.target>1.5</maven.compile.target>
   </properties>
+  <profiles>
+    <profile>
+      <id>uAAL-Runtime</id>
+      <dependencies>
+        <dependency>
+          <groupId>org.universAAL.context</groupId>
+          <artifactId>ctxt.che</artifactId>
+          <scope>provided</scope>
+        </dependency>
+      </dependencies>
+    </profile>
+  </profiles>  
 </project>

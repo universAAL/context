@@ -39,6 +39,11 @@ public class ArtifactIntegrationTest extends IntegrationTest {
 
     public void testComposite() {
 	logAllBundles();
+	try {
+	    Thread.sleep(5000L);
+	} catch (InterruptedException e) {
+	    e.printStackTrace();
+	}
 	caller = new DefaultServiceCaller(Activator.context);
     }
 

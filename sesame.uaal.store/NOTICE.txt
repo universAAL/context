@@ -27,7 +27,13 @@ OpenRDF (http://www.openrdf.org)
 Copyright (c) 2001 - 2011 Aduna
 Licensed under modified BSD License.
 
+This product uses software developed at
+The Legion Of The Bouncy Castle (http://www.bouncycastle.org)
+Copyright (c) 2000 - 2009 The Legion Of The Bouncy Castle
+Licensed under modified MIT X11 License.
+
 
 III. License Summary
 - Apache License 2.0
 - Modified BSD License
+- MIT X11 License

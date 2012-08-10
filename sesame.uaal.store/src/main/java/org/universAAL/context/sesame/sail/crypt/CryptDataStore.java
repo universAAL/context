@@ -40,6 +40,18 @@ public class CryptDataStore extends DataStore{
 	 */
 	private final CRC32 crc32 = new CRC32();
 
+	private org.universAAL.context.sesame.sail.crypt.Codec codec =new Codec() {
+	    public byte[] encode(byte[] data) {
+		return org.bouncycastle.util.encoders.Base64
+			.encode(data);
+	    }
+
+	    public byte[] decode(String data) {
+		return org.bouncycastle.util.encoders.Base64
+			.decode(data);
+	    }
+	};
+
 	/*--------------*
 	 * Constructors *
 	 *--------------*/
@@ -58,6 +70,17 @@ public class CryptDataStore extends DataStore{
 		dataFile = new DataFile(new File(dataDir, filePrefix + ".dat"), forceSync);
 		idFile = new IDFile(new File(dataDir, filePrefix + ".id"), forceSync);
 		hashFile = new HashFile(new File(dataDir, filePrefix + ".hash"), forceSync);
+		File confHome = new File(new File(
+			System.getProperty("bundles.configuration.location",
+			System.getProperty("user.dir"))), 
+			System.getProperty("sesame.uaal.store.keyfolder","mw.bus.model.osgi"));
+		String cryptUtilInitMessage;
+		try {
+		    cryptUtilInitMessage = CryptUtil.init(confHome.getAbsolutePath(), codec);
+		    System.out.println("Sesame uAAL Store: " + cryptUtilInitMessage);
+		} catch (Exception e) {
+		    e.printStackTrace();
+		}
 	}
 
 	/*---------*

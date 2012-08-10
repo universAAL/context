@@ -23,6 +23,8 @@
     <module>../ctxt.che</module>
     <module>../ctxt.che.mobile</module>
     <module>../ctxt.prof.server</module>
+    <module>../ctxt.che.module.cardinality</module>
+    <module>../sesame.uaal.store</module>
   </modules>
   <repositories>
     <repository>

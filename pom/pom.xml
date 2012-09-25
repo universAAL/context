@@ -25,6 +25,9 @@
     <module>../ctxt.prof.server</module>
     <module>../ctxt.che.module.cardinality</module>
     <module>../sesame.uaal.store</module>
+    <module>../ctxt.situation.reasoner</module>
+    <module>../ctxt.situation.reasoner.client</module>
+    <module>../ctxt.situation.reasoner.client.example</module>
   </modules>
   <repositories>
     <repository>

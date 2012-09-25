@@ -394,7 +394,6 @@ class TripleStore {
 					while ((value = sourceIter.next()) != null) {
 						addedBTree.insert(value);
 					}
-					addedBTree.sync();
 				}
 				finally {
 					sourceIter.close();
@@ -441,8 +440,6 @@ class TripleStore {
 		for (TripleIndex index : indexes) {
 			index.getBTree().close();
 		}
-		
-		txnStatusFile.close();
 		
 		// Should have been removed upon commit() or rollback(), but just to be sure
 		if (updatedTriplesCache != null) {

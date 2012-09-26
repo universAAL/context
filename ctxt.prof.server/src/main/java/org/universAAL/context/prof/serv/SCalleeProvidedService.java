@@ -340,5 +340,10 @@ public class SCalleeProvidedService extends ProfilingService {
 
 	return profiles;
     }
+    
+    @Override
+    public String getClassURI() {
+	return MY_URI;
+    }
 
 }

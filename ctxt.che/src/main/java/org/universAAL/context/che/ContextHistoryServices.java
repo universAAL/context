@@ -197,8 +197,16 @@ public class ContextHistoryServices extends ContextHistoryService {
      * @param uri
      *            URI
      */
-    protected ContextHistoryServices(String uri) {
+    public ContextHistoryServices(String uri) {
 	super(uri);
+    }
+    
+    public ContextHistoryServices() {
+	super();
+    }
+    
+    public String getClassURI() {
+	return MY_URI;
     }
 
 }

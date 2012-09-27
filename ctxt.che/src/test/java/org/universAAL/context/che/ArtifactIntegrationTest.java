@@ -245,7 +245,7 @@ public class ArtifactIntegrationTest extends IntegrationTest {
 	    org.universAAL.ontology.che.ContextEvent matchEvent,
 	    long tstFrom, long tstTo) {
 	ServiceRequest getEvents = new ServiceRequest(
-		new ContextHistoryService(null), null);
+		new ContextHistoryService(), null);
 
 	MergedRestriction r = MergedRestriction.getFixedValueRestriction(
 		ContextHistoryService.PROP_MANAGES, matchEvent);
@@ -302,7 +302,7 @@ public class ArtifactIntegrationTest extends IntegrationTest {
 
     private ServiceRequest getDoSPARQLRequest(String query) {
 	ServiceRequest getQuery = new ServiceRequest(new ContextHistoryService(
-		null), null);
+		), null);
 
 	MergedRestriction r = MergedRestriction.getFixedValueRestriction(
 		ContextHistoryService.PROP_PROCESSES, query);
@@ -369,7 +369,7 @@ public class ArtifactIntegrationTest extends IntegrationTest {
 
     private ServiceRequest getGetEventsSPARQLRequest(String query) {
 	ServiceRequest getQuery = new ServiceRequest(new ContextHistoryService(
-		null), null);
+		), null);
 
 	MergedRestriction r = MergedRestriction.getFixedValueRestriction(
 		ContextHistoryService.PROP_PROCESSES, query);

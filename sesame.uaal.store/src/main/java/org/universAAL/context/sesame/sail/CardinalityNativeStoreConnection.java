@@ -76,7 +76,6 @@ public class CardinalityNativeStoreConnection extends NotifyingSailConnectionBas
 
 	private URI onProp;
 	private URI maxCard;
-	private URI exactCard;
 	private URI nonNativeInt;
 	private Value one;
 
@@ -94,8 +93,6 @@ public class CardinalityNativeStoreConnection extends NotifyingSailConnectionBas
 			"http://www.w3.org/2002/07/owl#onProperty");
 		maxCard = nativeStore.getValueFactory().createURI(
 			"http://www.w3.org/2002/07/owl#maxCardinality");
-		exactCard = nativeStore.getValueFactory().createURI(
-			"http://www.w3.org/2002/07/owl#cardinality");
 		nonNativeInt= nativeStore.getValueFactory().createURI(
 			"http://www.w3.org/2001/XMLSchema#nonNegativeInteger");
 		one = nativeStore.getValueFactory().createLiteral("1",
@@ -358,29 +355,17 @@ public class CardinalityNativeStoreConnection extends NotifyingSailConnectionBas
 		throws SailException
 	{
 		txnLock = nativeStore.getTransactionLock();
-//	//This is old original code replaced with latest original version
-//		try {
-//			nativeStore.getTripleStore().startTransaction();
-//		}
-//		catch (IOException e) {
-//			txnLock.release();
-//			throw new SailException(e);
-//		}
-//		catch (RuntimeException e) {
-//			txnLock.release();
-//			throw e;
-//		}
-		boolean relaseLock = true;
 
 		try {
-		    nativeStore.getTripleStore().startTransaction();
-		    relaseLock = false;
-		} catch (IOException e) {
-		    throw new SailException(e);
-		} finally {
-		    if (relaseLock) {
+			nativeStore.getTripleStore().startTransaction();
+		}
+		catch (IOException e) {
 			txnLock.release();
-		    }
+			throw new SailException(e);
+		}
+		catch (RuntimeException e) {
+			txnLock.release();
+			throw e;
 		}
 	}
 
@@ -481,8 +466,8 @@ public class CardinalityNativeStoreConnection extends NotifyingSailConnectionBas
 				}
 
 				//START PATCH CARDINALITY
-				if(hasMaxCardinality1(pred, contexts) && explicit){//Property has max/Card=1 & stmt not inferrd
-				    removeStatements(subj, pred, null, true, contexts);//rem. existing values so there is only 1
+				if(hasMaxCardinality1(pred, contexts)){//Check if property has maxCard=1
+				    removeStatements(subj, pred, null, true, contexts);//remove existing values so there is only 1
 				}
 				//END PATCH CARDINALITY
 				boolean wasNew = nativeStore.getTripleStore().storeTriple(subjID, predID, objID, contextID,
@@ -538,9 +523,9 @@ public class CardinalityNativeStoreConnection extends NotifyingSailConnectionBas
 //			nonNativeInt);
 		while (subs.hasNext()) {
 		    Statement st = subs.next();
-		    // For each subject (a Restriction on "pred") check if it's
+		    // For each subject (a Restriction on "pred") check if it´s
 		    // maxCardinality and ==1
-		    if (size(st.getSubject(), maxCard, one, true, contexts) > 0 || size(st.getSubject(), exactCard, one, true, contexts) > 0)
+		    if (size(st.getSubject(), maxCard, one, true, contexts) > 0)
 			return true;
 		}
 	    } finally {

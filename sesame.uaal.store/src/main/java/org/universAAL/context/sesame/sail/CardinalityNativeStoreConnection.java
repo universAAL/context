@@ -358,17 +358,29 @@ public class CardinalityNativeStoreConnection extends NotifyingSailConnectionBas
 		throws SailException
 	{
 		txnLock = nativeStore.getTransactionLock();
+//	//This is old original code replaced with latest original version
+//		try {
+//			nativeStore.getTripleStore().startTransaction();
+//		}
+//		catch (IOException e) {
+//			txnLock.release();
+//			throw new SailException(e);
+//		}
+//		catch (RuntimeException e) {
+//			txnLock.release();
+//			throw e;
+//		}
+		boolean relaseLock = true;
 
 		try {
-			nativeStore.getTripleStore().startTransaction();
-		}
-		catch (IOException e) {
+		    nativeStore.getTripleStore().startTransaction();
+		    relaseLock = false;
+		} catch (IOException e) {
+		    throw new SailException(e);
+		} finally {
+		    if (relaseLock) {
 			txnLock.release();
-			throw new SailException(e);
-		}
-		catch (RuntimeException e) {
-			txnLock.release();
-			throw e;
+		    }
 		}
 	}
 

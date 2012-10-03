@@ -76,6 +76,7 @@ public class CardinalityNativeStoreConnection extends NotifyingSailConnectionBas
 
 	private URI onProp;
 	private URI maxCard;
+	private URI exactCard;
 	private URI nonNativeInt;
 	private Value one;
 
@@ -93,6 +94,8 @@ public class CardinalityNativeStoreConnection extends NotifyingSailConnectionBas
 			"http://www.w3.org/2002/07/owl#onProperty");
 		maxCard = nativeStore.getValueFactory().createURI(
 			"http://www.w3.org/2002/07/owl#maxCardinality");
+		exactCard = nativeStore.getValueFactory().createURI(
+			"http://www.w3.org/2002/07/owl#cardinality");
 		nonNativeInt= nativeStore.getValueFactory().createURI(
 			"http://www.w3.org/2001/XMLSchema#nonNegativeInteger");
 		one = nativeStore.getValueFactory().createLiteral("1",
@@ -525,7 +528,7 @@ public class CardinalityNativeStoreConnection extends NotifyingSailConnectionBas
 		    Statement st = subs.next();
 		    // For each subject (a Restriction on "pred") check if it´s
 		    // maxCardinality and ==1
-		    if (size(st.getSubject(), maxCard, one, true, contexts) > 0)
+		    if (size(st.getSubject(), maxCard, one, true, contexts) > 0 || size(st.getSubject(), exactCard, one, true, contexts) > 0)
 			return true;
 		}
 	    } finally {

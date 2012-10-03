@@ -469,8 +469,8 @@ public class CardinalityNativeStoreConnection extends NotifyingSailConnectionBas
 				}
 
 				//START PATCH CARDINALITY
-				if(hasMaxCardinality1(pred, contexts)){//Check if property has maxCard=1
-				    removeStatements(subj, pred, null, true, contexts);//remove existing values so there is only 1
+				if(hasMaxCardinality1(pred, contexts) && explicit){//Property has max/Card=1 & stmt not inferrd
+				    removeStatements(subj, pred, null, true, contexts);//rem. existing values so there is only 1
 				}
 				//END PATCH CARDINALITY
 				boolean wasNew = nativeStore.getTripleStore().storeTriple(subjID, predID, objID, contextID,

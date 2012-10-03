@@ -358,29 +358,17 @@ public class CardinalityNativeStoreConnection extends NotifyingSailConnectionBas
 		throws SailException
 	{
 		txnLock = nativeStore.getTransactionLock();
-//	//This is old original code replaced with latest original version
-//		try {
-//			nativeStore.getTripleStore().startTransaction();
-//		}
-//		catch (IOException e) {
-//			txnLock.release();
-//			throw new SailException(e);
-//		}
-//		catch (RuntimeException e) {
-//			txnLock.release();
-//			throw e;
-//		}
-		boolean relaseLock = true;
 
 		try {
-		    nativeStore.getTripleStore().startTransaction();
-		    relaseLock = false;
-		} catch (IOException e) {
-		    throw new SailException(e);
-		} finally {
-		    if (relaseLock) {
+			nativeStore.getTripleStore().startTransaction();
+		}
+		catch (IOException e) {
 			txnLock.release();
-		    }
+			throw new SailException(e);
+		}
+		catch (RuntimeException e) {
+			txnLock.release();
+			throw e;
 		}
 	}
 
@@ -538,7 +526,7 @@ public class CardinalityNativeStoreConnection extends NotifyingSailConnectionBas
 //			nonNativeInt);
 		while (subs.hasNext()) {
 		    Statement st = subs.next();
-		    // For each subject (a Restriction on "pred") check if it's
+		    // For each subject (a Restriction on "pred") check if it´s
 		    // maxCardinality and ==1
 		    if (size(st.getSubject(), maxCard, one, true, contexts) > 0 || size(st.getSubject(), exactCard, one, true, contexts) > 0)
 			return true;

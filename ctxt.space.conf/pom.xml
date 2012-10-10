@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>org.universAAL.context</groupId>
+		<artifactId>ctxt.pom</artifactId>
+		<version>1.0.2-SNAPSHOT</version>
+		<relativePath>../pom/pom.xml</relativePath>
+	</parent>
+	<artifactId>ctxt.space.conf</artifactId>
+	<version>1.0.1-SNAPSHOT</version>
+	<packaging>bundle</packaging>
+
+	<!-- ______________________________________________________ -->
+
+	<name>AAL Space Configuration Tool</name>
+	<description />
+	<licenses />
+	<developers />
+	<contributors />
+
+	<!-- ______________________________________________________ -->
+	
+	<!--  Delete the following secion when this artifact is adapted -->
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+					<groupId>org.universAAL.middleware</groupId>
+					<artifactId>mw.pom</artifactId>
+					<version>1.0.0</version>
+					<type>pom</type>
+					<scope>import</scope>
+				</dependency>
+			</dependencies>
+	</dependencyManagement>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.apache.felix</groupId>
+			<artifactId>org.osgi.core</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>5.1.6</version>
+		</dependency>
+		<dependency>
+			<groupId>com.hp.hpl.jena</groupId>
+			<artifactId>jena</artifactId>
+			<version>2.5.4</version>
+		</dependency>	
+		<dependency>
+			<groupId>org.universAAL.middleware</groupId>
+			<artifactId>mw.container.xfaces</artifactId>
+		</dependency>	
+		<dependency>
+			<groupId>org.universAAL.middleware</groupId>
+			<artifactId>mw.bus.model</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.universAAL.middleware</groupId>
+			<artifactId>mw.bus.service</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.universAAL.middleware</groupId>
+			<artifactId>mw.data.representation</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.universAAL.middleware</groupId>
+			<artifactId>mw.container.osgi</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.universAAL.ontology</groupId>
+			<artifactId>ont.phWorld</artifactId>
+			<version>1.0.0</version>
+		</dependency>
+		<dependency>
+			<groupId>org.universAAL.context</groupId>
+			<artifactId>ctxt.jena.converter</artifactId>
+			<version>1.0.0</version>
+		</dependency>
+		<dependency>
+			<groupId>org.universAAL.ontology</groupId>
+			<artifactId>ont.furniture</artifactId>
+			<version>1.0.0</version>
+		</dependency>
+		<dependency>
+			<groupId>org.universAAL.ontology</groupId>
+			<artifactId>ont.multimedia</artifactId>
+			<version>1.0.0</version>
+		</dependency>
+		<dependency>
+			<groupId>org.universAAL.ontology</groupId>
+			<artifactId>ont.window</artifactId>
+			<version>1.0.0</version>
+		</dependency>
+	</dependencies>
+
+	<!-- ______________________________________________________ -->
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.felix</groupId>
+				<artifactId>maven-bundle-plugin</artifactId>
+				<extensions>true</extensions>
+				<configuration>
+					<instructions>
+						<Bundle-Name>${project.name}</Bundle-Name>
+						<Bundle-Activator>org.universAAL.context.space.conf.Activator</Bundle-Activator>
+						<Bundle-Description>${project.description}</Bundle-Description>
+						<Bundle-SymbolicName>${project.artifactId}</Bundle-SymbolicName>
+						<Export-Package>org.universAAL.context.space.conf</Export-Package>
+						<Private-Package></Private-Package>
+					</instructions>
+				</configuration>
+			</plugin>
+			<plugin>
+				<!--
+					ctxt.space.conf uses mw 1.0.0 so uaal-maven-plugin cannot be used
+				-->
+				<groupId>org.universAAL.support</groupId>
+				<artifactId>uaal-maven-plugin</artifactId>
+				<version>1.0.1-SNAPSHOT</version>
+				<executions>
+					<execution>
+						<id>CompositeMojo</id>
+						<phase>none</phase>
+					</execution>
+					<execution>
+						<id>TestMojo</id>
+						<phase>none</phase>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<!--
+					ctxt.space.conf uses mw 1.0.0 so uaal-maven-plugin cannot be used
+				-->
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>build-helper-maven-plugin</artifactId>
+				<version>1.7</version>
+				<executions>
+					<execution>
+						<id>attach-composite</id>
+						<phase>none</phase>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+
+	<!-- ______________________________________________________ -->
+
+	<scm>
+		<connection>${svn.base}/${artifactId}</connection>
+		<developerConnection>${svn.base}/${artifactId}</developerConnection>
+		<url>${svn.base.url}${artifactId}</url>
+	</scm>
+</project>

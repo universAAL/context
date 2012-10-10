@@ -446,16 +446,8 @@ public class SesameBackend implements Backend {
      * @see org.universAAL.context.che.database.Backend#removeOldEvents(long)
      */
     public void removeOldEvents(long tst) {
-	log.debug("removeOldEvents", "removeOldEvents");
-	// String removeQuery = "SELECT  ?c "
-	// + "WHERE"
-	// +
-	// "  { ?c  <http://www.w3.org/1999/02/22-rdf-syntax-ns#type>  <http://ontology.universAAL.org/Context.owl#ContextEvent> ;"
-	// +
-	// "        <http://ontology.universAAL.org/Context.owl#hasTimestamp>  ?t ."
-	// + "    FILTER ( ?t <= \"" + tst
-	// + "\"^^<http://www.w3.org/2001/XMLSchema#decimal> )  }";
-	String removeQuery = "REMOVE  ?s ?p ?o "
+	log.debug("removeOldEvents", "removeOldEvents stored before: "+tst);
+	String removeQuery = "DELETE { ?s ?p ?o } "
 		+ "WHERE"
 		+ "  { ?s " +
 		" <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> " +
@@ -467,26 +459,6 @@ public class SesameBackend implements Backend {
 	try {
 	    RepositoryConnection con = myRepository.getConnection();
 	    try {
-		// TupleQuery tquery =
-		// con.prepareTupleQuery(QueryLanguage.SPARQL,
-		// removeQuery);
-		// TupleQueryResult result = tquery.evaluate();
-		// try {
-		// while (result.hasNext()) {
-		// BindingSet bindingSet = result.next();
-		// Value valueOfC = bindingSet.getValue("c");
-		// //With this we get the URI of events to remove
-		// if (valueOfC instanceof URI) {
-		// // Then we remove per event
-		// con.remove((URI) valueOfC, null, null);
-		// } else {
-		// log.error("Returned value was not a Resource? " +
-		// "The query is preset, look at the code");
-		// }
-		// }
-		// } finally {
-		// result.close();
-		// }
 		Update uquery = con.prepareUpdate(QueryLanguage.SPARQL,
 			removeQuery);
 		uquery.execute();

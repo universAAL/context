@@ -1,7 +1,8 @@
 * text=auto !eol
 SituationReasoner/SituationReasoner.zip -text
+ctxt.che.mobile/ASL2.0.txt -text
 ctxt.che.mobile/LICENSE-CPL-JUnit.txt -text
-ctxt.che.mobile/LICENSE.txt -text
+ctxt.che.mobile/MITX.txt -text
 ctxt.che.mobile/NOTICE.txt -text
 ctxt.che.mobile/artifact_manual.composite -text
 ctxt.che.mobile/pom.xml -text

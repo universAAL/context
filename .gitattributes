@@ -19,9 +19,10 @@ ctxt.che.module.cardinality/src/main/java/org/universAAL/context/che/database/im
 ctxt.che.module.cardinality/src/main/java/org/universAAL/context/che/database/impl/SesameBackendCrdClc2Cnf.java -text
 ctxt.che.module.cardinality/src/main/java/org/universAAL/context/che/database/impl/SesameBackendCrdClcCnf.java -text
 ctxt.che.module.cardinality/src/main/java/org/universAAL/context/che/database/impl/SesameBackendCrdCnf.java -text
+ctxt.che/ASL2.0.txt -text
 ctxt.che/LICENSE-Aduna-OpenRDF.txt -text
 ctxt.che/LICENSE-CPL-JUnit.txt -text
-ctxt.che/LICENSE.txt -text
+ctxt.che/MITX.txt -text
 ctxt.che/NOTICE.txt -text
 ctxt.che/artifact_manual.composite -text
 ctxt.che/pom.xml -text

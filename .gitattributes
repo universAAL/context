@@ -10,8 +10,9 @@ ctxt.che.mobile/src/main/java/org/universAAL/context/chemobile/Hub.java -text
 ctxt.che.mobile/src/main/java/org/universAAL/context/chemobile/MobileHistorySubscriber.java -text
 ctxt.che.mobile/src/main/java/org/universAAL/context/chemobile/osgi/Activator.java -text
 ctxt.che.mobile/src/test/java/org/universAAL/context/chemobile/test/ArtifactIntegrationTest.java -text
+ctxt.che.module.cardinality/ASL2.0.txt -text
 ctxt.che.module.cardinality/LICENSE-Aduna-OpenRDF.txt -text
-ctxt.che.module.cardinality/LICENSE.txt -text
+ctxt.che.module.cardinality/MITX.txt -text
 ctxt.che.module.cardinality/NOTICE.txt -text
 ctxt.che.module.cardinality/pom.xml -text
 ctxt.che.module.cardinality/src/main/java/org/universAAL/context/che/database/impl/SesameBackendCrd.java -text

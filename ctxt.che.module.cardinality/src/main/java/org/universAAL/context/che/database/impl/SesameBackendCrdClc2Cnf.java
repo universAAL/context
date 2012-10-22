@@ -59,18 +59,9 @@ import org.universAAL.middleware.context.ContextEvent;
  * 
  */
 public class SesameBackendCrdClc2Cnf extends SesameBackendCrdClc {
-    /**
-     * Logger.
-     */
-    private static Log log = Hub.getLog(SesameBackendCrdClc2Cnf.class);
-    /**
-     * Confidence Threshold.
-     */
+    private final static Log log = Hub.getLog(SesameBackendCrdClc2Cnf.class);
     private int threshold = 0;
 
-    /**
-     * Default constructor.
-     */
     public SesameBackendCrdClc2Cnf() {
 	super();
 	String conf = Hub.getProperties().getProperty("STORE.CONFIDENCE");
@@ -87,19 +78,13 @@ public class SesameBackendCrdClc2Cnf extends SesameBackendCrdClc {
 	}
     }
 
-    /**
-     * Constructor with confidence.
-     * 
-     * @param confidence
-     *            0 to 100.
-     */
     public SesameBackendCrdClc2Cnf(int confidence) {
 	super();
 	this.setThreshold(confidence);
     }
 
     @Override
-    synchronized public void storeEvent(ContextEvent e) {
+    public void storeEvent(ContextEvent e) {
 	try {
 	    RepositoryConnection con = myRepository.getConnection();
 	    try {
@@ -120,20 +105,19 @@ public class SesameBackendCrdClc2Cnf extends SesameBackendCrdClc {
 			    Statement st = sts.next();
 			    if (st.getSubject().stringValue()
 				    .equals(e.getURI())) {
-				con.add(st);
-				// store only stmts having event as subject
+				con.add(st);// store only stmts having event as
+					    // subject
 			    }
 			}
 			log.info("storeEvent",
-				"CHe: Stored a Context Event with"
-					+ " low Confidence: Not reified.");
+				"CHe: Stored a Context Event with low Confidence: Not reified.");
 		    } else {
 			con.add(new StringReader(uAALParser.serialize(e)),
 				e.getURI(), RDFFormat.TURTLE);
-			log.info("storeEvent", "CHe: Stored a Context Event"
-				+ " with high Confidence");
+			log.info("storeEvent",
+				"CHe: Stored a Context Event with high Confidence");
 		    }
-		} else { // TODO: What to do if events have no confidence?
+		} else {// TODO: What to do if events have no confidence?
 		    con.add(new StringReader(uAALParser.serialize(e)),
 			    e.getURI(), RDFFormat.TURTLE);
 		    log.info("storeEvent",
@@ -141,12 +125,12 @@ public class SesameBackendCrdClc2Cnf extends SesameBackendCrdClc {
 		}
 		log.debug("storeEvent", "Successfully added event to store");
 	    } catch (IOException exc) {
-		log.error("storeEvent",
+		log.error(
+			"storeEvent",
 			"Error trying to add event to the store. "
-				+ "In older versions this usually"
-				+ " happened because of the underlying"
-				+ " connection closing due to inactivity"
-				+ ", but now it is because: {}", exc);
+				+ "In older versions this usually happened because "
+				+ "of the underlying connection closing due to "
+				+ "inactivity, but now it is because: {}", exc);
 		exc.printStackTrace();
 	    } finally {
 		con.close();
@@ -158,24 +142,13 @@ public class SesameBackendCrdClc2Cnf extends SesameBackendCrdClc {
 	}
     }
 
-    /**
-     * Get th confidence threshold.
-     * 
-     * @return Confidence.
-     */
     public int getThreshold() {
 	return threshold;
     }
 
-    /**
-     * Set the confidence threshold.
-     * 
-     * @param threshold
-     *            0 to 100.
-     */
-    public void setThreshold(int thr) {
+    public void setThreshold(int threshold) {
 	if (threshold < 100) {
-	    this.threshold = thr;
+	    this.threshold = threshold;
 	} else {
 	    this.threshold = 100;
 	}

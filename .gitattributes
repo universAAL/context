@@ -105,9 +105,10 @@ ctxt.space.conf/src/main/java/org/universAAL/context/space/conf/JenaPersistenceA
 ctxt.space.conf/src/main/java/org/universAAL/context/space/conf/ProvidedWorldConfigurator.java -text
 ctxt.space.conf/src/main/java/org/universAAL/context/space/conf/WorldConfigurationProvider.java -text
 pom/pom.xml -text
+sesame.uaal.store/ASL2.0.txt -text
 sesame.uaal.store/LICENSE-Aduna-OpenRDF.txt -text
 sesame.uaal.store/LICENSE-MIT11-Bouncycastle.txt -text
-sesame.uaal.store/LICENSE.txt -text
+sesame.uaal.store/MITX.txt -text
 sesame.uaal.store/NOTICE.txt -text
 sesame.uaal.store/pom.xml -text
 sesame.uaal.store/src/main/java/org/universAAL/context/sesame/sail/CardinCollect2NativeStore.java -text

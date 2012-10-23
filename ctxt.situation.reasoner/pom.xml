@@ -21,7 +21,7 @@
 		</dependency>
 		<dependency>
 			<groupId>org.universAAL.middleware</groupId>
-			<artifactId>mw.bus.model.osgi</artifactId>
+			<artifactId>mw.container.osgi</artifactId>
 			<version>1.2.1-SNAPSHOT</version>
 		</dependency>
 		<dependency>
@@ -34,12 +34,7 @@
 			<artifactId>ont.situation.reasoner</artifactId>
 			<version>1.2.1-SNAPSHOT</version>
 		</dependency>
-			<dependency>
-			<groupId>org.universAAL.middleware</groupId>
-			<artifactId>mw.bus.context</artifactId>
-			<version>1.1.0</version>
-		</dependency>
-</dependencies>
+	</dependencies>
 	<build>
 		<plugins>
 			<plugin>

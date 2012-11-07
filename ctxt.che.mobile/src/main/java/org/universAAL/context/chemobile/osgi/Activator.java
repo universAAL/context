@@ -122,6 +122,11 @@ public class Activator implements BundleActivator, ServiceListener {
 	}
     }
 
+    /**
+     * Get the uAAL Module Context.
+     * 
+     * @return The module context.
+     */
     public static ModuleContext getModuleContext() {
 	return moduleContext;
     }

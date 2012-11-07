@@ -48,7 +48,7 @@ public class Activator implements BundleActivator, ServiceListener {
      * OSGI bundle context.
      */
     private BundleContext osgiContext;
-    
+
     /**
      * The application hub independent from OSGi.
      */
@@ -67,8 +67,8 @@ public class Activator implements BundleActivator, ServiceListener {
 	moduleContext = uAALBundleContainer.THE_CONTAINER
 		.registerModule(new Object[] { context });
 	// Initialize the CHE hub (needed before setting parsers)
-	this.hub=new Hub();
-	
+	this.hub = new Hub();
+
 	// Look for MessageContentSerializer and set parser
 	String filter = "(objectclass="
 		+ MessageContentSerializer.class.getName() + ")";
@@ -79,7 +79,7 @@ public class Activator implements BundleActivator, ServiceListener {
 	    this.serviceChanged(new ServiceEvent(ServiceEvent.REGISTERED,
 		    references[i]));
 	}
-	
+
 	// Start the CHE hub. May be heavy, use thread.
 	new Thread() {
 	    public void run() {

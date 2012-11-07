@@ -37,12 +37,12 @@ import org.universAAL.middleware.sodapop.msg.MessageContentSerializer;
 public interface Backend {
 
     /**
-     * Establishes the connection to the store
+     * Establishes the connection to the store.
      */
     void connect();
 
     /**
-     * Closes the connection to the store
+     * Closes the connection to the store.
      */
     void close();
 

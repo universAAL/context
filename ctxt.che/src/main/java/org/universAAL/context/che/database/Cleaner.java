@@ -31,7 +31,7 @@ import org.universAAL.context.che.Hub;
 
 /**
  * This class is used to remove events from the store periodically, to avoid the
- * uncontrolled growth of the history
+ * uncontrolled growth of the history.
  * 
  * @author <a href="mailto:alfiva@itaca.upv.es">Alvaro Fides Valero</a>
  * 
@@ -48,13 +48,13 @@ public class Cleaner extends TimerTask {
     private Timer t;
 
     /**
-     * Main constructor
+     * Main constructor.
      * 
      * @param db
      *            The store
      */
-    public Cleaner(Backend db) {
-	this.db = db;
+    public Cleaner(Backend dbstore) {
+	this.db = dbstore;
     }
 
     /*
@@ -88,7 +88,7 @@ public class Cleaner extends TimerTask {
     }
 
     /**
-     * Auxiliary class used to perform the removal at a specified hour
+     * Auxiliary class used to perform the removal at a specified hour.
      * 
      * @author alfiva
      */

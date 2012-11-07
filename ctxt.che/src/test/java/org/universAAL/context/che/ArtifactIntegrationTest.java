@@ -33,12 +33,12 @@ import org.universAAL.ontology.che.ContextHistoryService;
  */
 public class ArtifactIntegrationTest extends IntegrationTest {
 
-    public static String NAMESPACE = "http://ontology.universAAL.org/Test.owl#";
-    public static String USER = NAMESPACE + "User";
-    public static String DUMMYUSER = NAMESPACE + "dummyUser";
-    public static String HAS_LOCATION = NAMESPACE + "hasLocation";
-    public static String LOCATION = NAMESPACE + "dummyLocation";
-    public static String DUMMYEVENT = "urn:org.universAAL.middleware.context.rdf:ContextEvent#_:0000000000000000:00";
+    public static final String NAMESPACE = "http://ontology.universAAL.org/Test.owl#";
+    public static final String USER = NAMESPACE + "User";
+    public static final String DUMMYUSER = NAMESPACE + "dummyUser";
+    public static final String HAS_LOCATION = NAMESPACE + "hasLocation";
+    public static final String LOCATION = NAMESPACE + "dummyLocation";
+    public static final String DUMMYEVENT = "urn:org.universAAL.middleware.context.rdf:ContextEvent#_:0000000000000000:00";
 
     private static final String HISTORY_CLIENT_NAMESPACE = "http://ontology.itaca.es/HistoryClient.owl#";
     private static final String OUTPUT_LIST_OF_EVENTS = HISTORY_CLIENT_NAMESPACE
@@ -256,7 +256,7 @@ public class ArtifactIntegrationTest extends IntegrationTest {
 	    MergedRestriction tstr1 = MergedRestriction
 		    .getFixedValueRestriction(
 			    ContextHistoryService.PROP_TIMESTAMP_FROM,
-			    new Long(tstFrom));
+			    Long.valueOf(tstFrom));
 	    getEvents.getRequestedService().addInstanceLevelRestriction(tstr1,
 		    new String[] { ContextHistoryService.PROP_TIMESTAMP_FROM });
 
@@ -264,7 +264,7 @@ public class ArtifactIntegrationTest extends IntegrationTest {
 	if (tstTo > 0) {
 	    MergedRestriction tstr2 = MergedRestriction
 		    .getFixedValueRestriction(
-			    ContextHistoryService.PROP_TIMESTAMP_TO, new Long(
+			    ContextHistoryService.PROP_TIMESTAMP_TO, Long.valueOf(
 				    tstTo));
 	    getEvents.getRequestedService().addInstanceLevelRestriction(tstr2,
 		    new String[] { ContextHistoryService.PROP_TIMESTAMP_TO });

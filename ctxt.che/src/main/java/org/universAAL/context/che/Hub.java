@@ -53,14 +53,33 @@ import org.universAAL.middleware.sodapop.msg.MessageContentSerializer;
  * 
  */
 public class Hub {
+    /**
+     * Logger.
+     */
     private static Log log = Hub.getLog(Hub.class);
 
+    /**
+     * Name of the config properties file.
+     */
     public static final String PROPS_FILE = "CHe.properties";
+    /**
+     * This is prepended to the above file.
+     */
     public static final String COMMENTS = "This file stores configuration "
 	    + "parameters for the Context History Entrepot";
 
+    /**
+     * Milliseconds in 24 hours.
+     */
+    private static final long HOURS24 = 86400000;
+    /**
+     * Config folder.
+     */
     private static File confHome = new File(
 	    new BundleConfigHome("ctxt.che").getAbsolutePath());
+    /**
+     * uAAL Module context.
+     */
     private static ModuleContext moduleContext = null;
 
     /**
@@ -84,10 +103,13 @@ public class Hub {
      */
     private Object fileLock = new Object();
     /**
-     * Turtle-uAAL parser
+     * Turtle-uAAL parser.
      */
     private MessageContentSerializer uAALParser;
 
+    /**
+     * Default constructor.
+     */
     public Hub() {
 	// Instantiate the store you want
 	try {
@@ -123,8 +145,9 @@ public class Hub {
 	this.chc = new ContextHistoryCallee(moduleContext, db);
 	// Every 24 hours do the "Cleaner thing" (see Cleaner class)
 	t = new Timer();
-	t.scheduleAtFixedRate(new Cleaner(db), 86400000, 86400000);
-	log.info("start", "Removal period will be checked in 24 hours from now");
+	t.scheduleAtFixedRate(new Cleaner(db), HOURS24, HOURS24);
+	log.info("start", "Removal period will be checked"
+		+ " in 24 hours from now");
 	// Sync Mobile Events. When platform can, sync when mobile arrives
 	log.debug("start", "Looking for mobile events to synchronize");
 	if (synchronizeMobileTurtle()) {
@@ -134,9 +157,13 @@ public class Hub {
 	}
     }
 
+    /**
+     * Create the OWL files for the registered ontologies, and put them in the
+     * config folder.
+     */
     private void createOWLFiles() {
-	File confHome = new File(
-		new BundleConfigHome("ctxt.che").getAbsolutePath());
+//	File confHome = new File(
+//		new BundleConfigHome("ctxt.che").getAbsolutePath());
 	File[] files = confHome.listFiles(new FilenameFilter() {
 	    public boolean accept(File dir, String name) {
 		return name.toLowerCase().endsWith(".owl");
@@ -153,8 +180,8 @@ public class Hub {
 	String[] ontURIs = manager.getOntoloyURIs();
 	for (int i = 0; i < ontURIs.length; i++) {
 	    String filename = ontURIs[i].replaceAll("[:/#]", ".");
-	    if (!filename.endsWith(".owl")){
-		filename+=".owl";
+	    if (!filename.endsWith(".owl")) {
+		filename += ".owl";
 	    }
 	    if (!names.contains(filename)) {
 		try {
@@ -207,8 +234,12 @@ public class Hub {
     public static synchronized void setProperties(final Properties prop) {
 	try {
 	    FileWriter out;
-	    if(!confHome.exists()){
-		confHome.mkdir();
+	    if (!confHome.exists()) {
+		if (!confHome.mkdir()) {
+		    log.error("setproperties",
+			    "Could not set properties file: {} ", null);
+		    return;
+		}
 	    }
 	    out = new FileWriter(new File(confHome, PROPS_FILE));
 	    prop.store(out, COMMENTS);
@@ -236,7 +267,8 @@ public class Hub {
 		    "Properties file does not exist; generating default...");
 	    prop.setProperty("STORE.IMPL",
 		    "org.universAAL.context.che.database.impl.SesameBackend");
-	    prop.setProperty("STORE.LOCATION", confHome.getAbsolutePath()+"/store");
+	    prop.setProperty("STORE.LOCATION", confHome.getAbsolutePath()
+		    + "/store");
 	    prop.setProperty("MOBILE.FILE", "Mobile-Events.txt");
 	    prop.setProperty("MOBILE.FLAG", "<!--CEv-->");
 	    prop.setProperty("RECYCLE.KEEP", "2"); // 2 months
@@ -275,7 +307,7 @@ public class Hub {
 			"Mobile events were last synchronized in "
 				+ lastKnownOf);
 		String readline = "";
-		String turtleIn = "";//TODO: Use string builder
+		String turtleIn = ""; //TODO: Use string builder
 		int count = 0;
 		long start = System.currentTimeMillis();
 		File fileref = new File(
@@ -292,7 +324,8 @@ public class Hub {
 			ev = (ContextEvent) uAALParser.deserialize(turtleIn);
 			if (lKO < ev.getTimestamp().longValue()) {
 			    log.debug("synchronizeMobileTurtle",
-				    "Parsed an event from Mobile file, storing in DB");
+				    "Parsed an event from Mobile "
+					    + "file, storing in DB");
 			    this.db.storeEvent(ev);
 			    count++;
 			}
@@ -317,8 +350,10 @@ public class Hub {
 			    "Could not delete the Mobile events file");
 		}
 	    } catch (FileNotFoundException e) {
-		log.warn("synchronizeMobileTurtle",
-			"Could not find the Mobile events file, synchronization will not take place: "
+		log.warn(
+			"synchronizeMobileTurtle",
+			"Could not find the Mobile events file,"
+				+ " synchronization will not take place: "
 				+ e.getMessage());
 		return false;
 	    } catch (Exception e) {
@@ -331,7 +366,7 @@ public class Hub {
     }
 
     /**
-     * Gets a Log helper class
+     * Gets a Log helper class.
      * 
      * @param cl
      *            Class that asks for a logger
@@ -347,6 +382,9 @@ public class Hub {
      * @author alfiva
      */
     public static class Log {
+	/**
+	 * Custom log helper.
+	 */
 	private Class logclass;
 
 	/**

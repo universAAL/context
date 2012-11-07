@@ -36,7 +36,13 @@ import org.universAAL.middleware.context.ContextSubscriber;
  * 
  */
 public class ContextHistorySubscriber extends ContextSubscriber {
+    /**
+     * The instance of the underlying store.
+     */
     private Backend db;
+    /**
+     * Logger.
+     */
     private static Log log = Hub.getLog(ContextHistorySubscriber.class);
 
     /**
@@ -47,10 +53,10 @@ public class ContextHistorySubscriber extends ContextSubscriber {
      * @param db
      *            The store
      */
-    public ContextHistorySubscriber(ModuleContext context, Backend db) {
+    public ContextHistorySubscriber(ModuleContext context, Backend dbstore) {
 	// My context event pattern is zero-restrictions (ALL)
 	super(context, new ContextEventPattern[] { new ContextEventPattern() });
-	this.db = db;
+	this.db = dbstore;
 	log.info("init", "CHe: Subscriber Ready");
     }
 

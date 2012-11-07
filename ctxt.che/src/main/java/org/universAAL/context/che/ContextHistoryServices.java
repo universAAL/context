@@ -192,7 +192,7 @@ public class ContextHistoryServices extends ContextHistoryService {
     }
 
     /**
-     * Main constructor
+     * Main constructor.
      * 
      * @param uri
      *            URI
@@ -201,10 +201,16 @@ public class ContextHistoryServices extends ContextHistoryService {
 	super(uri);
     }
     
+    /**
+     * Default constructor.
+     */
     public ContextHistoryServices() {
 	super();
     }
     
+    /* (non-Javadoc)
+     * @see org.universAAL.ontology.che.ContextHistoryService#getClassURI()
+     */
     public String getClassURI() {
 	return MY_URI;
     }

@@ -45,6 +45,9 @@ import org.universAAL.ontology.che.ContextEvent;
 public class ContextHistoryCallee extends ServiceCallee {
     private static final ServiceResponse INVALID_INPUT = new ServiceResponse(
 	    CallStatus.serviceSpecificFailure);
+    /**
+     * Logger.
+     */
     private static Log log = Hub.getLog(ContextHistoryCallee.class);
 
     /**
@@ -60,9 +63,9 @@ public class ContextHistoryCallee extends ServiceCallee {
      * @param db
      *            The store
      */
-    ContextHistoryCallee(ModuleContext context, Backend db) {
+    ContextHistoryCallee(ModuleContext context, Backend dbstore) {
 	super(context, ContextHistoryServices.PROFILES);
-	this.db = db;
+	this.db = dbstore;
     }
 
     /*
@@ -93,7 +96,6 @@ public class ContextHistoryCallee extends ServiceCallee {
 			    "Corrupt call"));
 	    return INVALID_INPUT;
 	}
-
 	String operation = call.getProcessURI();
 	if (operation == null) {
 	    INVALID_INPUT
@@ -102,11 +104,9 @@ public class ContextHistoryCallee extends ServiceCallee {
 			    "Corrupt call"));
 	    return INVALID_INPUT;
 	}
-
 	if (operation
 		.startsWith(ContextHistoryServices.SERVICE_DO_SPARQL_QUERY)) {
 	    log.info("handleCall", "Received call was SERVICE_DO_SPARQL_QUERY");
-
 	    Object input = call
 		    .getInputValue(ContextHistoryServices.INPUT_QUERY);
 	    if (input == null) {
@@ -116,12 +116,10 @@ public class ContextHistoryCallee extends ServiceCallee {
 		return INVALID_INPUT;
 	    }
 	    return execSPARQLQuery((String) input);
-
 	} else if (operation
 		.startsWith(ContextHistoryServices.SERVICE_GET_EVENTS_BY_SPARQL)) {
 	    log.info("handleCall",
 		    "Received call was SERVICE_GET_EVENTS_BY_SPARQL");
-
 	    Object input = call
 		    .getInputValue(ContextHistoryServices.INPUT_QUERY);
 	    if (input == null) {
@@ -130,15 +128,11 @@ public class ContextHistoryCallee extends ServiceCallee {
 			"Invalid input"));
 		return INVALID_INPUT;
 	    }
-
 	    return execSPARQLQueryForEvents((String) input);
-
 	} else {
-
 	    Object input = call
 		    .getInputValue(ContextHistoryServices.INPUT_EVENT);
 	    ContextEvent inputevent;
-
 	    if ((input == null) || (!(input instanceof ContextEvent))) {
 		INVALID_INPUT.addOutput(new ProcessOutput(
 			ServiceResponse.PROP_SERVICE_SPECIFIC_ERROR,
@@ -147,13 +141,11 @@ public class ContextHistoryCallee extends ServiceCallee {
 	    } else {
 		inputevent = (ContextEvent) input;
 	    }
-
 	    String sub, typ, pre;
 	    Object obj;
 	    Integer con;
 	    Long exp, tst;
 	    ContextProvider cop;
-
 	    sub = (inputevent.getSubjectURI() != null && !inputevent
 		    .getRDFSubject().isAnon()) ? inputevent.getSubjectURI()
 		    : null;
@@ -171,12 +163,10 @@ public class ContextHistoryCallee extends ServiceCallee {
 		    .getTimestamp() : null;
 	    cop = (inputevent.getProvider() != null) ? inputevent.getProvider()
 		    : null;
-
 	    if (operation
 		    .startsWith(ContextHistoryServices.SERVICE_GET_EVENTS_FROM_TIMESTAMP)) {
 		log.info("handleCall",
 			"Received call was SERVICE_GET_EVENTS_FROM_TIMESTAMP");
-
 		Object tstinput = call
 			.getInputValue(ContextHistoryServices.INPUT_TIMESTAMP_FROM);
 		Long tstinputValue = Long.valueOf("0");
@@ -195,9 +185,7 @@ public class ContextHistoryCallee extends ServiceCallee {
 		response.addOutput(new ProcessOutput(
 			ContextHistoryServices.OUTPUT_EVENTS, results));
 		return response;
-	    }
-
-	    else if (operation
+	    } else if (operation
 		    .startsWith(ContextHistoryServices.SERVICE_GET_EVENTS_TO_TIMESTAMP)) {
 		log.info("handleCall",
 			"Received call was SERVICE_GET_EVENTS_TO_TIMESTAMP");
@@ -219,9 +207,7 @@ public class ContextHistoryCallee extends ServiceCallee {
 		response.addOutput(new ProcessOutput(
 			ContextHistoryServices.OUTPUT_EVENTS, results));
 		return response;
-	    }
-
-	    else if (operation
+	    } else if (operation
 		    .startsWith(ContextHistoryServices.SERVICE_GET_EVENTS_BETWEEN_TIMESTAMPS)) {
 		log.info("handleCall",
 			"Received call was SERVICE_GET_EVENTS_BETWEEN_TIMESTAMPS");
@@ -256,7 +242,6 @@ public class ContextHistoryCallee extends ServiceCallee {
 			ContextHistoryServices.OUTPUT_EVENTS, results));
 		return response;
 	    }
-
 	}
 	INVALID_INPUT.addOutput(new ProcessOutput(
 		ServiceResponse.PROP_SERVICE_SPECIFIC_ERROR, "Invalid call"));

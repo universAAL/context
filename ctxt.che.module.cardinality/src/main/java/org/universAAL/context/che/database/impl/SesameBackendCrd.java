@@ -33,31 +33,38 @@ import org.universAAL.context.sesame.sail.CardinalityNativeStore;
  * Extension of {@link org.universAAL.context.che.database.impl.SesameBackend}
  * that uses a modified Sesame NativeStore that checks cardinality of stored
  * statements, according to OWL Lite (if maxCardinality is 1 only one single
- * value object is accepted)
+ * value object is accepted).
  * 
  * @author alfiva
  * 
  */
 public class SesameBackendCrd extends SesameBackend {
-    private final static Log log = Hub.getLog(SesameBackendCrd.class);
+    /**
+     * logger.
+     */
+    private static Log log = Hub.getLog(SesameBackendCrd.class);
 
     @Override
     public void connect() {
 	String dataPath = Hub.getProperties().getProperty("STORE.LOCATION");
-	boolean encrypt = Boolean.parseBoolean(Hub.getProperties().getProperty("STORE.ENCRYPT"));
+	boolean encrypt = Boolean.parseBoolean(Hub.getProperties().getProperty(
+		"STORE.ENCRYPT"));
 	// I use C:\Proyectos\UNIVERSAAL\ContextStore\Stores\SAIL_FCRDFS_Native
 	if (dataPath != null) {
 	    File dataDir = new File(dataPath);
-	    String indexes = "spoc,posc,cosp";// TODO: Change indexes (specially
-					      // if we dont use contexts)
+	    String indexes = "spoc,posc,cosp"; // TODO: Change indexes
+					       // (specially
+					       // if we dont use contexts)
 	    log.info("CHe connects to {} ", dataDir.toString());
 	    // TODO: Evaluate the inference, and study other reasoners, if any
 	    try {
 		myRepository = new SailRepository(
 			new ForwardChainingRDFSInferencer(
-				new CardinalityNativeStore(dataDir, indexes, encrypt)));
+				new CardinalityNativeStore(dataDir, indexes,
+					encrypt)));
 		myRepository.initialize();
-		if(Boolean.parseBoolean(Hub.getProperties().getProperty("STORE.PRELOAD"))){
+		if (Boolean.parseBoolean(Hub.getProperties().getProperty(
+			"STORE.PRELOAD"))) {
 		    this.populate();
 		}
 	    } catch (Exception e) {
@@ -66,11 +73,11 @@ public class SesameBackendCrd extends SesameBackend {
 		e.printStackTrace();
 	    }
 	} else {
-	    log.error(
-		    "connect",
-		    "No location specified for the store. "
-			    + "Add and specify the configuration parameter STORE.LOCATION "
-			    + "to the configuration file of the CHE pointing to a valid folder path.");
+	    log.error("connect", "No location specified for the store."
+		    + " Add and specify the configuration"
+		    + " parameter STORE.LOCATION to the "
+		    + "configuration file of the CHE pointing"
+		    + " to a valid folder path.");
 	}
     }
 

@@ -42,7 +42,13 @@ import org.universAAL.middleware.sodapop.msg.MessageContentSerializer;
 public class MobileHistorySubscriber extends ContextSubscriber {
     // I don´t want to make this non-private so remember if you change the name
     // to change it in the tests
+    /**
+     * The file where events are stored.
+     */
     private static final String FILE = "Mobile-Events.txt";
+    /**
+     * Config folder.
+     */
     private static File confHome = new File(new BundleConfigHome(
 	    "ctxt.che.mobile").getAbsolutePath());
 

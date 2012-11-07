@@ -1,10 +1,6 @@
 package org.universAAL.context.chemobile.test;
 
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
 
 import org.springframework.util.Assert;
 import org.universAAL.context.chemobile.osgi.Activator;
@@ -22,15 +18,15 @@ import org.universAAL.middleware.rdf.Resource;
 
 public class ArtifactIntegrationTest extends IntegrationTest {
 
-    public static String NAMESPACE = "http://ontology.universAAL.org/Test.owl#";
-    public static String USER = NAMESPACE + "User";
-    public static String DUMMYUSER = NAMESPACE + "dummyUser";
-    public static String HAS_LOCATION = NAMESPACE + "hasLocation";
-    public static String LOCATION = NAMESPACE + "dummyLocation";
-    public static String DUMMYEVENT = "urn:org.universAAL.middleware.context.rdf:ContextEvent#_:0000000000000000:00";
+    public static final String NAMESPACE = "http://ontology.universAAL.org/Test.owl#";
+    public static final String USER = NAMESPACE + "User";
+    public static final String DUMMYUSER = NAMESPACE + "dummyUser";
+    public static final String HAS_LOCATION = NAMESPACE + "hasLocation";
+    public static final String LOCATION = NAMESPACE + "dummyLocation";
+    public static final String DUMMYEVENT = "urn:org.universAAL.middleware.context.rdf:ContextEvent#_:0000000000000000:00";
 
     /**
-     * Test 1: Check all artifacts in the log
+     * Test 1: Check all artifacts in the log.
      */
     public void testComposite() {
 	logAllBundles();

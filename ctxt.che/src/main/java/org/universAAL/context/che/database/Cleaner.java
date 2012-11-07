@@ -50,7 +50,7 @@ public class Cleaner extends TimerTask {
     /**
      * Main constructor.
      * 
-     * @param dbstore
+     * @param db
      *            The store
      */
     public Cleaner(Backend dbstore) {
@@ -93,6 +93,7 @@ public class Cleaner extends TimerTask {
      * @author alfiva
      */
     private class Punctual extends TimerTask {
+	//TODO: Make this class static
 	/**
 	 * The store.
 	 */
@@ -114,7 +115,7 @@ public class Cleaner extends TimerTask {
 	 * @see java.util.TimerTask#run()
 	 */
 	public void run() {
-	    // This happens only when it's time to remove
+	    // This happens only when it´s time to remove
 	    int keep = Integer.parseInt(Hub.getProperties().getProperty(
 		    "RECYCLE.KEEP", "2"));
 	    if (keep <= 0) {

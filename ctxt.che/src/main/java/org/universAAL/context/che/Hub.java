@@ -235,11 +235,7 @@ public class Hub {
 	try {
 	    FileWriter out;
 	    if (!confHome.exists()) {
-		if (!confHome.mkdir()) {
-		    log.error("setproperties",
-			    "Could not set properties file: {} ", null);
-		    return;
-		}
+		confHome.mkdir();
 	    }
 	    out = new FileWriter(new File(confHome, PROPS_FILE));
 	    prop.store(out, COMMENTS);

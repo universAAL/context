@@ -36,7 +36,11 @@ ctxt.che/src/main/java/org/universAAL/context/che/database/Backend.java -text
 ctxt.che/src/main/java/org/universAAL/context/che/database/Cleaner.java -text
 ctxt.che/src/main/java/org/universAAL/context/che/database/impl/SesameBackend.java -text
 ctxt.che/src/main/java/org/universAAL/context/che/database/impl/SesameBackendWithConfidence.java -text
+ctxt.che/src/main/java/org/universAAL/context/che/database/impl/package.html -text
+ctxt.che/src/main/java/org/universAAL/context/che/database/package.html -text
 ctxt.che/src/main/java/org/universAAL/context/che/osgi/Activator.java -text
+ctxt.che/src/main/java/org/universAAL/context/che/osgi/package.html -text
+ctxt.che/src/main/java/org/universAAL/context/che/package.html -text
 ctxt.che/src/test/java/org/universAAL/context/che/ArtifactIntegrationTest.java -text
 ctxt.gen.reasoner/EXCEPTIONS-CONNECTOR-J -text
 ctxt.gen.reasoner/LICENSE-BSD-Jena.txt -text

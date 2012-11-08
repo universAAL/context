@@ -50,7 +50,7 @@ public class ContextHistorySubscriber extends ContextSubscriber {
      * 
      * @param context
      *            The uaal module context
-     * @param dbstore
+     * @param db
      *            The store
      */
     public ContextHistorySubscriber(ModuleContext context, Backend dbstore) {

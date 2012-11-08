@@ -3,15 +3,15 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <modelVersion>4.0.0</modelVersion>
   <parent>
-    <groupId>org.universAAL.context</groupId>
     <artifactId>ctxt.pom</artifactId>
-    <version>2.0.3-SNAPSHOT</version>
+    <groupId>org.universAAL.context</groupId>
+    <version>1.2.1-SNAPSHOT</version>
     <relativePath>../pom/pom.xml</relativePath>
   </parent>
   <artifactId>ctxt.prof.server</artifactId>
-  <version>2.0.3-SNAPSHOT</version>
+  <version>1.2.1-SNAPSHOT</version>
   <packaging>bundle</packaging>
-  <name>universAAL Context Profiling Server</name>
+  <name>Profiling Server</name>
   <description>uAAL Profiling server providing services for profile edition</description>
   <inceptionYear>2012</inceptionYear>
   <organization>
@@ -26,13 +26,48 @@
     </license>
   </licenses>
   <scm>
-    <connection>${svn.base}/${project.artifactId}</connection>
-    <developerConnection>${svn.base}/${project.artifactId}</developerConnection>
-    <url>${svn.base.url}${project.artifactId}</url>
+    <connection>${svn.base}/${artifactId}</connection>
+    <developerConnection>${svn.base}/${artifactId}</developerConnection>
+    <url>${svn.base.url}${artifactId}</url>
   </scm>
-  <properties>
-    <maven.test.skip>true</maven.test.skip>
-  </properties>
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.felix</groupId>
+        <artifactId>maven-bundle-plugin</artifactId>
+        <configuration>
+          <instructions>
+            <Bundle-Name>${project.name}</Bundle-Name>
+            <Bundle-Activator>org.universAAL.context.prof.serv.Activator</Bundle-Activator>
+            <Bundle-Description>${project.description}</Bundle-Description>
+            <Bundle-SymbolicName>${project.artifactId}</Bundle-SymbolicName>
+          </instructions>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+  <repositories>
+    <repository>
+      <snapshots>
+        <enabled>false</enabled>
+      </snapshots>
+      <id>sesame</id>
+      <name>Open RDF Sesame Repository</name>
+      <url>http://repo.aduna-software.org/maven2/releases/</url>
+    </repository>
+  </repositories>
+  <pluginRepositories>
+    <pluginRepository>
+      <id>uaal-snapshots</id>
+      <name>universAAL Snapshot Repositories</name>
+      <url>http://depot.universaal.org/maven-repo/snapshots/</url>
+    </pluginRepository>
+    <pluginRepository>
+      <id>uaal</id>
+      <name>universAAL Repositories</name>
+      <url>http://depot.universaal.org/maven-repo/releases/</url>
+    </pluginRepository>
+  </pluginRepositories>
   <dependencies>
     <dependency>
       <groupId>org.universAAL.support</groupId>
@@ -76,49 +111,11 @@
       <groupId>org.universAAL.ontology</groupId>
       <artifactId>ont.che</artifactId>
     </dependency>
-    <!-- <dependency>
-      <groupId>org.universAAL.ontology</groupId>
-      <artifactId>ont.profile.userid</artifactId>
-    </dependency>-->
   </dependencies>
-  <repositories>
-    <repository>
-      <snapshots>
-        <enabled>false</enabled>
-      </snapshots>
-      <id>sesame</id>
-      <name>Open RDF Sesame Repository</name>
-      <url>http://repo.aduna-software.org/maven2/releases/</url>
-    </repository>
-  </repositories>
-  <pluginRepositories>
-    <pluginRepository>
-      <id>uaal-snapshots</id>
-      <name>universAAL Snapshot Repositories</name>
-      <url>http://depot.universaal.org/maven-repo/snapshots/</url>
-    </pluginRepository>
-    <pluginRepository>
-      <id>uaal</id>
-      <name>universAAL Repositories</name>
-      <url>http://depot.universaal.org/maven-repo/releases/</url>
-    </pluginRepository>
-  </pluginRepositories>
-  <build>
-    <plugins>
-      <plugin>
-        <groupId>org.apache.felix</groupId>
-        <artifactId>maven-bundle-plugin</artifactId>
-        <configuration>
-          <instructions>
-            <Bundle-Name>${project.name}</Bundle-Name>
-            <Bundle-Activator>org.universAAL.context.prof.serv.osgi.Activator</Bundle-Activator>
-            <Bundle-Description>${project.description}</Bundle-Description>
-            <Bundle-SymbolicName>${project.artifactId}</Bundle-SymbolicName>
-          </instructions>
-        </configuration>
-      </plugin>
-    </plugins>
-  </build>
+  <properties>
+    <maven.compile.source>1.5</maven.compile.source>
+    <maven.compile.target>1.5</maven.compile.target>
+  </properties>
   <profiles>
     <profile>
       <id>uAAL-Runtime</id>
@@ -130,5 +127,5 @@
         </dependency>
       </dependencies>
     </profile>
-  </profiles>
+  </profiles>  
 </project>

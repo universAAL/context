@@ -50,7 +50,7 @@ public class Cleaner extends TimerTask {
     /**
      * Main constructor.
      * 
-     * @param db
+     * @param dbstore
      *            The store
      */
     public Cleaner(Backend dbstore) {

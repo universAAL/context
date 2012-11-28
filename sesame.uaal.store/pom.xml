@@ -10,7 +10,7 @@
 	<artifactId>sesame.uaal.store</artifactId>
 	<version>0.2.1-SNAPSHOT</version>
 
-	<name>universAAL Sesame SAIL for OWL Lite</name>
+	<name>universAAL Context Sesame SAIL for OWL Lite</name>
 	<description>Sesame SAIL that realizes the cardinality of properties, according to OWL Lite</description>
 
 	<properties>

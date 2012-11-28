@@ -11,7 +11,7 @@
   <artifactId>ctxt.che</artifactId>
   <version>1.2.2-SNAPSHOT</version>
   <packaging>bundle</packaging>
-  <name>Context History Entrepot</name>
+  <name>universAAL Context CHE - Context History Entrepot</name>
   <description>The component managing the history of all context events published to the context bus.</description>
   <inceptionYear>2008</inceptionYear>
   <organization>
@@ -28,9 +28,9 @@
     </license>
   </licenses>
   <scm>
-    <connection>${svn.base}/${artifactId}</connection>
-    <developerConnection>${svn.base}/${artifactId}</developerConnection>
-    <url>${svn.base.url}${artifactId}</url>
+    <connection>${svn.base}/${project.artifactId}</connection>
+    <developerConnection>${svn.base}/${project.artifactId}</developerConnection>
+    <url>${svn.base.url}${project.artifactId}</url>
   </scm>
   <build>
     <plugins>

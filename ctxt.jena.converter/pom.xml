@@ -11,7 +11,7 @@
   <artifactId>ctxt.jena.converter</artifactId>
   <version>1.1.3-SNAPSHOT</version>
   <packaging>bundle</packaging>
-  <name>jena.model_converter</name>
+  <name>universAAL Context jena.model_converter</name>
   <description>The module for converting the representation of resources from PERSONA to Jena and vice versa.</description>
   <inceptionYear>2008</inceptionYear>
   <organization>

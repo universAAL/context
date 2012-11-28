@@ -9,7 +9,7 @@
 	</parent>
 	<artifactId>ctxt.che.module.cardinality</artifactId>
 	<version>0.5.0-SNAPSHOT</version>
-	<name>CHE - Module for Sesame store with cardinality</name>
+	<name>universAAL Context CHE - Module for Sesame store with cardinality</name>
 	<description>This is a bundle fragment module for ctxt.che. It allows the usage of additional store engines enabling cardinality reasoning, confidence and encryption</description>
 	<packaging>bundle</packaging>
 

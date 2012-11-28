@@ -15,7 +15,7 @@
 
 	<!-- ______________________________________________________ -->
 
-	<name>AAL Space Configuration Tool</name>
+	<name>universAAL Context AAL Space Configuration Tool</name>
 	<description />
 	<licenses />
 	<developers />
@@ -159,8 +159,8 @@
 	<!-- ______________________________________________________ -->
 
 	<scm>
-		<connection>${svn.base}/${artifactId}</connection>
-		<developerConnection>${svn.base}/${artifactId}</developerConnection>
-		<url>${svn.base.url}${artifactId}</url>
+		<connection>${svn.base}/${project.artifactId}</connection>
+		<developerConnection>${svn.base}/${project.artifactId}</developerConnection>
+		<url>${svn.base.url}${project.artifactId}</url>
 	</scm>
 </project>

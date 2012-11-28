@@ -11,7 +11,7 @@
   <artifactId>ctxt.prof.server</artifactId>
   <version>1.2.1-SNAPSHOT</version>
   <packaging>bundle</packaging>
-  <name>Profiling Server</name>
+  <name>universAAL Context Profiling Server</name>
   <description>uAAL Profiling server providing services for profile edition</description>
   <inceptionYear>2012</inceptionYear>
   <organization>
@@ -26,9 +26,9 @@
     </license>
   </licenses>
   <scm>
-    <connection>${svn.base}/${artifactId}</connection>
-    <developerConnection>${svn.base}/${artifactId}</developerConnection>
-    <url>${svn.base.url}${artifactId}</url>
+    <connection>${svn.base}/${project.artifactId}</connection>
+    <developerConnection>${svn.base}/${project.artifactId}</developerConnection>
+    <url>${svn.base.url}${project.artifactId}</url>
   </scm>
   <build>
     <plugins>
@@ -115,6 +115,7 @@
   <properties>
     <maven.compile.source>1.5</maven.compile.source>
     <maven.compile.target>1.5</maven.compile.target>
+    <maven.test.skip>true</maven.test.skip>
   </properties>
   <profiles>
     <profile>

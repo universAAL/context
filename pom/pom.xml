@@ -11,7 +11,7 @@
   <artifactId>ctxt.pom</artifactId>
   <version>1.2.1-SNAPSHOT</version>
   <packaging>pom</packaging>
-  <name>universAAL context Suite</name>
+  <name>universAAL Context Suite</name>
   <description>The set of artefacts defining the universAAL context tools.</description>
   <inceptionYear>2010</inceptionYear>
   <scm>
@@ -22,12 +22,12 @@
   <modules>
     <module>../ctxt.che</module>
     <module>../ctxt.che.mobile</module>
-    <module>../ctxt.prof.server</module>
     <module>../ctxt.che.module.cardinality</module>
     <module>../sesame.uaal.store</module>
     <module>../ctxt.situation.reasoner</module>
     <module>../ctxt.situation.reasoner.client</module>
     <module>../ctxt.situation.reasoner.client.example</module>
+    <module>../ctxt.prof.server</module>
   </modules>
   <repositories>
     <repository>

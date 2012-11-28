@@ -3,13 +3,13 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <modelVersion>4.0.0</modelVersion>
   <parent>
-    <artifactId>ctxt.pom</artifactId>
     <groupId>org.universAAL.context</groupId>
-    <version>1.2.1-SNAPSHOT</version>
+    <artifactId>ctxt.pom</artifactId>
+    <version>1.3.1-SNAPSHOT</version>
     <relativePath>../pom/pom.xml</relativePath>
   </parent>
   <artifactId>ctxt.che.mobile</artifactId>
-  <version>1.2.1-SNAPSHOT</version>
+  <version>1.3.1-SNAPSHOT</version>
   <packaging>bundle</packaging>
   <name>universAAL Context CHE - Context History Entrepot for Mobile</name>
   <description>The mobile version of the component managing the history of all context events published to the PERSONA context bus.</description>
@@ -30,35 +30,6 @@
     <developerConnection>${svn.base}/${project.artifactId}</developerConnection>
     <url>${svn.base.url}${project.artifactId}</url>
   </scm>
-  <build>
-    <plugins>
-      <plugin>
-        <groupId>org.apache.felix</groupId>
-        <artifactId>maven-bundle-plugin</artifactId>
-        <configuration>
-          <instructions>
-            <Bundle-Name>${project.name}</Bundle-Name>
-            <Bundle-Activator>org.universAAL.context.chemobile.osgi.Activator</Bundle-Activator>
-            <Bundle-Description>${project.description}</Bundle-Description>
-            <Bundle-SymbolicName>${project.artifactId}</Bundle-SymbolicName>
-            <Private-Package>org.universAAL.context.chemobile</Private-Package>
-          </instructions>
-        </configuration>
-      </plugin>
-    </plugins>
-  </build>
-  <pluginRepositories>
-    <pluginRepository>
-      <id>uaal-snapshots</id>
-      <name>universAAL Snapshot Repositories</name>
-      <url>http://depot.universaal.org/maven-repo/snapshots/</url>
-    </pluginRepository>
-    <pluginRepository>
-      <id>uaal</id>
-      <name>universAAL Repositories</name>
-      <url>http://depot.universaal.org/maven-repo/releases/</url>
-    </pluginRepository>
-  </pluginRepositories>
   <dependencies>
     <dependency>
       <groupId>org.universAAL.support</groupId>
@@ -94,4 +65,33 @@
       <artifactId>mw.bus.context.osgi</artifactId>
     </dependency>
   </dependencies>
+  <pluginRepositories>
+    <pluginRepository>
+      <id>uaal-snapshots</id>
+      <name>universAAL Snapshot Repositories</name>
+      <url>http://depot.universaal.org/maven-repo/snapshots/</url>
+    </pluginRepository>
+    <pluginRepository>
+      <id>uaal</id>
+      <name>universAAL Repositories</name>
+      <url>http://depot.universaal.org/maven-repo/releases/</url>
+    </pluginRepository>
+  </pluginRepositories>
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.felix</groupId>
+        <artifactId>maven-bundle-plugin</artifactId>
+        <configuration>
+          <instructions>
+            <Bundle-Name>${project.name}</Bundle-Name>
+            <Bundle-Activator>org.universAAL.context.chemobile.osgi.Activator</Bundle-Activator>
+            <Bundle-Description>${project.description}</Bundle-Description>
+            <Bundle-SymbolicName>${project.artifactId}</Bundle-SymbolicName>
+            <Private-Package>org.universAAL.context.chemobile</Private-Package>
+          </instructions>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
 </project>

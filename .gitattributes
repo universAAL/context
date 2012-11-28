@@ -11,6 +11,17 @@ ctxt.che.mobile/src/main/java/org/universAAL/context/chemobile/osgi/Activator.ja
 ctxt.che.mobile/src/main/java/org/universAAL/context/chemobile/osgi/package.html -text
 ctxt.che.mobile/src/main/java/org/universAAL/context/chemobile/package.html -text
 ctxt.che.mobile/src/test/java/org/universAAL/context/chemobile/test/ArtifactIntegrationTest.java -text
+ctxt.che.module.cardinality/ASL2.0.txt -text
+ctxt.che.module.cardinality/LICENSE-Aduna-OpenRDF.txt -text
+ctxt.che.module.cardinality/MITX.txt -text
+ctxt.che.module.cardinality/NOTICE.txt -text
+ctxt.che.module.cardinality/pom.xml -text
+ctxt.che.module.cardinality/src/main/java/org/universAAL/context/che/database/impl/SesameBackendCrd.java -text
+ctxt.che.module.cardinality/src/main/java/org/universAAL/context/che/database/impl/SesameBackendCrdClc.java -text
+ctxt.che.module.cardinality/src/main/java/org/universAAL/context/che/database/impl/SesameBackendCrdClc2.java -text
+ctxt.che.module.cardinality/src/main/java/org/universAAL/context/che/database/impl/SesameBackendCrdClc2Cnf.java -text
+ctxt.che.module.cardinality/src/main/java/org/universAAL/context/che/database/impl/SesameBackendCrdClcCnf.java -text
+ctxt.che.module.cardinality/src/main/java/org/universAAL/context/che/database/impl/SesameBackendCrdCnf.java -text
 ctxt.che/ASL2.0.txt -text
 ctxt.che/LICENSE-Aduna-OpenRDF.txt -text
 ctxt.che/LICENSE-CPL-JUnit.txt -text

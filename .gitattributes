@@ -43,6 +43,12 @@ ctxt.che/src/main/java/org/universAAL/context/che/osgi/Activator.java -text
 ctxt.che/src/main/java/org/universAAL/context/che/osgi/package.html -text
 ctxt.che/src/main/java/org/universAAL/context/che/package.html -text
 ctxt.che/src/test/java/org/universAAL/context/che/ArtifactIntegrationTest.java -text
+ctxt.situation.reasoner.client.example/pom.xml -text
+ctxt.situation.reasoner.client.example/src/main/java/org/universaal/reasoner/client/example/QueryCreatorFrame.java -text
+ctxt.situation.reasoner.client.example/src/main/java/org/universaal/reasoner/client/example/ReasoningGUI.java -text
+ctxt.situation.reasoner.client.example/src/main/java/org/universaal/reasoner/client/example/RuleCreatorFrame.java -text
+ctxt.situation.reasoner.client.example/src/main/java/org/universaal/reasoner/client/example/SituationCreatorFrame.java -text
+ctxt.situation.reasoner.client.example/src/main/java/org/universaal/reasoner/client/example/osgi/Activator.java -text
 ctxt.situation.reasoner.client/pom.xml -text
 ctxt.situation.reasoner.client/src/main/java/org/universaal/reasoner/client/CHECaller.java -text
 ctxt.situation.reasoner.client/src/main/java/org/universaal/reasoner/client/ContextEventRecorder.java -text

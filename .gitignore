@@ -63,6 +63,10 @@ ctxt.situation.reasoner-1.2.1-SNAPSHOT/.classpath
 ctxt.situation.reasoner-1.2.1-SNAPSHOT/.project
 ctxt.situation.reasoner-1.2.1-SNAPSHOT/.settings
 ctxt.situation.reasoner-1.2.1-SNAPSHOT/target
+ctxt.situation.reasoner.client-1.2.1-SNAPSHOT/.classpath
+ctxt.situation.reasoner.client-1.2.1-SNAPSHOT/.project
+ctxt.situation.reasoner.client-1.2.1-SNAPSHOT/.settings
+ctxt.situation.reasoner.client-1.2.1-SNAPSHOT/target
 pom-1.0.1-SNAPSHOT/.project
 pom-1.0.1-SNAPSHOT/.settings
 pom-1.0.1-SNAPSHOT/target

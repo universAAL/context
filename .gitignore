@@ -11,6 +11,10 @@ ctxt.che/.project
 ctxt.che/.settings
 ctxt.che/target
 ctxt.che/uAAL.log
+ctxt.situation.reasoner/.classpath
+ctxt.situation.reasoner/.project
+ctxt.situation.reasoner/.settings
+ctxt.situation.reasoner/target
 pom/.project
 pom/.settings
 pom/target

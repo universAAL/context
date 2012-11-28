@@ -23,6 +23,10 @@ ctxt.che.mobile-1.2.1-SNAPSHOT/.classpath
 ctxt.che.mobile-1.2.1-SNAPSHOT/.project
 ctxt.che.mobile-1.2.1-SNAPSHOT/.settings
 ctxt.che.mobile-1.2.1-SNAPSHOT/target
+ctxt.che.module.cardinality-0.5.0-SNAPSHOT/.classpath
+ctxt.che.module.cardinality-0.5.0-SNAPSHOT/.project
+ctxt.che.module.cardinality-0.5.0-SNAPSHOT/.settings
+ctxt.che.module.cardinality-0.5.0-SNAPSHOT/target
 ctxt.jena.converter-1.0.1-SNAPSHOT/.classpath
 ctxt.jena.converter-1.0.1-SNAPSHOT/.project
 ctxt.jena.converter-1.0.1-SNAPSHOT/.settings

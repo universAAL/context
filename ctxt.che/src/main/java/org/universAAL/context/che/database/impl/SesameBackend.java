@@ -40,7 +40,7 @@ import org.universAAL.middleware.container.osgi.util.BundleConfigHome;
 import org.universAAL.middleware.context.ContextEvent;
 import org.universAAL.middleware.context.owl.ContextProvider;
 import org.universAAL.middleware.rdf.Resource;
-import org.universAAL.middleware.serialization.MessageContentSerializer;
+import org.universAAL.middleware.sodapop.msg.MessageContentSerializer;
 import org.openrdf.OpenRDFException;
 import org.openrdf.model.URI;
 import org.openrdf.model.Value;
@@ -93,7 +93,7 @@ public class SesameBackend implements Backend {
      * If true cleans the store when stopped.
      */
     private static final boolean DEBUG_DB = Boolean.parseBoolean(Hub
-	    .getProperties().getProperty("RECYCLE.DEBUG", "false"));
+	    .getProperties().getProperty("RECYCLE.DEBUG", "true"));
     /**
      * Constants to identify SPARQL queries.
      */
@@ -105,12 +105,12 @@ public class SesameBackend implements Backend {
      * 
      * @see org.universAAL.context.che.database.Backend#connect()
      */
-    synchronized public void connect() {
+    public void connect() {
 	String dataPath = Hub.getProperties().getProperty("STORE.LOCATION");
 	// I use C:/Proyectos/UNIVERSAAL/ContextStore/Stores/SAIL_FCRDFS_Native
 	if (dataPath != null) {
 	    File dataDir = new File(dataPath);
-	    String indexes = "spoc,posc,cosp";
+	    String indexes = "spoc,posc,cosp"; 
 	    // TODO: Change indexes (specially if we dont use contexts)
 	    log.info("CHe connects to {} ", dataDir.toString());
 	    // TODO: Study other reasoners, if any
@@ -136,8 +136,13 @@ public class SesameBackend implements Backend {
 	}
     }
     
-    /* (non-Javadoc)
-     * @see org.universAAL.context.che.database.Backend#populate()
+    /**
+     * Fills the initial store with the OWL data of the ontologies from the OWL
+     * files in the config folder (or registered in the system).
+     * 
+     * @throws RepositoryException
+     * @throws RDFParseException
+     * @throws IOException
      */
     public void populate() throws RepositoryException, RDFParseException,
 	    IOException {
@@ -196,7 +201,7 @@ public class SesameBackend implements Backend {
      * org.universAAL.context.che.database.Backend#storeEvent(org.universAAL
      * .middleware.context.ContextEvent)
      */
-    synchronized public void storeEvent(ContextEvent e) {
+    public void storeEvent(ContextEvent e) {
 	try {
 	    RepositoryConnection con = myRepository.getConnection();
 	    try {
@@ -228,7 +233,7 @@ public class SesameBackend implements Backend {
      * @see
      * org.universAAL.context.che.database.Backend#queryBySPARQL(java.lang.String)
      */
-    synchronized public String queryBySPARQL(String input) {
+    public String queryBySPARQL(String input) {
 	log.debug("queryBySPARQL", "queryBySPARQL");
 	String result = null;
 	try {
@@ -313,7 +318,7 @@ public class SesameBackend implements Backend {
      * org.universAAL.context.che.database.Backend#retrieveEventsBySPARQL(java
      * .lang.String)
      */
-    synchronized public ArrayList retrieveEventsBySPARQL(String input) {
+    public ArrayList retrieveEventsBySPARQL(String input) {
 	log.debug("retrieveEventsBySPARQL", "retrieveEventsBySPARQL");
 	ArrayList solution = new ArrayList();
 	try {
@@ -450,7 +455,7 @@ public class SesameBackend implements Backend {
      * 
      * @see org.universAAL.context.che.database.Backend#removeOldEvents(long)
      */
-    synchronized public void removeOldEvents(long tst) {
+    public void removeOldEvents(long tst) {
 	log.debug("removeOldEvents", "removeOldEvents stored before: " + tst);
 	String removeQuery = "DELETE { ?s ?p ?o } "
 		+ "WHERE"
@@ -584,7 +589,7 @@ public class SesameBackend implements Backend {
 	if (confidence != null) {
 	    query.append(" <http://ontology.universAAL.org/Context.owl#hasConfidence> \""
 		    + confidence
-		    + "\"^^<http://www.w3.org/2001/XMLSchema#int> ; \n");
+		    + "\"^^<http://www.w3.org/2001/XMLSchema#integer> ; \n");
 	}
 	if (expiration != null) {
 	    query.append(" <http://ontology.universAAL.org/Context.owl#hasExpirationTime> \""
@@ -658,7 +663,7 @@ public class SesameBackend implements Backend {
 	    return "<" + ((Resource) obj).getURI() + ">";
 	} else if (obj instanceof Integer) {
 	    return "\"" + ((Integer) obj).toString()
-		    + "\"^^<http://www.w3.org/2001/XMLSchema#int>";
+		    + "\"^^<http://www.w3.org/2001/XMLSchema#integer>";
 	} else if (obj instanceof Float) {
 	    return "\"" + ((Float) obj).toString()
 		    + "\"^^<http://www.w3.org/2001/XMLSchema#float>";

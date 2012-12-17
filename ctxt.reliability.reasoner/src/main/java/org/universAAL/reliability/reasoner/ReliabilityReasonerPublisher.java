@@ -15,7 +15,7 @@ package org.universAAL.reliability.reasoner;
  limitations under the License.
 
  * @author <a href="mailto:abu.sadat@uni-siegen.de">Rubaiyat Sadat</a>
- *	       Â©2012
+ *	       ©2012
  */
 import org.universAAL.middleware.container.ModuleContext;
 import org.universAAL.middleware.context.ContextEvent;
@@ -52,7 +52,7 @@ public class ReliabilityReasonerPublisher extends ContextPublisher {
 	((ContextEventPattern) myContextEventPattern)
 		.addRestriction(MergedRestriction.getAllValuesRestriction(
 			ContextEvent.PROP_RDF_SUBJECT, Fault.MY_URI));
-	myContextProvider.setType(ContextProviderType.reasoner);
+	myContextProvider.setType(ContextProviderType.controller);
 	ContextEventPattern[] myEvents = null;
 	myContextProvider.setProvidedEvents(myEvents);
 	return myContextProvider;

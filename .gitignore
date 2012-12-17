@@ -27,6 +27,7 @@ ctxt.prof.server/.project
 ctxt.prof.server/.settings
 ctxt.prof.server/target
 ctxt.prof.server/uAAL.log
+ctxt.reliability.reasoner/target
 ctxt.situation.reasoner.client.example/.classpath
 ctxt.situation.reasoner.client.example/.project
 ctxt.situation.reasoner.client.example/.settings

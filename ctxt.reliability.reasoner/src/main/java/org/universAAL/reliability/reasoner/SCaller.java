@@ -36,7 +36,6 @@ import org.universAAL.middleware.service.ServiceRequest;
 import org.universAAL.middleware.service.ServiceResponse;
 import org.universAAL.middleware.service.owls.process.ProcessOutput;
 import org.universAAL.middleware.sodapop.msg.MessageContentSerializerEx;
-import org.universAAL.mini.reasoner.Activator;
 import org.universAAL.ontology.che.ContextHistoryService;
 
 
@@ -81,10 +80,10 @@ public class SCaller extends ServiceCaller {
 	    if (event != null) {
 		event.setTimestamp(new Long(System.currentTimeMillis()));
 		if (event.isWellFormed() && event.getSubjectTypeURI() != null) {
-		    Activator.cpublisher.publish(event);
+		    ReliabilityReasonerActivator.cpublisher.publish(event);
 		} else {
 		    LogUtils.logError(
-			    Activator.context,
+			    ReliabilityReasonerActivator.context,
 			    SCaller.class,
 			    "executeQuery",
 			    new Object[] { "Invalid CONSTRUCT query associated to "
@@ -94,7 +93,7 @@ public class SCaller extends ServiceCaller {
 		}
 	    } else {
 		LogUtils.logError(
-			Activator.context,
+			ReliabilityReasonerActivator.context,
 			SCaller.class,
 			"executeQuery",
 			new Object[] { "Invalid CONSTRUCT query associated to "
@@ -103,7 +102,7 @@ public class SCaller extends ServiceCaller {
 			null);
 	    }
 	} else {
-	    LogUtils.logWarn(Activator.context, SCaller.class, "executeQuery",
+	    LogUtils.logWarn(ReliabilityReasonerActivator.context, SCaller.class, "executeQuery",
 		    new Object[] { "Triggered evaluation of situation, "
 			    + "but not found" }, null);
 	}
@@ -124,20 +123,20 @@ public class SCaller extends ServiceCaller {
 			OUTPUT_RESULT_STRING);
 		// Uncomment this line if you want to show the raw results. Do
 		// this for CONSTRUCT, ASK or DESCRIBE
-		LogUtils.logInfo(Activator.context, SCaller.class,
+		LogUtils.logInfo(ReliabilityReasonerActivator.context, SCaller.class,
 			"callDoSPARQL",
 			new Object[] { "Result of SPARQL query was:\n"
 				+ result }, null);
 		return result;
 	    } catch (Exception e) {
-		LogUtils.logInfo(Activator.context, SCaller.class,
+		LogUtils.logInfo(ReliabilityReasonerActivator.context, SCaller.class,
 			"callDoSPARQL",
 			new Object[] { "Mini Reasoner: Result corrupt!" }, e);
 		return "";
 	    }
 	} else
 	    LogUtils.logInfo(
-		    Activator.context,
+		    ReliabilityReasonerActivator.context,
 		    SCaller.class,
 		    "callDoSPARQL",
 		    new Object[] { "Mini Reasoner: status of callDoSPARQL(): "
@@ -181,7 +180,7 @@ public class SCaller extends ServiceCaller {
     private Object getReturnValue(List outputs, String expectedOutput) {
 	Object returnValue = null;
 	if (outputs == null)
-	    LogUtils.logInfo(Activator.context, SCaller.class,
+	    LogUtils.logInfo(ReliabilityReasonerActivator.context, SCaller.class,
 		    "getReturnValue",
 		    new Object[] { "History Client: No events found!" }, null);
 	else
@@ -192,13 +191,13 @@ public class SCaller extends ServiceCaller {
 			returnValue = output.getParameterValue();
 		    else
 			LogUtils.logInfo(
-				Activator.context,
+				ReliabilityReasonerActivator.context,
 				SCaller.class,
 				"getReturnValue",
 				new Object[] { "History Client: redundant return value!" },
 				null);
 		else
-		    LogUtils.logInfo(Activator.context, SCaller.class,
+		    LogUtils.logInfo(ReliabilityReasonerActivator.context, SCaller.class,
 			    "getReturnValue",
 			    new Object[] { "History Client - output ignored: "
 				    + output.getURI() }, null);

@@ -49,18 +49,15 @@ public class ReliabilityReasonerSubscriber extends ContextSubscriber {
 	cep.addRestriction(MergedRestriction.getAllValuesRestriction(
 		ContextEvent.PROP_RDF_SUBJECT, Fault.MY_URI));
 
-	String myID = null;// this ID has to be mapped to my prod
-
-	MergedRestriction r = MergedRestriction.getAllValuesRestriction(
-		myID,
+	MergedRestriction r = 
 		MergedRestriction.getFixedValueRestriction(
 			ContextProvider.PROP_CONTEXT_PROVIDER_TYPE,
-			ContextProviderType.reasoner).appendTo(
+			ContextProviderType.gauge).appendTo(
 			MergedRestriction.getAllValuesRestriction(
 				ContextEvent.PROP_CONTEXT_PROVIDER,
 				ContextProvider.MY_URI),
 			new String[] { ContextEvent.PROP_CONTEXT_PROVIDER,
-				ContextProvider.PROP_CONTEXT_PROVIDER_TYPE }));
+				ContextProvider.PROP_CONTEXT_PROVIDER_TYPE });
 	cep.addRestriction((MergedRestriction) r);
 
 	// HashMap contextMap = (HashMap) context.getAttribute(myID);//depends

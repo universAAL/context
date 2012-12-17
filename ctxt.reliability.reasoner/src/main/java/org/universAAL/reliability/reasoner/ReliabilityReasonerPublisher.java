@@ -52,7 +52,7 @@ public class ReliabilityReasonerPublisher extends ContextPublisher {
 	((ContextEventPattern) myContextEventPattern)
 		.addRestriction(MergedRestriction.getAllValuesRestriction(
 			ContextEvent.PROP_RDF_SUBJECT, Fault.MY_URI));
-	myContextProvider.setType(ContextProviderType.controller);
+	myContextProvider.setType(ContextProviderType.reasoner);
 	ContextEventPattern[] myEvents = null;
 	myContextProvider.setProvidedEvents(myEvents);
 	return myContextProvider;

@@ -53,13 +53,6 @@ ctxt.error.detection.unit/msg_cls_lyr/pom.xml -text
 ctxt.error.detection.unit/msg_cls_lyr/src/main/java/org/universAAL/messageClassifcationLayer/MCL/Activator.java -text
 ctxt.error.detection.unit/msg_cls_lyr/src/main/java/org/universAAL/messageClassifcationLayer/MCL/CPublisher.java -text
 ctxt.error.detection.unit/msg_cls_lyr/src/main/java/org/universAAL/messageClassifcationLayer/MCL/MessageDelivery.java -text
-ctxt.error.detection.unit/msg_cls_lyr/target/artifact-test.composite -text
-ctxt.error.detection.unit/msg_cls_lyr/target/artifact.composite -text
-ctxt.error.detection.unit/msg_cls_lyr/target/artifact.deps -text
-ctxt.error.detection.unit/msg_cls_lyr/target/classes/org/universAAL/messageClassifcationLayer/MCL/Activator.class -text
-ctxt.error.detection.unit/msg_cls_lyr/target/classes/org/universAAL/messageClassifcationLayer/MCL/CPublisher.class -text
-ctxt.error.detection.unit/msg_cls_lyr/target/classes/org/universAAL/messageClassifcationLayer/MCL/MessageDelivery.class -text
-ctxt.error.detection.unit/msg_cls_lyr/target/msg_cls_lyr-1.2.1-SNAPSHOT.jar -text
 ctxt.error.detection.unit/test_xml.xml -text
 ctxt.error.detection.unit/uthash.h -text
 ctxt.error.detection.unit/utlist.h -text

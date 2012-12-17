@@ -13,6 +13,9 @@ ctxt.che/.project
 ctxt.che/.settings
 ctxt.che/target
 ctxt.che/uAAL.log
+ctxt.error.detection.unit/msg_cls_lyr/.classpath
+ctxt.error.detection.unit/msg_cls_lyr/.project
+ctxt.error.detection.unit/msg_cls_lyr/.settings
 ctxt.error.detection.unit/msg_cls_lyr/target
 ctxt.gen.reasoner/.classpath
 ctxt.gen.reasoner/.project

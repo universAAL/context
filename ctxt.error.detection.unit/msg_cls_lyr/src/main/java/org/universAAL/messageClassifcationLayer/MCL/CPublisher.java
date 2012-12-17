@@ -24,7 +24,6 @@ import org.universAAL.middleware.container.ModuleContext;
 import org.universAAL.middleware.context.ContextEvent;
 import org.universAAL.middleware.context.ContextEventPattern;
 import org.universAAL.middleware.context.ContextPublisher;
-import org.universAAL.middleware.context.DefaultContextPublisher;
 import org.universAAL.middleware.context.owl.ContextProvider;
 import org.universAAL.middleware.context.owl.ContextProviderType;
 import org.universAAL.middleware.owl.MergedRestriction;
@@ -45,20 +44,17 @@ public class CPublisher extends ContextPublisher {
     }
 
     protected CPublisher(ModuleContext context) {
+	super(context, getProviderInfo());
+    }
+
+    private static ContextProvider getProviderInfo() {
 	ContextProvider myContextProvider = new ContextProvider("http://ontology.universAAL.org/Dependability.owl#Fault");
 	ContextEventPattern myContextEventPattern = new ContextEventPattern();
 	((ContextEventPattern) myContextEventPattern).addRestriction(MergedRestriction.getAllValuesRestriction(ContextEvent.PROP_RDF_SUBJECT, Fault.MY_URI));
 	myContextProvider.setType(ContextProviderType.controller);
-	ContextEventPattern[] myEvents;
+	ContextEventPattern[] myEvents=new ContextEventPattern[] { new ContextEventPattern() };
 	myContextProvider.setProvidedEvents(myEvents);
-	//myContextProvider.setProvidedEvents(myContextEventPattern);
-	myContextPublisher = new DefaultContextPublisher(context, myContextProvider);
-	    }
-    }
-
-    private static ContextProvider getProviderInfo() {
-	// TODO Auto-generated method stub
-	return null;
+	return myContextProvider;
     }
 
     public void communicationChannelBroken() {
@@ -83,9 +79,9 @@ public class CPublisher extends ContextPublisher {
 	// setting error judgment
 	
 	if (judgment == 0)
-	    myFault.setFaultDecision("FALSE");
+	    myFault.setFaultDecision(false);
 	else
-	    myFault.setFaultDecision("TRUE");
+	    myFault.setFaultDecision(true);
 	
 	//calculating threshold and timestamp
 	myFault.setTimestamp(timeStamp);
@@ -94,7 +90,7 @@ public class CPublisher extends ContextPublisher {
 	
 	
 	ContextEvent myContextEvent = new ContextEvent(myFault, Fault.PROP_FAULT_DECISION);
-	myContextPublisher.publish(myContextEvent);
+	publish(myContextEvent);
 	}
     
     

@@ -1,119 +1,143 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <modelVersion>4.0.0</modelVersion>
-  <parent>
-    <groupId>org.universAAL.context</groupId>
-    <artifactId>ctxt.pom</artifactId>
-    <version>2.0.3-SNAPSHOT</version>
-    <relativePath>../pom/pom.xml</relativePath>
-  </parent>
-  <artifactId>ctxt.reliability.reasoner</artifactId>
-  <version>2.0.3-SNAPSHOT</version>
-  <packaging>bundle</packaging>
-  <name>universAAL Context Reliability Reasoner</name>
-  <description>The component that uses SPARQL to use situation reasoning on the detected fault events.</description>
-  <inceptionYear>2012</inceptionYear>
-  <organization>
-    <name>University of Siegen, Germany</name>
-    <url>http://www.uni-siegen.de/</url>
-  </organization>
-  <licenses>
-    <license>
-      <name>The Apache Software License, Version 2.0</name>
-      <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
-      <distribution>repo</distribution>
-    </license>
-  </licenses>
-  <scm>
-    <connection>${svn.base}/${artifactId}</connection>
-    <developerConnection>${svn.base}/${artifactId}</developerConnection>
-    <url>${svn.base.url}${artifactId}</url>
-  </scm>
-  <properties>
-    <maven.compile.source>1.5</maven.compile.source>
-    <maven.compile.target>1.5</maven.compile.target>
-  </properties>
-  <dependencies>
-    <dependency>
-      <groupId>org.apache.felix</groupId>
-      <artifactId>org.osgi.core</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.universAAL.middleware</groupId>
-      <artifactId>mw.data.representation.osgi</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.universAAL.middleware</groupId>
-      <artifactId>mw.bus.service.osgi</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.universAAL.middleware</groupId>
-      <artifactId>mw.bus.context.osgi</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.universAAL.middleware</groupId>
-      <artifactId>mw.container.osgi</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.universAAL.middleware</groupId>
-      <artifactId>mw.bus.model.osgi</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.universAAL.ontology</groupId>
-      <artifactId>ont.che</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.universAAL.ontology</groupId>
-      <artifactId>ont.dependability</artifactId>
-    </dependency>
-  </dependencies>
-  <build>
-    <plugins>
-      <plugin>
-        <groupId>org.apache.felix</groupId>
-        <artifactId>maven-bundle-plugin</artifactId>
-        <extensions>true</extensions>
-        <configuration>
-          <instructions>
-            <Bundle-Name>${project.name}</Bundle-Name>
-            <Bundle-Activator>org.universAAL.reliability.reasoner.ReliabilityReasonerActivator</Bundle-Activator>
-            <Bundle-Description>${project.description}</Bundle-Description>
-            <Bundle-SymbolicName>${project.artifactId}</Bundle-SymbolicName>
-            <Private-Package>org.universAAL.context.reliability.reasoner</Private-Package>
-          </instructions>
-        </configuration>
-      </plugin>
-      <plugin>
-        <groupId>org.universAAL.support</groupId>
-        <artifactId>uaal-maven-plugin</artifactId>
-        <version>1.0.1-SNAPSHOT</version>
-        <executions>
-          <execution>
-            <id>CompositeMojo</id>
-            <phase>none</phase>
-          </execution>
-          <execution>
-            <id>TestMojo</id>
-            <phase>none</phase>
-          </execution>
-        </executions>
-      </plugin>
-      <plugin>
-        <groupId>org.codehaus.mojo</groupId>
-        <artifactId>build-helper-maven-plugin</artifactId>
-        <version>1.7</version>
-        <executions>
-          <execution>
-            <id>attach-composite</id>
-            <phase>none</phase>
-          </execution>
-        </executions>
-      </plugin>
-    </plugins>
-  </build>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>org.universAAL.context</groupId>
+		<artifactId>ctxt.pom</artifactId>
+		<version>1.3.1-SNAPSHOT</version>
+	</parent>
+	<artifactId>ctxt.reliability.reasoner</artifactId>
+	<version>1.3.1-SNAPSHOT</version>
+	<packaging>bundle</packaging>
+
+	<!-- ______________________________________________________ -->
+
+	<name>The Reliability Reasoner</name>
+	<description>The component that uses SPARQL to use situation reasoning on the detected fault events.</description>
+	<inceptionYear>2012</inceptionYear>
+	<licenses>
+		<license>
+			<name>The Apache Software License, Version 2.0</name>
+			<url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+			<distribution>repo</distribution>
+		</license>
+	</licenses>
+	<organization>
+		<name><![CDATA[
+    University of Siegen, Germany
+    ]]></name>
+		<url><![CDATA[
+    http://www.uni-siegen.de/
+    ]]></url>
+	</organization>
+
+
+	<!-- ______________________________________________________ -->
+
+	<dependencies>
+		<dependency>
+			<groupId>org.apache.felix</groupId>
+			<artifactId>org.osgi.core</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.universAAL.middleware</groupId>
+			<artifactId>mw.data.representation.osgi</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.universAAL.middleware</groupId>
+			<artifactId>mw.bus.service.osgi</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.universAAL.middleware</groupId>
+			<artifactId>mw.bus.context.osgi</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.universAAL.middleware</groupId>
+			<artifactId>mw.container.osgi</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.universAAL.middleware</groupId>
+			<artifactId>mw.bus.model.osgi</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.universAAL.ontology</groupId>
+			<artifactId>ont.dependability</artifactId>
+			<version>1.3.1-SNAPSHOT</version>
+		</dependency>
+	</dependencies>
+	
+	<properties>
+		<maven.compile.source>1.5</maven.compile.source>
+		<maven.compile.target>1.5</maven.compile.target>
+	</properties>
+	
+	<!-- ______________________________________________________ -->
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.felix</groupId>
+				<artifactId>maven-bundle-plugin</artifactId>
+				<extensions>true</extensions>
+				<configuration>
+					<instructions>
+						<Bundle-Name>${project.name}</Bundle-Name>
+						<Bundle-Activator>org.universAAL.reliability.reasoner.ReliabilityReasonerActivator</Bundle-Activator>
+						<Bundle-Description>${project.description}</Bundle-Description>
+						<Bundle-SymbolicName>${project.artifactId}</Bundle-SymbolicName>
+						<Export-Package>org.universAAL.context.reliability.reasoner</Export-Package>
+						<Private-Package></Private-Package>
+					</instructions>
+				</configuration>
+			</plugin>
+			<plugin>
+				<!--
+					ctxt.space.conf uses mw 1.0.0 so uaal-maven-plugin cannot be used
+				-->
+				<groupId>org.universAAL.support</groupId>
+				<artifactId>uaal-maven-plugin</artifactId>
+				<version>1.0.1-SNAPSHOT</version>
+				<executions>
+					<execution>
+						<id>CompositeMojo</id>
+						<phase>none</phase>
+					</execution>
+					<execution>
+						<id>TestMojo</id>
+						<phase>none</phase>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<!--
+					ctxt.space.conf uses mw 1.0.0 so uaal-maven-plugin cannot be used
+				-->
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>build-helper-maven-plugin</artifactId>
+				<version>1.7</version>
+				<executions>
+					<execution>
+						<id>attach-composite</id>
+						<phase>none</phase>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+
+	<!-- ______________________________________________________ -->
+
+	<scm>
+		<connection>${svn.base}/${artifactId}</connection>
+		<developerConnection>${svn.base}/${artifactId}</developerConnection>
+		<url>${svn.base.url}${artifactId}</url>
+	</scm>
+
+	<groupId>org.universaal.context</groupId>
 </project>

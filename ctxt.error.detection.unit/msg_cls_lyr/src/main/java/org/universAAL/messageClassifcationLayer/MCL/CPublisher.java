@@ -51,7 +51,7 @@ public class CPublisher extends ContextPublisher {
 	ContextProvider myContextProvider = new ContextProvider("http://ontology.universAAL.org/Dependability.owl#Fault");
 	ContextEventPattern myContextEventPattern = new ContextEventPattern();
 	((ContextEventPattern) myContextEventPattern).addRestriction(MergedRestriction.getAllValuesRestriction(ContextEvent.PROP_RDF_SUBJECT, Fault.MY_URI));
-	myContextProvider.setType(ContextProviderType.controller);
+	myContextProvider.setType(ContextProviderType.gauge);
 	ContextEventPattern[] myEvents=new ContextEventPattern[] { new ContextEventPattern() };
 	myContextProvider.setProvidedEvents(myEvents);
 	return myContextProvider;

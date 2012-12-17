@@ -16,8 +16,9 @@ See the License for the specific language governing permissions and
 limitations under the License.
 
 * @author <a href="mailto:abu.sadat@uni-siegen.de">Rubaiyat Sadat</a>
-*	       Â©2012
+*	       ©2012
 *
+*@author alviva
 */
 
 import java.util.Iterator;
@@ -34,7 +35,7 @@ import org.universAAL.middleware.service.ServiceCaller;
 import org.universAAL.middleware.service.ServiceRequest;
 import org.universAAL.middleware.service.ServiceResponse;
 import org.universAAL.middleware.service.owls.process.ProcessOutput;
-import org.universAAL.middleware.serialization.MessageContentSerializerEx;
+import org.universAAL.middleware.sodapop.msg.MessageContentSerializerEx;
 import org.universAAL.ontology.che.ContextHistoryService;
 
 
@@ -45,7 +46,7 @@ public class SCaller extends ServiceCaller {
     private MessageContentSerializerEx uAALParser;
     private static final String GENERIC_EVENT = "urn:org.universAAL.middleware.context.rdf:ContextEvent#_:0000000000000000:00";
 
-    public SCaller(ModuleContext context) {
+    protected SCaller(ModuleContext context) {
 	super(context);
 	// TODO Auto-generated constructor stub
     }
@@ -130,7 +131,7 @@ public class SCaller extends ServiceCaller {
 	    } catch (Exception e) {
 		LogUtils.logInfo(ReliabilityReasonerActivator.context, SCaller.class,
 			"callDoSPARQL",
-			new Object[] { "Result corrupt!" }, e);
+			new Object[] { "Mini Reasoner: Result corrupt!" }, e);
 		return "";
 	    }
 	} else
@@ -138,7 +139,7 @@ public class SCaller extends ServiceCaller {
 		    ReliabilityReasonerActivator.context,
 		    SCaller.class,
 		    "callDoSPARQL",
-		    new Object[] { "Status of callDoSPARQL(): "
+		    new Object[] { "Mini Reasoner: status of callDoSPARQL(): "
 			    + response.getCallStatus() }, null);
 	return "";
     }

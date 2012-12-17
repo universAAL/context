@@ -16,8 +16,9 @@ See the License for the specific language governing permissions and
 limitations under the License.
 
 * @author <a href="mailto:abu.sadat@uni-siegen.de">Rubaiyat Sadat</a>
-*	       Â©2012
+*	       ©2012
 *
+*@author alviva
 */
 
 import java.util.Iterator;
@@ -34,7 +35,8 @@ import org.universAAL.middleware.service.ServiceCaller;
 import org.universAAL.middleware.service.ServiceRequest;
 import org.universAAL.middleware.service.ServiceResponse;
 import org.universAAL.middleware.service.owls.process.ProcessOutput;
-import org.universAAL.middleware.serialization.MessageContentSerializerEx;
+import org.universAAL.middleware.sodapop.msg.MessageContentSerializerEx;
+import org.universAAL.mini.reasoner.Activator;
 import org.universAAL.ontology.che.ContextHistoryService;
 
 
@@ -45,7 +47,7 @@ public class SCaller extends ServiceCaller {
     private MessageContentSerializerEx uAALParser;
     private static final String GENERIC_EVENT = "urn:org.universAAL.middleware.context.rdf:ContextEvent#_:0000000000000000:00";
 
-    public SCaller(ModuleContext context) {
+    protected SCaller(ModuleContext context) {
 	super(context);
 	// TODO Auto-generated constructor stub
     }
@@ -79,10 +81,10 @@ public class SCaller extends ServiceCaller {
 	    if (event != null) {
 		event.setTimestamp(new Long(System.currentTimeMillis()));
 		if (event.isWellFormed() && event.getSubjectTypeURI() != null) {
-		    ReliabilityReasonerActivator.cpublisher.publish(event);
+		    Activator.cpublisher.publish(event);
 		} else {
 		    LogUtils.logError(
-			    ReliabilityReasonerActivator.context,
+			    Activator.context,
 			    SCaller.class,
 			    "executeQuery",
 			    new Object[] { "Invalid CONSTRUCT query associated to "
@@ -92,7 +94,7 @@ public class SCaller extends ServiceCaller {
 		}
 	    } else {
 		LogUtils.logError(
-			ReliabilityReasonerActivator.context,
+			Activator.context,
 			SCaller.class,
 			"executeQuery",
 			new Object[] { "Invalid CONSTRUCT query associated to "
@@ -101,7 +103,7 @@ public class SCaller extends ServiceCaller {
 			null);
 	    }
 	} else {
-	    LogUtils.logWarn(ReliabilityReasonerActivator.context, SCaller.class, "executeQuery",
+	    LogUtils.logWarn(Activator.context, SCaller.class, "executeQuery",
 		    new Object[] { "Triggered evaluation of situation, "
 			    + "but not found" }, null);
 	}
@@ -122,23 +124,23 @@ public class SCaller extends ServiceCaller {
 			OUTPUT_RESULT_STRING);
 		// Uncomment this line if you want to show the raw results. Do
 		// this for CONSTRUCT, ASK or DESCRIBE
-		LogUtils.logInfo(ReliabilityReasonerActivator.context, SCaller.class,
+		LogUtils.logInfo(Activator.context, SCaller.class,
 			"callDoSPARQL",
 			new Object[] { "Result of SPARQL query was:\n"
 				+ result }, null);
 		return result;
 	    } catch (Exception e) {
-		LogUtils.logInfo(ReliabilityReasonerActivator.context, SCaller.class,
+		LogUtils.logInfo(Activator.context, SCaller.class,
 			"callDoSPARQL",
-			new Object[] { "Result corrupt!" }, e);
+			new Object[] { "Mini Reasoner: Result corrupt!" }, e);
 		return "";
 	    }
 	} else
 	    LogUtils.logInfo(
-		    ReliabilityReasonerActivator.context,
+		    Activator.context,
 		    SCaller.class,
 		    "callDoSPARQL",
-		    new Object[] { "Status of callDoSPARQL(): "
+		    new Object[] { "Mini Reasoner: status of callDoSPARQL(): "
 			    + response.getCallStatus() }, null);
 	return "";
     }
@@ -179,7 +181,7 @@ public class SCaller extends ServiceCaller {
     private Object getReturnValue(List outputs, String expectedOutput) {
 	Object returnValue = null;
 	if (outputs == null)
-	    LogUtils.logInfo(ReliabilityReasonerActivator.context, SCaller.class,
+	    LogUtils.logInfo(Activator.context, SCaller.class,
 		    "getReturnValue",
 		    new Object[] { "History Client: No events found!" }, null);
 	else
@@ -190,13 +192,13 @@ public class SCaller extends ServiceCaller {
 			returnValue = output.getParameterValue();
 		    else
 			LogUtils.logInfo(
-				ReliabilityReasonerActivator.context,
+				Activator.context,
 				SCaller.class,
 				"getReturnValue",
 				new Object[] { "History Client: redundant return value!" },
 				null);
 		else
-		    LogUtils.logInfo(ReliabilityReasonerActivator.context, SCaller.class,
+		    LogUtils.logInfo(Activator.context, SCaller.class,
 			    "getReturnValue",
 			    new Object[] { "History Client - output ignored: "
 				    + output.getURI() }, null);

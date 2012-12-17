@@ -22,14 +22,8 @@ import org.universAAL.middleware.container.ModuleContext;
 import org.universAAL.middleware.context.ContextEvent;
 import org.universAAL.middleware.context.ContextEventPattern;
 import org.universAAL.middleware.context.ContextSubscriber;
-import org.universAAL.middleware.context.owl.ContextProvider;
-import org.universAAL.middleware.context.owl.ContextProviderType;
-import org.universAAL.middleware.owl.ClassExpression;
 import org.universAAL.middleware.owl.MergedRestriction;
-import org.universAAL.middleware.owl.Restriction;
-import org.universAAL.middleware.rdf.Resource;
 import org.universAAL.middleware.sodapop.msg.Message;
-import org.universAAL.ontology.dependability.ErrorDetector;
 import org.universAAL.ontology.dependability.Fault;
 
 public class ReliabilityReasonerSubscriber extends ContextSubscriber {
@@ -39,9 +33,7 @@ public class ReliabilityReasonerSubscriber extends ContextSubscriber {
 	super(context, initialSubscriptions);
 	
 	ContextEventPattern cep = new ContextEventPattern();
-	Resource r = new Restriction();
-	r = Restriction.getAllValuesRestriction(ContextEvent.PROP_RDF_SUBJECT, Fault.MY_URI);
-	cep.addRestriction((MergedRestriction) r);
+	cep.addRestriction(MergedRestriction.getAllValuesRestriction(ContextEvent.PROP_RDF_SUBJECT, Fault.MY_URI));
 	
 	
 	String myID = null;//this ID has to be mapped to my prod

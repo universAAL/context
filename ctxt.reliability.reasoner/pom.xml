@@ -6,11 +6,10 @@
 	<parent>
 		<groupId>org.universAAL.context</groupId>
 		<artifactId>ctxt.pom</artifactId>
-		<version>1.2.1-SNAPSHOT</version>
-		<relativePath>../pom/pom.xml</relativePath>
+		<version>1.3.1-SNAPSHOT</version>
 	</parent>
 	<artifactId>ctxt.reliability.reasoner</artifactId>
-	<version>1.2.1-SNAPSHOT</version>
+	<version>1.3.1-SNAPSHOT</version>
 	<packaging>bundle</packaging>
 
 	<!-- ______________________________________________________ -->
@@ -33,8 +32,7 @@
     http://www.uni-siegen.de/
     ]]></url>
 	</organization>
-	<developers> Rubaiyat Sadat : mailto: abu.sadat@uni-siegen.de </developers>
-	<contributors>Rubaiyat Sadat : mailto: abu.sadat@uni-siegen.de  </contributors>
+
 
 	<!-- ______________________________________________________ -->
 
@@ -44,38 +42,20 @@
 			<artifactId>org.osgi.core</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>com.hp.hpl.jena</groupId>
-			<artifactId>jena</artifactId>
-			<version>2.5.4</version>
-		</dependency>
-		<dependency>
-			<groupId>mysql</groupId>
-			<artifactId>mysql-connector-java</artifactId>
-			<version>5.1.6</version>
-		</dependency>
-		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.universAAL.middleware</groupId>
-			<artifactId>mw.data.representation</artifactId>
-			<version>1.2.1</version>
+			<artifactId>mw.data.representation.osgi</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.universAAL.middleware</groupId>
-			<artifactId>mw.bus.service</artifactId>
-			<version>1.2.1</version>
+			<artifactId>mw.bus.service.osgi</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.universAAL.middleware</groupId>
-			<artifactId>mw.bus.context</artifactId>
-			<version>1.2.1</version>
-		</dependency>
-		<dependency>
-			<groupId>org.universAAL.context</groupId>
-			<artifactId>ctxt.jena.converter</artifactId>
-			<version>1.2.1</version>
+			<artifactId>mw.bus.context.osgi</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.universAAL.middleware</groupId>
@@ -83,13 +63,12 @@
 		</dependency>
 		<dependency>
 			<groupId>org.universAAL.middleware</groupId>
-			<artifactId>mw.bus.model</artifactId>
-			<version>1.2.1</version>
+			<artifactId>mw.bus.model.osgi</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.universAAL.ontology</groupId>
 			<artifactId>ont.dependability</artifactId>
-			<version>1.2.1-SNAPSHOT</version>
+			<version>1.3.1-SNAPSHOT</version>
 		</dependency>
 	</dependencies>
 	

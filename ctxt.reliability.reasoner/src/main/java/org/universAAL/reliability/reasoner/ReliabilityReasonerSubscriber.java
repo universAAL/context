@@ -22,8 +22,14 @@ import org.universAAL.middleware.container.ModuleContext;
 import org.universAAL.middleware.context.ContextEvent;
 import org.universAAL.middleware.context.ContextEventPattern;
 import org.universAAL.middleware.context.ContextSubscriber;
+import org.universAAL.middleware.context.owl.ContextProvider;
+import org.universAAL.middleware.context.owl.ContextProviderType;
+import org.universAAL.middleware.owl.ClassExpression;
 import org.universAAL.middleware.owl.MergedRestriction;
+import org.universAAL.middleware.owl.Restriction;
+import org.universAAL.middleware.rdf.Resource;
 import org.universAAL.middleware.sodapop.msg.Message;
+import org.universAAL.ontology.dependability.ErrorDetector;
 import org.universAAL.ontology.dependability.Fault;
 
 public class ReliabilityReasonerSubscriber extends ContextSubscriber {
@@ -33,19 +39,21 @@ public class ReliabilityReasonerSubscriber extends ContextSubscriber {
 	super(context, initialSubscriptions);
 	
 	ContextEventPattern cep = new ContextEventPattern();
-	cep.addRestriction(MergedRestriction.getAllValuesRestriction(ContextEvent.PROP_RDF_SUBJECT, Fault.MY_URI));
+	Resource r = new Restriction();
+	r = Restriction.getAllValuesRestriction(ContextEvent.PROP_RDF_SUBJECT, Fault.MY_URI);
+	cep.addRestriction((MergedRestriction) r);
 	
 	
 	String myID = null;//this ID has to be mapped to my prod
 	
 	
-	/*r = Restriction.getAllValuesRestriction(myID, MergedRestriction.getFixedValueRestriction(
+	r = Restriction.getAllValuesRestriction(myID, MergedRestriction.getFixedValueRestriction(
 		    ContextProvider.PROP_CONTEXT_PROVIDER_TYPE,ContextProviderType.reasoner).appendTo(
 			        MergedRestriction.getAllValuesRestriction(
 			            ContextEvent.PROP_CONTEXT_PROVIDER, ContextProvider.MY_URI),
 			            new String[] { ContextEvent.PROP_CONTEXT_PROVIDER,
 			                ContextProvider.PROP_CONTEXT_PROVIDER_TYPE }));
-	cep.addRestriction((MergedRestriction) r);*/
+	cep.addRestriction((MergedRestriction) r);
 	
 	//HashMap contextMap = (HashMap) context.getAttribute(myID);//depends on the incoming context events
 	
@@ -72,7 +80,16 @@ public class ReliabilityReasonerSubscriber extends ContextSubscriber {
     }
 
     public void handleContextEvent(ContextEvent event) {
-	// TODO Auto-generated method stub
+	
+	String eventTimestamp = (String) event.getProperty(Fault.PROP_TIMESTAMP);
+	String eventType = (String) event.getProperty(Fault.PROP_FAULT_DECISION);
+	    
+	    
+	    event.setRDFSubject(event);
+	    event.setRDFPredicate(eventTimestamp);
+	    event.setRDFObject(eventType);
+	
+	
 
     }
 

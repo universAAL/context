@@ -18,7 +18,6 @@ limitations under the License.
 * @author <a href="mailto:abu.sadat@uni-siegen.de">Rubaiyat Sadat</a>
 *	       ©2012
 *
-*@author alviva
 */
 
 import java.util.Iterator;
@@ -46,7 +45,7 @@ public class SCaller extends ServiceCaller {
     private MessageContentSerializerEx uAALParser;
     private static final String GENERIC_EVENT = "urn:org.universAAL.middleware.context.rdf:ContextEvent#_:0000000000000000:00";
 
-    protected SCaller(ModuleContext context) {
+    public SCaller(ModuleContext context) {
 	super(context);
 	// TODO Auto-generated constructor stub
     }
@@ -131,7 +130,7 @@ public class SCaller extends ServiceCaller {
 	    } catch (Exception e) {
 		LogUtils.logInfo(ReliabilityReasonerActivator.context, SCaller.class,
 			"callDoSPARQL",
-			new Object[] { "Mini Reasoner: Result corrupt!" }, e);
+			new Object[] { "Result corrupt!" }, e);
 		return "";
 	    }
 	} else
@@ -139,7 +138,7 @@ public class SCaller extends ServiceCaller {
 		    ReliabilityReasonerActivator.context,
 		    SCaller.class,
 		    "callDoSPARQL",
-		    new Object[] { "Mini Reasoner: status of callDoSPARQL(): "
+		    new Object[] { "Status of callDoSPARQL(): "
 			    + response.getCallStatus() }, null);
 	return "";
     }

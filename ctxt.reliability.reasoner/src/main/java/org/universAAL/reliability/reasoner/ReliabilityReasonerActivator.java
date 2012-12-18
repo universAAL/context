@@ -16,7 +16,8 @@ See the License for the specific language governing permissions and
 limitations under the License.
 
 * @author <a href="mailto:abu.sadat@uni-siegen.de">Rubaiyat Sadat</a>
-*	       Â©2012
+*	       ©2012
+*@author alviva
 */
 
 import org.osgi.framework.BundleActivator;
@@ -31,7 +32,7 @@ import org.universAAL.middleware.context.ContextSubscriber;
 import org.universAAL.middleware.context.DefaultContextPublisher;
 import org.universAAL.middleware.context.owl.ContextProvider;
 import org.universAAL.middleware.context.owl.ContextProviderType;
-import org.universAAL.middleware.serialization.MessageContentSerializerEx;
+import org.universAAL.middleware.sodapop.msg.MessageContentSerializerEx;
 
 
 public class ReliabilityReasonerActivator implements BundleActivator, ServiceListener {

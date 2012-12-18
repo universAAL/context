@@ -32,10 +32,6 @@
     <developerConnection>${svn.base}/${project.artifactId}</developerConnection>
     <url>${svn.base.url}${project.artifactId}</url>
   </scm>
-  <properties>
-    <maven.compile.source>1.5</maven.compile.source>
-    <maven.compile.target>1.5</maven.compile.target>
-  </properties>
   <dependencies>
     <dependency>
       <groupId>org.universAAL.support</groupId>

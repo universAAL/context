@@ -106,7 +106,7 @@ public class SesameBackendCrdCnf extends SesameBackendCrd {
      * .universAAL.middleware.context.ContextEvent)
      */
     @Override
-    synchronized public void storeEvent(ContextEvent e) {
+    public void storeEvent(ContextEvent e) {
 	try {
 	    RepositoryConnection con = myRepository.getConnection();
 	    try {

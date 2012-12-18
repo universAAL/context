@@ -32,8 +32,6 @@
   </scm>
   <properties>
     <maven.test.skip>true</maven.test.skip>
-    <maven.compile.source>1.5</maven.compile.source>
-    <maven.compile.target>1.5</maven.compile.target>
   </properties>
   <dependencies>
     <dependency>

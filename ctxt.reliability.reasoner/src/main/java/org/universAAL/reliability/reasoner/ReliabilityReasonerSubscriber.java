@@ -15,7 +15,7 @@ package org.universAAL.reliability.reasoner;
  limitations under the License.
 
  * @author <a href="mailto:abu.sadat@uni-siegen.de">Rubaiyat Sadat</a>
- *	       Â©2012
+ *	       ©2012
  */
 
 import org.universAAL.middleware.container.ModuleContext;
@@ -25,7 +25,9 @@ import org.universAAL.middleware.context.ContextSubscriber;
 import org.universAAL.middleware.context.owl.ContextProvider;
 import org.universAAL.middleware.context.owl.ContextProviderType;
 import org.universAAL.middleware.owl.MergedRestriction;
+import org.universAAL.middleware.sodapop.msg.Message;
 import org.universAAL.ontology.dependability.Fault;
+import org.universAAL.reliability.reasoner.SCaller;
 
 public class ReliabilityReasonerSubscriber extends ContextSubscriber {
 
@@ -77,9 +79,9 @@ public void handleContextEvent(ContextEvent event) {
 	String eventLocation = (String) event.getProperty(Fault.PROP_LOCATION);
 	    
 	    
-//	    event.setRDFSubject(event);
-//	    event.setRDFPredicate(eventTimestamp);
-//	    event.setRDFObject(eventType);
+	    event.setRDFSubject(event);
+	    event.setRDFPredicate(eventTimestamp);
+	    event.setRDFObject(eventType);
 	    
 	    /*FileInputStream fis = null;
 	    try {
@@ -95,8 +97,8 @@ public void handleContextEvent(ContextEvent event) {
 		e.printStackTrace();
 	    } */
 	  
-//	    ModuleContext thisSubscriberContext = (ModuleContext) event.getProvider();
-//	    SCaller caller = new SCaller(thisSubscriberContext);
+	    ModuleContext thisSubscriberContext = (ModuleContext) event.getProvider();
+	    SCaller caller = new SCaller(thisSubscriberContext);
 	    
 	 if (eventType == "http://ontology.universAAL.org/Dependability#Fault" && eventLocation == "http://ontology.universAAL.org/Dependability#FCR")
 	 {
@@ -111,7 +113,7 @@ public void handleContextEvent(ContextEvent event) {
 		  "} \n";
 	     
 		    
-		    ReliabilityReasonerActivator.scaller.executeQuery(queryString);
+		    caller.executeQuery(queryString);
 	
 	 }
 	 else if (eventType== "http://ontology.universAAL.org/Dependability#EarlyTimingFault" && eventLocation == "http://ontology.universAAL.org/Dependability#FCR")
@@ -127,7 +129,7 @@ public void handleContextEvent(ContextEvent event) {
 		  "} \n";
 	     
 		    
-	     ReliabilityReasonerActivator.scaller.executeQuery(queryString);
+		    caller.executeQuery(queryString);
 	 }
 	 
 	 else if (eventType== "http://ontology.universAAL.org/Dependability#LateTimingFault" && eventLocation == "http://ontology.universAAL.org/Dependability#FCR")
@@ -143,7 +145,7 @@ public void handleContextEvent(ContextEvent event) {
 		  "} \n";
 	     
 		    
-	     ReliabilityReasonerActivator.scaller.executeQuery(queryString);
+		    caller.executeQuery(queryString);
 	 }
 	 
 	 else if (eventType== "http://ontology.universAAL.org/Dependability#ValueFault" && eventLocation == "http://ontology.universAAL.org/Dependability#FCR")
@@ -159,7 +161,7 @@ public void handleContextEvent(ContextEvent event) {
 		  "} \n";
 	     
 		    
-	     ReliabilityReasonerActivator.scaller.executeQuery(queryString);
+		    caller.executeQuery(queryString);
 	 }
 	 else
 	     {
@@ -171,7 +173,7 @@ public void handleContextEvent(ContextEvent event) {
 			  "} \n";
 		     
 			    
-		     ReliabilityReasonerActivator.scaller.executeQuery(queryString);
+			    caller.executeQuery(queryString);
 		 }
 	
 	

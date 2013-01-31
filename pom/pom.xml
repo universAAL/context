@@ -24,6 +24,7 @@
     <module>../ctxt.situation.reasoner.client</module>
     <module>../ctxt.situation.reasoner.client.example</module>
     <module>../ctxt.prof.server</module>
+    <module>../ctxt.reliability.reasoner</module>
   </modules>
   <scm>
     <connection>${svn.base}/pom</connection>
@@ -80,6 +81,11 @@
       <dependency>
         <groupId>org.universAAL.context</groupId>
         <artifactId>ctxt.situation.reasoner.client.example</artifactId>
+        <version>1.3.1-SNAPSHOT</version>
+      </dependency>
+      <dependency>
+        <groupId>org.universAAL.context</groupId>
+        <artifactId>ctxt.reliability.reasoner</artifactId>
         <version>1.3.1-SNAPSHOT</version>
       </dependency>
       <dependency>

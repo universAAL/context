@@ -16,7 +16,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 
 * @author <a href="mailto:abu.sadat@uni-siegen.de">Rubaiyat Sadat</a>
-*	       Â©2012
+*	       ©2012
 *
 */
 
@@ -34,7 +34,7 @@ import org.universAAL.middleware.service.ServiceCaller;
 import org.universAAL.middleware.service.ServiceRequest;
 import org.universAAL.middleware.service.ServiceResponse;
 import org.universAAL.middleware.service.owls.process.ProcessOutput;
-import org.universAAL.middleware.serialization.MessageContentSerializerEx;
+import org.universAAL.middleware.sodapop.msg.MessageContentSerializerEx;
 import org.universAAL.ontology.che.ContextHistoryService;
 
 

@@ -95,8 +95,7 @@
 						<Bundle-Activator>org.universAAL.reliability.reasoner.ReliabilityReasonerActivator</Bundle-Activator>
 						<Bundle-Description>${project.description}</Bundle-Description>
 						<Bundle-SymbolicName>${project.artifactId}</Bundle-SymbolicName>
-						<Export-Package>org.universAAL.context.reliability.reasoner</Export-Package>
-						<Private-Package></Private-Package>
+						<Private-Package>org.universAAL.context.reliability.reasoner</Private-Package>
 					</instructions>
 				</configuration>
 			</plugin>
@@ -143,5 +142,4 @@
 		<url>${svn.base.url}${artifactId}</url>
 	</scm>
 
-	<groupId>org.universaal.context</groupId>
 </project>

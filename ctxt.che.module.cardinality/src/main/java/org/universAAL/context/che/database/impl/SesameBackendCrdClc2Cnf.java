@@ -99,7 +99,7 @@ public class SesameBackendCrdClc2Cnf extends SesameBackendCrdClc {
     }
 
     @Override
-    public void storeEvent(ContextEvent e) {
+    synchronized public void storeEvent(ContextEvent e) {
 	try {
 	    RepositoryConnection con = myRepository.getConnection();
 	    try {

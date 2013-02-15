@@ -9,7 +9,7 @@
     <relativePath>../pom/pom.xml</relativePath>
   </parent>
   <artifactId>ctxt.che</artifactId>
-  <version>1.3.1-SNAPSHOT</version>
+  <version>1.3.2-SNAPSHOT</version>
   <packaging>bundle</packaging>
   <name>universAAL Context CHE - Context History Entrepot</name>
   <description>The component managing the history of all context events published to the context bus.</description>

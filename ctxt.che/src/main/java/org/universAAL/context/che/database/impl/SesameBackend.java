@@ -105,12 +105,12 @@ public class SesameBackend implements Backend {
      * 
      * @see org.universAAL.context.che.database.Backend#connect()
      */
-    public void connect() {
+    synchronized public void connect() {
 	String dataPath = Hub.getProperties().getProperty("STORE.LOCATION");
 	// I use C:/Proyectos/UNIVERSAAL/ContextStore/Stores/SAIL_FCRDFS_Native
 	if (dataPath != null) {
 	    File dataDir = new File(dataPath);
-	    String indexes = "spoc,posc,cosp"; 
+	    String indexes = "spoc,posc,cosp";
 	    // TODO: Change indexes (specially if we dont use contexts)
 	    log.info("CHe connects to {} ", dataDir.toString());
 	    // TODO: Study other reasoners, if any
@@ -201,7 +201,7 @@ public class SesameBackend implements Backend {
      * org.universAAL.context.che.database.Backend#storeEvent(org.universAAL
      * .middleware.context.ContextEvent)
      */
-    public void storeEvent(ContextEvent e) {
+    synchronized public void storeEvent(ContextEvent e) {
 	try {
 	    RepositoryConnection con = myRepository.getConnection();
 	    try {
@@ -233,7 +233,7 @@ public class SesameBackend implements Backend {
      * @see
      * org.universAAL.context.che.database.Backend#queryBySPARQL(java.lang.String)
      */
-    public String queryBySPARQL(String input) {
+    synchronized public String queryBySPARQL(String input) {
 	log.debug("queryBySPARQL", "queryBySPARQL");
 	String result = null;
 	try {
@@ -318,7 +318,7 @@ public class SesameBackend implements Backend {
      * org.universAAL.context.che.database.Backend#retrieveEventsBySPARQL(java
      * .lang.String)
      */
-    public ArrayList retrieveEventsBySPARQL(String input) {
+    synchronized public ArrayList retrieveEventsBySPARQL(String input) {
 	log.debug("retrieveEventsBySPARQL", "retrieveEventsBySPARQL");
 	ArrayList solution = new ArrayList();
 	try {
@@ -455,7 +455,7 @@ public class SesameBackend implements Backend {
      * 
      * @see org.universAAL.context.che.database.Backend#removeOldEvents(long)
      */
-    public void removeOldEvents(long tst) {
+    synchronized public void removeOldEvents(long tst) {
 	log.debug("removeOldEvents", "removeOldEvents stored before: " + tst);
 	String removeQuery = "DELETE { ?s ?p ?o } "
 		+ "WHERE"

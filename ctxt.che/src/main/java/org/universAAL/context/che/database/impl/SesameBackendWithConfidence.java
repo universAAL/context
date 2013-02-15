@@ -112,7 +112,7 @@ public class SesameBackendWithConfidence extends SesameBackend {
      * .universAAL.middleware.context.ContextEvent)
      */
     @Override
-    public void storeEvent(ContextEvent e) {
+    synchronized public void storeEvent(ContextEvent e) {
 	try {
 	    RepositoryConnection con = myRepository.getConnection();
 	    try {

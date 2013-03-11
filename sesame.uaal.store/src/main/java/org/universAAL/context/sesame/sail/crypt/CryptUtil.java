@@ -75,6 +75,7 @@ public class CryptUtil {
 				    try {
 					v.wait();
 				    } catch (Exception x1) {
+					x1.printStackTrace();
 				    }
 				} else {
 				    System.out.println("Decrypted: "
@@ -125,6 +126,7 @@ public class CryptUtil {
 			try {
 			    v.wait();
 			} catch (Exception x1) {
+			    x1.printStackTrace();
 			}
 		    else
 			v.notify();
@@ -138,6 +140,7 @@ public class CryptUtil {
 			try {
 			    v.wait();
 			} catch (Exception x1) {
+			    x1.printStackTrace();
 			}
 		    } else {
 			System.out.println("Decrypted: "

@@ -60,7 +60,7 @@ public class ContextHistoryCallee extends ServiceCallee {
      * 
      * @param context
      *            The uaal module context
-     * @param db
+     * @param dbstore
      *            The store
      */
     ContextHistoryCallee(ModuleContext context, Backend dbstore) {

@@ -84,7 +84,6 @@ public class Activator implements BundleActivator, ServiceListener {
 			references[i]));
 	    }
 	} catch (Exception e) {
-	    // TODO Auto-generated catch block
 	    e.printStackTrace();
 	}
 
@@ -100,7 +99,6 @@ public class Activator implements BundleActivator, ServiceListener {
 	try {
 	    hub.stop();
 	} catch (Exception e) {
-	    // TODO Auto-generated catch block
 	    e.printStackTrace();
 	}
     }

@@ -50,7 +50,7 @@ public class MobileHistorySubscriber extends ContextSubscriber {
      * File lock to synchronize access to "store".
      * 
      */
-    private Object fileLock = new Object();
+    private static Object fileLock = new Object();
     /**
      * Turtle-uaal parser.
      */
@@ -72,7 +72,10 @@ public class MobileHistorySubscriber extends ContextSubscriber {
 	synchronized (fileLock) {
 	    try {
 		if (!Hub.confHome.exists()) {
-		    Hub.confHome.mkdir();
+		    if(!Hub.confHome.mkdir()){
+			LogUtils.logError(moduleContext, this.getClass(), "init",
+				new Object[] { "COULD NOT CREATE FILE " }, null);
+		    }
 		}
 		BufferedWriter out = new BufferedWriter(new FileWriter(
 			new File(Hub.confHome, FILE), false));

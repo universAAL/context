@@ -118,6 +118,8 @@ public class Hub {
 	    this.db = (Backend) Class.forName(storeclass)
 		    .getConstructor(new Class[] {})
 		    .newInstance(new Object[] {});
+	} catch (RuntimeException ex){
+	    ex.printStackTrace();
 	} catch (Exception e) {
 	    // If we cannot get the Backend, abort.
 	    String cause = "The store implementation passed as configuration"
@@ -235,7 +237,9 @@ public class Hub {
 	try {
 	    FileWriter out;
 	    if (!confHome.exists()) {
-		confHome.mkdir();
+		if(!confHome.mkdir()){
+		    log.error("setproperties", "Could not set properties file");
+		}
 	    }
 	    out = new FileWriter(new File(confHome, PROPS_FILE));
 	    prop.store(out, COMMENTS);
@@ -303,7 +307,7 @@ public class Hub {
 			"Mobile events were last synchronized in "
 				+ lastKnownOf);
 		String readline = "";
-		String turtleIn = ""; //TODO: Use string builder
+		StringBuffer turtleIn=new StringBuffer();
 		int count = 0;
 		long start = System.currentTimeMillis();
 		File fileref = new File(
@@ -313,11 +317,11 @@ public class Hub {
 		readline = br.readLine();
 		while (readline != null) {
 		    while (readline != null && !readline.equals(flag)) {
-			turtleIn += readline;
+			turtleIn.append(readline);
 			readline = br.readLine();
 		    }
-		    if (!turtleIn.isEmpty()) {
-			ev = (ContextEvent) uAALParser.deserialize(turtleIn);
+		    if (turtleIn.length()>0) {
+			ev = (ContextEvent) uAALParser.deserialize(turtleIn.toString());
 			if (lKO < ev.getTimestamp().longValue()) {
 			    log.debug("synchronizeMobileTurtle",
 				    "Parsed an event from Mobile "
@@ -326,7 +330,7 @@ public class Hub {
 			    count++;
 			}
 		    }
-		    turtleIn = "";
+		    turtleIn =new StringBuffer();
 		    readline = br.readLine();
 		}
 		if (ev != null) {

@@ -40,7 +40,7 @@ import org.universAAL.middleware.container.osgi.util.BundleConfigHome;
 import org.universAAL.middleware.context.ContextEvent;
 import org.universAAL.middleware.context.owl.ContextProvider;
 import org.universAAL.middleware.rdf.Resource;
-import org.universAAL.middleware.serialization.MessageContentSerializer;
+import org.universAAL.middleware.sodapop.msg.MessageContentSerializer;
 import org.openrdf.OpenRDFException;
 import org.openrdf.model.URI;
 import org.openrdf.model.Value;
@@ -93,7 +93,7 @@ public class SesameBackend implements Backend {
      * If true cleans the store when stopped.
      */
     private static final boolean DEBUG_DB = Boolean.parseBoolean(Hub
-	    .getProperties().getProperty("RECYCLE.DEBUG", "false"));
+	    .getProperties().getProperty("RECYCLE.DEBUG", "true"));
     /**
      * Constants to identify SPARQL queries.
      */
@@ -136,8 +136,13 @@ public class SesameBackend implements Backend {
 	}
     }
     
-    /* (non-Javadoc)
-     * @see org.universAAL.context.che.database.Backend#populate()
+    /**
+     * Fills the initial store with the OWL data of the ontologies from the OWL
+     * files in the config folder (or registered in the system).
+     * 
+     * @throws RepositoryException
+     * @throws RDFParseException
+     * @throws IOException
      */
     public void populate() throws RepositoryException, RDFParseException,
 	    IOException {
@@ -584,7 +589,7 @@ public class SesameBackend implements Backend {
 	if (confidence != null) {
 	    query.append(" <http://ontology.universAAL.org/Context.owl#hasConfidence> \""
 		    + confidence
-		    + "\"^^<http://www.w3.org/2001/XMLSchema#int> ; \n");
+		    + "\"^^<http://www.w3.org/2001/XMLSchema#integer> ; \n");
 	}
 	if (expiration != null) {
 	    query.append(" <http://ontology.universAAL.org/Context.owl#hasExpirationTime> \""
@@ -658,7 +663,7 @@ public class SesameBackend implements Backend {
 	    return "<" + ((Resource) obj).getURI() + ">";
 	} else if (obj instanceof Integer) {
 	    return "\"" + ((Integer) obj).toString()
-		    + "\"^^<http://www.w3.org/2001/XMLSchema#int>";
+		    + "\"^^<http://www.w3.org/2001/XMLSchema#integer>";
 	} else if (obj instanceof Float) {
 	    return "\"" + ((Float) obj).toString()
 		    + "\"^^<http://www.w3.org/2001/XMLSchema#float>";

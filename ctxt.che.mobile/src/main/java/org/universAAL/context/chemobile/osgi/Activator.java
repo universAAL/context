@@ -30,7 +30,7 @@ import org.universAAL.context.chemobile.Hub;
 import org.universAAL.middleware.container.ModuleContext;
 import org.universAAL.middleware.container.osgi.uAALBundleContainer;
 import org.universAAL.middleware.container.osgi.util.BundleConfigHome;
-import org.universAAL.middleware.serialization.MessageContentSerializer;
+import org.universAAL.middleware.sodapop.msg.MessageContentSerializer;
 
 /**
  * OSGI activator. Relays start and stop to Hub.
@@ -52,9 +52,9 @@ public class Activator implements BundleActivator, ServiceListener {
      */
     private Hub hub = new Hub();
     /**
-     * The path to the config file. Here so it's decoupled from Hub.
+     * The path to the config file. Here so it´s decoupled from Hub.
      */
-    public static final String osgiConfigPath = new BundleConfigHome(
+    public static String osgiConfigPath = new BundleConfigHome(
 	    "ctxt.che.mobile").getAbsolutePath();
 
     /*
@@ -77,7 +77,7 @@ public class Activator implements BundleActivator, ServiceListener {
 	    String filter = "(objectclass="
 		    + MessageContentSerializer.class.getName() + ")";
 	    context.addServiceListener(this, filter);
-	    ServiceReference[] references = context.getServiceReferences((String)null,
+	    ServiceReference[] references = context.getServiceReferences(null,
 		    filter);
 	    for (int i = 0; references != null && i < references.length; i++) {
 		this.serviceChanged(new ServiceEvent(ServiceEvent.REGISTERED,

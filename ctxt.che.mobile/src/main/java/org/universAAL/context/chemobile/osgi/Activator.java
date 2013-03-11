@@ -29,6 +29,7 @@ import org.osgi.framework.ServiceReference;
 import org.universAAL.context.chemobile.Hub;
 import org.universAAL.middleware.container.ModuleContext;
 import org.universAAL.middleware.container.osgi.uAALBundleContainer;
+import org.universAAL.middleware.container.osgi.util.BundleConfigHome;
 import org.universAAL.middleware.sodapop.msg.MessageContentSerializer;
 
 /**
@@ -50,6 +51,11 @@ public class Activator implements BundleActivator, ServiceListener {
      * The application hub independent from OSGi.
      */
     private Hub hub = new Hub();
+    /**
+     * The path to the config file. Here so it´s decoupled from Hub.
+     */
+    public static String osgiConfigPath = new BundleConfigHome(
+	    "ctxt.che.mobile").getAbsolutePath();
 
     /*
      * (non-Javadoc)

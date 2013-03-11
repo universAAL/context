@@ -21,6 +21,9 @@
  */
 package org.universAAL.context.chemobile;
 
+import java.io.File;
+
+import org.universAAL.context.chemobile.osgi.Activator;
 import org.universAAL.middleware.container.ModuleContext;
 import org.universAAL.middleware.sodapop.msg.MessageContentSerializer;
 
@@ -37,6 +40,10 @@ public class Hub {
      * The context subscriber.
      */
     private MobileHistorySubscriber hc;
+    /**
+     * Config folder.
+     */
+    protected static File confHome = new File(Activator.osgiConfigPath);
 
     /**
      * To be called when application starts. Used to be Activator.start().

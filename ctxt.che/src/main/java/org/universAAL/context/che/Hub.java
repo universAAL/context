@@ -37,6 +37,7 @@ import java.util.Timer;
 
 import org.universAAL.context.che.database.Backend;
 import org.universAAL.context.che.database.Cleaner;
+import org.universAAL.context.che.osgi.Activator;
 import org.universAAL.middleware.container.ModuleContext;
 import org.universAAL.middleware.container.osgi.util.BundleConfigHome;
 import org.universAAL.middleware.container.utils.LogUtils;
@@ -75,8 +76,7 @@ public class Hub {
     /**
      * Config folder.
      */
-    private static File confHome = new File(
-	    new BundleConfigHome("ctxt.che").getAbsolutePath());
+    private static File confHome = new File(Activator.osgiConfigPath);
     /**
      * uAAL Module context.
      */

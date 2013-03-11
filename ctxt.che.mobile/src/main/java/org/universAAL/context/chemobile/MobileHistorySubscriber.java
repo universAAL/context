@@ -26,7 +26,6 @@ import java.io.File;
 import java.io.FileWriter;
 
 import org.universAAL.middleware.container.ModuleContext;
-import org.universAAL.middleware.container.osgi.util.BundleConfigHome;
 import org.universAAL.middleware.container.utils.LogUtils;
 import org.universAAL.middleware.context.ContextEvent;
 import org.universAAL.middleware.context.ContextEventPattern;
@@ -46,11 +45,6 @@ public class MobileHistorySubscriber extends ContextSubscriber {
      * The file where events are stored.
      */
     private static final String FILE = "Mobile-Events.txt";
-    /**
-     * Config folder.
-     */
-    private static File confHome = new File(new BundleConfigHome(
-	    "ctxt.che.mobile").getAbsolutePath());
 
     /**
      * File lock to synchronize access to "store".
@@ -77,11 +71,11 @@ public class MobileHistorySubscriber extends ContextSubscriber {
 	this.moduleContext = context;
 	synchronized (fileLock) {
 	    try {
-		if (!confHome.exists()) {
-		    confHome.mkdir();
+		if (!Hub.confHome.exists()) {
+		    Hub.confHome.mkdir();
 		}
 		BufferedWriter out = new BufferedWriter(new FileWriter(
-			new File(confHome, FILE), false));
+			new File(Hub.confHome, FILE), false));
 		out.close();
 	    } catch (Exception e) {
 		LogUtils.logError(moduleContext, this.getClass(), "init",
@@ -114,7 +108,7 @@ public class MobileHistorySubscriber extends ContextSubscriber {
 	synchronized (fileLock) {
 	    try {
 		BufferedWriter out = new BufferedWriter(new FileWriter(
-			new File(confHome, FILE), true));
+			new File(Hub.confHome, FILE), true));
 		String turtleOut = uAALParser.serialize(event);
 		out.write(turtleOut);
 		out.newLine();

@@ -25,7 +25,7 @@ import java.io.File;
 
 import org.universAAL.context.chemobile.osgi.Activator;
 import org.universAAL.middleware.container.ModuleContext;
-import org.universAAL.middleware.serialization.MessageContentSerializer;
+import org.universAAL.middleware.sodapop.msg.MessageContentSerializer;
 
 /**
  * Central class that takes care of starting and stopping application. It used
@@ -67,7 +67,7 @@ public class Hub {
     }
 
     /**
-     * Set the turtle-uaal parser. Make sure it's called after start().
+     * Set the turtle-uaal parser. Make sure it´s called after start().
      * 
      * @param service
      *            The parser

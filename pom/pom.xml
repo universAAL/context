@@ -5,15 +5,14 @@
   <parent>
     <groupId>org.universAAL</groupId>
     <artifactId>uAAL.pom</artifactId>
-    <version>2.0.2-SNAPSHOT</version>
+    <version>1.3.1-SNAPSHOT</version>
   </parent>
   <groupId>org.universAAL.context</groupId>
   <artifactId>ctxt.pom</artifactId>
-  <version>2.0.3-SNAPSHOT</version>
+  <version>1.3.1-SNAPSHOT</version>
   <packaging>pom</packaging>
   <name>universAAL Context Suite</name>
-  <description>The set of artefacts defining the universAAL context
-		tools.</description>
+  <description>The set of artefacts defining the universAAL context tools.</description>
   <inceptionYear>2010</inceptionYear>
   <modules>
     <module>../ctxt.che</module>
@@ -21,9 +20,10 @@
     <module>../ctxt.che.module.cardinality</module>
     <module>../sesame.uaal.store</module>
     <module>../ctxt.situation.reasoner</module>
+    <module>../ctxt.situation.reasoner.client</module>
+    <module>../ctxt.situation.reasoner.client.example</module>
     <module>../ctxt.prof.server</module>
     <module>../ctxt.reliability.reasoner</module>
-    <module>ctxt.karaf.features</module>
   </modules>
   <scm>
     <connection>${svn.base}/pom</connection>
@@ -40,81 +40,66 @@
     <dependencies>
       <dependency>
         <groupId>org.universAAL.middleware</groupId>
-        <artifactId>mw.pom.core</artifactId>
-        <version>2.0.3-SNAPSHOT</version>
-        <type>pom</type>
-        <scope>import</scope>
-      </dependency>
-      <dependency>
-        <groupId>org.universAAL.middleware</groupId>
         <artifactId>mw.pom.osgi</artifactId>
-        <version>2.0.3-SNAPSHOT</version>
+        <version>1.3.1-SNAPSHOT</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
       <dependency>
         <groupId>org.universAAL.ontology</groupId>
         <artifactId>ont.pom</artifactId>
-        <version>2.0.3-SNAPSHOT</version>
+        <version>1.3.1-SNAPSHOT</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
       <dependency>
         <groupId>org.universAAL.context</groupId>
         <artifactId>ctxt.che</artifactId>
-        <version>2.0.4-SNAPSHOT</version>
+        <version>1.3.2-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.universAAL.context</groupId>
         <artifactId>ctxt.che.mobile</artifactId>
-        <version>2.0.3-SNAPSHOT</version>
+        <version>1.3.1-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.universAAL.context</groupId>
         <artifactId>ctxt.prof.server</artifactId>
-        <version>2.0.3-SNAPSHOT</version>
+        <version>1.3.1-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.universAAL.context</groupId>
         <artifactId>ctxt.situation.reasoner</artifactId>
-        <version>2.0.3-SNAPSHOT</version>
+        <version>1.3.1-SNAPSHOT</version>
+      </dependency>
+      <dependency>
+        <groupId>org.universAAL.context</groupId>
+        <artifactId>ctxt.situation.reasoner.client</artifactId>
+        <version>1.3.1-SNAPSHOT</version>
+      </dependency>
+      <dependency>
+        <groupId>org.universAAL.context</groupId>
+        <artifactId>ctxt.situation.reasoner.client.example</artifactId>
+        <version>1.3.1-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.universAAL.context</groupId>
         <artifactId>ctxt.reliability.reasoner</artifactId>
-        <version>2.0.3-SNAPSHOT</version>
+        <version>1.3.1-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.universAAL.context</groupId>
         <artifactId>ctxt.che.module.cardinality</artifactId>
-        <version>2.0.3-SNAPSHOT</version>
-      </dependency>
-      <dependency>
-        <groupId>org.universAAL.context</groupId>
-        <artifactId>ctxt.che.module.cardinality</artifactId>
-        <version>2.0.3-SNAPSHOT</version>
+        <version>1.3.2-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.universAAL.context</groupId>
         <artifactId>sesame.uaal.store</artifactId>
-        <version>2.0.3-SNAPSHOT</version>
-      </dependency>
-      <dependency>
-        <groupId>org.universAAL.context</groupId>
-        <artifactId>ctxt.karaf.feature</artifactId>
-        <version>2.0.3-SNAPSHOT</version>
+        <version>1.3.1-SNAPSHOT</version>
       </dependency>
     </dependencies>
   </dependencyManagement>
   <repositories>
-    <repository>
-      <releases>
-        <enabled>false</enabled>
-      </releases>
-      <id>uaal-snapshots</id>
-      <name>universAAL Snapshot Repositories</name>
-      <url>http://depot.universaal.org/maven-repo/snapshots/</url>
-    </repository>
     <repository>
       <snapshots>
         <enabled>false</enabled>

@@ -30,7 +30,7 @@ import org.universAAL.middleware.container.utils.LogUtils;
 import org.universAAL.middleware.context.ContextEvent;
 import org.universAAL.middleware.context.ContextEventPattern;
 import org.universAAL.middleware.context.ContextSubscriber;
-import org.universAAL.middleware.serialization.MessageContentSerializer;
+import org.universAAL.middleware.sodapop.msg.MessageContentSerializer;
 
 /**
  * The CHe subscriber subscribes for all context events in order to save them.
@@ -39,7 +39,7 @@ import org.universAAL.middleware.serialization.MessageContentSerializer;
  * 
  */
 public class MobileHistorySubscriber extends ContextSubscriber {
-    // I don't want to make this non-private so remember if you change the name
+    // I don´t want to make this non-private so remember if you change the name
     // to change it in the tests
     /**
      * The file where events are stored.

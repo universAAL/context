@@ -54,7 +54,7 @@ public class Activator implements BundleActivator, ServiceListener {
     /**
      * The path to the config file. Here so it´s decoupled from Hub.
      */
-    public static String osgiConfigPath = new BundleConfigHome(
+    public static final String osgiConfigPath = new BundleConfigHome(
 	    "ctxt.che.mobile").getAbsolutePath();
 
     /*

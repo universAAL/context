@@ -58,8 +58,8 @@ public class SCaller {
     /**
      * Default constructor.
      * 
-     * @param context
-     *            uAAL Module context.
+     * @param mcontext
+     *            uAAL Module mcontext.
      */
     protected SCaller(ModuleContext context) {
 	defaultCaller = new DefaultServiceCaller(context);

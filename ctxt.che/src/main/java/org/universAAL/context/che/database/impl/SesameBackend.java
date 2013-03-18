@@ -40,7 +40,7 @@ import org.universAAL.middleware.container.osgi.util.BundleConfigHome;
 import org.universAAL.middleware.context.ContextEvent;
 import org.universAAL.middleware.context.owl.ContextProvider;
 import org.universAAL.middleware.rdf.Resource;
-import org.universAAL.middleware.sodapop.msg.MessageContentSerializer;
+import org.universAAL.middleware.serialization.MessageContentSerializer;
 import org.openrdf.OpenRDFException;
 import org.openrdf.model.URI;
 import org.openrdf.model.Value;

@@ -44,7 +44,7 @@ import org.universAAL.middleware.container.utils.LogUtils;
 import org.universAAL.middleware.context.ContextEvent;
 import org.universAAL.middleware.owl.Ontology;
 import org.universAAL.middleware.owl.OntologyManagement;
-import org.universAAL.middleware.sodapop.msg.MessageContentSerializer;
+import org.universAAL.middleware.serialization.MessageContentSerializer;
 
 /**
  * Central class that takes care of starting and stopping application. It used

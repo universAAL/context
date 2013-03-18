@@ -69,15 +69,15 @@ public class SCallee extends ServiceCallee {
      */
     private static final String NAMESPACE_SUBPROFILE = NAMESPACE + "subprofile";
     /**
-     * The uAAL module context.
+     * The uAAL module mcontext.
      */
     private ModuleContext mc;
 
     /**
      * Default 2-argument constructor. Must not be used.
      * 
-     * @param context
-     *            uAAL module context
+     * @param mcontext
+     *            uAAL module mcontext
      * @param realizedServices
      *            provided service profiles
      */
@@ -91,24 +91,24 @@ public class SCallee extends ServiceCallee {
     /**
      * Default constructor.
      * 
-     * @param context
-     *            uAAL module context
+     * @param mcontext
+     *            uAAL module mcontext
      */
     protected SCallee(ModuleContext context) {
 	super(context, SCalleeProvidedService.getServiceProfiles(
 		NAMESPACE_PROFILABLE, ProfilingService.MY_URI,
 		new String[] { ProfilingService.PROP_CONTROLS },
 		Profilable.MY_URI));
-	this.addNewRegParams(SCalleeProvidedService.getServiceProfiles(
+	this.addNewServiceProfiles(SCalleeProvidedService.getServiceProfiles(
 		NAMESPACE_PROFILE, ProfilingService.MY_URI, new String[] {
 			ProfilingService.PROP_CONTROLS,
 			Profilable.PROP_HAS_PROFILE }, Profile.MY_URI));
-	this.addNewRegParams(SCalleeProvidedService.getServiceProfiles(
+	this.addNewServiceProfiles(SCalleeProvidedService.getServiceProfiles(
 		NAMESPACE_SUBPROFILE, ProfilingService.MY_URI, new String[] {
 			ProfilingService.PROP_CONTROLS,
 			Profilable.PROP_HAS_PROFILE,
 			Profile.PROP_HAS_SUB_PROFILE }, SubProfile.MY_URI));
-	this.addNewRegParams(SCalleeProvidedService.profiles);
+	this.addNewServiceProfiles(SCalleeProvidedService.profiles);
 	ERROR_INPUT.addOutput(new ProcessOutput(
 		ServiceResponse.PROP_SERVICE_SPECIFIC_ERROR, "Invalid input"));
     }

@@ -31,7 +31,7 @@ import org.universAAL.middleware.context.ContextPublisher;
 import org.universAAL.middleware.context.DefaultContextPublisher;
 import org.universAAL.middleware.context.owl.ContextProvider;
 import org.universAAL.middleware.context.owl.ContextProviderType;
-import org.universAAL.middleware.sodapop.msg.MessageContentSerializer;
+import org.universAAL.middleware.serialization.MessageContentSerializer;
 import org.universAAL.reasoner.server.ReasoningProvider;
 import org.universAAL.reasoner.server.CHECaller;
 
@@ -54,7 +54,7 @@ import org.universAAL.reasoner.server.CHECaller;
  */
 public class Activator implements BundleActivator, ServiceListener {
     public static BundleContext osgiContext = null;
-    public static ModuleContext context = null;
+    public static ModuleContext mcontext = null;
     public static ContextPublisher cpublisher = null;
     public static CHECaller scaller = null;
     public static MessageContentSerializer serializer = null;
@@ -63,14 +63,14 @@ public class Activator implements BundleActivator, ServiceListener {
 
     public void start(BundleContext bcontext) throws Exception {
 	Activator.osgiContext = bcontext;
-	Activator.context = uAALBundleContainer.THE_CONTAINER
+	Activator.mcontext = uAALBundleContainer.THE_CONTAINER
 		.registerModule(new Object[] { osgiContext });
 	ContextProvider info = new ContextProvider(
 		"http://ontology.itaca.es/Reasoner.owl#ReasonerPublisher");
 	info.setType(ContextProviderType.reasoner);
 	info.setProvidedEvents(new ContextEventPattern[] { new ContextEventPattern() });
-	cpublisher = new DefaultContextPublisher(context, info);
-	scaller = new CHECaller(context);
+	cpublisher = new DefaultContextPublisher(mcontext, info);
+	scaller = new CHECaller(mcontext);
 	
 	// Look for MessageContentSerializer of mw.data.serialization
 	String filter = "(objectclass="
@@ -85,13 +85,13 @@ public class Activator implements BundleActivator, ServiceListener {
 	while (serializer == null)
 	    Thread.sleep(100);
 	    
-	provider = new ReasoningProvider(context);
+	provider = new ReasoningProvider(mcontext);
     }
 
     public void stop(BundleContext arg0) throws Exception {
 	// stopIt = true;
 	osgiContext = null;
-	context = null;
+	mcontext = null;
 	cpublisher.close();
 	scaller.close();
 	provider.saveAllData();

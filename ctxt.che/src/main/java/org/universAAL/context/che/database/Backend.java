@@ -25,7 +25,7 @@ import java.util.ArrayList;
 
 import org.universAAL.middleware.context.ContextEvent;
 import org.universAAL.middleware.context.owl.ContextProvider;
-import org.universAAL.middleware.sodapop.msg.MessageContentSerializer;
+import org.universAAL.middleware.serialization.MessageContentSerializer;
 
 /**
  * Interface that represents a store back end where the context history is

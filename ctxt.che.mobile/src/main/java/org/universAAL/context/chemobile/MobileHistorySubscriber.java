@@ -30,7 +30,7 @@ import org.universAAL.middleware.container.utils.LogUtils;
 import org.universAAL.middleware.context.ContextEvent;
 import org.universAAL.middleware.context.ContextEventPattern;
 import org.universAAL.middleware.context.ContextSubscriber;
-import org.universAAL.middleware.sodapop.msg.MessageContentSerializer;
+import org.universAAL.middleware.serialization.MessageContentSerializer;
 
 /**
  * The CHe subscriber subscribes for all context events in order to save them.

@@ -21,6 +21,7 @@
  */
 package org.universAAL.context.che;
 
+import org.universAAL.context.che.osgi.Activator;
 import org.universAAL.middleware.owl.MergedRestriction;
 import org.universAAL.middleware.owl.OntologyManagement;
 import org.universAAL.middleware.owl.SimpleOntology;
@@ -68,7 +69,7 @@ public class ContextHistoryServices extends ContextHistoryService {
     static final ServiceProfile[] PROFILES = new ServiceProfile[5];
 
     static {
-	OntologyManagement.getInstance().register(
+	OntologyManagement.getInstance().register(Activator.getModuleContext(),
 		new SimpleOntology(MY_URI, ContextHistoryService.MY_URI,
 			new ResourceFactoryImpl() {
 			    @Override

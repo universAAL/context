@@ -104,7 +104,7 @@ public class RuleModel extends ElementModel<Rule> {
 		}
 
 		String query = rule.getQuery().getResultingQuery();
-		subs.add(new CSubsMulti(Activator.context,
+		subs.add(new CSubsMulti(Activator.mcontext,
 				new ContextEventPattern[] { cep }, query));
 	}
 

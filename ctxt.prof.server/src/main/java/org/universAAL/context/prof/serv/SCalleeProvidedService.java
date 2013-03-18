@@ -102,7 +102,7 @@ public class SCalleeProvidedService extends ProfilingService {
     protected static ServiceProfile[] profiles = new ServiceProfile[7];
 
     static {
-	OntologyManagement.getInstance().register(
+	OntologyManagement.getInstance().register(Activator.mcontext,
 		new SimpleOntology(MY_URI, ProfilingService.MY_URI,
 			new ResourceFactoryImpl() {
 			    public Resource createInstance(String classURI,

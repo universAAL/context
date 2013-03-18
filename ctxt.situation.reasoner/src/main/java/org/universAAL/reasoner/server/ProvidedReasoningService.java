@@ -31,6 +31,7 @@ import org.universAAL.reasoner.ont.Query;
 import org.universAAL.reasoner.ont.ReasoningService;
 import org.universAAL.reasoner.ont.Rule;
 import org.universAAL.reasoner.ont.Situation;
+import org.universAAL.reasoner.server.osgi.Activator;
 
 /**
  * This implementation of ReasoningService contains all methods currently
@@ -82,7 +83,7 @@ public class ProvidedReasoningService extends ReasoningService {
     @SuppressWarnings("unchecked")
     private static Hashtable serverLightingRestrictions = new Hashtable();
     static {
-	OntologyManagement.getInstance().register(
+	OntologyManagement.getInstance().register(Activator.mcontext,
 		new SimpleOntology(MY_URI, ReasoningService.MY_URI,
 			new ResourceFactoryImpl() {
 			    public Resource createInstance(String classURI,

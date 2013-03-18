@@ -3,10 +3,13 @@
  */
 package org.universAAL.context.conversion.jena.impl;
 
+import java.io.File;
 import java.util.Locale;
 
 import junit.framework.TestCase;
 
+import org.universAAL.middleware.container.Container;
+import org.universAAL.middleware.container.ModuleContext;
 import org.universAAL.middleware.owl.DataRepOntology;
 import org.universAAL.middleware.owl.IntRestriction;
 import org.universAAL.middleware.owl.MergedRestriction;
@@ -44,9 +47,95 @@ public class FormTest extends TestCase {
 
 	public FormTest(String name) {
 		super(name);
-		
-		OntologyManagement.getInstance().register(new DataRepOntology());
-		OntologyManagement.getInstance().register(new UIBusOntology());
+		ModuleContext mc= new ModuleContext() {
+		    
+		    public boolean uninstall(ModuleContext arg0) {
+			// TODO Auto-generated method stub
+			return false;
+		    }
+		    
+		    public boolean stop(ModuleContext arg0) {
+			// TODO Auto-generated method stub
+			return false;
+		    }
+		    
+		    public boolean start(ModuleContext arg0) {
+			// TODO Auto-generated method stub
+			return false;
+		    }
+		    
+		    public void setAttribute(String arg0, Object arg1) {
+			// TODO Auto-generated method stub
+			
+		    }
+		    
+		    public void registerConfigFile(Object[] arg0) {
+			// TODO Auto-generated method stub
+			
+		    }
+		    
+		    public void logWarn(String arg0, String arg1, Throwable arg2) {
+			// TODO Auto-generated method stub
+			
+		    }
+		    
+		    public void logTrace(String arg0, String arg1, Throwable arg2) {
+			// TODO Auto-generated method stub
+			
+		    }
+		    
+		    public void logInfo(String arg0, String arg1, Throwable arg2) {
+			// TODO Auto-generated method stub
+			
+		    }
+		    
+		    public void logError(String arg0, String arg1, Throwable arg2) {
+			// TODO Auto-generated method stub
+			
+		    }
+		    
+		    public void logDebug(String arg0, String arg1, Throwable arg2) {
+			// TODO Auto-generated method stub
+			
+		    }
+		    
+		    public File[] listConfigFiles(ModuleContext arg0) {
+			// TODO Auto-generated method stub
+			return null;
+		    }
+		    
+		    public String getID() {
+			// TODO Auto-generated method stub
+			return null;
+		    }
+		    
+		    public Container getContainer() {
+			// TODO Auto-generated method stub
+			return null;
+		    }
+		    
+		    public Object getAttribute(String arg0) {
+			// TODO Auto-generated method stub
+			return null;
+		    }
+		    
+		    public boolean canBeUninstalled(ModuleContext arg0) {
+			// TODO Auto-generated method stub
+			return false;
+		    }
+		    
+		    public boolean canBeStopped(ModuleContext arg0) {
+			// TODO Auto-generated method stub
+			return false;
+		    }
+		    
+		    public boolean canBeStarted(ModuleContext arg0) {
+			// TODO Auto-generated method stub
+			return false;
+		    }
+		};
+		OntologyManagement.getInstance().register(mc, new DataRepOntology());
+		OntologyManagement.getInstance().register(mc, new UIBusOntology());
 	}
 
 	public void testForm() {

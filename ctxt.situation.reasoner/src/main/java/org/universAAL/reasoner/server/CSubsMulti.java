@@ -27,9 +27,9 @@ import org.universAAL.reasoner.server.osgi.Activator;
 
 /**
  * Class used to register multiple subscribers, each of them using just a single
- * context event pattern, and having an associated SPARQL CONSTRUCT query. Each
+ * mcontext event pattern, and having an associated SPARQL CONSTRUCT query. Each
  * patter is given by a restriction for the subject, the predicate and the
- * object for a context-event at the bus, where the last two are optional. See
+ * object for a mcontext-event at the bus, where the last two are optional. See
  * also the class Situation in the ontology for the reasoner.
  * 
  * @author alfiva
@@ -43,8 +43,8 @@ public class CSubsMulti extends ContextSubscriber {
     /**
      * Create the subscriber
      * 
-     * @param context the module context
-     * @param initialSubscriptions the context event pattern to react to
+     * @param mcontext the module mcontext
+     * @param initialSubscriptions the mcontext event pattern to react to
      * @param query the query to execute when receiving an event
      */
     protected CSubsMulti(ModuleContext context,

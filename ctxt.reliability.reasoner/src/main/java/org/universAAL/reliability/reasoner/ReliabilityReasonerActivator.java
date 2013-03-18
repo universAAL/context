@@ -31,7 +31,7 @@ import org.universAAL.middleware.context.ContextSubscriber;
 import org.universAAL.middleware.context.DefaultContextPublisher;
 import org.universAAL.middleware.context.owl.ContextProvider;
 import org.universAAL.middleware.context.owl.ContextProviderType;
-import org.universAAL.middleware.sodapop.msg.MessageContentSerializerEx;
+import org.universAAL.middleware.serialization.MessageContentSerializerEx;
 
 
 public class ReliabilityReasonerActivator implements BundleActivator, ServiceListener {

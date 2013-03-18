@@ -44,12 +44,12 @@ public class ArtifactIntegrationTest extends IntegrationTest {
 	} catch (InterruptedException e) {
 	    e.printStackTrace();
 	}
-	caller = new DefaultServiceCaller(Activator.context);
+	caller = new DefaultServiceCaller(Activator.mcontext);
     }
 
     public void testProfilable() {
-	caller = new DefaultServiceCaller(Activator.context);
-	LogUtils.logInfo(Activator.context, ArtifactIntegrationTest.class,
+	caller = new DefaultServiceCaller(Activator.mcontext);
+	LogUtils.logInfo(Activator.mcontext, ArtifactIntegrationTest.class,
 		"testProfilable", new String[] { "-Test 1-" }, null);
 	User user1 = new User(NAMESPACE + "user1");
 	AssistedPerson user2 = new AssistedPerson(NAMESPACE + "ap2");
@@ -89,8 +89,8 @@ public class ArtifactIntegrationTest extends IntegrationTest {
     }
 
     public void testProfile() {
-	caller = new DefaultServiceCaller(Activator.context);
-	LogUtils.logInfo(Activator.context, ArtifactIntegrationTest.class,
+	caller = new DefaultServiceCaller(Activator.mcontext);
+	LogUtils.logInfo(Activator.mcontext, ArtifactIntegrationTest.class,
 		"testProfile", new String[] { "-Test 2-" }, null);
 	UserProfile prof1 = new UserProfile(NAMESPACE + "userProf1");
 	AssistedPersonProfile prof2 = new AssistedPersonProfile(NAMESPACE
@@ -124,8 +124,8 @@ public class ArtifactIntegrationTest extends IntegrationTest {
     }
 
     public void testSubProfile() {
-	caller = new DefaultServiceCaller(Activator.context);
-	LogUtils.logInfo(Activator.context, ArtifactIntegrationTest.class,
+	caller = new DefaultServiceCaller(Activator.mcontext);
+	LogUtils.logInfo(Activator.mcontext, ArtifactIntegrationTest.class,
 		"testSubProfile", new String[] { "-Test 3-" }, null);
 	SubProfile subprof1 = new SubProfile(NAMESPACE + "userSubProf1");
 

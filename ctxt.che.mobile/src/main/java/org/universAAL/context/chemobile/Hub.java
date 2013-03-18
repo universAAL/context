@@ -25,7 +25,7 @@ import java.io.File;
 
 import org.universAAL.context.chemobile.osgi.Activator;
 import org.universAAL.middleware.container.ModuleContext;
-import org.universAAL.middleware.sodapop.msg.MessageContentSerializer;
+import org.universAAL.middleware.serialization.MessageContentSerializer;
 
 /**
  * Central class that takes care of starting and stopping application. It used

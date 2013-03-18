@@ -28,7 +28,7 @@ import org.osgi.framework.ServiceListener;
 import org.osgi.framework.ServiceReference;
 import org.universAAL.middleware.container.ModuleContext;
 import org.universAAL.middleware.container.osgi.uAALBundleContainer;
-import org.universAAL.middleware.sodapop.msg.MessageContentSerializerEx;
+import org.universAAL.middleware.serialization.MessageContentSerializerEx;
 
 /**
  * OSGI Activator. Initializes provided services and SCallee.
@@ -38,13 +38,13 @@ import org.universAAL.middleware.sodapop.msg.MessageContentSerializerEx;
  */
 public class Activator implements BundleActivator, ServiceListener {
     /**
-     * The OSGi Bundle context
+     * The OSGi Bundle mcontext
      */
     protected static BundleContext osgiContext = null;
     /**
-     * The uAAL module context
+     * The uAAL module mcontext
      */
-    protected static ModuleContext context = null;
+    protected static ModuleContext mcontext = null;
     /**
      * Service Callee
      */
@@ -67,10 +67,10 @@ public class Activator implements BundleActivator, ServiceListener {
      */
     public void start(BundleContext bcontext) throws Exception {
 	Activator.osgiContext = bcontext;
-	Activator.context = uAALBundleContainer.THE_CONTAINER
+	Activator.mcontext = uAALBundleContainer.THE_CONTAINER
 		.registerModule(new Object[] { bcontext });
-	scallee = new SCallee(context);
-	scaller = new SCaller(context);
+	scallee = new SCallee(mcontext);
+	scaller = new SCaller(mcontext);
 	String filter = "(objectclass="
 		+ MessageContentSerializerEx.class.getName() + ")";
 	osgiContext.addServiceListener(this, filter);

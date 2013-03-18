@@ -33,7 +33,7 @@ import org.universAAL.middleware.service.ServiceCaller;
 import org.universAAL.middleware.service.ServiceRequest;
 import org.universAAL.middleware.service.ServiceResponse;
 import org.universAAL.middleware.service.owls.process.ProcessOutput;
-import org.universAAL.middleware.sodapop.msg.MessageContentSerializer;
+import org.universAAL.middleware.serialization.MessageContentSerializer;
 import org.universAAL.ontology.che.ContextHistoryService;
 import org.universAAL.reasoner.server.osgi.Activator;
 
@@ -85,7 +85,7 @@ public class CHECaller extends ServiceCaller {
 	    if (event.isWellFormed() && event.getSubjectTypeURI() != null) {
 		Activator.cpublisher.publish(event);
 	    } else {
-		LogUtils.logError(Activator.context, CHECaller.class,
+		LogUtils.logError(Activator.mcontext, CHECaller.class,
 			"executeQuery",
 			new Object[] { "Invalid CONSTRUCT query associated to "
 				+ "situation. CONSTRUCT queries must build "
@@ -93,7 +93,7 @@ public class CHECaller extends ServiceCaller {
 				+ " the root." }, null);
 	    }
 	} else {
-	    LogUtils.logWarn(Activator.context, CHECaller.class,
+	    LogUtils.logWarn(Activator.mcontext, CHECaller.class,
 		    "executeQuery",
 		    new Object[] { "Triggered evaluation of situation, "
 			    + "but not found" }, null);
@@ -115,13 +115,13 @@ public class CHECaller extends ServiceCaller {
 			OUTPUT_RESULT_STRING);
 		// Uncomment this line if you want to show the raw results. Do
 		// this for CONSTRUCT, ASK or DESCRIBE
-		LogUtils.logInfo(Activator.context, CHECaller.class,
+		LogUtils.logInfo(Activator.mcontext, CHECaller.class,
 			"callDoSPARQL",
 			new Object[] { "Result of SPARQL query was:\n"
 				+ results }, null);
 		return results;
 	    } catch (Exception e) {
-		LogUtils.logInfo(Activator.context, CHECaller.class,
+		LogUtils.logInfo(Activator.mcontext, CHECaller.class,
 			"callDoSPARQL",
 			new Object[] { "History Client: Result corrupt!" }, e);
 		return "";
@@ -129,7 +129,7 @@ public class CHECaller extends ServiceCaller {
 	} else
 	    LogUtils
 		    .logInfo(
-			    Activator.context,
+			    Activator.mcontext,
 			    CHECaller.class,
 			    "callDoSPARQL",
 			    new Object[] { "History Client - status of doSparqlQuery(): "
@@ -177,7 +177,7 @@ public class CHECaller extends ServiceCaller {
     private Object getReturnValue(List outputs, String expectedOutput) {
 	Object returnValue = null;
 	if (outputs == null)
-	    LogUtils.logInfo(Activator.context, CHECaller.class,
+	    LogUtils.logInfo(Activator.mcontext, CHECaller.class,
 		    "getReturnValue",
 		    new Object[] { "History Client: No events found!" }, null);
 	else
@@ -189,13 +189,13 @@ public class CHECaller extends ServiceCaller {
 		    else
 			LogUtils
 				.logInfo(
-					Activator.context,
+					Activator.mcontext,
 					CHECaller.class,
 					"getReturnValue",
 					new Object[] { "History Client: redundant return value!" },
 					null);
 		else
-		    LogUtils.logInfo(Activator.context, CHECaller.class,
+		    LogUtils.logInfo(Activator.mcontext, CHECaller.class,
 			    "getReturnValue",
 			    new Object[] { "History Client - output ignored: "
 				    + output.getURI() }, null);

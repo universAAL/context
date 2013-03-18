@@ -5,11 +5,11 @@
   <parent>
     <groupId>org.universAAL.context</groupId>
     <artifactId>ctxt.pom</artifactId>
-    <version>2.0.3-SNAPSHOT</version>
+    <version>1.3.2-SNAPSHOT</version>
     <relativePath>../pom/pom.xml</relativePath>
   </parent>
   <artifactId>ctxt.prof.server</artifactId>
-  <version>2.0.3-SNAPSHOT</version>
+  <version>1.3.2-SNAPSHOT</version>
   <packaging>bundle</packaging>
   <name>universAAL Context Profiling Server</name>
   <description>uAAL Profiling server providing services for profile edition</description>
@@ -76,10 +76,6 @@
       <groupId>org.universAAL.ontology</groupId>
       <artifactId>ont.che</artifactId>
     </dependency>
-    <!-- <dependency>
-      <groupId>org.universAAL.ontology</groupId>
-      <artifactId>ont.profile.userid</artifactId>
-    </dependency>-->
   </dependencies>
   <repositories>
     <repository>
@@ -111,7 +107,7 @@
         <configuration>
           <instructions>
             <Bundle-Name>${project.name}</Bundle-Name>
-            <Bundle-Activator>org.universAAL.context.prof.serv.osgi.Activator</Bundle-Activator>
+            <Bundle-Activator>org.universAAL.context.prof.serv.Activator</Bundle-Activator>
             <Bundle-Description>${project.description}</Bundle-Description>
             <Bundle-SymbolicName>${project.artifactId}</Bundle-SymbolicName>
           </instructions>

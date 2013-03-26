@@ -35,8 +35,6 @@ import org.universAAL.middleware.service.owls.profile.ServiceProfile;
 import org.universAAL.ontology.profile.Profilable;
 import org.universAAL.ontology.profile.Profile;
 import org.universAAL.ontology.profile.SubProfile;
-import org.universAAL.ontology.profile.User;
-import org.universAAL.ontology.profile.UserProfile;
 import org.universAAL.ontology.profile.service.ProfilingService;
 
 /**
@@ -53,8 +51,6 @@ public class SCallee extends ServiceCallee {
      * Default error for invalid input.
      */
     private static final ServiceResponse ERROR_INPUT = new ServiceResponse(
-	    CallStatus.serviceSpecificFailure);
-    private static final ServiceResponse ERROR_OUTPUT = new ServiceResponse(
 	    CallStatus.serviceSpecificFailure);
     /**
      * Default namespace root.
@@ -73,15 +69,15 @@ public class SCallee extends ServiceCallee {
      */
     private static final String NAMESPACE_SUBPROFILE = NAMESPACE + "subprofile";
     /**
-     * The uAAL module context.
+     * The uAAL module mcontext.
      */
     private ModuleContext mc;
 
     /**
      * Default 2-argument constructor. Must not be used.
      * 
-     * @param context
-     *            uAAL module context
+     * @param mcontext
+     *            uAAL module mcontext
      * @param realizedServices
      *            provided service profiles
      */
@@ -90,38 +86,31 @@ public class SCallee extends ServiceCallee {
 	this.mc = context;
 	ERROR_INPUT.addOutput(new ProcessOutput(
 		ServiceResponse.PROP_SERVICE_SPECIFIC_ERROR, "Invalid input"));
-	ERROR_OUTPUT.addOutput(new ProcessOutput(
-		ServiceResponse.PROP_SERVICE_SPECIFIC_ERROR,
-		"Result from CHE is empty or invalid"));
     }
 
     /**
      * Default constructor.
      * 
-     * @param context
-     *            uAAL module context
+     * @param mcontext
+     *            uAAL module mcontext
      */
-    public SCallee(ModuleContext context) {
-	super(context, SCalleeProvidedService.profiles);
-	this.addNewServiceProfiles(SCalleeProvidedService.getServiceProfiles(
+    protected SCallee(ModuleContext context) {
+	super(context, SCalleeProvidedService.getServiceProfiles(
 		NAMESPACE_PROFILABLE, ProfilingService.MY_URI,
 		new String[] { ProfilingService.PROP_CONTROLS },
-		User.MY_URI));
+		Profilable.MY_URI));
 	this.addNewServiceProfiles(SCalleeProvidedService.getServiceProfiles(
 		NAMESPACE_PROFILE, ProfilingService.MY_URI, new String[] {
 			ProfilingService.PROP_CONTROLS,
-			Profilable.PROP_HAS_PROFILE }, UserProfile.MY_URI));
+			Profilable.PROP_HAS_PROFILE }, Profile.MY_URI));
 	this.addNewServiceProfiles(SCalleeProvidedService.getServiceProfiles(
 		NAMESPACE_SUBPROFILE, ProfilingService.MY_URI, new String[] {
 			ProfilingService.PROP_CONTROLS,
 			Profilable.PROP_HAS_PROFILE,
 			Profile.PROP_HAS_SUB_PROFILE }, SubProfile.MY_URI));
-//	this.addNewServiceProfiles(SCalleeProvidedService.profiles);
+	this.addNewServiceProfiles(SCalleeProvidedService.profiles);
 	ERROR_INPUT.addOutput(new ProcessOutput(
 		ServiceResponse.PROP_SERVICE_SPECIFIC_ERROR, "Invalid input"));
-	ERROR_OUTPUT.addOutput(new ProcessOutput(
-		ServiceResponse.PROP_SERVICE_SPECIFIC_ERROR,
-		"Result from CHE is empty or invalid"));
     }
 
     /*
@@ -170,14 +159,11 @@ public class SCallee extends ServiceCallee {
 	    if (input == null) {
 		return ERROR_INPUT;
 	    }
-	    Resource result = Hub.scaller.getUser((Resource) input);
+	    Resource result = Activator.scaller
+		    .getUser((Resource) input);
 	    ServiceResponse response = new ServiceResponse(CallStatus.succeeded);
-	    if (result != null) {
-		response.addOutput(new ProcessOutput(NAMESPACE_PROFILABLE
-			+ SCalleeProvidedService.OUT_GET_X, result));
-	    } else {
-		return ERROR_OUTPUT;
-	    }
+	    response.addOutput(new ProcessOutput(NAMESPACE_PROFILABLE
+		    + SCalleeProvidedService.OUT_GET_X, result));
 	    return response;
 	}
 
@@ -190,7 +176,7 @@ public class SCallee extends ServiceCallee {
 	    if (input == null) {
 		return ERROR_INPUT;
 	    }
-	    Hub.scaller.addUser((Resource) input);
+	    Activator.scaller.addUser((Resource) input);
 	    ServiceResponse response = new ServiceResponse(CallStatus.succeeded);
 	    return response;
 	}
@@ -204,7 +190,7 @@ public class SCallee extends ServiceCallee {
 	    if (input == null) {
 		return ERROR_INPUT;
 	    }
-	    Hub.scaller.changeUser((Resource) input);
+	    Activator.scaller.changeUser((Resource) input);
 	    ServiceResponse response = new ServiceResponse(CallStatus.succeeded);
 	    return response;
 	}
@@ -218,7 +204,7 @@ public class SCallee extends ServiceCallee {
 	    if (input == null) {
 		return ERROR_INPUT;
 	    }
-	    Hub.scaller.removeUser((Resource) input);
+	    Activator.scaller.removeUser((Resource) input);
 	    ServiceResponse response = new ServiceResponse(CallStatus.succeeded);
 	    return response;
 	}
@@ -234,15 +220,11 @@ public class SCallee extends ServiceCallee {
 	    if (input == null) {
 		return ERROR_INPUT;
 	    }
-	    Resource result = Hub.scaller
+	    Resource result = Activator.scaller
 		    .getProfile((Resource) input);
 	    ServiceResponse response = new ServiceResponse(CallStatus.succeeded);
-	    if (result != null) {
-		response.addOutput(new ProcessOutput(NAMESPACE_PROFILE
-			+ SCalleeProvidedService.OUT_GET_X, result));
-	    } else {
-		return ERROR_OUTPUT;
-	    }
+	    response.addOutput(new ProcessOutput(NAMESPACE_PROFILE
+		    + SCalleeProvidedService.OUT_GET_X, result));
 	    return response;
 	}
 
@@ -255,7 +237,7 @@ public class SCallee extends ServiceCallee {
 	    if (input == null) {
 		return ERROR_INPUT;
 	    }
-	    Hub.scaller.addProfile((Resource) input);
+	    Activator.scaller.addProfile((Resource) input);
 	    ServiceResponse response = new ServiceResponse(CallStatus.succeeded);
 	    return response;
 	}
@@ -269,7 +251,7 @@ public class SCallee extends ServiceCallee {
 	    if (input == null) {
 		return ERROR_INPUT;
 	    }
-	    Hub.scaller.changeProfile((Resource) input);
+	    Activator.scaller.changeProfile((Resource) input);
 	    ServiceResponse response = new ServiceResponse(CallStatus.succeeded);
 	    return response;
 	}
@@ -283,7 +265,7 @@ public class SCallee extends ServiceCallee {
 	    if (input == null) {
 		return ERROR_INPUT;
 	    }
-	    Hub.scaller.removeProfile((Resource) input);
+	    Activator.scaller.removeProfile((Resource) input);
 	    ServiceResponse response = new ServiceResponse(CallStatus.succeeded);
 	    return response;
 	}
@@ -299,15 +281,11 @@ public class SCallee extends ServiceCallee {
 	    if (input == null) {
 		return ERROR_INPUT;
 	    }
-	    Resource result = Hub.scaller
+	    Resource result = Activator.scaller
 		    .getSubProfile((Resource) input);
 	    ServiceResponse response = new ServiceResponse(CallStatus.succeeded);
-	    if (result != null) {
-		response.addOutput(new ProcessOutput(NAMESPACE_SUBPROFILE
-			+ SCalleeProvidedService.OUT_GET_X, result));
-	    } else {
-		return ERROR_OUTPUT;
-	    }
+	    response.addOutput(new ProcessOutput(NAMESPACE_SUBPROFILE
+		    + SCalleeProvidedService.OUT_GET_X, result));
 	    return response;
 	}
 
@@ -320,7 +298,7 @@ public class SCallee extends ServiceCallee {
 	    if (input == null) {
 		return ERROR_INPUT;
 	    }
-	    Hub.scaller.addSubProfile((Resource) input);
+	    Activator.scaller.addSubProfile((Resource) input);
 	    ServiceResponse response = new ServiceResponse(CallStatus.succeeded);
 	    return response;
 	}
@@ -334,7 +312,7 @@ public class SCallee extends ServiceCallee {
 	    if (input == null) {
 		return ERROR_INPUT;
 	    }
-	    Hub.scaller.changeSubProfile((Resource) input);
+	    Activator.scaller.changeSubProfile((Resource) input);
 	    ServiceResponse response = new ServiceResponse(CallStatus.succeeded);
 	    return response;
 	}
@@ -348,7 +326,7 @@ public class SCallee extends ServiceCallee {
 	    if (input == null) {
 		return ERROR_INPUT;
 	    }
-	    Hub.scaller.removeSubProfile((Resource) input);
+	    Activator.scaller.removeSubProfile((Resource) input);
 	    ServiceResponse response = new ServiceResponse(CallStatus.succeeded);
 	    return response;
 	}
@@ -358,14 +336,10 @@ public class SCallee extends ServiceCallee {
 	if (operation.startsWith(SCalleeProvidedService.SRV_GET_USRS)) {
 	    LogUtils.logDebug(mc, SCallee.class, "handleCall",
 		    new String[] { "CALLED: SRV_GET_USRS" }, null);
-	    ArrayList result = Hub.scaller.getUsers();
+	    ArrayList result = Activator.scaller.getUsers();
 	    ServiceResponse response = new ServiceResponse(CallStatus.succeeded);
-	    if(result!=null){
-		response.addOutput(new ProcessOutput(
-			SCalleeProvidedService.OUT_GET_USRS, result));
-	    } else {
-		return ERROR_OUTPUT;
-	    }
+	    response.addOutput(new ProcessOutput(
+		    SCalleeProvidedService.OUT_GET_USRS, result));
 	    return response;
 	}
 	
@@ -377,35 +351,14 @@ public class SCallee extends ServiceCallee {
 	    if (input == null) {
 		return ERROR_INPUT;
 	    }
-	    Resource result = Hub.scaller.getProfileOfUser((Resource) input);
+	    Resource result = Activator.scaller
+		    .getProfileOfUser((Resource) input);
 	    ServiceResponse response = new ServiceResponse(CallStatus.succeeded);
-	    if (result != null) {
-		response.addOutput(new ProcessOutput(
-			SCalleeProvidedService.OUT_GET_PRF_OF_USR, result));
-	    } else {
-		return ERROR_OUTPUT;
-	    }
-	    return response;   
+	    response.addOutput(new ProcessOutput(
+		    SCalleeProvidedService.OUT_GET_PRF_OF_USR, result));
+	    return response;
+	    
 	}
-	
-//	if (operation.startsWith(SCalleeProvidedService.SRV_GET_SECPRF_OF_USR)) {
-//	    LogUtils.logDebug(mc, SCallee.class, "handleCall",
-//		    new String[] { "CALLED: SRV_GET_SECPRF_OF_USR" }, null);
-//	    Object input = call
-//		    .getInputValue(SCalleeProvidedService.INP_GET_SECPRF_OF_USR);
-//	    if (input == null) {
-//		return ERROR_INPUT;
-//	    }
-//	    Resource result = Hub.scaller.getSecProfileOfUser((Resource) input);
-//	    ServiceResponse response = new ServiceResponse(CallStatus.succeeded);
-//	    if (result != null) {
-//		response.addOutput(new ProcessOutput(
-//			SCalleeProvidedService.OUT_GET_SECPRF_OF_USR, result));
-//	    } else {
-//		return ERROR_OUTPUT;
-//	    }
-//	    return response;
-//	}
 
 	if (operation.startsWith(SCalleeProvidedService.SRV_GET_SUBS_OF_USR)) {
 	    LogUtils.logDebug(mc, SCallee.class, "handleCall",
@@ -415,36 +368,12 @@ public class SCallee extends ServiceCallee {
 	    if (input == null) {
 		return ERROR_INPUT;
 	    }
-	    ArrayList result = Hub.scaller
+	    ArrayList result = Activator.scaller
 		    .getSubProfilesOfUser((Resource) input);
 	    ServiceResponse response = new ServiceResponse(CallStatus.succeeded);
-	    if (result != null) {
-		response.addOutput(new ProcessOutput(
-			SCalleeProvidedService.OUT_GET_SUBS_OF_USR, result));
-	    } else {
-		return ERROR_OUTPUT;
-	    }
+	    response.addOutput(new ProcessOutput(
+		    SCalleeProvidedService.OUT_GET_SUBS_OF_USR, result));
 	    return response;
-	}
-	
-	if (operation.startsWith(SCalleeProvidedService.SRV_GET_SUB_OF_USR)) {
-	    LogUtils.logDebug(mc, SCallee.class, "handleCall",
-		    new String[] { "CALLED: SRV_GET_SUB_OF_USR" }, null);
-	    Object input = call
-		    .getInputValue(SCalleeProvidedService.INP_GET_SUB_OF_USR);
-	    if (input == null) {
-		return ERROR_INPUT;
-	    }
-//	    Resource result = Hub.scaller
-//		    .getSubProfileOfUser((Resource) input);
-//	    ServiceResponse response = new ServiceResponse(CallStatus.succeeded);
-//	    if (result != null) {
-//		response.addOutput(new ProcessOutput(
-//			SCalleeProvidedService.OUT_GET_SUB_OF_USR, result));
-//	    } else {
-		return ERROR_OUTPUT;
-//	    }
-//	    return response;
 	}
 	
 	if (operation.startsWith(SCalleeProvidedService.SRV_GET_SUBS_OF_PRF)) {
@@ -455,15 +384,11 @@ public class SCallee extends ServiceCallee {
 	    if (input == null) {
 		return ERROR_INPUT;
 	    }
-	    ArrayList result = Hub.scaller
+	    ArrayList result = Activator.scaller
 		    .getSubProfilesOfProfile((Resource) input);
 	    ServiceResponse response = new ServiceResponse(CallStatus.succeeded);
-	    if (result != null) {
-		response.addOutput(new ProcessOutput(
-			SCalleeProvidedService.OUT_GET_SUBS_OF_PRF, result));
-	    } else {
-		return ERROR_OUTPUT;
-	    }
+	    response.addOutput(new ProcessOutput(
+		    SCalleeProvidedService.OUT_GET_SUBS_OF_PRF, result));
 	    return response;
 	}
 	
@@ -479,7 +404,7 @@ public class SCallee extends ServiceCallee {
 	    if (inWhere == null || inWhat==null) {
 		return ERROR_INPUT;
 	    }
-	    Hub.scaller.addProfileToUser((Resource)inWhere, (Resource)inWhat);
+	    Activator.scaller.addProfileToUser((Resource)inWhere, (Resource)inWhat);
 	    ServiceResponse response = new ServiceResponse(CallStatus.succeeded);
 	    return response;
 	}
@@ -494,7 +419,7 @@ public class SCallee extends ServiceCallee {
 	    if (inWhere == null || inWhat==null) {
 		return ERROR_INPUT;
 	    }
-	    Hub.scaller.addSubProfileToUser((Resource)inWhere, (Resource)inWhat);
+	    Activator.scaller.addSubProfileToUser((Resource)inWhere, (Resource)inWhat);
 	    ServiceResponse response = new ServiceResponse(CallStatus.succeeded);
 	    return response;
 	}
@@ -509,7 +434,7 @@ public class SCallee extends ServiceCallee {
 	    if (inWhere == null || inWhat==null) {
 		return ERROR_INPUT;
 	    }
-	    Hub.scaller.addSubProfileToProf((Resource)inWhere, (Resource)inWhat);
+	    Activator.scaller.addSubProfileToProf((Resource)inWhere, (Resource)inWhat);
 	    ServiceResponse response = new ServiceResponse(CallStatus.succeeded);
 	    return response;
 	}

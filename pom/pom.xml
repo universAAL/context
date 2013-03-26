@@ -21,7 +21,6 @@
 		<module>../ctxt.che.mobile</module>
 		<module>../ctxt.che.module.cardinality</module>
 <!--		<module>../ctxt.error.detection.unit</module>-->
-		<module>../ctxt.jena.converter</module>
 		<module>../sesame.uaal.store</module>
 		<module>../ctxt.situation.reasoner</module>
 		<module>../ctxt.situation.reasoner.client</module>
@@ -106,11 +105,6 @@
 <!--				<artifactId>ctxt.error.detection.unit</artifactId>-->
 <!--				<version>1.3.2-SNAPSHOT</version>-->
 <!--			</dependency>-->
-			<dependency>
-				<groupId>org.universAAL.context</groupId>
-				<artifactId>ctxt.jena.converter</artifactId>
-				<version>1.3.2-SNAPSHOT</version>
-			</dependency>
 			<dependency>
 				<groupId>org.universAAL.context</groupId>
 				<artifactId>sesame.uaal.store</artifactId>

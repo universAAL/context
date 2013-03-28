@@ -4,7 +4,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.springframework.util.Assert;
-import org.universAAL.context.prof.serv.Activator;
+import org.universAAL.context.prof.serv.osgi.Activator;
 import org.universAAL.itests.IntegrationTest;
 import org.universAAL.middleware.container.utils.LogUtils;
 import org.universAAL.middleware.owl.MergedRestriction;
@@ -44,12 +44,12 @@ public class ArtifactIntegrationTest extends IntegrationTest {
 	} catch (InterruptedException e) {
 	    e.printStackTrace();
 	}
-	caller = new DefaultServiceCaller(Activator.mcontext);
+	caller = new DefaultServiceCaller(Activator.getModuleContext());
     }
 
     public void testProfilable() {
-	caller = new DefaultServiceCaller(Activator.mcontext);
-	LogUtils.logInfo(Activator.mcontext, ArtifactIntegrationTest.class,
+	caller = new DefaultServiceCaller(Activator.getModuleContext());
+	LogUtils.logInfo(Activator.getModuleContext(), ArtifactIntegrationTest.class,
 		"testProfilable", new String[] { "-Test 1-" }, null);
 	User user1 = new User(NAMESPACE + "user1");
 	AssistedPerson user2 = new AssistedPerson(NAMESPACE + "ap2");
@@ -89,8 +89,8 @@ public class ArtifactIntegrationTest extends IntegrationTest {
     }
 
     public void testProfile() {
-	caller = new DefaultServiceCaller(Activator.mcontext);
-	LogUtils.logInfo(Activator.mcontext, ArtifactIntegrationTest.class,
+	caller = new DefaultServiceCaller(Activator.getModuleContext());
+	LogUtils.logInfo(Activator.getModuleContext(), ArtifactIntegrationTest.class,
 		"testProfile", new String[] { "-Test 2-" }, null);
 	UserProfile prof1 = new UserProfile(NAMESPACE + "userProf1");
 	AssistedPersonProfile prof2 = new AssistedPersonProfile(NAMESPACE
@@ -124,8 +124,8 @@ public class ArtifactIntegrationTest extends IntegrationTest {
     }
 
     public void testSubProfile() {
-	caller = new DefaultServiceCaller(Activator.mcontext);
-	LogUtils.logInfo(Activator.mcontext, ArtifactIntegrationTest.class,
+	caller = new DefaultServiceCaller(Activator.getModuleContext());
+	LogUtils.logInfo(Activator.getModuleContext(), ArtifactIntegrationTest.class,
 		"testSubProfile", new String[] { "-Test 3-" }, null);
 	SubProfile subprof1 = new SubProfile(NAMESPACE + "userSubProf1");
 

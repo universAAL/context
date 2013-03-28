@@ -102,7 +102,7 @@ public class SCalleeProvidedService extends ProfilingService {
     protected static ServiceProfile[] profiles = new ServiceProfile[7];
 
     static {
-	OntologyManagement.getInstance().register(Activator.mcontext,
+	OntologyManagement.getInstance().register(Hub.moduleContext,
 		new SimpleOntology(MY_URI, ProfilingService.MY_URI,
 			new ResourceFactoryImpl() {
 			    public Resource createInstance(String classURI,
@@ -117,7 +117,7 @@ public class SCalleeProvidedService extends ProfilingService {
 	//Gets all Users in the system (including subclasses like AP).
 	Service prof0 = new ProfilingService(SRV_GET_USRS);
 	ProcessOutput output0 = new ProcessOutput(OUT_GET_USRS);
-	output0.setParameterType(Profilable.MY_URI);
+	output0.setParameterType(User.MY_URI);
 	prof0.getProfile().addOutput(output0);
 	prof0.getProfile().addSimpleOutputBinding(output0,
 		new String[] { ProfilingService.PROP_CONTROLS });

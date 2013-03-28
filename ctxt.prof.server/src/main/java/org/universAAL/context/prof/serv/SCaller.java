@@ -71,15 +71,15 @@ public class SCaller {
     public void close() {
 	defaultCaller.close();
     }
-    
+
     // TODO: All get/add/... seem to do the same. Do something about it?
     // :::::::::::::USER GET/ADD/CHANGE/REMOVE:::::::::::::::::
 
     protected Resource getUser(Resource input) {
 	String result = getResult(defaultCaller
-		.call(getDoSPARQLRequest(Queries.Q_GET_USER
-			.replace(Queries.ARG1, input.getURI()))));
-	return (Resource) Activator.parser.deserialize(result,input.getURI());
+		.call(getDoSPARQLRequest(Queries.Q_GET_USER.replace(
+			Queries.ARG1, input.getURI()))));
+	return (Resource) Hub.parser.deserialize(result, input.getURI());
     }
 
     // SPARQL UPDATE queries would include serialized uAAL data, but this
@@ -96,49 +96,44 @@ public class SCaller {
     // and then use SPARUL to simply make the connection between owner of data
     // and data (in scenarios like adding 'User hasProf Profile')
     protected void addUser(Resource input) {
-	String serialized = Activator.parser.serialize(input);
+	String serialized = Hub.parser.serialize(input);
 	String[] split = splitPrefixes(serialized);
-	defaultCaller.call(getDoSPARQLRequest(split[0]
-		+ " "
-		+ Queries.Q_ADD_USER.replace(Queries.ARGTURTLE,
-			split[1])));
+	defaultCaller.call(getDoSPARQLRequest(split[0] + " "
+		+ Queries.Q_ADD_USER.replace(Queries.ARGTURTLE, split[1])));
     }
 
     protected void changeUser(Resource input) {
-	String serialized = Activator.parser.serialize(input);
+	String serialized = Hub.parser.serialize(input);
 	String[] split = splitPrefixes(serialized);
 	defaultCaller.call(getDoSPARQLRequest(split[0]
 		+ " "
-		+ Queries.Q_CHANGE_USER.replace(Queries.ARG1,
-			input.getURI()).replace(Queries.ARGTURTLE, split[1])));
+		+ Queries.Q_CHANGE_USER.replace(Queries.ARG1, input.getURI())
+			.replace(Queries.ARGTURTLE, split[1])));
     }
 
     protected void removeUser(Resource input) {
-	defaultCaller.call(getDoSPARQLRequest(Queries.Q_REMOVE_USER
-		.replace(Queries.ARG1, input.getURI())));
+	defaultCaller.call(getDoSPARQLRequest(Queries.Q_REMOVE_USER.replace(
+		Queries.ARG1, input.getURI())));
     }
 
     // :::::::::::::PROFILE GET/ADD/CHANGE/REMOVE:::::::::::::::::
 
     protected Resource getProfile(Resource input) {
 	String result = getResult(defaultCaller
-		.call(getDoSPARQLRequest(Queries.Q_GET_UPROFILE
-			.replace(Queries.ARG1, input.getURI()))));
-	return (Resource) Activator.parser.deserialize(result,input.getURI());
+		.call(getDoSPARQLRequest(Queries.Q_GET_UPROFILE.replace(
+			Queries.ARG1, input.getURI()))));
+	return (Resource) Hub.parser.deserialize(result, input.getURI());
     }
 
     protected void addProfile(Resource input) {
-	String serialized = Activator.parser.serialize(input);
+	String serialized = Hub.parser.serialize(input);
 	String[] split = splitPrefixes(serialized);
-	defaultCaller
-		.call(getDoSPARQLRequest(split[0]
-			+ " "
-			+ Queries.Q_ADD_UPROFILE.replace(Queries.ARGTURTLE,
-				split[1])));
+	defaultCaller.call(getDoSPARQLRequest(split[0] + " "
+		+ Queries.Q_ADD_UPROFILE.replace(Queries.ARGTURTLE, split[1])));
     }
 
     protected void changeProfile(Resource input) {
-	String serialized = Activator.parser.serialize(input);
+	String serialized = Hub.parser.serialize(input);
 	String[] split = splitPrefixes(serialized);
 	defaultCaller.call(getDoSPARQLRequest(split[0]
 		+ " "
@@ -155,22 +150,23 @@ public class SCaller {
 
     protected Resource getSubProfile(Resource input) {
 	String result = getResult(defaultCaller
-		.call(getDoSPARQLRequest(Queries.Q_GET_SUBPROFILE
-			.replace(Queries.ARG1, input.getURI()))));
-	return (Resource) Activator.parser.deserialize(result,input.getURI());
+		.call(getDoSPARQLRequest(Queries.Q_GET_SUBPROFILE.replace(
+			Queries.ARG1, input.getURI()))));
+	return (Resource) Hub.parser.deserialize(result, input.getURI());
     }
 
     protected void addSubProfile(Resource input) {
-	String serialized = Activator.parser.serialize(input);
+	String serialized = Hub.parser.serialize(input);
 	String[] split = splitPrefixes(serialized);
-	defaultCaller.call(getDoSPARQLRequest(split[0]
-		+ " "
-		+ Queries.Q_ADD_SUBPROFILE.replace(Queries.ARGTURTLE,
-			split[1])));
+	defaultCaller
+		.call(getDoSPARQLRequest(split[0]
+			+ " "
+			+ Queries.Q_ADD_SUBPROFILE.replace(Queries.ARGTURTLE,
+				split[1])));
     }
 
     protected void changeSubProfile(Resource input) {
-	String serialized = Activator.parser.serialize(input);
+	String serialized = Hub.parser.serialize(input);
 	String[] split = splitPrefixes(serialized);
 	defaultCaller.call(getDoSPARQLRequest(split[0]
 		+ " "
@@ -184,7 +180,7 @@ public class SCaller {
     }
 
     // :::::::::::::OTHER GETS:::::::::::::::::
-    
+
     // For getting several results maybe it´s better to issue a SELECT query to
     // CHE. The result will be in SPARQL result XML
     // format, so it will have to be processed here. It will have to use
@@ -211,20 +207,25 @@ public class SCaller {
 		.call(getDoSPARQLRequest(Queries.Q_GET_USRS)));
 	String result2 = getResult(defaultCaller
 		.call(getDoSPARQLRequest(Queries.Q_GET_USRS_XTRA)));
-	Resource bag = (Resource) Activator.parser.deserialize(result+" "+result2,Queries.AUXBAG);
+	Resource bag = (Resource) Hub.parser.deserialize(result + " "
+		+ result2, Queries.AUXBAG);
 	if (bag != null) {
 	    Object content = bag.getProperty(Queries.AUXBAGPROP);
 	    ArrayList list = new ArrayList();
-	    OntologyManagement mng=OntologyManagement.getInstance();
+	    OntologyManagement mng = OntologyManagement.getInstance();
 	    if (content instanceof List) {
 		Iterator iter = ((ArrayList) content).iterator();
 		while (iter.hasNext()) {
-		    Resource res=(Resource) iter.next();
-		    list.add(mng.getResource(mng.getMostSpecializedClass(res.getTypes()),res.getURI()));
+		    Resource res = (Resource) iter.next();
+		    list.add(mng.getResource(
+			    mng.getMostSpecializedClass(res.getTypes()),
+			    res.getURI()));
 		}
 	    } else {
-		Resource res=(Resource) content;
-		list.add(mng.getResource(mng.getMostSpecializedClass(res.getTypes()),res.getURI()));
+		Resource res = (Resource) content;
+		list.add(mng.getResource(
+			mng.getMostSpecializedClass(res.getTypes()),
+			res.getURI()));
 	    }
 	    return list;
 	} else {
@@ -238,61 +239,75 @@ public class SCaller {
 	String resultx = getResult(defaultCaller
 		.call(getDoSPARQLRequest(Queries.Q_GET_PRF_OF_USR_XTRA.replace(
 			Queries.ARG1, user.getURI()))));
-	Object objx = Activator.parser.deserialize(resultx);
+	Object objx = Hub.parser.deserialize(resultx);
 	if (objx == null)
 	    return null;
 	String result = getResult(defaultCaller
 		.call(getDoSPARQLRequest(Queries.Q_GET_PRF_OF_USR.replace(
 			Queries.ARG1, user.getURI()))));
 	String uri = ((Resource) objx).getURI();
-	return (Resource) Activator.parser.deserialize(result, uri);
+	return (Resource) Hub.parser.deserialize(result, uri);
     }
-    
+
     protected ArrayList getSubProfilesOfUser(Resource user) {
 	String result1 = getResult(defaultCaller
-		.call(getDoSPARQLRequest(Queries.Q_GET_SUBS_OF_USR.replace(Queries.ARG1, user.getURI()))));
+		.call(getDoSPARQLRequest(Queries.Q_GET_SUBS_OF_USR.replace(
+			Queries.ARG1, user.getURI()))));
 	String result2 = getResult(defaultCaller
-		.call(getDoSPARQLRequest(Queries.Q_GET_SUBS_OF_USR_XTRA.replace(Queries.ARG1, user.getURI()))));
-	Resource bag = (Resource) Activator.parser.deserialize(result1+" "+result2,Queries.AUXBAG);
+		.call(getDoSPARQLRequest(Queries.Q_GET_SUBS_OF_USR_XTRA
+			.replace(Queries.ARG1, user.getURI()))));
+	Resource bag = (Resource) Hub.parser.deserialize(result1 + " "
+		+ result2, Queries.AUXBAG);
 	if (bag != null) {
 	    Object content = bag.getProperty(Queries.AUXBAGPROP);
 	    ArrayList list = new ArrayList();
-	    OntologyManagement mng=OntologyManagement.getInstance();
+	    OntologyManagement mng = OntologyManagement.getInstance();
 	    if (content instanceof List) {
 		Iterator iter = ((ArrayList) content).iterator();
 		while (iter.hasNext()) {
-		    Resource res=(Resource) iter.next();
-		    list.add(mng.getResource(mng.getMostSpecializedClass(res.getTypes()),res.getURI()));
+		    Resource res = (Resource) iter.next();
+		    list.add(mng.getResource(
+			    mng.getMostSpecializedClass(res.getTypes()),
+			    res.getURI()));
 		}
 	    } else {
-		Resource res=(Resource) content;
-		list.add(mng.getResource(mng.getMostSpecializedClass(res.getTypes()),res.getURI()));
+		Resource res = (Resource) content;
+		list.add(mng.getResource(
+			mng.getMostSpecializedClass(res.getTypes()),
+			res.getURI()));
 	    }
 	    return list;
 	} else {
 	    return null;
 	}
     }
-    
+
     protected ArrayList getSubProfilesOfProfile(Resource profile) {
 	String result1 = getResult(defaultCaller
-		.call(getDoSPARQLRequest(Queries.Q_GET_SUBS_OF_PRF.replace(Queries.ARG1, profile.getURI()))));
+		.call(getDoSPARQLRequest(Queries.Q_GET_SUBS_OF_PRF.replace(
+			Queries.ARG1, profile.getURI()))));
 	String result2 = getResult(defaultCaller
-		.call(getDoSPARQLRequest(Queries.Q_GET_SUBS_OF_PRF_XTRA.replace(Queries.ARG1, profile.getURI()))));
-	Resource bag = (Resource) Activator.parser.deserialize(result1+" "+result2,Queries.AUXBAG);
+		.call(getDoSPARQLRequest(Queries.Q_GET_SUBS_OF_PRF_XTRA
+			.replace(Queries.ARG1, profile.getURI()))));
+	Resource bag = (Resource) Hub.parser.deserialize(result1 + " "
+		+ result2, Queries.AUXBAG);
 	if (bag != null) {
 	    Object content = bag.getProperty(Queries.AUXBAGPROP);
 	    ArrayList list = new ArrayList();
-	    OntologyManagement mng=OntologyManagement.getInstance();
+	    OntologyManagement mng = OntologyManagement.getInstance();
 	    if (content instanceof List) {
 		Iterator iter = ((ArrayList) content).iterator();
 		while (iter.hasNext()) {
-		    Resource res=(Resource) iter.next();
-		    list.add(mng.getResource(mng.getMostSpecializedClass(res.getTypes()),res.getURI()));
+		    Resource res = (Resource) iter.next();
+		    list.add(mng.getResource(
+			    mng.getMostSpecializedClass(res.getTypes()),
+			    res.getURI()));
 		}
 	    } else {
-		Resource res=(Resource) content;
-		list.add(mng.getResource(mng.getMostSpecializedClass(res.getTypes()),res.getURI()));
+		Resource res = (Resource) content;
+		list.add(mng.getResource(
+			mng.getMostSpecializedClass(res.getTypes()),
+			res.getURI()));
 	    }
 	    return list;
 	} else {
@@ -301,31 +316,29 @@ public class SCaller {
     }
 
     // :::::::::::::OTHER ADDS:::::::::::::::::
-    
+
     protected void addProfileToUser(Resource user, Resource profile) {
-	String serialized = Activator.parser.serialize(profile);
+	String serialized = Hub.parser.serialize(profile);
 	String[] split = splitPrefixes(serialized);
 	defaultCaller.call(getDoSPARQLRequest(split[0]
 		+ " "
-		+ Queries.Q_ADD_PRF_TO_USR
-			.replace(Queries.ARG1, user.getURI())
+		+ Queries.Q_ADD_PRF_TO_USR.replace(Queries.ARG1, user.getURI())
 			.replace(Queries.ARG2, profile.getURI())
 			.replace(Queries.ARGTURTLE, split[1])));
     }
-    
+
     protected void addSubProfileToUser(Resource user, Resource subprofile) {
-	String serialized = Activator.parser.serialize(subprofile);
+	String serialized = Hub.parser.serialize(subprofile);
 	String[] split = splitPrefixes(serialized);
 	defaultCaller.call(getDoSPARQLRequest(split[0]
 		+ " "
-		+ Queries.Q_ADD_SUB_TO_USR
-			.replace(Queries.ARG1, user.getURI())
+		+ Queries.Q_ADD_SUB_TO_USR.replace(Queries.ARG1, user.getURI())
 			.replace(Queries.ARG2, subprofile.getURI())
 			.replace(Queries.ARGTURTLE, split[1])));
     }
-    
+
     protected void addSubProfileToProf(Resource profile, Resource subprofile) {
-	String serialized = Activator.parser.serialize(subprofile);
+	String serialized = Hub.parser.serialize(subprofile);
 	String[] split = splitPrefixes(serialized);
 	defaultCaller.call(getDoSPARQLRequest(split[0]
 		+ " "
@@ -374,12 +387,10 @@ public class SCaller {
 	} else {
 	    for (Iterator i = outputs.iterator(); i.hasNext();) {
 		ProcessOutput output = (ProcessOutput) i.next();
-		if (output.getURI().equals(OUTPUT_RESULT_STRING)) {
-		    if (returnValue == null) {
-			returnValue = output.getParameterValue();
-		    }
+		if (output.getURI().equals(OUTPUT_RESULT_STRING)
+			&& returnValue == null) {
+		    returnValue = output.getParameterValue();
 		}
-
 	    }
 	    if (returnValue instanceof String) {
 		return (String) returnValue;

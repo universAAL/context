@@ -10,7 +10,7 @@
 	<artifactId>ctxt.reliability.reasoner</artifactId>
 	<version>1.3.2-SNAPSHOT</version>
 	<packaging>bundle</packaging>
-	<name>The Reliability Reasoner</name>
+	<name>universAAL Context Reliability Reasoner</name>
 	<description>The component that uses SPARQL to use situation reasoning on the detected fault events.</description>
 	<inceptionYear>2012</inceptionYear>
 	<licenses>

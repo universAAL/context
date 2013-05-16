@@ -39,7 +39,7 @@ import org.universAAL.middleware.serialization.MessageContentSerializer;
  * 
  */
 public class MobileHistorySubscriber extends ContextSubscriber {
-    // I don't want to make this non-private so remember if you change the name
+    // I don´t want to make this non-private so remember if you change the name
     // to change it in the tests
     /**
      * The file where events are stored.

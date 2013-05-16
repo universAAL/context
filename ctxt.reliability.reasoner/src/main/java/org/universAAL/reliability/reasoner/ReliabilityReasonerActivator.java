@@ -16,7 +16,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 
 * @author <a href="mailto:abu.sadat@uni-siegen.de">Rubaiyat Sadat</a>
-*	       ©2012
+*	       �2012
 */
 
 import org.osgi.framework.BundleActivator;

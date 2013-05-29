@@ -93,7 +93,7 @@ public class SesameBackend implements Backend {
      * If true cleans the store when stopped.
      */
     private static final boolean DEBUG_DB = Boolean.parseBoolean(Hub
-	    .getProperties().getProperty("RECYCLE.DEBUG", "true"));
+	    .getProperties().getProperty("RECYCLE.DEBUG", "false"));
     /**
      * Constants to identify SPARQL queries.
      */

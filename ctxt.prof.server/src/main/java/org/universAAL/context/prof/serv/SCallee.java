@@ -92,7 +92,7 @@ public class SCallee extends ServiceCallee {
 		ServiceResponse.PROP_SERVICE_SPECIFIC_ERROR, "Invalid input"));
 	ERROR_OUTPUT.addOutput(new ProcessOutput(
 		ServiceResponse.PROP_SERVICE_SPECIFIC_ERROR,
-		"Invalid output obtained from CHE"));
+		"Result from CHE is empty or invalid"));
     }
 
     /**
@@ -121,7 +121,7 @@ public class SCallee extends ServiceCallee {
 		ServiceResponse.PROP_SERVICE_SPECIFIC_ERROR, "Invalid input"));
 	ERROR_OUTPUT.addOutput(new ProcessOutput(
 		ServiceResponse.PROP_SERVICE_SPECIFIC_ERROR,
-		"Invalid output obtained from CHE"));
+		"Result from CHE is empty or invalid"));
     }
 
     /*

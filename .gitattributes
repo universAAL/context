@@ -1,7 +1,6 @@
 * text=auto !eol
 ctxt.che.mobile/ASL2.0.txt -text
 ctxt.che.mobile/LICENSE-CPL-JUnit.txt -text
-ctxt.che.mobile/MITX.txt -text
 ctxt.che.mobile/NOTICE.txt -text
 ctxt.che.mobile/artifact_manual.composite -text
 ctxt.che.mobile/pom.xml -text
@@ -13,7 +12,6 @@ ctxt.che.mobile/src/main/java/org/universAAL/context/chemobile/package.html -tex
 ctxt.che.mobile/src/test/java/org/universAAL/context/chemobile/test/ArtifactIntegrationTest.java -text
 ctxt.che.module.cardinality/ASL2.0.txt -text
 ctxt.che.module.cardinality/LICENSE-Aduna-OpenRDF.txt -text
-ctxt.che.module.cardinality/MITX.txt -text
 ctxt.che.module.cardinality/NOTICE.txt -text
 ctxt.che.module.cardinality/pom.xml -text
 ctxt.che.module.cardinality/src/main/java/org/universAAL/context/che/database/impl/SesameBackendCrd.java -text
@@ -25,7 +23,6 @@ ctxt.che.module.cardinality/src/main/java/org/universAAL/context/che/database/im
 ctxt.che/ASL2.0.txt -text
 ctxt.che/LICENSE-Aduna-OpenRDF.txt -text
 ctxt.che/LICENSE-CPL-JUnit.txt -text
-ctxt.che/MITX.txt -text
 ctxt.che/NOTICE.txt -text
 ctxt.che/artifact_manual.composite -text
 ctxt.che/pom.xml -text
@@ -88,7 +85,6 @@ ctxt.jena.converter/src/test/java/org/universAAL/context/conversion/jena/impl/ut
 ctxt.jena.converter/src/test/java/org/universAAL/context/conversion/jena/impl/util/SightImpairment.java -text
 ctxt.prof.server/ASL2.0.txt -text
 ctxt.prof.server/LICENSE-CPL-JUnit.txt -text
-ctxt.prof.server/MITX.txt -text
 ctxt.prof.server/NOTICE.txt -text
 ctxt.prof.server/pom.xml -text
 ctxt.prof.server/src/main/java/org/universAAL/context/prof/serv/Hub.java -text
@@ -138,7 +134,6 @@ pom/pom.xml -text
 sesame.uaal.store/ASL2.0.txt -text
 sesame.uaal.store/LICENSE-Aduna-OpenRDF.txt -text
 sesame.uaal.store/LICENSE-MIT11-Bouncycastle.txt -text
-sesame.uaal.store/MITX.txt -text
 sesame.uaal.store/NOTICE.txt -text
 sesame.uaal.store/pom.xml -text
 sesame.uaal.store/src/main/java/org/universAAL/context/sesame/sail/CardinCollect2NativeStore.java -text

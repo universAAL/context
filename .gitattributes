@@ -125,11 +125,6 @@ ctxt.situation.reasoner/src/main/resources/sample/Query/Query20120918_740050025.
 ctxt.situation.reasoner/src/main/resources/sample/Rule/Rule20120918_418145820.owl -text
 ctxt.situation.reasoner/src/main/resources/sample/Situation/Situation20120918_1194550531.owl -text
 ctxt.situation.reasoner/src/main/resources/sample/Situation/Situation20120919_1896661759.owl -text
-ctxt.space.conf/pom.xml -text
-ctxt.space.conf/src/main/java/org/universAAL/context/space/conf/Activator.java -text
-ctxt.space.conf/src/main/java/org/universAAL/context/space/conf/JenaPersistenceAccessor.java -text
-ctxt.space.conf/src/main/java/org/universAAL/context/space/conf/ProvidedWorldConfigurator.java -text
-ctxt.space.conf/src/main/java/org/universAAL/context/space/conf/WorldConfigurationProvider.java -text
 pom/pom.xml -text
 sesame.uaal.store/ASL2.0.txt -text
 sesame.uaal.store/LICENSE-Aduna-OpenRDF.txt -text

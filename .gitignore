@@ -44,10 +44,6 @@ ctxt.situation.reasoner/.classpath
 ctxt.situation.reasoner/.project
 ctxt.situation.reasoner/.settings
 ctxt.situation.reasoner/target
-ctxt.space.conf/.classpath
-ctxt.space.conf/.project
-ctxt.space.conf/.settings
-ctxt.space.conf/target
 pom/.project
 pom/.settings
 pom/target

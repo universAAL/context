@@ -1,0 +1,6 @@
+* text=auto !eol
+/pom.xml -text
+src/main/java/org/universAAL/context/space/conf/Activator.java -text
+src/main/java/org/universAAL/context/space/conf/JenaPersistenceAccessor.java -text
+src/main/java/org/universAAL/context/space/conf/ProvidedWorldConfigurator.java -text
+src/main/java/org/universAAL/context/space/conf/WorldConfigurationProvider.java -text

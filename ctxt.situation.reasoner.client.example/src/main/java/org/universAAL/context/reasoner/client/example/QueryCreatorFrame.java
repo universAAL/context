@@ -26,7 +26,7 @@ import org.universAAL.context.reasoner.client.ReasoningCaller;
 import org.universAAL.context.reasoner.client.example.osgi.Activator;
 import org.universAAL.middleware.context.ContextEvent;
 import org.universAAL.middleware.owl.ManagedIndividual;
-import org.universAAL.reasoner.ont.Query;
+import org.universAAL.ontology.reasoner.Query;
 
 /**
  * 

@@ -29,10 +29,10 @@ import org.universAAL.middleware.service.ServiceCall;
 import org.universAAL.middleware.service.ServiceCallee;
 import org.universAAL.middleware.service.ServiceResponse;
 import org.universAAL.middleware.service.owls.process.ProcessOutput;
-import org.universAAL.reasoner.ont.ElementModel;
-import org.universAAL.reasoner.ont.Persistent;
-import org.universAAL.reasoner.ont.Query;
-import org.universAAL.reasoner.ont.Situation;
+import org.universAAL.ontology.reasoner.ElementModel;
+import org.universAAL.ontology.reasoner.Persistent;
+import org.universAAL.ontology.reasoner.Query;
+import org.universAAL.ontology.reasoner.Situation;
 
 /**
  * The main task of the ReasoningProvider is the handle Situations, Queries and

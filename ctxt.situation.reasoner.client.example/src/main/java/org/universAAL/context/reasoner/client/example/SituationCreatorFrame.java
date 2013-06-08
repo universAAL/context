@@ -19,7 +19,7 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 import org.universAAL.context.reasoner.client.ReasoningCaller;
-import org.universAAL.reasoner.ont.Situation;
+import org.universAAL.ontology.reasoner.Situation;
 
 /**
  * Since a Situation consist of an URI for subject, predicate and object of an

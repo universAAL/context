@@ -17,10 +17,11 @@
 	See the License for the specific language governing permissions and
 	limitations under the License.
  */
-package org.universAAL.reasoner.server;
+package org.universAAL.context.reasoner;
 
 import java.util.Hashtable;
 
+import org.universAAL.context.reasoner.osgi.Activator;
 import org.universAAL.middleware.owl.MergedRestriction;
 import org.universAAL.middleware.owl.OntologyManagement;
 import org.universAAL.middleware.owl.SimpleOntology;
@@ -31,7 +32,6 @@ import org.universAAL.reasoner.ont.Query;
 import org.universAAL.reasoner.ont.ReasoningService;
 import org.universAAL.reasoner.ont.Rule;
 import org.universAAL.reasoner.ont.Situation;
-import org.universAAL.reasoner.server.osgi.Activator;
 
 /**
  * This implementation of ReasoningService contains all methods currently

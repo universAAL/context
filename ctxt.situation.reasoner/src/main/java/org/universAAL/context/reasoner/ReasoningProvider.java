@@ -17,10 +17,11 @@
 	See the License for the specific language governing permissions and
 	limitations under the License.
  */
-package org.universAAL.reasoner.server;
+package org.universAAL.context.reasoner;
 
 import java.util.ArrayList;
 
+import org.universAAL.context.reasoner.osgi.Activator;
 import org.universAAL.middleware.container.ModuleContext;
 import org.universAAL.middleware.container.osgi.util.BundleConfigHome;
 import org.universAAL.middleware.service.CallStatus;
@@ -32,7 +33,6 @@ import org.universAAL.reasoner.ont.ElementModel;
 import org.universAAL.reasoner.ont.Persistent;
 import org.universAAL.reasoner.ont.Query;
 import org.universAAL.reasoner.ont.Situation;
-import org.universAAL.reasoner.server.osgi.Activator;
 
 /**
  * The main task of the ReasoningProvider is the handle Situations, Queries and

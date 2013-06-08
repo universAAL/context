@@ -1,6 +1,6 @@
 /*	
 	Copyright 2008-2014 Fraunhofer IGD, http://www.igd.fraunhofer.de
-	Fraunhofer Gesellschaft - Institut für Graphische Datenverarbeitung 
+	Fraunhofer Gesellschaft - Institut fï¿½r Graphische Datenverarbeitung 
 	
 	See the NOTICE file distributed with this work for additional 
 	information regarding copyright ownership
@@ -17,7 +17,7 @@
 	See the License for the specific language governing permissions and
 	limitations under the License.
  */
-package org.universaal.reasoner.client.osgi;
+package org.universaal2.reasoner.client.osgi;
 
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;

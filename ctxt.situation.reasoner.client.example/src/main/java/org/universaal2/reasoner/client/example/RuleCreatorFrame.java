@@ -1,4 +1,4 @@
-package org.universaal.reasoner.client.example;
+package org.universaal2.reasoner.client.example;
 
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
@@ -23,7 +23,7 @@ import javax.swing.WindowConstants;
 
 import org.universAAL.reasoner.ont.Query;
 import org.universAAL.reasoner.ont.Situation;
-import org.universaal.reasoner.client.ReasoningCaller;
+import org.universaal2.reasoner.client.ReasoningCaller;
 
 /**
  * This frame is quite easy, because all have to be done to create a rule is to

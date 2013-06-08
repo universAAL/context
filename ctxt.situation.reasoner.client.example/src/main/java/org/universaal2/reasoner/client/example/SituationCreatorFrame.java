@@ -1,4 +1,4 @@
-package org.universaal.reasoner.client.example;
+package org.universaal2.reasoner.client.example;
 
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
@@ -19,7 +19,7 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 import org.universAAL.reasoner.ont.Situation;
-import org.universaal.reasoner.client.ReasoningCaller;
+import org.universaal2.reasoner.client.ReasoningCaller;
 
 /**
  * Since a Situation consist of an URI for subject, predicate and object of an

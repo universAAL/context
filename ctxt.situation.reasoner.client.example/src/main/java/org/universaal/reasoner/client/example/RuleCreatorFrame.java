@@ -150,10 +150,12 @@ public class RuleCreatorFrame extends JFrame {
 			    .showMessageDialog(self,
 				    "Please select a query and a situation. Rule not added!");
 		boolean persistent = saveCheck.isSelected();
-		if (persistent && (!situation.isPersistent() || !query.isPersistent())) {
+		if (persistent
+			&& (!situation.isPersistent() || !query.isPersistent())) {
 		    JOptionPane
-		    .showMessageDialog(self,
-			    "The rule can not be persistent since the given Situation and Query are not. A temporary rule will be created instead.");
+			    .showMessageDialog(
+				    self,
+				    "The rule can not be persistent since the given Situation and Query are not. A temporary rule will be created instead.");
 		    persistent = false;
 		}
 		caller.addRule(situation, query, persistent);
@@ -221,8 +223,8 @@ public class RuleCreatorFrame extends JFrame {
     }
 
     /**
-     * Used to refresh the content of a Query after selecting a new one from
-     * the according ComboBox.
+     * Used to refresh the content of a Query after selecting a new one from the
+     * according ComboBox.
      */
     private void refreshQueryLabel() {
 	String eventURI = queryBox.getSelectedItem().toString();

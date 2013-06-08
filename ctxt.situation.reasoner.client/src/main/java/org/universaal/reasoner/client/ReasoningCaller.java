@@ -1,6 +1,6 @@
 /*	
 	Copyright 2008-2014 Fraunhofer IGD, http://www.igd.fraunhofer.de
-	Fraunhofer Gesellschaft - Institut für Graphische Datenverarbeitung 
+	Fraunhofer Gesellschaft - Institut fï¿½r Graphische Datenverarbeitung 
 	
 	See the NOTICE file distributed with this work for additional 
 	information regarding copyright ownership
@@ -262,7 +262,8 @@ public class ReasoningCaller {
      *            Rule)
      * @param object
      * @param ppPath
-     * @return True if the new element has been successful added to the Reasoner, false otherwise
+     * @return True if the new element has been successful added to the
+     *         Reasoner, false otherwise
      */
     private <M extends Persistent> boolean addObject(M object, String[] ppPath) {
 	ServiceRequest addRequest = new ServiceRequest(new ReasoningService(),
@@ -331,7 +332,9 @@ public class ReasoningCaller {
 		if (list == null
 			|| (list.size() < 1 || (list.size() > 0 && !requestClass
 				.isInstance(list.get(0))))) {
-		    Activator.postInfo(ReasoningCaller.class, "getObjects",
+		    Activator.postInfo(
+			    ReasoningCaller.class,
+			    "getObjects",
 			    "there are no objects from type "
 				    + requestClass.getName());
 		    return null;
@@ -386,13 +389,17 @@ public class ReasoningCaller {
      * Generic methods to remove an object based on Persistent from the
      * Reasoner.
      * 
-     * @param <M> Type of the object to be removed (Need to be Situation, Query or
-     *            Rule)
-     * @param object Element to be removed
-     * @param ppPath Property-Path where type M is controlled
+     * @param <M>
+     *            Type of the object to be removed (Need to be Situation, Query
+     *            or Rule)
+     * @param object
+     *            Element to be removed
+     * @param ppPath
+     *            Property-Path where type M is controlled
      *            (ReasoningService.PROP_SITUATIONS,
      *            ReasoningService.PROP_QUERIES or ReasoningService.PROP_RULES)
-     * @return True if the element has been successful removed from the Reasoner, false otherwise
+     * @return True if the element has been successful removed from the
+     *         Reasoner, false otherwise
      */
     private <M extends Persistent> boolean removeObject(M object,
 	    String[] ppPath) {

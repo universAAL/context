@@ -1,6 +1,6 @@
 /*	
 	Copyright 2008-2014 Fraunhofer IGD, http://www.igd.fraunhofer.de
-	Fraunhofer Gesellschaft - Institut für Graphische Datenverarbeitung 
+	Fraunhofer Gesellschaft - Institut fï¿½r Graphische Datenverarbeitung 
 	
 	See the NOTICE file distributed with this work for additional 
 	information regarding copyright ownership
@@ -36,15 +36,15 @@ import org.universAAL.reasoner.server.ReasoningProvider;
 import org.universAAL.reasoner.server.CHECaller;
 
 /**
- * Activator of the reasoner. Basically it is used to prepare the
- * the ReasoningProvider. The reasoner is basically a manager for situations,
+ * Activator of the reasoner. Basically it is used to prepare the the
+ * ReasoningProvider. The reasoner is basically a manager for situations,
  * queries and rules. A Situation is currently (need to be improved) represented
  * by three URI's: Subject, Predicate and Object. Subject and Object can be a
- * concrete instances or also types. The subject is mandatory but the
- * other two are optional. A Query is either a SPARQL Construct-Query or created
- * out of a given Context-Event and a search-string. A Rule combines a situation
- * with a query. If a context-event is posted on the context-bus that matches
- * the parameters given by the situation in a rule, then the according query is
+ * concrete instances or also types. The subject is mandatory but the other two
+ * are optional. A Query is either a SPARQL Construct-Query or created out of a
+ * given Context-Event and a search-string. A Rule combines a situation with a
+ * query. If a context-event is posted on the context-bus that matches the
+ * parameters given by the situation in a rule, then the according query is
  * performed at the CHE and the resulting ContextEvent of the Construct-Query is
  * posted at the Context-bus.
  * 
@@ -58,7 +58,7 @@ public class Activator implements BundleActivator, ServiceListener {
     public static ContextPublisher cpublisher = null;
     public static CHECaller scaller = null;
     public static MessageContentSerializer serializer = null;
-    
+
     private ReasoningProvider provider = null;
 
     public void start(BundleContext bcontext) throws Exception {
@@ -71,7 +71,7 @@ public class Activator implements BundleActivator, ServiceListener {
 	info.setProvidedEvents(new ContextEventPattern[] { new ContextEventPattern() });
 	cpublisher = new DefaultContextPublisher(mcontext, info);
 	scaller = new CHECaller(mcontext);
-	
+
 	// Look for MessageContentSerializer of mw.data.serialization
 	String filter = "(objectclass="
 		+ MessageContentSerializer.class.getName() + ")";
@@ -84,7 +84,7 @@ public class Activator implements BundleActivator, ServiceListener {
 	}
 	while (serializer == null)
 	    Thread.sleep(100);
-	    
+
 	provider = new ReasoningProvider(mcontext);
     }
 

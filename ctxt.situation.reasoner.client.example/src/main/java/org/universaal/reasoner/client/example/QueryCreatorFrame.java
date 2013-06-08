@@ -190,8 +190,8 @@ public class QueryCreatorFrame extends JFrame {
 	JLabel uriAddLabel = new JLabel("URI to add:");
 	addURIBox.add(uriAddLabel);
 	addURIBox.add(Box.createHorizontalStrut(5));
-	uriAddBox = new JComboBox(caller.getRecorder().getAllURIs().toArray(
-		new String[0]));
+	uriAddBox = new JComboBox(caller.getRecorder().getAllURIs()
+		.toArray(new String[0]));
 	addURIBox.add(uriAddBox);
 	addURIBox.add(Box.createHorizontalStrut(5));
 	JButton addURIButton = new JButton("Add");
@@ -234,7 +234,8 @@ public class QueryCreatorFrame extends JFrame {
 		    return;
 		}
 		JOptionPane
-			.showMessageDialog(self,
+			.showMessageDialog(
+				self,
 				"Query successfull executed! \n" + "Subject: "
 					+ checkEvent.getSubjectURI() + "\n"
 					+ "Predicate: "
@@ -336,6 +337,7 @@ public class QueryCreatorFrame extends JFrame {
 
     /**
      * Add the currently given query to the Reasoner.
+     * 
      * @return True if the add process has been successful, false otherwise
      */
     private boolean addQuery() {

@@ -26,7 +26,7 @@ import org.universaal.reasoner.client.ReasoningCaller;
  * event-pattern there are three ComboBoxes provided to give them. To support
  * the user all the recorded URI's are already given in the boxes, but is also
  * possible to give completely new one.
- *  
+ * 
  * @author amarinc
  * 
  */

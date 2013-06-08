@@ -1,6 +1,6 @@
 /*	
 	Copyright 2008-2014 Fraunhofer IGD, http://www.igd.fraunhofer.de
-	Fraunhofer Gesellschaft - Institut für Graphische Datenverarbeitung 
+	Fraunhofer Gesellschaft - Institut fï¿½r Graphische Datenverarbeitung 
 	
 	See the NOTICE file distributed with this work for additional 
 	information regarding copyright ownership
@@ -43,9 +43,12 @@ public class CSubsMulti extends ContextSubscriber {
     /**
      * Create the subscriber
      * 
-     * @param mcontext the module mcontext
-     * @param initialSubscriptions the mcontext event pattern to react to
-     * @param query the query to execute when receiving an event
+     * @param mcontext
+     *            the module mcontext
+     * @param initialSubscriptions
+     *            the mcontext event pattern to react to
+     * @param query
+     *            the query to execute when receiving an event
      */
     protected CSubsMulti(ModuleContext context,
 	    ContextEventPattern[] initialSubscriptions, String query) {

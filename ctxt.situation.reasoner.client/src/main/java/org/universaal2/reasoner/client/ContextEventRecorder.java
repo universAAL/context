@@ -1,4 +1,4 @@
-package org.universaal.reasoner.client;
+package org.universaal2.reasoner.client;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -17,7 +17,7 @@ import org.universAAL.middleware.owl.ManagedIndividual;
 import org.universAAL.middleware.owl.MergedRestriction;
 import org.universAAL.middleware.rdf.TypeMapper;
 import org.universAAL.reasoner.ont.ElementModel;
-import org.universaal.reasoner.client.osgi.Activator;
+import org.universaal2.reasoner.client.osgi.Activator;
 
 /**
  * 

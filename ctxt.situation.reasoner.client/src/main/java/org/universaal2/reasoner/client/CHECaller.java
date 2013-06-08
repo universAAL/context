@@ -17,7 +17,7 @@
 	See the License for the specific language governing permissions and
 	limitations under the License.
  */
-package org.universaal.reasoner.client;
+package org.universaal2.reasoner.client;
 
 import java.util.Iterator;
 import java.util.List;
@@ -34,7 +34,7 @@ import org.universAAL.middleware.service.ServiceRequest;
 import org.universAAL.middleware.service.ServiceResponse;
 import org.universAAL.middleware.service.owls.process.ProcessOutput;
 import org.universAAL.ontology.che.ContextHistoryService;
-import org.universaal.reasoner.client.osgi.Activator;
+import org.universaal2.reasoner.client.osgi.Activator;
 
 /**
  * This class is just a shortened version of the CHE-Caller in the

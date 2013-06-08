@@ -1,6 +1,6 @@
 /*	
 	Copyright 2008-2014 Fraunhofer IGD, http://www.igd.fraunhofer.de
-	Fraunhofer Gesellschaft - Institut für Graphische Datenverarbeitung 
+	Fraunhofer Gesellschaft - Institut fï¿½r Graphische Datenverarbeitung 
 	
 	See the NOTICE file distributed with this work for additional 
 	information regarding copyright ownership
@@ -17,16 +17,16 @@
 	See the License for the specific language governing permissions and
 	limitations under the License.
  */
-package org.universaal.reasoner.client.example.osgi;
+package org.universaal2.reasoner.client.example.osgi;
 
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
 import org.universAAL.middleware.container.ModuleContext;
 import org.universAAL.middleware.container.osgi.uAALBundleContainer;
 import org.universAAL.middleware.container.utils.LogUtils;
-import org.universaal.reasoner.client.CHECaller;
-import org.universaal.reasoner.client.ReasoningCaller;
-import org.universaal.reasoner.client.example.ReasoningGUI;
+import org.universaal2.reasoner.client.CHECaller;
+import org.universaal2.reasoner.client.ReasoningCaller;
+import org.universaal2.reasoner.client.example.ReasoningGUI;
 
 /**
  * This bundle implements a graphical example client for the Reasoner. The base

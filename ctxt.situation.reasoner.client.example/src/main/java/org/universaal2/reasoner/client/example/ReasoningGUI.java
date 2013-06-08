@@ -17,7 +17,7 @@
 	See the License for the specific language governing permissions and
 	limitations under the License.
  */
-package org.universaal.reasoner.client.example;
+package org.universaal2.reasoner.client.example;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
@@ -42,7 +42,7 @@ import org.universAAL.reasoner.ont.Persistent;
 import org.universAAL.reasoner.ont.Query;
 import org.universAAL.reasoner.ont.Rule;
 import org.universAAL.reasoner.ont.Situation;
-import org.universaal.reasoner.client.ReasoningCaller;
+import org.universaal2.reasoner.client.ReasoningCaller;
 
 /**
  * 

@@ -17,13 +17,15 @@
 	See the License for the specific language governing permissions and
 	limitations under the License.
  */
-package org.universAAL.reasoner.server.osgi;
+package org.universAAL.context.reasoner.osgi;
 
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.ServiceEvent;
 import org.osgi.framework.ServiceListener;
 import org.osgi.framework.ServiceReference;
+import org.universAAL.context.reasoner.CHECaller;
+import org.universAAL.context.reasoner.ReasoningProvider;
 import org.universAAL.middleware.container.ModuleContext;
 import org.universAAL.middleware.container.osgi.uAALBundleContainer;
 import org.universAAL.middleware.context.ContextEventPattern;
@@ -32,8 +34,6 @@ import org.universAAL.middleware.context.DefaultContextPublisher;
 import org.universAAL.middleware.context.owl.ContextProvider;
 import org.universAAL.middleware.context.owl.ContextProviderType;
 import org.universAAL.middleware.serialization.MessageContentSerializer;
-import org.universAAL.reasoner.server.ReasoningProvider;
-import org.universAAL.reasoner.server.CHECaller;
 
 /**
  * Activator of the reasoner. Basically it is used to prepare the the

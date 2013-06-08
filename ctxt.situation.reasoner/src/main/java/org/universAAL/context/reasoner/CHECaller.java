@@ -17,11 +17,12 @@
 	See the License for the specific language governing permissions and
 	limitations under the License.
  */
-package org.universAAL.reasoner.server;
+package org.universAAL.context.reasoner;
 
 import java.util.Iterator;
 import java.util.List;
 
+import org.universAAL.context.reasoner.osgi.Activator;
 import org.universAAL.middleware.container.ModuleContext;
 import org.universAAL.middleware.container.utils.LogUtils;
 import org.universAAL.middleware.container.utils.StringUtils;
@@ -35,7 +36,6 @@ import org.universAAL.middleware.service.ServiceResponse;
 import org.universAAL.middleware.service.owls.process.ProcessOutput;
 import org.universAAL.middleware.serialization.MessageContentSerializer;
 import org.universAAL.ontology.che.ContextHistoryService;
-import org.universAAL.reasoner.server.osgi.Activator;
 
 /**
  * This class contains methods to perform SPARQL-Requests on the CHE.

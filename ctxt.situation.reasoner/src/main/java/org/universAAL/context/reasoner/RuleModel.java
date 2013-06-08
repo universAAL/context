@@ -1,14 +1,14 @@
-package org.universAAL.reasoner.server;
+package org.universAAL.context.reasoner;
 
 import java.util.ArrayList;
 
+import org.universAAL.context.reasoner.osgi.Activator;
 import org.universAAL.middleware.context.ContextEvent;
 import org.universAAL.middleware.context.ContextEventPattern;
 import org.universAAL.middleware.owl.ManagedIndividual;
 import org.universAAL.middleware.owl.MergedRestriction;
 import org.universAAL.reasoner.ont.ElementModel;
 import org.universAAL.reasoner.ont.Rule;
-import org.universAAL.reasoner.server.osgi.Activator;
 
 /**
  * In opposite the Situations and Queries Rules need some special handling. This

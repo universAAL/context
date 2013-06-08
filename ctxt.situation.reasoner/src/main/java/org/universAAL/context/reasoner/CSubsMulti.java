@@ -17,13 +17,13 @@
 	See the License for the specific language governing permissions and
 	limitations under the License.
  */
-package org.universAAL.reasoner.server;
+package org.universAAL.context.reasoner;
 
+import org.universAAL.context.reasoner.osgi.Activator;
 import org.universAAL.middleware.container.ModuleContext;
 import org.universAAL.middleware.context.ContextEvent;
 import org.universAAL.middleware.context.ContextEventPattern;
 import org.universAAL.middleware.context.ContextSubscriber;
-import org.universAAL.reasoner.server.osgi.Activator;
 
 /**
  * Class used to register multiple subscribers, each of them using just a single

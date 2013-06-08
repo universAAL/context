@@ -46,10 +46,10 @@
         <configuration>
           <instructions>
             <Bundle-Name>${project.name}</Bundle-Name>
-            <Bundle-Activator>org.universAAL.reasoner.server.osgi.Activator</Bundle-Activator>
+            <Bundle-Activator>org.universAAL.context.reasoner.osgi.Activator</Bundle-Activator>
             <Bundle-Description>${project.description}</Bundle-Description>
             <Bundle-SymbolicName>${project.artifactId}</Bundle-SymbolicName>
-            <Private-Package>org.universAAL.reasoner.server.*</Private-Package>
+            <Private-Package>org.universAAL.context.reasoner.*</Private-Package>
           </instructions>
         </configuration>
       </plugin>

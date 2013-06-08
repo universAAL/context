@@ -30,11 +30,11 @@ import org.universAAL.middleware.service.DefaultServiceCaller;
 import org.universAAL.middleware.service.ServiceCaller;
 import org.universAAL.middleware.service.ServiceRequest;
 import org.universAAL.middleware.service.ServiceResponse;
-import org.universAAL.reasoner.ont.Persistent;
-import org.universAAL.reasoner.ont.Query;
-import org.universAAL.reasoner.ont.ReasoningService;
-import org.universAAL.reasoner.ont.Rule;
-import org.universAAL.reasoner.ont.Situation;
+import org.universAAL.ontology.reasoner.Persistent;
+import org.universAAL.ontology.reasoner.Query;
+import org.universAAL.ontology.reasoner.ReasoningService;
+import org.universAAL.ontology.reasoner.Rule;
+import org.universAAL.ontology.reasoner.Situation;
 
 /**
  * This class is used to add/remove/get Situations/Queries/Rules to/from the

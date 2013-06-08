@@ -39,10 +39,10 @@ import javax.swing.ListModel;
 import javax.swing.WindowConstants;
 
 import org.universAAL.context.reasoner.client.ReasoningCaller;
-import org.universAAL.reasoner.ont.Persistent;
-import org.universAAL.reasoner.ont.Query;
-import org.universAAL.reasoner.ont.Rule;
-import org.universAAL.reasoner.ont.Situation;
+import org.universAAL.ontology.reasoner.Persistent;
+import org.universAAL.ontology.reasoner.Query;
+import org.universAAL.ontology.reasoner.Rule;
+import org.universAAL.ontology.reasoner.Situation;
 
 /**
  * 

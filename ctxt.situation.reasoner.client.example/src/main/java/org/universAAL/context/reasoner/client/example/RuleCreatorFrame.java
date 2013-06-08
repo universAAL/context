@@ -22,8 +22,8 @@ import javax.swing.JTextArea;
 import javax.swing.WindowConstants;
 
 import org.universAAL.context.reasoner.client.ReasoningCaller;
-import org.universAAL.reasoner.ont.Query;
-import org.universAAL.reasoner.ont.Situation;
+import org.universAAL.ontology.reasoner.Query;
+import org.universAAL.ontology.reasoner.Situation;
 
 /**
  * This frame is quite easy, because all have to be done to create a rule is to

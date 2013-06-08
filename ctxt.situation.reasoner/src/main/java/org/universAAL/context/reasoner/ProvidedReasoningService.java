@@ -28,10 +28,10 @@ import org.universAAL.middleware.owl.SimpleOntology;
 import org.universAAL.middleware.rdf.Resource;
 import org.universAAL.middleware.rdf.impl.ResourceFactoryImpl;
 import org.universAAL.middleware.service.owls.profile.ServiceProfile;
-import org.universAAL.reasoner.ont.Query;
-import org.universAAL.reasoner.ont.ReasoningService;
-import org.universAAL.reasoner.ont.Rule;
-import org.universAAL.reasoner.ont.Situation;
+import org.universAAL.ontology.reasoner.Query;
+import org.universAAL.ontology.reasoner.ReasoningService;
+import org.universAAL.ontology.reasoner.Rule;
+import org.universAAL.ontology.reasoner.Situation;
 
 /**
  * This implementation of ReasoningService contains all methods currently

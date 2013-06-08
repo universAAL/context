@@ -7,8 +7,8 @@ import org.universAAL.middleware.context.ContextEvent;
 import org.universAAL.middleware.context.ContextEventPattern;
 import org.universAAL.middleware.owl.ManagedIndividual;
 import org.universAAL.middleware.owl.MergedRestriction;
-import org.universAAL.reasoner.ont.ElementModel;
-import org.universAAL.reasoner.ont.Rule;
+import org.universAAL.ontology.reasoner.ElementModel;
+import org.universAAL.ontology.reasoner.Rule;
 
 /**
  * In opposite the Situations and Queries Rules need some special handling. This

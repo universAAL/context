@@ -17,16 +17,16 @@
 	See the License for the specific language governing permissions and
 	limitations under the License.
  */
-package org.universaal2.reasoner.client.example.osgi;
+package org.universAAL.context.reasoner.client.example.osgi;
 
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
+import org.universAAL.context.reasoner.client.CHECaller;
+import org.universAAL.context.reasoner.client.ReasoningCaller;
+import org.universAAL.context.reasoner.client.example.ReasoningGUI;
 import org.universAAL.middleware.container.ModuleContext;
 import org.universAAL.middleware.container.osgi.uAALBundleContainer;
 import org.universAAL.middleware.container.utils.LogUtils;
-import org.universaal2.reasoner.client.CHECaller;
-import org.universaal2.reasoner.client.ReasoningCaller;
-import org.universaal2.reasoner.client.example.ReasoningGUI;
 
 /**
  * This bundle implements a graphical example client for the Reasoner. The base

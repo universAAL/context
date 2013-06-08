@@ -1,4 +1,4 @@
-package org.universaal2.reasoner.client;
+package org.universAAL.context.reasoner.client;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -8,6 +8,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import org.universAAL.context.reasoner.client.osgi.Activator;
 import org.universAAL.middleware.container.ModuleContext;
 import org.universAAL.middleware.container.osgi.util.BundleConfigHome;
 import org.universAAL.middleware.context.ContextEvent;
@@ -17,7 +18,6 @@ import org.universAAL.middleware.owl.ManagedIndividual;
 import org.universAAL.middleware.owl.MergedRestriction;
 import org.universAAL.middleware.rdf.TypeMapper;
 import org.universAAL.reasoner.ont.ElementModel;
-import org.universaal2.reasoner.client.osgi.Activator;
 
 /**
  * 

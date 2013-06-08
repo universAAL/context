@@ -17,11 +17,12 @@
 	See the License for the specific language governing permissions and
 	limitations under the License.
  */
-package org.universaal2.reasoner.client;
+package org.universAAL.context.reasoner.client;
 
 import java.util.List;
 import java.util.Random;
 
+import org.universAAL.context.reasoner.client.osgi.Activator;
 import org.universAAL.middleware.container.utils.LogUtils;
 import org.universAAL.middleware.context.ContextEvent;
 import org.universAAL.middleware.service.CallStatus;
@@ -34,7 +35,6 @@ import org.universAAL.reasoner.ont.Query;
 import org.universAAL.reasoner.ont.ReasoningService;
 import org.universAAL.reasoner.ont.Rule;
 import org.universAAL.reasoner.ont.Situation;
-import org.universaal2.reasoner.client.osgi.Activator;
 
 /**
  * This class is used to add/remove/get Situations/Queries/Rules to/from the

@@ -1,4 +1,4 @@
-package org.universaal2.reasoner.client.example;
+package org.universAAL.context.reasoner.client.example;
 
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
@@ -22,11 +22,11 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.WindowConstants;
 
+import org.universAAL.context.reasoner.client.ReasoningCaller;
+import org.universAAL.context.reasoner.client.example.osgi.Activator;
 import org.universAAL.middleware.context.ContextEvent;
 import org.universAAL.middleware.owl.ManagedIndividual;
 import org.universAAL.reasoner.ont.Query;
-import org.universaal2.reasoner.client.ReasoningCaller;
-import org.universaal2.reasoner.client.example.osgi.Activator;
 
 /**
  * 

@@ -27,8 +27,8 @@ import org.universAAL.middleware.owl.OntologyManagement;
 import org.universAAL.middleware.owl.SimpleOntology;
 import org.universAAL.middleware.rdf.PropertyPath;
 import org.universAAL.middleware.rdf.Resource;
-import org.universAAL.middleware.rdf.ResourceFactory;
 import org.universAAL.middleware.rdf.TypeMapper;
+import org.universAAL.middleware.rdf.impl.ResourceFactoryImpl;
 import org.universAAL.middleware.service.owls.process.ProcessInput;
 import org.universAAL.middleware.service.owls.process.ProcessOutput;
 import org.universAAL.middleware.service.owls.profile.ServiceProfile;
@@ -71,7 +71,8 @@ public class ContextHistoryServices extends ContextHistoryService {
     static {
 	OntologyManagement.getInstance().register(Activator.getModuleContext(),
 		new SimpleOntology(MY_URI, ContextHistoryService.MY_URI,
-			new ResourceFactory() {
+			new ResourceFactoryImpl() {
+			    @Override
 			    public Resource createInstance(String classURI,
 				    String instanceURI, int factoryIndex) {
 				return new ContextHistoryServices(instanceURI);

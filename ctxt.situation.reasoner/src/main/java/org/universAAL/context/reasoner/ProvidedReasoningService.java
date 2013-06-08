@@ -1,6 +1,6 @@
 /*	
 	Copyright 2008-2014 Fraunhofer IGD, http://www.igd.fraunhofer.de
-	Fraunhofer Gesellschaft - Institut für Graphische Datenverarbeitung 
+	Fraunhofer Gesellschaft - Institut f�r Graphische Datenverarbeitung 
 	
 	See the NOTICE file distributed with this work for additional 
 	information regarding copyright ownership
@@ -26,12 +26,12 @@ import org.universAAL.middleware.owl.MergedRestriction;
 import org.universAAL.middleware.owl.OntologyManagement;
 import org.universAAL.middleware.owl.SimpleOntology;
 import org.universAAL.middleware.rdf.Resource;
-import org.universAAL.middleware.rdf.ResourceFactory;
+import org.universAAL.middleware.rdf.impl.ResourceFactoryImpl;
 import org.universAAL.middleware.service.owls.profile.ServiceProfile;
-import org.universAAL.ontology.reasoner.Query;
-import org.universAAL.ontology.reasoner.ReasoningService;
-import org.universAAL.ontology.reasoner.Rule;
-import org.universAAL.ontology.reasoner.Situation;
+import org.universAAL.reasoner.ont.Query;
+import org.universAAL.reasoner.ont.ReasoningService;
+import org.universAAL.reasoner.ont.Rule;
+import org.universAAL.reasoner.ont.Situation;
 
 /**
  * This implementation of ReasoningService contains all methods currently
@@ -86,7 +86,7 @@ public class ProvidedReasoningService extends ReasoningService {
 	OntologyManagement.getInstance().register(
 		Activator.mcontext,
 		new SimpleOntology(MY_URI, ReasoningService.MY_URI,
-			new ResourceFactory() {
+			new ResourceFactoryImpl() {
 			    public Resource createInstance(String classURI,
 				    String instanceURI, int factoryIndex) {
 				return new ProvidedReasoningService(instanceURI);

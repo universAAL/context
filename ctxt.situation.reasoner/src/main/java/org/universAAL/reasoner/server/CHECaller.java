@@ -1,6 +1,6 @@
 /*	
 	Copyright 2008-2014 Fraunhofer IGD, http://www.igd.fraunhofer.de
-	Fraunhofer Gesellschaft - Institut für Graphische Datenverarbeitung 
+	Fraunhofer Gesellschaft - Institut fï¿½r Graphische Datenverarbeitung 
 	
 	See the NOTICE file distributed with this work for additional 
 	information regarding copyright ownership
@@ -50,7 +50,8 @@ public class CHECaller extends ServiceCaller {
 	    + "resultString";
     private MessageContentSerializer uAALParser;
     /**
-     * GENERIC_EVENT is used to identify events created by a SPARQL CONSTRUCT query.
+     * GENERIC_EVENT is used to identify events created by a SPARQL CONSTRUCT
+     * query.
      */
     private static final String GENERIC_EVENT = "urn:org.universAAL.middleware.context.rdf:ContextEvent#_:0000000000000000:00";
 
@@ -75,7 +76,8 @@ public class CHECaller extends ServiceCaller {
      */
     public void executeQuery(String theQuery) {
 	// TODO: Try to improve this. Also replace ALWAYS the URI with new one
-	String query = theQuery.replace(GENERIC_EVENT,
+	String query = theQuery.replace(
+		GENERIC_EVENT,
 		ContextEvent.CONTEXT_EVENT_URI_PREFIX
 			+ StringUtils.createUniqueID());
 	String ser = callDoSPARQL(query);
@@ -127,13 +129,12 @@ public class CHECaller extends ServiceCaller {
 		return "";
 	    }
 	} else
-	    LogUtils
-		    .logInfo(
-			    Activator.mcontext,
-			    CHECaller.class,
-			    "callDoSPARQL",
-			    new Object[] { "History Client - status of doSparqlQuery(): "
-				    + response.getCallStatus() }, null);
+	    LogUtils.logInfo(
+		    Activator.mcontext,
+		    CHECaller.class,
+		    "callDoSPARQL",
+		    new Object[] { "History Client - status of doSparqlQuery(): "
+			    + response.getCallStatus() }, null);
 	return "";
     }
 
@@ -187,13 +188,12 @@ public class CHECaller extends ServiceCaller {
 		    if (returnValue == null)
 			returnValue = output.getParameterValue();
 		    else
-			LogUtils
-				.logInfo(
-					Activator.mcontext,
-					CHECaller.class,
-					"getReturnValue",
-					new Object[] { "History Client: redundant return value!" },
-					null);
+			LogUtils.logInfo(
+				Activator.mcontext,
+				CHECaller.class,
+				"getReturnValue",
+				new Object[] { "History Client: redundant return value!" },
+				null);
 		else
 		    LogUtils.logInfo(Activator.mcontext, CHECaller.class,
 			    "getReturnValue",

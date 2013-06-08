@@ -1,6 +1,6 @@
 /*	
 	Copyright 2008-2014 Fraunhofer IGD, http://www.igd.fraunhofer.de
-	Fraunhofer Gesellschaft - Institut für Graphische Datenverarbeitung 
+	Fraunhofer Gesellschaft - Institut fï¿½r Graphische Datenverarbeitung 
 	
 	See the NOTICE file distributed with this work for additional 
 	information regarding copyright ownership
@@ -180,8 +180,8 @@ public class ReasoningGUI extends javax.swing.JPanel {
 		displayList.add(element.getURI());
 	    }
 
-	    ListModel jListModel = new DefaultComboBoxModel(displayList
-		    .toArray(new String[0]));
+	    ListModel jListModel = new DefaultComboBoxModel(
+		    displayList.toArray(new String[0]));
 	    if (jListModel != null)
 		elementsList.setModel(jListModel);
 	}

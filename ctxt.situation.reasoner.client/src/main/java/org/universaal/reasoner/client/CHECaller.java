@@ -1,6 +1,6 @@
 /*	
 	Copyright 2008-2014 Fraunhofer IGD, http://www.igd.fraunhofer.de
-	Fraunhofer Gesellschaft - Institut für Graphische Datenverarbeitung 
+	Fraunhofer Gesellschaft - Institut fï¿½r Graphische Datenverarbeitung 
 	
 	See the NOTICE file distributed with this work for additional 
 	information regarding copyright ownership
@@ -58,11 +58,9 @@ public class CHECaller extends ServiceCaller {
     }
 
     public void communicationChannelBroken() {
-
     }
 
     public void handleResponse(String reqID, ServiceResponse response) {
-
     }
 
     /**
@@ -73,7 +71,8 @@ public class CHECaller extends ServiceCaller {
      *            The SPARQL CONSTRUCT query
      */
     public ContextEvent executeQuery(String theQuery) {
-	String query = theQuery.replace(GENERIC_EVENT,
+	String query = theQuery.replace(
+		GENERIC_EVENT,
 		ContextEvent.CONTEXT_EVENT_URI_PREFIX
 			+ StringUtils.createUniqueID());
 	String ser = callDoSPARQL(query);
@@ -107,13 +106,12 @@ public class CHECaller extends ServiceCaller {
 		return "";
 	    }
 	} else
-	    LogUtils
-		    .logInfo(
-			    Activator.context,
-			    CHECaller.class,
-			    "callDoSPARQL",
-			    new Object[] { "History Client - status of doSparqlQuery(): "
-				    + response.getCallStatus() }, null);
+	    LogUtils.logInfo(
+		    Activator.context,
+		    CHECaller.class,
+		    "callDoSPARQL",
+		    new Object[] { "History Client - status of doSparqlQuery(): "
+			    + response.getCallStatus() }, null);
 	return "";
     }
 
@@ -164,13 +162,12 @@ public class CHECaller extends ServiceCaller {
 		    if (returnValue == null)
 			returnValue = output.getParameterValue();
 		    else
-			LogUtils
-				.logInfo(
-					Activator.context,
-					CHECaller.class,
-					"getReturnValue",
-					new Object[] { "History Client: redundant return value!" },
-					null);
+			LogUtils.logInfo(
+				Activator.context,
+				CHECaller.class,
+				"getReturnValue",
+				new Object[] { "History Client: redundant return value!" },
+				null);
 		else
 		    LogUtils.logInfo(Activator.context, CHECaller.class,
 			    "getReturnValue",

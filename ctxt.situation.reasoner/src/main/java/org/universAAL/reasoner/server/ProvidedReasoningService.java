@@ -1,6 +1,6 @@
 /*	
 	Copyright 2008-2014 Fraunhofer IGD, http://www.igd.fraunhofer.de
-	Fraunhofer Gesellschaft - Institut für Graphische Datenverarbeitung 
+	Fraunhofer Gesellschaft - Institut fï¿½r Graphische Datenverarbeitung 
 	
 	See the NOTICE file distributed with this work for additional 
 	information regarding copyright ownership
@@ -83,7 +83,8 @@ public class ProvidedReasoningService extends ReasoningService {
     @SuppressWarnings("unchecked")
     private static Hashtable serverLightingRestrictions = new Hashtable();
     static {
-	OntologyManagement.getInstance().register(Activator.mcontext,
+	OntologyManagement.getInstance().register(
+		Activator.mcontext,
 		new SimpleOntology(MY_URI, ReasoningService.MY_URI,
 			new ResourceFactoryImpl() {
 			    public Resource createInstance(String classURI,
@@ -96,10 +97,12 @@ public class ProvidedReasoningService extends ReasoningService {
 	String[] ppQueries = new String[] { ReasoningService.PROP_QUERIES };
 	String[] ppRules = new String[] { ReasoningService.PROP_RULES };
 
-	addRestriction((MergedRestriction) ReasoningService
-		.getClassRestrictionsOnProperty(ReasoningService.MY_URI,
-			ReasoningService.PROP_SITUATIONS).copy(), ppSituations,
-		serverLightingRestrictions);
+	addRestriction(
+		(MergedRestriction) ReasoningService
+			.getClassRestrictionsOnProperty(
+				ReasoningService.MY_URI,
+				ReasoningService.PROP_SITUATIONS).copy(),
+		ppSituations, serverLightingRestrictions);
 
 	ProvidedReasoningService getSituations = new ProvidedReasoningService(
 		SERVICE_GET_SITUATIONS);
@@ -139,8 +142,7 @@ public class ProvidedReasoningService extends ReasoningService {
 
 	ProvidedReasoningService getRules = new ProvidedReasoningService(
 		SERVICE_GET_RULES);
-	getRules
-		.addOutput(OUTPUT_RULES, ReasoningService.MY_URI, 0, 0, ppRules);
+	getRules.addOutput(OUTPUT_RULES, ReasoningService.MY_URI, 0, 0, ppRules);
 	profiles[6] = getRules.myProfile;
 
 	ProvidedReasoningService addRule = new ProvidedReasoningService(

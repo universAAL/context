@@ -1,6 +1,6 @@
 /*	
 	Copyright 2008-2014 Fraunhofer IGD, http://www.igd.fraunhofer.de
-	Fraunhofer Gesellschaft - Institut für Graphische Datenverarbeitung 
+	Fraunhofer Gesellschaft - Institut f�r Graphische Datenverarbeitung 
 	
 	See the NOTICE file distributed with this work for additional 
 	information regarding copyright ownership
@@ -29,10 +29,10 @@ import org.universAAL.middleware.service.ServiceCall;
 import org.universAAL.middleware.service.ServiceCallee;
 import org.universAAL.middleware.service.ServiceResponse;
 import org.universAAL.middleware.service.owls.process.ProcessOutput;
+import org.universAAL.ontology.reasoner.ElementModel;
 import org.universAAL.ontology.reasoner.Persistent;
 import org.universAAL.ontology.reasoner.Query;
 import org.universAAL.ontology.reasoner.Situation;
-import org.universAAL.ontology.reasoner.util.ElementModel;
 
 /**
  * The main task of the ReasoningProvider is the handle Situations, Queries and

@@ -17,7 +17,7 @@ import org.universAAL.middleware.context.ContextSubscriber;
 import org.universAAL.middleware.owl.ManagedIndividual;
 import org.universAAL.middleware.owl.MergedRestriction;
 import org.universAAL.middleware.rdf.TypeMapper;
-import org.universAAL.ontology.reasoner.ElementModel;
+import org.universAAL.ontology.reasoner.util.ElementModel;
 
 /**
  * 

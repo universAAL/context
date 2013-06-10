@@ -69,7 +69,7 @@ public class Activator implements BundleActivator, ServiceListener {
 	String filter = "(objectclass="
 		+ MessageContentSerializerEx.class.getName() + ")";
 	osgiContext.addServiceListener(this, filter);
-	ServiceReference[] references = osgiContext.getServiceReferences((String)null,
+	ServiceReference[] references = osgiContext.getServiceReferences(null,
 		filter);
 	for (int i = 0; references != null && i < references.length; i++) {
 	    this.serviceChanged(new ServiceEvent(ServiceEvent.REGISTERED,

@@ -1,3 +1,4 @@
+
 universAAL Reliability Reasoner
 
 Copyright 2011-2014 USIG, http://www.uni-siegen.de
@@ -15,6 +16,7 @@ Licensed under the Apache License 2.0.
 
 III. License Summary
 - Apache License 2.0
+- MIT License
 
 
 

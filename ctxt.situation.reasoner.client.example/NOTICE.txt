@@ -1,8 +1,11 @@
-universAAL context feature provision generator
+Situation Reasoner Client Example
+
+Copyright 2007-2014 Fraunhofer IGD, http://www.igd.fraunhofer.de
+Fraunhofer-Gesellschaft - Institut für Graphische Datenverarbeitung 
+
 
 I. Included Software
 
-No software just runtime dependencies
 
 II. Used Software
 
@@ -15,15 +18,6 @@ The OSGi Alliance (http://www.osgi.org/).
 Copyright 2006-2008 The OSGi Alliance.
 Licensed under the Apache License 2.0.
 
-This product uses software developed at
-The OPS4J (http://www.ops4j.org)
-Licensed under the Apache License 2.0.
-
-This product uses software developed at
-Junit (http://www.junit.org/).
-Licensed under Common Public License 1.0.
-
 
 III. License Summary
 - Apache License 2.0
-- Common Public License 1.0

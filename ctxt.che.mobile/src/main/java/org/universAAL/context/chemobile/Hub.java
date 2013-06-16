@@ -67,7 +67,7 @@ public class Hub {
     }
 
     /**
-     * Set the turtle-uaal parser. Make sure it's called after start().
+     * Set the turtle-uaal parser. Make sure it´s called after start().
      * 
      * @param service
      *            The parser

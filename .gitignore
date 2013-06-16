@@ -9,7 +9,6 @@ ctxt.che.module.cardinality/target
 ctxt.che/.classpath
 ctxt.che/.project
 ctxt.che/.settings
-ctxt.che/ctxt.che
 ctxt.che/target
 ctxt.che/uAAL.log
 ctxt.error.detection.unit/msg_cls_lyr/.classpath
@@ -20,6 +19,10 @@ ctxt.gen.reasoner/.classpath
 ctxt.gen.reasoner/.project
 ctxt.gen.reasoner/.settings
 ctxt.gen.reasoner/target
+ctxt.jena.converter/.classpath
+ctxt.jena.converter/.project
+ctxt.jena.converter/.settings
+ctxt.jena.converter/target
 ctxt.prof.server/.classpath
 ctxt.prof.server/.project
 ctxt.prof.server/.settings
@@ -35,10 +38,6 @@ ctxt.situation.reasoner/.settings
 ctxt.situation.reasoner/target
 pom/.project
 pom/.settings
-pom/ctxt.karaf.features/.classpath
-pom/ctxt.karaf.features/.project
-pom/ctxt.karaf.features/.settings
-pom/ctxt.karaf.features/target
 pom/target
 sesame.uaal.store/.classpath
 sesame.uaal.store/.project

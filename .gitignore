@@ -10,3 +10,7 @@ ctxt.che/uAAL.log
 pom/.project
 pom/.settings
 pom/target
+sesame.uaal.store/.classpath
+sesame.uaal.store/.project
+sesame.uaal.store/.settings
+sesame.uaal.store/target

@@ -2,6 +2,10 @@ ctxt.che.mobile/.classpath
 ctxt.che.mobile/.project
 ctxt.che.mobile/.settings
 ctxt.che.mobile/target
+ctxt.che.module.cardinality/.classpath
+ctxt.che.module.cardinality/.project
+ctxt.che.module.cardinality/.settings
+ctxt.che.module.cardinality/target
 ctxt.che/.classpath
 ctxt.che/.project
 ctxt.che/.settings

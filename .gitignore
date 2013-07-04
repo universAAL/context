@@ -9,6 +9,7 @@ ctxt.che.module.cardinality/target
 ctxt.che/.classpath
 ctxt.che/.project
 ctxt.che/.settings
+ctxt.che/ctxt.che
 ctxt.che/target
 ctxt.che/uAAL.log
 ctxt.error.detection.unit/msg_cls_lyr/.classpath

@@ -589,7 +589,7 @@ public class SesameBackend implements Backend {
 	if (confidence != null) {
 	    query.append(" <http://ontology.universAAL.org/Context.owl#hasConfidence> \""
 		    + confidence
-		    + "\"^^<http://www.w3.org/2001/XMLSchema#integer> ; \n");
+		    + "\"^^<http://www.w3.org/2001/XMLSchema#int> ; \n");
 	}
 	if (expiration != null) {
 	    query.append(" <http://ontology.universAAL.org/Context.owl#hasExpirationTime> \""
@@ -663,7 +663,7 @@ public class SesameBackend implements Backend {
 	    return "<" + ((Resource) obj).getURI() + ">";
 	} else if (obj instanceof Integer) {
 	    return "\"" + ((Integer) obj).toString()
-		    + "\"^^<http://www.w3.org/2001/XMLSchema#integer>";
+		    + "\"^^<http://www.w3.org/2001/XMLSchema#int>";
 	} else if (obj instanceof Float) {
 	    return "\"" + ((Float) obj).toString()
 		    + "\"^^<http://www.w3.org/2001/XMLSchema#float>";

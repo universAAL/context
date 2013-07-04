@@ -114,7 +114,7 @@ public class Cleaner extends TimerTask {
 	 * @see java.util.TimerTask#run()
 	 */
 	public void run() {
-	    // This happens only when it's time to remove
+	    // This happens only when it´s time to remove
 	    int keep = Integer.parseInt(Hub.getProperties().getProperty(
 		    "RECYCLE.KEEP", "2"));
 	    if (keep <= 0) {

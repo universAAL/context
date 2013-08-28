@@ -15,7 +15,7 @@ package org.universAAL.reliability.reasoner;
  limitations under the License.
 
  * @author <a href="mailto:abu.sadat@uni-siegen.de">Rubaiyat Sadat</a>
- *	       Â©2012
+ *	       ©2012
  */
 
 import org.universAAL.middleware.container.ModuleContext;

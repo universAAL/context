@@ -315,6 +315,21 @@ public class SCaller {
 	}
     }
 
+
+//    public Resource getSubProfileOfUser(Resource user) {
+//	String resultx = getResult(defaultCaller
+//		.call(getDoSPARQLRequest(Queries.Q_GET_PRF_OF_USR_XTRA.replace(
+//			Queries.ARG1, user.getURI()))));
+//	Object objx = Hub.parser.deserialize(resultx);
+//	if (objx == null)
+//	    return null;
+//	String result = getResult(defaultCaller
+//		.call(getDoSPARQLRequest(Queries.Q_GET_PRF_OF_USR.replace(
+//			Queries.ARG1, user.getURI()))));
+//	String uri = ((Resource) objx).getURI();
+//	return (Resource) Hub.parser.deserialize(result, uri);
+//    }
+    
     // :::::::::::::OTHER ADDS:::::::::::::::::
 
     protected void addProfileToUser(Resource user, Resource profile) {
@@ -427,5 +442,6 @@ public class SCaller {
 		+ lastprefix + 1);
 	return result;
     }
+
 
 }

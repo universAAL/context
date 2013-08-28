@@ -25,7 +25,7 @@ import org.universAAL.middleware.owl.MergedRestriction;
 import org.universAAL.middleware.owl.OntologyManagement;
 import org.universAAL.middleware.owl.SimpleOntology;
 import org.universAAL.middleware.rdf.Resource;
-import org.universAAL.middleware.rdf.impl.ResourceFactoryImpl;
+import org.universAAL.middleware.rdf.ResourceFactory;
 import org.universAAL.middleware.service.owl.Service;
 import org.universAAL.middleware.service.owls.process.ProcessInput;
 import org.universAAL.middleware.service.owls.process.ProcessOutput;
@@ -75,6 +75,9 @@ public class SCalleeProvidedService extends ProfilingService {
     protected static final String SRV_ADD_SUB_TO_PRF = NAMESPACE + "servG";
     protected static final String IN_ADD_SUB_TO_PRF_WHERE = NAMESPACE + "servG1";
     protected static final String IN_ADD_SUB_TO_PRF_WHAT = NAMESPACE + "servG2";
+    protected static final String SRV_GET_SUB_OF_USR = NAMESPACE + "servH";
+    protected static final String INP_GET_SUB_OF_USR = NAMESPACE + "servHi";
+    protected static final String OUT_GET_SUB_OF_USR = NAMESPACE + "servHo";
     
     // VALUES FOR DYNAMIC TYPICAL SERVICE PROFILES
     public static final String SRV_GET_X = "servEditorGet";
@@ -99,12 +102,12 @@ public class SCalleeProvidedService extends ProfilingService {
     /**
      * Where the service profiles are stored.
      */
-    protected static ServiceProfile[] profiles = new ServiceProfile[7];
+    protected static ServiceProfile[] profiles = new ServiceProfile[8];
 
     static {
 	OntologyManagement.getInstance().register(Hub.moduleContext,
 		new SimpleOntology(MY_URI, ProfilingService.MY_URI,
-			new ResourceFactoryImpl() {
+			new ResourceFactory() {
 			    public Resource createInstance(String classURI,
 				    String instanceURI, int factoryIndex) {
 				return new SCalleeProvidedService(instanceURI);
@@ -159,6 +162,7 @@ public class SCalleeProvidedService extends ProfilingService {
 	prof2.getProfile().addInput(input2);
 	ProcessOutput output2 = new ProcessOutput(OUT_GET_SUBS_OF_USR);
 	output2.setParameterType(SubProfile.MY_URI);
+	output2.setCardinality(0, 0);
 	prof2.getProfile().addOutput(output2);
 	prof2.getProfile().addSimpleOutputBinding(
 		output2,
@@ -260,6 +264,29 @@ public class SCalleeProvidedService extends ProfilingService {
 			Profile.PROP_HAS_SUB_PROFILE },
 		input6b.asVariableReference());
 	profiles[6] = prof6.getProfile();
+	
+	// GET_SUBPROFILE(User) -> SubProfile
+	// Returns the full subprofile of the same type associated to
+	// the user whose URI matches the one of the passed parameter
+	Service prof7 = new ProfilingService(SRV_GET_SUB_OF_USR);
+	ProcessInput input7 = new ProcessInput(INP_GET_SUB_OF_USR);
+	input7.setParameterType(User.MY_URI);
+	input7.setCardinality(1, 1);//
+	MergedRestriction restr7 = MergedRestriction.getFixedValueRestriction(
+		ProfilingService.PROP_CONTROLS, input7.asVariableReference());
+	prof7.addInstanceLevelRestriction(restr7, new String[] {
+		ProfilingService.PROP_CONTROLS });
+	prof7.getProfile().addInput(input7);
+	ProcessOutput output7 = new ProcessOutput(OUT_GET_SUB_OF_USR);
+	output7.setParameterType(SubProfile.MY_URI);
+	output7.setCardinality(1, 1);
+	prof7.getProfile().addOutput(output7);
+	prof7.getProfile().addSimpleOutputBinding(
+		output7,
+		new String[] { ProfilingService.PROP_CONTROLS,
+			Profilable.PROP_HAS_PROFILE,
+			Profile.PROP_HAS_SUB_PROFILE });
+	profiles[7] = prof7.getProfile();
     }
 
     // DYNAMIC TYPICAL SERVICE PROFILES

@@ -101,7 +101,7 @@ public class SCallee extends ServiceCallee {
      * @param context
      *            uAAL module context
      */
-    protected SCallee(ModuleContext context) {
+    public SCallee(ModuleContext context) {
 	super(context, SCalleeProvidedService.profiles);
 	this.addNewServiceProfiles(SCalleeProvidedService.getServiceProfiles(
 		NAMESPACE_PROFILABLE, ProfilingService.MY_URI,
@@ -407,6 +407,26 @@ public class SCallee extends ServiceCallee {
 		return ERROR_OUTPUT;
 	    }
 	    return response;
+	}
+	
+	if (operation.startsWith(SCalleeProvidedService.SRV_GET_SUB_OF_USR)) {
+	    LogUtils.logDebug(mc, SCallee.class, "handleCall",
+		    new String[] { "CALLED: SRV_GET_SUB_OF_USR" }, null);
+	    Object input = call
+		    .getInputValue(SCalleeProvidedService.INP_GET_SUB_OF_USR);
+	    if (input == null) {
+		return ERROR_INPUT;
+	    }
+//	    Resource result = Hub.scaller
+//		    .getSubProfileOfUser((Resource) input);
+//	    ServiceResponse response = new ServiceResponse(CallStatus.succeeded);
+//	    if (result != null) {
+//		response.addOutput(new ProcessOutput(
+//			SCalleeProvidedService.OUT_GET_SUB_OF_USR, result));
+//	    } else {
+		return ERROR_OUTPUT;
+//	    }
+//	    return response;
 	}
 	
 	if (operation.startsWith(SCalleeProvidedService.SRV_GET_SUBS_OF_PRF)) {

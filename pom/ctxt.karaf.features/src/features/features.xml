@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<features name="universAAL-Ontologies" xmlns="http://karaf.apache.org/xmlns/features/v1.0.0">
+
+	<!-- Change version of repository accordingly -->
+	<repository>mvn:org.universAAL.middleware/mw.karaf.feature/2.0.1-SNAPSHOT/xml/features</repository>
+	<repository>mvn:org.universAAL.ontology/ont.karaf.feature/2.0.1-SNAPSHOT/xml/features</repository>
+
+	<feature name="uAAL-ctxt.CHe" description="The Context History Entrepot."
+		version="${pom.version}" resolver='(obr)'>
+		<feature>uAAL-Ont.CHe</feature> 
+		<bundle>mvn:org.openrdf.sesame/sesame-runtime-osgi/2.6.0</bundle>
+		<bundle start-level='96' start='true'>mvn:org.universAAL.context/ctxt.che/2.0.0</bundle>
+	</feature>
+	
+	<feature name="uAAL-ctxt.Profiling.Server" description="The Context History Entrepot."
+		version="${pom.version}" resolver='(obr)'>
+		<feature>uAAL-Ont.CHe</feature> 
+		<bundle start-level='91' start='true'>mvn:org.universAAL.context/ctxt.prof.server/2.0.0</bundle>
+	</feature>
+	
+	<feature name="uAAL-ctxt.Managers">
+		<feature>uAAL-ctxt.CHe</feature>
+		<feature>uAAL-ctxt.Profiling.Server</feature>
+	</feature>
+</features>

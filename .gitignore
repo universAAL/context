@@ -39,6 +39,10 @@ ctxt.situation.reasoner/.settings
 ctxt.situation.reasoner/target
 pom/.project
 pom/.settings
+pom/ctxt.karaf.features/.classpath
+pom/ctxt.karaf.features/.project
+pom/ctxt.karaf.features/.settings
+pom/ctxt.karaf.features/target
 pom/target
 sesame.uaal.store/.classpath
 sesame.uaal.store/.project

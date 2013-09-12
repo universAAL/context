@@ -2,26 +2,26 @@
 <features name="universAAL-Context" xmlns="http://karaf.apache.org/xmlns/features/v1.0.0">
 
 	<!-- Change version of repository accordingly -->
-	<repository>mvn:org.universAAL.middleware/mw.karaf.feature/${mw.karaf.feature.version}/xml/features</repository>
-	<repository>mvn:org.universAAL.ontology/ont.karaf.feature/${ont.karaf.feature.version}/xml/features</repository>
+	<repository>mvn:org.universAAL.middleware/mw.karaf.feature/2.0.1-SNAPSHOT/xml/features</repository>
+	<repository>mvn:org.universAAL.ontology/ont.karaf.feature/2.0.1-SNAPSHOT/xml/features</repository>
 
 	<feature name="uAAL-ctxt.CHe" description="The Context History Entrepot."
 		version="${pom.version}" resolver='(obr)'>
 		<feature>uAAL-Ont.CHe</feature> 
-		<bundle start-level='50' start='true'>mvn:org.openrdf.sesame/sesame-runtime-osgi/2.6.0</bundle>
-		<bundle start-level='51'>wrap:mvn:org.universAAL.context/sesame.uaal.store/${sesame.uaal.store.version}</bundle>
-		<bundle start-level='70' start='true'>mvn:org.universAAL.context/ctxt.che.module.cardinality/${ctxt.che.module.cardinality.version}</bundle>
-		<bundle start-level='71' start='true'>mvn:org.universAAL.context/ctxt.che/${ctxt.che.version}</bundle>
+		<bundle start-level='50'>mvn:org.openrdf.sesame/sesame-runtime-osgi/2.6.0</bundle>
+		<bundle start-level='51'>wrap:mvn:org.universAAL.context/sesame.uaal.store/2.0.0</bundle>
+		<bundle start-level='70'>mvn:org.universAAL.context/ctxt.che.module.cardinality/2.0.0</bundle>
+		<bundle start-level='71' start='true'>mvn:org.universAAL.context/ctxt.che/2.0.0</bundle>
 	</feature>
 	
 	<feature name="uAAL-ctxt.Profiling.Server" description="The Profiling Server."
 		version="${pom.version}" resolver='(obr)'>
 		<feature>uAAL-Ont.Profile</feature> 
 		<feature>uAAL-Ont.CHe</feature> 
-		<bundle start-level='72' start='true'>mvn:org.universAAL.context/ctxt.prof.server/${ctxt.prof.server.version}</bundle>
+		<bundle start-level='72' start='true'>mvn:org.universAAL.context/ctxt.prof.server/2.0.0</bundle>
 	</feature>
 	
-	<feature name="uAAL-ctxt.Managers" version="${pom.version}" resolver='(obr)'>
+	<feature name="uAAL-ctxt.Managers">
 		<feature>uAAL-ctxt.CHe</feature>
 		<feature>uAAL-ctxt.Profiling.Server</feature>
 	</feature>

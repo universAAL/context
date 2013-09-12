@@ -11,14 +11,14 @@
 		<bundle>mvn:org.openrdf.sesame/sesame-runtime-osgi/2.6.0</bundle>
 		<bundle>wrap:mvn:org.universAAL.context/sesame.uaal.store/2.0.0</bundle>
 		<bundle>mvn:org.universAAL.context/ctxt.che.module.cardinality/2.0.0</bundle>
-		<bundle start-level='96' start='true'>mvn:org.universAAL.context/ctxt.che/2.0.0</bundle>
+		<bundle start-level='76' start='true'>mvn:org.universAAL.context/ctxt.che/2.0.0</bundle>
 	</feature>
 	
 	<feature name="uAAL-ctxt.Profiling.Server" description="The Profiling Server."
 		version="${pom.version}" resolver='(obr)'>
 		<feature>uAAL-Ont.Profile</feature> 
 		<feature>uAAL-Ont.CHe</feature> 
-		<bundle start-level='91' start='true'>mvn:org.universAAL.context/ctxt.prof.server/2.0.0</bundle>
+		<bundle start-level='77' start='true'>mvn:org.universAAL.context/ctxt.prof.server/2.0.0</bundle>
 	</feature>
 	
 	<feature name="uAAL-ctxt.Managers">

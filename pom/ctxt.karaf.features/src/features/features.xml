@@ -21,7 +21,7 @@
 		<bundle start-level='72' start='true'>mvn:org.universAAL.context/ctxt.prof.server/2.0.0</bundle>
 	</feature>
 	
-	<feature name="uAAL-ctxt.Managers">
+	<feature name="uAAL-ctxt.Managers" version="${pom.version}" resolver='(obr)'>
 		<feature>uAAL-ctxt.CHe</feature>
 		<feature>uAAL-ctxt.Profiling.Server</feature>
 	</feature>

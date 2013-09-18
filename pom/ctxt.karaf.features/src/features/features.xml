@@ -9,16 +9,16 @@
 		version="${pom.version}" resolver='(obr)'>
 		<feature>uAAL-Ont.CHe</feature> 
 		<bundle start-level='50'>mvn:org.openrdf.sesame/sesame-runtime-osgi/2.6.0</bundle>
-		<bundle start-level='51'>wrap:mvn:org.universAAL.context/sesame.uaal.store/2.0.0</bundle>
-		<bundle start-level='70'>mvn:org.universAAL.context/ctxt.che.module.cardinality/2.0.0</bundle>
-		<bundle start-level='71' start='true'>mvn:org.universAAL.context/ctxt.che/2.0.0</bundle>
+		<bundle start-level='51'>wrap:mvn:org.universAAL.context/sesame.uaal.store/2.0.1-SNAPSHOT</bundle>
+		<bundle start-level='70'>mvn:org.universAAL.context/ctxt.che.module.cardinality/2.0.1-SNAPSHOT</bundle>
+		<bundle start-level='71' start='true'>mvn:org.universAAL.context/ctxt.che/2.0.1-SNAPSHOT</bundle>
 	</feature>
 	
 	<feature name="uAAL-ctxt.Profiling.Server" description="The Profiling Server."
 		version="${pom.version}" resolver='(obr)'>
 		<feature>uAAL-Ont.Profile</feature> 
 		<feature>uAAL-Ont.CHe</feature> 
-		<bundle start-level='72' start='true'>mvn:org.universAAL.context/ctxt.prof.server/2.0.0</bundle>
+		<bundle start-level='72' start='true'>mvn:org.universAAL.context/ctxt.prof.server/2.0.1-SNAPSHOT</bundle>
 	</feature>
 	
 	<feature name="uAAL-ctxt.Managers" version="${pom.version}" resolver='(obr)'>

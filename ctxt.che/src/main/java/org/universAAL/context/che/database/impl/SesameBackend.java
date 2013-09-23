@@ -136,8 +136,13 @@ public class SesameBackend implements Backend {
 	}
     }
     
-    /* (non-Javadoc)
-     * @see org.universAAL.context.che.database.Backend#populate()
+    /**
+     * Fills the initial store with the OWL data of the ontologies from the OWL
+     * files in the config folder (or registered in the system).
+     * 
+     * @throws RepositoryException
+     * @throws RDFParseException
+     * @throws IOException
      */
     public void populate() throws RepositoryException, RDFParseException,
 	    IOException {

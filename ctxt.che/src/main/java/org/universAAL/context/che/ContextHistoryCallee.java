@@ -43,7 +43,7 @@ import org.universAAL.ontology.che.ContextEvent;
  * 
  */
 public class ContextHistoryCallee extends ServiceCallee {
-    private static final ServiceResponse INVALID_INPUT = new ServiceResponse(
+    private static final ServiceResponse FAILURE = new ServiceResponse(
 	    CallStatus.serviceSpecificFailure);
     /**
      * Logger.
@@ -90,19 +90,15 @@ public class ContextHistoryCallee extends ServiceCallee {
     public ServiceResponse handleCall(ServiceCall call) {
 	log.info("handleCall", "CHe received a service call");
 	if (call == null) {
-	    INVALID_INPUT
-		    .addOutput(new ProcessOutput(
-			    ServiceResponse.PROP_SERVICE_SPECIFIC_ERROR,
-			    "Corrupt call"));
-	    return INVALID_INPUT;
+	    FAILURE.addOutput(new ProcessOutput(
+		    ServiceResponse.PROP_SERVICE_SPECIFIC_ERROR, "Corrupt call"));
+	    return FAILURE;
 	}
 	String operation = call.getProcessURI();
 	if (operation == null) {
-	    INVALID_INPUT
-		    .addOutput(new ProcessOutput(
-			    ServiceResponse.PROP_SERVICE_SPECIFIC_ERROR,
-			    "Corrupt call"));
-	    return INVALID_INPUT;
+	    FAILURE.addOutput(new ProcessOutput(
+		    ServiceResponse.PROP_SERVICE_SPECIFIC_ERROR, "Corrupt call"));
+	    return FAILURE;
 	}
 	if (operation
 		.startsWith(ContextHistoryServices.SERVICE_DO_SPARQL_QUERY)) {
@@ -110,10 +106,10 @@ public class ContextHistoryCallee extends ServiceCallee {
 	    Object input = call
 		    .getInputValue(ContextHistoryServices.INPUT_QUERY);
 	    if (input == null) {
-		INVALID_INPUT.addOutput(new ProcessOutput(
+		FAILURE.addOutput(new ProcessOutput(
 			ServiceResponse.PROP_SERVICE_SPECIFIC_ERROR,
 			"Invalid input"));
-		return INVALID_INPUT;
+		return FAILURE;
 	    }
 	    return execSPARQLQuery((String) input);
 	} else if (operation
@@ -123,10 +119,10 @@ public class ContextHistoryCallee extends ServiceCallee {
 	    Object input = call
 		    .getInputValue(ContextHistoryServices.INPUT_QUERY);
 	    if (input == null) {
-		INVALID_INPUT.addOutput(new ProcessOutput(
+		FAILURE.addOutput(new ProcessOutput(
 			ServiceResponse.PROP_SERVICE_SPECIFIC_ERROR,
 			"Invalid input"));
-		return INVALID_INPUT;
+		return FAILURE;
 	    }
 	    return execSPARQLQueryForEvents((String) input);
 	} else {
@@ -134,10 +130,10 @@ public class ContextHistoryCallee extends ServiceCallee {
 		    .getInputValue(ContextHistoryServices.INPUT_EVENT);
 	    ContextEvent inputevent;
 	    if ((input == null) || (!(input instanceof ContextEvent))) {
-		INVALID_INPUT.addOutput(new ProcessOutput(
+		FAILURE.addOutput(new ProcessOutput(
 			ServiceResponse.PROP_SERVICE_SPECIFIC_ERROR,
 			"Invalid input (ContextEvent)"));
-		return INVALID_INPUT;
+		return FAILURE;
 	    } else {
 		inputevent = (ContextEvent) input;
 	    }
@@ -171,10 +167,10 @@ public class ContextHistoryCallee extends ServiceCallee {
 			.getInputValue(ContextHistoryServices.INPUT_TIMESTAMP_FROM);
 		Long tstinputValue = Long.valueOf("0");
 		if ((tstinput == null) || (!(tstinput instanceof Long))) {
-		    INVALID_INPUT.addOutput(new ProcessOutput(
+		    FAILURE.addOutput(new ProcessOutput(
 			    ServiceResponse.PROP_SERVICE_SPECIFIC_ERROR,
 			    "Invalid input (Timestamp)"));
-		    return INVALID_INPUT;
+		    return FAILURE;
 		} else {
 		    tstinputValue = (Long) tstinput;
 		}
@@ -193,10 +189,10 @@ public class ContextHistoryCallee extends ServiceCallee {
 			.getInputValue(ContextHistoryServices.INPUT_TIMESTAMP_TO);
 		Long tstinputValue = Long.valueOf("0");
 		if ((tstinput == null) || (!(tstinput instanceof Long))) {
-		    INVALID_INPUT.addOutput(new ProcessOutput(
+		    FAILURE.addOutput(new ProcessOutput(
 			    ServiceResponse.PROP_SERVICE_SPECIFIC_ERROR,
 			    "Invalid input (Timestamp)"));
-		    return INVALID_INPUT;
+		    return FAILURE;
 		} else {
 		    tstinputValue = (Long) tstinput;
 		}
@@ -217,19 +213,19 @@ public class ContextHistoryCallee extends ServiceCallee {
 			.getInputValue(ContextHistoryServices.INPUT_TIMESTAMP_TO);
 		Long tstinput1Value = Long.valueOf("0");
 		if ((tstinput1 == null) || (!(tstinput1 instanceof Long))) {
-		    INVALID_INPUT.addOutput(new ProcessOutput(
+		    FAILURE.addOutput(new ProcessOutput(
 			    ServiceResponse.PROP_SERVICE_SPECIFIC_ERROR,
 			    "Invalid input (Timestamp)"));
-		    return INVALID_INPUT;
+		    return FAILURE;
 		} else {
 		    tstinput1Value = (Long) tstinput1;
 		}
 		Long tstinput2Value = Long.valueOf("0");
 		if ((tstinput2 == null) || (!(tstinput2 instanceof Long))) {
-		    INVALID_INPUT.addOutput(new ProcessOutput(
+		    FAILURE.addOutput(new ProcessOutput(
 			    ServiceResponse.PROP_SERVICE_SPECIFIC_ERROR,
 			    "Invalid input (Timestamp)"));
-		    return INVALID_INPUT;
+		    return FAILURE;
 		} else {
 		    tstinput2Value = (Long) tstinput2;
 		}
@@ -243,9 +239,9 @@ public class ContextHistoryCallee extends ServiceCallee {
 		return response;
 	    }
 	}
-	INVALID_INPUT.addOutput(new ProcessOutput(
+	FAILURE.addOutput(new ProcessOutput(
 		ServiceResponse.PROP_SERVICE_SPECIFIC_ERROR, "Invalid call"));
-	return INVALID_INPUT;
+	return FAILURE;
     }
 
     /**
@@ -258,6 +254,14 @@ public class ContextHistoryCallee extends ServiceCallee {
     private ServiceResponse execSPARQLQuery(String input) {
 	try {
 	    String results = db.queryBySPARQL(input);
+	    if (results == null) {
+		log.error("execSPARQLQuery",
+			"Error executing specific SPARQL: the backend returned null");
+		FAILURE.addOutput(new ProcessOutput(
+			ServiceResponse.PROP_SERVICE_SPECIFIC_ERROR,
+			"Null response to SPARQL"));
+		return FAILURE;
+	    }
 	    ServiceResponse response = new ServiceResponse(CallStatus.succeeded);
 	    response.addOutput(new ProcessOutput(
 		    ContextHistoryServices.OUTPUT_RESULT, results));
@@ -265,10 +269,10 @@ public class ContextHistoryCallee extends ServiceCallee {
 	} catch (Exception e) {
 	    log.error("execSPARQLQuery",
 		    "Error executing specific SPARQL: {} ", e);
-	    INVALID_INPUT.addOutput(new ProcessOutput(
+	    FAILURE.addOutput(new ProcessOutput(
 		    ServiceResponse.PROP_SERVICE_SPECIFIC_ERROR,
 		    "Error executing specific SPARQL"));
-	    return INVALID_INPUT;
+	    return FAILURE;
 	}
     }
 
@@ -283,16 +287,24 @@ public class ContextHistoryCallee extends ServiceCallee {
 	try {
 	    ServiceResponse response = new ServiceResponse(CallStatus.succeeded);
 	    ArrayList results = db.retrieveEventsBySPARQL(input);
+	    if (results == null) {
+		log.error("execSPARQLQueryForEvents",
+			"Error executing specific SPARQL for events: the backend returned null");
+		FAILURE.addOutput(new ProcessOutput(
+			ServiceResponse.PROP_SERVICE_SPECIFIC_ERROR,
+			"Null response to SPARQL"));
+		return FAILURE;
+	    }
 	    response.addOutput(new ProcessOutput(
 		    ContextHistoryServices.OUTPUT_EVENTS, results));
 	    return response;
 	} catch (Exception e) {
 	    log.error("execSPARQLQueryForEvents",
 		    "Error executing SPARQL for events: {} ", e);
-	    INVALID_INPUT.addOutput(new ProcessOutput(
+	    FAILURE.addOutput(new ProcessOutput(
 		    ServiceResponse.PROP_SERVICE_SPECIFIC_ERROR,
 		    "Error executing specific SPARQL"));
-	    return INVALID_INPUT;
+	    return FAILURE;
 	}
     }
 

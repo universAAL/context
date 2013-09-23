@@ -208,13 +208,13 @@ public class Hub {
      */
     public final void stop() throws Exception {
 	// Stop the store and wrappers
-	this.db.close();
 	this.chc.close();
 	this.hc.close();
+	this.db.close();
     }
 
     /**
-     * Set the turtle-uaal parser. Make sure it´s set at least once before
+     * Set the turtle-uaal parser. Make sure itï¿½s set at least once before
      * start().
      * 
      * @param service

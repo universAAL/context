@@ -1,0 +1,34 @@
+Context History Entrepôt - Module for Cardinality and Encryption
+
+Copyright 2008-2014 Fraunhofer IGD, http://www.igd.fraunhofer.de
+Fraunhofer-Gesellschaft - Institute of Computer Graphics Research 
+
+Copyright 2008-2014 ITACA-TSB, http://www.tsb.upv.es
+Instituto Tecnologico de Aplicaciones de Comunicacion 
+Avanzadas - Grupo Tecnologias para la Salud y el 
+Bienestar (TSB)
+
+I. Included Software
+
+This does not include any software developed by 3rd parties
+
+
+II. Used Software
+
+This product uses software developed at
+The Apache Software Foundation (http://www.apache.org/).
+Licensed under the Apache License 2.0.
+
+This product uses software developed at
+The OPS4J (http://www.ops4j.org)
+Licensed under the Apache License 2.0.
+
+This product uses software developed at
+OpenRDF (http://www.openrdf.org)
+Copyright (c) 2001 - 2011 Aduna
+Licensed under modified BSD License.
+
+
+III. License Summary
+- Apache License 2.0
+- Modified BSD License

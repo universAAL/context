@@ -34,6 +34,7 @@ import org.universAAL.middleware.service.DefaultServiceCaller;
 import org.universAAL.middleware.service.ServiceRequest;
 import org.universAAL.middleware.service.ServiceResponse;
 import org.universAAL.middleware.service.owls.process.ProcessOutput;
+import org.universAAL.middleware.util.GraphIterator;
 import org.universAAL.ontology.che.ContextHistoryService;
 
 /**
@@ -96,15 +97,13 @@ public class SCaller {
     // and then use SPARUL to simply make the connection between owner of data
     // and data (in scenarios like adding 'User hasProf Profile')
     protected void addUser(Resource input) {
-	String serialized = Hub.parser.serialize(input);
-	String[] split = splitPrefixes(serialized);
+	String[] split = serializeAndSplit(input);
 	defaultCaller.call(getDoSPARQLRequest(split[0] + " "
 		+ Queries.Q_ADD_USER.replace(Queries.ARGTURTLE, split[1])));
     }
 
     protected void changeUser(Resource input) {
-	String serialized = Hub.parser.serialize(input);
-	String[] split = splitPrefixes(serialized);
+	String[] split = serializeAndSplit(input);
 	defaultCaller.call(getDoSPARQLRequest(split[0]
 		+ " "
 		+ Queries.Q_CHANGE_USER.replace(Queries.ARG1, input.getURI())
@@ -126,15 +125,13 @@ public class SCaller {
     }
 
     protected void addProfile(Resource input) {
-	String serialized = Hub.parser.serialize(input);
-	String[] split = splitPrefixes(serialized);
+	String[] split = serializeAndSplit(input);
 	defaultCaller.call(getDoSPARQLRequest(split[0] + " "
 		+ Queries.Q_ADD_UPROFILE.replace(Queries.ARGTURTLE, split[1])));
     }
 
     protected void changeProfile(Resource input) {
-	String serialized = Hub.parser.serialize(input);
-	String[] split = splitPrefixes(serialized);
+	String[] split = serializeAndSplit(input);
 	defaultCaller.call(getDoSPARQLRequest(split[0]
 		+ " "
 		+ Queries.Q_CHANGE_UPROFILE.replace(Queries.ARG1,
@@ -156,8 +153,7 @@ public class SCaller {
     }
 
     protected void addSubProfile(Resource input) {
-	String serialized = Hub.parser.serialize(input);
-	String[] split = splitPrefixes(serialized);
+	String[] split = serializeAndSplit(input);
 	defaultCaller
 		.call(getDoSPARQLRequest(split[0]
 			+ " "
@@ -166,8 +162,7 @@ public class SCaller {
     }
 
     protected void changeSubProfile(Resource input) {
-	String serialized = Hub.parser.serialize(input);
-	String[] split = splitPrefixes(serialized);
+	String[] split = serializeAndSplit(input);
 	defaultCaller.call(getDoSPARQLRequest(split[0]
 		+ " "
 		+ Queries.Q_CHANGE_SUBPROFILE.replace(Queries.ARG1,
@@ -181,18 +176,18 @@ public class SCaller {
 
     // :::::::::::::OTHER GETS:::::::::::::::::
 
-    // For getting several results maybe it´s better to issue a SELECT query to
+    // For getting several results maybe itï¿½s better to issue a SELECT query to
     // CHE. The result will be in SPARQL result XML
     // format, so it will have to be processed here. It will have to use
     // Sesame... although any RDF framework should do.
     // First convert to framework specific, then list the results, parse each to
-    // Turtle and then to uAAL. That´s 3 parses.
+    // Turtle and then to uAAL. Thatï¿½s 3 parses.
     // What about: CONSTRUCT { <http://ontology.itaca.upv.es/Test.owl#testBag>
     // <http://ontology.itaca.upv.es/Test.owl#testProp> ?y }
     // WHERE { ?y a <http://ontology.universAAL.org/Profile.owl#User> }
-    // It works OK, but the type is not returned so you can´t get the most
+    // It works OK, but the type is not returned so you canï¿½t get the most
     // specialized class and you have to cast manually here to User. And you
-    // have no way to know if it´s an AP or a caregiver. Unless you create
+    // have no way to know if itï¿½s an AP or a caregiver. Unless you create
     // methods for each.
     // Another solution is to issue a DESCRIBE to each of them. So in the end
     // there is a tradeof you have to choose:
@@ -200,7 +195,7 @@ public class SCaller {
     // 2: Create a get* for all kind of current and future types of User
     // 3: Use this getUser and then call a DESCRIBE on each
     // ...Or a final choice: construct a bag with the results and a bag with the
-    // types. Then combine the RDF in a single string and deserialize. It´s
+    // types. Then combine the RDF in a single string and deserialize. Itï¿½s
     // cheating but it works. And it only uses 2 calls and a serialize.
     protected ArrayList getUsers() {
 	String result = getResult(defaultCaller
@@ -333,8 +328,7 @@ public class SCaller {
     // :::::::::::::OTHER ADDS:::::::::::::::::
 
     protected void addProfileToUser(Resource user, Resource profile) {
-	String serialized = Hub.parser.serialize(profile);
-	String[] split = splitPrefixes(serialized);
+	String[] split = serializeAndSplit(profile);
 	defaultCaller.call(getDoSPARQLRequest(split[0]
 		+ " "
 		+ Queries.Q_ADD_PRF_TO_USR.replace(Queries.ARG1, user.getURI())
@@ -343,8 +337,7 @@ public class SCaller {
     }
 
     protected void addSubProfileToUser(Resource user, Resource subprofile) {
-	String serialized = Hub.parser.serialize(subprofile);
-	String[] split = splitPrefixes(serialized);
+	String[] split = serializeAndSplit(subprofile);
 	defaultCaller.call(getDoSPARQLRequest(split[0]
 		+ " "
 		+ Queries.Q_ADD_SUB_TO_USR.replace(Queries.ARG1, user.getURI())
@@ -353,8 +346,7 @@ public class SCaller {
     }
 
     protected void addSubProfileToProf(Resource profile, Resource subprofile) {
-	String serialized = Hub.parser.serialize(subprofile);
-	String[] split = splitPrefixes(serialized);
+	String[] split = serializeAndSplit(subprofile);
 	defaultCaller.call(getDoSPARQLRequest(split[0]
 		+ " "
 		+ Queries.Q_ADD_SUB_TO_PRF
@@ -443,5 +435,15 @@ public class SCaller {
 	return result;
     }
 
+    private static String[] serializeAndSplit(Resource r){
+	Iterator it = GraphIterator.getResourceIterator(r);
+	while (it.hasNext()) {
+	    Resource prop = (Resource) it.next();
+	    prop.unliteral();
+	}
+	String serialized = Hub.parser.serialize(r);
+	String[] split = splitPrefixes(serialized);
+	return split;
+    }
 
 }

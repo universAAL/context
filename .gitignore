@@ -89,10 +89,6 @@ ctxt.jena.converter-1.0.2-SNAPSHOT/.classpath
 ctxt.jena.converter-1.0.2-SNAPSHOT/.project
 ctxt.jena.converter-1.0.2-SNAPSHOT/.settings
 ctxt.jena.converter-1.0.2-SNAPSHOT/target
-ctxt.karaf.feature-2.0.2-SNAPSHOT/.classpath
-ctxt.karaf.feature-2.0.2-SNAPSHOT/.project
-ctxt.karaf.feature-2.0.2-SNAPSHOT/.settings
-ctxt.karaf.feature-2.0.2-SNAPSHOT/target
 ctxt.pom-1.0.2-SNAPSHOT/.project
 ctxt.pom-1.0.2-SNAPSHOT/.settings
 ctxt.pom-1.0.2-SNAPSHOT/target
@@ -174,10 +170,6 @@ ctxt.reliability.reasoner-2.0.1-SNAPSHOT/.classpath
 ctxt.reliability.reasoner-2.0.1-SNAPSHOT/.project
 ctxt.reliability.reasoner-2.0.1-SNAPSHOT/.settings
 ctxt.reliability.reasoner-2.0.1-SNAPSHOT/target
-ctxt.reliability.reasoner-2.0.2-SNAPSHOT/.classpath
-ctxt.reliability.reasoner-2.0.2-SNAPSHOT/.project
-ctxt.reliability.reasoner-2.0.2-SNAPSHOT/.settings
-ctxt.reliability.reasoner-2.0.2-SNAPSHOT/target
 ctxt.situation.reasoner-1.2.1-SNAPSHOT/.classpath
 ctxt.situation.reasoner-1.2.1-SNAPSHOT/.project
 ctxt.situation.reasoner-1.2.1-SNAPSHOT/.settings

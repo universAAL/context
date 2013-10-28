@@ -297,10 +297,6 @@ ctxt.jena.converter-1.0.2-SNAPSHOT/src/test/java/org/universAAL/context/conversi
 ctxt.jena.converter-1.0.2-SNAPSHOT/src/test/java/org/universAAL/context/conversion/jena/impl/util/HearingImpairment.java -text
 ctxt.jena.converter-1.0.2-SNAPSHOT/src/test/java/org/universAAL/context/conversion/jena/impl/util/PhysicalImpairment.java -text
 ctxt.jena.converter-1.0.2-SNAPSHOT/src/test/java/org/universAAL/context/conversion/jena/impl/util/SightImpairment.java -text
-ctxt.karaf.feature-2.0.2-SNAPSHOT/ASL2.0.txt -text
-ctxt.karaf.feature-2.0.2-SNAPSHOT/NOTICE.txt -text
-ctxt.karaf.feature-2.0.2-SNAPSHOT/pom.xml -text
-ctxt.karaf.feature-2.0.2-SNAPSHOT/src/features/features.xml -text
 ctxt.pom-1.0.2-SNAPSHOT/pom.xml -text
 ctxt.pom-1.1.3-SNAPSHOT/pom.xml -text
 ctxt.pom-1.2.1-SNAPSHOT/pom.xml -text
@@ -433,16 +429,6 @@ ctxt.reliability.reasoner-2.0.1-SNAPSHOT/src/main/java/org/universAAL/reliabilit
 ctxt.reliability.reasoner-2.0.1-SNAPSHOT/src/main/java/org/universAAL/reliability/reasoner/ReliabilityReasonerSubscriber.java -text
 ctxt.reliability.reasoner-2.0.1-SNAPSHOT/src/main/java/org/universAAL/reliability/reasoner/SCaller.java -text
 ctxt.reliability.reasoner-2.0.1-SNAPSHOT/src/main/java/org/universAAL/reliability/reasoner/Situations.txt -text
-ctxt.reliability.reasoner-2.0.2-SNAPSHOT/ASL[!!-~]2.0.txt -text
-ctxt.reliability.reasoner-2.0.2-SNAPSHOT/ASL2.0.txt -text
-ctxt.reliability.reasoner-2.0.2-SNAPSHOT/NOTICE.txt -text
-ctxt.reliability.reasoner-2.0.2-SNAPSHOT/pom.xml -text
-ctxt.reliability.reasoner-2.0.2-SNAPSHOT/src/main/java/org/universAAL/reliability/reasoner/Query.txt -text
-ctxt.reliability.reasoner-2.0.2-SNAPSHOT/src/main/java/org/universAAL/reliability/reasoner/ReliabilityReasonerActivator.java -text
-ctxt.reliability.reasoner-2.0.2-SNAPSHOT/src/main/java/org/universAAL/reliability/reasoner/ReliabilityReasonerPublisher.java -text
-ctxt.reliability.reasoner-2.0.2-SNAPSHOT/src/main/java/org/universAAL/reliability/reasoner/ReliabilityReasonerSubscriber.java -text
-ctxt.reliability.reasoner-2.0.2-SNAPSHOT/src/main/java/org/universAAL/reliability/reasoner/SCaller.java -text
-ctxt.reliability.reasoner-2.0.2-SNAPSHOT/src/main/java/org/universAAL/reliability/reasoner/Situations.txt -text
 ctxt.situation.reasoner-1.2.1-SNAPSHOT/pom.xml -text
 ctxt.situation.reasoner-1.2.1-SNAPSHOT/reasoner.launch -text
 ctxt.situation.reasoner-1.2.1-SNAPSHOT/src/main/java/org/universAAL/reasoner/server/CHECaller.java -text

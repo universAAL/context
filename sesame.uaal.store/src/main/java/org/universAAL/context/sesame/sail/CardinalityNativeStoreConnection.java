@@ -538,7 +538,7 @@ public class CardinalityNativeStoreConnection extends NotifyingSailConnectionBas
 //			nonNativeInt);
 		while (subs.hasNext()) {
 		    Statement st = subs.next();
-		    // For each subject (a Restriction on "pred") check if it´s
+		    // For each subject (a Restriction on "pred") check if it's
 		    // maxCardinality and ==1
 		    if (size(st.getSubject(), maxCard, one, true, contexts) > 0 || size(st.getSubject(), exactCard, one, true, contexts) > 0)
 			return true;

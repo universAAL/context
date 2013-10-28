@@ -98,7 +98,7 @@ public class CardinCollect2NativeStoreConnection extends CardinalityNativeStoreC
 	    try {
 		while (objs.hasNext()) {
 		    Statement st = objs.next();
-		    // For each object in S P ? check if it´s a List
+		    // For each object in S P ? check if it's a List
 		    if (objIsClosedCollection(st.getObject(), contexts))
 			return true;
 		}
@@ -111,7 +111,7 @@ public class CardinCollect2NativeStoreConnection extends CardinalityNativeStoreC
 
     private boolean objIsClosedCollection(Value obj, Resource[] contexts)
 	    throws SailException {
-	if (obj instanceof BNode) {//TODO of Resource better? wait and see ClosedCollection, if it´s not blank...
+	if (obj instanceof BNode) {//TODO of Resource better? wait and see ClosedCollection, if it's not blank...
 	    return (size((BNode) obj, RDF.FIRST, null, true, contexts) > 0);
 	} else {
 	    return false;

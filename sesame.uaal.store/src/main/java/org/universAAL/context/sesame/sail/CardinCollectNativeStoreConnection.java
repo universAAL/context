@@ -84,7 +84,7 @@ public class CardinCollectNativeStoreConnection extends CardinalityNativeStoreCo
 
     private boolean objIsClosedCollection(Value obj, Resource[] contexts)
 	    throws SailException {
-	if (obj instanceof BNode) {//TODO of Resource better? wait and see ClosedCollection, if it´s not blank...
+	if (obj instanceof BNode) {//TODO of Resource better? wait and see ClosedCollection, if it's not blank...
 	    return (size((BNode) obj, RDF.FIRST, null, true, contexts) > 0);
 	} else {
 	    return false;

@@ -176,18 +176,18 @@ public class SCaller {
 
     // :::::::::::::OTHER GETS:::::::::::::::::
 
-    // For getting several results maybe it�s better to issue a SELECT query to
+    // For getting several results maybe it's better to issue a SELECT query to
     // CHE. The result will be in SPARQL result XML
     // format, so it will have to be processed here. It will have to use
     // Sesame... although any RDF framework should do.
     // First convert to framework specific, then list the results, parse each to
-    // Turtle and then to uAAL. That�s 3 parses.
+    // Turtle and then to uAAL. That's 3 parses.
     // What about: CONSTRUCT { <http://ontology.itaca.upv.es/Test.owl#testBag>
     // <http://ontology.itaca.upv.es/Test.owl#testProp> ?y }
     // WHERE { ?y a <http://ontology.universAAL.org/Profile.owl#User> }
-    // It works OK, but the type is not returned so you can�t get the most
+    // It works OK, but the type is not returned so you can't get the most
     // specialized class and you have to cast manually here to User. And you
-    // have no way to know if it�s an AP or a caregiver. Unless you create
+    // have no way to know if it's an AP or a caregiver. Unless you create
     // methods for each.
     // Another solution is to issue a DESCRIBE to each of them. So in the end
     // there is a tradeof you have to choose:
@@ -195,7 +195,7 @@ public class SCaller {
     // 2: Create a get* for all kind of current and future types of User
     // 3: Use this getUser and then call a DESCRIBE on each
     // ...Or a final choice: construct a bag with the results and a bag with the
-    // types. Then combine the RDF in a single string and deserialize. It�s
+    // types. Then combine the RDF in a single string and deserialize. It's
     // cheating but it works. And it only uses 2 calls and a serialize.
     protected ArrayList getUsers() {
 	String result = getResult(defaultCaller

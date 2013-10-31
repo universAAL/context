@@ -45,6 +45,7 @@ import org.universAAL.middleware.context.ContextEvent;
 import org.universAAL.middleware.owl.Ontology;
 import org.universAAL.middleware.owl.OntologyManagement;
 import org.universAAL.middleware.serialization.MessageContentSerializer;
+import org.universAAL.middleware.util.OntologyListener;
 
 /**
  * Central class that takes care of starting and stopping application. It used
@@ -53,7 +54,7 @@ import org.universAAL.middleware.serialization.MessageContentSerializer;
  * @author alfiva
  * 
  */
-public class Hub {
+public class Hub implements OntologyListener {
     /**
      * Logger.
      */
@@ -108,6 +109,11 @@ public class Hub {
     private MessageContentSerializer uAALParser;
 
     /**
+     * Flag for knowing when store is connected, used only for ontology updates
+     */
+    private boolean connected = false;
+
+    /**
      * Default constructor.
      */
     public Hub() {
@@ -140,9 +146,11 @@ public class Hub {
      */
     public void start(ModuleContext context) {
 	moduleContext = context;
+	OntologyManagement.getInstance().addOntologyListener(context, this);
 	createOWLFiles();
 	// Start the store and wrappers
 	this.db.connect();
+	this.connected=true;
 	this.hc = new ContextHistorySubscriber(moduleContext, db);
 	this.chc = new ContextHistoryCallee(moduleContext, db);
 	// Every 24 hours do the "Cleaner thing" (see Cleaner class)
@@ -163,9 +171,7 @@ public class Hub {
      * Create the OWL files for the registered ontologies, and put them in the
      * config folder.
      */
-    private void createOWLFiles() {
-//	File confHome = new File(
-//		new BundleConfigHome("ctxt.che").getAbsolutePath());
+    private synchronized void createOWLFiles() {
 	File[] files = confHome.listFiles(new FilenameFilter() {
 	    public boolean accept(File dir, String name) {
 		return name.toLowerCase().endsWith(".owl");
@@ -208,9 +214,13 @@ public class Hub {
      */
     public final void stop() throws Exception {
 	// Stop the store and wrappers
+	if(moduleContext!=null){
+	    OntologyManagement.getInstance().removeOntologyListener(moduleContext, this);
+	}
 	this.chc.close();
 	this.hc.close();
 	this.db.close();
+	this.connected=false;
     }
 
     /**
@@ -508,5 +518,22 @@ public class Hub {
 	    LogUtils.logError(moduleContext, logclass, method,
 		    new Object[] { msg }, e);
 	}
+    }
+
+    public void ontologyAdded(String ontURI) {
+	createOWLFiles();
+	if (this.connected) {
+	    try {
+		this.db.populate();
+	    } catch (Exception e) {
+		log.error("ontologyAdded",
+			"Exception updating the store with new ontologies ", e);
+		e.printStackTrace();
+	    }
+	}
+    }
+
+    public void ontologyRemoved(String ontURI) {
+	// Do nothing, I cant just remove an owl from the backend 
     }
 }

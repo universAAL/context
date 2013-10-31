@@ -21,8 +21,11 @@
  */
 package org.universAAL.context.che.database;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
+import org.openrdf.repository.RepositoryException;
+import org.openrdf.rio.RDFParseException;
 import org.universAAL.middleware.context.ContextEvent;
 import org.universAAL.middleware.context.owl.ContextProvider;
 import org.universAAL.middleware.serialization.MessageContentSerializer;
@@ -271,4 +274,15 @@ public interface Backend {
      */
     void setuAALParser(MessageContentSerializer service);
 
+    /**
+     * Fills the initial store with the OWL data of the ontologies from the OWL
+     * files in the config folder (or registered in the system). Also used for
+     * updates when new ontologies are installed.
+     * 
+     * @throws RepositoryException
+     * @throws RDFParseException
+     * @throws IOException
+     */
+    public void populate() throws RepositoryException, RDFParseException,
+	    IOException;
 }

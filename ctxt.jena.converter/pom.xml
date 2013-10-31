@@ -1,22 +1,22 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0"?>
 <project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <groupId>org.universAAL.context</groupId>
     <artifactId>ctxt.pom</artifactId>
-    <version>2.0.3-SNAPSHOT</version>
+    <version>1.3.2-SNAPSHOT</version>
     <relativePath>../pom/pom.xml</relativePath>
   </parent>
-  <artifactId>ctxt.prof.server</artifactId>
-  <version>2.0.3-SNAPSHOT</version>
+  <artifactId>ctxt.jena.converter</artifactId>
+  <version>1.3.2-SNAPSHOT</version>
   <packaging>bundle</packaging>
-  <name>universAAL Context Profiling Server</name>
-  <description>uAAL Profiling server providing services for profile edition</description>
-  <inceptionYear>2012</inceptionYear>
+  <name>universAAL Context jena.model_converter</name>
+  <description>The module for converting the representation of resources from PERSONA to Jena and vice versa.</description>
+  <inceptionYear>2008</inceptionYear>
   <organization>
-    <name>Instituto Tecnologico de Aplicaciones de Comunicacion Avanzadas - Grupo Tecnologias para la Salud y el Bienestar (TSB)</name>
-    <url>http://www.itaca.upv.es/</url>
+    <name>Fraunhofer-Gesellschaft - Institute of Computer Graphics Research</name>
+    <url>http://www.igd.fraunhofer.de/</url>
   </organization>
   <licenses>
     <license>
@@ -30,18 +30,20 @@
     <developerConnection>${svn.base}/${project.artifactId}</developerConnection>
     <url>${svn.base.url}${project.artifactId}</url>
   </scm>
-  <properties>
-    <maven.test.skip>true</maven.test.skip>
-  </properties>
   <dependencies>
     <dependency>
-      <groupId>org.universAAL.support</groupId>
-      <artifactId>itests</artifactId>
+      <groupId>com.hp.hpl.jena</groupId>
+      <artifactId>jena</artifactId>
+      <version>2.5.4</version>
+      <scope>provided</scope>
     </dependency>
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
-      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.universAAL.support</groupId>
+      <artifactId>itests</artifactId>
     </dependency>
     <dependency>
       <groupId>org.apache.felix</groupId>
@@ -49,7 +51,7 @@
     </dependency>
     <dependency>
       <groupId>org.universAAL.middleware</groupId>
-      <artifactId>mw.bus.model.osgi</artifactId>
+      <artifactId>mw.container.osgi</artifactId>
     </dependency>
     <dependency>
       <groupId>org.universAAL.middleware</groupId>
@@ -57,59 +59,35 @@
     </dependency>
     <dependency>
       <groupId>org.universAAL.middleware</groupId>
-      <artifactId>mw.data.serialization.osgi</artifactId>
-      <scope>runtime</scope>
+      <artifactId>mw.bus.service.osgi</artifactId>
     </dependency>
     <dependency>
       <groupId>org.universAAL.middleware</groupId>
-      <artifactId>mw.bus.service.osgi</artifactId>
+      <artifactId>mw.bus.ui.osgi</artifactId>
     </dependency>
     <dependency>
       <groupId>org.universAAL.middleware</groupId>
       <artifactId>mw.bus.context.osgi</artifactId>
     </dependency>
     <dependency>
-      <groupId>org.universAAL.ontology</groupId>
-      <artifactId>ont.profile</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.universAAL.ontology</groupId>
-      <artifactId>ont.che</artifactId>
+      <groupId>org.universAAL.middleware</groupId>
+      <artifactId>mw.container.xfaces.osgi</artifactId>
     </dependency>
   </dependencies>
-  <repositories>
-    <repository>
-      <snapshots>
-        <enabled>false</enabled>
-      </snapshots>
-      <id>sesame</id>
-      <name>Open RDF Sesame Repository</name>
-      <url>http://repo.aduna-software.org/maven2/releases/</url>
-    </repository>
-  </repositories>
-  <pluginRepositories>
-    <pluginRepository>
-      <id>uaal-snapshots</id>
-      <name>universAAL Snapshot Repositories</name>
-      <url>http://depot.universaal.org/maven-repo/snapshots/</url>
-    </pluginRepository>
-    <pluginRepository>
-      <id>uaal</id>
-      <name>universAAL Repositories</name>
-      <url>http://depot.universaal.org/maven-repo/releases/</url>
-    </pluginRepository>
-  </pluginRepositories>
   <build>
     <plugins>
       <plugin>
         <groupId>org.apache.felix</groupId>
         <artifactId>maven-bundle-plugin</artifactId>
+        <extensions>true</extensions>
         <configuration>
           <instructions>
             <Bundle-Name>${project.name}</Bundle-Name>
-            <Bundle-Activator>org.universAAL.context.prof.serv.osgi.Activator</Bundle-Activator>
             <Bundle-Description>${project.description}</Bundle-Description>
             <Bundle-SymbolicName>${project.artifactId}</Bundle-SymbolicName>
+            <Export-Package>org.universAAL.context.conversion.jena</Export-Package>
+            <Bundle-Activator>org.universAAL.context.conversion.jena.impl.Activator</Bundle-Activator>
+            <Private-Package>org.universAAL.context.conversion.jena.impl</Private-Package>
           </instructions>
         </configuration>
       </plugin>
@@ -120,8 +98,21 @@
       <id>uAAL-Runtime</id>
       <dependencies>
         <dependency>
-          <groupId>org.universAAL.context</groupId>
-          <artifactId>ctxt.che</artifactId>
+          <groupId>mysql</groupId>
+          <artifactId>mysql-connector-java</artifactId>
+          <version>5.1.17</version>
+          <scope>provided</scope>
+        </dependency>
+        <dependency>
+          <groupId>com.hp.hpl.jena</groupId>
+          <artifactId>jena</artifactId>
+          <version>2.5.4</version>
+          <scope>provided</scope>
+        </dependency>
+        <dependency>
+          <groupId>org.universAAL.support</groupId>
+          <artifactId>jena.osgi</artifactId>
+          <version>1.0.0</version>
           <scope>provided</scope>
         </dependency>
       </dependencies>

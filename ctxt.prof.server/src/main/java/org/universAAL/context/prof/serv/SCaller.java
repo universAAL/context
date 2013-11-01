@@ -80,6 +80,7 @@ public class SCaller {
 	String result = getResult(defaultCaller
 		.call(getDoSPARQLRequest(Queries.Q_GET_USER.replace(
 			Queries.ARG1, input.getURI()))));
+	if(result==null)return null;
 	return (Resource) Hub.parser.deserialize(result, input.getURI());
     }
 
@@ -121,6 +122,7 @@ public class SCaller {
 	String result = getResult(defaultCaller
 		.call(getDoSPARQLRequest(Queries.Q_GET_UPROFILE.replace(
 			Queries.ARG1, input.getURI()))));
+	if(result==null)return null;
 	return (Resource) Hub.parser.deserialize(result, input.getURI());
     }
 
@@ -149,6 +151,7 @@ public class SCaller {
 	String result = getResult(defaultCaller
 		.call(getDoSPARQLRequest(Queries.Q_GET_SUBPROFILE.replace(
 			Queries.ARG1, input.getURI()))));
+	if(result==null)return null;
 	return (Resource) Hub.parser.deserialize(result, input.getURI());
     }
 
@@ -202,6 +205,7 @@ public class SCaller {
 		.call(getDoSPARQLRequest(Queries.Q_GET_USRS)));
 	String result2 = getResult(defaultCaller
 		.call(getDoSPARQLRequest(Queries.Q_GET_USRS_XTRA)));
+	if(result==null || result2==null)return null;
 	Resource bag = (Resource) Hub.parser.deserialize(result + " "
 		+ result2, Queries.AUXBAG);
 	if (bag != null) {
@@ -234,12 +238,14 @@ public class SCaller {
 	String resultx = getResult(defaultCaller
 		.call(getDoSPARQLRequest(Queries.Q_GET_PRF_OF_USR_XTRA.replace(
 			Queries.ARG1, user.getURI()))));
+	if(resultx==null)return null;
 	Object objx = Hub.parser.deserialize(resultx);
 	if (objx == null)
 	    return null;
 	String result = getResult(defaultCaller
 		.call(getDoSPARQLRequest(Queries.Q_GET_PRF_OF_USR.replace(
 			Queries.ARG1, user.getURI()))));
+	if(result==null)return null;
 	String uri = ((Resource) objx).getURI();
 	return (Resource) Hub.parser.deserialize(result, uri);
     }
@@ -251,6 +257,7 @@ public class SCaller {
 	String result2 = getResult(defaultCaller
 		.call(getDoSPARQLRequest(Queries.Q_GET_SUBS_OF_USR_XTRA
 			.replace(Queries.ARG1, user.getURI()))));
+	if(result1==null||result2==null)return null;
 	Resource bag = (Resource) Hub.parser.deserialize(result1 + " "
 		+ result2, Queries.AUXBAG);
 	if (bag != null) {
@@ -284,6 +291,7 @@ public class SCaller {
 	String result2 = getResult(defaultCaller
 		.call(getDoSPARQLRequest(Queries.Q_GET_SUBS_OF_PRF_XTRA
 			.replace(Queries.ARG1, profile.getURI()))));
+	if(result1==null||result2==null)return null;
 	Resource bag = (Resource) Hub.parser.deserialize(result1 + " "
 		+ result2, Queries.AUXBAG);
 	if (bag != null) {
@@ -435,6 +443,22 @@ public class SCaller {
 	return result;
     }
 
+//    public Resource getSecProfileOfUser(Resource user) {
+//	// I need this extra query to get only the URI of profile to deserialize
+//	// it correctly later. ( TODO cant I just use a SELECT  v  instead?)
+//	String resultx = getResult(defaultCaller
+//		.call(getDoSPARQLRequest(Queries.Q_GET_SECPRF_OF_USR_XTRA.replace(
+//			Queries.ARG1, user.getURI()))));
+//	Object objx = Hub.parser.deserialize(resultx);
+//	if (objx == null)
+//	    return null;
+//	String result = getResult(defaultCaller
+//		.call(getDoSPARQLRequest(Queries.Q_GET_SECPRF_OF_USR.replace(
+//			Queries.ARG1, user.getURI()))));
+//	String uri = ((Resource) objx).getURI();
+//	return (Resource) Hub.parser.deserialize(result, uri);
+//    }
+    
     private static String[] serializeAndSplit(Resource r){
 	Iterator it = GraphIterator.getResourceIterator(r);
 	while (it.hasNext()) {
@@ -445,5 +469,6 @@ public class SCaller {
 	String[] split = splitPrefixes(serialized);
 	return split;
     }
+
 
 }

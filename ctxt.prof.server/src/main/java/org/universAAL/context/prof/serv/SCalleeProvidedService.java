@@ -36,7 +36,7 @@ import org.universAAL.ontology.profile.SubProfile;
 import org.universAAL.ontology.profile.User;
 import org.universAAL.ontology.profile.UserProfile;
 import org.universAAL.ontology.profile.service.ProfilingService;
-import org.universAAL.ontology.profile.userid.UserIDProfile;
+//import org.universAAL.ontology.profile.userid.UserIDProfile;
 
 /**
  * The class where all service profiles are built.

@@ -20,10 +20,6 @@ ctxt.gen.reasoner/.classpath
 ctxt.gen.reasoner/.project
 ctxt.gen.reasoner/.settings
 ctxt.gen.reasoner/target
-ctxt.jena.converter/.classpath
-ctxt.jena.converter/.project
-ctxt.jena.converter/.settings
-ctxt.jena.converter/target
 ctxt.prof.server/.classpath
 ctxt.prof.server/.project
 ctxt.prof.server/.settings

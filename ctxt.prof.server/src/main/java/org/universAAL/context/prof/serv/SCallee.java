@@ -385,9 +385,27 @@ public class SCallee extends ServiceCallee {
 	    } else {
 		return ERROR_OUTPUT;
 	    }
-	    return response;
-	    
+	    return response;   
 	}
+	
+//	if (operation.startsWith(SCalleeProvidedService.SRV_GET_SECPRF_OF_USR)) {
+//	    LogUtils.logDebug(mc, SCallee.class, "handleCall",
+//		    new String[] { "CALLED: SRV_GET_SECPRF_OF_USR" }, null);
+//	    Object input = call
+//		    .getInputValue(SCalleeProvidedService.INP_GET_SECPRF_OF_USR);
+//	    if (input == null) {
+//		return ERROR_INPUT;
+//	    }
+//	    Resource result = Hub.scaller.getSecProfileOfUser((Resource) input);
+//	    ServiceResponse response = new ServiceResponse(CallStatus.succeeded);
+//	    if (result != null) {
+//		response.addOutput(new ProcessOutput(
+//			SCalleeProvidedService.OUT_GET_SECPRF_OF_USR, result));
+//	    } else {
+//		return ERROR_OUTPUT;
+//	    }
+//	    return response;
+//	}
 
 	if (operation.startsWith(SCalleeProvidedService.SRV_GET_SUBS_OF_USR)) {
 	    LogUtils.logDebug(mc, SCallee.class, "handleCall",

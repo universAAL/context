@@ -36,6 +36,7 @@ import org.universAAL.ontology.profile.SubProfile;
 import org.universAAL.ontology.profile.User;
 import org.universAAL.ontology.profile.UserProfile;
 import org.universAAL.ontology.profile.service.ProfilingService;
+import org.universAAL.ontology.profile.userid.UserIDProfile;
 
 /**
  * The class where all service profiles are built.
@@ -78,6 +79,9 @@ public class SCalleeProvidedService extends ProfilingService {
     protected static final String SRV_GET_SUB_OF_USR = NAMESPACE + "servH";
     protected static final String INP_GET_SUB_OF_USR = NAMESPACE + "servHi";
     protected static final String OUT_GET_SUB_OF_USR = NAMESPACE + "servHo";
+//    protected static final String SRV_GET_SECPRF_OF_USR = NAMESPACE + "servI";
+//    protected static final String INP_GET_SECPRF_OF_USR = NAMESPACE + "servIi";
+//    protected static final String OUT_GET_SECPRF_OF_USR = NAMESPACE + "servIo";
     
     // VALUES FOR DYNAMIC TYPICAL SERVICE PROFILES
     public static final String SRV_GET_X = "servEditorGet";
@@ -148,6 +152,29 @@ public class SCalleeProvidedService extends ProfilingService {
 			Profilable.PROP_HAS_PROFILE });
 	profiles[1] = prof1.getProfile();
 	
+//	// GET_SECPROFILE(User) -> UserIDProfile
+//		// Returns the profile (with all its stored properties) associated to
+//		// the user whose URI matches the one of the passed parameter
+//		Service prof8 = new ProfilingService(SRV_GET_SECPRF_OF_USR);
+//		ProcessInput input8 = new ProcessInput(INP_GET_SECPRF_OF_USR);
+//		input8.setParameterType(User.MY_URI);
+//		input8.setCardinality(1, 1);//
+//		MergedRestriction restr8 = MergedRestriction.getFixedValueRestriction(
+//			ProfilingService.PROP_CONTROLS, input8.asVariableReference());
+//		prof8.addInstanceLevelRestriction(restr8, new String[] {
+//			ProfilingService.PROP_CONTROLS });
+//		prof8.getProfile().addInput(input8);
+//		ProcessOutput output8 = new ProcessOutput(OUT_GET_SECPRF_OF_USR);
+//		output8.setParameterType(UserIDProfile.MY_URI);
+//		output8.setCardinality(1, 1);//
+//		prof8.getProfile().addOutput(output8);
+//		prof8.getProfile().addSimpleOutputBinding(
+//			output8,
+//			new String[] { ProfilingService.PROP_CONTROLS,
+//				Profilable.PROP_HAS_PROFILE,
+//				Profile.PROP_HAS_SUB_PROFILE});
+//		profiles[8] = prof8.getProfile();
+//	
 	// GET_SUBPROFILES(User) -> [SubProfile]
 	// Returns the subprofiles (only their URIs) associated to
 	// the user whose URI matches the one of the passed parameter

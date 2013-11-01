@@ -26,7 +26,7 @@ import org.universAAL.ontology.profile.Profile;
 import org.universAAL.ontology.profile.SubProfile;
 import org.universAAL.ontology.profile.User;
 import org.universAAL.ontology.profile.UserProfile;
-//import org.universAAL.ontology.profile.userid.UserIDProfile;
+import org.universAAL.ontology.profile.userid.UserIDProfile;
 
 /**
  * Class that holds the constant representation of the SPARQL queries to be

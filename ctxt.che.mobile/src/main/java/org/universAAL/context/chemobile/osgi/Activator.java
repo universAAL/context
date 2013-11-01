@@ -77,7 +77,7 @@ public class Activator implements BundleActivator, ServiceListener {
 	    String filter = "(objectclass="
 		    + MessageContentSerializer.class.getName() + ")";
 	    context.addServiceListener(this, filter);
-	    ServiceReference[] references = context.getServiceReferences((String)null,
+	    ServiceReference[] references = context.getServiceReferences(null,
 		    filter);
 	    for (int i = 0; references != null && i < references.length; i++) {
 		this.serviceChanged(new ServiceEvent(ServiceEvent.REGISTERED,

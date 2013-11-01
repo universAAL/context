@@ -133,6 +133,16 @@ public class FormTest extends TestCase {
 			// TODO Auto-generated method stub
 			return false;
 		    }
+
+		    public Object getProperty(String arg0) {
+			// TODO Auto-generated method stub
+			return null;
+		    }
+
+		    public Object getProperty(String arg0, Object arg1) {
+			// TODO Auto-generated method stub
+			return null;
+		    }
 		};
 		OntologyManagement.getInstance().register(mc, new DataRepOntology());
 		OntologyManagement.getInstance().register(mc, new UIBusOntology());

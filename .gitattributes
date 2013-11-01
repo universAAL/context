@@ -1,0 +1,18 @@
+* text=auto !eol
+/LICENSE-BSD-Jena.txt -text
+/LICENSE-CPL-JUnit.txt -text
+/LICENSE-MIT11-Bouncycastle.txt -text
+/LICENSE.txt -text
+/NOTICE.txt -text
+/artifact_manual.composite -text
+/pom.xml -text
+src/main/java/org/universAAL/context/conversion/jena/JenaConverter.java -text
+src/main/java/org/universAAL/context/conversion/jena/impl/Activator.java -text
+src/main/java/org/universAAL/context/conversion/jena/impl/JenaModelConverter.java -text
+src/test/java/org/universAAL/context/conversion/jena/impl/FormTest.java -text
+src/test/java/org/universAAL/context/conversion/jena/impl/InitialTest.java -text
+src/test/java/org/universAAL/context/conversion/jena/impl/UIFrameworkTest.java -text
+src/test/java/org/universAAL/context/conversion/jena/impl/test/ArtifactIntegrationTest.java -text
+src/test/java/org/universAAL/context/conversion/jena/impl/util/HearingImpairment.java -text
+src/test/java/org/universAAL/context/conversion/jena/impl/util/PhysicalImpairment.java -text
+src/test/java/org/universAAL/context/conversion/jena/impl/util/SightImpairment.java -text

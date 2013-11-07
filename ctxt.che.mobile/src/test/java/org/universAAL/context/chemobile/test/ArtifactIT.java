@@ -16,7 +16,7 @@ import org.universAAL.middleware.context.owl.ContextProviderType;
 import org.universAAL.middleware.owl.MergedRestriction;
 import org.universAAL.middleware.rdf.Resource;
 
-public class ArtifactIntegrationTest extends IntegrationTest {
+public class ArtifactIT extends IntegrationTest {
 
     public static final String NAMESPACE = "http://ontology.universAAL.org/Test.owl#";
     public static final String USER = NAMESPACE + "User";
@@ -34,7 +34,7 @@ public class ArtifactIntegrationTest extends IntegrationTest {
 
     public void testStore() {
 	LogUtils.logInfo(Activator.getModuleContext(),
-		ArtifactIntegrationTest.class, "testStore",
+		ArtifactIT.class, "testStore",
 		new String[] { "-Test 2-" }, null);
 
 	ContextProvider info = new ContextProvider();
@@ -50,7 +50,7 @@ public class ArtifactIntegrationTest extends IntegrationTest {
 		Activator.getModuleContext(), info);
 	LogUtils.logInfo(
 		Activator.getModuleContext(),
-		ArtifactIntegrationTest.class,
+		ArtifactIT.class,
 		"testStore",
 		new String[] { "Created Default Context Publisher with full Provider Info" },
 		null);
@@ -60,7 +60,7 @@ public class ArtifactIntegrationTest extends IntegrationTest {
 			new Resource(LOCATION));
 	pub.publish(cevA);
 	LogUtils.logInfo(Activator.getModuleContext(),
-		ArtifactIntegrationTest.class, "testStore",
+		ArtifactIT.class, "testStore",
 		new String[] { "Published event 1: " + cevA }, null);
 	
 	// Wait for the event to be stored...

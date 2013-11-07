@@ -30,7 +30,7 @@ import org.universAAL.ontology.profile.service.ProfilingService;
  * @author rotgier
  * 
  */
-public class ArtifactIntegrationTest extends IntegrationTest {
+public class ArtifactIT extends IntegrationTest {
 
     private static final String NAMESPACE = "http://ontology.itaca.es/ProfileTest.owl#";
     private static final String NOTHING = "nothing";
@@ -49,7 +49,7 @@ public class ArtifactIntegrationTest extends IntegrationTest {
 
     public void testProfilable() {
 	caller = new DefaultServiceCaller(Activator.getModuleContext());
-	LogUtils.logInfo(Activator.getModuleContext(), ArtifactIntegrationTest.class,
+	LogUtils.logInfo(Activator.getModuleContext(), ArtifactIT.class,
 		"testProfilable", new String[] { "-Test 1-" }, null);
 	User user1 = new User(NAMESPACE + "user1");
 	AssistedPerson user2 = new AssistedPerson(NAMESPACE + "ap2");
@@ -90,7 +90,7 @@ public class ArtifactIntegrationTest extends IntegrationTest {
 
     public void testProfile() {
 	caller = new DefaultServiceCaller(Activator.getModuleContext());
-	LogUtils.logInfo(Activator.getModuleContext(), ArtifactIntegrationTest.class,
+	LogUtils.logInfo(Activator.getModuleContext(), ArtifactIT.class,
 		"testProfile", new String[] { "-Test 2-" }, null);
 	UserProfile prof1 = new UserProfile(NAMESPACE + "userProf1");
 	AssistedPersonProfile prof2 = new AssistedPersonProfile(NAMESPACE
@@ -125,7 +125,7 @@ public class ArtifactIntegrationTest extends IntegrationTest {
 
     public void testSubProfile() {
 	caller = new DefaultServiceCaller(Activator.getModuleContext());
-	LogUtils.logInfo(Activator.getModuleContext(), ArtifactIntegrationTest.class,
+	LogUtils.logInfo(Activator.getModuleContext(), ArtifactIT.class,
 		"testSubProfile", new String[] { "-Test 3-" }, null);
 	SubProfile subprof1 = new SubProfile(NAMESPACE + "userSubProf1");
 

@@ -31,7 +31,7 @@ import org.universAAL.ontology.che.ContextHistoryService;
  * @author rotgier
  * 
  */
-public class ArtifactIntegrationTest extends IntegrationTest {
+public class ArtifactIT extends IntegrationTest {
 
     public static final String NAMESPACE = "http://ontology.universAAL.org/Test.owl#";
     public static final String USER = NAMESPACE + "User";
@@ -47,7 +47,7 @@ public class ArtifactIntegrationTest extends IntegrationTest {
 	    + "resultString";
 
     ServiceCaller caller;
-    private static Log log = Hub.getLog(ArtifactIntegrationTest.class);
+    private static Log log = Hub.getLog(ArtifactIT.class);
 
     /**
      * Test 1: Check all artifacts in the log

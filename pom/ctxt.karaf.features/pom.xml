@@ -16,6 +16,11 @@
     <commons-beanutils-version>1.8.3</commons-beanutils-version>
     <project.build.sourceEncoding>utf-8</project.build.sourceEncoding>
   </properties>
+  <scm>
+    <connection>${svn.base}/ctxt.pom/${project.artifactId}</connection>
+    <developerConnection>${svn.base}/ctxt.pom/${project.artifactId}</developerConnection>
+    <url>${svn.base.url}$ctxt.pom%2F{project.artifactId}</url>
+  </scm>
   <dependencies>
     <dependency>
       <groupId>org.universAAL.middleware</groupId>

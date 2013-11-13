@@ -138,6 +138,7 @@
             <Bundle-SymbolicName>${project.artifactId}</Bundle-SymbolicName>
             <Private-Package>org.universAAL.context.che.database.impl</Private-Package>
             <Export-Package>org.universAAL.context.che,org.universAAL.context.che.database,org.universAAL.context.che.osgi</Export-Package>
+            <Import-Package>org.osgi.framework;version="[1,2)",*</Import-Package>
           </instructions>
         </configuration>
       </plugin>

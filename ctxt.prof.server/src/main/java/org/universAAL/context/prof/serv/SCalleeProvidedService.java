@@ -119,39 +119,29 @@ public class SCalleeProvidedService extends ProfilingService {
 			}));
 
 	// STATIC NON-TYPICAL SERVICE PROFILES
-	
+
+	String[] ppControls = new String[] { ProfilingService.PROP_CONTROLS };
+	String[] ppProfile = new String[] { ProfilingService.PROP_CONTROLS,
+		Profilable.PROP_HAS_PROFILE };
+	String[] ppSubProfile = new String[] { ProfilingService.PROP_CONTROLS,
+		Profilable.PROP_HAS_PROFILE, Profile.PROP_HAS_SUB_PROFILE };
+
 	// GET_USERS() -> [User]
-	//Gets all Users in the system (including subclasses like AP).
-	Service prof0 = new ProfilingService(SRV_GET_USRS);
-	ProcessOutput output0 = new ProcessOutput(OUT_GET_USRS);
-	output0.setParameterType(User.MY_URI);
-	prof0.getProfile().addOutput(output0);
-	prof0.getProfile().addSimpleOutputBinding(output0,
-		new String[] { ProfilingService.PROP_CONTROLS });
+	// Gets all Users in the system (including subclasses like AP).
+	SCalleeProvidedService prof0 = new SCalleeProvidedService(SRV_GET_USRS);
+	prof0.addOutput(OUT_GET_USRS, User.MY_URI, 0, -1, ppControls);
 	profiles[0] = prof0.getProfile();
 
 	// GET_PROFILE(User) -> UserProfile
 	// Returns the profile (with all its stored properties) associated to
 	// the user whose URI matches the one of the passed parameter
-	Service prof1 = new ProfilingService(SRV_GET_PRF_OF_USR);
-	ProcessInput input1 = new ProcessInput(INP_GET_PRF_OF_USR);
-	input1.setParameterType(User.MY_URI);
-	input1.setCardinality(1, 1);//
-	MergedRestriction restr1 = MergedRestriction.getFixedValueRestriction(
-		ProfilingService.PROP_CONTROLS, input1.asVariableReference());
-	prof1.addInstanceLevelRestriction(restr1, new String[] {
-		ProfilingService.PROP_CONTROLS });
-	prof1.getProfile().addInput(input1);
-	ProcessOutput output1 = new ProcessOutput(OUT_GET_PRF_OF_USR);
-	output1.setParameterType(UserProfile.MY_URI);
-	output1.setCardinality(1, 1);//
-	prof1.getProfile().addOutput(output1);
-	prof1.getProfile().addSimpleOutputBinding(
-		output1,
-		new String[] { ProfilingService.PROP_CONTROLS,
-			Profilable.PROP_HAS_PROFILE });
+	SCalleeProvidedService prof1 = new SCalleeProvidedService(
+		SRV_GET_PRF_OF_USR);
+	prof1.addFilteringInput(INP_GET_PRF_OF_USR, User.MY_URI, 1, 1,
+		ppControls);
+	prof1.addOutput(OUT_GET_PRF_OF_USR, UserProfile.MY_URI, 1, 1, ppProfile);
 	profiles[1] = prof1.getProfile();
-	
+
 //	// GET_SECPROFILE(User) -> UserIDProfile
 //		// Returns the profile (with all its stored properties) associated to
 //		// the user whose URI matches the one of the passed parameter
@@ -178,46 +168,23 @@ public class SCalleeProvidedService extends ProfilingService {
 	// GET_SUBPROFILES(User) -> [SubProfile]
 	// Returns the subprofiles (only their URIs) associated to
 	// the user whose URI matches the one of the passed parameter
-	Service prof2 = new ProfilingService(SRV_GET_SUBS_OF_USR);
-	ProcessInput input2 = new ProcessInput(INP_GET_SUBS_OF_USR);
-	input2.setParameterType(User.MY_URI);
-	input2.setCardinality(1, 1);//
-	MergedRestriction restr2 = MergedRestriction.getFixedValueRestriction(
-		ProfilingService.PROP_CONTROLS, input2.asVariableReference());
-	prof2.addInstanceLevelRestriction(restr2, new String[] {
-		ProfilingService.PROP_CONTROLS });
-	prof2.getProfile().addInput(input2);
-	ProcessOutput output2 = new ProcessOutput(OUT_GET_SUBS_OF_USR);
-	output2.setParameterType(SubProfile.MY_URI);
-	output2.setCardinality(0, 0);
-	prof2.getProfile().addOutput(output2);
-	prof2.getProfile().addSimpleOutputBinding(
-		output2,
-		new String[] { ProfilingService.PROP_CONTROLS,
-			Profilable.PROP_HAS_PROFILE,
-			Profile.PROP_HAS_SUB_PROFILE });
+	SCalleeProvidedService prof2 = new SCalleeProvidedService(
+		SRV_GET_SUBS_OF_USR);
+	prof2.addFilteringInput(INP_GET_SUBS_OF_USR, User.MY_URI, 1, 1,
+		ppControls);
+	prof2.addOutput(OUT_GET_SUBS_OF_USR, SubProfile.MY_URI, 0, 1,
+		ppSubProfile);
 	profiles[2] = prof2.getProfile();
-	
+
 	// GET_SUBPROFILES(UserProfile) -> [SubProfile]
 	// Returns the subprofiles (only their URIs) associated to
 	// the user profile whose URI matches the one of the passed parameter
-	Service prof3 = new ProfilingService(SRV_GET_SUBS_OF_PRF);
-	ProcessInput input3 = new ProcessInput(INP_GET_SUBS_OF_PRF);
-	input3.setParameterType(UserProfile.MY_URI);
-	input3.setCardinality(1, 1);//
-	MergedRestriction restr3 = MergedRestriction.getFixedValueRestriction(
-		Profilable.PROP_HAS_PROFILE, input3.asVariableReference());
-	prof3.addInstanceLevelRestriction(restr3, new String[] {
-		ProfilingService.PROP_CONTROLS, Profilable.PROP_HAS_PROFILE });
-	prof3.getProfile().addInput(input3);
-	ProcessOutput output3 = new ProcessOutput(OUT_GET_SUBS_OF_PRF);
-	output3.setParameterType(SubProfile.MY_URI);
-	prof3.getProfile().addOutput(output3);
-	prof3.getProfile().addSimpleOutputBinding(
-		output3,
-		new String[] { ProfilingService.PROP_CONTROLS,
-			Profilable.PROP_HAS_PROFILE,
-			Profile.PROP_HAS_SUB_PROFILE });
+	SCalleeProvidedService prof3 = new SCalleeProvidedService(
+		SRV_GET_SUBS_OF_PRF);
+	prof3.addFilteringInput(INP_GET_SUBS_OF_PRF, UserProfile.MY_URI, 1, 1,
+		ppControls);
+	prof3.addOutput(OUT_GET_SUBS_OF_PRF, SubProfile.MY_URI, 0, -1,
+		ppSubProfile);
 	profiles[3] = prof3.getProfile();
 
 	// ADD_PROFILE(User, UserProfile) -> void
@@ -225,94 +192,47 @@ public class SCalleeProvidedService extends ProfilingService {
 	// can be serialized), and associates it to the given user.
 	// Currently works like CHANGE PROFILE, but does not remove previous
 	// value of an associated profile to the user, if any
-	Service prof4 = new ProfilingService(SRV_ADD_PRF_TO_USR);
-	ProcessInput input4a = new ProcessInput(IN_ADD_PRF_TO_USR_WHERE);
-	input4a.setParameterType(User.MY_URI);
-	input4a.setCardinality(1, 1);//
-	MergedRestriction restr4 = MergedRestriction.getFixedValueRestriction(
-		ProfilingService.PROP_CONTROLS, input4a.asVariableReference());
-	prof4.addInstanceLevelRestriction(restr4,
-		new String[] { ProfilingService.PROP_CONTROLS });
-	prof4.getProfile().addInput(input4a);
-	ProcessInput input4b = new ProcessInput(IN_ADD_PRF_TO_USR_WHAT);
-	input4b.setParameterType(UserProfile.MY_URI);
-	input4b.setCardinality(1, 1);//
-	prof4.getProfile().addInput(input4b);
-	prof4.getProfile().addAddEffect(
-		new String[] { ProfilingService.PROP_CONTROLS,
-			Profilable.PROP_HAS_PROFILE },
-		input4b.asVariableReference());
+	SCalleeProvidedService prof4 = new SCalleeProvidedService(
+		SRV_ADD_PRF_TO_USR);
+	prof4.addFilteringInput(IN_ADD_PRF_TO_USR_WHERE, User.MY_URI, 1, 1,
+		ppControls);
+	prof4.addInputWithAddEffect(IN_ADD_PRF_TO_USR_WHAT, UserProfile.MY_URI,
+		1, 1, ppProfile);
 	profiles[4] = prof4.getProfile();
 
 	// ADD_SUBPROFILE(User, SubProfile) -> void
 	// Adds the passed subprofile to the store, with all its properties
 	// (that can be serialized), and associates it to the user profile of
 	// the given user.
-	Service prof5 = new ProfilingService(SRV_ADD_SUB_TO_USR);
-	ProcessInput input5a = new ProcessInput(IN_ADD_SUB_TO_USR_WHERE);
-	input5a.setParameterType(User.MY_URI);
-	input5a.setCardinality(1, 1);//
-	MergedRestriction restr5 = MergedRestriction.getFixedValueRestriction(
-		ProfilingService.PROP_CONTROLS, input5a.asVariableReference());
-	prof5.addInstanceLevelRestriction(restr5,
-		new String[] { ProfilingService.PROP_CONTROLS });
-	prof5.getProfile().addInput(input5a);
-	ProcessInput input5b = new ProcessInput(IN_ADD_SUB_TO_USR_WHAT);
-	input5b.setParameterType(SubProfile.MY_URI);
-	input5b.setCardinality(1, 1);//
-	prof5.getProfile().addInput(input5b);
-	prof5.getProfile().addAddEffect(
-		new String[] { ProfilingService.PROP_CONTROLS,
-			Profilable.PROP_HAS_PROFILE,
-			Profile.PROP_HAS_SUB_PROFILE },
-		input5b.asVariableReference());
+	SCalleeProvidedService prof5 = new SCalleeProvidedService(
+		SRV_ADD_SUB_TO_USR);
+	prof5.addFilteringInput(IN_ADD_SUB_TO_USR_WHERE, User.MY_URI, 1, 1,
+		ppControls);
+	prof5.addInputWithAddEffect(IN_ADD_SUB_TO_USR_WHAT, SubProfile.MY_URI,
+		1, 1, ppSubProfile);
 	profiles[5] = prof5.getProfile();
 
 	// ADD_SUBPROFILE(UserProfile, SubProfile) -> void
 	// Adds the passed subprofile to the store, with all its properties
 	// (that can be serialized), and associates it to the given user
 	// profile.
-	Service prof6 = new ProfilingService(SRV_ADD_SUB_TO_PRF);
-	ProcessInput input6a = new ProcessInput(IN_ADD_SUB_TO_PRF_WHERE);
-	input6a.setParameterType(UserProfile.MY_URI);
-	input6a.setCardinality(1, 1);//
-	MergedRestriction restr6 = MergedRestriction.getFixedValueRestriction(
-		Profilable.PROP_HAS_PROFILE, input6a.asVariableReference());
-	prof6.addInstanceLevelRestriction(restr6,
-		new String[] { ProfilingService.PROP_CONTROLS, Profilable.PROP_HAS_PROFILE });
-	prof6.getProfile().addInput(input6a);
-	ProcessInput input6b = new ProcessInput(IN_ADD_SUB_TO_PRF_WHAT);
-	input6b.setParameterType(SubProfile.MY_URI);
-	input6b.setCardinality(1, 1);//
-	prof6.getProfile().addInput(input6b);
-	prof6.getProfile().addAddEffect(
-		new String[] { ProfilingService.PROP_CONTROLS,
-			Profilable.PROP_HAS_PROFILE,
-			Profile.PROP_HAS_SUB_PROFILE },
-		input6b.asVariableReference());
+	SCalleeProvidedService prof6 = new SCalleeProvidedService(
+		SRV_ADD_SUB_TO_PRF);
+	prof6.addFilteringInput(IN_ADD_SUB_TO_PRF_WHERE, UserProfile.MY_URI, 1,
+		1, ppProfile);
+	prof6.addInputWithAddEffect(IN_ADD_SUB_TO_PRF_WHAT, SubProfile.MY_URI,
+		1, 1, ppSubProfile);
 	profiles[6] = prof6.getProfile();
-	
+
 	// GET_SUBPROFILE(User) -> SubProfile
 	// Returns the full subprofile of the same type associated to
 	// the user whose URI matches the one of the passed parameter
-	Service prof7 = new ProfilingService(SRV_GET_SUB_OF_USR);
-	ProcessInput input7 = new ProcessInput(INP_GET_SUB_OF_USR);
-	input7.setParameterType(User.MY_URI);
-	input7.setCardinality(1, 1);//
-	MergedRestriction restr7 = MergedRestriction.getFixedValueRestriction(
-		ProfilingService.PROP_CONTROLS, input7.asVariableReference());
-	prof7.addInstanceLevelRestriction(restr7, new String[] {
-		ProfilingService.PROP_CONTROLS });
-	prof7.getProfile().addInput(input7);
-	ProcessOutput output7 = new ProcessOutput(OUT_GET_SUB_OF_USR);
-	output7.setParameterType(SubProfile.MY_URI);
-	output7.setCardinality(1, 1);
-	prof7.getProfile().addOutput(output7);
-	prof7.getProfile().addSimpleOutputBinding(
-		output7,
-		new String[] { ProfilingService.PROP_CONTROLS,
-			Profilable.PROP_HAS_PROFILE,
-			Profile.PROP_HAS_SUB_PROFILE });
+	SCalleeProvidedService prof7 = new SCalleeProvidedService(
+		SRV_GET_SUB_OF_USR);
+	prof7.addFilteringInput(INP_GET_SUB_OF_USR, User.MY_URI, 1, 1,
+		ppControls);
+	prof7.addOutput(OUT_GET_SUB_OF_USR, SubProfile.MY_URI, 1, 1,
+		ppSubProfile);
 	profiles[7] = prof7.getProfile();
     }
 
@@ -357,6 +277,9 @@ public class SCalleeProvidedService extends ProfilingService {
 	output.setParameterType(editedURI);
 	prof1.getProfile().addOutput(output);
 	prof1.getProfile().addSimpleOutputBinding(output, path);
+	prof1.addInstanceLevelRestriction(MergedRestriction
+		.getAllValuesRestriction(path[path.length - 1], editedURI),
+		path);
 	profiles[0] = prof1.getProfile();
 
 	// Add

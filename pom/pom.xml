@@ -91,11 +91,6 @@
       </dependency>
       <dependency>
         <groupId>org.universAAL.context</groupId>
-        <artifactId>ctxt.che.module.cardinality</artifactId>
-        <version>2.0.4-SNAPSHOT</version>
-      </dependency>
-      <dependency>
-        <groupId>org.universAAL.context</groupId>
         <artifactId>sesame.uaal.store</artifactId>
         <version>2.0.4-SNAPSHOT</version>
       </dependency>

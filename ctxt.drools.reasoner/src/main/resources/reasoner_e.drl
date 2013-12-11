@@ -1,0 +1,64 @@
+#created on: 25-abr-2012
+package org.universAAL.AALapplication
+dialect "java" 
+
+import org.universAAL.middleware.context.ContextEvent;
+import org.universAAL.drools.engine.RulesEngine;
+import org.universAAL.ontology.location.Location;
+import org.universAAL.middleware.rdf.Resource;
+import org.universAAL.ontology.device.Sensor;
+import org.universAAL.drools.models.Fact;
+import org.universAAL.drools.models.FactProperty;
+import org.universAAL.ontology.energy.reader.ReadEnergy;
+import org.universAAL.ontology.energy.reader.ReadEnergyDevice;
+import org.universAAL.ontology.energy.reader.EnergyMeasurement;
+import java.util.Hashtable;
+import java.util.ArrayList;
+import java.lang.System;
+
+declare ContextEvent
+@role(event)
+@expires(2m)
+end
+
+declare PoweredDevice
+device: String @key
+max: int
+min: int
+onTh: int
+stdbyTh: int
+status: boolean
+alist: java.util.ArrayList
+end
+
+
+rule "Energy measurement with dynamic classes"
+dialect "mvel" 
+	when
+		$c:ContextEvent(eval( RDFSubject instanceof ReadEnergy), $s: ((ReadEnergy)RDFSubject).getDevice().getName(),$o:RDFObject)
+		not $d: PoweredDevice( device matches $s )
+	then
+		PoweredDevice pd = new PoweredDevice($s, 0,5000,0,0,false,new java.util.ArrayList());
+		insert(pd);		
+end	
+
+function void showList(PoweredDevice dc){
+	
+	//java.lang.System.out.println("Showing consumption for: "+dc.getDevice())
+	java.util.ArrayList list = new java.util.ArrayList();
+	list = dc.getAlist();
+	for (int i = 0 ; i < list.getSize() ; i++){
+		java.lang.System.out.print(" "+list.get(i));
+	}
+}
+
+function ArrayList updateElements(PoweredDevice pd, Integer newVal){
+	java.util.ArrayList al = new java.util.ArrayList();
+	al = pd.getAlist();
+	//TODO update attributes
+	al.add(newVal);
+	if(al.getSize()>5){
+	al = al.subList(1,(al.getSize()-1));	
+	}
+	return al;
+}

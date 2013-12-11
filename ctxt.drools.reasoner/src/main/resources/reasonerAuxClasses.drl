@@ -1,0 +1,116 @@
+#created on: 24-abr-2012
+package universaal
+
+import org.universAAL.middleware.context.ContextEvent;
+import org.universAAL.drools.engine.RulesEngine;
+import org.universAAL.ontology.location.Location;
+import org.universAAL.middleware.rdf.Resource;
+import org.universAAL.ontology.device.Sensor;
+import java.util.Hashtable;
+import java.util.ArrayList;
+
+declare Activity
+@role(event)
+@expires(36500d)
+place : String @key
+intensity: String
+counter : int
+end
+
+declare ContextEvent
+@role(event)
+end
+
+rule "Activity insertion" no-loop true agenda-group "receiver" auto-focus true
+    when
+        ContextEvent( $s:(((Sensor)RDFSubject).getLocation().getProperty(Location.PROP_HAS_NAME)))
+        not Activity ( place matches $s )
+    then
+        System.out.println("Inserting activity...");
+    	Activity act = new Activity(new String($s.toString()),"NULL",1);
+    	insert(act);
+    	System.out.println("Place: "+act.getPlace());
+    	System.out.println("Freq: "+act.getIntensity());
+    	System.out.println("Counter: "+act.getCounter());
+end
+
+rule "Activity counter without accumulate" no-loop true  agenda-group "receiver" auto-focus true
+	when		
+       $c: ContextEvent( $place: ((Sensor)RDFSubject).getLocation().getProperty(Location.PROP_HAS_NAME))
+       and $a:Activity(place matches $place,$counter: counter ,this before $c )
+	then
+		System.out.println("Incrementing counter...");		
+		modify($a){setCounter($counter+1)};
+		drools.setFocus("IntensityUpdater");
+end
+
+/*
+rule "Activity counter modification" no-loop true lock-on-active true
+    when
+    	exists $a: Activity($place: place )
+        $n:Number() from accumulate ($c: ContextEvent( ((Sensor)RDFSubject).getLocation().getProperty(Location.PROP_HAS_NAME) matches $place) over window:time(3m), count($c));
+    then
+    	System.out.println("Modifying counter...");
+		modify($a){setCounter($n.intValue())};
+		System.out.println("Place: "+$a.getPlace());
+    	System.out.println("Freq: "+$a.getIntensity());
+    	System.out.println("Counter: "+$a.getCounter());
+end
+*/
+rule "Activity intensity updating LOW" activation-group "IntensityUpdater" auto-focus false
+salience -5 
+	when
+		$a: Activity(counter>=2, counter<7)		
+	then
+		System.out.println("updating to low");
+		$a.setIntensity("LOW");	
+		update($a);
+		drools.setFocus("receiver");
+end
+
+rule "Activity intensity updating MEDIUM" salience -5 no-loop true activation-group "IntensityUpdater" auto-focus false
+	when	
+	$a: Activity(counter>=7,counter<12)		
+	then
+	System.out.println("updating to medium");
+	modify($a){setIntensity("MEDIUM")};		
+end
+
+rule "Activity intensity updating HIGH" no-loop true activation-group "IntensityUpdater" auto-focus false
+	when
+		$a: Activity(counter>=7)		
+	then
+		modify($a){setIntensity("HIGH")};		
+end
+
+rule "Activity Living Room inserted"
+	when
+	$a: Activity(place matches "Living Room" )
+	then
+	System.out.println("Activity inserted...");
+	System.out.println("Place: "+$a.getPlace());
+    System.out.println("Freq: "+$a.getIntensity());
+    System.out.println("Counter: "+$a.getCounter());
+end
+
+rule "Activity existing"
+	when
+	exists Activity()
+	then
+	System.out.println("Activity existing...");	
+end
+
+rule "Place recognicer"
+	when
+	$c: ContextEvent( $place: ((Sensor)RDFSubject).getLocation().getProperty(Location.PROP_HAS_NAME)) over window:time(3m);
+	then
+	System.out.println("Recognicing place..."+$place);	
+end
+
+rule "Not activity"
+	when
+		not Activity(place matches "Living Room")
+	then
+		System.out.println("Not activity in Living Room");
+end
+

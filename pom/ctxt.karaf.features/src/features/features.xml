@@ -21,6 +21,13 @@
 		<bundle start-level='72' start='true'>mvn:org.universAAL.context/ctxt.prof.server/${ctxt.prof.server.version}</bundle>
 	</feature>
 	
+	<feature name="uAAL-ctxt.Space.Server" description="The Profiling Server."
+		version="${pom.version}" resolver='(obr)'>
+		<feature>uAAL-Ont.Profile</feature> 
+		<feature>uAAL-Ont.CHe</feature> 
+		<bundle start-level='72' start='true'>mvn:org.universAAL.context/ctxt.space.server/${ctxt.space.server.version}</bundle>
+	</feature>
+	
 	<feature name="uAAL-ctxt.Drools.Reasoner">
 		<bundle start-level='51'>mvn:javax.xml.bind/jaxb-api-osgi/2.2.1</bundle>
 		<bundle start-level='51'>mvn:javax.xml.bind/jaxb-osgi/2.2.1</bundle>
@@ -41,8 +48,4 @@
 		<bundle start-level='70' start='true'>mvn:org.universAAL.context/ctxt.drools.reasoner/${ctxt.drools.reasoner.version}</bundle>
 	</feature>
 	
-	<feature name="uAAL-ctxt.Managers" version="${pom.version}" resolver='(obr)'>
-		<feature>uAAL-ctxt.CHe</feature>
-		<feature>uAAL-ctxt.Profiling.Server</feature>
-	</feature>
 </features>

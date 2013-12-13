@@ -1,6 +1,6 @@
 Situation reasoner based on Drools rule engine.
 
-Copyright 2008-2014 TSB Tecnologías, http://www.tsbtecnologias.es/
+Copyright 2008-2014 TSB TecnologÃ­as, http://www.tsbtecnologias.es/
 TSB - Tecnologias para la Salud y el Bienestar
 
 I. Included Software

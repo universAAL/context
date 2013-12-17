@@ -389,7 +389,7 @@ public class SCaller {
     
     protected ArrayList genericGetAll(String queryall, String queryallxtra) {
 	// Or final choice: construct a bag with the results and a bag with the
-	// types. Then combine the RDF in a single string and deserialize. It´s
+	// types. Then combine the RDF in a single string and deserialize. It's
 	// cheating but it works. And it only uses 2 calls and a serialize.
 	String result = getResult(defaultCaller
 		.call(getDoSPARQLRequest(queryall)));
@@ -402,7 +402,7 @@ public class SCaller {
     protected Resource genericGetOnePropOf(Resource input, String queryaux, String queryfinal) {
 	// First query gets only the URI of the requested prop
 	// Second query builds the full req. prop, but it is not the clear root
-	// (That´s why I need to get only the URI first)
+	// (That's why I need to get only the URI first)
 	String resultx = getResult(defaultCaller
 		.call(getDoSPARQLRequest(queryaux.replace(
 			Queries.ARG1, input.getURI()))));

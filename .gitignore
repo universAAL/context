@@ -12,6 +12,11 @@ ctxt.che/.settings
 ctxt.che/ctxt.che
 ctxt.che/target
 ctxt.che/uAAL.log
+ctxt.prof.server/.classpath
+ctxt.prof.server/.project
+ctxt.prof.server/.settings
+ctxt.prof.server/target
+ctxt.prof.server/uAAL.log
 ctxt.situation.reasoner/.classpath
 ctxt.situation.reasoner/.project
 ctxt.situation.reasoner/.settings

@@ -1,3 +1,9 @@
+ctxt.che/.classpath
+ctxt.che/.project
+ctxt.che/.settings
+ctxt.che/ctxt.che
+ctxt.che/target
+ctxt.che/uAAL.log
 pom/.project
 pom/.settings
 pom/ctxt.karaf.features/.classpath

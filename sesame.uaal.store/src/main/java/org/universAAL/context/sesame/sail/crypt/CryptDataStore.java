@@ -269,23 +269,23 @@ public class CryptDataStore extends DataStore{
 	 * Test/debug methods *
 	 *--------------------*/
 
-	public static void main(String[] args)
-		throws Exception
-	{
-		if (args.length < 2) {
-			System.err.println("Usage: java org.openrdf.sesame.sailimpl.nativerdf.datastore.DataStore <data-dir> <file-prefix>");
-			return;
-		}
-
-		System.out.println("Dumping DataStore contents...");
-		File dataDir = new File(args[0]);
-		CryptDataStore dataStore = new CryptDataStore(dataDir, args[1]);
-
-		DataFile.DataIterator iter = dataStore.dataFile.iterator();
-		while (iter.hasNext()) {
-			byte[] data = iter.next();
-
-			System.out.println(ByteArrayUtil.toHexString(data));
-		}
-	}
+//	public static void main(String[] args)
+//		throws Exception
+//	{
+//		if (args.length < 2) {
+//			System.err.println("Usage: java org.openrdf.sesame.sailimpl.nativerdf.datastore.DataStore <data-dir> <file-prefix>");
+//			return;
+//		}
+//
+//		System.out.println("Dumping DataStore contents...");
+//		File dataDir = new File(args[0]);
+//		CryptDataStore dataStore = new CryptDataStore(dataDir, args[1]);
+//
+//		DataFile.DataIterator iter = dataStore.dataFile.iterator();
+//		while (iter.hasNext()) {
+//			byte[] data = iter.next();
+//
+//			System.out.println(ByteArrayUtil.toHexString(data));
+//		}
+//	}
 }

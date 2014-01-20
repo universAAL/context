@@ -736,16 +736,16 @@ public class ValueStore extends ValueFactoryBase {
 	 * Test/debug methods *
 	 *--------------------*/
 
-	public static void main(String[] args)
-		throws Exception
-	{
-		File dataDir = new File(args[0]);
-		ValueStore valueStore = new ValueStore(dataDir);
-
-		int maxID = valueStore.dataStore.getMaxID();
-		for (int id = 1; id <= maxID; id++) {
-			Value value = valueStore.getValue(id);
-			System.out.println("[" + id + "] " + value.toString());
-		}
-	}
+//	public static void main(String[] args)
+//		throws Exception
+//	{
+//		File dataDir = new File(args[0]);
+//		ValueStore valueStore = new ValueStore(dataDir);
+//
+//		int maxID = valueStore.dataStore.getMaxID();
+//		for (int id = 1; id <= maxID; id++) {
+//			Value value = valueStore.getValue(id);
+//			System.out.println("[" + id + "] " + value.toString());
+//		}
+//	}
 }

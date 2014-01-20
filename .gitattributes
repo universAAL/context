@@ -42,7 +42,6 @@ ctxt.che/src/main/java/org/universAAL/context/che/package.html -text
 ctxt.che/src/test/java/org/universAAL/context/che/ArtifactIT.java -text
 ctxt.drools.reasoner/ASL2.0.txt -text
 ctxt.drools.reasoner/NOTICE.txt -text
-ctxt.drools.reasoner/artifact.composite -text
 ctxt.drools.reasoner/pom.xml -text
 ctxt.drools.reasoner/src/main/java/org/universAAL/drools/Activator.java -text
 ctxt.drools.reasoner/src/main/java/org/universAAL/drools/DevelopingRulesUI.java -text

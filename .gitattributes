@@ -134,6 +134,9 @@ ctxt.situation.reasoner/src/main/resources/sample/Query/Query20120918_740050025.
 ctxt.situation.reasoner/src/main/resources/sample/Rule/Rule20120918_418145820.owl -text
 ctxt.situation.reasoner/src/main/resources/sample/Situation/Situation20120918_1194550531.owl -text
 ctxt.situation.reasoner/src/main/resources/sample/Situation/Situation20120919_1896661759.owl -text
+ctxt.space.server/ASL2.0.txt -text
+ctxt.space.server/LICENSE-CPL-JUnit.txt -text
+ctxt.space.server/NOTICE.txt -text
 ctxt.space.server/pom.xml -text
 ctxt.space.server/src/main/java/org/universAAL/context/space/serv/Activator.java -text
 ctxt.space.server/src/main/java/org/universAAL/context/space/serv/Queries.java -text

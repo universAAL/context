@@ -5,10 +5,10 @@
   <parent>
     <groupId>org.universAAL.context</groupId>
     <artifactId>ctxt.pom</artifactId>
-    <version>3.0.0</version>
+    <version>3.0.1-SNAPSHOT</version>
   </parent>
   <artifactId>ctxt.karaf.feature</artifactId>
-  <version>3.0.0</version>
+  <version>3.0.1-SNAPSHOT</version>
   <name>universAAL Karaf Feature for Context</name>
   <scm>
     <connection>${svn.base}/ctxt.pom/${project.artifactId}</connection>

@@ -282,6 +282,11 @@ ctxt.situation.reasoner.client.example-1.3.2-SNAPSHOT/.classpath
 ctxt.situation.reasoner.client.example-1.3.2-SNAPSHOT/.project
 ctxt.situation.reasoner.client.example-1.3.2-SNAPSHOT/.settings
 ctxt.situation.reasoner.client.example-1.3.2-SNAPSHOT/target
+ctxt.space.server-2.0.1-SNAPSHOT/.classpath
+ctxt.space.server-2.0.1-SNAPSHOT/.project
+ctxt.space.server-2.0.1-SNAPSHOT/.settings
+ctxt.space.server-2.0.1-SNAPSHOT/target
+ctxt.space.server-2.0.1-SNAPSHOT/uAAL.log
 pom-1.0.1-SNAPSHOT/.project
 pom-1.0.1-SNAPSHOT/.settings
 pom-1.0.1-SNAPSHOT/target

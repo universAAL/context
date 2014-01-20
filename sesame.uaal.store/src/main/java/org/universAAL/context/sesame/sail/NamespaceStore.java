@@ -225,13 +225,13 @@ class NamespaceStore implements Iterable<NamespaceImpl> {
 	 * Debugging methods *
 	 *-------------------*/
 
-	public static void main(String[] args)
-		throws Exception
-	{
-		NamespaceStore nsStore = new NamespaceStore(new File(args[0]));
-
-		for (Namespace ns : nsStore) {
-			System.out.println(ns.getPrefix() + " = " + ns.getName());
-		}
-	}
+//	public static void main(String[] args)
+//		throws Exception
+//	{
+//		NamespaceStore nsStore = new NamespaceStore(new File(args[0]));
+//
+//		for (Namespace ns : nsStore) {
+//			System.out.println(ns.getPrefix() + " = " + ns.getName());
+//		}
+//	}
 }

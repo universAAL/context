@@ -180,13 +180,13 @@ public class Hub implements OntologyListener {
     
     /**
      * Create the OWL file for a given ontology, and put it in the config
-     * folder. If STORE.PRELOAD.OVER=true, the OWL file will be overwritten if it
+     * folder. If STORE.OVERWRITEOWL=true, the OWL file will be overwritten if it
      * already exists. If false nothing happens.
      * @return 
      */
     private synchronized String createOWLFile(String ontURI,OntologyManagement manager) {
 	Boolean overwrite = Boolean.parseBoolean(Hub.getProperties().getProperty(
-		"STORE.PRELOAD.OVER", "false"));
+		"STORE.OVERWRITEOWL", "false"));
 	String filename = ontURI.replaceAll("[:/#]", ".");
 	if (!filename.endsWith(".owl")) {
 	    filename += ".owl";

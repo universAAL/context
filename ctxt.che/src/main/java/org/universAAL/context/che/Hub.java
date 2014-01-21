@@ -28,10 +28,8 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
-import java.io.FilenameFilter;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.ArrayList;
 import java.util.Properties;
 import java.util.Timer;
 
@@ -146,11 +144,12 @@ public class Hub implements OntologyListener {
      */
     public void start(ModuleContext context) {
 	moduleContext = context;
-	OntologyManagement.getInstance().addOntologyListener(context, this);
 	createOWLFiles();
 	// Start the store and wrappers
 	this.db.connect();
 	this.connected=true;
+	//connect before listening, otherwise we may miss onts (but only 1st execution)
+	OntologyManagement.getInstance().addOntologyListener(context, this);
 	this.hc = new ContextHistorySubscriber(moduleContext, db);
 	this.chc = new ContextHistoryCallee(moduleContext, db);
 	// Every 24 hours do the "Cleaner thing" (see Cleaner class)
@@ -172,39 +171,58 @@ public class Hub implements OntologyListener {
      * config folder.
      */
     private synchronized void createOWLFiles() {
-	File[] files = confHome.listFiles(new FilenameFilter() {
-	    public boolean accept(File dir, String name) {
-		return name.toLowerCase().endsWith(".owl");
-	    }
-	});
-
-	ArrayList names = new ArrayList(files.length);
-	for (int i = 0; i < files.length; i++) {
-	    names.add(files[i].getName());
-	}
-
 	OntologyManagement manager = OntologyManagement.getInstance();
-
 	String[] ontURIs = manager.getOntoloyURIs();
 	for (int i = 0; i < ontURIs.length; i++) {
-	    String filename = ontURIs[i].replaceAll("[:/#]", ".");
-	    if (!filename.endsWith(".owl")) {
-		filename += ".owl";
-	    }
-	    if (!names.contains(filename)) {
-		try {
-		    BufferedWriter out = new BufferedWriter(new FileWriter(
-			    new File(confHome, filename), false));
-		    Ontology ont = manager.getOntology(ontURIs[i]);
-		    String str = this.uAALParser.serialize(ont);
-		    out.write(str);
-		    out.close();
-		} catch (IOException e) {
-		    // TODO Auto-generated catch block
-		    e.printStackTrace();
+	    createOWLFile(ontURIs[i],manager);
+	}
+    }
+    
+    /**
+     * Create the OWL file for a given ontology, and put it in the config
+     * folder. If STORE.PRELOAD.OVER=true, the OWL file will be overwritten if it
+     * already exists. If false nothing happens.
+     * @return 
+     */
+    private synchronized String createOWLFile(String ontURI,OntologyManagement manager) {
+	Boolean overwrite = Boolean.parseBoolean(Hub.getProperties().getProperty(
+		"STORE.PRELOAD.OVER", "false"));
+	String filename = ontURI.replaceAll("[:/#]", ".");
+	if (!filename.endsWith(".owl")) {
+	    filename += ".owl";
+	}
+	File destination = new File(confHome, filename);
+	if (destination.exists()) {
+	    if (overwrite) {
+		if (!destination.delete()) {//TODO Delete triples from store too?
+		    log.warn(
+			    "createOWLFile",
+			    "Could not replace old version of "
+				    + ontURI
+				    + " OWL file with new one. "
+				    + "If there are no changes on it, it is OK. "
+				    + "Otherwise take into account that the old "
+				    + "version is still loaded, you will need to "
+				    + "remove it manually.");
+		    return null;
 		}
+	    } else {
+		log.info("createOWLFile", "The OWL file for " + ontURI
+			+ " alreday exists. Skipping its creation.");
+		return null;
 	    }
 	}
+	try {
+	    BufferedWriter out = new BufferedWriter(new FileWriter(destination, false));
+	    Ontology ont = manager.getOntology(ontURI);
+	    String str = this.uAALParser.serialize(ont);
+	    out.write(str);
+	    out.close();
+	} catch (IOException e) {
+	    // TODO Auto-generated catch block
+	    e.printStackTrace();
+	}
+	return destination.getName();
     }
 
     /**
@@ -521,10 +539,10 @@ public class Hub implements OntologyListener {
     }
 
     public void ontologyAdded(String ontURI) {
-	createOWLFiles();
-	if (this.connected) {
+	String filename=createOWLFile(ontURI,OntologyManagement.getInstance());
+	if (this.connected && filename!=null) {
 	    try {
-		this.db.populate();
+		this.db.populate(filename);
 	    } catch (Exception e) {
 		log.error("ontologyAdded",
 			"Exception updating the store with new ontologies ", e);

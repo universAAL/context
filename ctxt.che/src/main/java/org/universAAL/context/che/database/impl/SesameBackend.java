@@ -23,12 +23,16 @@ package org.universAAL.context.che.database.impl;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileWriter;
 import java.io.FilenameFilter;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.StringReader;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Locale;
+import java.util.Properties;
 
 import javax.xml.datatype.Duration;
 import javax.xml.datatype.XMLGregorianCalendar;
@@ -36,6 +40,7 @@ import javax.xml.datatype.XMLGregorianCalendar;
 import org.universAAL.context.che.Hub;
 import org.universAAL.context.che.Hub.Log;
 import org.universAAL.context.che.database.Backend;
+import org.universAAL.context.che.osgi.Activator;
 import org.universAAL.middleware.container.osgi.util.BundleConfigHome;
 import org.universAAL.middleware.context.ContextEvent;
 import org.universAAL.middleware.context.owl.ContextProvider;
@@ -99,6 +104,10 @@ public class SesameBackend implements Backend {
      */
     private static final int SELECT = 0, CONSTRUCT = 1, DESCRIBE = 2, ASK = 3,
 	    UPDATE = 4, NONE = -1;
+    /**
+     * Name of file holding the stored OWLs
+     */
+    public static final String PRELOAD_FILE = "preload.properties";
 
     /*
      * (non-Javadoc)
@@ -136,12 +145,15 @@ public class SesameBackend implements Backend {
 	}
     }
     
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.universAAL.context.che.database.Backend#populate()
      */
     public void populate() throws RepositoryException, RDFParseException,
 	    IOException {
 	RepositoryConnection con = myRepository.getConnection();
+	Properties stored = getProperties();
 	try {
 	    File confHome = new File(
 		    new BundleConfigHome("ctxt.che").getAbsolutePath());
@@ -153,16 +165,54 @@ public class SesameBackend implements Backend {
 	    for (int i = 0; i < files.length; i++) {
 		// TODO: Guess the default namespace. Otherwise the file
 		// should not use default namespace prefix : .
-		try { // TODO: Handle format
-		    con.add(files[i], null, RDFFormat.TURTLE);
-		} catch (RDFParseException e) {
-		    con.add(files[i], null, RDFFormat.RDFXML);
+		String name=files[i].getName();
+		if (!"true".equals(stored.getProperty(name))) {
+		    try { // TODO: Handle format
+			con.add(files[i], null, RDFFormat.TURTLE);
+		    } catch (RDFParseException e) {
+			con.add(files[i], null, RDFFormat.RDFXML);
+		    }
+		    stored.setProperty(name, "true");
+		    log.debug("populate",
+			    "populated store with: " + name);
+		}else{
+		    log.info("populate", name+" is already populated");
 		}
-		log.debug("populate",
-			"populated store with: " + files[i].getName());
 	    }
 	} finally {
 	    con.close();
+	    setProperties(stored);
+	}
+    }
+    
+    /* (non-Javadoc)
+     * @see org.universAAL.context.che.database.Backend#populate(java.lang.String)
+     */
+    public void populate(String filename) throws RepositoryException,
+	    RDFParseException, IOException {
+	RepositoryConnection con = myRepository.getConnection();
+	Properties stored = getProperties();
+	try {
+	    File file = new File(
+		    new BundleConfigHome("ctxt.che").getAbsolutePath(),
+		    filename);
+	    // TODO: Guess the default namespace. Otherwise the file
+	    // should not use default namespace prefix : .
+	    String name = file.getName();
+	    if (!"true".equals(stored.getProperty(name))) {
+		try { // TODO: Handle format
+		    con.add(file, null, RDFFormat.TURTLE);
+		} catch (RDFParseException e) {
+		    con.add(file, null, RDFFormat.RDFXML);
+		}
+		stored.setProperty(name, "true");
+		log.debug("populate", "populated store with: " + name);
+	    } else {
+		log.info("populate", name + " is already populated");
+	    }
+	} finally {
+	    con.close();
+	    setProperties(stored);
 	}
     }
 
@@ -177,6 +227,8 @@ public class SesameBackend implements Backend {
 		RepositoryConnection con = myRepository.getConnection();
 		try {
 		    con.clear();
+		    Properties empty=new Properties();
+		    setProperties(empty);
 		} finally {
 		    con.close();
 		}
@@ -686,6 +738,45 @@ public class SesameBackend implements Backend {
 	} else {
 	    return null;
 	}
+    }
+    
+    private static synchronized void setProperties(final Properties prop) {
+	File confHome = new File(Activator.osgiConfigPath);
+	try {
+	    FileWriter out;
+	    if (!confHome.exists()) {
+		if(!confHome.mkdir()){
+		    log.error("setproperties", "Could not set properties file");
+		}
+	    }
+	    out = new FileWriter(new File(confHome, PRELOAD_FILE));
+	    prop.store(out, "DO NOT REMOVE. This file holds the list of OWL "
+		    + "stored in CHE. Removing it or setting one to false "
+		    + "forces the re-store of the OWL");
+	    out.close();
+	} catch (Exception e) {
+	    log.error("setproperties", "Could not set preload file: {} ", e);
+	}
+    }
+
+    private static synchronized Properties getProperties() {
+	File confHome = new File(Activator.osgiConfigPath);
+	Properties prop = new Properties();
+	try {
+	    prop = new Properties();
+	    InputStream in = new FileInputStream(new File(confHome, PRELOAD_FILE));
+	    prop.load(in);
+	    in.close();
+	} catch (java.io.FileNotFoundException e) {
+	    log.warn("getProperties",
+		    "Properties file does not exist; generating default...");
+	    //TODO Find out which ones are stored already?
+	    setProperties(prop);
+	} catch (Exception e) {
+	    log.error("getproperties", "Could not access preload file: {} ",
+		    e);
+	}
+	return prop;
     }
 
 }

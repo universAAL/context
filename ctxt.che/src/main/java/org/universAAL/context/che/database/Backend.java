@@ -277,12 +277,26 @@ public interface Backend {
     /**
      * Fills the initial store with the OWL data of the ontologies from the OWL
      * files in the config folder (or registered in the system). Also used for
-     * updates when new ontologies are installed.
+     * updates when new ontologies are installed, so this method shall take care
+     * of not duplicating new ontologies that are already stored.
      * 
      * @throws RepositoryException
      * @throws RDFParseException
      * @throws IOException
      */
     public void populate() throws RepositoryException, RDFParseException,
+	    IOException;
+    
+    /**
+     * Fills the store with the OWL data of a certain ontologies from the OWL
+     * file in the config folder (or registered in the system). Also used for
+     * updates when new ontologies are installed.
+     * 
+     * @param owlFileName The naem of the OWL file to store
+     * @throws RepositoryException
+     * @throws RDFParseException
+     * @throws IOException
+     */
+    public void populate(String owlFileName) throws RepositoryException, RDFParseException,
 	    IOException;
 }

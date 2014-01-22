@@ -25,6 +25,7 @@
     <module>../ctxt.space.server</module>
     <module>../ctxt.reliability.reasoner</module>
     <module>../ctxt.drools.reasoner</module>
+    <module>../ctxt.sysinfo.provider</module>
     <module>ctxt.karaf.features</module>
   </modules>
   <scm>
@@ -104,6 +105,11 @@
       <dependency>
         <groupId>org.universAAL.context</groupId>
         <artifactId>ctxt.drools.reasoner</artifactId>
+        <version>3.0.1-SNAPSHOT</version>
+      </dependency>
+      <dependency>
+        <groupId>org.universAAL.context</groupId>
+        <artifactId>ctxt.sysinfo.provider</artifactId>
         <version>3.0.1-SNAPSHOT</version>
       </dependency>
       <dependency>

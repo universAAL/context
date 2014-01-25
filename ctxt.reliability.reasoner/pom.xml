@@ -91,7 +91,6 @@
       <plugin>
         <groupId>org.universAAL.support</groupId>
         <artifactId>uaal-maven-plugin</artifactId>
-        <version>1.0.1-SNAPSHOT</version>
         <executions>
           <execution>
             <id>CompositeMojo</id>

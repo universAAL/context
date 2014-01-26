@@ -15,6 +15,12 @@
   <description>The set of artefacts defining the universAAL context
 		tools.</description>
   <inceptionYear>2010</inceptionYear>
+	<distributionManagement>
+		<site>
+			<id>depot.universaal.org</id>
+			<url>${uaal.site.url}context/ctxt.pom</url>
+		</site>
+	</distributionManagement>
   <modules>
     <module>../ctxt.che</module>
     <module>../ctxt.che.mobile</module>

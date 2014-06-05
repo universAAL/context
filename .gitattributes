@@ -377,6 +377,16 @@ ctxt.che.module.cardinality-2.0.4-SNAPSHOT/src/main/java/org/universAAL/context/
 ctxt.che.module.cardinality-2.0.4-SNAPSHOT/src/main/java/org/universAAL/context/che/database/impl/SesameBackendCrdClc2Cnf.java -text
 ctxt.che.module.cardinality-2.0.4-SNAPSHOT/src/main/java/org/universAAL/context/che/database/impl/SesameBackendCrdClcCnf.java -text
 ctxt.che.module.cardinality-2.0.4-SNAPSHOT/src/main/java/org/universAAL/context/che/database/impl/SesameBackendCrdCnf.java -text
+ctxt.che.module.cardinality-3.0.1-SNAPSHOT/ASL2.0.txt -text
+ctxt.che.module.cardinality-3.0.1-SNAPSHOT/LICENSE-Aduna-OpenRDF.txt -text
+ctxt.che.module.cardinality-3.0.1-SNAPSHOT/NOTICE.txt -text
+ctxt.che.module.cardinality-3.0.1-SNAPSHOT/pom.xml -text
+ctxt.che.module.cardinality-3.0.1-SNAPSHOT/src/main/java/org/universAAL/context/che/database/impl/SesameBackendCrd.java -text
+ctxt.che.module.cardinality-3.0.1-SNAPSHOT/src/main/java/org/universAAL/context/che/database/impl/SesameBackendCrdClc.java -text
+ctxt.che.module.cardinality-3.0.1-SNAPSHOT/src/main/java/org/universAAL/context/che/database/impl/SesameBackendCrdClc2.java -text
+ctxt.che.module.cardinality-3.0.1-SNAPSHOT/src/main/java/org/universAAL/context/che/database/impl/SesameBackendCrdClc2Cnf.java -text
+ctxt.che.module.cardinality-3.0.1-SNAPSHOT/src/main/java/org/universAAL/context/che/database/impl/SesameBackendCrdClcCnf.java -text
+ctxt.che.module.cardinality-3.0.1-SNAPSHOT/src/main/java/org/universAAL/context/che/database/impl/SesameBackendCrdCnf.java -text
 ctxt.drools.reasoner-2.0.4-SNAPSHOT/ASL2.0.txt -text
 ctxt.drools.reasoner-2.0.4-SNAPSHOT/NOTICE.txt -text
 ctxt.drools.reasoner-2.0.4-SNAPSHOT/pom.xml -text

@@ -1,0 +1,39 @@
+Context History Entrepôt - Storage Engine mod for universAAL
+
+Copyright 2008-2014 ITACA-TSB, http://www.tsb.upv.es
+Instituto Tecnologico de Aplicaciones de Comunicacion 
+Avanzadas - Grupo Tecnologias para la Salud y el 
+Bienestar (TSB)
+
+I. Included Software
+
+This product includes software developed by
+Aduna - OpenRDF (http://www.aduna-software.com/).
+Licensed under the Aduna BSD-style license.
+
+This product includes software developed by
+IBM Corp. (www.ibm.com/).
+Licensed under the Apache License, Version 2.0.
+
+
+II. Used Software
+
+This product uses software developed at
+The OPS4J (http://www.ops4j.org)
+Licensed under the Apache License 2.0.
+
+This product uses software developed at
+OpenRDF (http://www.openrdf.org)
+Copyright (c) 2001 - 2011 Aduna
+Licensed under modified BSD License.
+
+This product uses software developed at
+The Legion Of The Bouncy Castle (http://www.bouncycastle.org)
+Copyright (c) 2000 - 2009 The Legion Of The Bouncy Castle
+Licensed under modified MIT X11 License.
+
+
+III. License Summary
+- Apache License 2.0
+- Modified BSD License
+- MIT X11 License

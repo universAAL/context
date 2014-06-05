@@ -5,11 +5,11 @@
   <parent>
     <groupId>org.universAAL.context</groupId>
     <artifactId>ctxt.pom</artifactId>
-    <version>3.0.1-SNAPSHOT</version>
+    <version>3.1.0</version>
     <relativePath>../pom/pom.xml</relativePath>
   </parent>
   <artifactId>ctxt.sysinfo.provider</artifactId>
-  <version>3.0.1-SNAPSHOT</version>
+  <version>3.1.0</version>
   <packaging>bundle</packaging>
   <name>universAAL Context System Information Provider</name>
   <description>Publishes information about status of the AAL Space as Context events.</description>
@@ -30,8 +30,8 @@
     <developerConnection>${svn.base}/${project.artifactId}</developerConnection>
     <url>${svn.base.url}${project.artifactId}</url>
   </scm>
-	<dependencies>
-		<dependency>
+  <dependencies>
+    <dependency>
       <groupId>org.universAAL.support</groupId>
       <artifactId>itests</artifactId>
     </dependency>
@@ -39,47 +39,46 @@
       <groupId>org.osgi</groupId>
       <artifactId>org.osgi.core</artifactId>
     </dependency>
-		<dependency>
-			<groupId>org.universAAL.middleware</groupId>
-			<artifactId>mw.data.representation.osgi</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.universAAL.middleware</groupId>
-			<artifactId>mw.bus.model.osgi</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.universAAL.middleware</groupId>
-			<artifactId>mw.container.xfaces.osgi</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.universAAL.middleware</groupId>
-			<artifactId>mw.container.osgi</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.universAAL.middleware</groupId>
-			<artifactId>mw.bus.context.osgi</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.universAAL.ontology</groupId>
-			<artifactId>ont.sysinfo</artifactId>
-			<version>3.0.1-SNAPSHOT</version>
-		</dependency>
-	</dependencies>
-	<build>
-	<plugins>
-		<plugin>
-			<groupId>org.apache.felix</groupId>
-			<artifactId>maven-bundle-plugin</artifactId>
-			<configuration>
-				<instructions>
-					<Bundle-Name>${project.name}</Bundle-Name>
-					<Bundle-Activator>org.universAAL.context.sysinfo.Activator</Bundle-Activator>
-					<Bundle-Description>${project.description}</Bundle-Description>
-					<Bundle-SymbolicName>${project.artifactId}</Bundle-SymbolicName>
-					<Import-Package>org.osgi.framework;version="[1,2)",*</Import-Package>
-				</instructions>
-			</configuration>
-		</plugin>
-	</plugins>
-	</build>
+    <dependency>
+      <groupId>org.universAAL.middleware</groupId>
+      <artifactId>mw.data.representation.osgi</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.universAAL.middleware</groupId>
+      <artifactId>mw.bus.model.osgi</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.universAAL.middleware</groupId>
+      <artifactId>mw.container.xfaces.osgi</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.universAAL.middleware</groupId>
+      <artifactId>mw.container.osgi</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.universAAL.middleware</groupId>
+      <artifactId>mw.bus.context.osgi</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.universAAL.ontology</groupId>
+      <artifactId>ont.sysinfo</artifactId>
+    </dependency>
+  </dependencies>
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.felix</groupId>
+        <artifactId>maven-bundle-plugin</artifactId>
+        <configuration>
+          <instructions>
+            <Bundle-Name>${project.name}</Bundle-Name>
+            <Bundle-Activator>org.universAAL.context.sysinfo.Activator</Bundle-Activator>
+            <Bundle-Description>${project.description}</Bundle-Description>
+            <Bundle-SymbolicName>${project.artifactId}</Bundle-SymbolicName>
+            <Import-Package>org.osgi.framework;version="[1,2)",*</Import-Package>
+          </instructions>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
 </project>

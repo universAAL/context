@@ -294,6 +294,17 @@ ctxt.che.mobile-2.0.4-SNAPSHOT/src/main/java/org/universAAL/context/chemobile/os
 ctxt.che.mobile-2.0.4-SNAPSHOT/src/main/java/org/universAAL/context/chemobile/osgi/package.html -text
 ctxt.che.mobile-2.0.4-SNAPSHOT/src/main/java/org/universAAL/context/chemobile/package.html -text
 ctxt.che.mobile-2.0.4-SNAPSHOT/src/test/java/org/universAAL/context/chemobile/test/ArtifactIT.java -text
+ctxt.che.mobile-3.0.1-SNAPSHOT/ASL2.0.txt -text
+ctxt.che.mobile-3.0.1-SNAPSHOT/LICENSE-CPL-JUnit.txt -text
+ctxt.che.mobile-3.0.1-SNAPSHOT/NOTICE.txt -text
+ctxt.che.mobile-3.0.1-SNAPSHOT/artifact_manual.composite -text
+ctxt.che.mobile-3.0.1-SNAPSHOT/pom.xml -text
+ctxt.che.mobile-3.0.1-SNAPSHOT/src/main/java/org/universAAL/context/chemobile/Hub.java -text
+ctxt.che.mobile-3.0.1-SNAPSHOT/src/main/java/org/universAAL/context/chemobile/MobileHistorySubscriber.java -text
+ctxt.che.mobile-3.0.1-SNAPSHOT/src/main/java/org/universAAL/context/chemobile/osgi/Activator.java -text
+ctxt.che.mobile-3.0.1-SNAPSHOT/src/main/java/org/universAAL/context/chemobile/osgi/package.html -text
+ctxt.che.mobile-3.0.1-SNAPSHOT/src/main/java/org/universAAL/context/chemobile/package.html -text
+ctxt.che.mobile-3.0.1-SNAPSHOT/src/test/java/org/universAAL/context/chemobile/test/ArtifactIT.java -text
 ctxt.che.module.cardinality-0.5.0-SNAPSHOT/ASL2.0.txt -text
 ctxt.che.module.cardinality-0.5.0-SNAPSHOT/LICENSE-Aduna-OpenRDF.txt -text
 ctxt.che.module.cardinality-0.5.0-SNAPSHOT/MITX.txt -text

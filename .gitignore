@@ -342,6 +342,10 @@ ctxt.space.server-3.0.1-SNAPSHOT/.project
 ctxt.space.server-3.0.1-SNAPSHOT/.settings
 ctxt.space.server-3.0.1-SNAPSHOT/target
 ctxt.space.server-3.0.1-SNAPSHOT/uAAL.log
+ctxt.sysinfo.provider-3.0.1-SNAPSHOT/.classpath
+ctxt.sysinfo.provider-3.0.1-SNAPSHOT/.project
+ctxt.sysinfo.provider-3.0.1-SNAPSHOT/.settings
+ctxt.sysinfo.provider-3.0.1-SNAPSHOT/target
 pom-1.0.1-SNAPSHOT/.project
 pom-1.0.1-SNAPSHOT/.settings
 pom-1.0.1-SNAPSHOT/target

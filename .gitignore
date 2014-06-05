@@ -34,6 +34,10 @@ ctxt.space.server/.project
 ctxt.space.server/.settings
 ctxt.space.server/target
 ctxt.space.server/uAAL.log
+ctxt.sysinfo.provider/.classpath
+ctxt.sysinfo.provider/.project
+ctxt.sysinfo.provider/.settings
+ctxt.sysinfo.provider/target
 pom/.project
 pom/.settings
 pom/ctxt.karaf.features/.classpath

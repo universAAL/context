@@ -118,6 +118,12 @@ ctxt.space.server/src/main/java/org/universAAL/context/space/serv/SCalleeProvide
 ctxt.space.server/src/main/java/org/universAAL/context/space/serv/SCaller.java -text
 ctxt.space.server/src/main/java/org/universAAL/context/space/serv/package.html -text
 ctxt.space.server/src/test/java/org/universAAL/context/space/serv/ArtifactIT.java -text
+ctxt.sysinfo.provider/ASL2.0.txt -text
+ctxt.sysinfo.provider/LICENSE-CPL-JUnit.txt -text
+ctxt.sysinfo.provider/NOTICE.txt -text
+ctxt.sysinfo.provider/pom.xml -text
+ctxt.sysinfo.provider/src/main/java/org/universAAL/context/sysinfo/Activator.java -text
+ctxt.sysinfo.provider/src/main/java/org/universAAL/context/sysinfo/SystemEventsListener.java -text
 pom/ctxt.karaf.features/ASL2.0.txt -text
 pom/ctxt.karaf.features/NOTICE.txt -text
 pom/ctxt.karaf.features/pom.xml -text

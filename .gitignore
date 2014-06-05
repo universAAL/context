@@ -12,6 +12,10 @@ ctxt.che/.settings
 ctxt.che/ctxt.che
 ctxt.che/target
 ctxt.che/uAAL.log
+ctxt.drools.reasoner/.classpath
+ctxt.drools.reasoner/.project
+ctxt.drools.reasoner/.settings
+ctxt.drools.reasoner/target
 ctxt.prof.server/.classpath
 ctxt.prof.server/.project
 ctxt.prof.server/.settings

@@ -5,22 +5,16 @@
   <parent>
     <groupId>org.universAAL</groupId>
     <artifactId>uAAL.pom</artifactId>
-    <version>3.0.1-SNAPSHOT</version>
+    <version>3.1.0</version>
   </parent>
   <groupId>org.universAAL.context</groupId>
   <artifactId>ctxt.pom</artifactId>
-  <version>3.0.1-SNAPSHOT</version>
+  <version>3.1.0</version>
   <packaging>pom</packaging>
   <name>universAAL Context Suite</name>
   <description>The set of artefacts defining the universAAL context
 		tools.</description>
   <inceptionYear>2010</inceptionYear>
-	<distributionManagement>
-		<site>
-			<id>depot.universaal.org</id>
-			<url>${uaal.site.url}context/ctxt.pom</url>
-		</site>
-	</distributionManagement>
   <modules>
     <module>../ctxt.che</module>
     <module>../ctxt.che.mobile</module>
@@ -39,6 +33,12 @@
     <developerConnection>${svn.base}/pom</developerConnection>
     <url>${svn.base.url}pom</url>
   </scm>
+  <distributionManagement>
+    <site>
+      <id>depot.universaal.org</id>
+      <url>${uaal.site.url}context/ctxt.pom</url>
+    </site>
+  </distributionManagement>
   <properties>
     <remoteOBR></remoteOBR>
     <gforge.project.name>uaal_context</gforge.project.name>
@@ -50,78 +50,78 @@
       <dependency>
         <groupId>org.universAAL.middleware</groupId>
         <artifactId>mw.pom.core</artifactId>
-        <version>3.0.1-SNAPSHOT</version>
+        <version>3.1.0</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
       <dependency>
         <groupId>org.universAAL.middleware</groupId>
         <artifactId>mw.pom.osgi</artifactId>
-        <version>3.0.1-SNAPSHOT</version>
+        <version>3.1.0</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
       <dependency>
         <groupId>org.universAAL.ontology</groupId>
         <artifactId>ont.pom</artifactId>
-        <version>3.0.1-SNAPSHOT</version>
+        <version>3.1.0</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
       <dependency>
         <groupId>org.universAAL.context</groupId>
         <artifactId>ctxt.che</artifactId>
-        <version>3.0.1-SNAPSHOT</version>
+        <version>3.1.0</version>
       </dependency>
       <dependency>
         <groupId>org.universAAL.context</groupId>
         <artifactId>ctxt.che.mobile</artifactId>
-        <version>3.0.1-SNAPSHOT</version>
+        <version>3.1.0</version>
       </dependency>
       <dependency>
         <groupId>org.universAAL.context</groupId>
         <artifactId>ctxt.prof.server</artifactId>
-        <version>3.0.1-SNAPSHOT</version>
+        <version>3.1.0</version>
       </dependency>
       <dependency>
         <groupId>org.universAAL.context</groupId>
         <artifactId>ctxt.space.server</artifactId>
-        <version>3.0.1-SNAPSHOT</version>
+        <version>3.1.0</version>
       </dependency>
       <dependency>
         <groupId>org.universAAL.context</groupId>
         <artifactId>ctxt.situation.reasoner</artifactId>
-        <version>3.0.1-SNAPSHOT</version>
+        <version>3.1.0</version>
       </dependency>
       <dependency>
         <groupId>org.universAAL.context</groupId>
         <artifactId>ctxt.reliability.reasoner</artifactId>
-        <version>3.0.1-SNAPSHOT</version>
+        <version>3.1.0</version>
       </dependency>
       <dependency>
         <groupId>org.universAAL.context</groupId>
         <artifactId>ctxt.che.module.cardinality</artifactId>
-        <version>3.0.1-SNAPSHOT</version>
+        <version>3.1.0</version>
       </dependency>
       <dependency>
         <groupId>org.universAAL.context</groupId>
         <artifactId>sesame.uaal.store</artifactId>
-        <version>3.0.1-SNAPSHOT</version>
+        <version>3.1.0</version>
       </dependency>
       <dependency>
         <groupId>org.universAAL.context</groupId>
         <artifactId>ctxt.drools.reasoner</artifactId>
-        <version>3.0.1-SNAPSHOT</version>
+        <version>3.1.0</version>
       </dependency>
       <dependency>
         <groupId>org.universAAL.context</groupId>
         <artifactId>ctxt.sysinfo.provider</artifactId>
-        <version>3.0.1-SNAPSHOT</version>
+        <version>3.1.0</version>
       </dependency>
       <dependency>
         <groupId>org.universAAL.context</groupId>
         <artifactId>ctxt.karaf.feature</artifactId>
-        <version>3.0.1-SNAPSHOT</version>
+        <version>3.1.0</version>
       </dependency>
     </dependencies>
   </dependencyManagement>

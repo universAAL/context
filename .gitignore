@@ -151,6 +151,10 @@ ctxt.karaf.feature-2.0.4-SNAPSHOT/.classpath
 ctxt.karaf.feature-2.0.4-SNAPSHOT/.project
 ctxt.karaf.feature-2.0.4-SNAPSHOT/.settings
 ctxt.karaf.feature-2.0.4-SNAPSHOT/target
+ctxt.karaf.feature-3.0.1-SNAPSHOT/.classpath
+ctxt.karaf.feature-3.0.1-SNAPSHOT/.project
+ctxt.karaf.feature-3.0.1-SNAPSHOT/.settings
+ctxt.karaf.feature-3.0.1-SNAPSHOT/target
 ctxt.pom-1.0.2-SNAPSHOT/.project
 ctxt.pom-1.0.2-SNAPSHOT/.settings
 ctxt.pom-1.0.2-SNAPSHOT/target

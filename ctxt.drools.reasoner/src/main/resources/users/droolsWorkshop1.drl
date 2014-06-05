@@ -1,0 +1,158 @@
+#created on: 17-sept-2012
+package universaal
+dialect "java" 
+
+import org.universAAL.middleware.context.ContextEvent;
+import org.universAAL.middleware.context.ContextEventPattern;
+import org.universAAL.middleware.context.ContextPublisher;
+import org.universAAL.middleware.context.DefaultContextPublisher;
+import org.universAAL.middleware.context.owl.ContextProvider;
+import org.universAAL.middleware.context.owl.ContextProviderType;
+import org.universAAL.middleware.container.ModuleContext;
+import org.universAAL.drools.engine.RulesEngine;
+import org.universAAL.ontology.location.Location;
+import org.universAAL.middleware.rdf.Resource;
+import org.universAAL.ontology.phThing.Sensor;
+import org.universAAL.drools.models.Fact;
+import org.universAAL.drools.models.FactProperty;
+import java.util.Hashtable;
+import java.util.ArrayList;
+import org.universAAL.ontology.biomedicalsensors.CompositeBiomedicalSensor;
+import org.universAAL.ontology.biomedicalsensors.AlertService;
+import org.universAAL.ontology.biomedicalsensors.MeasuredEntity;
+import java.lang.Integer;
+
+
+declare Activity
+place : String @key
+intensity: String
+counter : int
+end
+
+declare ContextEvent
+@role(event)
+@expires(2m)
+end
+
+declare HeartRate
+ @role(event)
+ @duration(dur)
+ value: int 
+ dur: int 
+end
+
+rule "Activity insertionderl"
+//agenda-group "MAIN"
+    when
+    	ContextEvent(eval (RDFSubject instanceof Sensor),  $s:(((Sensor)RDFSubject).getLocation().getProperty(Location.PROP_HAS_NAME)))
+        not Activity ( place matches $s )
+    then
+        System.out.println("Inserting activity with instanceof...");
+    	Activity act = new Activity(new String($s.toString()),"NULL",0);
+    	insert(act);
+    	
+    	FactProperty room = new FactProperty("ROOM",new String($s.toString()));
+    	FactProperty intensity = new FactProperty("INTENSITY","NULL");
+    	Fact f = new Fact("ACTIVITY",new FactProperty[]{room, intensity});
+    	insert(f);
+end
+
+
+/*
+
+REQUIREMENTS
+
+[24/10/2012 14:52:33] Ioannis Moulos: thanks. Let's say  we have heart rate>125 pulse/min for >5sec ----->ORANGE ALERT && if heart rate>125 pulse/min for >55sec ----->RED ALERT
+
+or another rule is: posture>78 degrees for 20 sec -----> ORANGE ALERT && if posture >78 for 50sec ----RED ALERT
+
+*/
+
+//Drools can execute only one set of instructions per condition matched. Thus, for each type of alert related to
+//a measurement, you need a rule.
+
+rule "ORANGE ALERT PULSE"
+	when
+		ContextEvent( eval (RDFSubject instanceof CompositeBiomedicalSensor), $o:RDFObject )
+//		eval((Integer.parseInt((MeasuredEntity[])$o)[0].getMeasurementValue())>0)
+	then
+	System.out.println("ORANGE ALERT");
+	//System.out.println("Measurement value of component 0: "+(MeasuredEntity[])$o)[0].getMeasurementValue().toString());	
+end
+
+/*
+rule "Simple rule 3"
+	when	
+		ContextEvent( $o:RDFObject ,eval (RDFSubject instanceof CompositeBiomedicalSensor))
+	then
+	MeasuredEntity[] me=(MeasuredEntity[])$o;
+	System.put.println("SIMPLE RULE 3");
+	for (int i = 0; i < me.length; i++) {
+			System.out.println("DROOLS Measurement: "
+					+ me[i].getMeasurementName() + ": "
+					+ me[i].getMeasurementValue() + " "
+					+ me[i].getMeasurementUnit() + " at "
+					+ me[i].getMeasurementTime());
+		
+	
+		//RULES to fire alert
+    				if (me[i].getMeasurementName().equals("Posture"))
+    						if (Math.abs(Integer.valueOf(me[i].getMeasurementValue()))>80){
+    				
+    	System.out.println("Hi from DRL:Posture alert fired!");
+	RulesEngine.getInstance().publishConsequence(new String("http://www.tsbtecnologias.es/Consequence.owl#RULE2"), new String[]{"Alert","State"},new String[]{"PostureAlert","true"});				
+    						  
+    						    					}else{
+    						    						System.out.println("Hi from DRL:Posture alert ceased!");
+	RulesEngine.getInstance().publishConsequence(new String("http://www.tsbtecnologias.es/Consequence.owl#RULE2"), new String[]{"Alert","State"},new String[]{"PostureAlert","false"});
+    						    					}	
+    						    					}	
+
+end
+*/
+
+rule "HEART RATE INSERT"
+salience 12
+	when
+		ContextEvent( eval( RDFSubject instanceof CompositeBiomedicalSensor ), $p: RDFPredicate , $o: RDFObject )
+		
+	then
+	int hrVal = Integer.parseInt(((MeasuredEntity[])$o)[0].getMeasurementValue());
+	System.out.println("Inserting HR");
+	HeartRate hr =  new HeartRate (hrVal,4000);
+	insert(hr);
+end
+ 
+
+rule "HEART RATE RECEIVED"
+salience 11
+	when
+	HeartRate($v:value, $d:dur)				
+	then
+	System.out.println("Receiving HR with value "+$v+ " and duration "+$d+" milliseconds");
+end
+
+
+rule "ASSESMENT OF A VALUE"
+salience 10
+no-loop true
+lock-on-active true
+	when
+		ContextEvent(eval( RDFSubject instanceof CompositeBiomedicalSensor ), $s:RDFSubject , $p: RDFPredicate , $o: RDFObject )
+		eval(Integer.parseInt(((MeasuredEntity[])$o)[0].getMeasurementValue())>0)
+	then
+		System.out.println("SIMPLE RULE\nSUBJECT: "+$s+"\nPREDICATE: "+$p+"\nOBJECT: "+$o);
+	
+		//System.out.println(Integer.parseInt(((MeasuredEntity[])$o)[0].getMeasurementValue()));
+end
+
+
+
+rule "ORANGE ALERT"
+	when
+	$hrH:HeartRate($value: value > 120)
+	and not ($hrL:HeartRate(value<=120, this after[0,10s] $hrH))						
+	then
+		System.out.println(java.util.Calendar.getInstance().getTime().toString());
+		System.out.println("Complex rule fired: "+$value);
+end

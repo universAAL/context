@@ -52,6 +52,16 @@ ctxt.prof.server/src/main/java/org/universAAL/context/prof/serv/SCaller.java -te
 ctxt.prof.server/src/main/java/org/universAAL/context/prof/serv/osgi/Activator.java -text
 ctxt.prof.server/src/main/java/org/universAAL/context/prof/serv/package.html -text
 ctxt.prof.server/src/test/java/org/universAAL/context/prof/serv/ArtifactIT.java -text
+ctxt.reliability.reasoner/ASL[!!-~]2.0.txt -text
+ctxt.reliability.reasoner/ASL2.0.txt -text
+ctxt.reliability.reasoner/NOTICE.txt -text
+ctxt.reliability.reasoner/pom.xml -text
+ctxt.reliability.reasoner/src/main/java/org/universAAL/reliability/reasoner/Query.txt -text
+ctxt.reliability.reasoner/src/main/java/org/universAAL/reliability/reasoner/ReliabilityReasonerActivator.java -text
+ctxt.reliability.reasoner/src/main/java/org/universAAL/reliability/reasoner/ReliabilityReasonerPublisher.java -text
+ctxt.reliability.reasoner/src/main/java/org/universAAL/reliability/reasoner/ReliabilityReasonerSubscriber.java -text
+ctxt.reliability.reasoner/src/main/java/org/universAAL/reliability/reasoner/SCaller.java -text
+ctxt.reliability.reasoner/src/main/java/org/universAAL/reliability/reasoner/Situations.txt -text
 ctxt.situation.reasoner/ASL2.0.txt -text
 ctxt.situation.reasoner/NOTICE.txt -text
 ctxt.situation.reasoner/pom.xml -text

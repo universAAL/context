@@ -1,0 +1,54 @@
+#created on: 20-ago-2013
+package org.universAAL.AALapplication
+dialect "java" 
+
+import org.universAAL.middleware.context.ContextEvent;
+import org.universAAL.drools.engine.RulesEngine;
+import org.universAAL.ontology.location.Location;
+import org.universAAL.middleware.rdf.Resource;
+import org.universAAL.ontology.device.Sensor;
+import org.universAAL.drools.models.Fact;
+import org.universAAL.drools.models.FactProperty;
+import java.util.Hashtable;
+import java.util.ArrayList;
+/*
+declare ContextEvent
+@role(event)
+@expires(2m)
+end
+*/
+declare Activity
+place : String @key
+intensity: String
+counter : int
+end
+
+function String intensityUpdater(int c){
+if(c==0){
+return "NULL";
+}else if (c>0 && c<=2){
+return "LOW";
+}else if(c>2 && c<=7){
+return "MEDIUM";
+}else{
+return "HIGH";
+}
+}
+
+rule "Activity insertionante"
+//agenda-group "MAIN"
+    when
+		$s:ContextEvent( RDFSubject == "a" )
+		$c:ContextEvent(eval( $r:RDFSubject instanceof Sensor))
+		//, $s:(((Sensor)RDFSubject).getLocation().getProperty(Location.PROP_HAS_NAME)))
+        not Activity ( place matches $s )
+    then
+        System.out.println("Inserting activity...");
+    	Activity act = new Activity(new String($s.toString()),"NULL",0);
+    	insert(act);
+    	
+    	FactProperty room = new FactProperty("ROOM",new String($s.toString()));
+    	FactProperty intensity = new FactProperty("INTENSITY","NULL");
+    	Fact f = new Fact("ACTIVITY",new FactProperty[]{room, intensity});
+    	insert(f);
+end

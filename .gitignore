@@ -127,6 +127,10 @@ ctxt.drools.reasoner-2.0.4-SNAPSHOT/.classpath
 ctxt.drools.reasoner-2.0.4-SNAPSHOT/.project
 ctxt.drools.reasoner-2.0.4-SNAPSHOT/.settings
 ctxt.drools.reasoner-2.0.4-SNAPSHOT/target
+ctxt.drools.reasoner-3.0.1-SNAPSHOT/.classpath
+ctxt.drools.reasoner-3.0.1-SNAPSHOT/.project
+ctxt.drools.reasoner-3.0.1-SNAPSHOT/.settings
+ctxt.drools.reasoner-3.0.1-SNAPSHOT/target
 ctxt.jena.converter-1.0.1-SNAPSHOT/.classpath
 ctxt.jena.converter-1.0.1-SNAPSHOT/.project
 ctxt.jena.converter-1.0.1-SNAPSHOT/.settings

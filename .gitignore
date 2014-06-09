@@ -16,10 +16,6 @@ ctxt.drools.reasoner/.classpath
 ctxt.drools.reasoner/.project
 ctxt.drools.reasoner/.settings
 ctxt.drools.reasoner/target
-ctxt.pom/ctxt.karaf.feature/.classpath
-ctxt.pom/ctxt.karaf.feature/.project
-ctxt.pom/ctxt.karaf.feature/.settings
-ctxt.pom/ctxt.karaf.feature/target
 ctxt.prof.server/.classpath
 ctxt.prof.server/.project
 ctxt.prof.server/.settings

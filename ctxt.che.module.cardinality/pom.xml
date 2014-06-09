@@ -6,7 +6,7 @@
     <groupId>org.universAAL.context</groupId>
     <artifactId>ctxt.pom</artifactId>
     <version>3.1.1-SNAPSHOT</version>
-    <relativePath>../pom/pom.xml</relativePath>
+    <relativePath>../ctxt.pom/pom.xml</relativePath>
   </parent>
   <artifactId>ctxt.che.module.cardinality</artifactId>
   <version>3.1.1-SNAPSHOT</version>

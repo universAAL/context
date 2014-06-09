@@ -128,6 +128,10 @@ ctxt.sysinfo.provider/NOTICE.txt -text
 ctxt.sysinfo.provider/pom.xml -text
 ctxt.sysinfo.provider/src/main/java/org/universAAL/context/sysinfo/Activator.java -text
 ctxt.sysinfo.provider/src/main/java/org/universAAL/context/sysinfo/SystemEventsListener.java -text
+pom/ctxt.karaf.feature/ASL2.0.txt -text
+pom/ctxt.karaf.feature/NOTICE.txt -text
+pom/ctxt.karaf.feature/pom.xml -text
+pom/ctxt.karaf.feature/src/features/features.xml -text
 pom/ctxt.karaf.features/ASL2.0.txt -text
 pom/ctxt.karaf.features/NOTICE.txt -text
 pom/ctxt.karaf.features/pom.xml -text

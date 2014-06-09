@@ -44,6 +44,10 @@ ctxt.sysinfo.provider/.settings
 ctxt.sysinfo.provider/target
 pom/.project
 pom/.settings
+pom/ctxt.karaf.feature/.classpath
+pom/ctxt.karaf.feature/.project
+pom/ctxt.karaf.feature/.settings
+pom/ctxt.karaf.feature/target
 pom/ctxt.karaf.features/.classpath
 pom/ctxt.karaf.features/.project
 pom/ctxt.karaf.features/.settings

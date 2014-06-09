@@ -6,6 +6,7 @@
     <groupId>org.universAAL.context</groupId>
     <artifactId>ctxt.pom</artifactId>
     <version>3.1.1-SNAPSHOT</version>
+    <relativePath>../ctxt.pom</relativePath>
   </parent>
   <artifactId>ctxt.space.server</artifactId>
   <version>3.1.1-SNAPSHOT</version>

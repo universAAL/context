@@ -24,6 +24,13 @@ ctxt.gen.reasoner/.classpath
 ctxt.gen.reasoner/.project
 ctxt.gen.reasoner/.settings
 ctxt.gen.reasoner/target
+ctxt.pom/.project
+ctxt.pom/.settings
+ctxt.pom/ctxt.karaf.features/.classpath
+ctxt.pom/ctxt.karaf.features/.project
+ctxt.pom/ctxt.karaf.features/.settings
+ctxt.pom/ctxt.karaf.features/target
+ctxt.pom/target
 ctxt.prof.server/.classpath
 ctxt.prof.server/.project
 ctxt.prof.server/.settings
@@ -46,13 +53,6 @@ ctxt.sysinfo.provider/.classpath
 ctxt.sysinfo.provider/.project
 ctxt.sysinfo.provider/.settings
 ctxt.sysinfo.provider/target
-pom/.project
-pom/.settings
-pom/ctxt.karaf.features/.classpath
-pom/ctxt.karaf.features/.project
-pom/ctxt.karaf.features/.settings
-pom/ctxt.karaf.features/target
-pom/target
 sesame.uaal.store/.classpath
 sesame.uaal.store/.project
 sesame.uaal.store/.settings

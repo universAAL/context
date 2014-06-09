@@ -96,6 +96,11 @@ ctxt.gen.reasoner/src/main/c/persona_sr_notifier.c -text
 ctxt.gen.reasoner/src/main/java/org/universAAL/context/reasoner/Activator.java -text
 ctxt.gen.reasoner/src/main/resources/log4j.properties -text
 ctxt.gen.reasoner/src/main/resources/org/persona/platform/casf/sr/create_db_sr_only.sql -text
+ctxt.pom/ctxt.karaf.features/ASL2.0.txt -text
+ctxt.pom/ctxt.karaf.features/NOTICE.txt -text
+ctxt.pom/ctxt.karaf.features/pom.xml -text
+ctxt.pom/ctxt.karaf.features/src/features/features.xml -text
+ctxt.pom/pom.xml -text
 ctxt.prof.server/ASL2.0.txt -text
 ctxt.prof.server/LICENSE-CPL-JUnit.txt -text
 ctxt.prof.server/NOTICE.txt -text
@@ -148,11 +153,6 @@ ctxt.sysinfo.provider/NOTICE.txt -text
 ctxt.sysinfo.provider/pom.xml -text
 ctxt.sysinfo.provider/src/main/java/org/universAAL/context/sysinfo/Activator.java -text
 ctxt.sysinfo.provider/src/main/java/org/universAAL/context/sysinfo/SystemEventsListener.java -text
-pom/ctxt.karaf.features/ASL2.0.txt -text
-pom/ctxt.karaf.features/NOTICE.txt -text
-pom/ctxt.karaf.features/pom.xml -text
-pom/ctxt.karaf.features/src/features/features.xml -text
-pom/pom.xml -text
 sesame.uaal.store/ASL2.0.txt -text
 sesame.uaal.store/LICENSE-Aduna-OpenRDF.txt -text
 sesame.uaal.store/LICENSE-MIT11-Bouncycastle.txt -text

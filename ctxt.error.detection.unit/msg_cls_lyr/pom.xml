@@ -4,7 +4,7 @@
 		<groupId>org.universAAL.context</groupId>
 		<artifactId>ctxt.pom</artifactId>
 		<version>1.3.2-SNAPSHOT</version>
-		<relativePath>../pom/pom.xml</relativePath>
+		<relativePath>../ctxt.pom/pom.xml</relativePath>
 	</parent>
 	<artifactId>ctxt.error.detection.unit</artifactId>
 	<version>1.3.2-SNAPSHOT</version>

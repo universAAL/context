@@ -7,7 +7,7 @@
 		<groupId>org.universAAL.context</groupId>
 		<artifactId>ctxt.pom</artifactId>
 		<version>1.0.2-SNAPSHOT</version>
-		<relativePath>../pom/pom.xml</relativePath>
+		<relativePath>../ctxt.pom/pom.xml</relativePath>
 	</parent>
 	<artifactId>ctxt.gen.reasoner</artifactId>
 	<version>1.0.1-SNAPSHOT</version>
@@ -148,11 +148,5 @@
 	</build>
 
 	<!-- ______________________________________________________ -->
-
-	<scm>
-		<connection>${svn.base}/${project.artifactId}</connection>
-		<developerConnection>${svn.base}/${project.artifactId}</developerConnection>
-		<url>${svn.base.url}${project.artifactId}</url>
-	</scm>
 
 </project>

@@ -1,4 +1,14 @@
 * text=auto !eol
+ctxt.che.mobile/ASL2.0.txt -text
+ctxt.che.mobile/LICENSE-CPL-JUnit.txt -text
+ctxt.che.mobile/NOTICE.txt -text
+ctxt.che.mobile/pom.xml -text
+ctxt.che.mobile/src/main/java/org/universAAL/context/chemobile/Hub.java -text
+ctxt.che.mobile/src/main/java/org/universAAL/context/chemobile/MobileHistorySubscriber.java -text
+ctxt.che.mobile/src/main/java/org/universAAL/context/chemobile/osgi/Activator.java -text
+ctxt.che.mobile/src/main/java/org/universAAL/context/chemobile/osgi/package.html -text
+ctxt.che.mobile/src/main/java/org/universAAL/context/chemobile/package.html -text
+ctxt.che.mobile/src/test/java/org/universAAL/context/chemobile/test/ArtifactIT.java -text
 ctxt.che/ASL2.0.txt -text
 ctxt.che/LICENSE-Aduna-OpenRDF.txt -text
 ctxt.che/LICENSE-CPL-JUnit.txt -text

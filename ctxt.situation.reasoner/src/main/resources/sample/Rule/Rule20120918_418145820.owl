@@ -1,0 +1,25 @@
+
+@prefix ns: <http://ontology.igd.fhg.de/ReasonerClient.owl#> .
+@prefix : <http://reasoner.universAAL.org/ReasoningOntology#> .
+ns:Rule8674448 :ruleSituation ns:Situation8851801 ;
+  a :Rule ;
+  :ruleQuery """
+    @prefix : <http://reasoner.universAAL.org/ReasoningOntology#> .
+    :Query5421951 a :Query ;
+      :fullQuery \"\"\"CONSTRUCT { <urn:org.universAAL.middleware.context.rdf:ContextEvent#_:0000000000000000:00>  <http://www.w3.org/1999/02/22-rdf-syntax-ns#type>  <http://ontology.universAAL.org/Context.owl#ContextEvent> ;
+<http://www.w3.org/1999/02/22-rdf-syntax-ns#subject> <http://ontology.igd.fhg.de/LightingServer.owl#controlledLamp2> ;
+<http://www.w3.org/1999/02/22-rdf-syntax-ns#predicate> <http://ontology.universaal.org/Lighting.owl#srcBrightness> ;
+<http://www.w3.org/1999/02/22-rdf-syntax-ns#object> \\\"100\\\"^^<http://www.w3.org/2001/XMLSchema#int> .
+<http://ontology.igd.fhg.de/LightingServer.owl#controlledLamp2> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://ontology.universaal.org/Lighting.owl#LightSource>. }
+WHERE
+ {
+<http://ontology.igd.fhg.de/LightingServer.owl#controlledLamp3> <http://ontology.universaal.org/Lighting.owl#srcBrightness> ?a .
+FILTER (?a < 100)
+ }
+\"\"\"^^<http://www.w3.org/2001/XMLSchema#string> ;
+      :saveIt true .
+    """^^<http://www.w3.org/1999/02/22-rdf-syntax-ns#XMLLiteral> ;
+  :saveIt true .
+ns:Situation8851801 a :Situation ;
+  :rdfSubject "http://ontology.igd.fhg.de/LightingServer.owl#controlledLamp1"^^<http://www.w3.org/2001/XMLSchema#string> ;
+  :saveIt true .

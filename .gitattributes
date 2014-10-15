@@ -70,6 +70,10 @@ ctxt.drools.reasoner/src/main/resources/uaal_config/reasoner.properties -text
 ctxt.drools.reasoner/src/main/resources/uaal_config/uAALrules.drl -text
 ctxt.drools.reasoner/src/main/resources/users/droolsWorkshop1.drl -text
 ctxt.drools.reasoner/src/test/java/org/universAAL/drools/test/RulesEngineTest.java -text
+ctxt.pom/ctxt.karaf.feature/ASL2.0.txt -text
+ctxt.pom/ctxt.karaf.feature/NOTICE.txt -text
+ctxt.pom/ctxt.karaf.feature/pom.xml -text
+ctxt.pom/ctxt.karaf.feature/src/features/features.xml -text
 ctxt.prof.server/ASL2.0.txt -text
 ctxt.prof.server/LICENSE-CPL-JUnit.txt -text
 ctxt.prof.server/NOTICE.txt -text

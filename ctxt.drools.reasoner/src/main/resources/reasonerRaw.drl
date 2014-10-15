@@ -1,0 +1,278 @@
+package universaal 
+
+import org.universAAL.middleware.context.ContextEvent;
+import org.universAAL.drools.engine.RulesEngine;
+import org.universAAL.ontology.location.Location;
+import org.universAAL.middleware.rdf.Resource;
+import org.universAAL.ontology.device.Sensor;
+import java.util.Hashtable;
+import java.util.ArrayList;
+
+declare ContextEvent
+@role(event)
+end
+
+/*
+rule "Your First Rule"
+    lock-on-active true
+	no-loop true
+    when
+        ContextEvent( RDFObject == 18 )
+    then
+    Hashtable h = new Hashtable();
+    h.put("an","example");
+    h.put("of","hashtable");
+    	RulesEngine.getInstance().publishConsequence(new String("http://my.uri/isgoing.owl#toberepeated"), new String[]{"key#1","key#2"},new String[]{"value#1","value#2"});
+        System.out.println("[DROOLS]Rule fired by a context event");        
+end
+
+rule "Your Second Rule"
+    lock-on-active true
+	no-loop true
+    when
+    $ce: ContextEvent(  )
+    then   
+    RulesEngine.getInstance().publishConsequence(new String("http://my.uri/isgoing.owl#"+drools.getRule().getName()), new String[]{"key#21","key#22"},new String[]{"value#21","value#22"});
+    System.out.println("[DROOLS]Tuple: "+drools.getTuple());
+    System.out.println("[DROOLS]Activation: "+drools.getActivation());
+    System.out.println("[DROOLS]Two events at the same time");
+end
+
+rule "Your Third Rule"
+    lock-on-active true
+	no-loop true
+    when
+        $ce: ContextEvent(  )
+        and ($ce2: ContextEvent( this meets $ce ))
+		and ($ce3: ContextEvent( this meets $ce2 ))            
+    then
+        System.out.println("[DROOLS]Three events at the same time!!");
+        System.out.println("ce1: "+$ce);
+        System.out.println("ce2: "+$ce2);
+        System.out.println("ce3: "+$ce3);
+
+end
+
+
+rule "Your Fourth Rule"
+    lock-on-active true
+	no-loop true
+    when
+        $ce:ContextEvent( $t: timestamp  )
+        and($ce2:ContextEvent(this meets $ce ))
+        and($ce3:ContextEvent( this meets $ce2  ))
+        and($ce4:ContextEvent( this meets $ce3  ))
+    then
+        System.out.println("[DROOLS]Four events at the same time");
+		System.out.println("ce1: "+$ce);
+        System.out.println("ce2: "+$ce2);
+        System.out.println("ce3: "+$ce3);
+        System.out.println("ce4: "+$ce4);
+        System.out.println("TIMESTAMP: "+$t );
+end
+*/
+
+/*
+rule "Low activity"
+	//lock-on-active true
+	//no-loop true
+	when
+	//$ce: ContextEvent( RDFSubject.getLocalName() matches "MotionSensor" ) over window:time(5m)
+	collect (ContextEvent( $r:RDFSubject  ), $c:count ($r))  
+	then
+	//RulesEngine.getInstance().publishConsequence(new String("http://www.tsbtecnologias.es/Consequence.owl#"+drools.getRule().getName()), new String[]{"Source","Location"},new String[]{"MotionSensor","Any"});
+	System.out.println("Motion sensor event detected! "+((MotionSensor)$ce.getRDFSubject()).getLocation().getProperty(Location.PROP_HAS_NAME));
+end
+*/
+
+/*
+rule "Low activity collect"
+	//lock-on-active true
+	//no-loop true
+	when
+	ContextEvent( RDFSubject.getLocalName() matches "MotionSensor" )
+	then
+	RulesEngine.getInstance().publishConsequence(new String("http://www.tsbtecnologias.es/Consequence.owl#"+drools.getRule().getName()), new String[]{"Source","Location"},new String[]{"MotionSensor","WINDOW"});
+	System.out.println("WINDOW AND COLLECT WORKING!"+((MotionSensor)$ce.getRDFSubject()).getLocation().getProperty(Location.PROP_HAS_NAME));
+end
+*/
+/*
+function String getLocationName(Resource subject){
+MotionSensor m = subject;
+String st = m. getLocation.getProperty(Location.PROP_HAS_NAME);
+return st;
+}
+*/
+
+rule "LowKitchen"
+when
+   $n : Number(intValue >= 2, intValue<5) from accumulate( 
+        $keyEvent : ContextEvent( ((Sensor)RDFSubject).getLocation().getProperty(Location.PROP_HAS_NAME) matches "Kitchen"  ) over window:time (1h)  ,          
+            count( $keyEvent ) )	  
+then
+	RulesEngine.getInstance().publishConsequence(new String("http://www.tsbtecnologias.es/Consequence.owl#"+drools.getRule().getName()), new String[]{"source","location","consequenceType","activityLevel"},new String[]{"MotionSensor","Kitchen","ACTIVITY","LOW"});
+end
+
+rule "LowLivingRoom" 
+when
+   $n : Number(intValue >= 2, intValue<5) from accumulate( 
+        $keyEvent : ContextEvent( ((Sensor)RDFSubject).getLocation().getProperty(Location.PROP_HAS_NAME) matches "Living Room"  ) over window:time (1h)  ,          
+            count( $keyEvent ) )	    
+then
+RulesEngine.getInstance().publishConsequence(new String("http://www.tsbtecnologias.es/Consequence.owl#"+drools.getRule().getName()), new String[]{"source","location","consequenceType","activityLevel"},new String[]{"MotionSensor","Living Room","ACTIVITY","LOW"});
+end
+
+
+rule "LowBedroom" 
+when
+   $n : Number(intValue >= 2, intValue<5) from accumulate( 
+        $keyEvent : ContextEvent( ((Sensor)RDFSubject).getLocation().getProperty(Location.PROP_HAS_NAME) matches "Bedroom" ) over window:time (1h) ,          
+            count( $keyEvent ) )
+            	  
+then
+RulesEngine.getInstance().publishConsequence(new String("http://www.tsbtecnologias.es/Consequence.owl#"+drools.getRule().getName()), new String[]{"source","location","consequenceType","activityLevel"},new String[]{"MotionSensor","Bedroom","ACTIVITY","LOW"});
+end
+
+rule "LowBathroom" 
+when
+   $n : Number(intValue >= 2, intValue<5) from accumulate( 
+        $keyEvent : ContextEvent( $r:RDFSubject, ((Sensor)RDFSubject).getLocation().getProperty(Location.PROP_HAS_NAME) matches "Bathroom" ) over window:time (1h) ,          
+            count( $keyEvent ) )	  
+then
+RulesEngine.getInstance().publishConsequence(new String("http://www.tsbtecnologias.es/Consequence.owl#"+drools.getRule().getName()), new String[]{"source","location","consequenceType","activityLevel"},new String[]{"MotionSensor","Bathroom","ACTIVITY","LOW"});
+end
+
+rule "LowHall"
+when
+   $n : Number(intValue >= 2, intValue<5) from accumulate( 
+        $keyEvent : ContextEvent( $r:RDFSubject, ((Sensor)RDFSubject).getLocation().getProperty(Location.PROP_HAS_NAME) matches "Hall" ) over window:time (1h) ,          
+            count( $keyEvent ) )	  
+then
+RulesEngine.getInstance().publishConsequence(new String("http://www.tsbtecnologias.es/Consequence.owl#"+drools.getRule().getName()), new String[]{"source","location","consequenceType","activityLevel"},new String[]{"MotionSensor","Hall","ACTIVITY","LOW"});
+end
+
+rule "LowGarden"
+when
+   $n : Number(intValue >= 2, intValue<5) from accumulate( 
+        $keyEvent : ContextEvent( $r:RDFSubject, ((Sensor)RDFSubject).getLocation().getProperty(Location.PROP_HAS_NAME) matches "Garden" ) over window:time (1h) ,          
+            count( $keyEvent ) )	  
+then
+RulesEngine.getInstance().publishConsequence(new String("http://www.tsbtecnologias.es/Consequence.owl#"+drools.getRule().getName()), new String[]{"source","location","consequenceType","activityLevel"},new String[]{"MotionSensor","Garden","ACTIVITY","LOW"});
+end
+
+////-----MEDIUM ACTIVITY LEVEL-----////
+
+rule "MediumKitchen"
+when
+   $n : Number(intValue >= 5, intValue<10) from accumulate( 
+        $keyEvent : ContextEvent( ((Sensor)RDFSubject).getLocation().getProperty(Location.PROP_HAS_NAME) matches "Kitchen"  ) over window:time (1h)  ,          
+            count( $keyEvent ) )	  
+then
+	RulesEngine.getInstance().publishConsequence(new String("http://www.tsbtecnologias.es/Consequence.owl#"+drools.getRule().getName()), new String[]{"source","location","consequenceType","activityLevel"},new String[]{"MotionSensor","Kitchen","ACTIVITY","MEDIUM"});
+end
+
+rule "MediumLivingRoom" 
+when
+   $n : Number(intValue >= 5, intValue<10) from accumulate( 
+        $keyEvent : ContextEvent( ((Sensor)RDFSubject).getLocation().getProperty(Location.PROP_HAS_NAME) matches "Living Room"  ) over window:time (1h)  ,          
+            count( $keyEvent ) )	    
+then
+RulesEngine.getInstance().publishConsequence(new String("http://www.tsbtecnologias.es/Consequence.owl#"+drools.getRule().getName()), new String[]{"source","location","consequenceType","activityLevel"},new String[]{"MotionSensor","Living Room","ACTIVITY","MEDIUM"});
+end
+
+
+rule "MediumBedroom" 
+when
+   $n : Number(intValue >= 5, intValue<10) from accumulate( 
+        $keyEvent : ContextEvent( ((Sensor)RDFSubject).getLocation().getProperty(Location.PROP_HAS_NAME) matches "Bedroom" ) over window:time (1h) ,          
+            count( $keyEvent ) )            	  
+then
+RulesEngine.getInstance().publishConsequence(new String("http://www.tsbtecnologias.es/Consequence.owl#"+drools.getRule().getName()), new String[]{"source","location","consequenceType","activityLevel"},new String[]{"MotionSensor","Bedroom","ACTIVITY","MEDIUM"});
+end
+
+rule "MediumBathroom" 
+when
+   $n : Number(intValue >= 5, intValue<10) from accumulate( 
+        $keyEvent : ContextEvent( $r:RDFSubject, ((Sensor)RDFSubject).getLocation().getProperty(Location.PROP_HAS_NAME) matches "Bathroom" ) over window:time (1h) ,          
+            count( $keyEvent ) )	  
+then
+RulesEngine.getInstance().publishConsequence(new String("http://www.tsbtecnologias.es/Consequence.owl#"+drools.getRule().getName()), new String[]{"source","location","consequenceType","activityLevel"},new String[]{"MotionSensor","Bathroom","ACTIVITY","MEDIUM"});
+end
+
+rule "MediumHall"
+when
+   $n : Number(intValue >= 5, intValue<10) from accumulate( 
+        $keyEvent : ContextEvent( $r:RDFSubject, ((Sensor)RDFSubject).getLocation().getProperty(Location.PROP_HAS_NAME) matches "Hall" ) over window:time (1h) ,          
+            count( $keyEvent ) )	  
+then
+RulesEngine.getInstance().publishConsequence(new String("http://www.tsbtecnologias.es/Consequence.owl#"+drools.getRule().getName()), new String[]{"source","location","consequenceType","activityLevel"},new String[]{"MotionSensor","Hall","ACTIVITY","MEDIUM"});
+end
+
+rule "MediumGarden"
+when
+   $n : Number(intValue >= 5, intValue<10) from accumulate( 
+        $keyEvent : ContextEvent( $r:RDFSubject, ((Sensor)RDFSubject).getLocation().getProperty(Location.PROP_HAS_NAME) matches "Garden" ) over window:time (1h) ,          
+            count( $keyEvent ) )	  
+then
+RulesEngine.getInstance().publishConsequence(new String("http://www.tsbtecnologias.es/Consequence.owl#"+drools.getRule().getName()), new String[]{"source","location","consequenceType","activityLevel"},new String[]{"MotionSensor","Garden","ACTIVITY","MEDIUM"});
+end
+
+
+////-------HIGH ACTIVITY LEVEL-------////
+
+
+rule "HighKitchen"
+when
+   $n : Number(intValue >= 10) from accumulate( 
+        $keyEvent : ContextEvent( ((Sensor)RDFSubject).getLocation().getProperty(Location.PROP_HAS_NAME) matches "Kitchen"  ) over window:time (1h)  ,          
+            count( $keyEvent ) )	  
+then
+	RulesEngine.getInstance().publishConsequence(new String("http://www.tsbtecnologias.es/Consequence.owl#"+drools.getRule().getName()), new String[]{"source","location","consequenceType","activityLevel"},new String[]{"MotionSensor","Kitchen","ACTIVITY","HIGH"});
+end
+
+rule "HighLivingRoom" 
+when
+   $n : Number(intValue >= 10) from accumulate( 
+        $keyEvent : ContextEvent( ((Sensor)RDFSubject).getLocation().getProperty(Location.PROP_HAS_NAME) matches "Living Room"  ) over window:time (1h)  ,          
+            count( $keyEvent ) )	    
+then
+RulesEngine.getInstance().publishConsequence(new String("http://www.tsbtecnologias.es/Consequence.owl#"+drools.getRule().getName()), new String[]{"source","location","consequenceType","activityLevel"},new String[]{"MotionSensor","Living Room","ACTIVITY","HIGH"});
+end
+
+
+rule "HighBedroom" 
+when
+   $n : Number(intValue >= 10) from accumulate( 
+        $keyEvent : ContextEvent( ((Sensor)RDFSubject).getLocation().getProperty(Location.PROP_HAS_NAME) matches "Bedroom" ) over window:time (1h) ,          
+            count( $keyEvent ) )            	  
+then
+RulesEngine.getInstance().publishConsequence(new String("http://www.tsbtecnologias.es/Consequence.owl#"+drools.getRule().getName()), new String[]{"source","location","consequenceType","activityLevel"},new String[]{"MotionSensor","Bedroom","ACTIVITY","HIGH"});
+end
+
+rule "HighBathroom" 
+when
+   $n : Number(intValue >= 10) from accumulate( 
+        $keyEvent : ContextEvent( $r:RDFSubject, ((Sensor)RDFSubject).getLocation().getProperty(Location.PROP_HAS_NAME) matches "Bathroom" ) over window:time (1h) ,          
+            count( $keyEvent ) )	  
+then
+RulesEngine.getInstance().publishConsequence(new String("http://www.tsbtecnologias.es/Consequence.owl#"+drools.getRule().getName()), new String[]{"source","location","consequenceType","activityLevel"},new String[]{"MotionSensor","Bathroom","ACTIVITY","HIGH"});
+end
+
+rule "HighHall"
+when
+   $n : Number(intValue >= 10) from accumulate( 
+        $keyEvent : ContextEvent( $r:RDFSubject, ((Sensor)RDFSubject).getLocation().getProperty(Location.PROP_HAS_NAME) matches "Hall" ) over window:time (1h) ,          
+            count( $keyEvent ) )	  
+then
+RulesEngine.getInstance().publishConsequence(new String("http://www.tsbtecnologias.es/Consequence.owl#"+drools.getRule().getName()), new String[]{"source","location","consequenceType","activityLevel"},new String[]{"MotionSensor","Hall","ACTIVITY","HIGH"});
+end
+
+rule "HighGarden"
+when
+   $n : Number(intValue >= 10) from accumulate( 
+        $keyEvent : ContextEvent( $r:RDFSubject, ((Sensor)RDFSubject).getLocation().getProperty(Location.PROP_HAS_NAME) matches "Garden" ) over window:time (1h) ,          
+            count( $keyEvent ) )	  
+then
+RulesEngine.getInstance().publishConsequence(new String("http://www.tsbtecnologias.es/Consequence.owl#"+drools.getRule().getName()), new String[]{"source","location","consequenceType","activityLevel"},new String[]{"MotionSensor","Garden","ACTIVITY","HIGH"});
+end
+

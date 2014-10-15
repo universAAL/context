@@ -1,0 +1,187 @@
+#created on: 25-abr-2012
+package org.universAAL.AALapplication
+dialect "java" 
+
+import org.universAAL.middleware.context.ContextEvent;
+import org.universAAL.drools.engine.RulesEngine;
+import org.universAAL.ontology.location.Location;
+import org.universAAL.middleware.rdf.Resource;
+import org.universAAL.ontology.device.Sensor;
+import org.universAAL.drools.models.Fact;
+import org.universAAL.drools.models.FactProperty;
+import org.universAAL.ontology.energy.reader.ReadEnergy;
+import org.universAAL.ontology.energy.reader.ReadEnergyDevice;
+import org.universAAL.ontology.energy.reader.EnergyMeasurement;
+import org.universAAL.ontology.energy.reader.PluggedDevice;
+import java.util.Hashtable;
+import java.util.ArrayList;
+import java.util.LinkedList;
+
+declare ContextEvent
+@role(event)
+@expires(2m)
+end
+
+declare Activity
+place : String @key
+intensity: String
+counter : int
+end
+
+declare EnergyStatus
+device: String @key
+end
+
+declare PoweredDevice
+device: String @key
+max: int
+min: int
+onTh: float
+offTh: float
+laststatus: String
+status: String
+//alist: java.util.ArrayList
+alist: java.util.LinkedList
+end
+
+declare DeviceConsumption
+device: String @key
+alist: java.util.ArrayList
+end
+
+
+function void showList(PoweredDevice dc){
+	System.out.println("Showing consumption for: "+dc.getDevice());
+	java.util.LinkedList list = new java.util.LinkedList();
+	list = dc.getAlist();
+	for (int i = 0 ; i < list.size() ; i++){
+		System.out.print(" "+list.get(i));
+	}
+}
+
+function LinkedList updateElements(PoweredDevice pd, Integer newVal){
+	java.util.LinkedList al = new java.util.LinkedList();
+	al = pd.getAlist();
+	al.addFirst(newVal);	
+	if(al.size()>5){
+	al = new LinkedList(al.subList(0,5));	
+	}
+return al;
+}
+
+function String updateStatus(PoweredDevice pd, Integer newVal){
+	//System.out.println("On->"+pd.getOnTh()+" Off->"+pd.getOffTh()+" VALUE TO COMPARE->"+newVal);
+	if((int)newVal>=pd.getOnTh()){
+		return "ON";
+	}else if ((int)newVal>pd.getOffTh()&&(int)newVal<pd.getOnTh()){
+		return "STANDBY";
+	}else if ((int)newVal==0||(int)newVal<pd.getOffTh()){
+		return "OFF";
+	}else{	
+	return "NULL";
+	}			
+} 
+
+rule "Energy measurement with dynamic classes"
+salience 13
+dialect "mvel" 
+	when
+		//$c:ContextEvent(eval( RDFSubject instanceof ReadEnergy), $s: ((ReadEnergy)RDFSubject).getDevice().getName(),$o:RDFObject)
+		$c:ContextEvent(eval( RDFSubject instanceof ReadEnergy), $s: ((ReadEnergy)RDFSubject),$o:RDFObject)
+		not $d: PoweredDevice( device matches $s.getDevice().getName() )
+	then
+		PoweredDevice pd = new PoweredDevice($s, 0,5000,0.1,0,"OFF","OFF",new java.util.LinkedList());
+		insert(pd);
+		System.out.println("INSERTANDO POWEREDDEVICE: "+$s);		
+end	
+
+rule "Dynamic Energy measurement"
+no-loop true
+salience 10
+	when
+		$c:ContextEvent(eval( RDFSubject instanceof ReadEnergy), $s: ((ReadEnergy)RDFSubject).getDevice().getName(),$o:RDFObject)
+		$d: PoweredDevice( device matches $s )
+	then				
+		LinkedList al = updateElements($d,((EnergyMeasurement)$o).getValue());		
+		//showList($d);
+		String status = updateStatus($d, ((EnergyMeasurement)$o).getValue());
+		//System.put.println("Changing with threshold "+$d.getStand);
+		//System.out.println($s+"Value: "+ ((EnergyMeasurement)$o).getValue()+" max value-->"+$d.getMax()+" upper threshold-> "+$d.getOnTh()+" min value-->"+$d.getMin()+" lower threshold-> "+$d.getOffTh()+" Last status--> "+$d.getLaststatus()+" current status--> "+$d.getStatus()+" new status--> "+status);		
+		modify($d){setAlist(al),setLaststatus($d.getStatus()),setStatus(status)};
+		//System.out.println($s+ " The current status has been set to..."+$d.getStatus());				
+end	
+
+rule "Dynamic MAX assignment"
+no-loop true
+salience 12
+	when
+		$c:ContextEvent(eval( RDFSubject instanceof ReadEnergy), $s: ((ReadEnergy)RDFSubject).getDevice().getName(),$val:((EnergyMeasurement)RDFObject).getValue())
+		$d: PoweredDevice( device matches $s, $mx:max<$val, $mn:min)
+	then
+		java.lang.Integer oldMax = new java.lang.Integer($mx);
+		int newMax = $val;
+		//int range = newMax - $mn;
+		//float newMaxTh =  (float)(newMax - 0.5*range);
+		float newMaxTh =  (float)($mn*0.60);		
+		//System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>maxTH----->"+newMaxTh);
+		//System.out.println("\n\n-----------------------------\n\nOld max value: "+oldMax+" new max value: "+newMax+"  new ON threshold "+newMaxTh+"\n\n-----------------------------\n\n");
+		modify($d){setMax(newMax), setOnTh(newMaxTh)}				
+end
+		
+rule "Dynamic MIN assignment"
+no-loop true
+salience 12
+	when
+		$c:ContextEvent(eval( RDFSubject instanceof ReadEnergy), $s: ((ReadEnergy)RDFSubject).getDevice().getName(),$val:((EnergyMeasurement)RDFObject).getValue()>0)
+		$d: PoweredDevice( device matches $s, $mn:min>$val, $mx:max)
+		//eval($mx!=0&&$val/$mx<0.5)
+	then
+		java.lang.Integer oldMin = new java.lang.Integer($mn);
+		int newMin = $val;
+		int range = $mx - newMin;
+		//float newOffTh =  (float)(newMin + 0.2*range);
+		float newOffTh =  (float)($mx*0.05);
+		//System.out.println("\n\n-----------------------------\n\nOld min value: "+oldMin+" new min value: "+newMin+"new STANDBY theshold "+newOffTh+" \n\n-----------------------------\n\n");
+		modify($d){setMin(newMin), setOffTh(newOffTh)}				
+end 
+
+
+
+rule "WatchingTV"
+salience 9
+	when
+		$d: PoweredDevice($s:device=="Miguel Angel", $last:laststatus, $status:status not matches laststatus )
+	then		
+		System.out.println(">>>Watching TV "+$status+"!!!!<<<");
+		System.out.println("Device "+$s+" changed from "+$last+" to "+$status+"" );
+		RulesEngine.getInstance().publishConsequence(new String("http://www.tsbtecnologias.es/Consequence.owl#"+drools.getRule().getName()), new String[]{"ActivityType","Device","Status"},new String[]{"WatchingTV",$s,$status});
+end
+
+rule "WashingDishes"
+salience 9
+	when
+		$d: PoweredDevice($s:device=="Enchufe Armario", $last:laststatus, $status:status not matches laststatus )
+	then		
+		System.out.println(">>>Status changed"+$status+"!!!!<<<");
+		System.out.println("Device "+$s+" changed from "+$last+" to "+$status+"" );
+		RulesEngine.getInstance().publishConsequence(new String("http://www.tsbtecnologias.es/Consequence.owl#"+drools.getRule().getName()), new String[]{"ActivityType","Device","Status"},new String[]{"WashingDishes",$s,$status});
+end
+
+rule "DoingLaundry"
+salience 9
+	when
+		$d: PoweredDevice($s:device=="Pantalla Serdula", $last:laststatus, $status:status not matches laststatus )
+	then		
+		System.out.println(">>>Status changed"+$status+"!!!!<<<");
+		System.out.println("Device "+$s+" changed from "+$last+" to "+$status+"" );
+		RulesEngine.getInstance().publishConsequence(new String("http://www.tsbtecnologias.es/Consequence.owl#"+drools.getRule().getName()), new String[]{"ActivityType","Device","Status"},new String[]{"DoingLaundry",$s,$status});
+end
+
+rule "Retractor"
+salience -1
+	when
+		$c:ContextEvent(eval( RDFSubject instanceof ReadEnergy))		
+	then		
+		retract($c);
+end
+

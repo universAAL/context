@@ -15,3 +15,7 @@ pom/ctxt.karaf.features/.project
 pom/ctxt.karaf.features/.settings
 pom/ctxt.karaf.features/target
 pom/target
+sesame.uaal.store/.classpath
+sesame.uaal.store/.project
+sesame.uaal.store/.settings
+sesame.uaal.store/target

@@ -1,0 +1,6 @@
+* text=auto !eol
+pom/ctxt.karaf.features/ASL2.0.txt -text
+pom/ctxt.karaf.features/NOTICE.txt -text
+pom/ctxt.karaf.features/pom.xml -text
+pom/ctxt.karaf.features/src/features/features.xml -text
+pom/pom.xml -text

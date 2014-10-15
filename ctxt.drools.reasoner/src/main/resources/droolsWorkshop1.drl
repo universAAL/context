@@ -1,0 +1,48 @@
+#created on: 17-sept-2012
+package universaal
+dialect "java" 
+
+import org.universAAL.middleware.context.ContextEvent;
+import org.universAAL.drools.engine.RulesEngine;
+import org.universAAL.ontology.location.Location;
+import org.universAAL.middleware.rdf.Resource;
+import org.universAAL.ontology.device.Sensor;
+import org.universAAL.drools.models.Fact;
+import org.universAAL.drools.models.FactProperty;
+import java.util.Hashtable;
+import java.util.ArrayList;
+
+declare Activity
+place : String @key
+intensity: String
+counter : int
+end
+
+declare ContextEvent
+@role(event)
+@expires(2m)
+end
+
+rule "Activity insertion"
+//agenda-group "MAIN"
+    when
+    	 
+        ContextEvent(eval (RDFSubject instanceof Sensor),  $s:(((Sensor)RDFSubject).getLocation().getProperty(Location.PROP_HAS_NAME)))
+        not Activity ( place matches $s )
+    then
+        System.out.println("Inserting activity with instanceof...");
+    	Activity act = new Activity(new String($s.toString()),"NULL",0);
+    	insert(act);
+    	
+    	FactProperty room = new FactProperty("ROOM",new String($s.toString()));
+    	FactProperty intensity = new FactProperty("INTENSITY","NULL");
+    	Fact f = new Fact("ACTIVITY",new FactProperty[]{room, intensity});
+    	insert(f);
+end
+
+rule "Simple rule"
+	when
+		ContextEvent(  )
+	then
+		System.out.println("Hi from DRL!");
+end

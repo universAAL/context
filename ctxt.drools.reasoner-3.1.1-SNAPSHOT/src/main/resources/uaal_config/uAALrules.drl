@@ -1,0 +1,755 @@
+package org.universAAL.AALapplication
+dialect "java" 
+
+import org.universAAL.middleware.context.ContextEvent;
+import org.universAAL.drools.engine.RulesEngine;
+import org.universAAL.ontology.location.Location;
+import org.universAAL.middleware.rdf.Resource;
+import org.universAAL.middleware.owl.ManagedIndividual;
+import org.universAAL.ontology.activityhub.ActivityHubSensor;
+import org.universAAL.ontology.activityhub.MotionSensor;
+import org.universAAL.ontology.activityhub.ContactClosureSensor;
+import org.universAAL.ontology.device.DimmerSensor;
+import org.universAAL.drools.models.Fact;
+import org.universAAL.drools.models.FactProperty;
+import java.util.Hashtable;
+import java.util.ArrayList;
+import java.util.LinkedList;
+
+declare ContextEvent
+@role(event)
+@expires(2m)
+end
+
+//------------------------------------------------------------------------------------------------------
+//ACTIVITY DECLARATIONS
+//------------------------------------------------------------------------------------------------------
+
+declare DayActivityIndex
+index: float
+end
+
+declare HourActivityIndex
+index: float
+end
+
+declare CurrentActivityIndex
+index: float
+room: String
+end
+
+declare UserStatus
+awake: boolean
+atHome: boolean
+end
+
+declare UserAwake
+@role(event)
+//@expires(1s)
+end
+
+declare UserAsleep
+@role(event)
+end
+
+declare SleepDisturbance
+@role(event)
+end
+
+declare OutOfHome
+end
+
+declare UserBack
+@role(event)
+end
+
+declare NullActivity
+@role(event)
+//@expires(1s)
+room: String
+end
+
+declare Activity
+place : String @key
+intensity: String
+counter : int
+end
+//------------------------------------------------------------------------------------------------------
+//ENERGY DECLARATIONS
+//------------------------------------------------------------------------------------------------------
+declare EnergyStatus
+device: String @key
+end
+
+declare PoweredDevice
+device: String @key
+max: int
+min: int
+onTh: float
+offTh: float
+laststatus: String
+status: String
+//alist: java.util.ArrayList
+alist: java.util.LinkedList
+end
+
+declare DeviceConsumption
+device: String @key
+alist: java.util.ArrayList
+end
+
+function void showList(PoweredDevice dc){
+	System.out.println("Showing consumption for: "+dc.getDevice());
+	java.util.LinkedList list = new java.util.LinkedList();
+	list = dc.getAlist();
+	for (int i = 0 ; i < list.size() ; i++){
+		System.out.print(" "+list.get(i));
+	
+}
+
+function LinkedList updateElements(PoweredDevice pd, Integer newVal){
+	java.util.LinkedList al = new java.util.LinkedList();
+	al = pd.getAlist();
+	al.addFirst(newVal);	
+	if(al.size()>5){
+	al = new LinkedList(al.subList(0,5));	
+	}
+return al;
+}
+
+//--------------------------------------------------------------------------------------------------------
+//ENERGY FUNCTIONS
+//--------------------------------------------------------------------------------------------------------
+
+function String updateStatus(PoweredDevice pd, Integer newVal){
+	//System.out.println("On->"+pd.getOnTh()+" Off->"+pd.getOffTh()+" VALUE TO COMPARE->"+newVal);
+	if((int)newVal>=pd.getOnTh()){
+		return "ON";
+	}else if ((int)newVal>pd.getOffTh()&&(int)newVal<pd.getOnTh()){
+		return "STANDBY";
+	}else if ((int)newVal==0||(int)newVal<pd.getOffTh()){
+		return "OFF";
+	}else{	
+	return "NULL";
+	}			
+} 
+
+//--------------------------------------------------------------------------------------------------------
+//ACTIVTY FUNCTIONS
+//--------------------------------------------------------------------------------------------------------
+function String getRoom(String chorizo){
+if(chorizo.equals("http://ontology.universAAL.org/ActivityHubServer.owl#controlledActivityHubDevice1/2/0")){
+return "GARDEN";
+}else if(chorizo.equals("http://ontology.universAAL.org/ActivityHubServer.owl#controlledActivityHubDevice2/2/0")){
+return "KITCHEN";
+}else if(chorizo.equals("http://ontology.universAAL.org/ActivityHubServer.owl#controlledActivityHubDevice3/2/0")){
+return "LIVING ROOM";
+}else if(chorizo.equals("http://ontology.universAAL.org/ActivityHubServer.owl#controlledActivityHubDevice4/2/0")){
+return "BEDROOM";
+}else if(chorizo.equals("http://ontology.universAAL.org/ActivityHubServer.owl#controlledActivityHubDevice5/2/0")){
+return "CORRIDOR";
+}else if(chorizo.equals("http://ontology.universAAL.org/ActivityHubServer.owl#controlledActivityHubDevice0/0/1")){
+return "BATHROOM";
+}else if(chorizo.equals("http://ontology.universAAL.org/ActivityHubServer.owl#controlledActivityHubDevice0/1/0")){
+return "HALL";
+}else{
+return "NULL";
+}
+}
+
+rule "Initialize user status"
+when
+	not UserStatus()
+then
+	insert(new UserStatus(true,true));
+end
+
+rule "Initialize activity level index - day"
+when
+	not DayActivityIndex()
+then
+	insert(new DayActivityIndex(0));
+end
+
+rule "Initialize activity level index - hour"
+when
+	not HourActivityIndex()
+then
+	insert(new HourActivityIndex(0));
+end
+
+rule "Initialize activity level index - current"
+when
+	not CurrentActivityIndex()
+then
+	insert(new CurrentActivityIndex(0,"ALL"));
+	insert(new CurrentActivityIndex(0,"KITCHEN"));
+	insert(new CurrentActivityIndex(0,"BEDROOM"));
+	insert(new CurrentActivityIndex(0,"BATHROOM"));
+	insert(new CurrentActivityIndex(0,"LIVING ROOM"));
+	insert(new CurrentActivityIndex(0,"GARDEN"));
+	insert(new CurrentActivityIndex(0,"HALL"));
+end
+
+function String intensityUpdater(int c){
+if(c==0){
+return "NULL";
+}else if (c>0 && c<=2){
+return "LOW";
+}else if(c>2 && c<=7){
+return "MEDIUM";
+}else{
+return "HIGH";
+}
+}
+//-----------------------------------------------------------------------------------------------------------------------------------------------------
+//ACTIVITY RULES
+//-----------------------------------------------------------------------------------------------------------------------------------------------------
+rule "Motion Sensor ZWave"
+//agenda-group "MAIN"
+    when
+    	$c:ContextEvent(eval(RDFSubject instanceof MotionSensor), $s:(((MotionSensor)RDFSubject).getLocation().getProperty(Location.PROP_HAS_NAME)))
+        not Activity ( place matches $s )
+    then
+        System.out.println("Inserting activity.New place found from motion sensor.");
+    	Activity act = new Activity(new String($s.toString()),"NULL",0);
+    	insert(act);    	
+    	//FactProperty room = new FactProperty("ROOM",new String($s.toString()));
+    	//FactProperty intensity = new FactProperty("INTENSITY","NULL");
+    	//Fact f = new Fact("ACTIVITY",new FactProperty[]{room, intensity});
+    	//insert(f);
+end
+
+rule "Contact Closure ZWave"
+	when
+		$c:ContextEvent(eval(RDFSubject instanceof ContactClosureSensor), $s:(((ContactClosureSensor)RDFSubject).getLocation().getProperty(Location.PROP_HAS_NAME)))
+		not Activity ( place matches $s )
+	then
+		System.out.println("Inserting activity. New place found from contact closure sensor.");
+		Activity act = new Activity(new String($s.toString()),"NULL",0);
+    	insert(act);    	
+    	//FactProperty room = new FactProperty("ROOM",new String($s.toString()));
+    	//FactProperty intensity = new FactProperty("INTENSITY","NULL");
+    	//Fact f = new Fact("ACTIVITY",new FactProperty[]{room, intensity});
+    	//insert(f);    	
+end
+/*
+rule "Simple rule"
+	when
+		ContextEvent(  )
+	then
+		System.out.println("Ping?");
+end
+*/
+//LOOK AT THE WINDOW TIME LENGHT
+rule "Activity counter with accumulate" 
+no-loop
+	when
+	   $a:Activity( $place : place )		
+       and Number($i:intValue ) from accumulate ($c: ContextEvent(eval(RDFSubject instanceof ActivityHubSensor), ((ActivityHubSensor)RDFSubject).getLocation().getProperty(Location.PROP_HAS_NAME) matches $place) over window:time(20s),count($c)) 
+	then
+		System.out.println("Counter value changing...");
+		String st = intensityUpdater($i);		
+		modify($a){setCounter($i),setIntensity(st)}
+end
+
+/*
+rule "Fact counter with accumulate" 
+no-loop
+//agenda-group "counter"
+//auto-focus true
+	when
+	   $f:Fact( $place : getAttribute("ROOM"))		
+       and Number($i:intValue ) from accumulate ($c: ContextEvent(eval(RDFSubject instanceof ActivityHubSensor), ((ActivityHubSensor)RDFSubject).getLocation().getProperty(Location.PROP_HAS_NAME) matches $place) over window:time(20s),count($c)) 
+	then
+		System.out.println("Counter FACTS changing...");
+		String st = intensityUpdater($i);		
+		//modify($f){setCounter($i),setIntensity(st)}
+		//kcontext.getKnowledgeRuntime().getAgenda().getAgendaGroup("MAIN").setFocus();	
+end
+*/
+rule "Intensity changed"
+salience -1
+	when
+		$a:Activity(counter == 0 || counter == 1 || counter == 3 || counter == 8, $i:intensity, $p:place)
+	then		
+		RulesEngine.getInstance().publishConsequence(new String("http://www.tsbtecnologias.es/Consequence.owl#"+drools.getRule().getName()), new String[]{"Source","Intensity"},new String[]{$p,$i});
+end
+//---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+//INDICATORS
+//---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+rule "ActivityIndex - Hour Average"
+dialect "java"
+no-loop true
+	when
+	    $a:HourActivityIndex( $i: index )		
+       and Number($val:floatValue) from accumulate ($c: ContextEvent(eval(RDFSubject instanceof ActivityHubSensor), ((ManagedIndividual)RDFObject).getURI() matches "http://ontology.universAAL.org/ActivityHub.owl#motion_detected") over window:time(1h),count($c))
+       
+	then
+		System.out.println("Current activity index (1 hour): "+((float)$i)+" new activity index "+((float)($val/4)));
+		modify($a){setIndex((float)$val/4)}
+end
+
+rule "ActivityIndex - Day Average"
+dialect "java"
+no-loop true
+	when
+	    $a:DayActivityIndex( $i: index )		
+       and Number($val:floatValue) from accumulate ($c: ContextEvent(eval(RDFSubject instanceof ActivityHubSensor),  ((ManagedIndividual)RDFObject).getURI() matches "http://ontology.universAAL.org/ActivityHub.owl#motion_detected") over window:time(24h),count($c))     
+	then
+		System.out.println("Current activity index (1 day): "+((float)$i)+" new activity index "+((float)($val/816)));
+		modify($a){setIndex((float)$val/816)}
+end
+
+rule "ActivityIndex - 5 minutes Average"
+dialect "java"
+no-loop true
+	when
+	    $a:CurrentActivityIndex( $i: index, room matches "ALL" )		
+       and Number($val:floatValue) from accumulate ($c: ContextEvent(eval(RDFSubject instanceof ActivityHubSensor),  ((ManagedIndividual)RDFObject).getURI() matches "http://ontology.universAAL.org/ActivityHub.owl#motion_detected") over window:time(5m),count($c))       
+	then
+		System.out.println("Current activity (5 minutes) index: "+((float)$i)+" new activity index "+((float)($val)));
+		modify($a){setIndex((float)$val)}
+end
+
+rule "CurrentActivityIndex - Kitchen"
+dialect "java"
+no-loop true
+	when
+	    $a:CurrentActivityIndex( $i: index, room matches "KITCHEN" )		
+       and Number($val:floatValue) from accumulate ($c: ContextEvent(eval(RDFSubject instanceof ActivityHubSensor), $s:(((ActivityHubSensor)RDFSubject).getLocation().getProperty(Location.PROP_HAS_NAME))=="KITCHEN", ((ManagedIndividual)RDFObject).getURI() matches "http://ontology.universAAL.org/ActivityHub.owl#motion_detected" ) over window:time(5m),count($c))       
+	then
+		System.out.println("Current activity (5 minutes) index in kitchen: "+((float)$i)+" new activity index "+((float)($val)));
+		modify($a){setIndex((float)$val)}
+end
+
+rule "CurrentActivityIndex - Bathroom"
+dialect "java"
+no-loop true
+	when
+	    $a:CurrentActivityIndex( $i: index, room matches "BATHROOM" )		
+       and Number($val:floatValue) from accumulate ($c: ContextEvent(eval(RDFSubject instanceof ActivityHubSensor), $s:(((ActivityHubSensor)RDFSubject).getLocation().getProperty(Location.PROP_HAS_NAME))=="BATHROOM", ((ManagedIndividual)RDFObject).getURI() matches "http://ontology.universAAL.org/ActivityHub.owl#motion_detected" ) over window:time(5m),count($c))       
+	then
+		System.out.println("Current activity (5 minutes) index in bathroom: "+((float)$i)+" new activity index "+((float)($val)));
+		modify($a){setIndex((float)$val)}
+end
+
+rule "CurrentActivityIndex - Bedroom"
+dialect "java"
+no-loop true
+	when
+	    $a:CurrentActivityIndex( $i: index, room matches "BEDROOM" )		
+       and Number($val:floatValue) from accumulate ($c: ContextEvent(eval(RDFSubject instanceof ActivityHubSensor), $s:(((ActivityHubSensor)RDFSubject).getLocation().getProperty(Location.PROP_HAS_NAME))=="BEDROOM", ((ManagedIndividual)RDFObject).getURI() matches "http://ontology.universAAL.org/ActivityHub.owl#motion_detected" ) over window:time(5m),count($c))       
+	then
+		System.out.println("Current activity (5 minutes) index in bedroom: "+((float)$i)+" new activity index "+((float)($val)));
+		modify($a){setIndex((float)$val)}
+end
+
+rule "CurrentActivityIndex - Living Room"
+dialect "java"
+no-loop true
+	when
+	    $a:CurrentActivityIndex( $i: index, room matches "LIVING ROOM" )		
+       and Number($val:floatValue) from accumulate ($c: ContextEvent(eval(RDFSubject instanceof ActivityHubSensor), $s:(((ActivityHubSensor)RDFSubject).getLocation().getProperty(Location.PROP_HAS_NAME))=="LIVING ROOM", ((ManagedIndividual)RDFObject).getURI() matches "http://ontology.universAAL.org/ActivityHub.owl#motion_detected" ) over window:time(5m),count($c))       
+	then
+		System.out.println("Current activity (5 minutes) index in living room: "+((float)$i)+" new activity index "+((float)($val)));
+		modify($a){setIndex((float)$val)}
+end
+
+rule "CurrentActivityIndex - Hall"
+dialect "java"
+no-loop true
+	when
+	    $a:CurrentActivityIndex( $i: index, room matches "HALL" )		
+       and Number($val:floatValue) from accumulate ($c: ContextEvent(eval(RDFSubject instanceof ActivityHubSensor), $s:(((ActivityHubSensor)RDFSubject).getLocation().getProperty(Location.PROP_HAS_NAME))=="HALL", ((ManagedIndividual)RDFObject).getURI() matches "http://ontology.universAAL.org/ActivityHub.owl#motion_detected" ) over window:time(5m),count($c))       
+	then
+		System.out.println("Current activity (5 minutes) index in hall: "+((float)$i)+" new activity index "+((float)($val)));
+		modify($a){setIndex((float)$val)}
+end
+
+rule "CurrentActivityIndex - Garden"
+dialect "java"
+no-loop true
+	when
+	    $a:CurrentActivityIndex( $i: index, room matches "GARDEN" )		
+       and Number($val:floatValue) from accumulate ($c: ContextEvent(eval(RDFSubject instanceof ActivityHubSensor), $s:(((ActivityHubSensor)RDFSubject).getLocation().getProperty(Location.PROP_HAS_NAME))=="GARDEN", ((ManagedIndividual)RDFObject).getURI() matches "http://ontology.universAAL.org/ActivityHub.owl#motion_detected" ) over window:time(5m),count($c))       
+	then
+		System.out.println("Current activity (5 minutes) index in garden: "+((float)$i)+" new activity index "+((float)($val)));
+		modify($a){setIndex((float)$val)}
+end
+
+//The period of average calculation is a day, but, as the data is continously being updated, it can be sent more than once a day, improving the trend representation.
+rule "Get Day Average"
+timer(int: 1m 8h)
+	when
+		$d:DayActivityIndex()
+	then
+		RulesEngine.getInstance().publishConsequence(new String("http://www.tsbtecnologias.es/Consequence.owl#"+drools.getRule().getName()), new String[]{"ActivityType","Index"},new String[]{"AverageDay",new String(""+$d.getIndex())});
+end
+
+rule "Get 5 minutes Average"
+timer(int: 0 5m)
+	when
+		$c:CurrentActivityIndex($r: room);
+	then
+		RulesEngine.getInstance().publishConsequence(new String("http://www.tsbtecnologias.es/Consequence.owl#"+drools.getRule().getName()), new String[]{"ActivityType","Room","Index"},new String[]{"Current",new String($r),new String(""+$c.getIndex())});	
+end
+
+
+
+rule "Null activity - room"
+salience 2
+	when
+		$a:Activity($p: place, intensity == "NULL")
+	then
+		insert(new NullActivity($p));
+		System.out.println("NULL ACTIVITY IN "+$p+" "+java.util.Calendar.getInstance().getTime());
+end
+
+rule "Null activity - house"
+salience 1
+	when
+		not Activity(intensity != "NULL")
+	then
+		System.out.println("NULL ACTIVITY IN ALL THE (CONTROLLED) HOUSE"+" "+java.util.Calendar.getInstance().getTime());
+		insert(new NullActivity("ALL"));		
+end
+
+rule "Null coincidence"
+	when
+		$e:NullActivity(room=="KITCHEN");
+		NullActivity(room=="ALL", this coincides $e)
+	then
+		System.out.println("COINCIDENCE");
+end
+
+rule "Going to bed"
+salience 1
+	when
+		$a:NullActivity($r:room=="KITCHEN") and $uS:UserStatus(awake==true)
+		(and(not ContextEvent(eval(RDFSubject instanceof ActivityHubSensor),  this after [1ms,30s] $a, ((ManagedIndividual)RDFObject).getURI() matches "http://ontology.universAAL.org/ActivityHub.owl#motion_detected" )))
+	then		
+		modify($uS){setAwake(false)}
+		RulesEngine.getInstance().publishConsequence(new String("http://www.tsbtecnologias.es/Consequence.owl#"+drools.getRule().getName()), new String[]{"ActivityType","Device"},new String[]{"GoingToBed","BEDROOM"});
+		System.out.println("GOING TO BED"+" "+$r+" "+java.util.Calendar.getInstance().getTime());
+		insert(new UserAsleep());
+		retract($a);
+end
+
+//LOOK AT THE WINDOW TIME LENGHT
+rule "Sleeping observer - No activity" 
+no-loop
+	when
+	   not UserAsleep()
+	   $sd:SleepDisturbance()	
+	   UserStatus(awake == false)	
+       and Number($i:intValue == 0) from accumulate ($c: ContextEvent(eval(RDFSubject instanceof ActivityHubSensor),  ((ManagedIndividual)RDFObject).getURI() matches "http://ontology.universAAL.org/ActivityHub.owl#motion_detected") over window:time(1m),count($c)) 
+	then
+		insert(new UserAsleep());
+		retract($sd);
+		System.out.println("No activity");		
+end
+
+//LOOK AT THE WINDOW TIME LENGHT
+rule "Sleeping observer - Some activity" 
+no-loop
+	when
+		$uA:UserAsleep()
+		not SleepDisturbance()
+	   UserStatus(awake == false)	
+       and Number($i:intValue == 1) from accumulate ($c: ContextEvent(eval(RDFSubject instanceof ActivityHubSensor),  ((ManagedIndividual)RDFObject).getURI() matches "http://ontology.universAAL.org/ActivityHub.owl#motion_detected") over window:time(1m),count($c)) 
+	then
+		retract($uA);
+		insert(new SleepDisturbance());
+		System.out.println("Some activity");		
+end
+
+/*
+
+//LOOK AT THE WINDOW TIME LENGHT
+rule "Waking Up according to SleepDisturbances"
+no-loop
+	when
+	   $uS:UserStatus(awake == false)	
+       and Number($i:intValue == 1) from accumulate ($c:SleepDisturbance() over window:time(20m),count($c)) 
+	then
+	modify($uS){setAwake(true)}	
+	System.out.println("Waking Up");		
+end
+
+	
+*/
+
+rule "Awakening"
+	when
+	$uA: UserAsleep()
+		$c:ContextEvent(eval(RDFSubject instanceof ActivityHubSensor),  $s:(((ActivityHubSensor)RDFSubject).getLocation().getProperty(Location.PROP_HAS_NAME))=="KITCHEN",((ManagedIndividual)RDFObject).getURI() matches "http://ontology.universAAL.org/ActivityHub.owl#motion_detected"  ,this after $uA)
+		//not ContextEvent( this before [1ms,30s] $c)
+		$n:NullActivity(room == "ALL", this after [1ms, 1h] $c)
+		NullActivity(room == "KITCHEN", this coincides $n)
+		$uS:UserStatus(awake == false)
+	then
+		//modify($uS){setAwake(true)}
+		RulesEngine.getInstance().publishConsequence(new String("http://www.tsbtecnologias.es/Consequence.owl#"+drools.getRule().getName()), new String[]{"ActivityType","Device"},new String[]{"Awakening","BEDROOM"});
+		//insert(new SleepDisturbance());
+		//System.out.println("AWAKENING "+java.util.Calendar.getInstance().getTime());	
+end
+
+//Rule 1 -- No Null Activity since an SleepDisturbance()
+rule "WakingUp Long Disturbance"
+	when
+		$sd:SleepDisturbance()
+		not UserAsleep(this after [2m] $sd)
+	then
+		System.out.println("Too much time with activity, user woke up!!!");
+		RulesEngine.getInstance().publishConsequence(new String("http://www.tsbtecnologias.es/Consequence.owl#"+drools.getRule().getName()), new String[]{"ActivityType","Device"},new String[]{"WakingUp","BEDROOM"});
+end
+//Rule 2 -- Sleep disturbances exeed a threshold
+rule "Waking Up Several Disturbances"
+	when
+		$uS:UserStatus(awake == false)	
+       and Number($i:intValue > 3) from accumulate ($c:SleepDisturbance() over window:time(60m),count($c))
+	then
+		System.out.println("Too much disturbances, user woke up");
+		RulesEngine.getInstance().publishConsequence(new String("http://www.tsbtecnologias.es/Consequence.owl#"+drools.getRule().getName()), new String[]{"ActivityType","Device"},new String[]{"Awakening","BEDROOM"});
+end
+
+rule "Presence in kitchen start"
+	when
+		ContextEvent(eval(RDFSubject instanceof ActivityHubSensor), $s:(((ActivityHubSensor)RDFSubject).getLocation().getProperty(Location.PROP_HAS_NAME))=="KITCHEN", ((ManagedIndividual)RDFObject).getURI() matches "http://ontology.universAAL.org/ActivityHub.owl#motion_detected" )
+	then
+	RulesEngine.getInstance().publishConsequence(new String("http://www.tsbtecnologias.es/Consequence.owl#"+drools.getRule().getName()), new String[]{"ActivityType","Phase"},new String[]{"PresenceInKitchen","Start"});	
+end
+
+rule "Presence in kitchen stop"
+	when
+		ContextEvent(eval(RDFSubject instanceof ActivityHubSensor), $s:(((ActivityHubSensor)RDFSubject).getLocation().getProperty(Location.PROP_HAS_NAME))=="KITCHEN", ((ManagedIndividual)RDFObject).getURI() matches "http://ontology.universAAL.org/ActivityHub.owl#no_condition_detected" )
+	then
+		RulesEngine.getInstance().publishConsequence(new String("http://www.tsbtecnologias.es/Consequence.owl#"+drools.getRule().getName()), new String[]{"ActivityType","Phase"},new String[]{"PresenceInKitchen","Stop"});
+		System.out.println("PRESENCE IN KITCHEN STOP");
+end
+
+rule "Presence in bathroom start"
+	when
+		ContextEvent(eval(RDFSubject instanceof ActivityHubSensor), $s:(((ActivityHubSensor)RDFSubject).getLocation().getProperty(Location.PROP_HAS_NAME))=="BATHROOM", ((ManagedIndividual)RDFObject).getURI() matches "http://ontology.universAAL.org/ActivityHub.owl#motion_detected" )
+	then
+	RulesEngine.getInstance().publishConsequence(new String("http://www.tsbtecnologias.es/Consequence.owl#"+drools.getRule().getName()), new String[]{"ActivityType","Phase"},new String[]{"PresenceInBath","Start"});
+		System.out.println("PRESENCE IN BATHROOM START");
+end
+
+rule "Presence in bathroom stop"
+	when
+		ContextEvent(eval(RDFSubject instanceof ActivityHubSensor), $s:(((ActivityHubSensor)RDFSubject).getLocation().getProperty(Location.PROP_HAS_NAME))=="BATHROOM", ((ManagedIndividual)RDFObject).getURI() matches "http://ontology.universAAL.org/ActivityHub.owl#no_condition_detected" )
+	then
+		System.out.println("PRESENCE IN BATHROOM STOP");
+		RulesEngine.getInstance().publishConsequence(new String("http://www.tsbtecnologias.es/Consequence.owl#"+drools.getRule().getName()), new String[]{"ActivityType","Phase"},new String[]{"PresenceInBath","Stop"});
+end
+//---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+//ENERGY EVENTS
+//---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+rule "Energy measurement with dynamic classes"
+salience 13
+dialect "mvel" 
+	when
+		//$c:ContextEvent(eval( RDFSubject instanceof DimmerSensor), $s: ((DimmerSensor)RDFSubject).getURI(),$o:RDFObject)
+		$c:ContextEvent(eval( RDFSubject instanceof DimmerSensor), $s: ((DimmerSensor)RDFSubject),$o:RDFObject)
+		not $d: PoweredDevice( device matches $s.getURI() )
+	then
+		PoweredDevice pd = new PoweredDevice($s, 0,5000,0.1,0,"OFF","OFF",new java.util.LinkedList());
+		insert(pd);
+		System.out.println("INSERTANDO POWEREDDEVICE: "+$s);		
+end	
+
+rule "Dynamic Energy measurement"
+no-loop true
+salience 10
+	when
+		$c:ContextEvent(eval( RDFSubject instanceof DimmerSensor), $s: ((DimmerSensor)RDFSubject).getURI(),$o:RDFObject)
+		$d: PoweredDevice( device matches $s )
+	then				
+		LinkedList al = updateElements($d,((Integer)$o));		
+		//showList($d);
+		String status = updateStatus($d, ((Integer)$o));
+		//System.put.println("Changing with threshold "+$d.getStand);
+		//System.out.println($s+"Value: "+ ((EnergyMeasurement)$o).getValue()+" max value-->"+$d.getMax()+" upper threshold-> "+$d.getOnTh()+" min value-->"+$d.getMin()+" lower threshold-> "+$d.getOffTh()+" Last status--> "+$d.getLaststatus()+" current status--> "+$d.getStatus()+" new status--> "+status);		
+		modify($d){setAlist(al),setLaststatus($d.getStatus()),setStatus(status)};
+		//System.out.println($s+ " The current status has been set to..."+$d.getStatus());				
+end	
+
+rule "Dynamic MAX assignment"
+no-loop true
+salience 12
+	when
+		$c:ContextEvent(eval( RDFSubject instanceof DimmerSensor), $s: ((DimmerSensor)RDFSubject).getURI(),$val:((Integer)RDFObject))
+		$d: PoweredDevice( device matches $s, $mx:max<$val, $mn:min)
+	then
+		java.lang.Integer oldMax = new java.lang.Integer($mx);
+		int newMax = $val;
+		//int range = newMax - $mn;
+		//float newMaxTh =  (float)(newMax - 0.5*range);
+		float newMaxTh =  (float)($mn*0.60);		
+		//System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>maxTH----->"+newMaxTh);
+		//System.out.println("\n\n-----------------------------\n\nOld max value: "+oldMax+" new max value: "+newMax+"  new ON threshold "+newMaxTh+"\n\n-----------------------------\n\n");
+		modify($d){setMax(newMax), setOnTh(newMaxTh)}				
+end
+		
+rule "Dynamic MIN assignment"
+no-loop true
+salience 12
+	when
+		$c:ContextEvent(eval( RDFSubject instanceof DimmerSensor), $s: ((DimmerSensor)RDFSubject).getURI(),$val:((Integer)RDFObject)>0)
+		$d: PoweredDevice( device matches $s, $mn:min>$val, $mx:max)
+		//eval($mx!=0&&$val/$mx<0.5)
+	then
+		java.lang.Integer oldMin = new java.lang.Integer($mn);
+		int newMin = $val;
+		int range = $mx - newMin;
+		//float newOffTh =  (float)(newMin + 0.2*range);
+		float newOffTh =  (float)($mx*0.05);
+		//System.out.println("\n\n-----------------------------\n\nOld min value: "+oldMin+" new min value: "+newMin+"new STANDBY theshold "+newOffTh+" \n\n-----------------------------\n\n");
+		modify($d){setMin(newMin), setOffTh(newOffTh)}				
+end 
+
+rule "WatchingTV"
+salience 9
+	when
+		$d: PoweredDevice($s:device=="Miguel Angel", $last:laststatus, $status:status not matches laststatus )
+	then		
+		System.out.println(">>>Watching TV "+$status+"!!!!<<<");
+		System.out.println("Device "+$s+" changed from "+$last+" to "+$status+"" );
+		RulesEngine.getInstance().publishConsequence(new String("http://www.tsbtecnologias.es/Consequence.owl#"+drools.getRule().getName()), new String[]{"ActivityType","Device","Status"},new String[]{"WatchingTV",$s,$status});
+end
+
+rule "WashingDishes"
+salience 9
+	when
+		$d: PoweredDevice($s:device=="Enchufe Armario", $last:laststatus, $status:status not matches laststatus )
+	then		
+		System.out.println(">>>Status changed"+$status+"!!!!<<<");
+		System.out.println("Device "+$s+" changed from "+$last+" to "+$status+"" );
+		RulesEngine.getInstance().publishConsequence(new String("http://www.tsbtecnologias.es/Consequence.owl#"+drools.getRule().getName()), new String[]{"ActivityType","Device","Status"},new String[]{"WashingDishes",$s,$status});
+end
+
+rule "DoingLaundry"
+salience 9
+	when
+		$d: PoweredDevice($s:device=="Pantalla Serdula", $last:laststatus, $status:status not matches laststatus )
+	then		
+		System.out.println(">>>Status changed"+$status+"!!!!<<<");
+		System.out.println("Device "+$s+" changed from "+$last+" to "+$status+"" );
+		RulesEngine.getInstance().publishConsequence(new String("http://www.tsbtecnologias.es/Consequence.owl#"+drools.getRule().getName()), new String[]{"ActivityType","Device","Status"},new String[]{"DoingLaundry",$s,$status});
+end
+
+rule "Retractor"
+salience -1
+	when
+		$c:ContextEvent(eval( RDFSubject instanceof DimmerSensor))		
+	then		
+		retract($c);
+end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+rule "Activity counter without accumulate" 
+no-loop
+agenda-group "counter"
+auto-focus true
+	when		
+       $c: ContextEvent( $place: ((Sensor)RDFSubject).getLocation().getProperty(Location.PROP_HAS_NAME)) over window:time(2m) 
+       and $a:Activity(place matches $place,$counter: counter)
+	then
+		System.out.println("Incrementing counter...");
+		String st = intensityUpdater($counter+1);		
+		modify($a){setCounter($counter+1),setIntensity(st)};	
+		kcontext.getKnowledgeRuntime().getAgenda().getAgendaGroup("MAIN").setFocus();	
+end
+*/
+
+/*
+rule "Activity intensity updating LOW"  no-loop true agenda-group "updater" auto-focus true
+salience -5 
+	when
+		$a: Activity(counter>=2, counter<7)		
+	then
+		System.out.println("updating to low");
+		$a.setIntensity("LOW");	
+		update($a);		
+end
+
+rule "Activity intensity updating MEDIUM" salience -5 agenda-group "updater" auto-focus true
+	when	
+	$a: Activity(counter>=7,counter<12)		
+	then
+	System.out.println("updating to medium");
+	modify($a){setIntensity("MEDIUM")};		
+end
+
+rule "Activity intensity updating HIGH" agenda-group "updater" auto-focus true
+	when
+		$a: Activity(counter>=7)		
+	then
+		modify($a){setIntensity("HIGH")};		
+end
+*/
+/*
+rule "Show the Activity"
+//agenda-group "MAIN"
+	when
+		act:Activity()
+	then
+		System.out.println("Place: "+act.getPlace());
+    	System.out.println("Freq: "+act.getIntensity());
+    	System.out.println("Counter: "+act.getCounter());	
+end
+*/
+/*
+rule "Context_event_detector#Test1"
+	when
+		ContextEvent( $r:RDFPredicate )
+	then
+		System.out.println("\n\n\n\n\n\n\n\n");
+		System.out.println("Predicate:"+$r);
+		System.out.println("\n\n\n\n\n\n\n\n");
+end
+
+*/
+
+
+/*
+rule "Two context events"
+	when
+		ContextEvent( $p:((Sensor)RDFSubject).getLocation().getProperty(Location.PROP_HAS_NAME)   )
+		ContextEvent( ((Sensor)RDFSubject).getLocation().getProperty(Location.PROP_HAS_NAME) not matches $p )
+	then
+		System.out.println("\n\n\n\n\n\n\n\n");
+		System.out.println("Two non equal ContextEvents:PARTY");
+		System.out.println("\n\n\n\n\n\n\n\n");
+end
+*/
+
+/*
+rule "Check the temporal reasoning"
+	when
+		$c:ContextEvent( )
+		ContextEvent( this after [100ms,1m] $c)
+	then
+		System.out.println("\n\n\n\n\n\n\n\n");
+		System.out.println("ONE AFTER ANOTHE: THE RETURN");
+		System.out.println("\n\n\n\n\n\n\n\n");
+en
+*/

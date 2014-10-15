@@ -21,6 +21,11 @@ ctxt.situation.reasoner/.classpath
 ctxt.situation.reasoner/.project
 ctxt.situation.reasoner/.settings
 ctxt.situation.reasoner/target
+ctxt.space.server/.classpath
+ctxt.space.server/.project
+ctxt.space.server/.settings
+ctxt.space.server/target
+ctxt.space.server/uAAL.log
 pom/.project
 pom/.settings
 pom/ctxt.karaf.features/.classpath

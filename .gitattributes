@@ -938,6 +938,17 @@ ctxt.space.server-3.0.1-SNAPSHOT/src/main/java/org/universAAL/context/space/serv
 ctxt.space.server-3.0.1-SNAPSHOT/src/main/java/org/universAAL/context/space/serv/SCaller.java -text
 ctxt.space.server-3.0.1-SNAPSHOT/src/main/java/org/universAAL/context/space/serv/package.html -text
 ctxt.space.server-3.0.1-SNAPSHOT/src/test/java/org/universAAL/context/space/serv/ArtifactIT.java -text
+ctxt.space.server-3.1.1-SNAPSHOT/ASL2.0.txt -text
+ctxt.space.server-3.1.1-SNAPSHOT/LICENSE-CPL-JUnit.txt -text
+ctxt.space.server-3.1.1-SNAPSHOT/NOTICE.txt -text
+ctxt.space.server-3.1.1-SNAPSHOT/pom.xml -text
+ctxt.space.server-3.1.1-SNAPSHOT/src/main/java/org/universAAL/context/space/serv/Activator.java -text
+ctxt.space.server-3.1.1-SNAPSHOT/src/main/java/org/universAAL/context/space/serv/Queries.java -text
+ctxt.space.server-3.1.1-SNAPSHOT/src/main/java/org/universAAL/context/space/serv/SCallee.java -text
+ctxt.space.server-3.1.1-SNAPSHOT/src/main/java/org/universAAL/context/space/serv/SCalleeProvidedService.java -text
+ctxt.space.server-3.1.1-SNAPSHOT/src/main/java/org/universAAL/context/space/serv/SCaller.java -text
+ctxt.space.server-3.1.1-SNAPSHOT/src/main/java/org/universAAL/context/space/serv/package.html -text
+ctxt.space.server-3.1.1-SNAPSHOT/src/test/java/org/universAAL/context/space/serv/ArtifactIT.java -text
 ctxt.sysinfo.provider-3.0.1-SNAPSHOT/ASL2.0.txt -text
 ctxt.sysinfo.provider-3.0.1-SNAPSHOT/LICENSE-CPL-JUnit.txt -text
 ctxt.sysinfo.provider-3.0.1-SNAPSHOT/NOTICE.txt -text

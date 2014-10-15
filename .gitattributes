@@ -530,6 +530,11 @@ ctxt.pom-3.0.1-SNAPSHOT/ctxt.karaf.features/NOTICE.txt -text
 ctxt.pom-3.0.1-SNAPSHOT/ctxt.karaf.features/pom.xml -text
 ctxt.pom-3.0.1-SNAPSHOT/ctxt.karaf.features/src/features/features.xml -text
 ctxt.pom-3.0.1-SNAPSHOT/pom.xml -text
+ctxt.pom-3.1.1-SNAPSHOT/ctxt.karaf.features/ASL2.0.txt -text
+ctxt.pom-3.1.1-SNAPSHOT/ctxt.karaf.features/NOTICE.txt -text
+ctxt.pom-3.1.1-SNAPSHOT/ctxt.karaf.features/pom.xml -text
+ctxt.pom-3.1.1-SNAPSHOT/ctxt.karaf.features/src/features/features.xml -text
+ctxt.pom-3.1.1-SNAPSHOT/pom.xml -text
 ctxt.prof.server-0.2.0-SNAPSHOT/LICENSE-CPL-JUnit.txt -text
 ctxt.prof.server-0.2.0-SNAPSHOT/LICENSE.txt -text
 ctxt.prof.server-0.2.0-SNAPSHOT/NOTICE.txt -text

@@ -205,6 +205,13 @@ ctxt.pom-3.0.1-SNAPSHOT/ctxt.karaf.features/.project
 ctxt.pom-3.0.1-SNAPSHOT/ctxt.karaf.features/.settings
 ctxt.pom-3.0.1-SNAPSHOT/ctxt.karaf.features/target
 ctxt.pom-3.0.1-SNAPSHOT/target
+ctxt.pom-3.1.1-SNAPSHOT/.project
+ctxt.pom-3.1.1-SNAPSHOT/.settings
+ctxt.pom-3.1.1-SNAPSHOT/ctxt.karaf.features/.classpath
+ctxt.pom-3.1.1-SNAPSHOT/ctxt.karaf.features/.project
+ctxt.pom-3.1.1-SNAPSHOT/ctxt.karaf.features/.settings
+ctxt.pom-3.1.1-SNAPSHOT/ctxt.karaf.features/target
+ctxt.pom-3.1.1-SNAPSHOT/target
 ctxt.prof.server-0.2.0-SNAPSHOT/.classpath
 ctxt.prof.server-0.2.0-SNAPSHOT/.project
 ctxt.prof.server-0.2.0-SNAPSHOT/.settings

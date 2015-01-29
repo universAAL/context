@@ -44,6 +44,15 @@ public class ContextHistorySubscriber extends ContextSubscriber {
      * Logger.
      */
     private static Log log = Hub.getLog(ContextHistorySubscriber.class);
+    /**
+     * Used to ignore keep-alive events (matches SystemInfo.PROP_ALIVE)
+     */
+    private static final String SYSINFOPRED = "http://ontology.universAAL.org/SysInfo#alive";
+    /**
+     * Determines if keep-alive events should be logged.
+     */
+    private static boolean logAlive = Boolean.parseBoolean(Hub.getProperties()
+	    .getProperty("STORE.LOGALIVE", "false"));
 
     /**
      * Main constructor.
@@ -79,6 +88,7 @@ public class ContextHistorySubscriber extends ContextSubscriber {
      * (org.universAAL.middleware.context.ContextEvent)
      */
     public void handleContextEvent(ContextEvent event) {
+	if(!logAlive && SYSINFOPRED.equals(event.getRDFPredicate())) return;
 	db.storeEvent(event);
 	log.info("handleContextEvent", "CHe: Stored a Context Event");
     }

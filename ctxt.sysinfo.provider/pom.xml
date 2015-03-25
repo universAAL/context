@@ -5,11 +5,11 @@
   <parent>
     <groupId>org.universAAL.context</groupId>
     <artifactId>ctxt.pom</artifactId>
-    <version>3.3.0</version>
+    <version>3.3.1-SNAPSHOT</version>
     <relativePath>../ctxt.pom/pom.xml</relativePath>
   </parent>
   <artifactId>ctxt.sysinfo.provider</artifactId>
-  <version>3.3.0</version>
+  <version>3.3.1-SNAPSHOT</version>
   <packaging>bundle</packaging>
   <name>universAAL Context System Information Provider</name>
   <description>Publishes information about status of the AAL Space as Context events.</description>

@@ -10,11 +10,6 @@
   <artifactId>ctxt.karaf.feature</artifactId>
   <version>3.3.1-SNAPSHOT</version>
   <name>universAAL Karaf Feature for Context</name>
-  <scm>
-    <connection>${svn.base}/ctxt.pom/${project.artifactId}</connection>
-    <developerConnection>${svn.base}/ctxt.pom/${project.artifactId}</developerConnection>
-    <url>${svn.base.url}$ctxt.pom%2F{project.artifactId}</url>
-  </scm>
   <properties>
     <project.build.sourceEncoding>utf-8</project.build.sourceEncoding>
   </properties>

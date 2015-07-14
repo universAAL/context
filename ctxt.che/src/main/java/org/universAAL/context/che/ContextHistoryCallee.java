@@ -1,5 +1,5 @@
 /*
-	Copyright 2008-2014 ITACA-TSB, http://www.tsb.upv.es
+	Copyright 2008-2015 ITACA-TSB, http://www.tsb.upv.es
 	Instituto Tecnologico de Aplicaciones de Comunicacion 
 	Avanzadas - Grupo Tecnologias para la Salud y el 
 	Bienestar (TSB)
@@ -100,6 +100,8 @@ public class ContextHistoryCallee extends ServiceCallee {
 		    ServiceResponse.PROP_SERVICE_SPECIFIC_ERROR, "Corrupt call"));
 	    return FAILURE;
 	}
+	List scopeList = call.getScopes();
+	String[] scopeArray = (String[]) scopeList.toArray(new String[0]);
 	if (operation
 		.startsWith(ContextHistoryServices.SERVICE_DO_SPARQL_QUERY)) {
 	    log.info("handleCall", "Received call was SERVICE_DO_SPARQL_QUERY");
@@ -111,7 +113,7 @@ public class ContextHistoryCallee extends ServiceCallee {
 			"Invalid input"));
 		return FAILURE;
 	    }
-	    return execSPARQLQuery((String) input);
+	    return execSPARQLQuery((String) input, scopeArray);
 	} else if (operation
 		.startsWith(ContextHistoryServices.SERVICE_GET_EVENTS_BY_SPARQL)) {
 	    log.info("handleCall",
@@ -124,7 +126,7 @@ public class ContextHistoryCallee extends ServiceCallee {
 			"Invalid input"));
 		return FAILURE;
 	    }
-	    return execSPARQLQueryForEvents((String) input);
+	    return execSPARQLQueryForEvents((String) input, scopeArray);
 	} else {
 	    Object input = call
 		    .getInputValue(ContextHistoryServices.INPUT_EVENT);
@@ -175,7 +177,7 @@ public class ContextHistoryCallee extends ServiceCallee {
 		    tstinputValue = (Long) tstinput;
 		}
 		List results = db.retrieveEventsFromTstmp(sub, typ, pre, obj,
-			con, exp, cop, tst, tstinputValue);
+			con, exp, cop, tst, tstinputValue, scopeArray);
 		ServiceResponse response = new ServiceResponse(
 			CallStatus.succeeded);
 		response.addOutput(new ProcessOutput(
@@ -197,7 +199,7 @@ public class ContextHistoryCallee extends ServiceCallee {
 		    tstinputValue = (Long) tstinput;
 		}
 		List results = db.retrieveEventsToTstmp(sub, typ, pre, obj,
-			con, exp, cop, tst, tstinputValue);
+			con, exp, cop, tst, tstinputValue, scopeArray);
 		ServiceResponse response = new ServiceResponse(
 			CallStatus.succeeded);
 		response.addOutput(new ProcessOutput(
@@ -229,9 +231,9 @@ public class ContextHistoryCallee extends ServiceCallee {
 		} else {
 		    tstinput2Value = (Long) tstinput2;
 		}
-		List results = db
-			.retrieveEventsBetweenTstmp(sub, typ, pre, obj, con,
-				exp, cop, tst, tstinput1Value, tstinput2Value);
+		List results = db.retrieveEventsBetweenTstmp(sub, typ, pre,
+			obj, con, exp, cop, tst, tstinput1Value,
+			tstinput2Value, scopeArray);
 		ServiceResponse response = new ServiceResponse(
 			CallStatus.succeeded);
 		response.addOutput(new ProcessOutput(
@@ -249,11 +251,12 @@ public class ContextHistoryCallee extends ServiceCallee {
      * 
      * @param input
      *            The query
+     * @param scopeArray
      * @return Response
      */
-    private ServiceResponse execSPARQLQuery(String input) {
+    private ServiceResponse execSPARQLQuery(String input, String[] scopeArray) {
 	try {
-	    String results = db.queryBySPARQL(input);
+	    String results = db.queryBySPARQL(input, scopeArray);
 	    if (results == null) {
 		log.error("execSPARQLQuery",
 			"Error executing specific SPARQL: the backend returned null");
@@ -281,12 +284,14 @@ public class ContextHistoryCallee extends ServiceCallee {
      * 
      * @param input
      *            The query
+     * @param scopeArray
      * @return Response with events
      */
-    private ServiceResponse execSPARQLQueryForEvents(String input) {
+    private ServiceResponse execSPARQLQueryForEvents(String input,
+	    String[] scopeArray) {
 	try {
 	    ServiceResponse response = new ServiceResponse(CallStatus.succeeded);
-	    ArrayList results = db.retrieveEventsBySPARQL(input);
+	    ArrayList results = db.retrieveEventsBySPARQL(input, scopeArray);
 	    if (results == null) {
 		log.error("execSPARQLQueryForEvents",
 			"Error executing specific SPARQL for events: the backend returned null");

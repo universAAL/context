@@ -1,5 +1,5 @@
 /*
-	Copyright 2008-2014 ITACA-TSB, http://www.tsb.upv.es
+	Copyright 2008-2015 ITACA-TSB, http://www.tsb.upv.es
 	Instituto Tecnologico de Aplicaciones de Comunicacion 
 	Avanzadas - Grupo Tecnologias para la Salud y el 
 	Bienestar (TSB)
@@ -84,12 +84,15 @@ public interface Backend {
      *            The context provider of the event to be matched
      * @param tstamp
      *            The timestamp in milliseconds of the event to be matched
+     * @param scopeArray
+     *            Optional argument: scopes defining the origin tenants of the
+     *            requested info
      * @return The list of context events that matched the values passed as
      *         parameters.
      */
     ArrayList retrieveEvent(String subject, String subjecttype,
 	    String predicate, Object object, Integer confidence,
-	    Long expiration, Object provider, Long tstamp);
+	    Long expiration, Object provider, Long tstamp, String... scopeArray);
 
     /**
      * Retrieves a list of
@@ -121,13 +124,16 @@ public interface Backend {
      * @param tstfrom
      *            The timestamp in milliseconds from which events are requested.
      *            Only events stored after this timestamp will be returned.
+     * @param scopeArray
+     *            Optional argument: scopes defining the origin tenants of the
+     *            requested info
      * @return The list of context events that matched the values passed as
      *         parameters.
      */
-    ArrayList retrieveEventsFromTstmp(String subject,
-	    String subjecttype, String predicate, Object object,
-	    Integer confidence, Long expiration, ContextProvider provider,
-	    Long tstamp, Long tstfrom);
+    ArrayList retrieveEventsFromTstmp(String subject, String subjecttype,
+	    String predicate, Object object, Integer confidence,
+	    Long expiration, ContextProvider provider, Long tstamp,
+	    Long tstfrom, String... scopeArray);
 
     /**
      * Retrieves a list of
@@ -145,7 +151,7 @@ public interface Backend {
      * @param object
      *            The Object of the event to be matched. It depends on the
      *            implementer of this method how to match the object.
-
+     * 
      * @param confidence
      *            The confidence of the event to be matched
      * @param expiration
@@ -161,12 +167,16 @@ public interface Backend {
      *            The timestamp in milliseconds until which events are
      *            requested. Only events stored before this timestamp will be
      *            returned.
+     * @param scopeArray
+     *            Optional argument: scopes defining the origin tenants of the
+     *            requested info
      * @return The list of context events that matched the values passed as
      *         parameters.
      */
     ArrayList retrieveEventsToTstmp(String subject, String subjecttype,
 	    String predicate, Object object, Integer confidence,
-	    Long expiration, ContextProvider provider, Long tstamp, Long tstto);
+	    Long expiration, ContextProvider provider, Long tstamp, Long tstto,
+	    String... scopeArray);
 
     /**
      * Retrieves a list of
@@ -202,13 +212,16 @@ public interface Backend {
      *            The timestamp in milliseconds until which events are
      *            requested. Only events stored before this timestamp will be
      *            returned.
+     * @param scopeArray
+     *            Optional argument: scopes defining the origin tenants of the
+     *            requested info
      * @return The list of context events that matched the values passed as
      *         parameters.
      */
-    ArrayList retrieveEventsBetweenTstmp(String subject,
-	    String subjecttype, String predicate, Object object,
-	    Integer confidence, Long expiration, ContextProvider provider,
-	    Long tstamp, Long tstfrom, Long tstto);
+    ArrayList retrieveEventsBetweenTstmp(String subject, String subjecttype,
+	    String predicate, Object object, Integer confidence,
+	    Long expiration, ContextProvider provider, Long tstamp,
+	    Long tstfrom, Long tstto, String... scopeArray);
 
     /**
      * Retrieves a list of
@@ -220,9 +233,12 @@ public interface Backend {
      *            variable that represents the event MUST be named
      *            <code>c</code>. For instance: "SELECT ?c WHERE {...". Only
      *            SELECT queries are allowed.
+     * @param scopeArray
+     *            Optional argument: scopes defining the origin tenants of the
+     *            requested info
      * @return The list of context events that matched the query.
      */
-    ArrayList retrieveEventsBySPARQL(String input);
+    ArrayList retrieveEventsBySPARQL(String input, String... scopeArray);
 
     /**
      * Returns the result of a SPARQL query issued to the underlying store.
@@ -241,10 +257,13 @@ public interface Backend {
      * 
      * @param input
      *            The SPARQL query to be executed.
+     * @param scopeArray
+     *            Optional argument: scopes defining the origin tenants of the
+     *            requested info
      * @return The serialized form of the result from the execution of the
      *         query.
      */
-    String queryBySPARQL(String input);
+    String queryBySPARQL(String input, String... scopeArray);
 
     /**
      * Removes all events from the underlying store that were received until the
@@ -286,17 +305,18 @@ public interface Backend {
      */
     public void populate() throws RepositoryException, RDFParseException,
 	    IOException;
-    
+
     /**
      * Fills the store with the OWL data of a certain ontologies from the OWL
      * file in the config folder (or registered in the system). Also used for
      * updates when new ontologies are installed.
      * 
-     * @param owlFileName The naem of the OWL file to store
+     * @param owlFileName
+     *            The naem of the OWL file to store
      * @throws RepositoryException
      * @throws RDFParseException
      * @throws IOException
      */
-    public void populate(String owlFileName) throws RepositoryException, RDFParseException,
-	    IOException;
+    public void populate(String owlFileName) throws RepositoryException,
+	    RDFParseException, IOException;
 }

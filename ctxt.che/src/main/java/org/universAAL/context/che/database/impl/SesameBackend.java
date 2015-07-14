@@ -1,5 +1,5 @@
 /*
-	Copyright 2014 ITACA-TSB, http://www.tsb.upv.es
+	Copyright 2015 ITACA-TSB, http://www.tsb.upv.es
 	Instituto Tecnologico de Aplicaciones de Comunicacion 
 	Avanzadas - Grupo Tecnologias para la Salud y el 
 	Bienestar (TSB)
@@ -31,6 +31,7 @@ import java.io.InputStream;
 import java.io.StringReader;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 import java.util.Properties;
 
@@ -42,21 +43,26 @@ import org.universAAL.context.che.Hub.Log;
 import org.universAAL.context.che.database.Backend;
 import org.universAAL.context.che.osgi.Activator;
 import org.universAAL.middleware.container.osgi.util.BundleConfigHome;
+import org.universAAL.middleware.container.utils.StringUtils;
 import org.universAAL.middleware.context.ContextEvent;
 import org.universAAL.middleware.context.owl.ContextProvider;
 import org.universAAL.middleware.rdf.Resource;
 import org.universAAL.middleware.serialization.MessageContentSerializer;
+import org.universAAL.middleware.util.Constants;
 import org.openrdf.OpenRDFException;
 import org.openrdf.model.URI;
 import org.openrdf.model.Value;
+import org.openrdf.model.ValueFactory;
 import org.openrdf.query.BindingSet;
 import org.openrdf.query.BooleanQuery;
+import org.openrdf.query.Dataset;
 import org.openrdf.query.GraphQuery;
 import org.openrdf.query.MalformedQueryException;
 import org.openrdf.query.QueryLanguage;
 import org.openrdf.query.TupleQuery;
 import org.openrdf.query.TupleQueryResult;
 import org.openrdf.query.Update;
+import org.openrdf.query.impl.DatasetImpl;
 import org.openrdf.query.resultio.sparqlxml.SPARQLResultsXMLWriter;
 import org.openrdf.repository.Repository;
 import org.openrdf.repository.RepositoryConnection;
@@ -108,6 +114,11 @@ public class SesameBackend implements Backend {
      * Name of file holding the stored OWLs
      */
     public static final String PRELOAD_FILE = "preload.properties";
+    /**
+     * Determines if data is stored/queried in tenant-aware mode
+     */
+    public static Boolean tenantAware = Boolean.parseBoolean(Hub
+	    .getProperties().getProperty("STORE.TENANT", "true"));
 
     /*
      * (non-Javadoc)
@@ -144,7 +155,7 @@ public class SesameBackend implements Backend {
 		    + "the CHE pointing to a valid folder path.");
 	}
     }
-    
+
     /*
      * (non-Javadoc)
      * 
@@ -165,7 +176,7 @@ public class SesameBackend implements Backend {
 	    for (int i = 0; i < files.length; i++) {
 		// TODO: Guess the default namespace. Otherwise the file
 		// should not use default namespace prefix : .
-		String name=files[i].getName();
+		String name = files[i].getName();
 		if (!"true".equals(stored.getProperty(name))) {
 		    try { // TODO: Handle format
 			con.add(files[i], null, RDFFormat.TURTLE);
@@ -173,10 +184,9 @@ public class SesameBackend implements Backend {
 			con.add(files[i], null, RDFFormat.RDFXML);
 		    }
 		    stored.setProperty(name, "true");
-		    log.debug("populate",
-			    "populated store with: " + name);
-		}else{
-		    log.info("populate", name+" is already populated");
+		    log.debug("populate", "populated store with: " + name);
+		} else {
+		    log.info("populate", name + " is already populated");
 		}
 	    }
 	} finally {
@@ -184,9 +194,12 @@ public class SesameBackend implements Backend {
 	    setProperties(stored);
 	}
     }
-    
-    /* (non-Javadoc)
-     * @see org.universAAL.context.che.database.Backend#populate(java.lang.String)
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * org.universAAL.context.che.database.Backend#populate(java.lang.String)
      */
     public void populate(String filename) throws RepositoryException,
 	    RDFParseException, IOException {
@@ -227,7 +240,7 @@ public class SesameBackend implements Backend {
 		RepositoryConnection con = myRepository.getConnection();
 		try {
 		    con.clear();
-		    Properties empty=new Properties();
+		    Properties empty = new Properties();
 		    setProperties(empty);
 		} finally {
 		    con.close();
@@ -253,16 +266,40 @@ public class SesameBackend implements Backend {
 	    RepositoryConnection con = myRepository.getConnection();
 	    try {
 		log.debug("storeEvent", "Adding event to store");
-		con.add(new StringReader(uAALParser.serialize(e)), e.getURI(),
-			RDFFormat.TURTLE);
+		if (tenantAware) {
+		    // Tenant-aware enabled: add tenants as RDF context
+		    List scopeList = e.getScopes();
+		    if (scopeList.isEmpty()) {
+			// No tenants, do as always
+			con.add(new StringReader(uAALParser.serialize(e)),
+				e.getURI(), RDFFormat.TURTLE);
+		    } else {
+			ValueFactory f = myRepository.getValueFactory();
+			String[] scopeArray = (String[]) scopeList
+				.toArray(new String[0]);
+			URI[] contextArray = new URI[scopeArray.length];
+			for (int i = 0; i < scopeArray.length; i++) {
+			    // Check that scope is valid URI
+			    contextArray[i] = f
+				    .createURI(Resource
+					    .isQualifiedName(scopeArray[i]) ? scopeArray[i]
+					    : Constants.uAAL_MIDDLEWARE_LOCAL_ID_PREFIX
+						    + scopeArray[i]);
+			}
+			// store with associated tenants
+			con.add(new StringReader(uAALParser.serialize(e)),
+				e.getURI(), RDFFormat.TURTLE, contextArray);
+		    }
+		} else {
+		    // Not tenant-aware, store in default RDF context
+		    con.add(new StringReader(uAALParser.serialize(e)),
+			    e.getURI(), RDFFormat.TURTLE);
+		}
 		log.debug("storeEvent", "Successfully added event to store");
 	    } catch (IOException exc) {
 		log.error("storeEvent",
 			"Error trying to add event to the store. "
-				+ "In older versions this usually happened"
-				+ " because of the underlying connection "
-				+ "closing due to inactivity, but now it is"
-				+ " because: {}", exc);
+				+ " Because: {}", exc);
 		exc.printStackTrace();
 	    } finally {
 		con.close();
@@ -278,17 +315,21 @@ public class SesameBackend implements Backend {
      * (non-Javadoc)
      * 
      * @see
-     * org.universAAL.context.che.database.Backend#queryBySPARQL(java.lang.String)
+     * org.universAAL.context.che.database.Backend#queryBySPARQL(java.lang.String
+     * )
      */
-    synchronized public String queryBySPARQL(String input) {
+    synchronized public String queryBySPARQL(String input, String... scopeArray) {
 	log.debug("queryBySPARQL", "queryBySPARQL");
 	String result = null;
 	try {
 	    RepositoryConnection con = myRepository.getConnection();
 	    try {
 		ByteArrayOutputStream stream = new ByteArrayOutputStream();
-		// There is no way in Sesame to find out which type of query it
-		// is
+		// Find out if the call has scope and set it as dataset
+		Dataset ds = scopesToFroms(scopeArray);
+		// Otherwise dont set empty dataset or else result is empty
+		boolean setds = !ds.getDefaultGraphs().isEmpty();
+		// Theres no way in Sesame to find out which type of query it is
 		// We have to find out ourselves with get
 		switch (getQueryType(input)) {
 		case SELECT:// TODO Put a selector in uAAL service for XML,
@@ -297,12 +338,16 @@ public class SesameBackend implements Backend {
 			    stream);
 		    TupleQuery tquery = con.prepareTupleQuery(
 			    QueryLanguage.SPARQL, input);
+		    if (setds)
+			tquery.setDataset(ds);
 		    tquery.evaluate(selectWriter);
 		    result = stream.toString("UTF-8");
 		    break;
 		case ASK:
 		    BooleanQuery bquery = con.prepareBooleanQuery(
 			    QueryLanguage.SPARQL, input);
+		    if (setds)
+			bquery.setDataset(ds);
 		    result = bquery.evaluate() ? "true" : "false";
 		    break;
 		case CONSTRUCT:// TODO: Put a selector in uAAL service for XML
@@ -311,6 +356,8 @@ public class SesameBackend implements Backend {
 		    RDFWriter construtWriter = factory1.getWriter(stream);
 		    GraphQuery cquery = con.prepareGraphQuery(
 			    QueryLanguage.SPARQL, input);
+		    if (setds)
+			cquery.setDataset(ds);
 		    cquery.evaluate(construtWriter);
 		    result = stream.toString("UTF-8");
 		    factory1 = null; // Just in case...
@@ -321,6 +368,8 @@ public class SesameBackend implements Backend {
 		    RDFWriter describeWriter = factory2.getWriter(stream);
 		    GraphQuery dquery = con.prepareGraphQuery(
 			    QueryLanguage.SPARQL, input);
+		    if (setds)
+			dquery.setDataset(ds);
 		    dquery.evaluate(describeWriter);
 		    result = stream.toString("UTF-8");
 		    factory2 = null; // Just in case...
@@ -328,6 +377,8 @@ public class SesameBackend implements Backend {
 		case UPDATE:
 		    Update uquery = con.prepareUpdate(QueryLanguage.SPARQL,
 			    input);
+		    if (setds)
+			uquery.setDataset(ds);
 		    uquery.execute();
 		    result = "true";
 		    break;
@@ -351,8 +402,7 @@ public class SesameBackend implements Backend {
 		    "Error trying to get connection to store: {}", exc);
 	    exc.printStackTrace();
 	} catch (Exception exc) {
-	    log.error("queryBySPARQL",
-		    "Unknown Error handling SPARQL: {}", exc);
+	    log.error("queryBySPARQL", "Unknown Error handling SPARQL: {}", exc);
 	    exc.printStackTrace();
 	}
 	return result;
@@ -365,7 +415,8 @@ public class SesameBackend implements Backend {
      * org.universAAL.context.che.database.Backend#retrieveEventsBySPARQL(java
      * .lang.String)
      */
-    synchronized public ArrayList retrieveEventsBySPARQL(String input) {
+    synchronized public ArrayList retrieveEventsBySPARQL(String input,
+	    String... scopeArray) {
 	log.debug("retrieveEventsBySPARQL", "retrieveEventsBySPARQL");
 	ArrayList solution = new ArrayList();
 	try {
@@ -374,6 +425,11 @@ public class SesameBackend implements Backend {
 	    TurtleWriterFactory factory = new TurtleWriterFactory();
 	    RDFWriter writer = factory.getWriter(stream);
 	    try {
+		// If there are scopes, add them as FROM before SELECT
+		if (scopeArray != null && scopeArray.length > 0) {
+		    input = input.replace("SELECT", scopesToFroms(scopeArray)
+			    + "SELECT");
+		}
 		TupleQuery tquery = con.prepareTupleQuery(QueryLanguage.SPARQL,
 			input);
 		TupleQueryResult result = tquery.evaluate();
@@ -431,11 +487,12 @@ public class SesameBackend implements Backend {
      */
     public ArrayList retrieveEvent(String subject, String subjecttype,
 	    String predicate, Object object, Integer confidence,
-	    Long expiration, Object provider, Long tstamp) {
+	    Long expiration, Object provider, Long tstamp, String... scopeArray) {
 	log.debug("retrieveEvent", "retrieveEvent");
-	return retrieveEventsBySPARQL(prepareQuery(subject, subjecttype,
-		predicate, object, confidence, expiration, provider, tstamp,
-		null, null));
+	return retrieveEventsBySPARQL(
+		prepareQuery(subject, subjecttype, predicate, object,
+			confidence, expiration, provider, tstamp, null, null),
+		scopeArray);
     }
 
     /*
@@ -451,11 +508,12 @@ public class SesameBackend implements Backend {
     public ArrayList retrieveEventsBetweenTstmp(String subject,
 	    String subjecttype, String predicate, Object object,
 	    Integer confidence, Long expiration, ContextProvider provider,
-	    Long tstamp, Long tstfrom, Long tstto) {
+	    Long tstamp, Long tstfrom, Long tstto, String... scopeArray) {
 	log.debug("retrieveEventsBetweenTstmp", "retrieveEventsBetweenTstmp");
-	return retrieveEventsBySPARQL(prepareQuery(subject, subjecttype,
-		predicate, object, confidence, expiration, provider, tstamp,
-		tstfrom, tstto));
+	return retrieveEventsBySPARQL(
+		prepareQuery(subject, subjecttype, predicate, object,
+			confidence, expiration, provider, tstamp, tstfrom,
+			tstto), scopeArray);
     }
 
     /*
@@ -471,11 +529,12 @@ public class SesameBackend implements Backend {
     public ArrayList retrieveEventsFromTstmp(String subject,
 	    String subjecttype, String predicate, Object object,
 	    Integer confidence, Long expiration, ContextProvider provider,
-	    Long tstamp, Long tstfrom) {
+	    Long tstamp, Long tstfrom, String... scopeArray) {
 	log.debug("retrieveEventsFromTstmp", "retrieveEventsFromTstmp");
-	return retrieveEventsBySPARQL(prepareQuery(subject, subjecttype,
-		predicate, object, confidence, expiration, provider, tstamp,
-		tstfrom, null));
+	return retrieveEventsBySPARQL(
+		prepareQuery(subject, subjecttype, predicate, object,
+			confidence, expiration, provider, tstamp, tstfrom, null),
+		scopeArray);
     }
 
     /*
@@ -490,11 +549,13 @@ public class SesameBackend implements Backend {
      */
     public ArrayList retrieveEventsToTstmp(String subject, String subjecttype,
 	    String predicate, Object object, Integer confidence,
-	    Long expiration, ContextProvider provider, Long tstamp, Long tstto) {
+	    Long expiration, ContextProvider provider, Long tstamp, Long tstto,
+	    String... scopeArray) {
 	log.debug("retrieveEventsToTstmp", "retrieveEventsToTstmp");
-	return retrieveEventsBySPARQL(prepareQuery(subject, subjecttype,
-		predicate, object, confidence, expiration, provider, tstamp,
-		null, tstto));
+	return retrieveEventsBySPARQL(
+		prepareQuery(subject, subjecttype, predicate, object,
+			confidence, expiration, provider, tstamp, null, tstto),
+		scopeArray);
     }
 
     /*
@@ -506,8 +567,8 @@ public class SesameBackend implements Backend {
 	log.debug("removeOldEvents", "removeOldEvents stored before: " + tst);
 	String removeQuery = "DELETE { ?s ?p ?o } "
 		+ "WHERE"
-		+ "  { ?s " 
-		+ " <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> " 
+		+ "  { ?s "
+		+ " <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> "
 		+ " <http://ontology.universAAL.org/Context.owl#ContextEvent> ;"
 		+ "  ?p ?o ;"
 		+ "  <http://ontology.universAAL.org/Context.owl#hasTimestamp> ?t ."
@@ -567,7 +628,7 @@ public class SesameBackend implements Backend {
 		index = i;
 	    }
 	} // Finds out what SPARQL keyword goes first
-	if (index > UPDATE){
+	if (index > UPDATE) {
 	    return UPDATE; // If DELETE treat as INSERT
 	}
 	return index;
@@ -628,7 +689,7 @@ public class SesameBackend implements Backend {
 	if (object != null) {
 	    // Object can be a Resource or a literal
 	    String objExpr = getObjectExpression(object);
-	    if (objExpr != null){
+	    if (objExpr != null) {
 		query.append(" <http://www.w3.org/1999/02/22-rdf-syntax-ns#object> "
 			+ objExpr + " ; \n");
 	    }
@@ -651,7 +712,7 @@ public class SesameBackend implements Backend {
 	    } else {
 		cProv = null;
 	    }
-	    if (cProv != null){
+	    if (cProv != null) {
 		query.append(" <http://ontology.universAAL.org/Context.owl#hasProvider> <"
 			+ cProv.getURI() + "> ; \n");
 	    }
@@ -739,13 +800,13 @@ public class SesameBackend implements Backend {
 	    return null;
 	}
     }
-    
+
     private static synchronized void setProperties(final Properties prop) {
 	File confHome = new File(Activator.osgiConfigPath);
 	try {
 	    FileWriter out;
 	    if (!confHome.exists()) {
-		if(!confHome.mkdir()){
+		if (!confHome.mkdir()) {
 		    log.error("setproperties", "Could not set properties file");
 		}
 	    }
@@ -764,19 +825,39 @@ public class SesameBackend implements Backend {
 	Properties prop = new Properties();
 	try {
 	    prop = new Properties();
-	    InputStream in = new FileInputStream(new File(confHome, PRELOAD_FILE));
+	    InputStream in = new FileInputStream(new File(confHome,
+		    PRELOAD_FILE));
 	    prop.load(in);
 	    in.close();
 	} catch (java.io.FileNotFoundException e) {
 	    log.warn("getProperties",
 		    "Properties file does not exist; generating default...");
-	    //TODO Find out which ones are stored already?
+	    // TODO Find out which ones are stored already?
 	    setProperties(prop);
 	} catch (Exception e) {
-	    log.error("getproperties", "Could not access preload file: {} ",
-		    e);
+	    log.error("getproperties", "Could not access preload file: {} ", e);
 	}
 	return prop;
+    }
+
+    /**
+     * Turns an array of tenant scopes into a collection of SPARQL FROM
+     * commands. If a scope is not formatted as URI, its prepended the
+     * Constants.uAAL_MIDDLEWARE_LOCAL_ID_PREFIX.
+     * 
+     * @param scopes
+     *            Array of scopes
+     * @return a String with a FROM < scope > in different lines
+     */
+    private Dataset scopesToFroms(String[] scopes) {
+	DatasetImpl ds = new DatasetImpl();
+	ValueFactory f = myRepository.getValueFactory();
+	for (String scope : scopes) {
+	    ds.addDefaultGraph(f.createURI(StringUtils
+		    .startsWithURIScheme(scope) ? scope
+		    : Constants.uAAL_MIDDLEWARE_LOCAL_ID_PREFIX + scope));
+	}
+	return ds;
     }
 
 }

@@ -1,5 +1,5 @@
 /*
-	Copyright 2008-2014 ITACA-TSB, http://www.tsb.upv.es
+	Copyright 2008-2015 ITACA-TSB, http://www.tsb.upv.es
 	Instituto Tecnologico de Aplicaciones de Comunicacion 
 	Avanzadas - Grupo Tecnologias para la Salud y el 
 	Bienestar (TSB)
@@ -88,18 +88,14 @@ public class ContextHistorySubscriber extends ContextSubscriber {
      * (org.universAAL.middleware.context.ContextEvent)
      */
     public void handleContextEvent(ContextEvent event) {
-	if(!logAlive && SYSINFOPRED.equals(event.getRDFPredicate())) return;
+	if (!logAlive && SYSINFOPRED.equals(event.getRDFPredicate()))
+	    return;
 	db.storeEvent(event);
 	log.info("handleContextEvent", "CHe: Stored a Context Event");
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.universAAL.middleware.context.ContextSubscriber#close()
-     */
-    public void close() {
-	// db.close();//Already closed by Activator
-    }
+    // public void close() {
+    // // db.close();//Already closed by Activator
+    // }
 
 }

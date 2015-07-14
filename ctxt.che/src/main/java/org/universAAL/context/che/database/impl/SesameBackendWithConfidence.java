@@ -1,5 +1,5 @@
 /*
-	Copyright 2008-2014 ITACA-TSB, http://www.tsb.upv.es
+	Copyright 2008-2015 ITACA-TSB, http://www.tsb.upv.es
 	Instituto Tecnologico de Aplicaciones de Comunicacion 
 	Avanzadas - Grupo Tecnologias para la Salud y el 
 	Bienestar (TSB)
@@ -24,9 +24,12 @@ package org.universAAL.context.che.database.impl;
 import java.io.IOException;
 import java.io.StringReader;
 import java.util.Iterator;
+import java.util.List;
 
 import org.openrdf.OpenRDFException;
 import org.openrdf.model.Statement;
+import org.openrdf.model.URI;
+import org.openrdf.model.ValueFactory;
 import org.openrdf.repository.RepositoryConnection;
 import org.openrdf.rio.RDFFormat;
 import org.openrdf.rio.helpers.StatementCollector;
@@ -34,6 +37,8 @@ import org.openrdf.rio.turtle.TurtleParser;
 import org.universAAL.context.che.Hub;
 import org.universAAL.context.che.Hub.Log;
 import org.universAAL.middleware.context.ContextEvent;
+import org.universAAL.middleware.rdf.Resource;
+import org.universAAL.middleware.util.Constants;
 
 /**
  * Extension of {@link org.universAAL.context.che.database.impl.SesameBackend}
@@ -119,6 +124,26 @@ public class SesameBackendWithConfidence extends SesameBackend {
 		log.debug("storeEvent",
 			"Adding event to store, if enough confidence");
 		Integer conf = e.getConfidence();
+		// This will stay null if no tenants
+		URI[] contextArray = null;
+		if (tenantAware) {
+		    // Tenant-aware enabled: add tenants as RDF context
+		    List scopeList = e.getScopes();
+		    if (!scopeList.isEmpty()) {
+			ValueFactory f = myRepository.getValueFactory();
+			String[] scopeArray = (String[]) scopeList
+				.toArray(new String[0]);
+			contextArray = new URI[scopeArray.length];
+			for (int i = 0; i < scopeArray.length; i++) {
+			    // Check that scope is valid URI
+			    contextArray[i] = f
+				    .createURI(Resource
+					    .isQualifiedName(scopeArray[i]) ? scopeArray[i]
+					    : Constants.uAAL_MIDDLEWARE_LOCAL_ID_PREFIX
+						    + scopeArray[i]);
+			}
+		    }
+		}
 		if (conf != null) {
 		    if (conf.intValue() < threshold) {
 			TurtleParser sesameParser = new TurtleParser();
@@ -129,27 +154,41 @@ public class SesameBackendWithConfidence extends SesameBackend {
 				e.getURI());
 			Iterator<Statement> sts = stHandler.getStatements()
 				.iterator();
+			// store only stmts having event as subject
 			while (sts.hasNext()) {
 			    Statement st = sts.next();
 			    if (st.getSubject().stringValue()
 				    .equals(e.getURI())) {
-				con.add(st);
-				// store only stmts having event as subject
+				if (contextArray != null) {
+				    con.add(st, contextArray);
+				} else {
+				    con.add(st);
+				}
 			    }
 			}
 			log.info("storeEvent",
 				"CHe: Stored a Context Event with low "
 					+ "Confidence: Not reified.");
 		    } else {
-			con.add(new StringReader(uAALParser.serialize(e)),
-				e.getURI(), RDFFormat.TURTLE);
+			if (contextArray != null) {
+			    con.add(new StringReader(uAALParser.serialize(e)),
+				    e.getURI(), RDFFormat.TURTLE, contextArray);
+			} else {
+			    con.add(new StringReader(uAALParser.serialize(e)),
+				    e.getURI(), RDFFormat.TURTLE);
+			}
 			log.info("storeEvent",
 				"CHe: Stored a Context Event with high "
 					+ "Confidence");
 		    }
 		} else { // TODO: What to do if events have no confidence?
-		    con.add(new StringReader(uAALParser.serialize(e)),
-			    e.getURI(), RDFFormat.TURTLE);
+		    if (contextArray != null) {
+			con.add(new StringReader(uAALParser.serialize(e)),
+				e.getURI(), RDFFormat.TURTLE, contextArray);
+		    } else {
+			con.add(new StringReader(uAALParser.serialize(e)),
+				e.getURI(), RDFFormat.TURTLE);
+		    }
 		    log.info("storeEvent",
 			    "CHe: Stored a Context Event without Confidence");
 		}

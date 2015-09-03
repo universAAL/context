@@ -63,6 +63,7 @@ public class SesameBackendCrd extends SesameBackend {
 				new CardinalityNativeStore(dataDir, indexes,
 					encrypt)));
 		myRepository.initialize();
+		con = myRepository.getConnection();
 		if (Boolean.parseBoolean(Hub.getProperties().getProperty(
 			"STORE.PRELOAD"))) {
 		    this.populate();

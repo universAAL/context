@@ -30,7 +30,7 @@ import org.openrdf.OpenRDFException;
 import org.openrdf.model.Statement;
 import org.openrdf.model.URI;
 import org.openrdf.model.ValueFactory;
-import org.openrdf.repository.RepositoryConnection;
+//import org.openrdf.repository.RepositoryConnection;
 import org.openrdf.rio.RDFFormat;
 import org.openrdf.rio.helpers.StatementCollector;
 import org.openrdf.rio.turtle.TurtleParser;
@@ -119,7 +119,7 @@ public class SesameBackendWithConfidence extends SesameBackend {
     @Override
     synchronized public void storeEvent(ContextEvent e) {
 	try {
-	    RepositoryConnection con = myRepository.getConnection();
+//	    RepositoryConnection con = myRepository.getConnection();
 	    try {
 		log.debug("storeEvent",
 			"Adding event to store, if enough confidence");
@@ -203,7 +203,7 @@ public class SesameBackendWithConfidence extends SesameBackend {
 			exc);
 		exc.printStackTrace();
 	    } finally {
-		con.close();
+//		con.close();
 	    }
 	} catch (OpenRDFException exc) {
 	    log.error("storeEvent",

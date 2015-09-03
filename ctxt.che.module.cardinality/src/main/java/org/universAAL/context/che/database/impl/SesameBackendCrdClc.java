@@ -67,6 +67,7 @@ public class SesameBackendCrdClc extends SesameBackend {
 				new CardinCollectNativeStore(dataDir, indexes,
 					encrypt)));
 		myRepository.initialize();
+		con = myRepository.getConnection();
 		if (Boolean.parseBoolean(Hub.getProperties().getProperty(
 			"STORE.PRELOAD"))) {
 		    this.populate();

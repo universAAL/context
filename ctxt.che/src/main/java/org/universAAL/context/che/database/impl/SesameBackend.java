@@ -93,7 +93,10 @@ public class SesameBackend implements Backend {
      * The sesame store.
      */
     Repository myRepository;
-
+    /**
+     * The connection to the sesame store
+     */
+    RepositoryConnection con;
     /**
      * uaal-turtle parser.
      */
@@ -139,6 +142,7 @@ public class SesameBackend implements Backend {
 			new ForwardChainingRDFSInferencer(new NativeStore(
 				dataDir, indexes)));
 		myRepository.initialize();
+		con = myRepository.getConnection();
 		if (Boolean.parseBoolean(Hub.getProperties().getProperty(
 			"STORE.PRELOAD"))) {
 		    this.populate();
@@ -163,7 +167,7 @@ public class SesameBackend implements Backend {
      */
     public void populate() throws RepositoryException, RDFParseException,
 	    IOException {
-	RepositoryConnection con = myRepository.getConnection();
+//	RepositoryConnection con = myRepository.getConnection();
 	Properties stored = getProperties();
 	try {
 	    File confHome = new File(
@@ -190,7 +194,7 @@ public class SesameBackend implements Backend {
 		}
 	    }
 	} finally {
-	    con.close();
+//	    con.close();
 	    setProperties(stored);
 	}
     }
@@ -203,7 +207,7 @@ public class SesameBackend implements Backend {
      */
     public void populate(String filename) throws RepositoryException,
 	    RDFParseException, IOException {
-	RepositoryConnection con = myRepository.getConnection();
+//	RepositoryConnection con = myRepository.getConnection();
 	Properties stored = getProperties();
 	try {
 	    File file = new File(
@@ -224,7 +228,7 @@ public class SesameBackend implements Backend {
 		log.info("populate", name + " is already populated");
 	    }
 	} finally {
-	    con.close();
+//	    con.close();
 	    setProperties(stored);
 	}
     }
@@ -237,7 +241,7 @@ public class SesameBackend implements Backend {
     public void close() {
 	try {
 	    if (DEBUG_DB) { // TODO: Remove this
-		RepositoryConnection con = myRepository.getConnection();
+//		RepositoryConnection con = myRepository.getConnection();
 		try {
 		    con.clear();
 		    Properties empty = new Properties();
@@ -263,7 +267,7 @@ public class SesameBackend implements Backend {
      */
     synchronized public void storeEvent(ContextEvent e) {
 	try {
-	    RepositoryConnection con = myRepository.getConnection();
+//	    RepositoryConnection con = myRepository.getConnection();
 	    try {
 		log.debug("storeEvent", "Adding event to store");
 		if (tenantAware) {
@@ -302,7 +306,7 @@ public class SesameBackend implements Backend {
 				+ " Because: {}", exc);
 		exc.printStackTrace();
 	    } finally {
-		con.close();
+//		con.close();
 	    }
 	} catch (OpenRDFException exc) {
 	    log.error("storeEvent",
@@ -322,7 +326,7 @@ public class SesameBackend implements Backend {
 	log.debug("queryBySPARQL", "queryBySPARQL");
 	String result = null;
 	try {
-	    RepositoryConnection con = myRepository.getConnection();
+//	    RepositoryConnection con = myRepository.getConnection();
 	    try {
 		ByteArrayOutputStream stream = new ByteArrayOutputStream();
 		// Find out if the call has scope and set it as dataset
@@ -395,7 +399,7 @@ public class SesameBackend implements Backend {
 			"Could not parse results to UTF-8 encoding");
 		e.printStackTrace();
 	    } finally {
-		con.close();
+//		con.close();
 	    }
 	} catch (OpenRDFException exc) {
 	    log.error("queryBySPARQL",
@@ -420,7 +424,7 @@ public class SesameBackend implements Backend {
 	log.debug("retrieveEventsBySPARQL", "retrieveEventsBySPARQL");
 	ArrayList solution = new ArrayList();
 	try {
-	    RepositoryConnection con = myRepository.getConnection();
+//	    RepositoryConnection con = myRepository.getConnection();
 	    ByteArrayOutputStream stream = new ByteArrayOutputStream();
 	    TurtleWriterFactory factory = new TurtleWriterFactory();
 	    RDFWriter writer = factory.getWriter(stream);
@@ -467,7 +471,7 @@ public class SesameBackend implements Backend {
 		    result.close();
 		}
 	    } finally {
-		con.close();
+//		con.close();
 	    }
 	} catch (OpenRDFException exc) {
 	    log.error("retrieveEventsBySPARQL",
@@ -575,13 +579,13 @@ public class SesameBackend implements Backend {
 		+ " FILTER ( ?t <= \"" + tst
 		+ "\"^^<http://www.w3.org/2001/XMLSchema#decimal> )  }";
 	try {
-	    RepositoryConnection con = myRepository.getConnection();
+//	    RepositoryConnection con = myRepository.getConnection();
 	    try {
 		Update uquery = con.prepareUpdate(QueryLanguage.SPARQL,
 			removeQuery);
 		uquery.execute();
 	    } finally {
-		con.close();
+//		con.close();
 	    }
 	} catch (OpenRDFException exc) {
 	    log.error("removeOldEvents",

@@ -5,11 +5,11 @@
   <parent>
     <groupId>org.universAAL</groupId>
     <artifactId>uAAL.pom</artifactId>
-    <version>3.3.1-SNAPSHOT</version>
+    <version>3.4.0</version>
   </parent>
   <groupId>org.universAAL.context</groupId>
   <artifactId>ctxt.pom</artifactId>
-  <version>3.3.1-SNAPSHOT</version>
+  <version>3.4.0</version>
   <packaging>pom</packaging>
   <name>universAAL Context Suite</name>
   <description>The set of artefacts defining the universAAL context
@@ -30,7 +30,7 @@
   </modules>
   <scm>
     <connection>scm:git:https://github.com/universAAL/context.git</connection>
-	<developerConnection>scm:git:git@github.com:universAAL/context.git</developerConnection>
+    <developerConnection>scm:git:git@github.com:universAAL/context.git</developerConnection>
   </scm>
   <properties>
     <remoteOBR></remoteOBR>
@@ -42,78 +42,78 @@
       <dependency>
         <groupId>org.universAAL.middleware</groupId>
         <artifactId>mw.pom.core</artifactId>
-        <version>3.3.1-SNAPSHOT</version>
+        <version>3.4.0</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
       <dependency>
         <groupId>org.universAAL.middleware</groupId>
         <artifactId>mw.pom.osgi</artifactId>
-        <version>3.3.1-SNAPSHOT</version>
+        <version>3.4.0</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
       <dependency>
         <groupId>org.universAAL.ontology</groupId>
         <artifactId>ont.pom</artifactId>
-        <version>3.3.1-SNAPSHOT</version>
+        <version>3.4.0</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
       <dependency>
         <groupId>org.universAAL.context</groupId>
         <artifactId>ctxt.che</artifactId>
-        <version>3.3.1-SNAPSHOT</version>
+        <version>3.4.0</version>
       </dependency>
       <dependency>
         <groupId>org.universAAL.context</groupId>
         <artifactId>ctxt.che.mobile</artifactId>
-        <version>3.3.1-SNAPSHOT</version>
+        <version>3.4.0</version>
       </dependency>
       <dependency>
         <groupId>org.universAAL.context</groupId>
         <artifactId>ctxt.prof.server</artifactId>
-        <version>3.3.1-SNAPSHOT</version>
+        <version>3.4.0</version>
       </dependency>
       <dependency>
         <groupId>org.universAAL.context</groupId>
         <artifactId>ctxt.space.server</artifactId>
-        <version>3.3.1-SNAPSHOT</version>
+        <version>3.4.0</version>
       </dependency>
       <dependency>
         <groupId>org.universAAL.context</groupId>
         <artifactId>ctxt.situation.reasoner</artifactId>
-        <version>3.3.1-SNAPSHOT</version>
+        <version>3.4.0</version>
       </dependency>
       <dependency>
         <groupId>org.universAAL.context</groupId>
         <artifactId>ctxt.reliability.reasoner</artifactId>
-        <version>3.3.1-SNAPSHOT</version>
+        <version>3.4.0</version>
       </dependency>
       <dependency>
         <groupId>org.universAAL.context</groupId>
         <artifactId>ctxt.che.module.cardinality</artifactId>
-        <version>3.3.1-SNAPSHOT</version>
+        <version>3.4.0</version>
       </dependency>
       <dependency>
         <groupId>org.universAAL.context</groupId>
         <artifactId>sesame.uaal.store</artifactId>
-        <version>3.3.1-SNAPSHOT</version>
+        <version>3.4.0</version>
       </dependency>
       <dependency>
         <groupId>org.universAAL.context</groupId>
         <artifactId>ctxt.drools.reasoner</artifactId>
-        <version>3.3.1-SNAPSHOT</version>
+        <version>3.4.0</version>
       </dependency>
       <dependency>
         <groupId>org.universAAL.context</groupId>
         <artifactId>ctxt.sysinfo.provider</artifactId>
-        <version>3.3.1-SNAPSHOT</version>
+        <version>3.4.0</version>
       </dependency>
       <dependency>
         <groupId>org.universAAL.context</groupId>
         <artifactId>ctxt.karaf.feature</artifactId>
-        <version>3.3.1-SNAPSHOT</version>
+        <version>3.4.0</version>
       </dependency>
     </dependencies>
   </dependencyManagement>

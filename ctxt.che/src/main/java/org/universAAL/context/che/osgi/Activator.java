@@ -67,7 +67,7 @@ public class Activator implements BundleActivator, ServiceListener {
 	moduleContext = uAALBundleContainer.THE_CONTAINER
 		.registerModule(new Object[] { context });
 	// Initialize the CHE hub (needed before setting parsers)
-	this.hub = new Hub();
+	this.hub = new Hub(moduleContext.getConfigHome());
 
 	// Look for MessageContentSerializer and set parser
 	String filter = "(objectclass="

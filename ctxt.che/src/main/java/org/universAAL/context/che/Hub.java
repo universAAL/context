@@ -35,9 +35,8 @@ import java.util.Timer;
 
 import org.universAAL.context.che.database.Backend;
 import org.universAAL.context.che.database.Cleaner;
-import org.universAAL.context.che.osgi.Activator;
+import org.universAAL.middleware.container.ModuleActivator;
 import org.universAAL.middleware.container.ModuleContext;
-import org.universAAL.middleware.container.osgi.util.BundleConfigHome;
 import org.universAAL.middleware.container.utils.LogUtils;
 import org.universAAL.middleware.context.ContextEvent;
 import org.universAAL.middleware.owl.Ontology;
@@ -52,7 +51,7 @@ import org.universAAL.middleware.util.OntologyListener;
  * @author alfiva
  * 
  */
-public class Hub implements OntologyListener {
+public class Hub implements OntologyListener, ModuleActivator {
     /**
      * Logger.
      */
@@ -75,7 +74,7 @@ public class Hub implements OntologyListener {
     /**
      * Config folder.
      */
-    private static File confHome = new File(Activator.osgiConfigPath);
+    public static File confHome;
     /**
      * uAAL Module context.
      */
@@ -144,6 +143,7 @@ public class Hub implements OntologyListener {
      */
     public void start(ModuleContext context) {
 	moduleContext = context;
+	confHome = moduleContext.getConfigHome();
 	createOWLFiles();
 	// Start the store and wrappers
 	this.db.connect();
@@ -230,7 +230,7 @@ public class Hub implements OntologyListener {
      * 
      * @throws Exception
      */
-    public final void stop() throws Exception {
+    public final void stop(ModuleContext mc) throws Exception {
 	// Stop the store and wrappers
 	if(moduleContext!=null){
 	    OntologyManagement.getInstance().removeOntologyListener(moduleContext, this);
@@ -277,6 +277,18 @@ public class Hub implements OntologyListener {
 	}
     }
 
+    private static Properties getSafeProperties(){
+    	Properties prop = new Properties();
+	    prop.setProperty("STORE.IMPL",
+			    "org.universAAL.context.che.database.impl.SesameBackend");
+	    prop.setProperty("MOBILE.FILE", "Mobile-Events.txt");
+	    prop.setProperty("MOBILE.FLAG", "<!--CEv-->");
+	    prop.setProperty("RECYCLE.KEEP", "2"); // 2 months
+	    prop.setProperty("RECYCLE.DATE", "0"); // right now
+	    prop.setProperty("RECYCLE.HOUR", "22"); // at 22:00
+    	return prop;
+    }
+    
     /**
      * Gets the properties of the CHe.
      * 
@@ -284,30 +296,29 @@ public class Hub implements OntologyListener {
      * @see #setProperties(Properties)
      */
     public static synchronized Properties getProperties() {
-	Properties prop = new Properties();
-	try {
-	    prop = new Properties();
-	    InputStream in = new FileInputStream(new File(confHome, PROPS_FILE));
-	    prop.load(in);
-	    in.close();
-	} catch (java.io.FileNotFoundException e) {
-	    log.warn("start",
-		    "Properties file does not exist; generating default...");
-	    prop.setProperty("STORE.IMPL",
-		    "org.universAAL.context.che.database.impl.SesameBackend");
-	    prop.setProperty("STORE.LOCATION", confHome.getAbsolutePath()
-		    + "/store");
-	    prop.setProperty("MOBILE.FILE", "Mobile-Events.txt");
-	    prop.setProperty("MOBILE.FLAG", "<!--CEv-->");
-	    prop.setProperty("RECYCLE.KEEP", "2"); // 2 months
-	    prop.setProperty("RECYCLE.DATE", "0"); // right now
-	    prop.setProperty("RECYCLE.HOUR", "22"); // at 22:00
-	    setProperties(prop);
-	} catch (Exception e) {
-	    log.error("getproperties", "Could not access properties file: {} ",
-		    e);
-	}
-	return prop;
+    	Properties prop = new Properties();
+    	try {
+    		InputStream in = new FileInputStream(new File(confHome, PROPS_FILE));
+    		prop.load(in);
+    		in.close();
+    	} catch (java.io.FileNotFoundException e) {
+    		log.warn("start",
+    				"Properties file does not exist; generating default...");
+    		prop = getSafeProperties();
+    		try {
+				prop.setProperty("STORE.LOCATION", confHome.getAbsolutePath()
+						+ "/store");
+				setProperties(prop);
+			} catch (Exception e1) {
+	    		prop.setProperty("STORE.LOCATION", "./store");
+			}
+    	} catch (Exception e) {
+    		log.error("getproperties", "Could not access properties file: {} ",
+    				e);
+    		prop = getSafeProperties();
+    		prop.setProperty("STORE.LOCATION", "./store");
+    	}
+    	return prop;
     }
 
     /**
@@ -339,7 +350,7 @@ public class Hub implements OntologyListener {
 		int count = 0;
 		long start = System.currentTimeMillis();
 		File fileref = new File(
-			new BundleConfigHome("ctxt.che").getAbsolutePath(),
+			confHome,
 			fileMobile);
 		BufferedReader br = new BufferedReader(new FileReader(fileref));
 		readline = br.readLine();

@@ -91,7 +91,7 @@ public class Activator implements BundleActivator, ServiceListener {
      * org.osgi.framework.BundleActivator#stop(org.osgi.framework.BundleContext)
      */
     public void stop(BundleContext arg0) throws Exception {
-	hub.stop();
+	hub.stop(Activator.context);
     }
 
     /*

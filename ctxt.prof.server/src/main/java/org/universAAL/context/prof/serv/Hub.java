@@ -21,6 +21,7 @@
  */
 package org.universAAL.context.prof.serv;
 
+import org.universAAL.middleware.container.ModuleActivator;
 import org.universAAL.middleware.container.ModuleContext;
 import org.universAAL.middleware.serialization.MessageContentSerializerEx;
 
@@ -31,7 +32,7 @@ import org.universAAL.middleware.serialization.MessageContentSerializerEx;
  * @author alfiva
  * 
  */
-public class Hub {
+public class Hub implements ModuleActivator{
     /**
      * Service Callee
      */
@@ -73,7 +74,7 @@ public class Hub {
      * 
      * @throws Exception
      */
-    public final void stop() throws Exception {
+    public final void stop(ModuleContext mc) throws Exception {
 	moduleContext=null;
 	scallee.close();
 	scaller.close();

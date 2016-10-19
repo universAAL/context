@@ -74,7 +74,7 @@ public class Hub implements OntologyListener, ModuleActivator {
     /**
      * Config folder.
      */
-    public static File confHome;
+    private static File confHome;
     /**
      * uAAL Module context.
      */
@@ -113,7 +113,8 @@ public class Hub implements OntologyListener, ModuleActivator {
     /**
      * Default constructor.
      */
-    public Hub() {
+    public Hub(File configHome) {
+    	Hub.confHome = configHome;
 	// Instantiate the store you want
 	try {
 	    String storeclass = getProperties().getProperty("STORE.IMPL",
@@ -565,4 +566,9 @@ public class Hub implements OntologyListener, ModuleActivator {
     public void ontologyRemoved(String ontURI) {
 	// Do nothing, I cant just remove an owl from the backend 
     }
+    
+    public static File getConfigHome(){
+    	return confHome;
+    }
+    
 }

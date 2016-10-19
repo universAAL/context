@@ -169,7 +169,7 @@ public class SesameBackend implements Backend {
 	Properties stored = getProperties();
 	try {
 	    File confHome = new File(
-		    Hub.confHome.getAbsolutePath());
+		    Hub.getConfigHome().getAbsolutePath());
 	    File[] files = confHome.listFiles(new FilenameFilter() {
 		public boolean accept(File dir, String name) {
 		    return name.toLowerCase().endsWith(".owl");
@@ -209,7 +209,7 @@ public class SesameBackend implements Backend {
 	Properties stored = getProperties();
 	try {
 	    File file = new File(
-	    		Hub.confHome.getAbsolutePath(),
+	    		Hub.getConfigHome().getAbsolutePath(),
 		    filename);
 	    // TODO: Guess the default namespace. Otherwise the file
 	    // should not use default namespace prefix : .
@@ -804,7 +804,7 @@ public class SesameBackend implements Backend {
     }
 
     private static synchronized void setProperties(final Properties prop) {
-	File confHome = Hub.confHome;
+	File confHome = Hub.getConfigHome();
 	try {
 	    FileWriter out;
 	    if (!confHome.exists()) {
@@ -823,7 +823,7 @@ public class SesameBackend implements Backend {
     }
 
     private static synchronized Properties getProperties() {
-	File confHome = Hub.confHome;
+	File confHome = Hub.getConfigHome();
 	Properties prop = new Properties();
 	try {
 	    prop = new Properties();

@@ -25,11 +25,14 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import org.universAAL.ioc.dependencies.DependencyProxy;
+import org.universAAL.ioc.dependencies.impl.PassiveDependencyProxy;
 import org.universAAL.middleware.container.ModuleContext;
 import org.universAAL.middleware.owl.MergedRestriction;
 import org.universAAL.middleware.owl.OntologyManagement;
 import org.universAAL.middleware.rdf.PropertyPath;
 import org.universAAL.middleware.rdf.Resource;
+import org.universAAL.middleware.serialization.MessageContentSerializerEx;
 import org.universAAL.middleware.service.DefaultServiceCaller;
 import org.universAAL.middleware.service.ServiceRequest;
 import org.universAAL.middleware.service.ServiceResponse;
@@ -57,6 +60,11 @@ public class SCaller {
     private DefaultServiceCaller defaultCaller;
 
     /**
+     * Proxy for Turtle (de)serialiser.
+     */
+    private DependencyProxy<MessageContentSerializerEx> serialProxy;
+    
+    /**
      * Default constructor.
      * 
      * @param mcontext
@@ -64,6 +72,8 @@ public class SCaller {
      */
     protected SCaller(ModuleContext context) {
 	defaultCaller = new DefaultServiceCaller(context);
+	serialProxy = new PassiveDependencyProxy<MessageContentSerializerEx>(context, 
+			new Object [] { MessageContentSerializerEx.class.getName()});
     }
 
     /**
@@ -81,7 +91,7 @@ public class SCaller {
 		.call(getDoSPARQLRequest(Queries.Q_GET_USER.replace(
 			Queries.ARG1, input.getURI()))));
 	if(result==null)return null;
-	return (Resource) Hub.parser.deserialize(result, input.getURI());
+	return (Resource) serialProxy.getObject().deserialize(result, input.getURI());
     }
 
     // SPARQL UPDATE queries would include serialized uAAL data, but this
@@ -123,7 +133,7 @@ public class SCaller {
 		.call(getDoSPARQLRequest(Queries.Q_GET_UPROFILE.replace(
 			Queries.ARG1, input.getURI()))));
 	if(result==null)return null;
-	return (Resource) Hub.parser.deserialize(result, input.getURI());
+	return (Resource) serialProxy.getObject().deserialize(result, input.getURI());
     }
 
     protected void addProfile(Resource input) {
@@ -152,7 +162,7 @@ public class SCaller {
 		.call(getDoSPARQLRequest(Queries.Q_GET_SUBPROFILE.replace(
 			Queries.ARG1, input.getURI()))));
 	if(result==null)return null;
-	return (Resource) Hub.parser.deserialize(result, input.getURI());
+	return (Resource) serialProxy.getObject().deserialize(result, input.getURI());
     }
 
     protected void addSubProfile(Resource input) {
@@ -206,7 +216,7 @@ public class SCaller {
 	String result2 = getResult(defaultCaller
 		.call(getDoSPARQLRequest(Queries.Q_GET_USRS_XTRA)));
 	if(result==null || result2==null)return null;
-	Resource bag = (Resource) Hub.parser.deserialize(result + " "
+	Resource bag = (Resource) serialProxy.getObject().deserialize(result + " "
 		+ result2, Queries.AUXBAG);
 	if (bag != null) {
 	    Object content = bag.getProperty(Queries.AUXBAGPROP);
@@ -239,7 +249,7 @@ public class SCaller {
 		.call(getDoSPARQLRequest(Queries.Q_GET_PRF_OF_USR_XTRA.replace(
 			Queries.ARG1, user.getURI()))));
 	if(resultx==null)return null;
-	Object objx = Hub.parser.deserialize(resultx);
+	Object objx = serialProxy.getObject().deserialize(resultx);
 	if (objx == null)
 	    return null;
 	String result = getResult(defaultCaller
@@ -247,7 +257,7 @@ public class SCaller {
 			Queries.ARG1, user.getURI()))));
 	if(result==null)return null;
 	String uri = ((Resource) objx).getURI();
-	return (Resource) Hub.parser.deserialize(result, uri);
+	return (Resource) serialProxy.getObject().deserialize(result, uri);
     }
 
     protected ArrayList getSubProfilesOfUser(Resource user) {
@@ -258,7 +268,7 @@ public class SCaller {
 		.call(getDoSPARQLRequest(Queries.Q_GET_SUBS_OF_USR_XTRA
 			.replace(Queries.ARG1, user.getURI()))));
 	if(result1==null||result2==null)return null;
-	Resource bag = (Resource) Hub.parser.deserialize(result1 + " "
+	Resource bag = (Resource) serialProxy.getObject().deserialize(result1 + " "
 		+ result2, Queries.AUXBAG);
 	if (bag != null) {
 	    Object content = bag.getProperty(Queries.AUXBAGPROP);
@@ -292,7 +302,7 @@ public class SCaller {
 		.call(getDoSPARQLRequest(Queries.Q_GET_SUBS_OF_PRF_XTRA
 			.replace(Queries.ARG1, profile.getURI()))));
 	if(result1==null||result2==null)return null;
-	Resource bag = (Resource) Hub.parser.deserialize(result1 + " "
+	Resource bag = (Resource) serialProxy.getObject().deserialize(result1 + " "
 		+ result2, Queries.AUXBAG);
 	if (bag != null) {
 	    Object content = bag.getProperty(Queries.AUXBAGPROP);
@@ -323,14 +333,14 @@ public class SCaller {
 //	String resultx = getResult(defaultCaller
 //		.call(getDoSPARQLRequest(Queries.Q_GET_PRF_OF_USR_XTRA.replace(
 //			Queries.ARG1, user.getURI()))));
-//	Object objx = Hub.parser.deserialize(resultx);
+//	Object objx = serialProxy.getObject().deserialize(resultx);
 //	if (objx == null)
 //	    return null;
 //	String result = getResult(defaultCaller
 //		.call(getDoSPARQLRequest(Queries.Q_GET_PRF_OF_USR.replace(
 //			Queries.ARG1, user.getURI()))));
 //	String uri = ((Resource) objx).getURI();
-//	return (Resource) Hub.parser.deserialize(result, uri);
+//	return (Resource) serialProxy.getObject().deserialize(result, uri);
 //    }
     
     // :::::::::::::OTHER ADDS:::::::::::::::::
@@ -449,23 +459,23 @@ public class SCaller {
 //	String resultx = getResult(defaultCaller
 //		.call(getDoSPARQLRequest(Queries.Q_GET_SECPRF_OF_USR_XTRA.replace(
 //			Queries.ARG1, user.getURI()))));
-//	Object objx = Hub.parser.deserialize(resultx);
+//	Object objx = serialProxy.getObject().deserialize(resultx);
 //	if (objx == null)
 //	    return null;
 //	String result = getResult(defaultCaller
 //		.call(getDoSPARQLRequest(Queries.Q_GET_SECPRF_OF_USR.replace(
 //			Queries.ARG1, user.getURI()))));
 //	String uri = ((Resource) objx).getURI();
-//	return (Resource) Hub.parser.deserialize(result, uri);
+//	return (Resource) serialProxy.getObject().deserialize(result, uri);
 //    }
     
-    private static String[] serializeAndSplit(Resource r){
+    private String[] serializeAndSplit(Resource r){
 	Iterator it = GraphIterator.getResourceIterator(r);
 	while (it.hasNext()) {
 	    Resource prop = (Resource) it.next();
 	    prop.unliteral();
 	}
-	String serialized = Hub.parser.serialize(r);
+	String serialized = serialProxy.getObject().serialize(r);
 	String[] split = splitPrefixes(serialized);
 	return split;
     }

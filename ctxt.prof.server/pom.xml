@@ -64,6 +64,10 @@
       <artifactId>mw.bus.context.osgi</artifactId>
     </dependency>
     <dependency>
+      <groupId>org.universAAL.support</groupId>
+      <artifactId>utilities.ioc</artifactId>
+    </dependency>
+    <dependency>
       <groupId>org.universAAL.ontology</groupId>
       <artifactId>ont.profile</artifactId>
     </dependency>

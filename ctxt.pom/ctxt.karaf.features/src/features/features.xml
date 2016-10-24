@@ -9,6 +9,7 @@
 	<feature name="uAAL-ctxt.CHe" description="The Context History Entrepot."
 		version="${pom.version}" resolver='(obr)'>
 		<feature>uAAL-Ont.CHe</feature> 
+		<feature>uAAL-Support.IoC</feature> 
 		<bundle start-level='50' start='true'>mvn:org.openrdf.sesame/sesame-runtime-osgi/2.6.0</bundle>
 		<bundle start-level='51'>wrap:mvn:org.universAAL.context/sesame.uaal.store/${sesame.uaal.store.version}</bundle>
 		<bundle start-level='70' start='true'>mvn:org.universAAL.context/ctxt.che.module.cardinality/${ctxt.che.module.cardinality.version}</bundle>
@@ -19,6 +20,7 @@
 		version="${pom.version}" resolver='(obr)'>
 		<feature>uAAL-Ont.Profile</feature> 
 		<feature>uAAL-Ont.CHe</feature> 
+		<feature>uAAL-Support.IoC</feature> 
 		<bundle start-level='72' start='true'>mvn:org.universAAL.context/ctxt.prof.server/${ctxt.prof.server.version}</bundle>
 	</feature>
 	

@@ -23,13 +23,9 @@ package org.universAAL.context.che.osgi;
 
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
-import org.osgi.framework.ServiceEvent;
-import org.osgi.framework.ServiceListener;
-import org.osgi.framework.ServiceReference;
 import org.universAAL.context.che.Hub;
 import org.universAAL.middleware.container.ModuleContext;
 import org.universAAL.middleware.container.osgi.uAALBundleContainer;
-import org.universAAL.middleware.serialization.MessageContentSerializer;
 
 /**
  * OSGI activator. Relays start and stop to Hub.
@@ -37,7 +33,7 @@ import org.universAAL.middleware.serialization.MessageContentSerializer;
  * @author alfiva
  * 
  */
-public class Activator implements BundleActivator, ServiceListener {
+public class Activator implements BundleActivator {
 
     /**
      * uAAL module context.
@@ -69,17 +65,6 @@ public class Activator implements BundleActivator, ServiceListener {
 	// Initialize the CHE hub (needed before setting parsers)
 	this.hub = new Hub(moduleContext.getConfigHome());
 
-	// Look for MessageContentSerializer and set parser
-	String filter = "(objectclass="
-		+ MessageContentSerializer.class.getName() + ")";
-	context.addServiceListener(this, filter);
-	ServiceReference[] references = context.getServiceReferences((String)null,
-		filter);
-	for (int i = 0; references != null && i < references.length; i++) {
-	    this.serviceChanged(new ServiceEvent(ServiceEvent.REGISTERED,
-		    references[i]));
-	}
-
 	// Start the CHE hub. May be heavy, use thread.
 	new Thread() {
 	    public void run() {
@@ -96,29 +81,6 @@ public class Activator implements BundleActivator, ServiceListener {
      */
     public void stop(BundleContext arg0) throws Exception {
 	hub.stop(moduleContext);
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see
-     * org.osgi.framework.ServiceListener#serviceChanged(org.osgi.framework.
-     * ServiceEvent)
-     */
-    public void serviceChanged(ServiceEvent event) {
-	// Update the parser of Hub (& store)
-	switch (event.getType()) {
-	case ServiceEvent.REGISTERED:
-	case ServiceEvent.MODIFIED:
-	    hub.setuAALParser((MessageContentSerializer) osgiContext
-		    .getService(event.getServiceReference()));
-	    break;
-	case ServiceEvent.UNREGISTERING:
-	    hub.setuAALParser(null);
-	    break;
-	default:
-	    break;
-	}
     }
 
     /**

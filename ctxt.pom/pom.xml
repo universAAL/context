@@ -61,6 +61,13 @@
         <scope>import</scope>
       </dependency>
       <dependency>
+        <groupId>org.universAAL.support</groupId>
+        <artifactId>utilities.pom</artifactId>
+        <version>3.4.1-SNAPSHOT</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+      <dependency>
         <groupId>org.universAAL.context</groupId>
         <artifactId>ctxt.che</artifactId>
         <version>3.4.1-SNAPSHOT</version>

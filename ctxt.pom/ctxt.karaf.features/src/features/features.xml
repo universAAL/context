@@ -4,6 +4,7 @@
 	<!-- Change version of repository accordingly -->
 	<repository>mvn:org.universAAL.middleware/mw.karaf.feature/${mw.karaf.feature.version}/xml/features</repository>
 	<repository>mvn:org.universAAL.ontology/ont.karaf.feature/${ont.karaf.feature.version}/xml/features</repository>
+	<repository>mvn:org.universAAL.support/utilities.karaf.feature/${utilities.karaf.feature.version}/xml/features</repository>
 
 	<feature name="uAAL-ctxt.CHe" description="The Context History Entrepot."
 		version="${pom.version}" resolver='(obr)'>

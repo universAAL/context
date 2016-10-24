@@ -23,7 +23,6 @@ package org.universAAL.context.prof.serv;
 
 import org.universAAL.middleware.container.ModuleActivator;
 import org.universAAL.middleware.container.ModuleContext;
-import org.universAAL.middleware.serialization.MessageContentSerializerEx;
 
 /**
  * Central class that takes care of starting and stopping application. It used
@@ -41,10 +40,7 @@ public class Hub implements ModuleActivator{
      * Service Caller
      */
     protected static SCaller scaller = null;
-    /**
-     * Turtle parser
-     */
-    protected static MessageContentSerializerEx parser = null;
+
     /**
      * uAAL Module context.
      */
@@ -78,17 +74,6 @@ public class Hub implements ModuleActivator{
 	moduleContext=null;
 	scallee.close();
 	scaller.close();
-    }
-
-    /**
-     * Set the turtle-uaal parser. Make sure it's set at least once before
-     * start().
-     * 
-     * @param service
-     *            The parser
-     */
-    public void setuAALParser(MessageContentSerializerEx service) {
-	parser = service;
     }
 
 }

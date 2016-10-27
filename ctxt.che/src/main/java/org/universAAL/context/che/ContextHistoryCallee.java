@@ -22,12 +22,18 @@
 package org.universAAL.context.che;
 
 import java.util.ArrayList;
+import java.util.Enumeration;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.universAAL.context.che.Hub.Log;
 import org.universAAL.context.che.database.Backend;
 import org.universAAL.middleware.container.ModuleContext;
 import org.universAAL.middleware.context.owl.ContextProvider;
+import org.universAAL.middleware.rdf.Resource;
+import org.universAAL.middleware.serialization.MessageContentSerializer;
+import org.universAAL.middleware.serialization.MessageContentSerializerEx;
 import org.universAAL.middleware.service.CallStatus;
 import org.universAAL.middleware.service.ServiceCall;
 import org.universAAL.middleware.service.ServiceCallee;
@@ -54,6 +60,7 @@ public class ContextHistoryCallee extends ServiceCallee {
      * The DB of the store.
      */
     private Backend db;
+	private MessageContentSerializer uAALParser;
 
     /**
      * Main constructor.
@@ -247,6 +254,38 @@ public class ContextHistoryCallee extends ServiceCallee {
     }
 
     /**
+     * Get the full Resource graph of a given URI.
+     * @param uri
+     * @param visited initially null, or containing the URIs to be ignored.
+     * @return
+     */
+    public Resource getFullResourceGraph(String uri, Set visited){
+    	if (visited == null ){
+    		visited = new HashSet();
+    	}
+    	String query = "DESCRIBE <" + uri + ">";
+    	String serialised = db.queryBySPARQL(query, null);
+    	Object o = ((MessageContentSerializerEx)uAALParser).deserialize(serialised,uri);
+    	if (!(o instanceof Resource)){
+    		return null;
+    	}
+    	if (visited.contains(uri)){
+    		return (Resource) o;
+    	}
+    	visited.add(uri);
+    	Resource r = (Resource) o;
+    	Enumeration pe = r.getPropertyURIs();
+    	while (pe.hasMoreElements()) {
+			String prop = (String) pe.nextElement();
+			Object pv = r.getProperty(prop);
+			if (pv instanceof Resource){
+				r.changeProperty(prop, getFullResourceGraph(((Resource) pv).getURI(),visited));
+			}
+		}
+    	return r;
+    }
+    
+    /**
      * Perform SPARQL query.
      * 
      * @param input
@@ -312,5 +351,12 @@ public class ContextHistoryCallee extends ServiceCallee {
 	    return FAILURE;
 	}
     }
+
+	/**
+	 * @param service
+	 */
+	public void setUAALParser(MessageContentSerializer service) {
+		this.uAALParser = service;
+	}
 
 }

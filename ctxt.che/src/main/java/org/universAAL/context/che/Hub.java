@@ -252,6 +252,7 @@ public class Hub implements OntologyListener, ModuleActivator {
     public void setuAALParser(MessageContentSerializer service) {
 	this.uAALParser = service;
 	this.db.setuAALParser(service);
+	this.chc.setUAALParser(service);
     }
 
     /**
@@ -570,5 +571,5 @@ public class Hub implements OntologyListener, ModuleActivator {
     public static File getConfigHome(){
     	return confHome;
     }
-    
+
 }

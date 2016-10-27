@@ -32,6 +32,7 @@ import org.universAAL.context.che.database.Backend;
 import org.universAAL.middleware.container.ModuleContext;
 import org.universAAL.middleware.context.owl.ContextProvider;
 import org.universAAL.middleware.rdf.Resource;
+import org.universAAL.middleware.serialization.MessageContentSerializer;
 import org.universAAL.middleware.serialization.MessageContentSerializerEx;
 import org.universAAL.middleware.service.CallStatus;
 import org.universAAL.middleware.service.ServiceCall;
@@ -59,6 +60,7 @@ public class ContextHistoryCallee extends ServiceCallee {
      * The DB of the store.
      */
     private Backend db;
+	private MessageContentSerializer uAALParser;
 
     /**
      * Main constructor.
@@ -263,7 +265,7 @@ public class ContextHistoryCallee extends ServiceCallee {
     	}
     	String query = "DESCRIBE <" + uri + ">";
     	String serialised = db.queryBySPARQL(query, null);
-    	Object o = ((MessageContentSerializerEx)Hub.getSerializer()).deserialize(serialised,uri);
+    	Object o = ((MessageContentSerializerEx)uAALParser).deserialize(serialised,uri);
     	if (!(o instanceof Resource)){
     		return null;
     	}
@@ -349,5 +351,12 @@ public class ContextHistoryCallee extends ServiceCallee {
 	    return FAILURE;
 	}
     }
+
+	/**
+	 * @param service
+	 */
+	public void setUAALParser(MessageContentSerializer service) {
+		this.uAALParser = service;
+	}
 
 }

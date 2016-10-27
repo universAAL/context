@@ -103,7 +103,7 @@ public class Hub implements OntologyListener, ModuleActivator {
     /**
      * Turtle-uAAL parser.
      */
-    private static MessageContentSerializer uAALParser;
+    private MessageContentSerializer uAALParser;
 
     /**
      * Flag for knowing when store is connected, used only for ontology updates
@@ -252,6 +252,7 @@ public class Hub implements OntologyListener, ModuleActivator {
     public void setuAALParser(MessageContentSerializer service) {
 	this.uAALParser = service;
 	this.db.setuAALParser(service);
+	this.chc.setUAALParser(service);
     }
 
     /**
@@ -570,8 +571,5 @@ public class Hub implements OntologyListener, ModuleActivator {
     public static File getConfigHome(){
     	return confHome;
     }
-    
-    static MessageContentSerializer getSerializer(){
-    	return uAALParser;
-    }
+
 }

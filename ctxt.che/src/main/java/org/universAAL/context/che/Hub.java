@@ -165,6 +165,11 @@ public class Hub implements OntologyListener, ModuleActivator {
 	} else {
 	    log.warn("start", "Could not Synchronize Mobile Events!!!");
 	}
+	if (this.uAALParser != null){
+		synchronized (this.uAALParser) {
+			this.uAALParser.notifyAll();
+		}
+	}
     }
 
     /**
@@ -252,8 +257,24 @@ public class Hub implements OntologyListener, ModuleActivator {
     public void setuAALParser(MessageContentSerializer service) {
 	this.uAALParser = service;
 	this.db.setuAALParser(service);
-	this.chc.setUAALParser(service);
-    }
+		// create a thread that waits until this.chc is not null
+		new Thread(new Runnable() {
+			
+			public void run() {
+				synchronized (Hub.this.uAALParser) {
+					while (Hub.this.chc == null){
+						try {
+							Hub.this.uAALParser.wait();
+						} catch (InterruptedException e) {
+						}
+					}
+					Hub.this.chc.setUAALParser(Hub.this.uAALParser);
+				}
+				
+			}
+		}, "context.CHe: waiting initialization to set parser to callee");
+	}
+    
 
     /**
      * Sets the properties of the CHe.

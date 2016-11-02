@@ -257,18 +257,44 @@ public class ContextHistoryCallee extends ServiceCallee {
      * Get the full Resource graph of a given URI.
      * @param uri
      * @param visited initially null, or containing the URIs to be ignored.
-     * @return
+     * @return The full Resource.
      */
     public Resource getFullResourceGraph(String uri, Set visited){
     	if (visited == null ){
     		visited = new HashSet();
     	}
+    	
     	String query = "DESCRIBE <" + uri + ">";
     	String serialised = db.queryBySPARQL(query, null);
     	Object o = ((MessageContentSerializerEx)uAALParser).deserialize(serialised,uri);
+    	return reconstructResource(uri, visited);
+    }
+    
+     
+    /**
+     * Get a blank node description from an object property.
+     * @param oURI The parent object URI
+     * @param propURI The property URI where the nameless object resides
+     * @param visited initially null, or containing the URIs to be ignored.
+     * @return The full Resource.
+     */
+    public Resource getAnonymousResource(String oURI, String propURI, Set visited){
+    	if (visited == null ){
+    		visited = new HashSet();
+    	}
+    	
+    	String query = "CONSTRUCT { ?b ?p ?o .} WHERE {<" + oURI + "> <" + propURI + "> ?b . ?b ?p ?o . }";
+
+    	String serialised = db.queryBySPARQL(query, null);
+    	Object o = uAALParser.deserialize(serialised);
+    	return reconstructResource(o, visited);
+    }
+    
+    private Resource reconstructResource(Object o, Set visited){
     	if (!(o instanceof Resource)){
     		return null;
     	}
+    	String uri = ((Resource)o).getURI();
     	if (visited.contains(uri)){
     		return (Resource) o;
     	}
@@ -279,7 +305,11 @@ public class ContextHistoryCallee extends ServiceCallee {
 			String prop = (String) pe.nextElement();
 			Object pv = r.getProperty(prop);
 			if (pv instanceof Resource){
-				r.changeProperty(prop, getFullResourceGraph(((Resource) pv).getURI(),visited));
+				if (!((Resource)pv).isAnon()){
+					r.changeProperty(prop, getFullResourceGraph(((Resource) pv).getURI(),visited));
+				}else {
+					r.changeProperty(prop, getAnonymousResource(uri, prop, visited));
+				}
 			}
 		}
     	return r;

@@ -22,12 +22,18 @@
 package org.universAAL.context.che;
 
 import java.util.ArrayList;
+import java.util.Enumeration;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.universAAL.context.che.Hub.Log;
 import org.universAAL.context.che.database.Backend;
 import org.universAAL.middleware.container.ModuleContext;
 import org.universAAL.middleware.context.owl.ContextProvider;
+import org.universAAL.middleware.rdf.Resource;
+import org.universAAL.middleware.serialization.MessageContentSerializer;
+import org.universAAL.middleware.serialization.MessageContentSerializerEx;
 import org.universAAL.middleware.service.CallStatus;
 import org.universAAL.middleware.service.ServiceCall;
 import org.universAAL.middleware.service.ServiceCallee;
@@ -54,6 +60,7 @@ public class ContextHistoryCallee extends ServiceCallee {
      * The DB of the store.
      */
     private Backend db;
+	private MessageContentSerializer uAALParser;
 
     /**
      * Main constructor.
@@ -247,6 +254,68 @@ public class ContextHistoryCallee extends ServiceCallee {
     }
 
     /**
+     * Get the full Resource graph of a given URI.
+     * @param uri
+     * @param visited initially null, or containing the URIs to be ignored.
+     * @return The full Resource.
+     */
+    public Resource getFullResourceGraph(String uri, Set visited){
+    	if (visited == null ){
+    		visited = new HashSet();
+    	}
+    	
+    	String query = "DESCRIBE <" + uri + ">";
+    	String serialised = db.queryBySPARQL(query, null);
+    	Object o = ((MessageContentSerializerEx)uAALParser).deserialize(serialised,uri);
+    	return reconstructResource(uri, visited);
+    }
+    
+     
+    /**
+     * Get a blank node description from an object property.
+     * @param oURI The parent object URI
+     * @param propURI The property URI where the nameless object resides
+     * @param visited initially null, or containing the URIs to be ignored.
+     * @return The full Resource.
+     */
+    public Resource getAnonymousResource(String oURI, String propURI, Set visited){
+    	if (visited == null ){
+    		visited = new HashSet();
+    	}
+    	
+    	String query = "CONSTRUCT { ?b ?p ?o .} WHERE {<" + oURI + "> <" + propURI + "> ?b . ?b ?p ?o . }";
+
+    	String serialised = db.queryBySPARQL(query, null);
+    	Object o = uAALParser.deserialize(serialised);
+    	return reconstructResource(o, visited);
+    }
+    
+    private Resource reconstructResource(Object o, Set visited){
+    	if (!(o instanceof Resource)){
+    		return null;
+    	}
+    	String uri = ((Resource)o).getURI();
+    	if (visited.contains(uri)){
+    		return (Resource) o;
+    	}
+    	visited.add(uri);
+    	Resource r = (Resource) o;
+    	Enumeration pe = r.getPropertyURIs();
+    	while (pe.hasMoreElements()) {
+			String prop = (String) pe.nextElement();
+			Object pv = r.getProperty(prop);
+			if (pv instanceof Resource){
+				if (!((Resource)pv).isAnon()){
+					r.changeProperty(prop, getFullResourceGraph(((Resource) pv).getURI(),visited));
+				}else {
+					r.changeProperty(prop, getAnonymousResource(uri, prop, visited));
+				}
+			}
+		}
+    	return r;
+    }
+    
+    /**
      * Perform SPARQL query.
      * 
      * @param input
@@ -312,5 +381,12 @@ public class ContextHistoryCallee extends ServiceCallee {
 	    return FAILURE;
 	}
     }
+
+	/**
+	 * @param service
+	 */
+	public void setUAALParser(MessageContentSerializer service) {
+		this.uAALParser = service;
+	}
 
 }

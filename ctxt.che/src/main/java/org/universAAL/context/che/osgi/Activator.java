@@ -29,7 +29,6 @@ import org.osgi.framework.ServiceReference;
 import org.universAAL.context.che.Hub;
 import org.universAAL.middleware.container.ModuleContext;
 import org.universAAL.middleware.container.osgi.uAALBundleContainer;
-import org.universAAL.middleware.container.osgi.util.BundleConfigHome;
 import org.universAAL.middleware.serialization.MessageContentSerializer;
 
 /**
@@ -55,12 +54,6 @@ public class Activator implements BundleActivator, ServiceListener {
      */
     private Hub hub;
     
-    /**
-     * The path to the config file. Here so it's decoupled from Hub.
-     */
-    public static final String osgiConfigPath = new BundleConfigHome("ctxt.che")
-	    .getAbsolutePath();
-
     /*
      * (non-Javadoc)
      * 
@@ -74,7 +67,7 @@ public class Activator implements BundleActivator, ServiceListener {
 	moduleContext = uAALBundleContainer.THE_CONTAINER
 		.registerModule(new Object[] { context });
 	// Initialize the CHE hub (needed before setting parsers)
-	this.hub = new Hub();
+	this.hub = new Hub(moduleContext.getConfigHome());
 
 	// Look for MessageContentSerializer and set parser
 	String filter = "(objectclass="
@@ -102,7 +95,7 @@ public class Activator implements BundleActivator, ServiceListener {
      * org.osgi.framework.BundleActivator#stop(org.osgi.framework.BundleContext)
      */
     public void stop(BundleContext arg0) throws Exception {
-	hub.stop();
+	hub.stop(moduleContext);
     }
 
     /*

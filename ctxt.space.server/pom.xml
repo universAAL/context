@@ -11,7 +11,7 @@
   <artifactId>ctxt.space.server</artifactId>
   <version>3.4.1-SNAPSHOT</version>
   <packaging>bundle</packaging>
-  <name>AAL Space Server</name>
+  <name>universAAL Context AAL Space Server</name>
   <description></description>
   <inceptionYear>2012</inceptionYear>
   <organization>

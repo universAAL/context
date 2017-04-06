@@ -45,11 +45,11 @@ import org.drools.io.ResourceFactory;
 import org.drools.runtime.StatefulKnowledgeSession;
 import org.drools.runtime.rule.ConsequenceException;
 import org.osgi.framework.BundleContext;
+import org.universAAL.drools.Activator;
 import org.universAAL.drools.DevelopingRulesUI;
 import org.universAAL.drools.models.RuleModel;
 import org.universAAL.middleware.container.ModuleContext;
 import org.universAAL.middleware.container.osgi.uAALBundleContainer;
-import org.universAAL.middleware.container.osgi.util.BundleConfigHome;
 import org.universAAL.middleware.context.ContextEvent;
 import org.universAAL.middleware.context.ContextEventPattern;
 import org.universAAL.middleware.context.ContextPublisher;
@@ -89,7 +89,6 @@ public final class RulesEngine {
 	private static ModuleContext rulesEngineModuleContext = null;
 	private static RulesEngine INSTANCE;
 	private static final UUID uuid = UUID.randomUUID();
-	private static final String HOME_FOLDER = "drools.reasoner";
 	private static final String PROPERTIES_FILE = "reasoner.properties";
 
 	// private PoolingDataSource dataSource;
@@ -125,7 +124,7 @@ public final class RulesEngine {
 	}
 
 	private void setTestStatus() {
-		String homePath = new BundleConfigHome(HOME_FOLDER).getAbsolutePath();
+		String homePath = Activator.mc.getConfigHome().getAbsolutePath();
 
 		Properties properties = new Properties();
 		try {
@@ -142,7 +141,7 @@ public final class RulesEngine {
 
 	private boolean getDevelopingStatus() {
 
-		String homePath = new BundleConfigHome(HOME_FOLDER).getAbsolutePath();
+		String homePath = Activator.mc.getConfigHome().getAbsolutePath();
 
 		Properties properties = new Properties();
 		try {
@@ -288,8 +287,7 @@ public final class RulesEngine {
 			// System.out.println(ResourceFactory
 			// .newUrlResource(rulesEngineBundleContext.getBundle()
 			// .getResource("uAALrules.drl")));
-			String home = new BundleConfigHome("drools.reasoner")
-					.getAbsolutePath();
+			String home = Activator.mc.getConfigHome().getAbsolutePath();
 			// String modHome = home.replace("\\", "/");
 			// String pathToHome = "path=file:/"
 			// + modHome.substring(modHome.indexOf(":") + 1)

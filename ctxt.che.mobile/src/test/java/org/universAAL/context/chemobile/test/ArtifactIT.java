@@ -5,7 +5,6 @@ import java.io.File;
 import org.springframework.util.Assert;
 import org.universAAL.context.chemobile.osgi.Activator;
 import org.universAAL.itests.IntegrationTest;
-import org.universAAL.middleware.container.osgi.util.BundleConfigHome;
 import org.universAAL.middleware.container.utils.LogUtils;
 import org.universAAL.middleware.context.ContextEvent;
 import org.universAAL.middleware.context.ContextEventPattern;
@@ -70,8 +69,7 @@ public class ArtifactIT extends IntegrationTest {
 	    e.printStackTrace();
 	}
 	
-	File fileref = new File(
-		new BundleConfigHome("ctxt.che.mobile").getAbsolutePath(),
+	File fileref = new File(Activator.getModuleContext().getConfigHome(),
 		"Mobile-Events.txt");
 	 fileref.deleteOnExit();
 

@@ -23,7 +23,6 @@ import java.util.ArrayList;
 
 import org.universAAL.context.reasoner.osgi.Activator;
 import org.universAAL.middleware.container.ModuleContext;
-import org.universAAL.middleware.container.osgi.util.BundleConfigHome;
 import org.universAAL.middleware.service.CallStatus;
 import org.universAAL.middleware.service.ServiceCall;
 import org.universAAL.middleware.service.ServiceCallee;
@@ -55,14 +54,13 @@ public class ReasoningProvider extends ServiceCallee {
 		ServiceResponse.PROP_SERVICE_SPECIFIC_ERROR, "Invalid input!"));
     }
 
-    private static final String bundleHomePath = new BundleConfigHome(
-	    "ctxt.situation.reasoner").getAbsolutePath();
+    private static final String bundleHomePath = Activator.mcontext.getConfigHome().getAbsolutePath();
 
-    private final ElementModel<Situation> situations = new ElementModel<Situation>(
+    private ElementModel<Situation> situations = new ElementModel<Situation>(
 	    Situation.class, Activator.serializer, bundleHomePath);
-    private final ElementModel<Query> queries = new ElementModel<Query>(
+    private ElementModel<Query> queries = new ElementModel<Query>(
 	    Query.class, Activator.serializer, bundleHomePath);
-    private final RuleModel rules = new RuleModel(bundleHomePath);
+    private RuleModel rules = new RuleModel(bundleHomePath);
 
     public ReasoningProvider(ModuleContext context) {
 	super(context, ProvidedReasoningService.profiles);

@@ -29,7 +29,6 @@ import org.osgi.framework.ServiceReference;
 import org.universAAL.context.chemobile.Hub;
 import org.universAAL.middleware.container.ModuleContext;
 import org.universAAL.middleware.container.osgi.uAALBundleContainer;
-import org.universAAL.middleware.container.osgi.util.BundleConfigHome;
 import org.universAAL.middleware.serialization.MessageContentSerializer;
 
 /**
@@ -50,12 +49,11 @@ public class Activator implements BundleActivator, ServiceListener {
     /**
      * The application hub independent from OSGi.
      */
-    private Hub hub = new Hub();
+    private Hub hub;
     /**
      * The path to the config file. Here so it's decoupled from Hub.
      */
-    public static final String osgiConfigPath = new BundleConfigHome(
-	    "ctxt.che.mobile").getAbsolutePath();
+    public static String osgiConfigPath;
 
     /*
      * (non-Javadoc)
@@ -69,6 +67,8 @@ public class Activator implements BundleActivator, ServiceListener {
 	// create the context
 	moduleContext = uAALBundleContainer.THE_CONTAINER
 		.registerModule(new Object[] { context });
+	osgiConfigPath = moduleContext.getConfigHome().getAbsolutePath();
+	hub = new Hub();
 	// Start the core
 	try {
 	    hub.start(moduleContext);

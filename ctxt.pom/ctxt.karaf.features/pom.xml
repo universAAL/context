@@ -10,7 +10,6 @@
   <artifactId>ctxt.karaf.feature</artifactId>
   <version>3.4.1-SNAPSHOT</version>
   <name>universAAL Karaf Feature for Context</name>
-  <packaging>pom</packaging>
   <properties>
     <project.build.sourceEncoding>utf-8</project.build.sourceEncoding>
   </properties>

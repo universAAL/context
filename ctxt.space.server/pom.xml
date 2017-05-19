@@ -73,16 +73,6 @@
       <artifactId>ont.che</artifactId>
     </dependency>
   </dependencies>
-  <repositories>
-    <repository>
-      <snapshots>
-        <enabled>false</enabled>
-      </snapshots>
-      <id>sesame</id>
-      <name>Open RDF Sesame Repository</name>
-      <url>http://repo.aduna-software.org/maven2/releases/</url>
-    </repository>
-  </repositories>
   <pluginRepositories>
     <pluginRepository>
       <id>uaal-snapshots</id>

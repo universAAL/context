@@ -1,0 +1,10 @@
+<map id="G" name="G">
+<area shape="rect" id="c1217" href="./Activator.html" title="org.universAAL.drools.Activator" alt="" coords="15,17,89,42"/>
+<area shape="rect" id="node1" href="./Activator.html" title="&lt;TABLE&gt;" alt="" coords="5,5,99,53"/>
+<area shape="rect" id="c1218" href="./DroolsReasonerProvider.html" title="org.universAAL.drools.DroolsReasonerProvider" alt="" coords="133,17,296,42"/>
+<area shape="rect" id="node2" href="./DroolsReasonerProvider.html" title="&lt;TABLE&gt;" alt="" coords="123,5,307,53"/>
+<area shape="rect" id="c1219" href="./ProvidedDroolsReasonerService.html" title="org.universAAL.drools.ProvidedDroolsReasonerService" alt="" coords="341,17,550,42"/>
+<area shape="rect" id="node3" href="./ProvidedDroolsReasonerService.html" title="&lt;TABLE&gt;" alt="" coords="331,5,560,53"/>
+<area shape="rect" id="c1220" href="./DevelopingRulesUI.html" title="org.universAAL.drools.DevelopingRulesUI" alt="" coords="595,17,728,42"/>
+<area shape="rect" id="node4" href="./DevelopingRulesUI.html" title="&lt;TABLE&gt;" alt="" coords="584,5,739,53"/>
+</map>

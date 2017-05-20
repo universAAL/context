@@ -1,0 +1,12 @@
+<map id="G" name="G">
+<area shape="rect" id="c2373" href="./CardinCollectNativeStoreConnection.html" title="org.universAAL.context.sesame.sail.CardinCollectNativeStoreConnection" alt="" coords="16,214,251,239"/>
+<area shape="rect" id="node1" href="./CardinCollectNativeStoreConnection.html" title="&lt;TABLE&gt;" alt="" coords="5,203,261,251"/>
+<area shape="rect" id="c2375" href="./CardinCollect2NativeStoreConnection.html" title="org.universAAL.context.sesame.sail.CardinCollect2NativeStoreConnection" alt="" coords="295,214,537,239"/>
+<area shape="rect" id="node2" href="./CardinCollect2NativeStoreConnection.html" title="&lt;TABLE&gt;" alt="" coords="285,203,547,251"/>
+<area shape="rect" id="c2379" href="./CardinalityNativeStoreConnection.html" title="org.universAAL.context.sesame.sail.CardinalityNativeStoreConnection" alt="" coords="166,118,383,143"/>
+<area shape="rect" id="node3" href="./CardinalityNativeStoreConnection.html" title="&lt;TABLE&gt;" alt="" coords="156,107,393,155"/>
+<area shape="rect" id="c2431" href="http://java.sun.com/j2se/1.4.2/docs/api/org/openrdf/sail/helpers/NotifyingSailConnectionBase.html" title="org.openrdf.sail.helpers.NotifyingSailConnectionBase" alt="" coords="74,19,265,45"/>
+<area shape="rect" id="node6" href="http://java.sun.com/j2se/1.4.2/docs/api/org/openrdf/sail/helpers/NotifyingSailConnectionBase.html" title="&lt;TABLE&gt;" alt="" coords="64,8,275,56"/>
+<area shape="rect" id="c2432" href="http://java.sun.com/j2se/1.4.2/docs/api/org/openrdf/sail/inferencer/InferencerConnection.html" title="org.openrdf.sail.inferencer.InferencerConnection" alt="" coords="309,11,454,53"/>
+<area shape="rect" id="node8" href="http://java.sun.com/j2se/1.4.2/docs/api/org/openrdf/sail/inferencer/InferencerConnection.html" title="&lt;TABLE&gt;" alt="" coords="299,6,464,58"/>
+</map>

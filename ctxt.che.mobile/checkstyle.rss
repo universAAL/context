@@ -26,9 +26,9 @@ under the License.
     <copyright>&#169;2008 - 2017 Instituto Tecnologico de Aplicaciones de Comunicacion Avanzadas - Grupo Tecnologias para la Salud y el Bienestar (TSB)</copyright>
     <item>
       <title>File: 3,
-             Errors: 16,
+             Errors: 15,
              Warnings: 0,
-             Infos: 62
+             Infos: 39
       </title>
             <link>http://context/ctxt.che.mobile//checkstyle.html</link>
       <description>
@@ -49,7 +49,7 @@ under the License.
                   <a href="http://context/ctxt.che.mobile//checkstyle.html#org.universAAL.context.chemobile.MobileHistorySubscriber.java">org/universAAL/context/chemobile/MobileHistorySubscriber.java</a>
                 </td>
                 <td>
-                  27
+                  14
                 </td>
                 <td>
                   0
@@ -63,7 +63,7 @@ under the License.
                   <a href="http://context/ctxt.che.mobile//checkstyle.html#org.universAAL.context.chemobile.osgi.Activator.java">org/universAAL/context/chemobile/osgi/Activator.java</a>
                 </td>
                 <td>
-                  20
+                  13
                 </td>
                 <td>
                   0
@@ -77,13 +77,13 @@ under the License.
                   <a href="http://context/ctxt.che.mobile//checkstyle.html#org.universAAL.context.chemobile.Hub.java">org/universAAL/context/chemobile/Hub.java</a>
                 </td>
                 <td>
-                  15
+                  12
                 </td>
                 <td>
                   0
                 </td>
                 <td>
-                  5
+                  4
                 </td>
               </tr>
                       </tbody>

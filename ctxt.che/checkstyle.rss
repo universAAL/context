@@ -27,9 +27,9 @@ under the License.
     Fraunhofer-Gesellschaft - Institute of Computer Graphics Research</copyright>
     <item>
       <title>File: 9,
-             Errors: 107,
-             Warnings: 41,
-             Infos: 487
+             Errors: 106,
+             Warnings: 5,
+             Infos: 172
       </title>
             <link>http://context/ctxt.che//checkstyle.html</link>
       <description>
@@ -50,10 +50,10 @@ under the License.
                   <a href="http://context/ctxt.che//checkstyle.html#org.universAAL.context.che.database.impl.SesameBackendWithConfidence.java">org/universAAL/context/che/database/impl/SesameBackendWithConfidence.java</a>
                 </td>
                 <td>
-                  22
+                  14
                 </td>
                 <td>
-                  5
+                  1
                 </td>
                 <td>
                   2
@@ -64,10 +64,10 @@ under the License.
                   <a href="http://context/ctxt.che//checkstyle.html#org.universAAL.context.che.Hub.java">org/universAAL/context/che/Hub.java</a>
                 </td>
                 <td>
-                  123
+                  28
                 </td>
                 <td>
-                  1
+                  0
                 </td>
                 <td>
                   22
@@ -78,10 +78,10 @@ under the License.
                   <a href="http://context/ctxt.che//checkstyle.html#org.universAAL.context.che.ContextHistorySubscriber.java">org/universAAL/context/che/ContextHistorySubscriber.java</a>
                 </td>
                 <td>
-                  18
+                  12
                 </td>
                 <td>
-                  1
+                  0
                 </td>
                 <td>
                   4
@@ -92,10 +92,10 @@ under the License.
                   <a href="http://context/ctxt.che//checkstyle.html#org.universAAL.context.che.ContextHistoryCallee.java">org/universAAL/context/che/ContextHistoryCallee.java</a>
                 </td>
                 <td>
-                  76
+                  16
                 </td>
                 <td>
-                  8
+                  0
                 </td>
                 <td>
                   13
@@ -106,10 +106,10 @@ under the License.
                   <a href="http://context/ctxt.che//checkstyle.html#org.universAAL.context.che.database.Cleaner.java">org/universAAL/context/che/database/Cleaner.java</a>
                 </td>
                 <td>
-                  19
+                  14
                 </td>
                 <td>
-                  2
+                  0
                 </td>
                 <td>
                   3
@@ -120,7 +120,7 @@ under the License.
                   <a href="http://context/ctxt.che//checkstyle.html#org.universAAL.context.che.osgi.Activator.java">org/universAAL/context/che/osgi/Activator.java</a>
                 </td>
                 <td>
-                  21
+                  13
                 </td>
                 <td>
                   0
@@ -134,7 +134,7 @@ under the License.
                   <a href="http://context/ctxt.che//checkstyle.html#org.universAAL.context.che.database.Backend.java">org/universAAL/context/che/database/Backend.java</a>
                 </td>
                 <td>
-                  32
+                  28
                 </td>
                 <td>
                   0
@@ -148,10 +148,10 @@ under the License.
                   <a href="http://context/ctxt.che//checkstyle.html#org.universAAL.context.che.ContextHistoryServices.java">org/universAAL/context/che/ContextHistoryServices.java</a>
                 </td>
                 <td>
-                  33
+                  11
                 </td>
                 <td>
-                  11
+                  0
                 </td>
                 <td>
                   16
@@ -162,13 +162,13 @@ under the License.
                   <a href="http://context/ctxt.che//checkstyle.html#org.universAAL.context.che.database.impl.SesameBackend.java">org/universAAL/context/che/database/impl/SesameBackend.java</a>
                 </td>
                 <td>
-                  143
+                  36
                 </td>
                 <td>
-                  13
+                  4
                 </td>
                 <td>
-                  35
+                  34
                 </td>
               </tr>
                       </tbody>

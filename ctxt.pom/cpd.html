@@ -133,102 +133,97 @@
 <tr class="b">
 <td>org/universAAL/context/prof/serv/SCalleeProvidedService.java</td>
 <td>universAAL Context Profiling Server</td>
-<td>236</td></tr>
+<td>218</td></tr>
 <tr class="a">
 <td>org/universAAL/context/space/serv/SCalleeProvidedService.java</td>
 <td>universAAL Context AAL Space Server</td>
-<td>442</td></tr>
+<td>356</td></tr>
 <tr class="b"><td colspan='3'>
 <div>
-<pre>	profiles[7] = prof7.getProfile();
-    }
+<pre>		profiles[7] = prof7.getProfile();
+	}
 
-    // DYNAMIC TYPICAL SERVICE PROFILES
-    /**
-     * Gives you the 4 typical service profiles of an editor service: Get, Add,
-     * Change and Remove. When handling requests in you Callee, you can use the
-     * references to services and arguments URIs prepending
-     * &lt;code&gt;namespace&lt;/code&gt; to SimpleEditor constants.
-     * 
-     * @param namespace
-     *            The namespace of your server, ending with the character #. You
-     *            can optionally add some prefix after the # if you use
-     *            SimpleEditor more than once in the same Callee.
-     * @param ontologyURI
-     *            The MY_URI of the class of Service ontology you are going to
-     *            implement
-     * @param path
-     *            The property path from the root of the Service ontology
-     *            concept to the exact concept you want to manage
-     * @param editedURI
-     *            The MY_URI of the class of the concept ontology that you want
-     *            to manage, which is at the end of the property path
-     * @return An array with the 4 typical service profiles
-     */
-    public static ServiceProfile[] getServiceProfiles(String namespace,
-	    String ontologyURI, String[] path, String editedURI) {
+	// DYNAMIC TYPICAL SERVICE PROFILES
+	/**
+	 * Gives you the 4 typical service profiles of an editor service: Get, Add,
+	 * Change and Remove. When handling requests in you Callee, you can use the
+	 * references to services and arguments URIs prepending
+	 * &lt;code&gt;namespace&lt;/code&gt; to SimpleEditor constants.
+	 * 
+	 * @param namespace
+	 *            The namespace of your server, ending with the character #. You
+	 *            can optionally add some prefix after the # if you use
+	 *            SimpleEditor more than once in the same Callee.
+	 * @param ontologyURI
+	 *            The MY_URI of the class of Service ontology you are going to
+	 *            implement
+	 * @param path
+	 *            The property path from the root of the Service ontology
+	 *            concept to the exact concept you want to manage
+	 * @param editedURI
+	 *            The MY_URI of the class of the concept ontology that you want
+	 *            to manage, which is at the end of the property path
+	 * @return An array with the 4 typical service profiles
+	 */
+	public static ServiceProfile[] getServiceProfiles(String namespace, String ontologyURI, String[] path,
+			String editedURI) {
 
-	ServiceProfile[] profiles = new ServiceProfile[4];
+		ServiceProfile[] profiles = new ServiceProfile[4];
 
-	// Get
-	Service prof1 = (Service) OntologyManagement.getInstance().getResource(
-		ontologyURI, namespace + SRV_GET_X);
-	ProcessInput input1 = new ProcessInput(namespace + INP_GET_X);
-	input1.setParameterType(editedURI);
-	input1.setCardinality(1, 1);
-	MergedRestriction restr1 = MergedRestriction.getFixedValueRestriction(
-		path[path.length - 1], input1.asVariableReference());
-	prof1.addInstanceLevelRestriction(restr1, path);
-	prof1.getProfile().addInput(input1);
-	ProcessOutput output = new ProcessOutput(namespace + OUT_GET_X);
-	output.setParameterType(editedURI);
-	prof1.getProfile().addOutput(output);
-	prof1.getProfile().addSimpleOutputBinding(output, path);
-	prof1.addInstanceLevelRestriction(MergedRestriction
-		.getAllValuesRestriction(path[path.length - 1], editedURI),
-		path);
-	profiles[0] = prof1.getProfile();
+		// Get
+		Service prof1 = (Service) OntologyManagement.getInstance().getResource(ontologyURI, namespace + SRV_GET_X);
+		ProcessInput input1 = new ProcessInput(namespace + INP_GET_X);
+		input1.setParameterType(editedURI);
+		input1.setCardinality(1, 1);
+		MergedRestriction restr1 = MergedRestriction.getFixedValueRestriction(path[path.length - 1],
+				input1.asVariableReference());
+		prof1.addInstanceLevelRestriction(restr1, path);
+		prof1.getProfile().addInput(input1);
+		ProcessOutput output = new ProcessOutput(namespace + OUT_GET_X);
+		output.setParameterType(editedURI);
+		prof1.getProfile().addOutput(output);
+		prof1.getProfile().addSimpleOutputBinding(output, path);
+		prof1.addInstanceLevelRestriction(MergedRestriction.getAllValuesRestriction(path[path.length - 1], editedURI),
+				path);
+		profiles[0] = prof1.getProfile();
 
-	// Add
-	Service prof2 = ((Service) OntologyManagement.getInstance()
-		.getResource(ontologyURI, namespace + SRV_ADD_X));
-	ProcessInput input2 = new ProcessInput(namespace + INP_ADD_X);
-	input2.setParameterType(editedURI);
-	input2.setCardinality(1, 1);
-	prof2.getProfile().addInput(input2);
-	prof2.getProfile().addAddEffect(path, input2.asVariableReference());
-	profiles[1] = prof2.getProfile();
+		// Add
+		Service prof2 = ((Service) OntologyManagement.getInstance().getResource(ontologyURI, namespace + SRV_ADD_X));
+		ProcessInput input2 = new ProcessInput(namespace + INP_ADD_X);
+		input2.setParameterType(editedURI);
+		input2.setCardinality(1, 1);
+		prof2.getProfile().addInput(input2);
+		prof2.getProfile().addAddEffect(path, input2.asVariableReference());
+		profiles[1] = prof2.getProfile();
 
-	// Change
-	Service prof3 = ((Service) OntologyManagement.getInstance()
-		.getResource(ontologyURI, namespace + SRV_CHN_X));
-	ProcessInput input3 = new ProcessInput(namespace + INP_CHN_X);
-	input3.setCardinality(1, 1);
-	input3.setParameterType(editedURI);
-	prof3.getProfile().addInput(input3);
-	prof3.getProfile().addChangeEffect(path, input3.asVariableReference());
-	profiles[2] = prof3.getProfile();
+		// Change
+		Service prof3 = ((Service) OntologyManagement.getInstance().getResource(ontologyURI, namespace + SRV_CHN_X));
+		ProcessInput input3 = new ProcessInput(namespace + INP_CHN_X);
+		input3.setCardinality(1, 1);
+		input3.setParameterType(editedURI);
+		prof3.getProfile().addInput(input3);
+		prof3.getProfile().addChangeEffect(path, input3.asVariableReference());
+		profiles[2] = prof3.getProfile();
 
-	// Remove
-	Service prof4 = ((Service) OntologyManagement.getInstance()
-		.getResource(ontologyURI, namespace + SRV_REM_X));
-	ProcessInput input4 = new ProcessInput(namespace + INP_REM_X);
-	input4.setParameterType(editedURI);
-	input4.setCardinality(1, 1);
-	prof4.getProfile().addInput(input4);
-	MergedRestriction restr4 = MergedRestriction.getFixedValueRestriction(
-		path[path.length - 1], input4.asVariableReference());
-	prof4.addInstanceLevelRestriction(restr4, path);
-	prof4.getProfile().addRemoveEffect(path);
-	profiles[3] = prof4.getProfile();
+		// Remove
+		Service prof4 = ((Service) OntologyManagement.getInstance().getResource(ontologyURI, namespace + SRV_REM_X));
+		ProcessInput input4 = new ProcessInput(namespace + INP_REM_X);
+		input4.setParameterType(editedURI);
+		input4.setCardinality(1, 1);
+		prof4.getProfile().addInput(input4);
+		MergedRestriction restr4 = MergedRestriction.getFixedValueRestriction(path[path.length - 1],
+				input4.asVariableReference());
+		prof4.addInstanceLevelRestriction(restr4, path);
+		prof4.getProfile().addRemoveEffect(path);
+		profiles[3] = prof4.getProfile();
 
-	return profiles;
-    }
-    
-    @Override
-    public String getClassURI() {
-	return MY_URI;
-    }
+		return profiles;
+	}
+
+	@Override
+	public String getClassURI() {
+		return MY_URI;
+	}
 
 }</pre></div></td></tr></table>
 <table border="0" class="bodyTable">
@@ -239,45 +234,40 @@
 <tr class="b">
 <td>org/universAAL/context/prof/serv/SCaller.java</td>
 <td>universAAL Context Profiling Server</td>
-<td>298</td></tr>
+<td>272</td></tr>
 <tr class="a">
 <td>org/universAAL/context/prof/serv/SCaller.java</td>
 <td>universAAL Context Profiling Server</td>
-<td>339</td></tr>
+<td>305</td></tr>
 <tr class="b"><td colspan='3'>
 <div>
-<pre>			.replace(Queries.ARG1, user.getURI())));
-	lookException(resp);
-	String result2 = getResult(resp);
-	if (result1 == null || result2 == null)
-	    return null;
-	Resource bag = (Resource) Hub.parser
-		.deserialize(result1 + &quot; &quot; + result2, Queries.AUXBAG);
-	if (bag != null) {
-	    Object content = bag.getProperty(Queries.AUXBAGPROP);
-	    ArrayList list = new ArrayList();
-	    OntologyManagement mng = OntologyManagement.getInstance();
-	    if (content instanceof List) {
-		Iterator iter = ((ArrayList) content).iterator();
-		while (iter.hasNext()) {
-		    Resource res = (Resource) iter.next();
-		    list.add(mng.getResource(
-			    mng.getMostSpecializedClass(res.getTypes()),
-			    res.getURI()));
+<pre>				.call(getDoSPARQLRequest(Queries.Q_GET_SUBS_OF_USR_XTRA.replace(Queries.ARG1, user.getURI())));
+		lookException(resp);
+		String result2 = getResult(resp);
+		if (result1 == null || result2 == null)
+			return null;
+		Resource bag = (Resource) Hub.parser.deserialize(result1 + &quot; &quot; + result2, Queries.AUXBAG);
+		if (bag != null) {
+			Object content = bag.getProperty(Queries.AUXBAGPROP);
+			ArrayList list = new ArrayList();
+			OntologyManagement mng = OntologyManagement.getInstance();
+			if (content instanceof List) {
+				Iterator iter = ((ArrayList) content).iterator();
+				while (iter.hasNext()) {
+					Resource res = (Resource) iter.next();
+					list.add(mng.getResource(mng.getMostSpecializedClass(res.getTypes()), res.getURI()));
+				}
+			} else {
+				Resource res = (Resource) content;
+				list.add(mng.getResource(mng.getMostSpecializedClass(res.getTypes()), res.getURI()));
+			}
+			return list;
+		} else {
+			return null;
 		}
-	    } else {
-		Resource res = (Resource) content;
-		list.add(mng.getResource(
-			mng.getMostSpecializedClass(res.getTypes()),
-			res.getURI()));
-	    }
-	    return list;
-	} else {
-	    return null;
 	}
-    }
 
-    protected ArrayList getSubProfilesOfProfile(Resource profile)</pre></div></td></tr></table>
+	protected ArrayList getSubProfilesOfProfile(Resource profile)</pre></div></td></tr></table>
 <table border="0" class="bodyTable">
 <tr class="a">
 <th>File</th>
@@ -286,50 +276,46 @@
 <tr class="b">
 <td>org/universAAL/context/prof/serv/SCaller.java</td>
 <td>universAAL Context Profiling Server</td>
-<td>458</td></tr>
+<td>407</td></tr>
 <tr class="a">
 <td>org/universAAL/context/space/serv/SCaller.java</td>
 <td>universAAL Context AAL Space Server</td>
-<td>513</td></tr>
+<td>464</td></tr>
 <tr class="b"><td colspan='3'>
 <div>
-<pre>		}
-	    }
-	    if (returnValue instanceof String) {
-		return (String) returnValue;
-	    } else {
-		return null;
-	    }
+<pre>				}
+			}
+			if (returnValue instanceof String) {
+				return (String) returnValue;
+			} else {
+				return null;
+			}
+		}
 	}
-    }
 
-    /**
-     * Splits a Turtle serialized string into prefixes and content, so it can be
-     * used inside SPARQL queries.
-     * 
-     * @param serialized
-     *            The turtle string
-     * @return An array of length 2. The first item [0] is the string with the
-     *         prefixes, and the second [1] is the string with the triples
-     *         content
-     */
-    public static String[] splitPrefixes(String serialized) {
-	int lastprefix = 0, lastprefixdot = 0, lastprefixuri = 0;
-	lastprefix = serialized.toLowerCase().lastIndexOf(&quot;@prefix&quot;);
-	if (lastprefix &gt;= 0) {
-	    lastprefixuri = serialized.substring(lastprefix).indexOf(&quot;&gt;&quot;);
-	    lastprefixdot = serialized.substring(lastprefix + lastprefixuri)
-		    .indexOf(&quot;.&quot;);
-	}
-	String[] result = new String[2];
-	result[0] = serialized
-		.substring(0, lastprefixuri + lastprefixdot + lastprefix + 1)
-		.replace(&quot;@&quot;, &quot; &quot;).replace(&quot;&gt;.&quot;, &quot;&gt; &quot;).replace(&quot; .&quot;, &quot; &quot;)
-		.replace(&quot;. &quot;, &quot; &quot;);
-	result[1] = serialized
-		.substring(lastprefixuri + lastprefixdot + lastprefix + 1);
-	return result;
-    }</pre></div></td></tr></table>
+	/**
+	 * Splits a Turtle serialized string into prefixes and content, so it can be
+	 * used inside SPARQL queries.
+	 * 
+	 * @param serialized
+	 *            The turtle string
+	 * @return An array of length 2. The first item [0] is the string with the
+	 *         prefixes, and the second [1] is the string with the triples
+	 *         content
+	 */
+	public static String[] splitPrefixes(String serialized) {
+		int lastprefix = 0, lastprefixdot = 0, lastprefixuri = 0;
+		lastprefix = serialized.toLowerCase().lastIndexOf(&quot;@prefix&quot;);
+		if (lastprefix &gt;= 0) {
+			lastprefixuri = serialized.substring(lastprefix).indexOf(&quot;&gt;&quot;);
+			lastprefixdot = serialized.substring(lastprefix + lastprefixuri).indexOf(&quot;.&quot;);
+		}
+		String[] result = new String[2];
+		result[0] = serialized.substring(0, lastprefixuri + lastprefixdot + lastprefix + 1).replace(&quot;@&quot;, &quot; &quot;)
+				.replace(&quot;&gt;.&quot;, &quot;&gt; &quot;).replace(&quot; .&quot;, &quot; &quot;).replace(&quot;. &quot;, &quot; &quot;);
+		result[1] = serialized.substring(lastprefixuri + lastprefixdot + lastprefix + 1);
+		return result;
+	}</pre></div></td></tr></table>
 <table border="0" class="bodyTable">
 <tr class="a">
 <th>File</th>
@@ -338,55 +324,51 @@
 <tr class="b">
 <td>org/universAAL/context/sesame/sail/CardinCollect2NativeStoreConnection.java</td>
 <td>universAAL Context Sesame SAIL for OWL Lite</td>
-<td>49</td></tr>
+<td>48</td></tr>
 <tr class="a">
 <td>org/universAAL/context/sesame/sail/CardinCollectNativeStoreConnection.java</td>
 <td>universAAL Context Sesame SAIL for OWL Lite</td>
-<td>45</td></tr>
+<td>44</td></tr>
 <tr class="b"><td colspan='3'>
 <div>
-<pre>			}else if(prevObjIsClosedCollection(subj,pred,contexts)){
-			    removeStatements(subj, pred, null, true, contexts);
-			}else if(objIsClosedCollection(obj, contexts)){
-			    removeStatements(subj, pred, null, true, contexts);
-			}
-			    
-			//END PATCH
-			boolean wasNew = nativeStore.getTripleStore().storeTriple(subjID, predID, objID, contextID,
-					explicit);
-			result |= wasNew;
+<pre>				} else if (prevObjIsClosedCollection(subj, pred, contexts)) {
+					removeStatements(subj, pred, null, true, contexts);
+				} else if (objIsClosedCollection(obj, contexts)) {
+					removeStatements(subj, pred, null, true, contexts);
+				}
 
-			if (wasNew) {
-				// The triple was not yet present in the triple store
-				sailChangedEvent.setStatementsAdded(true);
+				// END PATCH
+				boolean wasNew = nativeStore.getTripleStore().storeTriple(subjID, predID, objID, contextID, explicit);
+				result |= wasNew;
 
-				if (hasConnectionListeners()) {
-					Statement st;
+				if (wasNew) {
+					// The triple was not yet present in the triple store
+					sailChangedEvent.setStatementsAdded(true);
 
-					if (context != null) {
-						st = valueStore.createStatement(subj, pred, obj, context);
+					if (hasConnectionListeners()) {
+						Statement st;
+
+						if (context != null) {
+							st = valueStore.createStatement(subj, pred, obj, context);
+						} else {
+							st = valueStore.createStatement(subj, pred, obj);
+						}
+
+						notifyStatementAdded(st);
 					}
-					else {
-						st = valueStore.createStatement(subj, pred, obj);
-					}
-
-					notifyStatementAdded(st);
 				}
 			}
+		} catch (IOException e) {
+			throw new SailException(e);
+		} catch (RuntimeException e) {
+			logger.error(&quot;Encountered an unexpected problem while trying to add a statement&quot;, e);
+			throw e;
 		}
-	}
-	catch (IOException e) {
-		throw new SailException(e);
-	}
-	catch (RuntimeException e) {
-		logger.error(&quot;Encountered an unexpected problem while trying to add a statement&quot;, e);
-		throw e;
+
+		return result;
 	}
 
-	return result;
-    }
-
-    private boolean prevObjIsClosedCollection(Resource subj, URI pred,</pre></div></td></tr></table>
+	private boolean prevObjIsClosedCollection(Resource subj, URI pred, Resource[] contexts) throws SailException {</pre></div></td></tr></table>
 <table border="0" class="bodyTable">
 <tr class="a">
 <th>File</th>
@@ -402,40 +384,35 @@
 <td>58</td></tr>
 <tr class="b"><td colspan='3'>
 <div>
-<pre>    private static Log log = Hub.getLog(SesameBackendCrdClc.class);
+<pre>	private static Log log = Hub.getLog(SesameBackendCrdClc.class);
 
-    @Override
-    public void connect() {
-	String dataPath = Hub.getProperties().getProperty(&quot;STORE.LOCATION&quot;);
-	boolean encrypt = Boolean.parseBoolean(Hub.getProperties().getProperty(
-		&quot;STORE.ENCRYPT&quot;));
-	// I use C:\Proyectos\UNIVERSAAL\ContextStore\Stores\SAIL_FCRDFS_Native
-	if (dataPath != null) {
-	    File dataDir = new File(dataPath);
-	    String indexes = &quot;spoc,posc,cosp&quot;; // TODO: Change indexes
-					       // (specially
-					       // if we dont use contexts)
-	    log.info(&quot;CHe connects to {} &quot;, dataDir.toString());
-	    // TODO: Evaluate the inference, and study other reasoners, if any
-	    try {
-		myRepository = new SailRepository(
-			new ForwardChainingRDFSInferencer(
-				new CardinCollectNativeStore(dataDir, indexes,
-					encrypt)));
-		myRepository.initialize();
-		con = myRepository.getConnection();
-		if (Boolean.parseBoolean(Hub.getProperties().getProperty(
-			&quot;STORE.PRELOAD&quot;))) {
-		    this.populate();
-		}
-	    } catch (Exception e) {
-		log.error(&quot;connect&quot;,
-			&quot;Exception trying to initilaize the store: {} &quot;, e);
-		e.printStackTrace();
-	    }
-	} else {
-	    log.error(&quot;connect&quot;, &quot;No location specified for the store. &quot;
-		    + &quot;Add and specify the configuration&quot;</pre></div></td></tr></table>
+	@Override
+	public void connect() {
+		String dataPath = Hub.getProperties().getProperty(&quot;STORE.LOCATION&quot;);
+		boolean encrypt = Boolean.parseBoolean(Hub.getProperties().getProperty(&quot;STORE.ENCRYPT&quot;));
+		// I use C:\Proyectos\UNIVERSAAL\ContextStore\Stores\SAIL_FCRDFS_Native
+		if (dataPath != null) {
+			File dataDir = new File(dataPath);
+			String indexes = &quot;spoc,posc,cosp&quot;; // TODO: Change indexes
+			// (specially
+			// if we dont use contexts)
+			log.info(&quot;CHe connects to {} &quot;, dataDir.toString());
+			// TODO: Evaluate the inference, and study other reasoners, if any
+			try {
+				myRepository = new SailRepository(
+						new ForwardChainingRDFSInferencer(new CardinCollectNativeStore(dataDir, indexes, encrypt)));
+				myRepository.initialize();
+				con = myRepository.getConnection();
+				if (Boolean.parseBoolean(Hub.getProperties().getProperty(&quot;STORE.PRELOAD&quot;))) {
+					this.populate();
+				}
+			} catch (Exception e) {
+				log.error(&quot;connect&quot;, &quot;Exception trying to initilaize the store: {} &quot;, e);
+				e.printStackTrace();
+			}
+		} else {
+			log.error(&quot;connect&quot;,
+					&quot;No location specified for the store. &quot; + &quot;Add and specify the configuration&quot;</pre></div></td></tr></table>
 <table border="0" class="bodyTable">
 <tr class="a">
 <th>File</th>
@@ -451,39 +428,34 @@
 <td>58</td></tr>
 <tr class="b"><td colspan='3'>
 <div>
-<pre>    private static Log log = Hub.getLog(SesameBackendCrd.class);
+<pre>	private static Log log = Hub.getLog(SesameBackendCrd.class);
 
-    @Override
-    public void connect() {
-	String dataPath = Hub.getProperties().getProperty(&quot;STORE.LOCATION&quot;);
-	boolean encrypt = Boolean.parseBoolean(Hub.getProperties().getProperty(
-		&quot;STORE.ENCRYPT&quot;));
-	// I use C:\Proyectos\UNIVERSAAL\ContextStore\Stores\SAIL_FCRDFS_Native
-	if (dataPath != null) {
-	    File dataDir = new File(dataPath);
-	    String indexes = &quot;spoc,posc,cosp&quot;; // TODO: Change indexes
-					       // (specially
-					       // if we dont use contexts)
-	    log.info(&quot;CHe connects to {} &quot;, dataDir.toString());
-	    // TODO: Evaluate the inference, and study other reasoners, if any
-	    try {
-		myRepository = new SailRepository(
-			new ForwardChainingRDFSInferencer(
-				new CardinalityNativeStore(dataDir, indexes,
-					encrypt)));
-		myRepository.initialize();
-		con = myRepository.getConnection();
-		if (Boolean.parseBoolean(Hub.getProperties().getProperty(
-			&quot;STORE.PRELOAD&quot;))) {
-		    this.populate();
-		}
-	    } catch (Exception e) {
-		log.error(&quot;connect&quot;,
-			&quot;Exception trying to initilaize the store: {} &quot;, e);
-		e.printStackTrace();
-	    }
-	} else {
-	    log.error(&quot;connect&quot;, &quot;No location specified for the store.&quot;</pre></div></td></tr></table>
+	@Override
+	public void connect() {
+		String dataPath = Hub.getProperties().getProperty(&quot;STORE.LOCATION&quot;);
+		boolean encrypt = Boolean.parseBoolean(Hub.getProperties().getProperty(&quot;STORE.ENCRYPT&quot;));
+		// I use C:\Proyectos\UNIVERSAAL\ContextStore\Stores\SAIL_FCRDFS_Native
+		if (dataPath != null) {
+			File dataDir = new File(dataPath);
+			String indexes = &quot;spoc,posc,cosp&quot;; // TODO: Change indexes
+			// (specially
+			// if we dont use contexts)
+			log.info(&quot;CHe connects to {} &quot;, dataDir.toString());
+			// TODO: Evaluate the inference, and study other reasoners, if any
+			try {
+				myRepository = new SailRepository(
+						new ForwardChainingRDFSInferencer(new CardinalityNativeStore(dataDir, indexes, encrypt)));
+				myRepository.initialize();
+				con = myRepository.getConnection();
+				if (Boolean.parseBoolean(Hub.getProperties().getProperty(&quot;STORE.PRELOAD&quot;))) {
+					this.populate();
+				}
+			} catch (Exception e) {
+				log.error(&quot;connect&quot;, &quot;Exception trying to initilaize the store: {} &quot;, e);
+				e.printStackTrace();
+			}
+		} else {
+			log.error(&quot;connect&quot;,</pre></div></td></tr></table>
 <table border="0" class="bodyTable">
 <tr class="a">
 <th>File</th>
@@ -499,39 +471,34 @@
 <td>58</td></tr>
 <tr class="b"><td colspan='3'>
 <div>
-<pre>    private static Log log = Hub.getLog(SesameBackendCrdClc2.class);
+<pre>	private static Log log = Hub.getLog(SesameBackendCrdClc2.class);
 
-    @Override
-    public void connect() {
-	String dataPath = Hub.getProperties().getProperty(&quot;STORE.LOCATION&quot;);
-	boolean encrypt = Boolean.parseBoolean(Hub.getProperties().getProperty(
-		&quot;STORE.ENCRYPT&quot;));
-	// I use C:\Proyectos\UNIVERSAAL\ContextStore\Stores\SAIL_FCRDFS_Native
-	if (dataPath != null) {
-	    File dataDir = new File(dataPath);
-	    String indexes = &quot;spoc,posc,cosp&quot;; // TODO: Change indexes
-					       // (specially
-					       // if we dont use contexts)
-	    log.info(&quot;CHe connects to {} &quot;, dataDir.toString());
-	    // TODO: Evaluate the inference, and study other reasoners, if any
-	    try {
-		myRepository = new SailRepository(
-			new ForwardChainingRDFSInferencer(
-				new CardinCollect2NativeStore(dataDir, indexes,
-					encrypt)));
-		myRepository.initialize();
-		con = myRepository.getConnection();
-		if (Boolean.parseBoolean(Hub.getProperties().getProperty(
-			&quot;STORE.PRELOAD&quot;))) {
-		    this.populate();
-		}
-	    } catch (Exception e) {
-		log.error(&quot;connect&quot;,
-			&quot;Exception trying to initilaize the store: {} &quot;, e);
-		e.printStackTrace();
-	    }
-	} else {
-	    log.error(&quot;connect&quot;,</pre></div></td></tr></table>
+	@Override
+	public void connect() {
+		String dataPath = Hub.getProperties().getProperty(&quot;STORE.LOCATION&quot;);
+		boolean encrypt = Boolean.parseBoolean(Hub.getProperties().getProperty(&quot;STORE.ENCRYPT&quot;));
+		// I use C:\Proyectos\UNIVERSAAL\ContextStore\Stores\SAIL_FCRDFS_Native
+		if (dataPath != null) {
+			File dataDir = new File(dataPath);
+			String indexes = &quot;spoc,posc,cosp&quot;; // TODO: Change indexes
+			// (specially
+			// if we dont use contexts)
+			log.info(&quot;CHe connects to {} &quot;, dataDir.toString());
+			// TODO: Evaluate the inference, and study other reasoners, if any
+			try {
+				myRepository = new SailRepository(
+						new ForwardChainingRDFSInferencer(new CardinCollect2NativeStore(dataDir, indexes, encrypt)));
+				myRepository.initialize();
+				con = myRepository.getConnection();
+				if (Boolean.parseBoolean(Hub.getProperties().getProperty(&quot;STORE.PRELOAD&quot;))) {
+					this.populate();
+				}
+			} catch (Exception e) {
+				log.error(&quot;connect&quot;, &quot;Exception trying to initilaize the store: {} &quot;, e);
+				e.printStackTrace();
+			}
+		} else {
+			log.error(&quot;connect&quot;,</pre></div></td></tr></table>
 <table border="0" class="bodyTable">
 <tr class="a">
 <th>File</th>
@@ -540,54 +507,50 @@
 <tr class="b">
 <td>org/universAAL/context/prof/serv/SCaller.java</td>
 <td>universAAL Context Profiling Server</td>
-<td>415</td></tr>
+<td>369</td></tr>
 <tr class="a">
 <td>org/universAAL/context/space/serv/SCaller.java</td>
 <td>universAAL Context AAL Space Server</td>
-<td>468</td></tr>
+<td>424</td></tr>
 <tr class="b"><td colspan='3'>
 <div>
-<pre>    }
+<pre>	}
 
-    /**
-     * Prepares the call to the Do SPARQL service of CHE.
-     * 
-     * @param query
-     *            The SPARQL query
-     * @return The prepared request
-     */
-    private ServiceRequest getDoSPARQLRequest(String query) {
-	ServiceRequest getQuery = new ServiceRequest(
-		new ContextHistoryService(null), null);
+	/**
+	 * Prepares the call to the Do SPARQL service of CHE.
+	 * 
+	 * @param query
+	 *            The SPARQL query
+	 * @return The prepared request
+	 */
+	private ServiceRequest getDoSPARQLRequest(String query) {
+		ServiceRequest getQuery = new ServiceRequest(new ContextHistoryService(null), null);
 
-	MergedRestriction r = MergedRestriction.getFixedValueRestriction(
-		ContextHistoryService.PROP_PROCESSES, query);
+		MergedRestriction r = MergedRestriction.getFixedValueRestriction(ContextHistoryService.PROP_PROCESSES, query);
 
-	getQuery.getRequestedService().addInstanceLevelRestriction(r,
-		new String[] { ContextHistoryService.PROP_PROCESSES });
-	getQuery.addSimpleOutputBinding(new ProcessOutput(OUTPUT_RESULT_STRING),
-		new PropertyPath(null, true,
-			new String[] { ContextHistoryService.PROP_RETURNS })
-				.getThePath());
-	return getQuery;
-    }
+		getQuery.getRequestedService().addInstanceLevelRestriction(r,
+				new String[] { ContextHistoryService.PROP_PROCESSES });
+		getQuery.addSimpleOutputBinding(new ProcessOutput(OUTPUT_RESULT_STRING),
+				new PropertyPath(null, true, new String[] { ContextHistoryService.PROP_RETURNS }).getThePath());
+		return getQuery;
+	}
 
-    /**
-     * Helper method to get the result from the Service Response of CHE.
-     * 
-     * @param call
-     *            The service response
-     * @return the result SPARQL string
-     */
-    private String getResult(ServiceResponse call) {
-	Object returnValue = null;
-	List outputs = call.getOutputs();
-	if (outputs == null) {
-	    return null;
-	} else {
-	    for (Iterator i = outputs.iterator(); i.hasNext();) {
-		ProcessOutput output = (ProcessOutput) i.next();
-		if (output.getURI().equals(OUTPUT_RESULT_STRING)</pre></div></td></tr></table>
+	/**
+	 * Helper method to get the result from the Service Response of CHE.
+	 * 
+	 * @param call
+	 *            The service response
+	 * @return the result SPARQL string
+	 */
+	private String getResult(ServiceResponse call) {
+		Object returnValue = null;
+		List outputs = call.getOutputs();
+		if (outputs == null) {
+			return null;
+		} else {
+			for (Iterator i = outputs.iterator(); i.hasNext();) {
+				ProcessOutput output = (ProcessOutput) i.next();
+				if (output.getURI().equals(OUTPUT_RESULT_STRING) &amp;&amp; returnValue == null) {</pre></div></td></tr></table>
 <table border="0" class="bodyTable">
 <tr class="a">
 <th>File</th>
@@ -603,38 +566,37 @@
 <td>16</td></tr>
 <tr class="b"><td colspan='3'>
 <div>
-<pre>    protected CardinCollect2NativeStoreConnection(
-	    CardinalityNativeStore nativeStore) throws IOException {
-	super(nativeStore);
-    }
+<pre>	protected CardinCollect2NativeStoreConnection(CardinalityNativeStore nativeStore) throws IOException {
+		super(nativeStore);
+	}
 
-    @Override
-    protected boolean addStatement(Resource subj, URI pred, Value obj,
-	    boolean explicit, Resource... contexts) throws SailException {
-	OpenRDFUtil.verifyContextNotNull(contexts);
+	@Override
+	protected boolean addStatement(Resource subj, URI pred, Value obj, boolean explicit, Resource... contexts)
+			throws SailException {
+		OpenRDFUtil.verifyContextNotNull(contexts);
 
-	boolean result = false;
+		boolean result = false;
 
-	try {
-		ValueStore valueStore = nativeStore.getValueStore();
-		int subjID = valueStore.storeValue(subj);
-		int predID = valueStore.storeValue(pred);
-		int objID = valueStore.storeValue(obj);
+		try {
+			ValueStore valueStore = nativeStore.getValueStore();
+			int subjID = valueStore.storeValue(subj);
+			int predID = valueStore.storeValue(pred);
+			int objID = valueStore.storeValue(obj);
 
-		if (contexts.length == 0) {
-			contexts = new Resource[] { null };
-		}
-
-		for (Resource context : contexts) {
-			int contextID = 0;
-			if (context != null) {
-				contextID = valueStore.storeValue(context);
+			if (contexts.length == 0) {
+				contexts = new Resource[] { null };
 			}
 
-			//START PATCH
-			if(hasMaxCardinality1(pred, contexts)){
-			    removeStatements(subj, pred, null, true, contexts);
-			}else if(prevObjIsClosedCollection(subj,pred,contexts)){</pre></div></td></tr></table>
+			for (Resource context : contexts) {
+				int contextID = 0;
+				if (context != null) {
+					contextID = valueStore.storeValue(context);
+				}
+
+				// START PATCH
+				if (hasMaxCardinality1(pred, contexts)) {
+					removeStatements(subj, pred, null, true, contexts);
+				} else if (prevObjIsClosedCollection(subj, pred, contexts)) {</pre></div></td></tr></table>
 <table border="0" class="bodyTable">
 <tr class="a">
 <th>File</th>
@@ -643,44 +605,39 @@
 <tr class="b">
 <td>org/universAAL/context/prof/serv/SCaller.java</td>
 <td>universAAL Context Profiling Server</td>
-<td>237</td></tr>
+<td>222</td></tr>
 <tr class="a">
 <td>org/universAAL/context/prof/serv/SCaller.java</td>
 <td>universAAL Context Profiling Server</td>
-<td>304</td></tr>
+<td>277</td></tr>
 <tr class="b">
 <td>org/universAAL/context/prof/serv/SCaller.java</td>
 <td>universAAL Context Profiling Server</td>
-<td>345</td></tr>
+<td>310</td></tr>
 <tr class="a"><td colspan='3'>
 <div>
-<pre>	Resource bag = (Resource) Hub.parser.deserialize(result + &quot; &quot; + result2,
-		Queries.AUXBAG);
-	if (bag != null) {
-	    Object content = bag.getProperty(Queries.AUXBAGPROP);
-	    ArrayList list = new ArrayList();
-	    OntologyManagement mng = OntologyManagement.getInstance();
-	    if (content instanceof List) {
-		Iterator iter = ((ArrayList) content).iterator();
-		while (iter.hasNext()) {
-		    Resource res = (Resource) iter.next();
-		    list.add(mng.getResource(
-			    mng.getMostSpecializedClass(res.getTypes()),
-			    res.getURI()));
+<pre>		Resource bag = (Resource) Hub.parser.deserialize(result + &quot; &quot; + result2, Queries.AUXBAG);
+		if (bag != null) {
+			Object content = bag.getProperty(Queries.AUXBAGPROP);
+			ArrayList list = new ArrayList();
+			OntologyManagement mng = OntologyManagement.getInstance();
+			if (content instanceof List) {
+				Iterator iter = ((ArrayList) content).iterator();
+				while (iter.hasNext()) {
+					Resource res = (Resource) iter.next();
+					list.add(mng.getResource(mng.getMostSpecializedClass(res.getTypes()), res.getURI()));
+				}
+			} else {
+				Resource res = (Resource) content;
+				list.add(mng.getResource(mng.getMostSpecializedClass(res.getTypes()), res.getURI()));
+			}
+			return list;
+		} else {
+			return null;
 		}
-	    } else {
-		Resource res = (Resource) content;
-		list.add(mng.getResource(
-			mng.getMostSpecializedClass(res.getTypes()),
-			res.getURI()));
-	    }
-	    return list;
-	} else {
-	    return null;
 	}
-    }
 
-    protected Resource getProfileOfUser(Resource user)</pre></div></td></tr></table>
+	protected Resource getProfileOfUser(Resource user)</pre></div></td></tr></table>
 <table border="0" class="bodyTable">
 <tr class="b">
 <th>File</th>
@@ -689,44 +646,40 @@
 <tr class="a">
 <td>org/universAAL/context/prof/serv/SCaller.java</td>
 <td>universAAL Context Profiling Server</td>
-<td>239</td></tr>
+<td>223</td></tr>
 <tr class="b">
 <td>org/universAAL/context/prof/serv/SCaller.java</td>
 <td>universAAL Context Profiling Server</td>
-<td>305</td></tr>
+<td>278</td></tr>
 <tr class="a">
 <td>org/universAAL/context/prof/serv/SCaller.java</td>
 <td>universAAL Context Profiling Server</td>
-<td>346</td></tr>
+<td>311</td></tr>
 <tr class="b">
 <td>org/universAAL/context/space/serv/SCaller.java</td>
 <td>universAAL Context AAL Space Server</td>
-<td>450</td></tr>
+<td>406</td></tr>
 <tr class="a"><td colspan='3'>
 <div>
-<pre>	if (bag != null) {
-	    Object content = bag.getProperty(Queries.AUXBAGPROP);
-	    ArrayList list = new ArrayList();
-	    OntologyManagement mng = OntologyManagement.getInstance();
-	    if (content instanceof List) {
-		Iterator iter = ((ArrayList) content).iterator();
-		while (iter.hasNext()) {
-		    Resource res = (Resource) iter.next();
-		    list.add(mng.getResource(
-			    mng.getMostSpecializedClass(res.getTypes()),
-			    res.getURI()));
+<pre>		if (bag != null) {
+			Object content = bag.getProperty(Queries.AUXBAGPROP);
+			ArrayList list = new ArrayList();
+			OntologyManagement mng = OntologyManagement.getInstance();
+			if (content instanceof List) {
+				Iterator iter = ((ArrayList) content).iterator();
+				while (iter.hasNext()) {
+					Resource res = (Resource) iter.next();
+					list.add(mng.getResource(mng.getMostSpecializedClass(res.getTypes()), res.getURI()));
+				}
+			} else {
+				Resource res = (Resource) content;
+				list.add(mng.getResource(mng.getMostSpecializedClass(res.getTypes()), res.getURI()));
+			}
+			return list;
+		} else {
+			return null;
 		}
-	    } else {
-		Resource res = (Resource) content;
-		list.add(mng.getResource(
-			mng.getMostSpecializedClass(res.getTypes()),
-			res.getURI()));
-	    }
-	    return list;
-	} else {
-	    return null;
-	}
-    }</pre></div></td></tr></table>
+	}</pre></div></td></tr></table>
 <table border="0" class="bodyTable">
 <tr class="b">
 <th>File</th>
@@ -735,55 +688,51 @@
 <tr class="a">
 <td>org/universAAL/context/sesame/sail/CardinCollect2NativeStoreConnection.java</td>
 <td>universAAL Context Sesame SAIL for OWL Lite</td>
-<td>51</td></tr>
+<td>50</td></tr>
 <tr class="b">
 <td>org/universAAL/context/sesame/sail/CardinCollectNativeStoreConnection.java</td>
 <td>universAAL Context Sesame SAIL for OWL Lite</td>
-<td>47</td></tr>
+<td>46</td></tr>
 <tr class="a">
 <td>org/universAAL/context/sesame/sail/CardinalityNativeStoreConnection.java</td>
 <td>universAAL Context Sesame SAIL for OWL Lite</td>
-<td>484</td></tr>
+<td>428</td></tr>
 <tr class="b"><td colspan='3'>
 <div>
-<pre>			}else if(objIsClosedCollection(obj, contexts)){
-			    removeStatements(subj, pred, null, true, contexts);
-			}
-			    
-			//END PATCH
-			boolean wasNew = nativeStore.getTripleStore().storeTriple(subjID, predID, objID, contextID,
-					explicit);
-			result |= wasNew;
+<pre>				} else if (objIsClosedCollection(obj, contexts)) {
+					removeStatements(subj, pred, null, true, contexts);
+				}
 
-			if (wasNew) {
-				// The triple was not yet present in the triple store
-				sailChangedEvent.setStatementsAdded(true);
+				// END PATCH
+				boolean wasNew = nativeStore.getTripleStore().storeTriple(subjID, predID, objID, contextID, explicit);
+				result |= wasNew;
 
-				if (hasConnectionListeners()) {
-					Statement st;
+				if (wasNew) {
+					// The triple was not yet present in the triple store
+					sailChangedEvent.setStatementsAdded(true);
 
-					if (context != null) {
-						st = valueStore.createStatement(subj, pred, obj, context);
+					if (hasConnectionListeners()) {
+						Statement st;
+
+						if (context != null) {
+							st = valueStore.createStatement(subj, pred, obj, context);
+						} else {
+							st = valueStore.createStatement(subj, pred, obj);
+						}
+
+						notifyStatementAdded(st);
 					}
-					else {
-						st = valueStore.createStatement(subj, pred, obj);
-					}
-
-					notifyStatementAdded(st);
 				}
 			}
+		} catch (IOException e) {
+			throw new SailException(e);
+		} catch (RuntimeException e) {
+			logger.error(&quot;Encountered an unexpected problem while trying to add a statement&quot;, e);
+			throw e;
 		}
-	}
-	catch (IOException e) {
-		throw new SailException(e);
-	}
-	catch (RuntimeException e) {
-		logger.error(&quot;Encountered an unexpected problem while trying to add a statement&quot;, e);
-		throw e;
-	}
 
-	return result;
-    }</pre></div></td></tr></table>
+		return result;
+	}</pre></div></td></tr></table>
 <table border="0" class="bodyTable">
 <tr class="a">
 <th>File</th>
@@ -792,41 +741,41 @@
 <tr class="b">
 <td>org/universAAL/context/sesame/sail/CardinCollect2NativeStoreConnection.java</td>
 <td>universAAL Context Sesame SAIL for OWL Lite</td>
-<td>24</td></tr>
+<td>23</td></tr>
 <tr class="a">
 <td>org/universAAL/context/sesame/sail/CardinCollectNativeStoreConnection.java</td>
 <td>universAAL Context Sesame SAIL for OWL Lite</td>
-<td>22</td></tr>
+<td>21</td></tr>
 <tr class="b">
 <td>org/universAAL/context/sesame/sail/CardinalityNativeStoreConnection.java</td>
 <td>universAAL Context Sesame SAIL for OWL Lite</td>
-<td>460</td></tr>
+<td>405</td></tr>
 <tr class="a"><td colspan='3'>
 <div>
-<pre>    protected boolean addStatement(Resource subj, URI pred, Value obj,
-	    boolean explicit, Resource... contexts) throws SailException {
-	OpenRDFUtil.verifyContextNotNull(contexts);
+<pre>	protected boolean addStatement(Resource subj, URI pred, Value obj, boolean explicit, Resource... contexts)
+			throws SailException {
+		OpenRDFUtil.verifyContextNotNull(contexts);
 
-	boolean result = false;
+		boolean result = false;
 
-	try {
-		ValueStore valueStore = nativeStore.getValueStore();
-		int subjID = valueStore.storeValue(subj);
-		int predID = valueStore.storeValue(pred);
-		int objID = valueStore.storeValue(obj);
+		try {
+			ValueStore valueStore = nativeStore.getValueStore();
+			int subjID = valueStore.storeValue(subj);
+			int predID = valueStore.storeValue(pred);
+			int objID = valueStore.storeValue(obj);
 
-		if (contexts.length == 0) {
-			contexts = new Resource[] { null };
-		}
-
-		for (Resource context : contexts) {
-			int contextID = 0;
-			if (context != null) {
-				contextID = valueStore.storeValue(context);
+			if (contexts.length == 0) {
+				contexts = new Resource[] { null };
 			}
 
-			//START PATCH
-			if(hasMaxCardinality1(pred, contexts)){</pre></div></td></tr></table>
+			for (Resource context : contexts) {
+				int contextID = 0;
+				if (context != null) {
+					contextID = valueStore.storeValue(context);
+				}
+
+				// START PATCH
+				if (hasMaxCardinality1(pred, contexts)) {</pre></div></td></tr></table>
 <table border="0" class="bodyTable">
 <tr class="b">
 <th>File</th>
@@ -835,11 +784,11 @@
 <tr class="a">
 <td>org/universAAL/context/sesame/sail/CardinalityNativeStoreConnection.java</td>
 <td>universAAL Context Sesame SAIL for OWL Lite</td>
-<td>286</td></tr>
+<td>256</td></tr>
 <tr class="b">
 <td>org/universAAL/context/sesame/sail/CardinalityNativeStoreConnection.java</td>
 <td>universAAL Context Sesame SAIL for OWL Lite</td>
-<td>590</td></tr>
+<td>537</td></tr>
 <tr class="a"><td colspan='3'>
 <div>
 <pre>			ValueStore valueStore = nativeStore.getValueStore();
@@ -874,26 +823,24 @@
 <tr class="a">
 <td>org/universAAL/context/space/serv/SCaller.java</td>
 <td>universAAL Context AAL Space Server</td>
-<td>298</td></tr>
+<td>274</td></tr>
 <tr class="b">
 <td>org/universAAL/context/space/serv/SCaller.java</td>
 <td>universAAL Context AAL Space Server</td>
-<td>312</td></tr>
+<td>286</td></tr>
 <tr class="a"><td colspan='3'>
 <div>
-<pre>    public Resource getProfOfServ(Resource input) {
-	String resultx = getResult(defaultCaller
-		.call(getDoSPARQLRequest(Queries.GETPRFOFPROFILABLEXTRA
-			.replace(Queries.ARG1, input.getURI()))));
-	Object objx = Activator.parser.deserialize(resultx);
-	if (objx == null)
-	    return null;
-	String result = getResult(defaultCaller
-		.call(getDoSPARQLRequest(Queries.GETPRFOFPROFILABLE.replace(
-			Queries.ARG1, input.getURI()))));
-	String uri = ((Resource) objx).getURI();
-	return (Resource) Activator.parser.deserialize(result, uri);
-    }</pre></div></td></tr></table>
+<pre>	public Resource getProfOfServ(Resource input) {
+		String resultx = getResult(defaultCaller
+				.call(getDoSPARQLRequest(Queries.GETPRFOFPROFILABLEXTRA.replace(Queries.ARG1, input.getURI()))));
+		Object objx = Activator.parser.deserialize(resultx);
+		if (objx == null)
+			return null;
+		String result = getResult(defaultCaller
+				.call(getDoSPARQLRequest(Queries.GETPRFOFPROFILABLE.replace(Queries.ARG1, input.getURI()))));
+		String uri = ((Resource) objx).getURI();
+		return (Resource) Activator.parser.deserialize(result, uri);
+	}</pre></div></td></tr></table>
 <table border="0" class="bodyTable">
 <tr class="b">
 <th>File</th>
@@ -902,21 +849,19 @@
 <tr class="a">
 <td>org/universAAL/context/sesame/sail/ValueStore.java</td>
 <td>universAAL Context Sesame SAIL for OWL Lite</td>
-<td>222</td></tr>
+<td>212</td></tr>
 <tr class="b">
 <td>org/universAAL/context/sesame/sail/ValueStore.java</td>
 <td>universAAL Context Sesame SAIL for OWL Lite</td>
-<td>290</td></tr>
+<td>278</td></tr>
 <tr class="a"><td colspan='3'>
 <div>
-<pre>	public int getID(Value value)
-		throws IOException
-	{
+<pre>	public int getID(Value value) throws IOException {
 		// Try to get the internal ID from the value itself
 		boolean isOwnValue = isOwnValue(value);
 
 		if (isOwnValue) {
-			NativeValue nativeValue = (NativeValue)value;
+			NativeValue nativeValue = (NativeValue) value;
 
 			if (revisionIsCurrent(nativeValue)) {
 				int id = nativeValue.getInternalID();
@@ -935,7 +880,7 @@
 
 			if (isOwnValue) {
 				// Store id in value for fast access in any consecutive calls
-				((NativeValue)value).setInternalID(id, revision);
+				((NativeValue) value).setInternalID(id, revision);
 			}
 
 			return id;
@@ -951,15 +896,15 @@
 <tr class="a">
 <td>org/universAAL/context/sesame/sail/CardinalityNativeStore.java</td>
 <td>universAAL Context Sesame SAIL for OWL Lite</td>
-<td>455</td></tr>
+<td>424</td></tr>
 <tr class="b">
 <td>org/universAAL/context/sesame/sail/CardinalityNativeStoreConnection.java</td>
 <td>universAAL Context Sesame SAIL for OWL Lite</td>
-<td>288</td></tr>
+<td>258</td></tr>
 <tr class="a">
 <td>org/universAAL/context/sesame/sail/CardinalityNativeStoreConnection.java</td>
 <td>universAAL Context Sesame SAIL for OWL Lite</td>
-<td>592</td></tr>
+<td>539</td></tr>
 <tr class="b"><td colspan='3'>
 <div>
 <pre>		int subjID = NativeValue.UNKNOWN_ID;

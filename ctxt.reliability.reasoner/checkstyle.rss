@@ -27,8 +27,8 @@ under the License.
     <item>
       <title>File: 4,
              Errors: 48,
-             Warnings: 17,
-             Infos: 213
+             Warnings: 3,
+             Infos: 39
       </title>
             <link>http://context/ctxt.reliability.reasoner//checkstyle.html</link>
       <description>
@@ -49,10 +49,10 @@ under the License.
                   <a href="http://context/ctxt.reliability.reasoner//checkstyle.html#org.universAAL.reliability.reasoner.SCaller.java">org/universAAL/reliability/reasoner/SCaller.java</a>
                 </td>
                 <td>
-                  38
+                  6
                 </td>
                 <td>
-                  7
+                  0
                 </td>
                 <td>
                   15
@@ -63,10 +63,10 @@ under the License.
                   <a href="http://context/ctxt.reliability.reasoner//checkstyle.html#org.universAAL.reliability.reasoner.ReliabilityReasonerSubscriber.java">org/universAAL/reliability/reasoner/ReliabilityReasonerSubscriber.java</a>
                 </td>
                 <td>
-                  139
+                  28
                 </td>
                 <td>
-                  9
+                  2
                 </td>
                 <td>
                   7
@@ -77,7 +77,7 @@ under the License.
                   <a href="http://context/ctxt.reliability.reasoner//checkstyle.html#org.universAAL.reliability.reasoner.ReliabilityReasonerActivator.java">org/universAAL/reliability/reasoner/ReliabilityReasonerActivator.java</a>
                 </td>
                 <td>
-                  30
+                  4
                 </td>
                 <td>
                   1
@@ -91,7 +91,7 @@ under the License.
                   <a href="http://context/ctxt.reliability.reasoner//checkstyle.html#org.universAAL.reliability.reasoner.ReliabilityReasonerPublisher.java">org/universAAL/reliability/reasoner/ReliabilityReasonerPublisher.java</a>
                 </td>
                 <td>
-                  6
+                  1
                 </td>
                 <td>
                   0

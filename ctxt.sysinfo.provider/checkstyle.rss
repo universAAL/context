@@ -27,8 +27,8 @@ under the License.
     <item>
       <title>File: 2,
              Errors: 37,
-             Warnings: 7,
-             Infos: 39
+             Warnings: 1,
+             Infos: 15
       </title>
             <link>http://context/ctxt.sysinfo.provider//checkstyle.html</link>
       <description>
@@ -49,7 +49,7 @@ under the License.
                   <a href="http://context/ctxt.sysinfo.provider//checkstyle.html#org.universAAL.context.sysinfo.Activator.java">org/universAAL/context/sysinfo/Activator.java</a>
                 </td>
                 <td>
-                  12
+                  7
                 </td>
                 <td>
                   1
@@ -63,10 +63,10 @@ under the License.
                   <a href="http://context/ctxt.sysinfo.provider//checkstyle.html#org.universAAL.context.sysinfo.SystemEventsListener.java">org/universAAL/context/sysinfo/SystemEventsListener.java</a>
                 </td>
                 <td>
-                  27
+                  8
                 </td>
                 <td>
-                  6
+                  0
                 </td>
                 <td>
                   24

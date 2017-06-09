@@ -26,9 +26,9 @@ under the License.
     <copyright>&#169;2012 - 2017 Instituto Tecnologico de Aplicaciones de Comunicacion Avanzadas - Grupo Tecnologias para la Salud y el Bienestar (TSB)</copyright>
     <item>
       <title>File: 6,
-             Errors: 141,
-             Warnings: 21,
-             Infos: 317
+             Errors: 136,
+             Warnings: 1,
+             Infos: 72
       </title>
             <link>http://context/ctxt.prof.server//checkstyle.html</link>
       <description>
@@ -49,10 +49,10 @@ under the License.
                   <a href="http://context/ctxt.prof.server//checkstyle.html#org.universAAL.context.prof.serv.SCallee.java">org/universAAL/context/prof/serv/SCallee.java</a>
                 </td>
                 <td>
-                  54
+                  14
                 </td>
                 <td>
-                  2
+                  0
                 </td>
                 <td>
                   4
@@ -63,7 +63,7 @@ under the License.
                   <a href="http://context/ctxt.prof.server//checkstyle.html#org.universAAL.context.prof.serv.Queries.java">org/universAAL/context/prof/serv/Queries.java</a>
                 </td>
                 <td>
-                  141
+                  9
                 </td>
                 <td>
                   0
@@ -77,13 +77,13 @@ under the License.
                   <a href="http://context/ctxt.prof.server//checkstyle.html#org.universAAL.context.prof.serv.Hub.java">org/universAAL/context/prof/serv/Hub.java</a>
                 </td>
                 <td>
-                  21
+                  12
                 </td>
                 <td>
                   0
                 </td>
                 <td>
-                  11
+                  7
                 </td>
               </tr>
                           <tr>
@@ -91,13 +91,13 @@ under the License.
                   <a href="http://context/ctxt.prof.server//checkstyle.html#org.universAAL.context.prof.serv.SCalleeProvidedService.java">org/universAAL/context/prof/serv/SCalleeProvidedService.java</a>
                 </td>
                 <td>
-                  36
+                  11
                 </td>
                 <td>
-                  9
+                  0
                 </td>
                 <td>
-                  35
+                  34
                 </td>
               </tr>
                           <tr>
@@ -105,10 +105,10 @@ under the License.
                   <a href="http://context/ctxt.prof.server//checkstyle.html#org.universAAL.context.prof.serv.SCaller.java">org/universAAL/context/prof/serv/SCaller.java</a>
                 </td>
                 <td>
-                  44
+                  13
                 </td>
                 <td>
-                  9
+                  0
                 </td>
                 <td>
                   53
@@ -119,7 +119,7 @@ under the License.
                   <a href="http://context/ctxt.prof.server//checkstyle.html#org.universAAL.context.prof.serv.osgi.Activator.java">org/universAAL/context/prof/serv/osgi/Activator.java</a>
                 </td>
                 <td>
-                  21
+                  13
                 </td>
                 <td>
                   1

@@ -26,9 +26,9 @@ under the License.
     <copyright>&#169;2010 - 2017 universAAL Consortium</copyright>
     <item>
       <title>File: 26,
-             Errors: 429,
-             Warnings: 373,
-             Infos: 1097
+             Errors: 424,
+             Warnings: 12,
+             Infos: 94
       </title>
             <link>http://context/sesame.uaal.store//checkstyle.html</link>
       <description>
@@ -49,10 +49,10 @@ under the License.
                   <a href="http://context/sesame.uaal.store//checkstyle.html#org.universAAL.context.sesame.sail.TripleStore.java">org/universAAL/context/sesame/sail/TripleStore.java</a>
                 </td>
                 <td>
-                  287
+                  4
                 </td>
                 <td>
-                  98
+                  1
                 </td>
                 <td>
                   70
@@ -63,10 +63,10 @@ under the License.
                   <a href="http://context/sesame.uaal.store//checkstyle.html#org.universAAL.context.sesame.sail.model.NativeBNode.java">org/universAAL/context/sesame/sail/model/NativeBNode.java</a>
                 </td>
                 <td>
-                  18
+                  0
                 </td>
                 <td>
-                  10
+                  2
                 </td>
                 <td>
                   14
@@ -77,10 +77,10 @@ under the License.
                   <a href="http://context/sesame.uaal.store//checkstyle.html#org.universAAL.context.sesame.sail.SequentialRecordCache.java">org/universAAL/context/sesame/sail/SequentialRecordCache.java</a>
                 </td>
                 <td>
-                  19
+                  1
                 </td>
                 <td>
-                  10
+                  0
                 </td>
                 <td>
                   10
@@ -91,10 +91,10 @@ under the License.
                   <a href="http://context/sesame.uaal.store//checkstyle.html#org.universAAL.context.sesame.sail.NamespaceStore.java">org/universAAL/context/sesame/sail/NamespaceStore.java</a>
                 </td>
                 <td>
-                  21
+                  2
                 </td>
                 <td>
-                  11
+                  0
                 </td>
                 <td>
                   11
@@ -105,10 +105,10 @@ under the License.
                   <a href="http://context/sesame.uaal.store//checkstyle.html#org.universAAL.context.sesame.sail.LRUCache.java">org/universAAL/context/sesame/sail/LRUCache.java</a>
                 </td>
                 <td>
-                  12
+                  1
                 </td>
                 <td>
-                  3
+                  0
                 </td>
                 <td>
                   7
@@ -119,10 +119,10 @@ under the License.
                   <a href="http://context/sesame.uaal.store//checkstyle.html#org.universAAL.context.sesame.sail.NativeEvaluationStatistics.java">org/universAAL/context/sesame/sail/NativeEvaluationStatistics.java</a>
                 </td>
                 <td>
-                  23
+                  0
                 </td>
                 <td>
-                  3
+                  0
                 </td>
                 <td>
                   5
@@ -133,10 +133,10 @@ under the License.
                   <a href="http://context/sesame.uaal.store//checkstyle.html#org.universAAL.context.sesame.sail.TxnStatusFile.java">org/universAAL/context/sesame/sail/TxnStatusFile.java</a>
                 </td>
                 <td>
-                  15
+                  3
                 </td>
                 <td>
-                  6
+                  0
                 </td>
                 <td>
                   4
@@ -147,10 +147,10 @@ under the License.
                   <a href="http://context/sesame.uaal.store//checkstyle.html#org.universAAL.context.sesame.sail.crypt.CryptDataStore.java">org/universAAL/context/sesame/sail/crypt/CryptDataStore.java</a>
                 </td>
                 <td>
-                  48
+                  10
                 </td>
                 <td>
-                  10
+                  0
                 </td>
                 <td>
                   16
@@ -161,10 +161,10 @@ under the License.
                   <a href="http://context/sesame.uaal.store//checkstyle.html#org.universAAL.context.sesame.sail.ValueStoreRevision.java">org/universAAL/context/sesame/sail/ValueStoreRevision.java</a>
                 </td>
                 <td>
-                  4
+                  2
                 </td>
                 <td>
-                  1
+                  0
                 </td>
                 <td>
                   5
@@ -175,10 +175,10 @@ under the License.
                   <a href="http://context/sesame.uaal.store//checkstyle.html#org.universAAL.context.sesame.sail.CardinCollectNativeStoreConnection.java">org/universAAL/context/sesame/sail/CardinCollectNativeStoreConnection.java</a>
                 </td>
                 <td>
-                  25
+                  1
                 </td>
                 <td>
-                  3
+                  0
                 </td>
                 <td>
                   4
@@ -189,10 +189,10 @@ under the License.
                   <a href="http://context/sesame.uaal.store//checkstyle.html#org.universAAL.context.sesame.sail.NativeStatementIterator.java">org/universAAL/context/sesame/sail/NativeStatementIterator.java</a>
                 </td>
                 <td>
-                  13
+                  0
                 </td>
                 <td>
-                  5
+                  0
                 </td>
                 <td>
                   6
@@ -203,10 +203,10 @@ under the License.
                   <a href="http://context/sesame.uaal.store//checkstyle.html#org.universAAL.context.sesame.sail.CardinCollect2NativeStore.java">org/universAAL/context/sesame/sail/CardinCollect2NativeStore.java</a>
                 </td>
                 <td>
-                  6
+                  0
                 </td>
                 <td>
-                  2
+                  1
                 </td>
                 <td>
                   3
@@ -217,10 +217,10 @@ under the License.
                   <a href="http://context/sesame.uaal.store//checkstyle.html#org.universAAL.context.sesame.sail.RecordCache.java">org/universAAL/context/sesame/sail/RecordCache.java</a>
                 </td>
                 <td>
-                  17
+                  5
                 </td>
                 <td>
-                  10
+                  1
                 </td>
                 <td>
                   15
@@ -231,10 +231,10 @@ under the License.
                   <a href="http://context/sesame.uaal.store//checkstyle.html#org.universAAL.context.sesame.sail.model.NativeLiteral.java">org/universAAL/context/sesame/sail/model/NativeLiteral.java</a>
                 </td>
                 <td>
-                  36
+                  0
                 </td>
                 <td>
-                  15
+                  1
                 </td>
                 <td>
                   18
@@ -245,10 +245,10 @@ under the License.
                   <a href="http://context/sesame.uaal.store//checkstyle.html#org.universAAL.context.sesame.sail.ValueStore.java">org/universAAL/context/sesame/sail/ValueStore.java</a>
                 </td>
                 <td>
-                  143
+                  12
                 </td>
                 <td>
-                  51
+                  0
                 </td>
                 <td>
                   59
@@ -259,7 +259,7 @@ under the License.
                   <a href="http://context/sesame.uaal.store//checkstyle.html#org.universAAL.context.sesame.sail.crypt.Codec.java">org/universAAL/context/sesame/sail/crypt/Codec.java</a>
                 </td>
                 <td>
-                  21
+                  17
                 </td>
                 <td>
                   1
@@ -273,10 +273,10 @@ under the License.
                   <a href="http://context/sesame.uaal.store//checkstyle.html#org.universAAL.context.sesame.sail.CardinCollect2NativeStoreConnection.java">org/universAAL/context/sesame/sail/CardinCollect2NativeStoreConnection.java</a>
                 </td>
                 <td>
-                  37
+                  3
                 </td>
                 <td>
-                  4
+                  0
                 </td>
                 <td>
                   5
@@ -287,13 +287,13 @@ under the License.
                   <a href="http://context/sesame.uaal.store//checkstyle.html#org.universAAL.context.sesame.sail.CardinalityNativeStoreConnection.java">org/universAAL/context/sesame/sail/CardinalityNativeStoreConnection.java</a>
                 </td>
                 <td>
-                  148
+                  5
                 </td>
                 <td>
-                  58
+                  0
                 </td>
                 <td>
-                  42
+                  40
                 </td>
               </tr>
                           <tr>
@@ -301,10 +301,10 @@ under the License.
                   <a href="http://context/sesame.uaal.store//checkstyle.html#org.universAAL.context.sesame.sail.crypt.CryptUtil.java">org/universAAL/context/sesame/sail/crypt/CryptUtil.java</a>
                 </td>
                 <td>
-                  49
+                  22
                 </td>
                 <td>
-                  13
+                  4
                 </td>
                 <td>
                   44
@@ -315,10 +315,10 @@ under the License.
                   <a href="http://context/sesame.uaal.store//checkstyle.html#org.universAAL.context.sesame.sail.CardinalityNativeStore.java">org/universAAL/context/sesame/sail/CardinalityNativeStore.java</a>
                 </td>
                 <td>
-                  76
+                  4
                 </td>
                 <td>
-                  32
+                  0
                 </td>
                 <td>
                   50
@@ -329,7 +329,7 @@ under the License.
                   <a href="http://context/sesame.uaal.store//checkstyle.html#org.universAAL.context.sesame.sail.model.NativeValue.java">org/universAAL/context/sesame/sail/model/NativeValue.java</a>
                 </td>
                 <td>
-                  9
+                  1
                 </td>
                 <td>
                   0
@@ -343,13 +343,13 @@ under the License.
                   <a href="http://context/sesame.uaal.store//checkstyle.html#org.universAAL.context.sesame.sail.NativeTripleSource.java">org/universAAL/context/sesame/sail/NativeTripleSource.java</a>
                 </td>
                 <td>
-                  22
+                  0
                 </td>
                 <td>
-                  8
+                  0
                 </td>
                 <td>
-                  12
+                  9
                 </td>
               </tr>
                           <tr>
@@ -357,10 +357,10 @@ under the License.
                   <a href="http://context/sesame.uaal.store//checkstyle.html#org.universAAL.context.sesame.sail.model.NativeURI.java">org/universAAL/context/sesame/sail/model/NativeURI.java</a>
                 </td>
                 <td>
-                  25
+                  0
                 </td>
                 <td>
-                  12
+                  1
                 </td>
                 <td>
                   16
@@ -371,10 +371,10 @@ under the License.
                   <a href="http://context/sesame.uaal.store//checkstyle.html#org.universAAL.context.sesame.sail.CardinCollectNativeStore.java">org/universAAL/context/sesame/sail/CardinCollectNativeStore.java</a>
                 </td>
                 <td>
-                  8
+                  0
                 </td>
                 <td>
-                  1
+                  0
                 </td>
                 <td>
                   3
@@ -399,10 +399,10 @@ under the License.
                   <a href="http://context/sesame.uaal.store//checkstyle.html#org.universAAL.context.sesame.sail.SortedRecordCache.java">org/universAAL/context/sesame/sail/SortedRecordCache.java</a>
                 </td>
                 <td>
-                  15
+                  1
                 </td>
                 <td>
-                  6
+                  0
                 </td>
                 <td>
                   3

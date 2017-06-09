@@ -26,9 +26,9 @@ under the License.
     <copyright>&#169;2010 - 2017 universAAL Consortium</copyright>
     <item>
       <title>File: 81,
-             Errors: 1181,
-             Warnings: 547,
-             Infos: 3266
+             Errors: 1162,
+             Warnings: 43,
+             Infos: 696
       </title>
             <link>http://context/ctxt.pom//checkstyle.html</link>
       <description>
@@ -49,7 +49,7 @@ under the License.
                   <a href="http://context/ctxt.pom//checkstyle.html#org.universAAL.context.che.database.impl.SesameBackendCrd.java">org/universAAL/context/che/database/impl/SesameBackendCrd.java</a>
                 </td>
                 <td>
-                  12
+                  9
                 </td>
                 <td>
                   1
@@ -63,10 +63,10 @@ under the License.
                   <a href="http://context/ctxt.pom//checkstyle.html#org.universAAL.context.sesame.sail.TripleStore.java">org/universAAL/context/sesame/sail/TripleStore.java</a>
                 </td>
                 <td>
-                  287
+                  4
                 </td>
                 <td>
-                  98
+                  1
                 </td>
                 <td>
                   70
@@ -77,10 +77,10 @@ under the License.
                   <a href="http://context/ctxt.pom//checkstyle.html#org.universAAL.context.reasoner.RuleModel.java">org/universAAL/context/reasoner/RuleModel.java</a>
                 </td>
                 <td>
-                  10
+                  4
                 </td>
                 <td>
-                  2
+                  0
                 </td>
                 <td>
                   5
@@ -91,13 +91,13 @@ under the License.
                   <a href="http://context/ctxt.pom//checkstyle.html#org.universAAL.context.space.serv.Activator.java">org/universAAL/context/space/serv/Activator.java</a>
                 </td>
                 <td>
-                  19
+                  12
                 </td>
                 <td>
                   0
                 </td>
                 <td>
-                  16
+                  11
                 </td>
               </tr>
                           <tr>
@@ -105,7 +105,7 @@ under the License.
                   <a href="http://context/ctxt.pom//checkstyle.html#org.universAAL.context.chemobile.MobileHistorySubscriber.java">org/universAAL/context/chemobile/MobileHistorySubscriber.java</a>
                 </td>
                 <td>
-                  27
+                  14
                 </td>
                 <td>
                   0
@@ -119,10 +119,10 @@ under the License.
                   <a href="http://context/ctxt.pom//checkstyle.html#org.universAAL.context.prof.serv.SCaller.java">org/universAAL/context/prof/serv/SCaller.java</a>
                 </td>
                 <td>
-                  44
+                  13
                 </td>
                 <td>
-                  9
+                  0
                 </td>
                 <td>
                   53
@@ -133,7 +133,7 @@ under the License.
                   <a href="http://context/ctxt.pom//checkstyle.html#org.universAAL.context.chemobile.osgi.Activator.java">org/universAAL/context/chemobile/osgi/Activator.java</a>
                 </td>
                 <td>
-                  20
+                  13
                 </td>
                 <td>
                   0
@@ -147,7 +147,7 @@ under the License.
                   <a href="http://context/ctxt.pom//checkstyle.html#org.universAAL.context.space.serv.Queries.java">org/universAAL/context/space/serv/Queries.java</a>
                 </td>
                 <td>
-                  82
+                  9
                 </td>
                 <td>
                   0
@@ -161,10 +161,10 @@ under the License.
                   <a href="http://context/ctxt.pom//checkstyle.html#org.universAAL.context.sesame.sail.NativeEvaluationStatistics.java">org/universAAL/context/sesame/sail/NativeEvaluationStatistics.java</a>
                 </td>
                 <td>
-                  23
+                  0
                 </td>
                 <td>
-                  3
+                  0
                 </td>
                 <td>
                   5
@@ -175,7 +175,7 @@ under the License.
                   <a href="http://context/ctxt.pom//checkstyle.html#org.universAAL.context.reasoner.CSubsMulti.java">org/universAAL/context/reasoner/CSubsMulti.java</a>
                 </td>
                 <td>
-                  15
+                  10
                 </td>
                 <td>
                   0
@@ -189,10 +189,10 @@ under the License.
                   <a href="http://context/ctxt.pom//checkstyle.html#org.universAAL.context.che.ContextHistorySubscriber.java">org/universAAL/context/che/ContextHistorySubscriber.java</a>
                 </td>
                 <td>
-                  18
+                  12
                 </td>
                 <td>
-                  1
+                  0
                 </td>
                 <td>
                   4
@@ -203,10 +203,10 @@ under the License.
                   <a href="http://context/ctxt.pom//checkstyle.html#org.universAAL.context.sesame.sail.TxnStatusFile.java">org/universAAL/context/sesame/sail/TxnStatusFile.java</a>
                 </td>
                 <td>
-                  15
+                  3
                 </td>
                 <td>
-                  6
+                  0
                 </td>
                 <td>
                   4
@@ -217,7 +217,7 @@ under the License.
                   <a href="http://context/ctxt.pom//checkstyle.html#org.universAAL.context.che.database.impl.SesameBackendCrdClc2.java">org/universAAL/context/che/database/impl/SesameBackendCrdClc2.java</a>
                 </td>
                 <td>
-                  12
+                  9
                 </td>
                 <td>
                   0
@@ -231,10 +231,10 @@ under the License.
                   <a href="http://context/ctxt.pom//checkstyle.html#org.universAAL.context.sesame.sail.crypt.CryptDataStore.java">org/universAAL/context/sesame/sail/crypt/CryptDataStore.java</a>
                 </td>
                 <td>
-                  48
+                  10
                 </td>
                 <td>
-                  10
+                  0
                 </td>
                 <td>
                   16
@@ -245,10 +245,10 @@ under the License.
                   <a href="http://context/ctxt.pom//checkstyle.html#org.universAAL.drools.engine.RulesEngine.java">org/universAAL/drools/engine/RulesEngine.java</a>
                 </td>
                 <td>
-                  129
+                  28
                 </td>
                 <td>
-                  5
+                  3
                 </td>
                 <td>
                   21
@@ -259,10 +259,10 @@ under the License.
                   <a href="http://context/ctxt.pom//checkstyle.html#org.universAAL.drools.Activator.java">org/universAAL/drools/Activator.java</a>
                 </td>
                 <td>
-                  26
+                  8
                 </td>
                 <td>
-                  2
+                  1
                 </td>
                 <td>
                   9
@@ -273,7 +273,7 @@ under the License.
                   <a href="http://context/ctxt.pom//checkstyle.html#org.universAAL.drools.DroolsReasonerProvider.java">org/universAAL/drools/DroolsReasonerProvider.java</a>
                 </td>
                 <td>
-                  52
+                  7
                 </td>
                 <td>
                   0
@@ -287,10 +287,10 @@ under the License.
                   <a href="http://context/ctxt.pom//checkstyle.html#org.universAAL.drools.ProvidedDroolsReasonerService.java">org/universAAL/drools/ProvidedDroolsReasonerService.java</a>
                 </td>
                 <td>
-                  64
+                  6
                 </td>
                 <td>
-                  7
+                  1
                 </td>
                 <td>
                   17
@@ -301,10 +301,10 @@ under the License.
                   <a href="http://context/ctxt.pom//checkstyle.html#org.universAAL.drools.models.FactProperty.java">org/universAAL/drools/models/FactProperty.java</a>
                 </td>
                 <td>
-                  1
+                  0
                 </td>
                 <td>
-                  2
+                  0
                 </td>
                 <td>
                   6
@@ -315,10 +315,10 @@ under the License.
                   <a href="http://context/ctxt.pom//checkstyle.html#org.universAAL.context.sesame.sail.ValueStoreRevision.java">org/universAAL/context/sesame/sail/ValueStoreRevision.java</a>
                 </td>
                 <td>
-                  4
+                  2
                 </td>
                 <td>
-                  1
+                  0
                 </td>
                 <td>
                   5
@@ -329,7 +329,7 @@ under the License.
                   <a href="http://context/ctxt.pom//checkstyle.html#org.universAAL.context.che.database.impl.SesameBackendCrdClc2Cnf.java">org/universAAL/context/che/database/impl/SesameBackendCrdClc2Cnf.java</a>
                 </td>
                 <td>
-                  28
+                  12
                 </td>
                 <td>
                   0
@@ -343,10 +343,10 @@ under the License.
                   <a href="http://context/ctxt.pom//checkstyle.html#org.universAAL.context.prof.serv.SCallee.java">org/universAAL/context/prof/serv/SCallee.java</a>
                 </td>
                 <td>
-                  54
+                  14
                 </td>
                 <td>
-                  2
+                  0
                 </td>
                 <td>
                   4
@@ -357,7 +357,7 @@ under the License.
                   <a href="http://context/ctxt.pom//checkstyle.html#org.universAAL.drools.samples.SampleRules.java">org/universAAL/drools/samples/SampleRules.java</a>
                 </td>
                 <td>
-                  11
+                  7
                 </td>
                 <td>
                   2
@@ -371,10 +371,10 @@ under the License.
                   <a href="http://context/ctxt.pom//checkstyle.html#org.universAAL.context.che.ContextHistoryCallee.java">org/universAAL/context/che/ContextHistoryCallee.java</a>
                 </td>
                 <td>
-                  76
+                  16
                 </td>
                 <td>
-                  8
+                  0
                 </td>
                 <td>
                   13
@@ -385,10 +385,10 @@ under the License.
                   <a href="http://context/ctxt.pom//checkstyle.html#org.universAAL.context.sesame.sail.CardinCollectNativeStoreConnection.java">org/universAAL/context/sesame/sail/CardinCollectNativeStoreConnection.java</a>
                 </td>
                 <td>
-                  25
+                  1
                 </td>
                 <td>
-                  3
+                  0
                 </td>
                 <td>
                   4
@@ -399,10 +399,10 @@ under the License.
                   <a href="http://context/ctxt.pom//checkstyle.html#org.universAAL.context.sesame.sail.NativeStatementIterator.java">org/universAAL/context/sesame/sail/NativeStatementIterator.java</a>
                 </td>
                 <td>
-                  13
+                  0
                 </td>
                 <td>
-                  5
+                  0
                 </td>
                 <td>
                   6
@@ -413,7 +413,7 @@ under the License.
                   <a href="http://context/ctxt.pom//checkstyle.html#org.universAAL.context.prof.serv.Queries.java">org/universAAL/context/prof/serv/Queries.java</a>
                 </td>
                 <td>
-                  141
+                  9
                 </td>
                 <td>
                   0
@@ -427,7 +427,7 @@ under the License.
                   <a href="http://context/ctxt.pom//checkstyle.html#org.universAAL.context.sysinfo.Activator.java">org/universAAL/context/sysinfo/Activator.java</a>
                 </td>
                 <td>
-                  12
+                  7
                 </td>
                 <td>
                   1
@@ -441,13 +441,13 @@ under the License.
                   <a href="http://context/ctxt.pom//checkstyle.html#org.universAAL.context.prof.serv.SCalleeProvidedService.java">org/universAAL/context/prof/serv/SCalleeProvidedService.java</a>
                 </td>
                 <td>
-                  36
+                  11
                 </td>
                 <td>
-                  9
+                  0
                 </td>
                 <td>
-                  35
+                  34
                 </td>
               </tr>
                           <tr>
@@ -455,10 +455,10 @@ under the License.
                   <a href="http://context/ctxt.pom//checkstyle.html#org.universAAL.context.sesame.sail.RecordCache.java">org/universAAL/context/sesame/sail/RecordCache.java</a>
                 </td>
                 <td>
-                  17
+                  5
                 </td>
                 <td>
-                  10
+                  1
                 </td>
                 <td>
                   15
@@ -469,7 +469,7 @@ under the License.
                   <a href="http://context/ctxt.pom//checkstyle.html#org.universAAL.drools.engine.CustomAgendaEventListener.java">org/universAAL/drools/engine/CustomAgendaEventListener.java</a>
                 </td>
                 <td>
-                  11
+                  0
                 </td>
                 <td>
                   1
@@ -483,10 +483,10 @@ under the License.
                   <a href="http://context/ctxt.pom//checkstyle.html#org.universAAL.context.reasoner.ProvidedReasoningService.java">org/universAAL/context/reasoner/ProvidedReasoningService.java</a>
                 </td>
                 <td>
-                  21
+                  9
                 </td>
                 <td>
-                  8
+                  1
                 </td>
                 <td>
                   22
@@ -497,10 +497,10 @@ under the License.
                   <a href="http://context/ctxt.pom//checkstyle.html#org.universAAL.context.sesame.sail.model.NativeLiteral.java">org/universAAL/context/sesame/sail/model/NativeLiteral.java</a>
                 </td>
                 <td>
-                  36
+                  0
                 </td>
                 <td>
-                  15
+                  1
                 </td>
                 <td>
                   18
@@ -511,7 +511,7 @@ under the License.
                   <a href="http://context/ctxt.pom//checkstyle.html#org.universAAL.context.che.database.impl.SesameBackendCrdClc.java">org/universAAL/context/che/database/impl/SesameBackendCrdClc.java</a>
                 </td>
                 <td>
-                  13
+                  10
                 </td>
                 <td>
                   0
@@ -525,10 +525,10 @@ under the License.
                   <a href="http://context/ctxt.pom//checkstyle.html#org.universAAL.context.reasoner.osgi.Activator.java">org/universAAL/context/reasoner/osgi/Activator.java</a>
                 </td>
                 <td>
-                  16
+                  9
                 </td>
                 <td>
-                  4
+                  2
                 </td>
                 <td>
                   17
@@ -539,10 +539,10 @@ under the License.
                   <a href="http://context/ctxt.pom//checkstyle.html#org.universAAL.context.sesame.sail.ValueStore.java">org/universAAL/context/sesame/sail/ValueStore.java</a>
                 </td>
                 <td>
-                  143
+                  12
                 </td>
                 <td>
-                  51
+                  0
                 </td>
                 <td>
                   59
@@ -553,7 +553,7 @@ under the License.
                   <a href="http://context/ctxt.pom//checkstyle.html#org.universAAL.context.sesame.sail.crypt.Codec.java">org/universAAL/context/sesame/sail/crypt/Codec.java</a>
                 </td>
                 <td>
-                  21
+                  17
                 </td>
                 <td>
                   1
@@ -567,7 +567,7 @@ under the License.
                   <a href="http://context/ctxt.pom//checkstyle.html#org.universAAL.drools.engine.ParseRule.java">org/universAAL/drools/engine/ParseRule.java</a>
                 </td>
                 <td>
-                  13
+                  10
                 </td>
                 <td>
                   0
@@ -581,10 +581,10 @@ under the License.
                   <a href="http://context/ctxt.pom//checkstyle.html#org.universAAL.reliability.reasoner.ReliabilityReasonerSubscriber.java">org/universAAL/reliability/reasoner/ReliabilityReasonerSubscriber.java</a>
                 </td>
                 <td>
-                  139
+                  28
                 </td>
                 <td>
-                  9
+                  2
                 </td>
                 <td>
                   7
@@ -595,7 +595,7 @@ under the License.
                   <a href="http://context/ctxt.pom//checkstyle.html#org.universAAL.context.che.osgi.Activator.java">org/universAAL/context/che/osgi/Activator.java</a>
                 </td>
                 <td>
-                  21
+                  13
                 </td>
                 <td>
                   0
@@ -609,7 +609,7 @@ under the License.
                   <a href="http://context/ctxt.pom//checkstyle.html#org.universAAL.drools.engine.Suscriber.java">org/universAAL/drools/engine/Suscriber.java</a>
                 </td>
                 <td>
-                  27
+                  6
                 </td>
                 <td>
                   1
@@ -623,7 +623,7 @@ under the License.
                   <a href="http://context/ctxt.pom//checkstyle.html#org.universAAL.context.sesame.sail.model.NativeValue.java">org/universAAL/context/sesame/sail/model/NativeValue.java</a>
                 </td>
                 <td>
-                  9
+                  1
                 </td>
                 <td>
                   0
@@ -637,13 +637,13 @@ under the License.
                   <a href="http://context/ctxt.pom//checkstyle.html#org.universAAL.drools.models.RuleModel.java">org/universAAL/drools/models/RuleModel.java</a>
                 </td>
                 <td>
-                  5
-                </td>
-                <td>
-                  2
-                </td>
-                <td>
                   4
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  3
                 </td>
               </tr>
                           <tr>
@@ -651,7 +651,7 @@ under the License.
                   <a href="http://context/ctxt.pom//checkstyle.html#org.universAAL.context.che.database.Backend.java">org/universAAL/context/che/database/Backend.java</a>
                 </td>
                 <td>
-                  32
+                  28
                 </td>
                 <td>
                   0
@@ -665,7 +665,7 @@ under the License.
                   <a href="http://context/ctxt.pom//checkstyle.html#org.universAAL.context.prof.serv.osgi.Activator.java">org/universAAL/context/prof/serv/osgi/Activator.java</a>
                 </td>
                 <td>
-                  21
+                  13
                 </td>
                 <td>
                   1
@@ -679,10 +679,10 @@ under the License.
                   <a href="http://context/ctxt.pom//checkstyle.html#org.universAAL.context.space.serv.SCallee.java">org/universAAL/context/space/serv/SCallee.java</a>
                 </td>
                 <td>
-                  129
+                  14
                 </td>
                 <td>
-                  4
+                  0
                 </td>
                 <td>
                   3
@@ -693,10 +693,10 @@ under the License.
                   <a href="http://context/ctxt.pom//checkstyle.html#org.universAAL.context.sesame.sail.CardinCollectNativeStore.java">org/universAAL/context/sesame/sail/CardinCollectNativeStore.java</a>
                 </td>
                 <td>
-                  8
+                  0
                 </td>
                 <td>
-                  1
+                  0
                 </td>
                 <td>
                   3
@@ -721,10 +721,10 @@ under the License.
                   <a href="http://context/ctxt.pom//checkstyle.html#org.universAAL.context.reasoner.CHECaller.java">org/universAAL/context/reasoner/CHECaller.java</a>
                 </td>
                 <td>
-                  39
+                  15
                 </td>
                 <td>
-                  8
+                  1
                 </td>
                 <td>
                   12
@@ -735,10 +735,10 @@ under the License.
                   <a href="http://context/ctxt.pom//checkstyle.html#org.universAAL.context.che.database.impl.SesameBackendWithConfidence.java">org/universAAL/context/che/database/impl/SesameBackendWithConfidence.java</a>
                 </td>
                 <td>
-                  22
+                  14
                 </td>
                 <td>
-                  5
+                  1
                 </td>
                 <td>
                   2
@@ -749,10 +749,10 @@ under the License.
                   <a href="http://context/ctxt.pom//checkstyle.html#org.universAAL.context.sesame.sail.model.NativeBNode.java">org/universAAL/context/sesame/sail/model/NativeBNode.java</a>
                 </td>
                 <td>
-                  18
+                  0
                 </td>
                 <td>
-                  10
+                  2
                 </td>
                 <td>
                   14
@@ -763,10 +763,10 @@ under the License.
                   <a href="http://context/ctxt.pom//checkstyle.html#org.universAAL.context.sesame.sail.SequentialRecordCache.java">org/universAAL/context/sesame/sail/SequentialRecordCache.java</a>
                 </td>
                 <td>
-                  19
+                  1
                 </td>
                 <td>
-                  10
+                  0
                 </td>
                 <td>
                   10
@@ -777,10 +777,10 @@ under the License.
                   <a href="http://context/ctxt.pom//checkstyle.html#org.universAAL.context.sesame.sail.NamespaceStore.java">org/universAAL/context/sesame/sail/NamespaceStore.java</a>
                 </td>
                 <td>
-                  21
+                  2
                 </td>
                 <td>
-                  11
+                  0
                 </td>
                 <td>
                   11
@@ -791,10 +791,10 @@ under the License.
                   <a href="http://context/ctxt.pom//checkstyle.html#org.universAAL.reliability.reasoner.SCaller.java">org/universAAL/reliability/reasoner/SCaller.java</a>
                 </td>
                 <td>
-                  38
+                  6
                 </td>
                 <td>
-                  7
+                  0
                 </td>
                 <td>
                   15
@@ -805,10 +805,10 @@ under the License.
                   <a href="http://context/ctxt.pom//checkstyle.html#org.universAAL.context.sesame.sail.LRUCache.java">org/universAAL/context/sesame/sail/LRUCache.java</a>
                 </td>
                 <td>
-                  12
+                  1
                 </td>
                 <td>
-                  3
+                  0
                 </td>
                 <td>
                   7
@@ -819,7 +819,7 @@ under the License.
                   <a href="http://context/ctxt.pom//checkstyle.html#org.universAAL.drools.models.Fact.java">org/universAAL/drools/models/Fact.java</a>
                 </td>
                 <td>
-                  6
+                  0
                 </td>
                 <td>
                   1
@@ -833,13 +833,13 @@ under the License.
                   <a href="http://context/ctxt.pom//checkstyle.html#org.universAAL.context.prof.serv.Hub.java">org/universAAL/context/prof/serv/Hub.java</a>
                 </td>
                 <td>
-                  21
+                  12
                 </td>
                 <td>
                   0
                 </td>
                 <td>
-                  11
+                  7
                 </td>
               </tr>
                           <tr>
@@ -847,10 +847,10 @@ under the License.
                   <a href="http://context/ctxt.pom//checkstyle.html#org.universAAL.context.sysinfo.SystemEventsListener.java">org/universAAL/context/sysinfo/SystemEventsListener.java</a>
                 </td>
                 <td>
-                  27
+                  8
                 </td>
                 <td>
-                  6
+                  0
                 </td>
                 <td>
                   24
@@ -861,7 +861,7 @@ under the License.
                   <a href="http://context/ctxt.pom//checkstyle.html#org.universAAL.context.che.database.impl.SesameBackendCrdCnf.java">org/universAAL/context/che/database/impl/SesameBackendCrdCnf.java</a>
                 </td>
                 <td>
-                  28
+                  12
                 </td>
                 <td>
                   1
@@ -889,10 +889,10 @@ under the License.
                   <a href="http://context/ctxt.pom//checkstyle.html#org.universAAL.context.reasoner.ReasoningProvider.java">org/universAAL/context/reasoner/ReasoningProvider.java</a>
                 </td>
                 <td>
-                  29
+                  14
                 </td>
                 <td>
-                  10
+                  3
                 </td>
                 <td>
                   13
@@ -903,10 +903,10 @@ under the License.
                   <a href="http://context/ctxt.pom//checkstyle.html#org.universAAL.context.sesame.sail.CardinCollect2NativeStore.java">org/universAAL/context/sesame/sail/CardinCollect2NativeStore.java</a>
                 </td>
                 <td>
-                  6
+                  0
                 </td>
                 <td>
-                  2
+                  1
                 </td>
                 <td>
                   3
@@ -917,7 +917,7 @@ under the License.
                   <a href="http://context/ctxt.pom//checkstyle.html#org.universAAL.reliability.reasoner.ReliabilityReasonerActivator.java">org/universAAL/reliability/reasoner/ReliabilityReasonerActivator.java</a>
                 </td>
                 <td>
-                  30
+                  4
                 </td>
                 <td>
                   1
@@ -931,10 +931,10 @@ under the License.
                   <a href="http://context/ctxt.pom//checkstyle.html#org.universAAL.drools.DevelopingRulesUI.java">org/universAAL/drools/DevelopingRulesUI.java</a>
                 </td>
                 <td>
-                  4
+                  2
                 </td>
                 <td>
-                  2
+                  0
                 </td>
                 <td>
                   2
@@ -945,10 +945,10 @@ under the License.
                   <a href="http://context/ctxt.pom//checkstyle.html#org.universAAL.context.che.ContextHistoryServices.java">org/universAAL/context/che/ContextHistoryServices.java</a>
                 </td>
                 <td>
-                  33
+                  11
                 </td>
                 <td>
-                  11
+                  0
                 </td>
                 <td>
                   16
@@ -959,13 +959,13 @@ under the License.
                   <a href="http://context/ctxt.pom//checkstyle.html#org.universAAL.context.chemobile.Hub.java">org/universAAL/context/chemobile/Hub.java</a>
                 </td>
                 <td>
-                  15
+                  12
                 </td>
                 <td>
                   0
                 </td>
                 <td>
-                  5
+                  4
                 </td>
               </tr>
                           <tr>
@@ -973,7 +973,7 @@ under the License.
                   <a href="http://context/ctxt.pom//checkstyle.html#org.universAAL.reliability.reasoner.ReliabilityReasonerPublisher.java">org/universAAL/reliability/reasoner/ReliabilityReasonerPublisher.java</a>
                 </td>
                 <td>
-                  6
+                  1
                 </td>
                 <td>
                   0
@@ -987,13 +987,13 @@ under the License.
                   <a href="http://context/ctxt.pom//checkstyle.html#org.universAAL.context.space.serv.SCalleeProvidedService.java">org/universAAL/context/space/serv/SCalleeProvidedService.java</a>
                 </td>
                 <td>
-                  53
+                  11
                 </td>
                 <td>
-                  20
+                  0
                 </td>
                 <td>
-                  67
+                  66
                 </td>
               </tr>
                           <tr>
@@ -1001,10 +1001,10 @@ under the License.
                   <a href="http://context/ctxt.pom//checkstyle.html#org.universAAL.context.che.Hub.java">org/universAAL/context/che/Hub.java</a>
                 </td>
                 <td>
-                  123
+                  28
                 </td>
                 <td>
-                  1
+                  0
                 </td>
                 <td>
                   22
@@ -1015,10 +1015,10 @@ under the License.
                   <a href="http://context/ctxt.pom//checkstyle.html#org.universAAL.context.sesame.sail.CardinCollect2NativeStoreConnection.java">org/universAAL/context/sesame/sail/CardinCollect2NativeStoreConnection.java</a>
                 </td>
                 <td>
-                  37
+                  3
                 </td>
                 <td>
-                  4
+                  0
                 </td>
                 <td>
                   5
@@ -1029,13 +1029,13 @@ under the License.
                   <a href="http://context/ctxt.pom//checkstyle.html#org.universAAL.context.sesame.sail.CardinalityNativeStoreConnection.java">org/universAAL/context/sesame/sail/CardinalityNativeStoreConnection.java</a>
                 </td>
                 <td>
-                  148
+                  5
                 </td>
                 <td>
-                  58
+                  0
                 </td>
                 <td>
-                  42
+                  40
                 </td>
               </tr>
                           <tr>
@@ -1043,10 +1043,10 @@ under the License.
                   <a href="http://context/ctxt.pom//checkstyle.html#org.universAAL.context.space.serv.SCaller.java">org/universAAL/context/space/serv/SCaller.java</a>
                 </td>
                 <td>
-                  160
+                  15
                 </td>
                 <td>
-                  3
+                  0
                 </td>
                 <td>
                   101
@@ -1057,10 +1057,10 @@ under the License.
                   <a href="http://context/ctxt.pom//checkstyle.html#org.universAAL.context.sesame.sail.crypt.CryptUtil.java">org/universAAL/context/sesame/sail/crypt/CryptUtil.java</a>
                 </td>
                 <td>
-                  49
+                  22
                 </td>
                 <td>
-                  13
+                  4
                 </td>
                 <td>
                   44
@@ -1071,10 +1071,10 @@ under the License.
                   <a href="http://context/ctxt.pom//checkstyle.html#org.universAAL.context.che.database.Cleaner.java">org/universAAL/context/che/database/Cleaner.java</a>
                 </td>
                 <td>
-                  19
+                  14
                 </td>
                 <td>
-                  2
+                  0
                 </td>
                 <td>
                   3
@@ -1085,10 +1085,10 @@ under the License.
                   <a href="http://context/ctxt.pom//checkstyle.html#org.universAAL.context.sesame.sail.CardinalityNativeStore.java">org/universAAL/context/sesame/sail/CardinalityNativeStore.java</a>
                 </td>
                 <td>
-                  76
+                  4
                 </td>
                 <td>
-                  32
+                  0
                 </td>
                 <td>
                   50
@@ -1099,13 +1099,13 @@ under the License.
                   <a href="http://context/ctxt.pom//checkstyle.html#org.universAAL.context.sesame.sail.NativeTripleSource.java">org/universAAL/context/sesame/sail/NativeTripleSource.java</a>
                 </td>
                 <td>
-                  22
+                  0
                 </td>
                 <td>
-                  8
+                  0
                 </td>
                 <td>
-                  12
+                  9
                 </td>
               </tr>
                           <tr>
@@ -1113,7 +1113,7 @@ under the License.
                   <a href="http://context/ctxt.pom//checkstyle.html#org.universAAL.drools.engine.CustomWorkingMemoryEventListener.java">org/universAAL/drools/engine/CustomWorkingMemoryEventListener.java</a>
                 </td>
                 <td>
-                  7
+                  0
                 </td>
                 <td>
                   1
@@ -1127,13 +1127,13 @@ under the License.
                   <a href="http://context/ctxt.pom//checkstyle.html#org.universAAL.context.che.database.impl.SesameBackend.java">org/universAAL/context/che/database/impl/SesameBackend.java</a>
                 </td>
                 <td>
-                  143
+                  36
                 </td>
                 <td>
-                  13
+                  4
                 </td>
                 <td>
-                  35
+                  34
                 </td>
               </tr>
                           <tr>
@@ -1141,10 +1141,10 @@ under the License.
                   <a href="http://context/ctxt.pom//checkstyle.html#org.universAAL.context.sesame.sail.model.NativeURI.java">org/universAAL/context/sesame/sail/model/NativeURI.java</a>
                 </td>
                 <td>
-                  25
+                  0
                 </td>
                 <td>
-                  12
+                  1
                 </td>
                 <td>
                   16
@@ -1155,7 +1155,7 @@ under the License.
                   <a href="http://context/ctxt.pom//checkstyle.html#org.universAAL.context.che.database.impl.SesameBackendCrdClcCnf.java">org/universAAL/context/che/database/impl/SesameBackendCrdClcCnf.java</a>
                 </td>
                 <td>
-                  28
+                  12
                 </td>
                 <td>
                   1
@@ -1169,10 +1169,10 @@ under the License.
                   <a href="http://context/ctxt.pom//checkstyle.html#org.universAAL.context.sesame.sail.SortedRecordCache.java">org/universAAL/context/sesame/sail/SortedRecordCache.java</a>
                 </td>
                 <td>
-                  15
+                  1
                 </td>
                 <td>
-                  6
+                  0
                 </td>
                 <td>
                   3

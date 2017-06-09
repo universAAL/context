@@ -85,167 +85,97 @@
 <tr>  <td class="numLine">&nbsp;34</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;35</td>  <td class="nbHits">&nbsp;</td>
-  <td class="src"><pre class="src">&nbsp;    <span class="keyword">protected</span> <span class="keyword">static</span> <span class="keyword">final</span> String ARG1 = <span class="string">"&lt;ARG1&gt;"</span>;</pre></td></tr>
+  <td class="src"><pre class="src">&nbsp;        <span class="keyword">protected</span> <span class="keyword">static</span> <span class="keyword">final</span> String ARG1 = <span class="string">"&lt;ARG1&gt;"</span>;</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;36</td>  <td class="nbHits">&nbsp;</td>
-  <td class="src"><pre class="src">&nbsp;    <span class="keyword">protected</span> <span class="keyword">static</span> <span class="keyword">final</span> String ARG2 = <span class="string">"&lt;ARG2&gt;"</span>;</pre></td></tr>
+  <td class="src"><pre class="src">&nbsp;        <span class="keyword">protected</span> <span class="keyword">static</span> <span class="keyword">final</span> String ARG2 = <span class="string">"&lt;ARG2&gt;"</span>;</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;37</td>  <td class="nbHits">&nbsp;</td>
-  <td class="src"><pre class="src">&nbsp;    <span class="keyword">protected</span> <span class="keyword">static</span> <span class="keyword">final</span> String ARGTURTLE = <span class="string">"&lt;TURTLE&gt;"</span>;</pre></td></tr>
+  <td class="src"><pre class="src">&nbsp;        <span class="keyword">protected</span> <span class="keyword">static</span> <span class="keyword">final</span> String ARGTURTLE = <span class="string">"&lt;TURTLE&gt;"</span>;</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;38</td>  <td class="nbHits">&nbsp;</td>
-  <td class="src"><pre class="src">&nbsp;    <span class="keyword">protected</span> <span class="keyword">static</span> <span class="keyword">final</span> String ARGTYPE = <span class="string">"&lt;TYPE&gt;"</span>;</pre></td></tr>
+  <td class="src"><pre class="src">&nbsp;        <span class="keyword">protected</span> <span class="keyword">static</span> <span class="keyword">final</span> String ARGTYPE = <span class="string">"&lt;TYPE&gt;"</span>;</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;39</td>  <td class="nbHits">&nbsp;</td>
-  <td class="src"><pre class="src">&nbsp;    <span class="keyword">protected</span> <span class="keyword">static</span> <span class="keyword">final</span> String AUXBAG = SCallee.NAMESPACE + <span class="string">"auxBag"</span>;</pre></td></tr>
+  <td class="src"><pre class="src">&nbsp;        <span class="keyword">protected</span> <span class="keyword">static</span> <span class="keyword">final</span> String AUXBAG = SCallee.NAMESPACE + <span class="string">"auxBag"</span>;</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;40</td>  <td class="nbHits">&nbsp;</td>
-  <td class="src"><pre class="src">&nbsp;    <span class="keyword">protected</span> <span class="keyword">static</span> <span class="keyword">final</span> String AUXBAGPROP = SCallee.NAMESPACE + <span class="string">"auxBagProp"</span>;</pre></td></tr>
+  <td class="src"><pre class="src">&nbsp;        <span class="keyword">protected</span> <span class="keyword">static</span> <span class="keyword">final</span> String AUXBAGPROP = SCallee.NAMESPACE + <span class="string">"auxBagProp"</span>;</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;41</td>  <td class="nbHits">&nbsp;</td>
-  <td class="src"><pre class="src">&nbsp;    </pre></td></tr>
+  <td class="src"><pre class="src">&nbsp;</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;42</td>  <td class="nbHits">&nbsp;</td>
-  <td class="src"><pre class="src">&nbsp;    <span class="comment">// :::::::::::::GENERIC GET/ADD/CHANGE/REMOVE:::::::::::::::::</span></pre></td></tr>
+  <td class="src"><pre class="src">&nbsp;        <span class="comment">// :::::::::::::GENERIC GET/ADD/CHANGE/REMOVE:::::::::::::::::</span></pre></td></tr>
 <tr>  <td class="numLine">&nbsp;43</td>  <td class="nbHits">&nbsp;</td>
-  <td class="src"><pre class="src">&nbsp;    <span class="keyword">protected</span> <span class="keyword">static</span> <span class="keyword">final</span> String GET = <span class="string">"DESCRIBE &lt;"</span></pre></td></tr>
+  <td class="src"><pre class="src">&nbsp;        <span class="keyword">protected</span> <span class="keyword">static</span> <span class="keyword">final</span> String GET = <span class="string">"DESCRIBE &lt;"</span> + ARG1 + <span class="string">"&gt; WHERE { &lt;"</span> + ARG1 + <span class="string">"&gt; a &lt;"</span> + ARGTYPE + <span class="string">"&gt; } "</span>;</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;44</td>  <td class="nbHits">&nbsp;</td>
-  <td class="src"><pre class="src">&nbsp;            + ARG1 + <span class="string">"&gt; WHERE { &lt;"</span>+ARG1+<span class="string">"&gt; a &lt;"</span>+ARGTYPE+<span class="string">"&gt; } "</span>;</pre></td></tr>
+  <td class="src"><pre class="src">&nbsp;        <span class="keyword">protected</span> <span class="keyword">static</span> <span class="keyword">final</span> String ADD = <span class="string">"INSERT DATA { "</span> + ARGTURTLE + <span class="string">" }"</span>;</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;45</td>  <td class="nbHits">&nbsp;</td>
-  <td class="src"><pre class="src">&nbsp;    <span class="keyword">protected</span> <span class="keyword">static</span> <span class="keyword">final</span> String ADD = <span class="string">"INSERT DATA { "</span></pre></td></tr>
+  <td class="src"><pre class="src">&nbsp;        <span class="keyword">protected</span> <span class="keyword">static</span> <span class="keyword">final</span> String CHANGE = <span class="string">"DELETE { &lt;"</span> + ARG1 + <span class="string">"&gt; ?p ?o } INSERT { "</span> + ARGTURTLE + <span class="string">" } WHERE { &lt;"</span></pre></td></tr>
 <tr>  <td class="numLine">&nbsp;46</td>  <td class="nbHits">&nbsp;</td>
-  <td class="src"><pre class="src">&nbsp;            + ARGTURTLE + <span class="string">" }"</span>;</pre></td></tr>
+  <td class="src"><pre class="src">&nbsp;                        + ARG1 + <span class="string">"&gt; ?p ?o ; a &lt;"</span> + ARGTYPE + <span class="string">"&gt; }"</span>;</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;47</td>  <td class="nbHits">&nbsp;</td>
-  <td class="src"><pre class="src">&nbsp;    <span class="keyword">protected</span> <span class="keyword">static</span> <span class="keyword">final</span> String CHANGE = <span class="string">"DELETE { &lt;"</span> + ARG1</pre></td></tr>
+  <td class="src"><pre class="src">&nbsp;        <span class="keyword">protected</span> <span class="keyword">static</span> <span class="keyword">final</span> String REMOVE = <span class="string">"DELETE { &lt;"</span> + ARG1 + <span class="string">"&gt; ?p ?o . ?ss ?pp &lt;"</span> + ARG1 + <span class="string">"&gt; } WHERE { &lt;"</span> + ARG1</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;48</td>  <td class="nbHits">&nbsp;</td>
-  <td class="src"><pre class="src">&nbsp;            + <span class="string">"&gt; ?p ?o } INSERT { "</span> + ARGTURTLE + <span class="string">" } WHERE { &lt;"</span> + ARG1</pre></td></tr>
+  <td class="src"><pre class="src">&nbsp;                        + <span class="string">"&gt; ?p ?o ; a &lt;"</span> + ARGTYPE + <span class="string">"&gt; . OPTIONAL { ?ss ?pp &lt;"</span> + ARG1 + <span class="string">"&gt; } }"</span>;</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;49</td>  <td class="nbHits">&nbsp;</td>
-  <td class="src"><pre class="src">&nbsp;            + <span class="string">"&gt; ?p ?o ; a &lt;"</span>+ARGTYPE+<span class="string">"&gt; }"</span>;</pre></td></tr>
+  <td class="src"><pre class="src">&nbsp;</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;50</td>  <td class="nbHits">&nbsp;</td>
-  <td class="src"><pre class="src">&nbsp;    <span class="keyword">protected</span> <span class="keyword">static</span> <span class="keyword">final</span> String REMOVE = <span class="string">"DELETE { &lt;"</span> + ARG1</pre></td></tr>
+  <td class="src"><pre class="src">&nbsp;        <span class="comment">// :::::::::::::OTHER GENERICS:::::::::::::::::</span></pre></td></tr>
 <tr>  <td class="numLine">&nbsp;51</td>  <td class="nbHits">&nbsp;</td>
-  <td class="src"><pre class="src">&nbsp;            + <span class="string">"&gt; ?p ?o . ?ss ?pp &lt;"</span> + ARG1 + <span class="string">"&gt; } WHERE { &lt;"</span> + ARG1</pre></td></tr>
+  <td class="src"><pre class="src">&nbsp;        <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> String GETALLOF = <span class="string">"CONSTRUCT { &lt;"</span> + AUXBAG + <span class="string">"&gt; &lt;"</span> + AUXBAGPROP + <span class="string">"&gt; ?s } WHERE { &lt;"</span> + ARG1</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;52</td>  <td class="nbHits">&nbsp;</td>
-  <td class="src"><pre class="src">&nbsp;            + <span class="string">"&gt; ?p ?o ; a &lt;"</span>+ARGTYPE+<span class="string">"&gt; . OPTIONAL { ?ss ?pp &lt;"</span> + ARG1 + <span class="string">"&gt; } }"</span>;</pre></td></tr>
+  <td class="src"><pre class="src">&nbsp;                        + <span class="string">"&gt; &lt;"</span> + Profilable.PROP_HAS_PROFILE + <span class="string">"&gt; ?p . "</span> + <span class="string">" ?p &lt;"</span> + ARG2 + <span class="string">"&gt; ?s . "</span> + <span class="string">" ?s a &lt;"</span> + ARGTYPE</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;53</td>  <td class="nbHits">&nbsp;</td>
-  <td class="src"><pre class="src">&nbsp;</pre></td></tr>
+  <td class="src"><pre class="src">&nbsp;                        + <span class="string">"&gt; } "</span>;</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;54</td>  <td class="nbHits">&nbsp;</td>
-  <td class="src"><pre class="src">&nbsp;    <span class="comment">// :::::::::::::OTHER GENERICS:::::::::::::::::</span></pre></td></tr>
+  <td class="src"><pre class="src">&nbsp;        <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> String GETALLOFXTRA = <span class="string">"CONSTRUCT { &lt;"</span> + AUXBAG + <span class="string">"&gt; &lt;"</span> + AUXBAGPROP</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;55</td>  <td class="nbHits">&nbsp;</td>
-  <td class="src"><pre class="src">&nbsp;    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> String GETALLOF = <span class="string">"CONSTRUCT { &lt;"</span></pre></td></tr>
+  <td class="src"><pre class="src">&nbsp;                        + <span class="string">"&gt; ?s . ?s a ?t } WHERE { &lt;"</span> + ARG1 + <span class="string">"&gt; &lt;"</span> + Profilable.PROP_HAS_PROFILE + <span class="string">"&gt; ?p . "</span> + <span class="string">" ?p &lt;"</span> + ARG2</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;56</td>  <td class="nbHits">&nbsp;</td>
-  <td class="src"><pre class="src">&nbsp;            + AUXBAG</pre></td></tr>
+  <td class="src"><pre class="src">&nbsp;                        + <span class="string">"&gt; ?s . "</span> + <span class="string">" ?s a &lt;"</span> + ARGTYPE + <span class="string">"&gt; ; a ?t } "</span>;</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;57</td>  <td class="nbHits">&nbsp;</td>
-  <td class="src"><pre class="src">&nbsp;            + <span class="string">"&gt; &lt;"</span></pre></td></tr>
+  <td class="src"><pre class="src">&nbsp;</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;58</td>  <td class="nbHits">&nbsp;</td>
-  <td class="src"><pre class="src">&nbsp;            + AUXBAGPROP</pre></td></tr>
+  <td class="src"><pre class="src">&nbsp;        <span class="keyword">protected</span> <span class="keyword">static</span> <span class="keyword">final</span> String GETALL = <span class="string">"CONSTRUCT { &lt;"</span> + AUXBAG + <span class="string">"&gt; &lt;"</span> + AUXBAGPROP + <span class="string">"&gt; ?u } WHERE { ?u a &lt;"</span></pre></td></tr>
 <tr>  <td class="numLine">&nbsp;59</td>  <td class="nbHits">&nbsp;</td>
-  <td class="src"><pre class="src">&nbsp;            + <span class="string">"&gt; ?s } WHERE { &lt;"</span>+ARG1+<span class="string">"&gt; &lt;"</span>+Profilable.PROP_HAS_PROFILE+<span class="string">"&gt; ?p . "</span></pre></td></tr>
+  <td class="src"><pre class="src">&nbsp;                        + ARGTYPE + <span class="string">"&gt; } "</span>;</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;60</td>  <td class="nbHits">&nbsp;</td>
-  <td class="src"><pre class="src">&nbsp;            + <span class="string">" ?p &lt;"</span>+ARG2+<span class="string">"&gt; ?s . "</span></pre></td></tr>
+  <td class="src"><pre class="src">&nbsp;        <span class="keyword">protected</span> <span class="keyword">static</span> <span class="keyword">final</span> String GETALLXTRA = <span class="string">"CONSTRUCT { &lt;"</span> + AUXBAG + <span class="string">"&gt; &lt;"</span> + AUXBAGPROP</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;61</td>  <td class="nbHits">&nbsp;</td>
-  <td class="src"><pre class="src">&nbsp;            + <span class="string">" ?s a &lt;"</span>+ARGTYPE+<span class="string">"&gt; } "</span>;</pre></td></tr>
+  <td class="src"><pre class="src">&nbsp;                        + <span class="string">"&gt; ?u . ?u a ?t . } WHERE { ?u a &lt;"</span> + ARGTYPE + <span class="string">"&gt; ; a ?t . } "</span>;</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;62</td>  <td class="nbHits">&nbsp;</td>
-  <td class="src"><pre class="src">&nbsp;    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> String GETALLOFXTRA = <span class="string">"CONSTRUCT { &lt;"</span></pre></td></tr>
+  <td class="src"><pre class="src">&nbsp;</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;63</td>  <td class="nbHits">&nbsp;</td>
-  <td class="src"><pre class="src">&nbsp;            + AUXBAG</pre></td></tr>
+  <td class="src"><pre class="src">&nbsp;        <span class="keyword">protected</span> <span class="keyword">static</span> <span class="keyword">final</span> String GETONEOF = <span class="string">"DESCRIBE ?p WHERE {&lt;"</span> + ARG1 + <span class="string">"&gt; &lt;"</span> + Profilable.PROP_HAS_PROFILE</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;64</td>  <td class="nbHits">&nbsp;</td>
-  <td class="src"><pre class="src">&nbsp;            + <span class="string">"&gt; &lt;"</span></pre></td></tr>
+  <td class="src"><pre class="src">&nbsp;                        + <span class="string">"&gt; ?ap . ?ap &lt;"</span> + ARGTYPE + <span class="string">"&gt; ?p}"</span>;</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;65</td>  <td class="nbHits">&nbsp;</td>
-  <td class="src"><pre class="src">&nbsp;            + AUXBAGPROP</pre></td></tr>
+  <td class="src"><pre class="src">&nbsp;        <span class="keyword">protected</span> <span class="keyword">static</span> <span class="keyword">final</span> String GETONEOFXTRA = <span class="string">"CONSTRUCT { ?p a ?t } WHERE {&lt;"</span> + ARG1 + <span class="string">"&gt; &lt;"</span></pre></td></tr>
 <tr>  <td class="numLine">&nbsp;66</td>  <td class="nbHits">&nbsp;</td>
-  <td class="src"><pre class="src">&nbsp;            + <span class="string">"&gt; ?s . ?s a ?t } WHERE { &lt;"</span>+ARG1+<span class="string">"&gt; &lt;"</span>+Profilable.PROP_HAS_PROFILE+<span class="string">"&gt; ?p . "</span></pre></td></tr>
+  <td class="src"><pre class="src">&nbsp;                        + Profilable.PROP_HAS_PROFILE + <span class="string">"&gt; ?ap . ?ap &lt;"</span> + ARGTYPE + <span class="string">"&gt; ?p . ?p a ?t}"</span>;</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;67</td>  <td class="nbHits">&nbsp;</td>
-  <td class="src"><pre class="src">&nbsp;            + <span class="string">" ?p &lt;"</span>+ARG2+<span class="string">"&gt; ?s . "</span></pre></td></tr>
+  <td class="src"><pre class="src">&nbsp;</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;68</td>  <td class="nbHits">&nbsp;</td>
-  <td class="src"><pre class="src">&nbsp;            + <span class="string">" ?s a &lt;"</span>+ARGTYPE+<span class="string">"&gt; ; a ?t } "</span>;</pre></td></tr>
+  <td class="src"><pre class="src">&nbsp;        <span class="keyword">protected</span> <span class="keyword">static</span> <span class="keyword">final</span> String ADDTOPROFILABLE = <span class="string">"INSERT { ?p &lt;"</span> + ARGTYPE + <span class="string">"&gt; &lt;"</span> + ARG2 + <span class="string">"&gt; . "</span> + ARGTURTLE</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;69</td>  <td class="nbHits">&nbsp;</td>
-  <td class="src"><pre class="src">&nbsp;    </pre></td></tr>
+  <td class="src"><pre class="src">&nbsp;                        + <span class="string">" } WHERE {&lt;"</span> + ARG1 + <span class="string">"&gt; &lt;"</span> + Profilable.PROP_HAS_PROFILE + <span class="string">"&gt; ?p}"</span>;</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;70</td>  <td class="nbHits">&nbsp;</td>
-  <td class="src"><pre class="src">&nbsp;    <span class="keyword">protected</span> <span class="keyword">static</span> <span class="keyword">final</span> String GETALL = <span class="string">"CONSTRUCT { &lt;"</span></pre></td></tr>
+  <td class="src"><pre class="src">&nbsp;</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;71</td>  <td class="nbHits">&nbsp;</td>
-  <td class="src"><pre class="src">&nbsp;            + AUXBAG</pre></td></tr>
+  <td class="src"><pre class="src">&nbsp;        <span class="keyword">protected</span> <span class="keyword">static</span> <span class="keyword">final</span> String ADDPROFTOPROFILABLE = <span class="string">"INSERT DATA { &lt;"</span> + ARG1 + <span class="string">"&gt; &lt;"</span> + Profilable.PROP_HAS_PROFILE</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;72</td>  <td class="nbHits">&nbsp;</td>
-  <td class="src"><pre class="src">&nbsp;            + <span class="string">"&gt; &lt;"</span></pre></td></tr>
+  <td class="src"><pre class="src">&nbsp;                        + <span class="string">"&gt; &lt;"</span> + ARG2 + <span class="string">"&gt; . "</span> + ARGTURTLE + <span class="string">" }"</span>;</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;73</td>  <td class="nbHits">&nbsp;</td>
-  <td class="src"><pre class="src">&nbsp;            + AUXBAGPROP</pre></td></tr>
+  <td class="src"><pre class="src">&nbsp;</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;74</td>  <td class="nbHits">&nbsp;</td>
-  <td class="src"><pre class="src">&nbsp;            + <span class="string">"&gt; ?u } WHERE { ?u a &lt;"</span>+ARGTYPE+<span class="string">"&gt; } "</span>;</pre></td></tr>
+  <td class="src"><pre class="src">&nbsp;        <span class="keyword">protected</span> <span class="keyword">static</span> <span class="keyword">final</span> String GETPRFOFPROFILABLE = <span class="string">"DESCRIBE ?p WHERE {&lt;"</span> + ARG1 + <span class="string">"&gt; &lt;"</span></pre></td></tr>
 <tr>  <td class="numLine">&nbsp;75</td>  <td class="nbHits">&nbsp;</td>
-  <td class="src"><pre class="src">&nbsp;    <span class="keyword">protected</span> <span class="keyword">static</span> <span class="keyword">final</span> String GETALLXTRA = <span class="string">"CONSTRUCT { &lt;"</span></pre></td></tr>
+  <td class="src"><pre class="src">&nbsp;                        + Profilable.PROP_HAS_PROFILE + <span class="string">"&gt; ?p}"</span>;</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;76</td>  <td class="nbHits">&nbsp;</td>
-  <td class="src"><pre class="src">&nbsp;            + AUXBAG</pre></td></tr>
+  <td class="src"><pre class="src">&nbsp;        <span class="keyword">protected</span> <span class="keyword">static</span> <span class="keyword">final</span> String GETPRFOFPROFILABLEXTRA = <span class="string">"CONSTRUCT { ?p a ?t } WHERE {&lt;"</span> + ARG1 + <span class="string">"&gt; &lt;"</span></pre></td></tr>
 <tr>  <td class="numLine">&nbsp;77</td>  <td class="nbHits">&nbsp;</td>
-  <td class="src"><pre class="src">&nbsp;            + <span class="string">"&gt; &lt;"</span></pre></td></tr>
+  <td class="src"><pre class="src">&nbsp;                        + Profilable.PROP_HAS_PROFILE + <span class="string">"&gt; ?p . ?p a ?t}"</span>;</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;78</td>  <td class="nbHits">&nbsp;</td>
-  <td class="src"><pre class="src">&nbsp;            + AUXBAGPROP</pre></td></tr>
+  <td class="src"><pre class="src">&nbsp;</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;79</td>  <td class="nbHits">&nbsp;</td>
-  <td class="src"><pre class="src">&nbsp;            + <span class="string">"&gt; ?u . ?u a ?t . } WHERE { ?u a &lt;"</span>+ARGTYPE+<span class="string">"&gt; ; a ?t . } "</span>;</pre></td></tr>
-<tr>  <td class="numLine">&nbsp;80</td>  <td class="nbHits">&nbsp;</td>
-  <td class="src"><pre class="src">&nbsp;    </pre></td></tr>
-<tr>  <td class="numLine">&nbsp;81</td>  <td class="nbHits">&nbsp;</td>
-  <td class="src"><pre class="src">&nbsp;    <span class="keyword">protected</span> <span class="keyword">static</span> <span class="keyword">final</span> String GETONEOF = <span class="string">"DESCRIBE ?p WHERE {&lt;"</span> + ARG1</pre></td></tr>
-<tr>  <td class="numLine">&nbsp;82</td>  <td class="nbHits">&nbsp;</td>
-  <td class="src"><pre class="src">&nbsp;            + <span class="string">"&gt; &lt;"</span> + Profilable.PROP_HAS_PROFILE + <span class="string">"&gt; ?ap . ?ap &lt;"</span> + ARGTYPE</pre></td></tr>
-<tr>  <td class="numLine">&nbsp;83</td>  <td class="nbHits">&nbsp;</td>
-  <td class="src"><pre class="src">&nbsp;            + <span class="string">"&gt; ?p}"</span>;</pre></td></tr>
-<tr>  <td class="numLine">&nbsp;84</td>  <td class="nbHits">&nbsp;</td>
-  <td class="src"><pre class="src">&nbsp;    <span class="keyword">protected</span> <span class="keyword">static</span> <span class="keyword">final</span> String GETONEOFXTRA = <span class="string">"CONSTRUCT { ?p a ?t } WHERE {&lt;"</span></pre></td></tr>
-<tr>  <td class="numLine">&nbsp;85</td>  <td class="nbHits">&nbsp;</td>
-  <td class="src"><pre class="src">&nbsp;            + ARG1</pre></td></tr>
-<tr>  <td class="numLine">&nbsp;86</td>  <td class="nbHits">&nbsp;</td>
-  <td class="src"><pre class="src">&nbsp;            + <span class="string">"&gt; &lt;"</span></pre></td></tr>
-<tr>  <td class="numLine">&nbsp;87</td>  <td class="nbHits">&nbsp;</td>
-  <td class="src"><pre class="src">&nbsp;            + Profilable.PROP_HAS_PROFILE</pre></td></tr>
-<tr>  <td class="numLine">&nbsp;88</td>  <td class="nbHits">&nbsp;</td>
-  <td class="src"><pre class="src">&nbsp;            + <span class="string">"&gt; ?ap . ?ap &lt;"</span></pre></td></tr>
-<tr>  <td class="numLine">&nbsp;89</td>  <td class="nbHits">&nbsp;</td>
-  <td class="src"><pre class="src">&nbsp;            + ARGTYPE + <span class="string">"&gt; ?p . ?p a ?t}"</span>;</pre></td></tr>
-<tr>  <td class="numLine">&nbsp;90</td>  <td class="nbHits">&nbsp;</td>
-  <td class="src"><pre class="src">&nbsp;</pre></td></tr>
-<tr>  <td class="numLine">&nbsp;91</td>  <td class="nbHits">&nbsp;</td>
-  <td class="src"><pre class="src">&nbsp;    <span class="keyword">protected</span> <span class="keyword">static</span> <span class="keyword">final</span> String ADDTOPROFILABLE = <span class="string">"INSERT { ?p &lt;"</span></pre></td></tr>
-<tr>  <td class="numLine">&nbsp;92</td>  <td class="nbHits">&nbsp;</td>
-  <td class="src"><pre class="src">&nbsp;            + ARGTYPE </pre></td></tr>
-<tr>  <td class="numLine">&nbsp;93</td>  <td class="nbHits">&nbsp;</td>
-  <td class="src"><pre class="src">&nbsp;            + <span class="string">"&gt; &lt;"</span> </pre></td></tr>
-<tr>  <td class="numLine">&nbsp;94</td>  <td class="nbHits">&nbsp;</td>
-  <td class="src"><pre class="src">&nbsp;            + ARG2 </pre></td></tr>
-<tr>  <td class="numLine">&nbsp;95</td>  <td class="nbHits">&nbsp;</td>
-  <td class="src"><pre class="src">&nbsp;            + <span class="string">"&gt; . "</span> + ARGTURTLE + <span class="string">" } WHERE {&lt;"</span> </pre></td></tr>
-<tr>  <td class="numLine">&nbsp;96</td>  <td class="nbHits">&nbsp;</td>
-  <td class="src"><pre class="src">&nbsp;            + ARG1 </pre></td></tr>
-<tr>  <td class="numLine">&nbsp;97</td>  <td class="nbHits">&nbsp;</td>
-  <td class="src"><pre class="src">&nbsp;            + <span class="string">"&gt; &lt;"</span> </pre></td></tr>
-<tr>  <td class="numLine">&nbsp;98</td>  <td class="nbHits">&nbsp;</td>
-  <td class="src"><pre class="src">&nbsp;            + Profilable.PROP_HAS_PROFILE</pre></td></tr>
-<tr>  <td class="numLine">&nbsp;99</td>  <td class="nbHits">&nbsp;</td>
-  <td class="src"><pre class="src">&nbsp;            + <span class="string">"&gt; ?p}"</span>;</pre></td></tr>
-<tr>  <td class="numLine">&nbsp;100</td>  <td class="nbHits">&nbsp;</td>
-  <td class="src"><pre class="src">&nbsp;    </pre></td></tr>
-<tr>  <td class="numLine">&nbsp;101</td>  <td class="nbHits">&nbsp;</td>
-  <td class="src"><pre class="src">&nbsp;    <span class="keyword">protected</span> <span class="keyword">static</span> <span class="keyword">final</span> String ADDPROFTOPROFILABLE = <span class="string">"INSERT DATA { &lt;"</span></pre></td></tr>
-<tr>  <td class="numLine">&nbsp;102</td>  <td class="nbHits">&nbsp;</td>
-  <td class="src"><pre class="src">&nbsp;            + ARG1</pre></td></tr>
-<tr>  <td class="numLine">&nbsp;103</td>  <td class="nbHits">&nbsp;</td>
-  <td class="src"><pre class="src">&nbsp;            + <span class="string">"&gt; &lt;"</span></pre></td></tr>
-<tr>  <td class="numLine">&nbsp;104</td>  <td class="nbHits">&nbsp;</td>
-  <td class="src"><pre class="src">&nbsp;            + Profilable.PROP_HAS_PROFILE</pre></td></tr>
-<tr>  <td class="numLine">&nbsp;105</td>  <td class="nbHits">&nbsp;</td>
-  <td class="src"><pre class="src">&nbsp;            + <span class="string">"&gt; &lt;"</span></pre></td></tr>
-<tr>  <td class="numLine">&nbsp;106</td>  <td class="nbHits">&nbsp;</td>
-  <td class="src"><pre class="src">&nbsp;            + ARG2</pre></td></tr>
-<tr>  <td class="numLine">&nbsp;107</td>  <td class="nbHits">&nbsp;</td>
-  <td class="src"><pre class="src">&nbsp;            + <span class="string">"&gt; . "</span> + ARGTURTLE + <span class="string">" }"</span>;</pre></td></tr>
-<tr>  <td class="numLine">&nbsp;108</td>  <td class="nbHits">&nbsp;</td>
-  <td class="src"><pre class="src">&nbsp;    </pre></td></tr>
-<tr>  <td class="numLine">&nbsp;109</td>  <td class="nbHits">&nbsp;</td>
-  <td class="src"><pre class="src">&nbsp;    <span class="keyword">protected</span> <span class="keyword">static</span> <span class="keyword">final</span> String GETPRFOFPROFILABLE = <span class="string">"DESCRIBE ?p WHERE {&lt;"</span></pre></td></tr>
-<tr>  <td class="numLine">&nbsp;110</td>  <td class="nbHits">&nbsp;</td>
-  <td class="src"><pre class="src">&nbsp;            + ARG1 + <span class="string">"&gt; &lt;"</span> + Profilable.PROP_HAS_PROFILE + <span class="string">"&gt; ?p}"</span>;</pre></td></tr>
-<tr>  <td class="numLine">&nbsp;111</td>  <td class="nbHits">&nbsp;</td>
-  <td class="src"><pre class="src">&nbsp;    <span class="keyword">protected</span> <span class="keyword">static</span> <span class="keyword">final</span> String GETPRFOFPROFILABLEXTRA = <span class="string">"CONSTRUCT { ?p a ?t } WHERE {&lt;"</span></pre></td></tr>
-<tr>  <td class="numLine">&nbsp;112</td>  <td class="nbHits">&nbsp;</td>
-  <td class="src"><pre class="src">&nbsp;            + ARG1 + <span class="string">"&gt; &lt;"</span> + Profilable.PROP_HAS_PROFILE + <span class="string">"&gt; ?p . ?p a ?t}"</span>;</pre></td></tr>
-<tr>  <td class="numLine">&nbsp;113</td>  <td class="nbHits">&nbsp;</td>
-  <td class="src"><pre class="src">&nbsp;</pre></td></tr>
-<tr>  <td class="numLine">&nbsp;114</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;}</pre></td></tr>
 </table>
 
-<div class="footer">Report generated by <a href="http://cobertura.sourceforge.net/" target="_top">Cobertura</a> 2.1.1 on 5/25/17 8:38 PM.</div>
+<div class="footer">Report generated by <a href="http://cobertura.sourceforge.net/" target="_top">Cobertura</a> 2.1.1 on 6/9/17 4:02 AM.</div>
 </body>
 </html>

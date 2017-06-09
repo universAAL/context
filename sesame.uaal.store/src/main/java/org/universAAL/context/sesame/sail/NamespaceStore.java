@@ -79,17 +79,14 @@ class NamespaceStore implements Iterable<NamespaceImpl> {
 	 * Constructors *
 	 *--------------*/
 
-	public NamespaceStore(File dataDir)
-		throws IOException
-	{
+	public NamespaceStore(File dataDir) throws IOException {
 		file = new File(dataDir, FILE_NAME);
 
 		namespacesMap = new LinkedHashMap<String, NamespaceImpl>(16);
 
 		if (file.exists()) {
 			readNamespacesFromFile();
-		}
-		else {
+		} else {
 			// Make sure the file exists
 			writeNamespacesToFile();
 		}
@@ -118,8 +115,7 @@ class NamespaceStore implements Iterable<NamespaceImpl> {
 				ns.setName(name);
 				contentsChanged = true;
 			}
-		}
-		else {
+		} else {
 			namespacesMap.put(prefix, new NamespaceImpl(prefix, name));
 			contentsChanged = true;
 		}
@@ -144,9 +140,7 @@ class NamespaceStore implements Iterable<NamespaceImpl> {
 		}
 	}
 
-	public void sync()
-		throws IOException
-	{
+	public void sync() throws IOException {
 		if (contentsChanged) {
 			// Flush the changes to disk
 			writeNamespacesToFile();
@@ -161,9 +155,7 @@ class NamespaceStore implements Iterable<NamespaceImpl> {
 	 * File I/O *
 	 *----------*/
 
-	private void writeNamespacesToFile()
-		throws IOException
-	{
+	private void writeNamespacesToFile() throws IOException {
 		synchronized (file) {
 			DataOutputStream out = new DataOutputStream(new FileOutputStream(file));
 
@@ -175,16 +167,13 @@ class NamespaceStore implements Iterable<NamespaceImpl> {
 					out.writeUTF(ns.getName());
 					out.writeUTF(ns.getPrefix());
 				}
-			}
-			finally {
+			} finally {
 				out.close();
 			}
 		}
 	}
 
-	private void readNamespacesFromFile()
-		throws IOException
-	{
+	private void readNamespacesFromFile() throws IOException {
 		synchronized (file) {
 			DataInputStream in = new DataInputStream(new FileInputStream(file));
 
@@ -197,8 +186,7 @@ class NamespaceStore implements Iterable<NamespaceImpl> {
 				byte version = in.readByte();
 				if (version > FILE_FORMAT_VERSION) {
 					throw new IOException("Unable to read namespace file; it uses a newer file format");
-				}
-				else if (version != FILE_FORMAT_VERSION) {
+				} else if (version != FILE_FORMAT_VERSION) {
 					throw new IOException("Unable to read namespace file; invalid file format version: " + version);
 				}
 
@@ -209,13 +197,11 @@ class NamespaceStore implements Iterable<NamespaceImpl> {
 
 						NamespaceImpl ns = new NamespaceImpl(prefix, name);
 						namespacesMap.put(prefix, ns);
-					}
-					catch (EOFException e) {
+					} catch (EOFException e) {
 						break;
 					}
 				}
-			}
-			finally {
+			} finally {
 				in.close();
 			}
 		}
@@ -225,13 +211,13 @@ class NamespaceStore implements Iterable<NamespaceImpl> {
 	 * Debugging methods *
 	 *-------------------*/
 
-//	public static void main(String[] args)
-//		throws Exception
-//	{
-//		NamespaceStore nsStore = new NamespaceStore(new File(args[0]));
-//
-//		for (Namespace ns : nsStore) {
-//			System.out.println(ns.getPrefix() + " = " + ns.getName());
-//		}
-//	}
+	// public static void main(String[] args)
+	// throws Exception
+	// {
+	// NamespaceStore nsStore = new NamespaceStore(new File(args[0]));
+	//
+	// for (Namespace ns : nsStore) {
+	// System.out.println(ns.getPrefix() + " = " + ns.getName());
+	// }
+	// }
 }

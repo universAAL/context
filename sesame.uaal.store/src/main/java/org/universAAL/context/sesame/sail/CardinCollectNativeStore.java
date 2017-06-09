@@ -6,21 +6,19 @@ import java.io.IOException;
 import org.openrdf.sail.NotifyingSailConnection;
 import org.openrdf.sail.SailException;
 
-public class CardinCollectNativeStore extends CardinalityNativeStore{
+public class CardinCollectNativeStore extends CardinalityNativeStore {
 
-    public CardinCollectNativeStore(File dataDir, String indexes, boolean encrypt) {
-	super(dataDir,indexes,encrypt);
-    }
+	public CardinCollectNativeStore(File dataDir, String indexes, boolean encrypt) {
+		super(dataDir, indexes, encrypt);
+	}
 
-    @Override
-    protected NotifyingSailConnection getConnectionInternal()
-	    throws SailException {
-	try {
-		return new CardinCollectNativeStoreConnection(this);
+	@Override
+	protected NotifyingSailConnection getConnectionInternal() throws SailException {
+		try {
+			return new CardinCollectNativeStoreConnection(this);
+		} catch (IOException e) {
+			throw new SailException(e);
+		}
 	}
-	catch (IOException e) {
-		throw new SailException(e);
-	}
-    }
 
 }

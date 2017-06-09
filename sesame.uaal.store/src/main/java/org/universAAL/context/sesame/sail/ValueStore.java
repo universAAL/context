@@ -85,22 +85,22 @@ public class ValueStore extends ValueFactoryBase {
 	private final ReadWriteLockManager lockManager = new WritePrefReadWriteLockManager();
 
 	/**
-	 * An object that indicates the revision of the value store, which is used to
-	 * check if cached value IDs are still valid. In order to be valid, the
+	 * An object that indicates the revision of the value store, which is used
+	 * to check if cached value IDs are still valid. In order to be valid, the
 	 * ValueStoreRevision object of a NativeValue needs to be equal to this
 	 * object.
 	 */
 	private volatile ValueStoreRevision revision;
 
 	/**
-	 * A simple cache containing the [VALUE_CACHE_SIZE] most-recently used values
-	 * stored by their ID.
+	 * A simple cache containing the [VALUE_CACHE_SIZE] most-recently used
+	 * values stored by their ID.
 	 */
 	private final LRUCache<Integer, NativeValue> valueCache;
 
 	/**
-	 * A simple cache containing the [ID_CACHE_SIZE] most-recently used value-IDs
-	 * stored by their value.
+	 * A simple cache containing the [ID_CACHE_SIZE] most-recently used
+	 * value-IDs stored by their value.
 	 */
 	private final LRUCache<NativeValue, Integer> valueIDCache;
 
@@ -111,8 +111,8 @@ public class ValueStore extends ValueFactoryBase {
 	private final LRUCache<Integer, String> namespaceCache;
 
 	/**
-	 * A simple cache containing the [NAMESPACE_ID_CACHE_SIZE] most-recently used
-	 * namespace-IDs stored by their namespace.
+	 * A simple cache containing the [NAMESPACE_ID_CACHE_SIZE] most-recently
+	 * used namespace-IDs stored by their namespace.
 	 */
 	private final LRUCache<String, Integer> namespaceIDCache;
 
@@ -120,28 +120,22 @@ public class ValueStore extends ValueFactoryBase {
 	 * Constructors *
 	 *--------------*/
 
-	public ValueStore(File dataDir)
-		throws IOException
-	{
+	public ValueStore(File dataDir) throws IOException {
 		this(dataDir, false);
 	}
 
-	public ValueStore(File dataDir, boolean forceSync)
-		throws IOException
-	{
-		this(dataDir, forceSync, VALUE_CACHE_SIZE, VALUE_ID_CACHE_SIZE, NAMESPACE_CACHE_SIZE,
-				NAMESPACE_ID_CACHE_SIZE, false);
+	public ValueStore(File dataDir, boolean forceSync) throws IOException {
+		this(dataDir, forceSync, VALUE_CACHE_SIZE, VALUE_ID_CACHE_SIZE, NAMESPACE_CACHE_SIZE, NAMESPACE_ID_CACHE_SIZE,
+				false);
 	}
 
-	public ValueStore(File dataDir, boolean forceSync, int valueCacheSize, int valueIDCacheSize,
-			int namespaceCacheSize, int namespaceIDCacheSize, boolean encrypt)
-		throws IOException
-	{
+	public ValueStore(File dataDir, boolean forceSync, int valueCacheSize, int valueIDCacheSize, int namespaceCacheSize,
+			int namespaceIDCacheSize, boolean encrypt) throws IOException {
 		super();
-		if(encrypt)
-		    dataStore = new CryptDataStore(dataDir, FILENAME_PREFIX, forceSync);
+		if (encrypt)
+			dataStore = new CryptDataStore(dataDir, FILENAME_PREFIX, forceSync);
 		else
-		    dataStore = new DataStore(dataDir, FILENAME_PREFIX, forceSync);
+			dataStore = new DataStore(dataDir, FILENAME_PREFIX, forceSync);
 
 		valueCache = new LRUCache<Integer, NativeValue>(valueCacheSize);
 		valueIDCache = new LRUCache<NativeValue, Integer>(valueIDCacheSize);
@@ -171,9 +165,7 @@ public class ValueStore extends ValueFactoryBase {
 	 * Gets a read lock on this value store that can be used to prevent values
 	 * from being removed while the lock is active.
 	 */
-	public Lock getReadLock()
-		throws InterruptedException
-	{
+	public Lock getReadLock() throws InterruptedException {
 		return lockManager.getReadLock();
 	}
 
@@ -181,15 +173,13 @@ public class ValueStore extends ValueFactoryBase {
 	 * Gets the value for the specified ID.
 	 * 
 	 * @param id
-	 *        A value ID.
+	 *            A value ID.
 	 * @return The value for the ID, or <tt>null</tt> no such value could be
 	 *         found.
 	 * @exception IOException
-	 *            If an I/O error occurred.
+	 *                If an I/O error occurred.
 	 */
-	public NativeValue getValue(int id)
-		throws IOException
-	{
+	public NativeValue getValue(int id) throws IOException {
 		// Check value cache
 		Integer cacheID = new Integer(id);
 		NativeValue resultValue = valueCache.get(cacheID);
@@ -213,20 +203,18 @@ public class ValueStore extends ValueFactoryBase {
 	 * Gets the ID for the specified value.
 	 * 
 	 * @param value
-	 *        A value.
+	 *            A value.
 	 * @return The ID for the specified value, or {@link NativeValue#UNKNOWN_ID}
 	 *         if no such ID could be found.
 	 * @exception IOException
-	 *            If an I/O error occurred.
+	 *                If an I/O error occurred.
 	 */
-	public int getID(Value value)
-		throws IOException
-	{
+	public int getID(Value value) throws IOException {
 		// Try to get the internal ID from the value itself
 		boolean isOwnValue = isOwnValue(value);
 
 		if (isOwnValue) {
-			NativeValue nativeValue = (NativeValue)value;
+			NativeValue nativeValue = (NativeValue) value;
 
 			if (revisionIsCurrent(nativeValue)) {
 				int id = nativeValue.getInternalID();
@@ -245,7 +233,7 @@ public class ValueStore extends ValueFactoryBase {
 
 			if (isOwnValue) {
 				// Store id in value for fast access in any consecutive calls
-				((NativeValue)value).setInternalID(id, revision);
+				((NativeValue) value).setInternalID(id, revision);
 			}
 
 			return id;
@@ -259,10 +247,10 @@ public class ValueStore extends ValueFactoryBase {
 
 			if (id != NativeValue.UNKNOWN_ID) {
 				if (isOwnValue) {
-					// Store id in value for fast access in any consecutive calls
-					((NativeValue)value).setInternalID(id, revision);
-				}
-				else {
+					// Store id in value for fast access in any consecutive
+					// calls
+					((NativeValue) value).setInternalID(id, revision);
+				} else {
 					// Store id in cache
 					NativeValue nv = getNativeValue(value);
 					nv.setInternalID(id, revision);
@@ -277,24 +265,22 @@ public class ValueStore extends ValueFactoryBase {
 	}
 
 	/**
-	 * Stores the supplied value and returns the ID that has been assigned to it.
-	 * In case the value was already present, the value will not be stored again
-	 * and the ID of the existing value is returned.
+	 * Stores the supplied value and returns the ID that has been assigned to
+	 * it. In case the value was already present, the value will not be stored
+	 * again and the ID of the existing value is returned.
 	 * 
 	 * @param value
-	 *        The Value to store.
+	 *            The Value to store.
 	 * @return The ID that has been assigned to the value.
 	 * @exception IOException
-	 *            If an I/O error occurred.
+	 *                If an I/O error occurred.
 	 */
-	public int storeValue(Value value)
-		throws IOException
-	{
+	public int storeValue(Value value) throws IOException {
 		// Try to get the internal ID from the value itself
 		boolean isOwnValue = isOwnValue(value);
 
 		if (isOwnValue) {
-			NativeValue nativeValue = (NativeValue)value;
+			NativeValue nativeValue = (NativeValue) value;
 
 			if (revisionIsCurrent(nativeValue)) {
 				// Value's ID is still current
@@ -314,7 +300,7 @@ public class ValueStore extends ValueFactoryBase {
 
 			if (isOwnValue) {
 				// Store id in value for fast access in any consecutive calls
-				((NativeValue)value).setInternalID(id, revision);
+				((NativeValue) value).setInternalID(id, revision);
 			}
 
 			return id;
@@ -326,7 +312,7 @@ public class ValueStore extends ValueFactoryBase {
 
 		int id = dataStore.storeData(valueData);
 
-		NativeValue nv = isOwnValue ? (NativeValue)value : getNativeValue(value);
+		NativeValue nv = isOwnValue ? (NativeValue) value : getNativeValue(value);
 
 		// Store id in value for fast access in any consecutive calls
 		nv.setInternalID(id, revision);
@@ -341,11 +327,9 @@ public class ValueStore extends ValueFactoryBase {
 	 * Removes all values from the ValueStore.
 	 * 
 	 * @exception IOException
-	 *            If an I/O error occurred.
+	 *                If an I/O error occurred.
 	 */
-	public void clear()
-		throws IOException
-	{
+	public void clear() throws IOException {
 		try {
 			Lock writeLock = lockManager.getWriteLock();
 			try {
@@ -359,12 +343,10 @@ public class ValueStore extends ValueFactoryBase {
 				initBNodeParams();
 
 				setNewRevision();
-			}
-			finally {
+			} finally {
 				writeLock.release();
 			}
-		}
-		catch (InterruptedException e) {
+		} catch (InterruptedException e) {
 			IOException ioe = new IOException("Failed to acquire write lock");
 			ioe.initCause(e);
 			throw ioe;
@@ -375,11 +357,9 @@ public class ValueStore extends ValueFactoryBase {
 	 * Synchronizes any changes that are cached in memory to disk.
 	 * 
 	 * @exception IOException
-	 *            If an I/O error occurred.
+	 *                If an I/O error occurred.
 	 */
-	public void sync()
-		throws IOException
-	{
+	public void sync() throws IOException {
 		dataStore.sync();
 	}
 
@@ -388,11 +368,9 @@ public class ValueStore extends ValueFactoryBase {
 	 * the ValueStore can no longer be used.
 	 * 
 	 * @exception IOException
-	 *            If an I/O error occurred.
+	 *                If an I/O error occurred.
 	 */
-	public void close()
-		throws IOException
-	{
+	public void close() throws IOException {
 		dataStore.close();
 	}
 
@@ -401,8 +379,7 @@ public class ValueStore extends ValueFactoryBase {
 	 * created by this ValueStore.
 	 */
 	private boolean isOwnValue(Value value) {
-		return value instanceof NativeValue
-				&& ((NativeValue)value).getValueStoreRevision().getValueStore() == this;
+		return value instanceof NativeValue && ((NativeValue) value).getValueStoreRevision().getValueStore() == this;
 	}
 
 	/**
@@ -412,26 +389,19 @@ public class ValueStore extends ValueFactoryBase {
 		return revision.equals(value.getValueStoreRevision());
 	}
 
-	private byte[] value2data(Value value, boolean create)
-		throws IOException
-	{
+	private byte[] value2data(Value value, boolean create) throws IOException {
 		if (value instanceof URI) {
-			return uri2data((URI)value, create);
-		}
-		else if (value instanceof BNode) {
-			return bnode2data((BNode)value, create);
-		}
-		else if (value instanceof Literal) {
-			return literal2data((Literal)value, create);
-		}
-		else {
+			return uri2data((URI) value, create);
+		} else if (value instanceof BNode) {
+			return bnode2data((BNode) value, create);
+		} else if (value instanceof Literal) {
+			return literal2data((Literal) value, create);
+		} else {
 			throw new IllegalArgumentException("value parameter should be a URI, BNode or Literal");
 		}
 	}
 
-	private byte[] uri2data(URI uri, boolean create)
-		throws IOException
-	{
+	private byte[] uri2data(URI uri, boolean create) throws IOException {
 		int nsID = getNamespaceID(uri.getNamespace(), create);
 
 		if (nsID == -1) {
@@ -451,9 +421,7 @@ public class ValueStore extends ValueFactoryBase {
 		return uriData;
 	}
 
-	private byte[] bnode2data(BNode bNode, boolean create)
-		throws IOException
-	{
+	private byte[] bnode2data(BNode bNode, boolean create) throws IOException {
 		byte[] idData = bNode.getID().getBytes("UTF-8");
 
 		byte[] bNodeData = new byte[1 + idData.length];
@@ -463,17 +431,14 @@ public class ValueStore extends ValueFactoryBase {
 		return bNodeData;
 	}
 
-	private byte[] literal2data(Literal literal, boolean create)
-		throws IOException
-	{
+	private byte[] literal2data(Literal literal, boolean create) throws IOException {
 		// Get datatype ID
 		int datatypeID = NativeValue.UNKNOWN_ID;
 
 		if (literal.getDatatype() != null) {
 			if (create) {
 				datatypeID = storeValue(literal.getDatatype());
-			}
-			else {
+			} else {
 				datatypeID = getID(literal.getDatatype());
 
 				if (datatypeID == NativeValue.UNKNOWN_ID) {
@@ -498,7 +463,7 @@ public class ValueStore extends ValueFactoryBase {
 		byte[] literalData = new byte[6 + langDataLength + labelData.length];
 		literalData[0] = LITERAL_VALUE;
 		ByteArrayUtil.putInt(datatypeID, literalData, 1);
-		literalData[5] = (byte)langDataLength;
+		literalData[5] = (byte) langDataLength;
 		if (langData != null) {
 			ByteArrayUtil.put(langData, literalData, 6);
 		}
@@ -507,24 +472,20 @@ public class ValueStore extends ValueFactoryBase {
 		return literalData;
 	}
 
-	private NativeValue data2value(int id, byte[] data)
-		throws IOException
-	{
+	private NativeValue data2value(int id, byte[] data) throws IOException {
 		switch ((data[0] & VALUE_TYPE_MASK)) {
-			case URI_VALUE:
-				return data2uri(id, data);
-			case BNODE_VALUE:
-				return data2bnode(id, data);
-			case LITERAL_VALUE:
-				return data2literal(id, data);
-			default:
-				throw new IllegalArgumentException("data does not specify a known value type");
+		case URI_VALUE:
+			return data2uri(id, data);
+		case BNODE_VALUE:
+			return data2bnode(id, data);
+		case LITERAL_VALUE:
+			return data2literal(id, data);
+		default:
+			throw new IllegalArgumentException("data does not specify a known value type");
 		}
 	}
 
-	private NativeURI data2uri(int id, byte[] data)
-		throws IOException
-	{
+	private NativeURI data2uri(int id, byte[] data) throws IOException {
 		int nsID = ByteArrayUtil.getInt(data, 1);
 		String namespace = getNamespace(nsID);
 
@@ -533,21 +494,17 @@ public class ValueStore extends ValueFactoryBase {
 		return new NativeURI(revision, namespace, localName, id);
 	}
 
-	private NativeBNode data2bnode(int id, byte[] data)
-		throws IOException
-	{
+	private NativeBNode data2bnode(int id, byte[] data) throws IOException {
 		String nodeID = new String(data, 1, data.length - 1, "UTF-8");
 		return new NativeBNode(revision, nodeID, id);
 	}
 
-	private NativeLiteral data2literal(int id, byte[] data)
-		throws IOException
-	{
+	private NativeLiteral data2literal(int id, byte[] data) throws IOException {
 		// Get datatype
 		int datatypeID = ByteArrayUtil.getInt(data, 1);
 		URI datatype = null;
 		if (datatypeID != NativeValue.UNKNOWN_ID) {
-			datatype = (URI)getValue(datatypeID);
+			datatype = (URI) getValue(datatypeID);
 		}
 
 		// Get language tag
@@ -562,18 +519,14 @@ public class ValueStore extends ValueFactoryBase {
 
 		if (datatype != null) {
 			return new NativeLiteral(revision, label, datatype, id);
-		}
-		else if (lang != null) {
+		} else if (lang != null) {
 			return new NativeLiteral(revision, label, lang, id);
-		}
-		else {
+		} else {
 			return new NativeLiteral(revision, label, id);
 		}
 	}
 
-	private int getNamespaceID(String namespace, boolean create)
-		throws IOException
-	{
+	private int getNamespaceID(String namespace, boolean create) throws IOException {
 		Integer cacheID = namespaceIDCache.get(namespace);
 		if (cacheID != null) {
 			return cacheID.intValue();
@@ -584,8 +537,7 @@ public class ValueStore extends ValueFactoryBase {
 		int id;
 		if (create) {
 			id = dataStore.storeData(namespaceData);
-		}
-		else {
+		} else {
 			id = dataStore.getID(namespaceData);
 		}
 
@@ -596,9 +548,7 @@ public class ValueStore extends ValueFactoryBase {
 		return id;
 	}
 
-	private String getNamespace(int id)
-		throws IOException
-	{
+	private String getNamespace(int id) throws IOException {
 		Integer cacheID = new Integer(id);
 		String namespace = namespaceCache.get(cacheID);
 
@@ -654,38 +604,35 @@ public class ValueStore extends ValueFactoryBase {
 
 	public NativeValue getNativeValue(Value value) {
 		if (value instanceof Resource) {
-			return getNativeResource((Resource)value);
-		}
-		else if (value instanceof Literal) {
-			return getNativeLiteral((Literal)value);
-		}
-		else {
+			return getNativeResource((Resource) value);
+		} else if (value instanceof Literal) {
+			return getNativeLiteral((Literal) value);
+		} else {
 			throw new IllegalArgumentException("Unknown value type: " + value.getClass());
 		}
 	}
 
 	public NativeResource getNativeResource(Resource resource) {
 		if (resource instanceof URI) {
-			return getNativeURI((URI)resource);
-		}
-		else if (resource instanceof BNode) {
-			return getNativeBNode((BNode)resource);
-		}
-		else {
+			return getNativeURI((URI) resource);
+		} else if (resource instanceof BNode) {
+			return getNativeBNode((BNode) resource);
+		} else {
 			throw new IllegalArgumentException("Unknown resource type: " + resource.getClass());
 		}
 	}
 
 	/**
-	 * Creates a NativeURI that is equal to the supplied URI. This method returns
-	 * the supplied URI itself if it is already a NativeURI that has been created
-	 * by this ValueStore, which prevents unnecessary object creations.
+	 * Creates a NativeURI that is equal to the supplied URI. This method
+	 * returns the supplied URI itself if it is already a NativeURI that has
+	 * been created by this ValueStore, which prevents unnecessary object
+	 * creations.
 	 * 
 	 * @return A NativeURI for the specified URI.
 	 */
 	public NativeURI getNativeURI(URI uri) {
 		if (isOwnValue(uri)) {
-			return (NativeURI)uri;
+			return (NativeURI) uri;
 		}
 
 		return new NativeURI(revision, uri.toString());
@@ -701,7 +648,7 @@ public class ValueStore extends ValueFactoryBase {
 	 */
 	public NativeBNode getNativeBNode(BNode bnode) {
 		if (isOwnValue(bnode)) {
-			return (NativeBNode)bnode;
+			return (NativeBNode) bnode;
 		}
 
 		return new NativeBNode(revision, bnode.getID());
@@ -717,17 +664,15 @@ public class ValueStore extends ValueFactoryBase {
 	 */
 	public NativeLiteral getNativeLiteral(Literal l) {
 		if (isOwnValue(l)) {
-			return (NativeLiteral)l;
+			return (NativeLiteral) l;
 		}
 
 		if (l.getLanguage() != null) {
 			return new NativeLiteral(revision, l.getLabel(), l.getLanguage());
-		}
-		else if (l.getDatatype() != null) {
+		} else if (l.getDatatype() != null) {
 			NativeURI datatype = getNativeURI(l.getDatatype());
 			return new NativeLiteral(revision, l.getLabel(), datatype);
-		}
-		else {
+		} else {
 			return new NativeLiteral(revision, l.getLabel());
 		}
 	}
@@ -736,16 +681,16 @@ public class ValueStore extends ValueFactoryBase {
 	 * Test/debug methods *
 	 *--------------------*/
 
-//	public static void main(String[] args)
-//		throws Exception
-//	{
-//		File dataDir = new File(args[0]);
-//		ValueStore valueStore = new ValueStore(dataDir);
-//
-//		int maxID = valueStore.dataStore.getMaxID();
-//		for (int id = 1; id <= maxID; id++) {
-//			Value value = valueStore.getValue(id);
-//			System.out.println("[" + id + "] " + value.toString());
-//		}
-//	}
+	// public static void main(String[] args)
+	// throws Exception
+	// {
+	// File dataDir = new File(args[0]);
+	// ValueStore valueStore = new ValueStore(dataDir);
+	//
+	// int maxID = valueStore.dataStore.getMaxID();
+	// for (int id = 1; id <= maxID; id++) {
+	// Value value = valueStore.getValue(id);
+	// System.out.println("[" + id + "] " + value.toString());
+	// }
+	// }
 }

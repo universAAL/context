@@ -37,9 +37,7 @@ class NativeStatementIterator extends LookAheadIteration<Statement, IOException>
 	/**
 	 * Creates a new NativeStatementIterator.
 	 */
-	public NativeStatementIterator(RecordIterator btreeIter, ValueStore valueStore)
-		throws IOException
-	{
+	public NativeStatementIterator(RecordIterator btreeIter, ValueStore valueStore) throws IOException {
 		this.btreeIter = btreeIter;
 		this.valueStore = valueStore;
 	}
@@ -48,9 +46,7 @@ class NativeStatementIterator extends LookAheadIteration<Statement, IOException>
 	 * Methods *
 	 *---------*/
 
-	public Statement getNextElement()
-		throws IOException
-	{
+	public Statement getNextElement() throws IOException {
 		byte[] nextValue = btreeIter.next();
 
 		if (nextValue == null) {
@@ -58,10 +54,10 @@ class NativeStatementIterator extends LookAheadIteration<Statement, IOException>
 		}
 
 		int subjID = ByteArrayUtil.getInt(nextValue, TripleStore.SUBJ_IDX);
-		Resource subj = (Resource)valueStore.getValue(subjID);
+		Resource subj = (Resource) valueStore.getValue(subjID);
 
 		int predID = ByteArrayUtil.getInt(nextValue, TripleStore.PRED_IDX);
-		URI pred = (URI)valueStore.getValue(predID);
+		URI pred = (URI) valueStore.getValue(predID);
 
 		int objID = ByteArrayUtil.getInt(nextValue, TripleStore.OBJ_IDX);
 		Value obj = valueStore.getValue(objID);
@@ -69,16 +65,14 @@ class NativeStatementIterator extends LookAheadIteration<Statement, IOException>
 		Resource context = null;
 		int contextID = ByteArrayUtil.getInt(nextValue, TripleStore.CONTEXT_IDX);
 		if (contextID != 0) {
-			context = (Resource)valueStore.getValue(contextID);
+			context = (Resource) valueStore.getValue(contextID);
 		}
 
 		return valueStore.createStatement(subj, pred, obj, context);
 	}
 
 	@Override
-	protected void handleClose()
-		throws IOException
-	{
+	protected void handleClose() throws IOException {
 		super.handleClose();
 		btreeIter.close();
 	}

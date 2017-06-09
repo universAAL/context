@@ -25,7 +25,7 @@ class LRUCache<K, V> extends LinkedHashMap<K, V> {
 	}
 
 	public LRUCache(int capacity, float loadFactor) {
-		super((int)(capacity / loadFactor), loadFactor, true);
+		super((int) (capacity / loadFactor), loadFactor, true);
 		this.capacity = capacity;
 	}
 

@@ -28,39 +28,36 @@ import org.universAAL.ontology.dependability.Fault;
 
 public class ReliabilityReasonerPublisher extends ContextPublisher {
 
-    protected ReliabilityReasonerPublisher(ModuleContext context,
-	    ContextProvider providerInfo) {
-	super(context, getProviderInfo());
+	protected ReliabilityReasonerPublisher(ModuleContext context, ContextProvider providerInfo) {
+		super(context, getProviderInfo());
 
-    }
+	}
 
-    protected ReliabilityReasonerPublisher(ModuleContext context) {
-	super(context, getProviderInfo());
+	protected ReliabilityReasonerPublisher(ModuleContext context) {
+		super(context, getProviderInfo());
 
-    }
+	}
 
-    public void publishContextEvent(Fault myFault) {
-	ContextEvent myContextEvent = new ContextEvent(myFault,
-		Fault.PROP_FAULT_DECISION);
-	publish(myContextEvent);
-    }
+	public void publishContextEvent(Fault myFault) {
+		ContextEvent myContextEvent = new ContextEvent(myFault, Fault.PROP_FAULT_DECISION);
+		publish(myContextEvent);
+	}
 
-    private static ContextProvider getProviderInfo() {
-	ContextProvider myContextProvider = new ContextProvider(
-		"http://ontology.universAAL.org/Dependability.owl#Fault");
-	ContextEventPattern myContextEventPattern = new ContextEventPattern();
-	((ContextEventPattern) myContextEventPattern)
-		.addRestriction(MergedRestriction.getAllValuesRestriction(
-			ContextEvent.PROP_RDF_SUBJECT, Fault.MY_URI));
-	myContextProvider.setType(ContextProviderType.reasoner);
-	ContextEventPattern[] myEvents = null;
-	myContextProvider.setProvidedEvents(myEvents);
-	return myContextProvider;
-    }
+	private static ContextProvider getProviderInfo() {
+		ContextProvider myContextProvider = new ContextProvider(
+				"http://ontology.universAAL.org/Dependability.owl#Fault");
+		ContextEventPattern myContextEventPattern = new ContextEventPattern();
+		((ContextEventPattern) myContextEventPattern)
+				.addRestriction(MergedRestriction.getAllValuesRestriction(ContextEvent.PROP_RDF_SUBJECT, Fault.MY_URI));
+		myContextProvider.setType(ContextProviderType.reasoner);
+		ContextEventPattern[] myEvents = null;
+		myContextProvider.setProvidedEvents(myEvents);
+		return myContextProvider;
+	}
 
-    public void communicationChannelBroken() {
-	// TODO Auto-generated method stub
+	public void communicationChannelBroken() {
+		// TODO Auto-generated method stub
 
-    }
+	}
 
 }

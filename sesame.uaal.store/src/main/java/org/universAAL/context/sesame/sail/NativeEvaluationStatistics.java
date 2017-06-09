@@ -43,27 +43,29 @@ class NativeEvaluationStatistics extends EvaluationStatistics {
 			try {
 				Value subj = getConstantValue(sp.getSubjectVar());
 				if (!(subj instanceof Resource)) {
-					// can happen when a previous optimizer has inlined a comparison operator. 
-					// this can cause, for example, the subject variable to be equated to a literal value. 
-					// See SES-970 
+					// can happen when a previous optimizer has inlined a
+					// comparison operator.
+					// this can cause, for example, the subject variable to be
+					// equated to a literal value.
+					// See SES-970
 					subj = null;
 				}
 				Value pred = getConstantValue(sp.getPredicateVar());
 				if (!(pred instanceof URI)) {
-					//  can happen when a previous optimizer has inlined a comparison operator. See SES-970 
+					// can happen when a previous optimizer has inlined a
+					// comparison operator. See SES-970
 					pred = null;
 				}
 				Value obj = getConstantValue(sp.getObjectVar());
 				Value context = getConstantValue(sp.getContextVar());
 				if (!(context instanceof Resource)) {
-					//  can happen when a previous optimizer has inlined a comparison operator. See SES-970 
+					// can happen when a previous optimizer has inlined a
+					// comparison operator. See SES-970
 					context = null;
 				}
-				return nativeStore.cardinality((Resource)subj, (URI)pred, obj, (Resource)context);
-			}
-			catch (IOException e) {
-				log.error(
-						"Failed to estimate statement pattern cardinality, falling back to generic implementation",
+				return nativeStore.cardinality((Resource) subj, (URI) pred, obj, (Resource) context);
+			} catch (IOException e) {
+				log.error("Failed to estimate statement pattern cardinality, falling back to generic implementation",
 						e);
 				return super.getCardinality(sp);
 			}

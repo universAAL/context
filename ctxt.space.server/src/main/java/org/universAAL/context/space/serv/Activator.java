@@ -37,83 +37,78 @@ import org.universAAL.middleware.serialization.MessageContentSerializerEx;
  * 
  */
 public class Activator implements BundleActivator, ServiceListener {
-    /**
-     * The OSGi Bundle context
-     */
-    protected static BundleContext osgiContext = null;
-    /**
-     * The uAAL module context
-     */
-    protected static ModuleContext context = null;
-    /**
-     * Service Callee
-     */
-    protected static SCallee scallee = null;
-    /**
-     * Service Caller
-     */
-    protected static SCaller scaller = null;
-    /**
-     * Turtle parser
-     */
-    protected static MessageContentSerializerEx parser = null;
+	/**
+	 * The OSGi Bundle context
+	 */
+	protected static BundleContext osgiContext = null;
+	/**
+	 * The uAAL module context
+	 */
+	protected static ModuleContext context = null;
+	/**
+	 * Service Callee
+	 */
+	protected static SCallee scallee = null;
+	/**
+	 * Service Caller
+	 */
+	protected static SCaller scaller = null;
+	/**
+	 * Turtle parser
+	 */
+	protected static MessageContentSerializerEx parser = null;
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see
-     * org.osgi.framework.BundleActivator#start(org.osgi.framework.BundleContext
-     * )
-     */
-    public void start(BundleContext bcontext) throws Exception {
-	Activator.osgiContext = bcontext;
-	Activator.context = uAALBundleContainer.THE_CONTAINER
-		.registerModule(new Object[] { bcontext });
-	scallee = new SCallee(context);
-	scaller = new SCaller(context);
-	String filter = "(objectclass="
-		+ MessageContentSerializerEx.class.getName() + ")";
-	osgiContext.addServiceListener(this, filter);
-	ServiceReference[] references = osgiContext.getServiceReferences((String)null,
-		filter);
-	for (int i = 0; references != null && i < references.length; i++) {
-	    this.serviceChanged(new ServiceEvent(ServiceEvent.REGISTERED,
-		    references[i]));
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.osgi.framework.BundleActivator#start(org.osgi.framework.BundleContext
+	 * )
+	 */
+	public void start(BundleContext bcontext) throws Exception {
+		Activator.osgiContext = bcontext;
+		Activator.context = uAALBundleContainer.THE_CONTAINER.registerModule(new Object[] { bcontext });
+		scallee = new SCallee(context);
+		scaller = new SCaller(context);
+		String filter = "(objectclass=" + MessageContentSerializerEx.class.getName() + ")";
+		osgiContext.addServiceListener(this, filter);
+		ServiceReference[] references = osgiContext.getServiceReferences((String) null, filter);
+		for (int i = 0; references != null && i < references.length; i++) {
+			this.serviceChanged(new ServiceEvent(ServiceEvent.REGISTERED, references[i]));
+		}
 	}
-    }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see
-     * org.osgi.framework.BundleActivator#stop(org.osgi.framework.BundleContext)
-     */
-    public void stop(BundleContext arg0) throws Exception {
-	scallee.close();
-	scaller.close();
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see
-     * org.osgi.framework.ServiceListener#serviceChanged(org.osgi.framework.
-     * ServiceEvent)
-     */
-    public void serviceChanged(ServiceEvent event) {
-	// Update the MessageContentSerializer
-	switch (event.getType()) {
-	case ServiceEvent.REGISTERED:
-	case ServiceEvent.MODIFIED:
-	    parser = (MessageContentSerializerEx) osgiContext.getService(event
-		    .getServiceReference());
-	    break;
-	case ServiceEvent.UNREGISTERING:
-	    parser = null;
-	    break;
-	default:
-	    break;
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.osgi.framework.BundleActivator#stop(org.osgi.framework.BundleContext)
+	 */
+	public void stop(BundleContext arg0) throws Exception {
+		scallee.close();
+		scaller.close();
 	}
-    }
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.osgi.framework.ServiceListener#serviceChanged(org.osgi.framework.
+	 * ServiceEvent)
+	 */
+	public void serviceChanged(ServiceEvent event) {
+		// Update the MessageContentSerializer
+		switch (event.getType()) {
+		case ServiceEvent.REGISTERED:
+		case ServiceEvent.MODIFIED:
+			parser = (MessageContentSerializerEx) osgiContext.getService(event.getServiceReference());
+			break;
+		case ServiceEvent.UNREGISTERING:
+			parser = null;
+			break;
+		default:
+			break;
+		}
+	}
 
 }

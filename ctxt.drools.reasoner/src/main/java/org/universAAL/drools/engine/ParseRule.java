@@ -49,8 +49,7 @@ public final class ParseRule {
 		final String delim = "rule";
 
 		final String[] parsedDefinition = ruleDefinition.split(delim);
-		final List<String> parsedDefinitionList = Arrays
-				.asList(parsedDefinition);
+		final List<String> parsedDefinitionList = Arrays.asList(parsedDefinition);
 
 		for (final String parsed : parsedDefinitionList) {
 			final String nextToken = parsed.trim();

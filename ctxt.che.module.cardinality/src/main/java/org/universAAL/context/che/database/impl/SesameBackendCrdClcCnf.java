@@ -60,8 +60,7 @@ public class SesameBackendCrdClcCnf extends SesameBackendWithConfidence {
 	@Override
 	public void connect() {
 		String dataPath = Hub.getProperties().getProperty("STORE.LOCATION");
-		boolean encrypt = Boolean.parseBoolean(Hub.getProperties().getProperty(
-				"STORE.ENCRYPT"));
+		boolean encrypt = Boolean.parseBoolean(Hub.getProperties().getProperty("STORE.ENCRYPT"));
 		// I use C:\Proyectos\UNIVERSAAL\ContextStore\Stores\SAIL_FCRDFS_Native
 		if (dataPath != null) {
 			File dataDir = new File(dataPath);
@@ -70,25 +69,21 @@ public class SesameBackendCrdClcCnf extends SesameBackendWithConfidence {
 			// TODO: Evaluate the inference, and study other reasoners, if any
 			try {
 				myRepository = new SailRepository(
-						new ForwardChainingRDFSInferencer(
-								new CardinCollectNativeStore(dataDir, indexes,
-										encrypt)));
+						new ForwardChainingRDFSInferencer(new CardinCollectNativeStore(dataDir, indexes, encrypt)));
 				myRepository.initialize();
 				con = myRepository.getConnection();
-				if (Boolean.parseBoolean(Hub.getProperties().getProperty(
-						"STORE.PRELOAD"))) {
+				if (Boolean.parseBoolean(Hub.getProperties().getProperty("STORE.PRELOAD"))) {
 					this.populate();
 				}
 			} catch (Exception e) {
-				log.error("connect",
-						"Exception trying to initilaize the store: {} ", e);
+				log.error("connect", "Exception trying to initilaize the store: {} ", e);
 				e.printStackTrace();
 			}
 		} else {
-			log.error("connect", "No location specified for the store. "
-					+ "Add and specify the configuration parameter "
-					+ "STORE.LOCATION to the configuration file of the CHE "
-					+ "pointing to a valid folder path.");
+			log.error("connect",
+					"No location specified for the store. " + "Add and specify the configuration parameter "
+							+ "STORE.LOCATION to the configuration file of the CHE "
+							+ "pointing to a valid folder path.");
 		}
 	}
 }

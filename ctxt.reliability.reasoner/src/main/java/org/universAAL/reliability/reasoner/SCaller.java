@@ -1,6 +1,5 @@
 package org.universAAL.reliability.reasoner;
 
-
 /**Copyright [2011-2014] [University of Siegen, Embedded System Instiute]
 
 Licensed under the Apache License, Version 2.0 (the "License");
@@ -37,183 +36,151 @@ import org.universAAL.middleware.service.owls.process.ProcessOutput;
 import org.universAAL.middleware.serialization.MessageContentSerializerEx;
 import org.universAAL.ontology.che.ContextHistoryService;
 
-
 public class SCaller extends ServiceCaller {
-    private static final String HISTORY_CLIENT_NAMESPACE = "http://ontology.itaca.es/Reasoner.owl#";
-    private static final String OUTPUT_RESULT_STRING = HISTORY_CLIENT_NAMESPACE
-	    + "resultString";
-    private MessageContentSerializerEx uAALParser;
-    private static final String GENERIC_EVENT = "urn:org.universAAL.middleware.context.rdf:ContextEvent#_:0000000000000000:00";
+	private static final String HISTORY_CLIENT_NAMESPACE = "http://ontology.itaca.es/Reasoner.owl#";
+	private static final String OUTPUT_RESULT_STRING = HISTORY_CLIENT_NAMESPACE + "resultString";
+	private MessageContentSerializerEx uAALParser;
+	private static final String GENERIC_EVENT = "urn:org.universAAL.middleware.context.rdf:ContextEvent#_:0000000000000000:00";
 
-    public SCaller(ModuleContext context) {
-	super(context);
-	// TODO Auto-generated constructor stub
-    }
-
-    public void communicationChannelBroken() {
-	// TODO Auto-generated method stub
-
-    }
-
-    public void handleResponse(String reqID, ServiceResponse response) {
-	// TODO Auto-generated method stub
-
-    }
-
-    /**
-     * Execute a SPARQL CONSTRUCT query on the CHE that will return a reasoned
-     * event. That event will be published.
-     * 
-     * @param theQuery
-     *            The SPARQL CONSTRUCT query
-     */
-    public void executeQuery(String theQuery) {
-	// TODO: Try to improve this. Also replace ALWAYS the URI with new one
-	String newUri = ContextEvent.CONTEXT_EVENT_URI_PREFIX
-		+ StringUtils.createUniqueID();
-	String query = theQuery.replace(GENERIC_EVENT, newUri);
-	String ser = callSPARQL(query);
-	if (!ser.isEmpty()) {
-	    ContextEvent event = (ContextEvent) uAALParser.deserialize(ser,
-		    newUri);
-	    if (event != null) {
-		event.setTimestamp(new Long(System.currentTimeMillis()));
-		if (event.isWellFormed() && event.getSubjectTypeURI() != null) {
-		    ReliabilityReasonerActivator.cpublisher.publish(event);
-		} else {
-		    LogUtils.logError(
-			    ReliabilityReasonerActivator.context,
-			    SCaller.class,
-			    "executeQuery",
-			    new Object[] { "Invalid CONSTRUCT query associated to "
-				    + "situation. CONSTRUCT queries must build "
-				    + "graphs with a well-formed Context Event in"
-				    + " the root." }, null);
-		}
-	    } else {
-		LogUtils.logError(
-			ReliabilityReasonerActivator.context,
-			SCaller.class,
-			"executeQuery",
-			new Object[] { "Invalid CONSTRUCT query associated to "
-				+ "situation. The CONSTRUCT query might not " +
-				"be properly built." },
-			null);
-	    }
-	} else {
-	    LogUtils.logWarn(ReliabilityReasonerActivator.context, SCaller.class, "executeQuery",
-		    new Object[] { "Triggered evaluation of situation, "
-			    + "but not found" }, null);
+	public SCaller(ModuleContext context) {
+		super(context);
+		// TODO Auto-generated constructor stub
 	}
-    }
 
-    /**
-     * Call the CHE service
-     * 
-     * @param query
-     *            The CONSTRUCT query
-     * @return Serialized event constructed
-     */
-    public String callSPARQL(String query) {
-	ServiceResponse response = this.call(getSPARQLRequest(query));
-	if (response.getCallStatus() == CallStatus.succeeded) {
-	    try {
-		String result = (String) getReturnValue(response.getOutputs(),
-			OUTPUT_RESULT_STRING);
-		// Uncomment this line if you want to show the raw results. Do
-		// this for CONSTRUCT, ASK or DESCRIBE
-		LogUtils.logInfo(ReliabilityReasonerActivator.context, SCaller.class,
-			"callDoSPARQL",
-			new Object[] { "Result of SPARQL query was:\n"
-				+ result }, null);
-		return result;
-	    } catch (Exception e) {
-		LogUtils.logInfo(ReliabilityReasonerActivator.context, SCaller.class,
-			"callDoSPARQL",
-			new Object[] { "Result corrupt!" }, e);
+	public void communicationChannelBroken() {
+		// TODO Auto-generated method stub
+
+	}
+
+	public void handleResponse(String reqID, ServiceResponse response) {
+		// TODO Auto-generated method stub
+
+	}
+
+	/**
+	 * Execute a SPARQL CONSTRUCT query on the CHE that will return a reasoned
+	 * event. That event will be published.
+	 * 
+	 * @param theQuery
+	 *            The SPARQL CONSTRUCT query
+	 */
+	public void executeQuery(String theQuery) {
+		// TODO: Try to improve this. Also replace ALWAYS the URI with new one
+		String newUri = ContextEvent.CONTEXT_EVENT_URI_PREFIX + StringUtils.createUniqueID();
+		String query = theQuery.replace(GENERIC_EVENT, newUri);
+		String ser = callSPARQL(query);
+		if (!ser.isEmpty()) {
+			ContextEvent event = (ContextEvent) uAALParser.deserialize(ser, newUri);
+			if (event != null) {
+				event.setTimestamp(new Long(System.currentTimeMillis()));
+				if (event.isWellFormed() && event.getSubjectTypeURI() != null) {
+					ReliabilityReasonerActivator.cpublisher.publish(event);
+				} else {
+					LogUtils.logError(ReliabilityReasonerActivator.context, SCaller.class, "executeQuery",
+							new Object[] { "Invalid CONSTRUCT query associated to "
+									+ "situation. CONSTRUCT queries must build "
+									+ "graphs with a well-formed Context Event in" + " the root." },
+							null);
+				}
+			} else {
+				LogUtils.logError(ReliabilityReasonerActivator.context, SCaller.class, "executeQuery",
+						new Object[] { "Invalid CONSTRUCT query associated to "
+								+ "situation. The CONSTRUCT query might not " + "be properly built." },
+						null);
+			}
+		} else {
+			LogUtils.logWarn(ReliabilityReasonerActivator.context, SCaller.class, "executeQuery",
+					new Object[] { "Triggered evaluation of situation, " + "but not found" }, null);
+		}
+	}
+
+	/**
+	 * Call the CHE service
+	 * 
+	 * @param query
+	 *            The CONSTRUCT query
+	 * @return Serialized event constructed
+	 */
+	public String callSPARQL(String query) {
+		ServiceResponse response = this.call(getSPARQLRequest(query));
+		if (response.getCallStatus() == CallStatus.succeeded) {
+			try {
+				String result = (String) getReturnValue(response.getOutputs(), OUTPUT_RESULT_STRING);
+				// Uncomment this line if you want to show the raw results. Do
+				// this for CONSTRUCT, ASK or DESCRIBE
+				LogUtils.logInfo(ReliabilityReasonerActivator.context, SCaller.class, "callDoSPARQL",
+						new Object[] { "Result of SPARQL query was:\n" + result }, null);
+				return result;
+			} catch (Exception e) {
+				LogUtils.logInfo(ReliabilityReasonerActivator.context, SCaller.class, "callDoSPARQL",
+						new Object[] { "Result corrupt!" }, e);
+				return "";
+			}
+		} else
+			LogUtils.logInfo(ReliabilityReasonerActivator.context, SCaller.class, "callDoSPARQL",
+					new Object[] { "Status of callDoSPARQL(): " + response.getCallStatus() }, null);
 		return "";
-	    }
-	} else
-	    LogUtils.logInfo(
-		    ReliabilityReasonerActivator.context,
-		    SCaller.class,
-		    "callDoSPARQL",
-		    new Object[] { "Status of callDoSPARQL(): "
-			    + response.getCallStatus() }, null);
-	return "";
-    }
+	}
 
-    /**
-     * Prepare the call for CHE
-     * 
-     * @param query
-     *            The CONSTRUCT query
-     * @return The request for the call
-     */
-    private ServiceRequest getSPARQLRequest(String query) {
-	ServiceRequest getQuery = new ServiceRequest(new ContextHistoryService(
-		null), null);
+	/**
+	 * Prepare the call for CHE
+	 * 
+	 * @param query
+	 *            The CONSTRUCT query
+	 * @return The request for the call
+	 */
+	private ServiceRequest getSPARQLRequest(String query) {
+		ServiceRequest getQuery = new ServiceRequest(new ContextHistoryService(null), null);
 
-	MergedRestriction r = MergedRestriction.getFixedValueRestriction(
-		ContextHistoryService.PROP_PROCESSES, query);
+		MergedRestriction r = MergedRestriction.getFixedValueRestriction(ContextHistoryService.PROP_PROCESSES, query);
 
-	getQuery.getRequestedService().addInstanceLevelRestriction(r,
-		new String[] { ContextHistoryService.PROP_PROCESSES });
-	getQuery.addSimpleOutputBinding(
-		new ProcessOutput(OUTPUT_RESULT_STRING), new PropertyPath(null,
-			true,
-			new String[] { ContextHistoryService.PROP_RETURNS })
-			.getThePath());
-	return getQuery;
-    }
+		getQuery.getRequestedService().addInstanceLevelRestriction(r,
+				new String[] { ContextHistoryService.PROP_PROCESSES });
+		getQuery.addSimpleOutputBinding(new ProcessOutput(OUTPUT_RESULT_STRING),
+				new PropertyPath(null, true, new String[] { ContextHistoryService.PROP_RETURNS }).getThePath());
+		return getQuery;
+	}
 
-    /**
-     * Process service call response
-     * 
-     * @param outputs
-     *            The outputs of the response
-     * @param expectedOutput
-     *            The URI of the desired output
-     * @return The desired output value
-     */
-    private Object getReturnValue(List outputs, String expectedOutput) {
-	Object returnValue = null;
-	if (outputs == null)
-	    LogUtils.logInfo(ReliabilityReasonerActivator.context, SCaller.class,
-		    "getReturnValue",
-		    new Object[] { "History Client: No events found!" }, null);
-	else
-	    for (Iterator i = outputs.iterator(); i.hasNext();) {
-		ProcessOutput output = (ProcessOutput) i.next();
-		if (output.getURI().equals(expectedOutput))
-		    if (returnValue == null)
-			returnValue = output.getParameterValue();
-		    else
-			LogUtils.logInfo(
-				ReliabilityReasonerActivator.context,
-				SCaller.class,
-				"getReturnValue",
-				new Object[] { "History Client: redundant return value!" },
-				null);
+	/**
+	 * Process service call response
+	 * 
+	 * @param outputs
+	 *            The outputs of the response
+	 * @param expectedOutput
+	 *            The URI of the desired output
+	 * @return The desired output value
+	 */
+	private Object getReturnValue(List outputs, String expectedOutput) {
+		Object returnValue = null;
+		if (outputs == null)
+			LogUtils.logInfo(ReliabilityReasonerActivator.context, SCaller.class, "getReturnValue",
+					new Object[] { "History Client: No events found!" }, null);
 		else
-		    LogUtils.logInfo(ReliabilityReasonerActivator.context, SCaller.class,
-			    "getReturnValue",
-			    new Object[] { "History Client - output ignored: "
-				    + output.getURI() }, null);
-	    }
+			for (Iterator i = outputs.iterator(); i.hasNext();) {
+				ProcessOutput output = (ProcessOutput) i.next();
+				if (output.getURI().equals(expectedOutput))
+					if (returnValue == null)
+						returnValue = output.getParameterValue();
+					else
+						LogUtils.logInfo(ReliabilityReasonerActivator.context, SCaller.class, "getReturnValue",
+								new Object[] { "History Client: redundant return value!" }, null);
+				else
+					LogUtils.logInfo(ReliabilityReasonerActivator.context, SCaller.class, "getReturnValue",
+							new Object[] { "History Client - output ignored: " + output.getURI() }, null);
+			}
 
-	return returnValue;
-    }
+		return returnValue;
+	}
 
-    /**
-     * Set a MessageContentSerializer to be used when parsing the serialized
-     * returned event
-     * 
-     * @param service
-     *            the parser
-     */
-    public void setuAALParser(MessageContentSerializerEx service) {
-	this.uAALParser = service;
-    }
+	/**
+	 * Set a MessageContentSerializer to be used when parsing the serialized
+	 * returned event
+	 * 
+	 * @param service
+	 *            the parser
+	 */
+	public void setuAALParser(MessageContentSerializerEx service) {
+		this.uAALParser = service;
+	}
 
 }

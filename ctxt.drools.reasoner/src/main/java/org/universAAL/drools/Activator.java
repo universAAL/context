@@ -41,26 +41,23 @@ public class Activator implements BundleActivator {
 
 	public void start(final BundleContext context) throws Exception {
 
-		mc = uAALBundleContainer.THE_CONTAINER
-				.registerModule(new Object[] { context });
+		mc = uAALBundleContainer.THE_CONTAINER.registerModule(new Object[] { context });
 
 		// provider = new DroolsReasonerProvider(mc);
 		provider = new DroolsReasonerProvider(context);
 		rules = RulesEngine.getInstance(context);
 		LogUtils.logInfo(mc, getClass(), "start",
-				new String[] { "UUID of the RulesEngine instance: "
-						+ rules.getUUID() }, null);
+				new String[] { "UUID of the RulesEngine instance: " + rules.getUUID() }, null);
 		if (!rules.isWellFormed())
-			LogUtils.logError(mc, getClass(), "start",
-					new String[] { "ERROR with Rules Engine" }, null);
+			LogUtils.logError(mc, getClass(), "start", new String[] { "ERROR with Rules Engine" }, null);
 
 		RulesEngine re = RulesEngine.getInstance(context);
 
 		new Suscriber(context, rules);
 
 		// OsgiServiceBinder osgiServiceBinder = new OsgiServiceBinder(context);
-		//		
-		//		
+		//
+		//
 		// System.out.println("New");
 		// DynamicJpaTestScenario dynamicJpaTestScenario = new
 		// DynamicJpaTestScenario(context);
@@ -89,7 +86,7 @@ public class Activator implements BundleActivator {
 		RulesEngine.getInstance().shutdown();
 
 	}
-	//	
+	//
 	// protected Dictionary<String, String>
 	// getEntityManagerFactoryServiceProperties() {
 	// Dictionary<String, String> result = new Hashtable<String, String>();
@@ -98,7 +95,7 @@ public class Activator implements BundleActivator {
 	// /// Dynamic-JPA from your code.
 	// result.put(DynamicJpaConstants.PERSISTENCE_UNIT_PROPERTY,
 	// "OrmTestDbPersistenceUnit");
-	//		
+	//
 	// /// Since we are interested in the Dynamic Factory (Factories which
 	// produce updatable Entity
 	// /// Managers and look for Entity Manager Factories in the OSGi

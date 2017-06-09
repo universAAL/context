@@ -46,37 +46,28 @@ public class NativeTripleSource implements TripleSource {
 	 * Methods *
 	 *---------*/
 
-	public CloseableIteration<? extends Statement, QueryEvaluationException> getStatements(Resource subj,
-			URI pred, Value obj, Resource... contexts)
-		throws QueryEvaluationException
-	{
+	public CloseableIteration<? extends Statement, QueryEvaluationException> getStatements(Resource subj, URI pred,
+			Value obj, Resource... contexts) throws QueryEvaluationException {
 		try {
 			return new ExceptionConvertingIteration<Statement, QueryEvaluationException>(
-					nativeStore.createStatementIterator(subj, pred, obj, includeInferred, readTransaction,
-							contexts))
-			{
+					nativeStore.createStatementIterator(subj, pred, obj, includeInferred, readTransaction, contexts)) {
 
 				@Override
 				protected QueryEvaluationException convert(Exception e) {
 					if (e instanceof ClosedByInterruptException) {
 						return new QueryInterruptedException(e);
-					}
-					else if (e instanceof IOException) {
+					} else if (e instanceof IOException) {
 						return new QueryEvaluationException(e);
-					}
-					else if (e instanceof RuntimeException) {
-						throw (RuntimeException)e;
-					}
-					else if (e == null) {
+					} else if (e instanceof RuntimeException) {
+						throw (RuntimeException) e;
+					} else if (e == null) {
 						throw new IllegalArgumentException("e must not be null");
-					}
-					else {
+					} else {
 						throw new IllegalArgumentException("Unexpected exception type: " + e.getClass());
 					}
 				}
 			};
-		}
-		catch (IOException e) {
+		} catch (IOException e) {
 			throw new QueryEvaluationException("Unable to get statements", e);
 		}
 	}

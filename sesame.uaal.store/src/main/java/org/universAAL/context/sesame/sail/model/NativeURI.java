@@ -70,11 +70,11 @@ public class NativeURI extends URIImpl implements NativeResource {
 		}
 
 		if (o instanceof NativeURI && internalID != NativeValue.UNKNOWN_ID) {
-			NativeURI otherNativeURI = (NativeURI)o;
+			NativeURI otherNativeURI = (NativeURI) o;
 
-			if (otherNativeURI.internalID != NativeValue.UNKNOWN_ID && revision.equals(otherNativeURI.revision))
-			{
-				// NativeURI's from the same revision of the same native store, with
+			if (otherNativeURI.internalID != NativeValue.UNKNOWN_ID && revision.equals(otherNativeURI.revision)) {
+				// NativeURI's from the same revision of the same native store,
+				// with
 				// both ID's set
 				return internalID == otherNativeURI.internalID;
 			}

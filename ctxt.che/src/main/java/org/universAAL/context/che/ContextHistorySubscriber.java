@@ -36,66 +36,65 @@ import org.universAAL.middleware.context.ContextSubscriber;
  * 
  */
 public class ContextHistorySubscriber extends ContextSubscriber {
-    /**
-     * The instance of the underlying store.
-     */
-    private Backend db;
-    /**
-     * Logger.
-     */
-    private static Log log = Hub.getLog(ContextHistorySubscriber.class);
-    /**
-     * Used to ignore keep-alive events (matches SystemInfo.PROP_ALIVE)
-     */
-    private static final String SYSINFOPRED = "http://ontology.universAAL.org/SysInfo#alive";
-    /**
-     * Determines if keep-alive events should be logged.
-     */
-    private static boolean logAlive = Boolean.parseBoolean(Hub.getProperties()
-	    .getProperty("STORE.LOGALIVE", "false"));
+	/**
+	 * The instance of the underlying store.
+	 */
+	private Backend db;
+	/**
+	 * Logger.
+	 */
+	private static Log log = Hub.getLog(ContextHistorySubscriber.class);
+	/**
+	 * Used to ignore keep-alive events (matches SystemInfo.PROP_ALIVE)
+	 */
+	private static final String SYSINFOPRED = "http://ontology.universAAL.org/SysInfo#alive";
+	/**
+	 * Determines if keep-alive events should be logged.
+	 */
+	private static boolean logAlive = Boolean.parseBoolean(Hub.getProperties().getProperty("STORE.LOGALIVE", "false"));
 
-    /**
-     * Main constructor.
-     * 
-     * @param context
-     *            The uaal module context
-     * @param dbstore
-     *            The store
-     */
-    public ContextHistorySubscriber(ModuleContext context, Backend dbstore) {
-	// My context event pattern is zero-restrictions (ALL)
-	super(context, new ContextEventPattern[] { new ContextEventPattern() });
-	this.db = dbstore;
-	log.info("init", "CHe: Subscriber Ready");
-    }
+	/**
+	 * Main constructor.
+	 * 
+	 * @param context
+	 *            The uaal module context
+	 * @param dbstore
+	 *            The store
+	 */
+	public ContextHistorySubscriber(ModuleContext context, Backend dbstore) {
+		// My context event pattern is zero-restrictions (ALL)
+		super(context, new ContextEventPattern[] { new ContextEventPattern() });
+		this.db = dbstore;
+		log.info("init", "CHe: Subscriber Ready");
+	}
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.universAAL.middleware.context.ContextSubscriber#
-     * communicationChannelBroken()
-     */
-    public void communicationChannelBroken() {
-	// TODO Auto-generated method stub
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.universAAL.middleware.context.ContextSubscriber#
+	 * communicationChannelBroken()
+	 */
+	public void communicationChannelBroken() {
+		// TODO Auto-generated method stub
 
-    }
+	}
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see
-     * org.universAAL.middleware.context.ContextSubscriber#handleContextEvent
-     * (org.universAAL.middleware.context.ContextEvent)
-     */
-    public void handleContextEvent(ContextEvent event) {
-	if (!logAlive && SYSINFOPRED.equals(event.getRDFPredicate()))
-	    return;
-	db.storeEvent(event);
-	log.info("handleContextEvent", "CHe: Stored a Context Event");
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.universAAL.middleware.context.ContextSubscriber#handleContextEvent
+	 * (org.universAAL.middleware.context.ContextEvent)
+	 */
+	public void handleContextEvent(ContextEvent event) {
+		if (!logAlive && SYSINFOPRED.equals(event.getRDFPredicate()))
+			return;
+		db.storeEvent(event);
+		log.info("handleContextEvent", "CHe: Stored a Context Event");
+	}
 
-    // public void close() {
-    // // db.close();//Already closed by Activator
-    // }
+	// public void close() {
+	// // db.close();//Already closed by Activator
+	// }
 
 }

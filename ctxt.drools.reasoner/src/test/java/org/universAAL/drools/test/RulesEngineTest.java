@@ -17,7 +17,7 @@ public class RulesEngineTest extends TestCase {
 		// for (String string : paths) {
 		// System.out.println(string);
 		// }
-		//assertNotNull(RulesEngine.getInstance());
+		// assertNotNull(RulesEngine.getInstance());
 		// RulesEngine re = RulesEngine.createRulesEngine(null);
 	}
 

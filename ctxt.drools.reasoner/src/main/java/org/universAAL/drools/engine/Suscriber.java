@@ -40,11 +40,9 @@ public class Suscriber extends ContextSubscriber {
 
 	public Suscriber(BundleContext ctx, RulesEngine r) {
 		// I think this is the simplest way to subscribe to all ContextEvents
-		super(uAALBundleContainer.THE_CONTAINER
-				.registerModule(new Object[] { ctx }),
+		super(uAALBundleContainer.THE_CONTAINER.registerModule(new Object[] { ctx }),
 				new ContextEventPattern[] { new ContextEventPattern() });
-		mctx = uAALBundleContainer.THE_CONTAINER
-				.registerModule(new Object[] { ctx });
+		mctx = uAALBundleContainer.THE_CONTAINER.registerModule(new Object[] { ctx });
 		bctx = ctx;
 		drools = r;
 	}
@@ -58,9 +56,8 @@ public class Suscriber extends ContextSubscriber {
 	public void handleContextEvent(ContextEvent event) {
 		// System.out.println(event.getRDFPredicate().substring(event.getRDFPredicate().indexOf("#")));
 
-		if (event.getRDFPredicate().substring(
-				event.getRDFPredicate().indexOf("#") + 1).equals(
-				new String("producesConsequences"))) {
+		if (event.getRDFPredicate().substring(event.getRDFPredicate().indexOf("#") + 1)
+				.equals(new String("producesConsequences"))) {
 			// do nothing
 			// drools.insertContextEvent(event.getRDFObject());
 		} else {
@@ -84,14 +81,15 @@ public class Suscriber extends ContextSubscriber {
 			// }
 			// }
 
-			// System.out.println("Oh god. I have a fantastic Context Event!!!!");
+			// System.out.println("Oh god. I have a fantastic Context
+			// Event!!!!");
 
 			// LogUtils.logInfo(mctx, getClass(), "handleContextEvent",
 			// new String[] { "Received context event:\n"
-			// + "    Subject     = " + event.getSubjectURI() + "\n"
-			// + "    Subject type= " + event.getSubjectTypeURI()
-			// + "\n" + "    Predicate   = " + event.getRDFPredicate()
-			// + "\n" + "    Object      = " + event.getRDFObject() },
+			// + " Subject = " + event.getSubjectURI() + "\n"
+			// + " Subject type= " + event.getSubjectTypeURI()
+			// + "\n" + " Predicate = " + event.getRDFPredicate()
+			// + "\n" + " Object = " + event.getRDFObject() },
 			// null);
 			// Sensor s = (Sensor) event.getRDFSubject();
 			// System.out.println("The sensor is located in: "

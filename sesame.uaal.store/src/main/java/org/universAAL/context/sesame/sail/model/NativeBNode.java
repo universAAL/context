@@ -66,12 +66,11 @@ public class NativeBNode extends BNodeImpl implements NativeResource {
 		}
 
 		if (o instanceof NativeBNode && internalID != NativeValue.UNKNOWN_ID) {
-			NativeBNode otherNativeBNode = (NativeBNode)o;
+			NativeBNode otherNativeBNode = (NativeBNode) o;
 
-			if (otherNativeBNode.internalID != NativeValue.UNKNOWN_ID
-					&& revision.equals(otherNativeBNode.revision))
-			{
-				// NativeBNode's from the same revision of the same native store,
+			if (otherNativeBNode.internalID != NativeValue.UNKNOWN_ID && revision.equals(otherNativeBNode.revision)) {
+				// NativeBNode's from the same revision of the same native
+				// store,
 				// with both ID's set
 				return internalID == otherNativeBNode.internalID;
 			}

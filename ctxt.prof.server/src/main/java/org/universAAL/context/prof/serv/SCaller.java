@@ -47,514 +47,458 @@ import org.universAAL.ontology.che.ContextHistoryService;
  */
 public class SCaller {
 
-    /**
-     * Where the result of the CHE will be placed.
-     */
-    private static final String OUTPUT_RESULT_STRING = SCallee.NAMESPACE
-	    + "outputfromCHE";
-    /**
-     * Actual SCaller that issues the calls.
-     */
-    private DefaultServiceCaller defaultCaller;
+	/**
+	 * Where the result of the CHE will be placed.
+	 */
+	private static final String OUTPUT_RESULT_STRING = SCallee.NAMESPACE + "outputfromCHE";
+	/**
+	 * Actual SCaller that issues the calls.
+	 */
+	private DefaultServiceCaller defaultCaller;
 
-    /**
-     * Default constructor.
-     * 
-     * @param mcontext
-     *            uAAL Module mcontext.
-     */
-    protected SCaller(ModuleContext context) {
-	defaultCaller = new DefaultServiceCaller(context);
-    }
+	/**
+	 * Default constructor.
+	 * 
+	 * @param mcontext
+	 *            uAAL Module mcontext.
+	 */
+	protected SCaller(ModuleContext context) {
+		defaultCaller = new DefaultServiceCaller(context);
+	}
 
-    /**
-     * Relay for the actual SCaller.
-     */
-    public void close() {
-	defaultCaller.close();
-    }
+	/**
+	 * Relay for the actual SCaller.
+	 */
+	public void close() {
+		defaultCaller.close();
+	}
 
-    // TODO: All get/add/... seem to do the same. Do something about it?
-    // :::::::::::::USER GET/ADD/CHANGE/REMOVE:::::::::::::::::
+	// TODO: All get/add/... seem to do the same. Do something about it?
+	// :::::::::::::USER GET/ADD/CHANGE/REMOVE:::::::::::::::::
 
-    protected Resource getUser(Resource input) throws CHENotFoundException,
-	    CHETimeOutException, CHEErrorException, CHEDeniedException {
-	ServiceResponse resp = defaultCaller.call(getDoSPARQLRequest(
-		Queries.Q_GET_USER.replace(Queries.ARG1, input.getURI())));
-	lookException(resp);
-	String result = getResult(resp);
-	if (result == null)
-	    return null;
-	return (Resource) Hub.parser.deserialize(result, input.getURI());
-    }
+	protected Resource getUser(Resource input)
+			throws CHENotFoundException, CHETimeOutException, CHEErrorException, CHEDeniedException {
+		ServiceResponse resp = defaultCaller
+				.call(getDoSPARQLRequest(Queries.Q_GET_USER.replace(Queries.ARG1, input.getURI())));
+		lookException(resp);
+		String result = getResult(resp);
+		if (result == null)
+			return null;
+		return (Resource) Hub.parser.deserialize(result, input.getURI());
+	}
 
-    // SPARQL UPDATE queries would include serialized uAAL data, but this
-    // serialization is only possible currently to turtle
-    // The turtle serialization could be in theory usable into the SPARUL query
-    // as is, as long as:
-    // 1: The prefixes are properly separated and placed before the query itself
-    // 2: There are no subgraphs, because notation for subgraphs is different
-    // between SPARQL and TURTLE
-    // Another solution could be to implement a "storeResource" service in CHE
-    // (which would work like storeEvent)
-    // Then the whole data "payload" can be stored in the CHE without
-    // serializing (CHE would take care of that)
-    // and then use SPARUL to simply make the connection between owner of data
-    // and data (in scenarios like adding 'User hasProf Profile')
-    protected void addUser(Resource input) throws CHENotFoundException,
-	    CHETimeOutException, CHEErrorException, CHEDeniedException {
-	String[] split = serializeAndSplit(input);
-	lookException(defaultCaller.call(getDoSPARQLRequest(split[0] + " "
-		+ Queries.Q_ADD_USER.replace(Queries.ARGTURTLE, split[1]))));
-    }
+	// SPARQL UPDATE queries would include serialized uAAL data, but this
+	// serialization is only possible currently to turtle
+	// The turtle serialization could be in theory usable into the SPARUL query
+	// as is, as long as:
+	// 1: The prefixes are properly separated and placed before the query itself
+	// 2: There are no subgraphs, because notation for subgraphs is different
+	// between SPARQL and TURTLE
+	// Another solution could be to implement a "storeResource" service in CHE
+	// (which would work like storeEvent)
+	// Then the whole data "payload" can be stored in the CHE without
+	// serializing (CHE would take care of that)
+	// and then use SPARUL to simply make the connection between owner of data
+	// and data (in scenarios like adding 'User hasProf Profile')
+	protected void addUser(Resource input)
+			throws CHENotFoundException, CHETimeOutException, CHEErrorException, CHEDeniedException {
+		String[] split = serializeAndSplit(input);
+		lookException(defaultCaller
+				.call(getDoSPARQLRequest(split[0] + " " + Queries.Q_ADD_USER.replace(Queries.ARGTURTLE, split[1]))));
+	}
 
-    protected void changeUser(Resource input) throws CHENotFoundException,
-	    CHETimeOutException, CHEErrorException, CHEDeniedException {
-	String[] split = serializeAndSplit(input);
-	lookException(
-		defaultCaller.call(getDoSPARQLRequest(split[0] + " "
-			+ Queries.Q_CHANGE_USER
-				.replace(Queries.ARG1, input.getURI()).replace(
-					Queries.ARGTURTLE, split[1]))));
-    }
+	protected void changeUser(Resource input)
+			throws CHENotFoundException, CHETimeOutException, CHEErrorException, CHEDeniedException {
+		String[] split = serializeAndSplit(input);
+		lookException(defaultCaller.call(getDoSPARQLRequest(split[0] + " "
+				+ Queries.Q_CHANGE_USER.replace(Queries.ARG1, input.getURI()).replace(Queries.ARGTURTLE, split[1]))));
+	}
 
-    protected void removeUser(Resource input) throws CHENotFoundException,
-	    CHETimeOutException, CHEErrorException, CHEDeniedException {
-	lookException(defaultCaller.call(getDoSPARQLRequest(
-		Queries.Q_REMOVE_USER.replace(Queries.ARG1, input.getURI()))));
-    }
+	protected void removeUser(Resource input)
+			throws CHENotFoundException, CHETimeOutException, CHEErrorException, CHEDeniedException {
+		lookException(
+				defaultCaller.call(getDoSPARQLRequest(Queries.Q_REMOVE_USER.replace(Queries.ARG1, input.getURI()))));
+	}
 
-    // :::::::::::::PROFILE GET/ADD/CHANGE/REMOVE:::::::::::::::::
+	// :::::::::::::PROFILE GET/ADD/CHANGE/REMOVE:::::::::::::::::
 
-    protected Resource getProfile(Resource input) throws CHENotFoundException,
-	    CHETimeOutException, CHEErrorException, CHEDeniedException {
-	ServiceResponse resp = defaultCaller.call(getDoSPARQLRequest(
-		Queries.Q_GET_UPROFILE.replace(Queries.ARG1, input.getURI())));
-	lookException(resp);
-	String result = getResult(resp);
-	if (result == null)
-	    return null;
-	return (Resource) Hub.parser.deserialize(result, input.getURI());
-    }
+	protected Resource getProfile(Resource input)
+			throws CHENotFoundException, CHETimeOutException, CHEErrorException, CHEDeniedException {
+		ServiceResponse resp = defaultCaller
+				.call(getDoSPARQLRequest(Queries.Q_GET_UPROFILE.replace(Queries.ARG1, input.getURI())));
+		lookException(resp);
+		String result = getResult(resp);
+		if (result == null)
+			return null;
+		return (Resource) Hub.parser.deserialize(result, input.getURI());
+	}
 
-    protected void addProfile(Resource input) throws CHENotFoundException,
-	    CHETimeOutException, CHEErrorException, CHEDeniedException {
-	String[] split = serializeAndSplit(input);
-	lookException(defaultCaller
-		.call(getDoSPARQLRequest(split[0] + " " + Queries.Q_ADD_UPROFILE
-			.replace(Queries.ARGTURTLE, split[1]))));
-    }
+	protected void addProfile(Resource input)
+			throws CHENotFoundException, CHETimeOutException, CHEErrorException, CHEDeniedException {
+		String[] split = serializeAndSplit(input);
+		lookException(defaultCaller.call(
+				getDoSPARQLRequest(split[0] + " " + Queries.Q_ADD_UPROFILE.replace(Queries.ARGTURTLE, split[1]))));
+	}
 
-    protected void changeProfile(Resource input) throws CHENotFoundException,
-	    CHETimeOutException, CHEErrorException, CHEDeniedException {
-	String[] split = serializeAndSplit(input);
-	lookException(defaultCaller.call(getDoSPARQLRequest(split[0] + " "
-		+ Queries.Q_CHANGE_UPROFILE
-			.replace(Queries.ARG1, input.getURI())
-			.replace(Queries.ARGTURTLE, split[1]))));
-    }
+	protected void changeProfile(Resource input)
+			throws CHENotFoundException, CHETimeOutException, CHEErrorException, CHEDeniedException {
+		String[] split = serializeAndSplit(input);
+		lookException(defaultCaller.call(getDoSPARQLRequest(split[0] + " " + Queries.Q_CHANGE_UPROFILE
+				.replace(Queries.ARG1, input.getURI()).replace(Queries.ARGTURTLE, split[1]))));
+	}
 
-    protected void removeProfile(Resource input) throws CHENotFoundException,
-	    CHETimeOutException, CHEErrorException, CHEDeniedException {
-	lookException(
-		defaultCaller.call(getDoSPARQLRequest(Queries.Q_REMOVE_UPROFILE
-			.replace(Queries.ARG1, input.getURI()))));
-    }
+	protected void removeProfile(Resource input)
+			throws CHENotFoundException, CHETimeOutException, CHEErrorException, CHEDeniedException {
+		lookException(defaultCaller
+				.call(getDoSPARQLRequest(Queries.Q_REMOVE_UPROFILE.replace(Queries.ARG1, input.getURI()))));
+	}
 
-    // :::::::::::::SUBPROFILE GET/ADD/CHANGE/REMOVE:::::::::::::::::
+	// :::::::::::::SUBPROFILE GET/ADD/CHANGE/REMOVE:::::::::::::::::
 
-    protected Resource getSubProfile(Resource input)
-	    throws CHENotFoundException, CHETimeOutException, CHEErrorException,
-	    CHEDeniedException {
-	ServiceResponse resp = defaultCaller
-		.call(getDoSPARQLRequest(Queries.Q_GET_SUBPROFILE
-			.replace(Queries.ARG1, input.getURI())));
-	lookException(resp);
-	String result = getResult(resp);
-	if (result == null)
-	    return null;
-	return (Resource) Hub.parser.deserialize(result, input.getURI());
-    }
+	protected Resource getSubProfile(Resource input)
+			throws CHENotFoundException, CHETimeOutException, CHEErrorException, CHEDeniedException {
+		ServiceResponse resp = defaultCaller
+				.call(getDoSPARQLRequest(Queries.Q_GET_SUBPROFILE.replace(Queries.ARG1, input.getURI())));
+		lookException(resp);
+		String result = getResult(resp);
+		if (result == null)
+			return null;
+		return (Resource) Hub.parser.deserialize(result, input.getURI());
+	}
 
-    protected void addSubProfile(Resource input) throws CHENotFoundException,
-	    CHETimeOutException, CHEErrorException, CHEDeniedException {
-	String[] split = serializeAndSplit(input);
-	lookException(defaultCaller.call(
-		getDoSPARQLRequest(split[0] + " " + Queries.Q_ADD_SUBPROFILE
-			.replace(Queries.ARGTURTLE, split[1]))));
-    }
+	protected void addSubProfile(Resource input)
+			throws CHENotFoundException, CHETimeOutException, CHEErrorException, CHEDeniedException {
+		String[] split = serializeAndSplit(input);
+		lookException(defaultCaller.call(
+				getDoSPARQLRequest(split[0] + " " + Queries.Q_ADD_SUBPROFILE.replace(Queries.ARGTURTLE, split[1]))));
+	}
 
-    protected void changeSubProfile(Resource input) throws CHENotFoundException,
-	    CHETimeOutException, CHEErrorException, CHEDeniedException {
-	String[] split = serializeAndSplit(input);
-	lookException(defaultCaller.call(getDoSPARQLRequest(split[0] + " "
-		+ Queries.Q_CHANGE_SUBPROFILE
-			.replace(Queries.ARG1, input.getURI())
-			.replace(Queries.ARGTURTLE, split[1]))));
-    }
+	protected void changeSubProfile(Resource input)
+			throws CHENotFoundException, CHETimeOutException, CHEErrorException, CHEDeniedException {
+		String[] split = serializeAndSplit(input);
+		lookException(defaultCaller.call(getDoSPARQLRequest(split[0] + " " + Queries.Q_CHANGE_SUBPROFILE
+				.replace(Queries.ARG1, input.getURI()).replace(Queries.ARGTURTLE, split[1]))));
+	}
 
-    protected void removeSubProfile(Resource input) throws CHENotFoundException,
-	    CHETimeOutException, CHEErrorException, CHEDeniedException {
-	lookException(defaultCaller
-		.call(getDoSPARQLRequest(Queries.Q_REMOVE_SUBPROFILE
-			.replace(Queries.ARG1, input.getURI()))));
-    }
+	protected void removeSubProfile(Resource input)
+			throws CHENotFoundException, CHETimeOutException, CHEErrorException, CHEDeniedException {
+		lookException(defaultCaller
+				.call(getDoSPARQLRequest(Queries.Q_REMOVE_SUBPROFILE.replace(Queries.ARG1, input.getURI()))));
+	}
 
-    // :::::::::::::OTHER GETS:::::::::::::::::
+	// :::::::::::::OTHER GETS:::::::::::::::::
 
-    // For getting several results maybe it's better to issue a SELECT query to
-    // CHE. The result will be in SPARQL result XML
-    // format, so it will have to be processed here. It will have to use
-    // Sesame... although any RDF framework should do.
-    // First convert to framework specific, then list the results, parse each to
-    // Turtle and then to uAAL. That's 3 parses.
-    // What about: CONSTRUCT { <http://ontology.itaca.upv.es/Test.owl#testBag>
-    // <http://ontology.itaca.upv.es/Test.owl#testProp> ?y }
-    // WHERE { ?y a <http://ontology.universAAL.org/Profile.owl#User> }
-    // It works OK, but the type is not returned so you can't get the most
-    // specialized class and you have to cast manually here to User. And you
-    // have no way to know if it's an AP or a caregiver. Unless you create
-    // methods for each.
-    // Another solution is to issue a DESCRIBE to each of them. So in the end
-    // there is a tradeof you have to choose:
-    // 1: Import Sesame and spend time in the 3-way parsing of SELECT
-    // 2: Create a get* for all kind of current and future types of User
-    // 3: Use this getUser and then call a DESCRIBE on each
-    // ...Or a final choice: construct a bag with the results and a bag with the
-    // types. Then combine the RDF in a single string and deserialize. It's
-    // cheating but it works. And it only uses 2 calls and a serialize.
-    protected ArrayList getUsers() throws CHENotFoundException,
-	    CHETimeOutException, CHEErrorException, CHEDeniedException {
-	ServiceResponse resp = defaultCaller
-		.call(getDoSPARQLRequest(Queries.Q_GET_USRS));
-	lookException(resp);
-	String result = getResult(resp);
-	resp = defaultCaller.call(getDoSPARQLRequest(Queries.Q_GET_USRS_XTRA));
-	lookException(resp);
-	String result2 = getResult(resp);
-	if (result == null || result2 == null)
-	    return null;
-	Resource bag = (Resource) Hub.parser.deserialize(result + " " + result2,
-		Queries.AUXBAG);
-	if (bag != null) {
-	    Object content = bag.getProperty(Queries.AUXBAGPROP);
-	    ArrayList list = new ArrayList();
-	    OntologyManagement mng = OntologyManagement.getInstance();
-	    if (content instanceof List) {
-		Iterator iter = ((ArrayList) content).iterator();
-		while (iter.hasNext()) {
-		    Resource res = (Resource) iter.next();
-		    list.add(mng.getResource(
-			    mng.getMostSpecializedClass(res.getTypes()),
-			    res.getURI()));
+	// For getting several results maybe it's better to issue a SELECT query to
+	// CHE. The result will be in SPARQL result XML
+	// format, so it will have to be processed here. It will have to use
+	// Sesame... although any RDF framework should do.
+	// First convert to framework specific, then list the results, parse each to
+	// Turtle and then to uAAL. That's 3 parses.
+	// What about: CONSTRUCT { <http://ontology.itaca.upv.es/Test.owl#testBag>
+	// <http://ontology.itaca.upv.es/Test.owl#testProp> ?y }
+	// WHERE { ?y a <http://ontology.universAAL.org/Profile.owl#User> }
+	// It works OK, but the type is not returned so you can't get the most
+	// specialized class and you have to cast manually here to User. And you
+	// have no way to know if it's an AP or a caregiver. Unless you create
+	// methods for each.
+	// Another solution is to issue a DESCRIBE to each of them. So in the end
+	// there is a tradeof you have to choose:
+	// 1: Import Sesame and spend time in the 3-way parsing of SELECT
+	// 2: Create a get* for all kind of current and future types of User
+	// 3: Use this getUser and then call a DESCRIBE on each
+	// ...Or a final choice: construct a bag with the results and a bag with the
+	// types. Then combine the RDF in a single string and deserialize. It's
+	// cheating but it works. And it only uses 2 calls and a serialize.
+	protected ArrayList getUsers()
+			throws CHENotFoundException, CHETimeOutException, CHEErrorException, CHEDeniedException {
+		ServiceResponse resp = defaultCaller.call(getDoSPARQLRequest(Queries.Q_GET_USRS));
+		lookException(resp);
+		String result = getResult(resp);
+		resp = defaultCaller.call(getDoSPARQLRequest(Queries.Q_GET_USRS_XTRA));
+		lookException(resp);
+		String result2 = getResult(resp);
+		if (result == null || result2 == null)
+			return null;
+		Resource bag = (Resource) Hub.parser.deserialize(result + " " + result2, Queries.AUXBAG);
+		if (bag != null) {
+			Object content = bag.getProperty(Queries.AUXBAGPROP);
+			ArrayList list = new ArrayList();
+			OntologyManagement mng = OntologyManagement.getInstance();
+			if (content instanceof List) {
+				Iterator iter = ((ArrayList) content).iterator();
+				while (iter.hasNext()) {
+					Resource res = (Resource) iter.next();
+					list.add(mng.getResource(mng.getMostSpecializedClass(res.getTypes()), res.getURI()));
+				}
+			} else {
+				Resource res = (Resource) content;
+				list.add(mng.getResource(mng.getMostSpecializedClass(res.getTypes()), res.getURI()));
+			}
+			return list;
+		} else {
+			return null;
 		}
-	    } else {
-		Resource res = (Resource) content;
-		list.add(mng.getResource(
-			mng.getMostSpecializedClass(res.getTypes()),
-			res.getURI()));
-	    }
-	    return list;
-	} else {
-	    return null;
 	}
-    }
 
-    protected Resource getProfileOfUser(Resource user)
-	    throws CHENotFoundException, CHETimeOutException, CHEErrorException,
-	    CHEDeniedException {
-	// I need this extra query to get only the URI of profile to deserialize
-	// it correctly later.
-	ServiceResponse resp = defaultCaller
-		.call(getDoSPARQLRequest(Queries.Q_GET_PRF_OF_USR_XTRA
-			.replace(Queries.ARG1, user.getURI())));
-	lookException(resp);
-	String resultx = getResult(resp);
-	if (resultx == null)
-	    return null;
-	Object objx = Hub.parser.deserialize(resultx);
-	if (objx == null)
-	    return null;
-	resp = defaultCaller.call(getDoSPARQLRequest(
-		Queries.Q_GET_PRF_OF_USR.replace(Queries.ARG1, user.getURI())));
-	lookException(resp);
-	String result = getResult(resp);
-	if (result == null)
-	    return null;
-	String uri = ((Resource) objx).getURI();
-	return (Resource) Hub.parser.deserialize(result, uri);
-    }
+	protected Resource getProfileOfUser(Resource user)
+			throws CHENotFoundException, CHETimeOutException, CHEErrorException, CHEDeniedException {
+		// I need this extra query to get only the URI of profile to deserialize
+		// it correctly later.
+		ServiceResponse resp = defaultCaller
+				.call(getDoSPARQLRequest(Queries.Q_GET_PRF_OF_USR_XTRA.replace(Queries.ARG1, user.getURI())));
+		lookException(resp);
+		String resultx = getResult(resp);
+		if (resultx == null)
+			return null;
+		Object objx = Hub.parser.deserialize(resultx);
+		if (objx == null)
+			return null;
+		resp = defaultCaller.call(getDoSPARQLRequest(Queries.Q_GET_PRF_OF_USR.replace(Queries.ARG1, user.getURI())));
+		lookException(resp);
+		String result = getResult(resp);
+		if (result == null)
+			return null;
+		String uri = ((Resource) objx).getURI();
+		return (Resource) Hub.parser.deserialize(result, uri);
+	}
 
-    protected ArrayList getSubProfilesOfUser(Resource user)
-	    throws CHENotFoundException, CHETimeOutException, CHEErrorException,
-	    CHEDeniedException {
-	ServiceResponse resp = defaultCaller
-		.call(getDoSPARQLRequest(Queries.Q_GET_SUBS_OF_USR
-			.replace(Queries.ARG1, user.getURI())));
-	lookException(resp);
-	String result1 = getResult(resp);
-	resp = defaultCaller
-		.call(getDoSPARQLRequest(Queries.Q_GET_SUBS_OF_USR_XTRA
-			.replace(Queries.ARG1, user.getURI())));
-	lookException(resp);
-	String result2 = getResult(resp);
-	if (result1 == null || result2 == null)
-	    return null;
-	Resource bag = (Resource) Hub.parser
-		.deserialize(result1 + " " + result2, Queries.AUXBAG);
-	if (bag != null) {
-	    Object content = bag.getProperty(Queries.AUXBAGPROP);
-	    ArrayList list = new ArrayList();
-	    OntologyManagement mng = OntologyManagement.getInstance();
-	    if (content instanceof List) {
-		Iterator iter = ((ArrayList) content).iterator();
-		while (iter.hasNext()) {
-		    Resource res = (Resource) iter.next();
-		    list.add(mng.getResource(
-			    mng.getMostSpecializedClass(res.getTypes()),
-			    res.getURI()));
+	protected ArrayList getSubProfilesOfUser(Resource user)
+			throws CHENotFoundException, CHETimeOutException, CHEErrorException, CHEDeniedException {
+		ServiceResponse resp = defaultCaller
+				.call(getDoSPARQLRequest(Queries.Q_GET_SUBS_OF_USR.replace(Queries.ARG1, user.getURI())));
+		lookException(resp);
+		String result1 = getResult(resp);
+		resp = defaultCaller
+				.call(getDoSPARQLRequest(Queries.Q_GET_SUBS_OF_USR_XTRA.replace(Queries.ARG1, user.getURI())));
+		lookException(resp);
+		String result2 = getResult(resp);
+		if (result1 == null || result2 == null)
+			return null;
+		Resource bag = (Resource) Hub.parser.deserialize(result1 + " " + result2, Queries.AUXBAG);
+		if (bag != null) {
+			Object content = bag.getProperty(Queries.AUXBAGPROP);
+			ArrayList list = new ArrayList();
+			OntologyManagement mng = OntologyManagement.getInstance();
+			if (content instanceof List) {
+				Iterator iter = ((ArrayList) content).iterator();
+				while (iter.hasNext()) {
+					Resource res = (Resource) iter.next();
+					list.add(mng.getResource(mng.getMostSpecializedClass(res.getTypes()), res.getURI()));
+				}
+			} else {
+				Resource res = (Resource) content;
+				list.add(mng.getResource(mng.getMostSpecializedClass(res.getTypes()), res.getURI()));
+			}
+			return list;
+		} else {
+			return null;
 		}
-	    } else {
-		Resource res = (Resource) content;
-		list.add(mng.getResource(
-			mng.getMostSpecializedClass(res.getTypes()),
-			res.getURI()));
-	    }
-	    return list;
-	} else {
-	    return null;
 	}
-    }
 
-    protected ArrayList getSubProfilesOfProfile(Resource profile)
-	    throws CHENotFoundException, CHETimeOutException, CHEErrorException,
-	    CHEDeniedException {
-	ServiceResponse resp = defaultCaller
-		.call(getDoSPARQLRequest(Queries.Q_GET_SUBS_OF_PRF
-			.replace(Queries.ARG1, profile.getURI())));
-	lookException(resp);
-	String result1 = getResult(resp);
-	resp = defaultCaller
-		.call(getDoSPARQLRequest(Queries.Q_GET_SUBS_OF_PRF_XTRA
-			.replace(Queries.ARG1, profile.getURI())));
-	lookException(resp);
-	String result2 = getResult(resp);
-	if (result1 == null || result2 == null)
-	    return null;
-	Resource bag = (Resource) Hub.parser
-		.deserialize(result1 + " " + result2, Queries.AUXBAG);
-	if (bag != null) {
-	    Object content = bag.getProperty(Queries.AUXBAGPROP);
-	    ArrayList list = new ArrayList();
-	    OntologyManagement mng = OntologyManagement.getInstance();
-	    if (content instanceof List) {
-		Iterator iter = ((ArrayList) content).iterator();
-		while (iter.hasNext()) {
-		    Resource res = (Resource) iter.next();
-		    list.add(mng.getResource(
-			    mng.getMostSpecializedClass(res.getTypes()),
-			    res.getURI()));
+	protected ArrayList getSubProfilesOfProfile(Resource profile)
+			throws CHENotFoundException, CHETimeOutException, CHEErrorException, CHEDeniedException {
+		ServiceResponse resp = defaultCaller
+				.call(getDoSPARQLRequest(Queries.Q_GET_SUBS_OF_PRF.replace(Queries.ARG1, profile.getURI())));
+		lookException(resp);
+		String result1 = getResult(resp);
+		resp = defaultCaller
+				.call(getDoSPARQLRequest(Queries.Q_GET_SUBS_OF_PRF_XTRA.replace(Queries.ARG1, profile.getURI())));
+		lookException(resp);
+		String result2 = getResult(resp);
+		if (result1 == null || result2 == null)
+			return null;
+		Resource bag = (Resource) Hub.parser.deserialize(result1 + " " + result2, Queries.AUXBAG);
+		if (bag != null) {
+			Object content = bag.getProperty(Queries.AUXBAGPROP);
+			ArrayList list = new ArrayList();
+			OntologyManagement mng = OntologyManagement.getInstance();
+			if (content instanceof List) {
+				Iterator iter = ((ArrayList) content).iterator();
+				while (iter.hasNext()) {
+					Resource res = (Resource) iter.next();
+					list.add(mng.getResource(mng.getMostSpecializedClass(res.getTypes()), res.getURI()));
+				}
+			} else {
+				Resource res = (Resource) content;
+				list.add(mng.getResource(mng.getMostSpecializedClass(res.getTypes()), res.getURI()));
+			}
+			return list;
+		} else {
+			return null;
 		}
-	    } else {
-		Resource res = (Resource) content;
-		list.add(mng.getResource(
-			mng.getMostSpecializedClass(res.getTypes()),
-			res.getURI()));
-	    }
-	    return list;
-	} else {
-	    return null;
 	}
-    }
 
-    // public Resource getSubProfileOfUser(Resource user) {
-    // String resultx = getResult(defaultCaller
-    // .call(getDoSPARQLRequest(Queries.Q_GET_PRF_OF_USR_XTRA.replace(
-    // Queries.ARG1, user.getURI()))));
-    // Object objx = Hub.parser.deserialize(resultx);
-    // if (objx == null)
-    // return null;
-    // String result = getResult(defaultCaller
-    // .call(getDoSPARQLRequest(Queries.Q_GET_PRF_OF_USR.replace(
-    // Queries.ARG1, user.getURI()))));
-    // String uri = ((Resource) objx).getURI();
-    // return (Resource) Hub.parser.deserialize(result, uri);
-    // }
+	// public Resource getSubProfileOfUser(Resource user) {
+	// String resultx = getResult(defaultCaller
+	// .call(getDoSPARQLRequest(Queries.Q_GET_PRF_OF_USR_XTRA.replace(
+	// Queries.ARG1, user.getURI()))));
+	// Object objx = Hub.parser.deserialize(resultx);
+	// if (objx == null)
+	// return null;
+	// String result = getResult(defaultCaller
+	// .call(getDoSPARQLRequest(Queries.Q_GET_PRF_OF_USR.replace(
+	// Queries.ARG1, user.getURI()))));
+	// String uri = ((Resource) objx).getURI();
+	// return (Resource) Hub.parser.deserialize(result, uri);
+	// }
 
-    // :::::::::::::OTHER ADDS:::::::::::::::::
+	// :::::::::::::OTHER ADDS:::::::::::::::::
 
-    protected void addProfileToUser(Resource user, Resource profile)
-	    throws CHENotFoundException, CHETimeOutException, CHEErrorException,
-	    CHEDeniedException {
-	String[] split = serializeAndSplit(profile);
-	lookException(defaultCaller.call(getDoSPARQLRequest(split[0] + " "
-		+ Queries.Q_ADD_PRF_TO_USR.replace(Queries.ARG1, user.getURI())
-			.replace(Queries.ARG2, profile.getURI())
-			.replace(Queries.ARGTURTLE, split[1]))));
-    }
+	protected void addProfileToUser(Resource user, Resource profile)
+			throws CHENotFoundException, CHETimeOutException, CHEErrorException, CHEDeniedException {
+		String[] split = serializeAndSplit(profile);
+		lookException(defaultCaller
+				.call(getDoSPARQLRequest(split[0] + " " + Queries.Q_ADD_PRF_TO_USR.replace(Queries.ARG1, user.getURI())
+						.replace(Queries.ARG2, profile.getURI()).replace(Queries.ARGTURTLE, split[1]))));
+	}
 
-    protected void addSubProfileToUser(Resource user, Resource subprofile)
-	    throws CHENotFoundException, CHETimeOutException, CHEErrorException,
-	    CHEDeniedException {
-	String[] split = serializeAndSplit(subprofile);
-	lookException(defaultCaller.call(getDoSPARQLRequest(split[0] + " "
-		+ Queries.Q_ADD_SUB_TO_USR.replace(Queries.ARG1, user.getURI())
-			.replace(Queries.ARG2, subprofile.getURI())
-			.replace(Queries.ARGTURTLE, split[1]))));
-    }
+	protected void addSubProfileToUser(Resource user, Resource subprofile)
+			throws CHENotFoundException, CHETimeOutException, CHEErrorException, CHEDeniedException {
+		String[] split = serializeAndSplit(subprofile);
+		lookException(defaultCaller
+				.call(getDoSPARQLRequest(split[0] + " " + Queries.Q_ADD_SUB_TO_USR.replace(Queries.ARG1, user.getURI())
+						.replace(Queries.ARG2, subprofile.getURI()).replace(Queries.ARGTURTLE, split[1]))));
+	}
 
-    protected void addSubProfileToProf(Resource profile, Resource subprofile)
-	    throws CHENotFoundException, CHETimeOutException, CHEErrorException,
-	    CHEDeniedException {
-	String[] split = serializeAndSplit(subprofile);
-	lookException(defaultCaller.call(getDoSPARQLRequest(split[0] + " "
-		+ Queries.Q_ADD_SUB_TO_PRF
-			.replace(Queries.ARG1, profile.getURI())
-			.replace(Queries.ARG2, subprofile.getURI())
-			.replace(Queries.ARGTURTLE, split[1]))));
-    }
+	protected void addSubProfileToProf(Resource profile, Resource subprofile)
+			throws CHENotFoundException, CHETimeOutException, CHEErrorException, CHEDeniedException {
+		String[] split = serializeAndSplit(subprofile);
+		lookException(defaultCaller.call(
+				getDoSPARQLRequest(split[0] + " " + Queries.Q_ADD_SUB_TO_PRF.replace(Queries.ARG1, profile.getURI())
+						.replace(Queries.ARG2, subprofile.getURI()).replace(Queries.ARGTURTLE, split[1]))));
+	}
 
-    /**
-     * Prepares the call to the Do SPARQL service of CHE.
-     * 
-     * @param query
-     *            The SPARQL query
-     * @return The prepared request
-     */
-    private ServiceRequest getDoSPARQLRequest(String query) {
-	ServiceRequest getQuery = new ServiceRequest(
-		new ContextHistoryService(null), null);
+	/**
+	 * Prepares the call to the Do SPARQL service of CHE.
+	 * 
+	 * @param query
+	 *            The SPARQL query
+	 * @return The prepared request
+	 */
+	private ServiceRequest getDoSPARQLRequest(String query) {
+		ServiceRequest getQuery = new ServiceRequest(new ContextHistoryService(null), null);
 
-	MergedRestriction r = MergedRestriction.getFixedValueRestriction(
-		ContextHistoryService.PROP_PROCESSES, query);
+		MergedRestriction r = MergedRestriction.getFixedValueRestriction(ContextHistoryService.PROP_PROCESSES, query);
 
-	getQuery.getRequestedService().addInstanceLevelRestriction(r,
-		new String[] { ContextHistoryService.PROP_PROCESSES });
-	getQuery.addSimpleOutputBinding(new ProcessOutput(OUTPUT_RESULT_STRING),
-		new PropertyPath(null, true,
-			new String[] { ContextHistoryService.PROP_RETURNS })
-				.getThePath());
-	return getQuery;
-    }
+		getQuery.getRequestedService().addInstanceLevelRestriction(r,
+				new String[] { ContextHistoryService.PROP_PROCESSES });
+		getQuery.addSimpleOutputBinding(new ProcessOutput(OUTPUT_RESULT_STRING),
+				new PropertyPath(null, true, new String[] { ContextHistoryService.PROP_RETURNS }).getThePath());
+		return getQuery;
+	}
 
-    /**
-     * Helper method to get the result from the Service Response of CHE.
-     * 
-     * @param call
-     *            The service response
-     * @return the result SPARQL string
-     */
-    private String getResult(ServiceResponse call) {
-	Object returnValue = null;
-	List outputs = call.getOutputs();
-	if (outputs == null) {
-	    return null;
-	} else {
-	    for (Iterator i = outputs.iterator(); i.hasNext();) {
-		ProcessOutput output = (ProcessOutput) i.next();
-		if (output.getURI().equals(OUTPUT_RESULT_STRING)
-			&& returnValue == null) {
-		    returnValue = output.getParameterValue();
+	/**
+	 * Helper method to get the result from the Service Response of CHE.
+	 * 
+	 * @param call
+	 *            The service response
+	 * @return the result SPARQL string
+	 */
+	private String getResult(ServiceResponse call) {
+		Object returnValue = null;
+		List outputs = call.getOutputs();
+		if (outputs == null) {
+			return null;
+		} else {
+			for (Iterator i = outputs.iterator(); i.hasNext();) {
+				ProcessOutput output = (ProcessOutput) i.next();
+				if (output.getURI().equals(OUTPUT_RESULT_STRING) && returnValue == null) {
+					returnValue = output.getParameterValue();
+				}
+			}
+			if (returnValue instanceof String) {
+				return (String) returnValue;
+			} else {
+				return null;
+			}
 		}
-	    }
-	    if (returnValue instanceof String) {
-		return (String) returnValue;
-	    } else {
-		return null;
-	    }
-	}
-    }
-
-    /**
-     * Splits a Turtle serialized string into prefixes and content, so it can be
-     * used inside SPARQL queries.
-     * 
-     * @param serialized
-     *            The turtle string
-     * @return An array of length 2. The first item [0] is the string with the
-     *         prefixes, and the second [1] is the string with the triples
-     *         content
-     */
-    public static String[] splitPrefixes(String serialized) {
-	int lastprefix = 0, lastprefixdot = 0, lastprefixuri = 0;
-	lastprefix = serialized.toLowerCase().lastIndexOf("@prefix");
-	if (lastprefix >= 0) {
-	    lastprefixuri = serialized.substring(lastprefix).indexOf(">");
-	    lastprefixdot = serialized.substring(lastprefix + lastprefixuri)
-		    .indexOf(".");
-	}
-	String[] result = new String[2];
-	result[0] = serialized
-		.substring(0, lastprefixuri + lastprefixdot + lastprefix + 1)
-		.replace("@", " ").replace(">.", "> ").replace(" .", " ")
-		.replace(". ", " ");
-	result[1] = serialized
-		.substring(lastprefixuri + lastprefixdot + lastprefix + 1);
-	return result;
-    }
-
-    // public Resource getSecProfileOfUser(Resource user) {
-    // // I need this extra query to get only the URI of profile to deserialize
-    // // it correctly later. ( TODO cant I just use a SELECT v instead?)
-    // String resultx = getResult(defaultCaller
-    // .call(getDoSPARQLRequest(Queries.Q_GET_SECPRF_OF_USR_XTRA.replace(
-    // Queries.ARG1, user.getURI()))));
-    // Object objx = Hub.parser.deserialize(resultx);
-    // if (objx == null)
-    // return null;
-    // String result = getResult(defaultCaller
-    // .call(getDoSPARQLRequest(Queries.Q_GET_SECPRF_OF_USR.replace(
-    // Queries.ARG1, user.getURI()))));
-    // String uri = ((Resource) objx).getURI();
-    // return (Resource) Hub.parser.deserialize(result, uri);
-    // }
-
-    private static String[] serializeAndSplit(Resource r) {
-	Iterator it = GraphIterator.getResourceIterator(r);
-	while (it.hasNext()) {
-	    Resource prop = (Resource) it.next();
-	    prop.unliteral();
-	}
-	String serialized = Hub.parser.serialize(r);
-	String[] split = splitPrefixes(serialized);
-	return split;
-    }
-
-    private void lookException(ServiceResponse resp)
-	    throws CHENotFoundException, CHETimeOutException, CHEErrorException,
-	    CHEDeniedException {
-	CallStatus status = resp.getCallStatus();
-	if (status.equals(CallStatus.succeeded)) {
-	    return;
-	} else if (status.equals(CallStatus.noMatchingServiceFound)) {
-	    throw new CHENotFoundException();
-	} else if (status.equals(CallStatus.responseTimedOut)) {
-	    throw new CHETimeOutException();
-	} else if (status.equals(CallStatus.serviceSpecificFailure)) {
-	    throw new CHEErrorException();
-	} else if (status.equals(CallStatus.denied)) {
-	    throw new CHEDeniedException();
 	}
 
-    }
+	/**
+	 * Splits a Turtle serialized string into prefixes and content, so it can be
+	 * used inside SPARQL queries.
+	 * 
+	 * @param serialized
+	 *            The turtle string
+	 * @return An array of length 2. The first item [0] is the string with the
+	 *         prefixes, and the second [1] is the string with the triples
+	 *         content
+	 */
+	public static String[] splitPrefixes(String serialized) {
+		int lastprefix = 0, lastprefixdot = 0, lastprefixuri = 0;
+		lastprefix = serialized.toLowerCase().lastIndexOf("@prefix");
+		if (lastprefix >= 0) {
+			lastprefixuri = serialized.substring(lastprefix).indexOf(">");
+			lastprefixdot = serialized.substring(lastprefix + lastprefixuri).indexOf(".");
+		}
+		String[] result = new String[2];
+		result[0] = serialized.substring(0, lastprefixuri + lastprefixdot + lastprefix + 1).replace("@", " ")
+				.replace(">.", "> ").replace(" .", " ").replace(". ", " ");
+		result[1] = serialized.substring(lastprefixuri + lastprefixdot + lastprefix + 1);
+		return result;
+	}
 
-    public class CHEException extends Exception {
-	private static final long serialVersionUID = 5662312241545623631L;
-    }
+	// public Resource getSecProfileOfUser(Resource user) {
+	// // I need this extra query to get only the URI of profile to deserialize
+	// // it correctly later. ( TODO cant I just use a SELECT v instead?)
+	// String resultx = getResult(defaultCaller
+	// .call(getDoSPARQLRequest(Queries.Q_GET_SECPRF_OF_USR_XTRA.replace(
+	// Queries.ARG1, user.getURI()))));
+	// Object objx = Hub.parser.deserialize(resultx);
+	// if (objx == null)
+	// return null;
+	// String result = getResult(defaultCaller
+	// .call(getDoSPARQLRequest(Queries.Q_GET_SECPRF_OF_USR.replace(
+	// Queries.ARG1, user.getURI()))));
+	// String uri = ((Resource) objx).getURI();
+	// return (Resource) Hub.parser.deserialize(result, uri);
+	// }
 
-    public class CHENotFoundException extends CHEException {
-	private static final long serialVersionUID = 5662312241545623631L;
-    }
+	private static String[] serializeAndSplit(Resource r) {
+		Iterator it = GraphIterator.getResourceIterator(r);
+		while (it.hasNext()) {
+			Resource prop = (Resource) it.next();
+			prop.unliteral();
+		}
+		String serialized = Hub.parser.serialize(r);
+		String[] split = splitPrefixes(serialized);
+		return split;
+	}
 
-    public class CHETimeOutException extends CHEException {
-	private static final long serialVersionUID = -2498126335842098169L;
-    }
+	private void lookException(ServiceResponse resp)
+			throws CHENotFoundException, CHETimeOutException, CHEErrorException, CHEDeniedException {
+		CallStatus status = resp.getCallStatus();
+		if (status.equals(CallStatus.succeeded)) {
+			return;
+		} else if (status.equals(CallStatus.noMatchingServiceFound)) {
+			throw new CHENotFoundException();
+		} else if (status.equals(CallStatus.responseTimedOut)) {
+			throw new CHETimeOutException();
+		} else if (status.equals(CallStatus.serviceSpecificFailure)) {
+			throw new CHEErrorException();
+		} else if (status.equals(CallStatus.denied)) {
+			throw new CHEDeniedException();
+		}
 
-    public class CHEErrorException extends CHEException {
-	private static final long serialVersionUID = 6117572023193149340L;
-    }
+	}
 
-    public class CHEDeniedException extends CHEException {
-	private static final long serialVersionUID = -4992064986885207902L;
-    }
+	public class CHEException extends Exception {
+		private static final long serialVersionUID = 5662312241545623631L;
+	}
+
+	public class CHENotFoundException extends CHEException {
+		private static final long serialVersionUID = 5662312241545623631L;
+	}
+
+	public class CHETimeOutException extends CHEException {
+		private static final long serialVersionUID = -2498126335842098169L;
+	}
+
+	public class CHEErrorException extends CHEException {
+		private static final long serialVersionUID = 6117572023193149340L;
+	}
+
+	public class CHEDeniedException extends CHEException {
+		private static final long serialVersionUID = -4992064986885207902L;
+	}
 }

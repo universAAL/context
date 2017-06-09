@@ -29,168 +29,140 @@ import org.universAAL.ontology.dependability.Fault;
 
 public class ReliabilityReasonerSubscriber extends ContextSubscriber {
 
-    protected ReliabilityReasonerSubscriber(ModuleContext context,
-	    ContextEventPattern[] initialSubscriptions) {
-	super(context, initialSubscriptions);
-    }
+	protected ReliabilityReasonerSubscriber(ModuleContext context, ContextEventPattern[] initialSubscriptions) {
+		super(context, initialSubscriptions);
+	}
 
-    protected ReliabilityReasonerSubscriber(ModuleContext context) {
-	super(context, getPermanentSubscriptions());
-	/*String contextID = (String) context.getAttribute(getMyID());
-	String location = (String) context.getAttribute(Fault.PROP_LOCATION);
-	String timestamp = (String) context.getAttribute(Fault.PROP_TIMESTAMP);
-	String faultType = (String) context
-		.getAttribute(Fault.PROP_FAULT_DECISION);*/
-    }
+	protected ReliabilityReasonerSubscriber(ModuleContext context) {
+		super(context, getPermanentSubscriptions());
+		/*
+		 * String contextID = (String) context.getAttribute(getMyID()); String
+		 * location = (String) context.getAttribute(Fault.PROP_LOCATION); String
+		 * timestamp = (String) context.getAttribute(Fault.PROP_TIMESTAMP);
+		 * String faultType = (String) context
+		 * .getAttribute(Fault.PROP_FAULT_DECISION);
+		 */
+	}
 
-    private static ContextEventPattern[] getPermanentSubscriptions() {
-	ContextEventPattern cep = new ContextEventPattern();
-	cep.addRestriction(MergedRestriction.getAllValuesRestriction(
-		ContextEvent.PROP_RDF_SUBJECT, Fault.MY_URI));
+	private static ContextEventPattern[] getPermanentSubscriptions() {
+		ContextEventPattern cep = new ContextEventPattern();
+		cep.addRestriction(MergedRestriction.getAllValuesRestriction(ContextEvent.PROP_RDF_SUBJECT, Fault.MY_URI));
 
-	MergedRestriction r = 
-		MergedRestriction.getFixedValueRestriction(
-			ContextProvider.PROP_CONTEXT_PROVIDER_TYPE,
-			ContextProviderType.gauge).appendTo(
-			MergedRestriction.getAllValuesRestriction(
-				ContextEvent.PROP_CONTEXT_PROVIDER,
-				ContextProvider.MY_URI),
-			new String[] { ContextEvent.PROP_CONTEXT_PROVIDER,
-				ContextProvider.PROP_CONTEXT_PROVIDER_TYPE });
-	cep.addRestriction((MergedRestriction) r);
+		MergedRestriction r = MergedRestriction
+				.getFixedValueRestriction(ContextProvider.PROP_CONTEXT_PROVIDER_TYPE, ContextProviderType.gauge)
+				.appendTo(
+						MergedRestriction.getAllValuesRestriction(ContextEvent.PROP_CONTEXT_PROVIDER,
+								ContextProvider.MY_URI),
+						new String[] { ContextEvent.PROP_CONTEXT_PROVIDER,
+								ContextProvider.PROP_CONTEXT_PROVIDER_TYPE });
+		cep.addRestriction((MergedRestriction) r);
 
-	// HashMap contextMap = (HashMap) context.getAttribute(myID);//depends
-	// on the incoming context events
-	
-	return new ContextEventPattern[]{cep};
-    }
+		// HashMap contextMap = (HashMap) context.getAttribute(myID);//depends
+		// on the incoming context events
 
-    public void communicationChannelBroken() {
-	// TODO Auto-generated method stub
+		return new ContextEventPattern[] { cep };
+	}
 
-    }
+	public void communicationChannelBroken() {
+		// TODO Auto-generated method stub
 
-public void handleContextEvent(ContextEvent event) {
-	
-	String eventTimestamp = (String) event.getProperty(Fault.PROP_TIMESTAMP);
-	String eventType = (String) event.getProperty(Fault.PROP_FAULT_DECISION);
-	String eventLocation = (String) event.getProperty(Fault.PROP_LOCATION);
-	    
-	    
-//	    event.setRDFSubject(event);
-//	    event.setRDFPredicate(eventTimestamp);
-//	    event.setRDFObject(eventType);
-	    
-	    /*FileInputStream fis = null;
-	    try {
-		fis = new FileInputStream("Query.txt");
-	    } catch (FileNotFoundException e) {
-		
-		e.printStackTrace();
-	    }
-	    try {
-		InputStreamReader in = new InputStreamReader(fis, "UTF-8");
-	    } catch (UnsupportedEncodingException e) {
-		
-		e.printStackTrace();
-	    } */
-	  
-//	    ModuleContext thisSubscriberContext = (ModuleContext) event.getProvider();
-//	    SCaller caller = new SCaller(thisSubscriberContext);
-	    
-	 if (eventType == "http://ontology.universAAL.org/Dependability#Fault" && eventLocation == "http://ontology.universAAL.org/Dependability#FCR")
-	 {
-	     String queryString =
-		     "CONSTRUCT { <urn:org.universAAL.middleware.context.rdf:ContextEvent#_:0000000000000000:00>  <http://www.w3.org/1999/02/22-rdf-syntax-ns#type>  <http://ontology.universAAL.org/Context.owl#ContextEvent> "+
-		 "<http://www.w3.org/1999/02/22-rdf-syntax-ns#subject> <http://ontology.universAAL.org/Dependability#FCR> "+
-		 "<http://www.w3.org/1999/02/22-rdf-syntax-ns#predicate> <http://ontology.universAAL.org/Dependability#Fault>"+
-		 "<http://www.w3.org/1999/02/22-rdf-syntax-ns#object> \"100\"^^<http://www.w3.org/2001/XMLSchema#int> .}"+
-		 "WHERE		  {"+
-		 "<http://ontology.universAAL.org/Dependability#FCR> <http://ontology.universAAL.org/Dependability#Fault> ?a ."+
-		 "FILTER (?a > 100)"+
-		  "} \n";
-	     
-		    
-		    ReliabilityReasonerActivator.scaller.executeQuery(queryString);
-	
-	 }
-	 else if (eventType== "http://ontology.universAAL.org/Dependability#EarlyTimingFault" && eventLocation == "http://ontology.universAAL.org/Dependability#FCR")
-	 {
-	     String queryString =
-		     "CONSTRUCT { <urn:org.universAAL.middleware.context.rdf:ContextEvent#_:0000000000000000:00>  <http://www.w3.org/1999/02/22-rdf-syntax-ns#type>  <http://ontology.universAAL.org/Context.owl#ContextEvent> "+
-		 "<http://www.w3.org/1999/02/22-rdf-syntax-ns#subject> <http://ontology.universAAL.org/Dependability#FCR> "+
-		 "<http://www.w3.org/1999/02/22-rdf-syntax-ns#predicate> <http://ontology.universAAL.org/Dependability#EarlyTimingFault>"+
-		 "<http://www.w3.org/1999/02/22-rdf-syntax-ns#object> \"100\"^^<http://www.w3.org/2001/XMLSchema#int> .}"+
-		 "WHERE		  {"+
-		 "<http://ontology.universAAL.org/Dependability#FCR> <http://ontology.universAAL.org/Dependability#EarlyTimingFault> ?a ."+
-		 "FILTER (?a > 100)"+
-		  "} \n";
-	     
-		    
-	     ReliabilityReasonerActivator.scaller.executeQuery(queryString);
-	 }
-	 
-	 else if (eventType== "http://ontology.universAAL.org/Dependability#LateTimingFault" && eventLocation == "http://ontology.universAAL.org/Dependability#FCR")
-	 {
-	     String queryString =
-		     "CONSTRUCT { <urn:org.universAAL.middleware.context.rdf:ContextEvent#_:0000000000000000:00>  <http://www.w3.org/1999/02/22-rdf-syntax-ns#type>  <http://ontology.universAAL.org/Context.owl#ContextEvent> "+
-		 "<http://www.w3.org/1999/02/22-rdf-syntax-ns#subject> <http://ontology.universAAL.org/Dependability#FCR> "+
-		 "<http://www.w3.org/1999/02/22-rdf-syntax-ns#predicate> <http://ontology.universAAL.org/Dependability#LateTimingFault>"+
-		 "<http://www.w3.org/1999/02/22-rdf-syntax-ns#object> \"100\"^^<http://www.w3.org/2001/XMLSchema#int> .}"+
-		 "WHERE		  {"+
-		 "<http://ontology.universAAL.org/Dependability#FCR> <http://ontology.universAAL.org/Dependability#LateTimingFault> ?a ."+
-		 "FILTER (?a > 100)"+
-		  "} \n";
-	     
-		    
-	     ReliabilityReasonerActivator.scaller.executeQuery(queryString);
-	 }
-	 
-	 else if (eventType== "http://ontology.universAAL.org/Dependability#ValueFault" && eventLocation == "http://ontology.universAAL.org/Dependability#FCR")
-	 {
-	     String queryString =
-		     "CONSTRUCT { <urn:org.universAAL.middleware.context.rdf:ContextEvent#_:0000000000000000:00>  <http://www.w3.org/1999/02/22-rdf-syntax-ns#type>  <http://ontology.universAAL.org/Context.owl#ContextEvent> "+
-		 "<http://www.w3.org/1999/02/22-rdf-syntax-ns#subject> <http://ontology.universAAL.org/Dependability#FCR> "+
-		 "<http://www.w3.org/1999/02/22-rdf-syntax-ns#predicate> <http://ontology.universAAL.org/Dependability#ValueFault>"+
-		 "<http://www.w3.org/1999/02/22-rdf-syntax-ns#object> \"100\"^^<http://www.w3.org/2001/XMLSchema#int> .}"+
-		 "WHERE		  {"+
-		 "<http://ontology.universAAL.org/Dependability#FCR> <http://ontology.universAAL.org/Dependability#ValueFault> ?a ."+
-		 "FILTER (?a > 100)"+
-		  "} \n";
-	     
-		    
-	     ReliabilityReasonerActivator.scaller.executeQuery(queryString);
-	 }
-	 else
-	     {
-		     String queryString =
-			     "CONSTRUCT { <urn:org.universAAL.middleware.context.rdf:ContextEvent#_:0000000000000000:00>  <http://www.w3.org/1999/02/22-rdf-syntax-ns#type>  <http://ontology.universAAL.org/Context.owl#ContextEvent> "+
-			 "<http://www.w3.org/1999/02/22-rdf-syntax-ns#subject> <http://ontology.universAAL.org/Dependability#FCR> "+
-			 "<http://www.w3.org/1999/02/22-rdf-syntax-ns#predicate> <http://ontology.universAAL.org/Dependability#TransientFault>"+
-			 "<http://www.w3.org/1999/02/22-rdf-syntax-ns#object> "+eventTimestamp+"^^<http://www.w3.org/2001/XMLSchema#long> .}"+
-			  "} \n";
-		     
-			    
-		     ReliabilityReasonerActivator.scaller.executeQuery(queryString);
-		 }
-	
-	
+	}
 
-    }
+	public void handleContextEvent(ContextEvent event) {
 
-   /* 
-     * (non-Javadoc)
-     * 
-     * @see
-     * org.universAAL.middleware.context.ContextSubscriber#getAllProvisions()
-     
-    @Override
-    public ContextEventPattern[] getAllProvisions() {
-	Message m = null;
-	// TODO Auto-generated method stub
-	super.handleEvent(m);
-	m.getSource();
-	return super.getAllProvisions();
-    }*/
+		String eventTimestamp = (String) event.getProperty(Fault.PROP_TIMESTAMP);
+		String eventType = (String) event.getProperty(Fault.PROP_FAULT_DECISION);
+		String eventLocation = (String) event.getProperty(Fault.PROP_LOCATION);
+
+		// event.setRDFSubject(event);
+		// event.setRDFPredicate(eventTimestamp);
+		// event.setRDFObject(eventType);
+
+		/*
+		 * FileInputStream fis = null; try { fis = new
+		 * FileInputStream("Query.txt"); } catch (FileNotFoundException e) {
+		 * 
+		 * e.printStackTrace(); } try { InputStreamReader in = new
+		 * InputStreamReader(fis, "UTF-8"); } catch
+		 * (UnsupportedEncodingException e) {
+		 * 
+		 * e.printStackTrace(); }
+		 */
+
+		// ModuleContext thisSubscriberContext = (ModuleContext)
+		// event.getProvider();
+		// SCaller caller = new SCaller(thisSubscriberContext);
+
+		if (eventType == "http://ontology.universAAL.org/Dependability#Fault"
+				&& eventLocation == "http://ontology.universAAL.org/Dependability#FCR") {
+			String queryString = "CONSTRUCT { <urn:org.universAAL.middleware.context.rdf:ContextEvent#_:0000000000000000:00>  <http://www.w3.org/1999/02/22-rdf-syntax-ns#type>  <http://ontology.universAAL.org/Context.owl#ContextEvent> "
+					+ "<http://www.w3.org/1999/02/22-rdf-syntax-ns#subject> <http://ontology.universAAL.org/Dependability#FCR> "
+					+ "<http://www.w3.org/1999/02/22-rdf-syntax-ns#predicate> <http://ontology.universAAL.org/Dependability#Fault>"
+					+ "<http://www.w3.org/1999/02/22-rdf-syntax-ns#object> \"100\"^^<http://www.w3.org/2001/XMLSchema#int> .}"
+					+ "WHERE		  {"
+					+ "<http://ontology.universAAL.org/Dependability#FCR> <http://ontology.universAAL.org/Dependability#Fault> ?a ."
+					+ "FILTER (?a > 100)" + "} \n";
+
+			ReliabilityReasonerActivator.scaller.executeQuery(queryString);
+
+		} else if (eventType == "http://ontology.universAAL.org/Dependability#EarlyTimingFault"
+				&& eventLocation == "http://ontology.universAAL.org/Dependability#FCR") {
+			String queryString = "CONSTRUCT { <urn:org.universAAL.middleware.context.rdf:ContextEvent#_:0000000000000000:00>  <http://www.w3.org/1999/02/22-rdf-syntax-ns#type>  <http://ontology.universAAL.org/Context.owl#ContextEvent> "
+					+ "<http://www.w3.org/1999/02/22-rdf-syntax-ns#subject> <http://ontology.universAAL.org/Dependability#FCR> "
+					+ "<http://www.w3.org/1999/02/22-rdf-syntax-ns#predicate> <http://ontology.universAAL.org/Dependability#EarlyTimingFault>"
+					+ "<http://www.w3.org/1999/02/22-rdf-syntax-ns#object> \"100\"^^<http://www.w3.org/2001/XMLSchema#int> .}"
+					+ "WHERE		  {"
+					+ "<http://ontology.universAAL.org/Dependability#FCR> <http://ontology.universAAL.org/Dependability#EarlyTimingFault> ?a ."
+					+ "FILTER (?a > 100)" + "} \n";
+
+			ReliabilityReasonerActivator.scaller.executeQuery(queryString);
+		}
+
+		else if (eventType == "http://ontology.universAAL.org/Dependability#LateTimingFault"
+				&& eventLocation == "http://ontology.universAAL.org/Dependability#FCR") {
+			String queryString = "CONSTRUCT { <urn:org.universAAL.middleware.context.rdf:ContextEvent#_:0000000000000000:00>  <http://www.w3.org/1999/02/22-rdf-syntax-ns#type>  <http://ontology.universAAL.org/Context.owl#ContextEvent> "
+					+ "<http://www.w3.org/1999/02/22-rdf-syntax-ns#subject> <http://ontology.universAAL.org/Dependability#FCR> "
+					+ "<http://www.w3.org/1999/02/22-rdf-syntax-ns#predicate> <http://ontology.universAAL.org/Dependability#LateTimingFault>"
+					+ "<http://www.w3.org/1999/02/22-rdf-syntax-ns#object> \"100\"^^<http://www.w3.org/2001/XMLSchema#int> .}"
+					+ "WHERE		  {"
+					+ "<http://ontology.universAAL.org/Dependability#FCR> <http://ontology.universAAL.org/Dependability#LateTimingFault> ?a ."
+					+ "FILTER (?a > 100)" + "} \n";
+
+			ReliabilityReasonerActivator.scaller.executeQuery(queryString);
+		}
+
+		else if (eventType == "http://ontology.universAAL.org/Dependability#ValueFault"
+				&& eventLocation == "http://ontology.universAAL.org/Dependability#FCR") {
+			String queryString = "CONSTRUCT { <urn:org.universAAL.middleware.context.rdf:ContextEvent#_:0000000000000000:00>  <http://www.w3.org/1999/02/22-rdf-syntax-ns#type>  <http://ontology.universAAL.org/Context.owl#ContextEvent> "
+					+ "<http://www.w3.org/1999/02/22-rdf-syntax-ns#subject> <http://ontology.universAAL.org/Dependability#FCR> "
+					+ "<http://www.w3.org/1999/02/22-rdf-syntax-ns#predicate> <http://ontology.universAAL.org/Dependability#ValueFault>"
+					+ "<http://www.w3.org/1999/02/22-rdf-syntax-ns#object> \"100\"^^<http://www.w3.org/2001/XMLSchema#int> .}"
+					+ "WHERE		  {"
+					+ "<http://ontology.universAAL.org/Dependability#FCR> <http://ontology.universAAL.org/Dependability#ValueFault> ?a ."
+					+ "FILTER (?a > 100)" + "} \n";
+
+			ReliabilityReasonerActivator.scaller.executeQuery(queryString);
+		} else {
+			String queryString = "CONSTRUCT { <urn:org.universAAL.middleware.context.rdf:ContextEvent#_:0000000000000000:00>  <http://www.w3.org/1999/02/22-rdf-syntax-ns#type>  <http://ontology.universAAL.org/Context.owl#ContextEvent> "
+					+ "<http://www.w3.org/1999/02/22-rdf-syntax-ns#subject> <http://ontology.universAAL.org/Dependability#FCR> "
+					+ "<http://www.w3.org/1999/02/22-rdf-syntax-ns#predicate> <http://ontology.universAAL.org/Dependability#TransientFault>"
+					+ "<http://www.w3.org/1999/02/22-rdf-syntax-ns#object> " + eventTimestamp
+					+ "^^<http://www.w3.org/2001/XMLSchema#long> .}" + "} \n";
+
+			ReliabilityReasonerActivator.scaller.executeQuery(queryString);
+		}
+
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.universAAL.middleware.context.ContextSubscriber#getAllProvisions()
+	 * 
+	 * @Override public ContextEventPattern[] getAllProvisions() { Message m =
+	 * null; // TODO Auto-generated method stub super.handleEvent(m);
+	 * m.getSource(); return super.getAllProvisions(); }
+	 */
 
 }

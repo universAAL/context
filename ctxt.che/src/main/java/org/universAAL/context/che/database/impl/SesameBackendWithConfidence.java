@@ -70,170 +70,150 @@ import org.universAAL.middleware.util.Constants;
  * 
  */
 public class SesameBackendWithConfidence extends SesameBackend {
-    /**
-     * Logger.
-     */
-    private static Log log = Hub.getLog(SesameBackendWithConfidence.class);
-    /**
-     * Threshold for confidence.
-     */
-    private int threshold = 0;
+	/**
+	 * Logger.
+	 */
+	private static Log log = Hub.getLog(SesameBackendWithConfidence.class);
+	/**
+	 * Threshold for confidence.
+	 */
+	private int threshold = 0;
 
-    /**
-     * Main constructor.
-     */
-    public SesameBackendWithConfidence() {
-	super();
-	String conf = Hub.getProperties().getProperty("STORE.CONFIDENCE");
-	if (conf != null) {
-	    try {
-		setThreshold(Integer.parseInt(conf));
-	    } catch (Exception e) {
-		log.error("init", "Invalid confidence threshold. Using 0.", e);
-		setThreshold(0);
-	    }
-
-	} else {
-	    setThreshold(0);
-	}
-    }
-
-    /**
-     * Constructor with initial confidence.
-     * 
-     * @param confidence
-     *            Threshold for confidence
-     */
-    public SesameBackendWithConfidence(int confidence) {
-	super();
-	this.setThreshold(confidence);
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see
-     * org.universAAL.context.che.database.impl.SesameBackend#storeEvent(org
-     * .universAAL.middleware.context.ContextEvent)
-     */
-    @Override
-    synchronized public void storeEvent(ContextEvent e) {
-	try {
-//	    RepositoryConnection con = myRepository.getConnection();
-	    try {
-		log.debug("storeEvent",
-			"Adding event to store, if enough confidence");
-		Integer conf = e.getConfidence();
-		// This will stay null if no tenants
-		URI[] contextArray = null;
-		if (tenantAware) {
-		    // Tenant-aware enabled: add tenants as RDF context
-		    List scopeList = e.getScopes();
-		    if (!scopeList.isEmpty()) {
-			ValueFactory f = myRepository.getValueFactory();
-			String[] scopeArray = (String[]) scopeList
-				.toArray(new String[0]);
-			contextArray = new URI[scopeArray.length];
-			for (int i = 0; i < scopeArray.length; i++) {
-			    // Check that scope is valid URI
-			    contextArray[i] = f
-				    .createURI(Resource
-					    .isQualifiedName(scopeArray[i]) ? scopeArray[i]
-					    : Constants.uAAL_MIDDLEWARE_LOCAL_ID_PREFIX
-						    + scopeArray[i]);
-			}
-		    }
-		}
+	/**
+	 * Main constructor.
+	 */
+	public SesameBackendWithConfidence() {
+		super();
+		String conf = Hub.getProperties().getProperty("STORE.CONFIDENCE");
 		if (conf != null) {
-		    if (conf.intValue() < threshold) {
-			TurtleParser sesameParser = new TurtleParser();
-			StatementCollector stHandler = new StatementCollector();
-			sesameParser.setRDFHandler(stHandler);
-			sesameParser.parse(
-				new StringReader(uAALParser.serialize(e)),
-				e.getURI());
-			Iterator<Statement> sts = stHandler.getStatements()
-				.iterator();
-			// store only stmts having event as subject
-			while (sts.hasNext()) {
-			    Statement st = sts.next();
-			    if (st.getSubject().stringValue()
-				    .equals(e.getURI())) {
-				if (contextArray != null) {
-				    con.add(st, contextArray);
-				} else {
-				    con.add(st);
-				}
-			    }
+			try {
+				setThreshold(Integer.parseInt(conf));
+			} catch (Exception e) {
+				log.error("init", "Invalid confidence threshold. Using 0.", e);
+				setThreshold(0);
 			}
-			log.info("storeEvent",
-				"CHe: Stored a Context Event with low "
-					+ "Confidence: Not reified.");
-		    } else {
-			if (contextArray != null) {
-			    con.add(new StringReader(uAALParser.serialize(e)),
-				    e.getURI(), RDFFormat.TURTLE, contextArray);
-			} else {
-			    con.add(new StringReader(uAALParser.serialize(e)),
-				    e.getURI(), RDFFormat.TURTLE);
-			}
-			log.info("storeEvent",
-				"CHe: Stored a Context Event with high "
-					+ "Confidence");
-		    }
-		} else { // TODO: What to do if events have no confidence?
-		    if (contextArray != null) {
-			con.add(new StringReader(uAALParser.serialize(e)),
-				e.getURI(), RDFFormat.TURTLE, contextArray);
-		    } else {
-			con.add(new StringReader(uAALParser.serialize(e)),
-				e.getURI(), RDFFormat.TURTLE);
-		    }
-		    log.info("storeEvent",
-			    "CHe: Stored a Context Event without Confidence");
+
+		} else {
+			setThreshold(0);
 		}
-		log.debug("storeEvent", "Successfully added event to store");
-	    } catch (IOException exc) {
-		log.error(
-			"storeEvent",
-			"Error trying to add event to the store. "
-				+ "In older versions this usually happened "
-				+ "because of the underlying connection closing"
-				+ " due to inactivity, but now it is because: {}",
-			exc);
-		exc.printStackTrace();
-	    } finally {
-//		con.close();
-	    }
-	} catch (OpenRDFException exc) {
-	    log.error("storeEvent",
-		    "Error trying to get connection to store: {}", exc);
-	    exc.printStackTrace();
-	}
-    }
-
-    /**
-     * Get the threshold for confidence.
-     * 
-     * @return threshold
-     */
-    public int getThreshold() {
-	return threshold;
-    }
-
-    /**
-     * Set the threshold for confidence.
-     * 
-     * @param threshold
-     *            for confidence
-     */
-    public final void setThreshold(int threshold) {
-	if (threshold < 100) {
-	    this.threshold = threshold;
-	} else {
-	    this.threshold = 100;
 	}
 
-    }
+	/**
+	 * Constructor with initial confidence.
+	 * 
+	 * @param confidence
+	 *            Threshold for confidence
+	 */
+	public SesameBackendWithConfidence(int confidence) {
+		super();
+		this.setThreshold(confidence);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.universAAL.context.che.database.impl.SesameBackend#storeEvent(org
+	 * .universAAL.middleware.context.ContextEvent)
+	 */
+	@Override
+	synchronized public void storeEvent(ContextEvent e) {
+		try {
+			// RepositoryConnection con = myRepository.getConnection();
+			try {
+				log.debug("storeEvent", "Adding event to store, if enough confidence");
+				Integer conf = e.getConfidence();
+				// This will stay null if no tenants
+				URI[] contextArray = null;
+				if (tenantAware) {
+					// Tenant-aware enabled: add tenants as RDF context
+					List scopeList = e.getScopes();
+					if (!scopeList.isEmpty()) {
+						ValueFactory f = myRepository.getValueFactory();
+						String[] scopeArray = (String[]) scopeList.toArray(new String[0]);
+						contextArray = new URI[scopeArray.length];
+						for (int i = 0; i < scopeArray.length; i++) {
+							// Check that scope is valid URI
+							contextArray[i] = f.createURI(Resource.isQualifiedName(scopeArray[i]) ? scopeArray[i]
+									: Constants.uAAL_MIDDLEWARE_LOCAL_ID_PREFIX + scopeArray[i]);
+						}
+					}
+				}
+				if (conf != null) {
+					if (conf.intValue() < threshold) {
+						TurtleParser sesameParser = new TurtleParser();
+						StatementCollector stHandler = new StatementCollector();
+						sesameParser.setRDFHandler(stHandler);
+						sesameParser.parse(new StringReader(uAALParser.serialize(e)), e.getURI());
+						Iterator<Statement> sts = stHandler.getStatements().iterator();
+						// store only stmts having event as subject
+						while (sts.hasNext()) {
+							Statement st = sts.next();
+							if (st.getSubject().stringValue().equals(e.getURI())) {
+								if (contextArray != null) {
+									con.add(st, contextArray);
+								} else {
+									con.add(st);
+								}
+							}
+						}
+						log.info("storeEvent", "CHe: Stored a Context Event with low " + "Confidence: Not reified.");
+					} else {
+						if (contextArray != null) {
+							con.add(new StringReader(uAALParser.serialize(e)), e.getURI(), RDFFormat.TURTLE,
+									contextArray);
+						} else {
+							con.add(new StringReader(uAALParser.serialize(e)), e.getURI(), RDFFormat.TURTLE);
+						}
+						log.info("storeEvent", "CHe: Stored a Context Event with high " + "Confidence");
+					}
+				} else { // TODO: What to do if events have no confidence?
+					if (contextArray != null) {
+						con.add(new StringReader(uAALParser.serialize(e)), e.getURI(), RDFFormat.TURTLE, contextArray);
+					} else {
+						con.add(new StringReader(uAALParser.serialize(e)), e.getURI(), RDFFormat.TURTLE);
+					}
+					log.info("storeEvent", "CHe: Stored a Context Event without Confidence");
+				}
+				log.debug("storeEvent", "Successfully added event to store");
+			} catch (IOException exc) {
+				log.error("storeEvent",
+						"Error trying to add event to the store. " + "In older versions this usually happened "
+								+ "because of the underlying connection closing"
+								+ " due to inactivity, but now it is because: {}",
+						exc);
+				exc.printStackTrace();
+			} finally {
+				// con.close();
+			}
+		} catch (OpenRDFException exc) {
+			log.error("storeEvent", "Error trying to get connection to store: {}", exc);
+			exc.printStackTrace();
+		}
+	}
+
+	/**
+	 * Get the threshold for confidence.
+	 * 
+	 * @return threshold
+	 */
+	public int getThreshold() {
+		return threshold;
+	}
+
+	/**
+	 * Set the threshold for confidence.
+	 * 
+	 * @param threshold
+	 *            for confidence
+	 */
+	public final void setThreshold(int threshold) {
+		if (threshold < 100) {
+			this.threshold = threshold;
+		} else {
+			this.threshold = 100;
+		}
+
+	}
 
 }

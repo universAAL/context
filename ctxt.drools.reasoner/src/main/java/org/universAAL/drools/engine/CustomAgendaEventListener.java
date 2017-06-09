@@ -41,8 +41,7 @@ public class CustomAgendaEventListener implements AgendaEventListener {
 	public CustomAgendaEventListener() {
 		try {
 			logger.setLevel(Level.INFO);
-			System.out
-					.println("SYSOUT-------------------->>>>SETTING UP LOGGER");
+			System.out.println("SYSOUT-------------------->>>>SETTING UP LOGGER");
 			logger.info("SETTING UP LOGGER");
 			fh = new FileHandler("Agenda.log");
 			SimpleFormatter format = new SimpleFormatter();

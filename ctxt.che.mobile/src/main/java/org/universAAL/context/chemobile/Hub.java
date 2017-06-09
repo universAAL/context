@@ -36,44 +36,44 @@ import org.universAAL.middleware.serialization.MessageContentSerializer;
  */
 public class Hub {
 
-    /**
-     * The context subscriber.
-     */
-    private MobileHistorySubscriber hc;
-    /**
-     * Config folder.
-     */
-    protected static File confHome = new File(Activator.osgiConfigPath);
+	/**
+	 * The context subscriber.
+	 */
+	private MobileHistorySubscriber hc;
+	/**
+	 * Config folder.
+	 */
+	protected static File confHome = new File(Activator.osgiConfigPath);
 
-    /**
-     * To be called when application starts. Used to be Activator.start().
-     * 
-     * @param context
-     *            uaal module context
-     * @throws Exception
-     *             If anything goes wrong
-     */
-    public void start(ModuleContext context) throws Exception {
-	hc = new MobileHistorySubscriber(context);
-    }
+	/**
+	 * To be called when application starts. Used to be Activator.start().
+	 * 
+	 * @param context
+	 *            uaal module context
+	 * @throws Exception
+	 *             If anything goes wrong
+	 */
+	public void start(ModuleContext context) throws Exception {
+		hc = new MobileHistorySubscriber(context);
+	}
 
-    /**
-     * To be called when application stops. Used to be Activator.stop().
-     * 
-     * @throws Exception
-     */
-    public void stop() throws Exception {
-	hc.close();
-    }
+	/**
+	 * To be called when application stops. Used to be Activator.stop().
+	 * 
+	 * @throws Exception
+	 */
+	public void stop() throws Exception {
+		hc.close();
+	}
 
-    /**
-     * Set the turtle-uaal parser. Make sure it's called after start().
-     * 
-     * @param service
-     *            The parser
-     */
-    public void setuAALParser(MessageContentSerializer service) {
-	hc.setuAALParser(service);
-    }
+	/**
+	 * Set the turtle-uaal parser. Make sure it's called after start().
+	 * 
+	 * @param service
+	 *            The parser
+	 */
+	public void setuAALParser(MessageContentSerializer service) {
+		hc.setuAALParser(service);
+	}
 
 }

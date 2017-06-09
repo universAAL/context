@@ -84,23 +84,16 @@ public class CardinalityNativeStoreConnection extends NotifyingSailConnectionBas
 	 * Constructors *
 	 *--------------*/
 
-	protected CardinalityNativeStoreConnection(CardinalityNativeStore nativeStore)
-		throws IOException
-	{
+	protected CardinalityNativeStoreConnection(CardinalityNativeStore nativeStore) throws IOException {
 		super(nativeStore);
 		this.nativeStore = nativeStore;
-		//Preload for performance of cardinality
-		onProp = nativeStore.getValueFactory().createURI(
-			"http://www.w3.org/2002/07/owl#onProperty");
-		maxCard = nativeStore.getValueFactory().createURI(
-			"http://www.w3.org/2002/07/owl#maxCardinality");
-		exactCard = nativeStore.getValueFactory().createURI(
-			"http://www.w3.org/2002/07/owl#cardinality");
-		nonNativeInt= nativeStore.getValueFactory().createURI(
-			"http://www.w3.org/2001/XMLSchema#nonNegativeInteger");
-		one = nativeStore.getValueFactory().createLiteral("1",
-			nonNativeInt);
-		
+		// Preload for performance of cardinality
+		onProp = nativeStore.getValueFactory().createURI("http://www.w3.org/2002/07/owl#onProperty");
+		maxCard = nativeStore.getValueFactory().createURI("http://www.w3.org/2002/07/owl#maxCardinality");
+		exactCard = nativeStore.getValueFactory().createURI("http://www.w3.org/2002/07/owl#cardinality");
+		nonNativeInt = nativeStore.getValueFactory().createURI("http://www.w3.org/2001/XMLSchema#nonNegativeInteger");
+		one = nativeStore.getValueFactory().createLiteral("1", nonNativeInt);
+
 		sailChangedEvent = new DefaultSailChangedEvent(nativeStore);
 	}
 
@@ -114,10 +107,8 @@ public class CardinalityNativeStoreConnection extends NotifyingSailConnectionBas
 	}
 
 	@Override
-	protected CloseableIteration<? extends BindingSet, QueryEvaluationException> evaluateInternal(
-			TupleExpr tupleExpr, Dataset dataset, BindingSet bindings, boolean includeInferred)
-		throws SailException
-	{
+	protected CloseableIteration<? extends BindingSet, QueryEvaluationException> evaluateInternal(TupleExpr tupleExpr,
+			Dataset dataset, BindingSet bindings, boolean includeInferred) throws SailException {
 		logger.trace("Incoming query model:\n{}", tupleExpr);
 
 		// Clone the tuple expression to allow for more aggressive optimizations
@@ -132,8 +123,7 @@ public class CardinalityNativeStoreConnection extends NotifyingSailConnectionBas
 		try {
 			replaceValues(tupleExpr);
 
-			NativeTripleSource tripleSource = new NativeTripleSource(nativeStore, includeInferred,
-					transactionActive());
+			NativeTripleSource tripleSource = new NativeTripleSource(nativeStore, includeInferred, transactionActive());
 			EvaluationStrategyImpl strategy = new EvaluationStrategyImpl(tripleSource, dataset);
 
 			new BindingAssigner().optimize(tupleExpr, dataset, bindings);
@@ -143,8 +133,7 @@ public class CardinalityNativeStoreConnection extends NotifyingSailConnectionBas
 			new DisjunctiveConstraintOptimizer().optimize(tupleExpr, dataset, bindings);
 			new SameTermFilterOptimizer().optimize(tupleExpr, dataset, bindings);
 			new QueryModelNormalizer().optimize(tupleExpr, dataset, bindings);
-			new QueryJoinOptimizer(new NativeEvaluationStatistics(nativeStore)).optimize(tupleExpr, dataset,
-					bindings);
+			new QueryJoinOptimizer(new NativeEvaluationStatistics(nativeStore)).optimize(tupleExpr, dataset, bindings);
 			new IterativeEvaluationOptimizer().optimize(tupleExpr, dataset, bindings);
 			new FilterOptimizer().optimize(tupleExpr, dataset, bindings);
 			new OrderLimitOptimizer().optimize(tupleExpr, dataset, bindings);
@@ -152,16 +141,14 @@ public class CardinalityNativeStoreConnection extends NotifyingSailConnectionBas
 			logger.trace("Optimized query model:\n{}", tupleExpr);
 
 			return strategy.evaluate(tupleExpr, EmptyBindingSet.getInstance());
-		}
-		catch (QueryEvaluationException e) {
+		} catch (QueryEvaluationException e) {
 			throw new SailException(e);
 		}
 	}
 
-	protected void replaceValues(TupleExpr tupleExpr)
-		throws SailException
-	{
-		// Replace all Value objects stored in variables with NativeValue objects,
+	protected void replaceValues(TupleExpr tupleExpr) throws SailException {
+		// Replace all Value objects stored in variables with NativeValue
+		// objects,
 		// which cache internal IDs
 		tupleExpr.visit(new QueryModelVisitorBase<SailException>() {
 
@@ -175,13 +162,12 @@ public class CardinalityNativeStoreConnection extends NotifyingSailConnectionBas
 	}
 
 	@Override
-	protected CloseableIteration<? extends Resource, SailException> getContextIDsInternal()
-		throws SailException
-	{
+	protected CloseableIteration<? extends Resource, SailException> getContextIDsInternal() throws SailException {
 		// Which resources are used as context identifiers is not stored
 		// separately. Iterate over all statements and extract their context.
 		try {
-			CloseableIteration<? extends Resource, IOException> contextIter = nativeStore.getContextIDs(transactionActive());
+			CloseableIteration<? extends Resource, IOException> contextIter = nativeStore
+					.getContextIDs(transactionActive());
 
 			return new ExceptionConvertingIteration<Resource, SailException>(contextIter) {
 
@@ -189,32 +175,26 @@ public class CardinalityNativeStoreConnection extends NotifyingSailConnectionBas
 				protected SailException convert(Exception e) {
 					if (e instanceof IOException) {
 						return new SailException(e);
-					}
-					else if (e instanceof RuntimeException) {
-						throw (RuntimeException)e;
-					}
-					else if (e == null) {
+					} else if (e instanceof RuntimeException) {
+						throw (RuntimeException) e;
+					} else if (e == null) {
 						throw new IllegalArgumentException("e must not be null");
-					}
-					else {
+					} else {
 						throw new IllegalArgumentException("Unexpected exception type: " + e.getClass());
 					}
 				}
 			};
-		}
-		catch (IOException e) {
+		} catch (IOException e) {
 			throw new SailException(e);
 		}
 	}
 
 	@Override
-	protected CloseableIteration<? extends Statement, SailException> getStatementsInternal(Resource subj,
-			URI pred, Value obj, boolean includeInferred, Resource... contexts)
-		throws SailException
-	{
+	protected CloseableIteration<? extends Statement, SailException> getStatementsInternal(Resource subj, URI pred,
+			Value obj, boolean includeInferred, Resource... contexts) throws SailException {
 		try {
-			CloseableIteration<? extends Statement, IOException> iter = nativeStore.createStatementIterator(
-					subj, pred, obj, includeInferred, transactionActive(), contexts);
+			CloseableIteration<? extends Statement, IOException> iter = nativeStore.createStatementIterator(subj, pred,
+					obj, includeInferred, transactionActive(), contexts);
 
 			return new ExceptionConvertingIteration<Statement, SailException>(iter) {
 
@@ -222,36 +202,29 @@ public class CardinalityNativeStoreConnection extends NotifyingSailConnectionBas
 				protected SailException convert(Exception e) {
 					if (e instanceof IOException) {
 						return new SailException(e);
-					}
-					else if (e instanceof RuntimeException) {
-						throw (RuntimeException)e;
-					}
-					else if (e == null) {
+					} else if (e instanceof RuntimeException) {
+						throw (RuntimeException) e;
+					} else if (e == null) {
 						throw new IllegalArgumentException("e must not be null");
-					}
-					else {
+					} else {
 						throw new IllegalArgumentException("Unexpected exception type: " + e.getClass());
 					}
 				}
 			};
-		}
-		catch (IOException e) {
+		} catch (IOException e) {
 			throw new SailException("Unable to get statements", e);
 		}
 	}
 
 	@Override
-	protected long sizeInternal(Resource... contexts)
-		throws SailException
-	{
+	protected long sizeInternal(Resource... contexts) throws SailException {
 		OpenRDFUtil.verifyContextNotNull(contexts);
 
 		try {
 			List<Integer> contextIDs;
 			if (contexts.length == 0) {
 				contextIDs = Arrays.asList(NativeValue.UNKNOWN_ID);
-			}
-			else {
+			} else {
 				contextIDs = nativeStore.getContextIDs(contexts);
 			}
 
@@ -265,23 +238,20 @@ public class CardinalityNativeStoreConnection extends NotifyingSailConnectionBas
 					while (iter.next() != null) {
 						size++;
 					}
-				}
-				finally {
+				} finally {
 					iter.close();
 				}
 			}
 
 			return size;
-		}
-		catch (IOException e) {
+		} catch (IOException e) {
 			throw new SailException(e);
 		}
 	}
-	
+
 	public long size(Resource subj, URI pred, Value obj, boolean includeInferred, Resource... contexts)
-		throws SailException
-	{
-	    OpenRDFUtil.verifyContextNotNull(contexts);
+			throws SailException {
+		OpenRDFUtil.verifyContextNotNull(contexts);
 		try {
 			ValueStore valueStore = nativeStore.getValueStore();
 
@@ -309,8 +279,7 @@ public class CardinalityNativeStoreConnection extends NotifyingSailConnectionBas
 			List<Integer> contextIDs;
 			if (contexts != null && contexts.length == 0) {
 				contextIDs = Arrays.asList(NativeValue.UNKNOWN_ID);
-			}
-			else {
+			} else {
 				contextIDs = nativeStore.getContextIDs(contexts);
 			}
 
@@ -325,80 +294,67 @@ public class CardinalityNativeStoreConnection extends NotifyingSailConnectionBas
 					while (iter.next() != null) {
 						size++;
 					}
-				}
-				finally {
+				} finally {
 					iter.close();
 				}
 			}
 
 			return size;
-		}
-		catch (IOException e) {
+		} catch (IOException e) {
 			throw new SailException(e);
 		}
 	}
 
 	@Override
-	protected CloseableIteration<? extends Namespace, SailException> getNamespacesInternal()
-		throws SailException
-	{
-		return new CloseableIteratorIteration<NamespaceImpl, SailException>(
-				nativeStore.getNamespaceStore().iterator());
+	protected CloseableIteration<? extends Namespace, SailException> getNamespacesInternal() throws SailException {
+		return new CloseableIteratorIteration<NamespaceImpl, SailException>(nativeStore.getNamespaceStore().iterator());
 	}
 
 	@Override
-	protected String getNamespaceInternal(String prefix)
-		throws SailException
-	{
+	protected String getNamespaceInternal(String prefix) throws SailException {
 		return nativeStore.getNamespaceStore().getNamespace(prefix);
 	}
 
 	@Override
-	protected void startTransactionInternal()
-		throws SailException
-	{
+	protected void startTransactionInternal() throws SailException {
 		txnLock = nativeStore.getTransactionLock();
-//	//This is old original code replaced with latest original version
-//		try {
-//			nativeStore.getTripleStore().startTransaction();
-//		}
-//		catch (IOException e) {
-//			txnLock.release();
-//			throw new SailException(e);
-//		}
-//		catch (RuntimeException e) {
-//			txnLock.release();
-//			throw e;
-//		}
+		// //This is old original code replaced with latest original version
+		// try {
+		// nativeStore.getTripleStore().startTransaction();
+		// }
+		// catch (IOException e) {
+		// txnLock.release();
+		// throw new SailException(e);
+		// }
+		// catch (RuntimeException e) {
+		// txnLock.release();
+		// throw e;
+		// }
 		boolean relaseLock = true;
 
 		try {
-		    nativeStore.getTripleStore().startTransaction();
-		    relaseLock = false;
+			nativeStore.getTripleStore().startTransaction();
+			relaseLock = false;
 		} catch (IOException e) {
-		    throw new SailException(e);
+			throw new SailException(e);
 		} finally {
-		    if (relaseLock) {
-			txnLock.release();
-		    }
+			if (relaseLock) {
+				txnLock.release();
+			}
 		}
 	}
 
 	@Override
-	protected void commitInternal()
-		throws SailException
-	{
+	protected void commitInternal() throws SailException {
 		try {
 			nativeStore.getValueStore().sync();
 			nativeStore.getNamespaceStore().sync();
 			nativeStore.getTripleStore().commit();
 
 			txnLock.release();
-		}
-		catch (IOException e) {
+		} catch (IOException e) {
 			throw new SailException(e);
-		}
-		catch (RuntimeException e) {
+		} catch (RuntimeException e) {
 			logger.error("Encountered an unexpected problem while trying to commit", e);
 			throw e;
 		}
@@ -410,35 +366,26 @@ public class CardinalityNativeStoreConnection extends NotifyingSailConnectionBas
 	}
 
 	@Override
-	protected void rollbackInternal()
-		throws SailException
-	{
+	protected void rollbackInternal() throws SailException {
 		try {
 			nativeStore.getValueStore().sync();
 			nativeStore.getTripleStore().rollback();
-		}
-		catch (IOException e) {
+		} catch (IOException e) {
 			throw new SailException(e);
-		}
-		catch (RuntimeException e) {
+		} catch (RuntimeException e) {
 			logger.error("Encountered an unexpected problem while trying to roll back", e);
 			throw e;
-		}
-		finally {
+		} finally {
 			txnLock.release();
 		}
 	}
 
 	@Override
-	protected void addStatementInternal(Resource subj, URI pred, Value obj, Resource... contexts)
-		throws SailException
-	{
+	protected void addStatementInternal(Resource subj, URI pred, Value obj, Resource... contexts) throws SailException {
 		addStatement(subj, pred, obj, true, contexts);
 	}
 
-	public boolean addInferredStatement(Resource subj, URI pred, Value obj, Resource... contexts)
-		throws SailException
-	{
+	public boolean addInferredStatement(Resource subj, URI pred, Value obj, Resource... contexts) throws SailException {
 		connectionLock.readLock().lock();
 		try {
 			verifyIsOpen();
@@ -447,19 +394,16 @@ public class CardinalityNativeStoreConnection extends NotifyingSailConnectionBas
 			try {
 				autoStartTransaction();
 				return addStatement(subj, pred, obj, false, contexts);
-			}
-			finally {
+			} finally {
 				updateLock.unlock();
 			}
-		}
-		finally {
+		} finally {
 			connectionLock.readLock().unlock();
 		}
 	}
 
 	protected boolean addStatement(Resource subj, URI pred, Value obj, boolean explicit, Resource... contexts)
-		throws SailException
-	{
+			throws SailException {
 		OpenRDFUtil.verifyContextNotNull(contexts);
 
 		boolean result = false;
@@ -480,13 +424,25 @@ public class CardinalityNativeStoreConnection extends NotifyingSailConnectionBas
 					contextID = valueStore.storeValue(context);
 				}
 
-				//START PATCH CARDINALITY
-				if(hasMaxCardinality1(pred, contexts) && explicit){//Property has max/Card=1 & stmt not inferrd
-				    removeStatements(subj, pred, null, true, contexts);//rem. existing values so there is only 1
+				// START PATCH CARDINALITY
+				if (hasMaxCardinality1(pred, contexts) && explicit) {// Property
+																		// has
+																		// max/Card=1
+																		// &
+																		// stmt
+																		// not
+																		// inferrd
+					removeStatements(subj, pred, null, true, contexts);// rem.
+																		// existing
+																		// values
+																		// so
+																		// there
+																		// is
+																		// only
+																		// 1
 				}
-				//END PATCH CARDINALITY
-				boolean wasNew = nativeStore.getTripleStore().storeTriple(subjID, predID, objID, contextID,
-						explicit);
+				// END PATCH CARDINALITY
+				boolean wasNew = nativeStore.getTripleStore().storeTriple(subjID, predID, objID, contextID, explicit);
 				result |= wasNew;
 
 				if (wasNew) {
@@ -498,8 +454,7 @@ public class CardinalityNativeStoreConnection extends NotifyingSailConnectionBas
 
 						if (context != null) {
 							st = valueStore.createStatement(subj, pred, obj, context);
-						}
-						else {
+						} else {
 							st = valueStore.createStatement(subj, pred, obj);
 						}
 
@@ -507,11 +462,9 @@ public class CardinalityNativeStoreConnection extends NotifyingSailConnectionBas
 					}
 				}
 			}
-		}
-		catch (IOException e) {
+		} catch (IOException e) {
 			throw new SailException(e);
-		}
-		catch (RuntimeException e) {
+		} catch (RuntimeException e) {
 			logger.error("Encountered an unexpected problem while trying to add a statement", e);
 			throw e;
 		}
@@ -519,48 +472,45 @@ public class CardinalityNativeStoreConnection extends NotifyingSailConnectionBas
 		return result;
 	}
 
-    protected boolean hasMaxCardinality1(URI pred, Resource[] contexts)
-	    throws SailException {
-//	URI onProp = nativeStore.getValueFactory().createURI(
-//		"http://www.w3.org/2002/07/owl#onProperty");
-	// Get all restrictions on Property "pred"
-	CloseableIteration<Statement, SailException> subs = (CloseableIteration<Statement, SailException>) getStatementsInternal(
-		null, onProp, pred, true, contexts);
-	if (!subs.hasNext()) {
-	    return false;// Property has no OWL restrictions
-	} else {
-	    try {
-//		URI maxCard = nativeStore.getValueFactory().createURI(
-//			"http://www.w3.org/2002/07/owl#maxCardinality");
-//		URI nonNativeInt= nativeStore.getValueFactory().createURI(
-//			"http://www.w3.org/2001/XMLSchema#nonNegativeInteger");
-//		Value one = nativeStore.getValueFactory().createLiteral("1",
-//			nonNativeInt);
-		while (subs.hasNext()) {
-		    Statement st = subs.next();
-		    // For each subject (a Restriction on "pred") check if it's
-		    // maxCardinality and ==1
-		    if (size(st.getSubject(), maxCard, one, true, contexts) > 0 || size(st.getSubject(), exactCard, one, true, contexts) > 0)
-			return true;
+	protected boolean hasMaxCardinality1(URI pred, Resource[] contexts) throws SailException {
+		// URI onProp = nativeStore.getValueFactory().createURI(
+		// "http://www.w3.org/2002/07/owl#onProperty");
+		// Get all restrictions on Property "pred"
+		CloseableIteration<Statement, SailException> subs = (CloseableIteration<Statement, SailException>) getStatementsInternal(
+				null, onProp, pred, true, contexts);
+		if (!subs.hasNext()) {
+			return false;// Property has no OWL restrictions
+		} else {
+			try {
+				// URI maxCard = nativeStore.getValueFactory().createURI(
+				// "http://www.w3.org/2002/07/owl#maxCardinality");
+				// URI nonNativeInt= nativeStore.getValueFactory().createURI(
+				// "http://www.w3.org/2001/XMLSchema#nonNegativeInteger");
+				// Value one = nativeStore.getValueFactory().createLiteral("1",
+				// nonNativeInt);
+				while (subs.hasNext()) {
+					Statement st = subs.next();
+					// For each subject (a Restriction on "pred") check if it's
+					// maxCardinality and ==1
+					if (size(st.getSubject(), maxCard, one, true, contexts) > 0
+							|| size(st.getSubject(), exactCard, one, true, contexts) > 0)
+						return true;
+				}
+			} finally {
+				subs.close();
+			}
 		}
-	    } finally {
-		subs.close();
-	    }
+		return false;
 	}
-	return false;
-    }
-	
 
 	@Override
 	protected void removeStatementsInternal(Resource subj, URI pred, Value obj, Resource... contexts)
-		throws SailException
-	{
+			throws SailException {
 		removeStatements(subj, pred, obj, true, contexts);
 	}
 
 	public boolean removeInferredStatement(Resource subj, URI pred, Value obj, Resource... contexts)
-		throws SailException
-	{
+			throws SailException {
 		connectionLock.readLock().lock();
 		try {
 			verifyIsOpen();
@@ -570,19 +520,16 @@ public class CardinalityNativeStoreConnection extends NotifyingSailConnectionBas
 				autoStartTransaction();
 				int removeCount = removeStatements(subj, pred, obj, false, contexts);
 				return removeCount > 0;
-			}
-			finally {
+			} finally {
 				updateLock.unlock();
 			}
-		}
-		finally {
+		} finally {
 			connectionLock.readLock().unlock();
 		}
 	}
 
 	protected int removeStatements(Resource subj, URI pred, Value obj, boolean explicit, Resource... contexts)
-		throws SailException
-	{
+			throws SailException {
 		OpenRDFUtil.verifyContextNotNull(contexts);
 
 		try {
@@ -614,13 +561,11 @@ public class CardinalityNativeStoreConnection extends NotifyingSailConnectionBas
 			List<Integer> contextIDList = new ArrayList<Integer>(contexts.length);
 			if (contexts.length == 0) {
 				contextIDList.add(NativeValue.UNKNOWN_ID);
-			}
-			else {
+			} else {
 				for (Resource context : contexts) {
 					if (context == null) {
 						contextIDList.add(0);
-					}
-					else {
+					} else {
 						int contextID = valueStore.getID(context);
 						if (contextID != NativeValue.UNKNOWN_ID) {
 							contextIDList.add(contextID);
@@ -637,10 +582,10 @@ public class CardinalityNativeStoreConnection extends NotifyingSailConnectionBas
 				List<Statement> removedStatements = Collections.emptyList();
 
 				if (hasConnectionListeners()) {
-					// We need to iterate over all matching triples so that they can
+					// We need to iterate over all matching triples so that they
+					// can
 					// be reported
-					RecordIterator btreeIter = tripleStore.getTriples(subjID, predID, objID, contextID, explicit,
-							true);
+					RecordIterator btreeIter = tripleStore.getTriples(subjID, predID, objID, contextID, explicit, true);
 
 					NativeStatementIterator iter = new NativeStatementIterator(btreeIter, valueStore);
 
@@ -659,26 +604,20 @@ public class CardinalityNativeStoreConnection extends NotifyingSailConnectionBas
 			}
 
 			return removeCount;
-		}
-		catch (IOException e) {
+		} catch (IOException e) {
 			throw new SailException(e);
-		}
-		catch (RuntimeException e) {
+		} catch (RuntimeException e) {
 			logger.error("Encountered an unexpected problem while trying to remove statements", e);
 			throw e;
 		}
 	}
 
 	@Override
-	protected void clearInternal(Resource... contexts)
-		throws SailException
-	{
+	protected void clearInternal(Resource... contexts) throws SailException {
 		removeStatements(null, null, null, true, contexts);
 	}
 
-	public void clearInferred(Resource... contexts)
-		throws SailException
-	{
+	public void clearInferred(Resource... contexts) throws SailException {
 		connectionLock.readLock().lock();
 		try {
 			verifyIsOpen();
@@ -687,12 +626,10 @@ public class CardinalityNativeStoreConnection extends NotifyingSailConnectionBas
 			try {
 				autoStartTransaction();
 				removeStatements(null, null, null, false, contexts);
-			}
-			finally {
+			} finally {
 				updateLock.unlock();
 			}
-		}
-		finally {
+		} finally {
 			connectionLock.readLock().unlock();
 		}
 	}
@@ -702,23 +639,17 @@ public class CardinalityNativeStoreConnection extends NotifyingSailConnectionBas
 	}
 
 	@Override
-	protected void setNamespaceInternal(String prefix, String name)
-		throws SailException
-	{
+	protected void setNamespaceInternal(String prefix, String name) throws SailException {
 		nativeStore.getNamespaceStore().setNamespace(prefix, name);
 	}
 
 	@Override
-	protected void removeNamespaceInternal(String prefix)
-		throws SailException
-	{
+	protected void removeNamespaceInternal(String prefix) throws SailException {
 		nativeStore.getNamespaceStore().removeNamespace(prefix);
 	}
 
 	@Override
-	protected void clearNamespacesInternal()
-		throws SailException
-	{
+	protected void clearNamespacesInternal() throws SailException {
 		nativeStore.getNamespaceStore().clear();
 	}
 }

@@ -53,68 +53,62 @@ import org.universAAL.middleware.serialization.MessageContentSerializer;
  * 
  */
 public class Activator implements BundleActivator, ServiceListener {
-    public static BundleContext osgiContext = null;
-    public static ModuleContext mcontext = null;
-    public static ContextPublisher cpublisher = null;
-    public static CHECaller scaller = null;
-    public static MessageContentSerializer serializer = null;
+	public static BundleContext osgiContext = null;
+	public static ModuleContext mcontext = null;
+	public static ContextPublisher cpublisher = null;
+	public static CHECaller scaller = null;
+	public static MessageContentSerializer serializer = null;
 
-    private ReasoningProvider provider = null;
+	private ReasoningProvider provider = null;
 
-    public void start(BundleContext bcontext) throws Exception {
-	Activator.osgiContext = bcontext;
-	Activator.mcontext = uAALBundleContainer.THE_CONTAINER
-		.registerModule(new Object[] { osgiContext });
-	ContextProvider info = new ContextProvider(
-		"http://ontology.itaca.es/Reasoner.owl#ReasonerPublisher");
-	info.setType(ContextProviderType.reasoner);
-	info.setProvidedEvents(new ContextEventPattern[] { new ContextEventPattern() });
-	cpublisher = new DefaultContextPublisher(mcontext, info);
-	scaller = new CHECaller(mcontext);
+	public void start(BundleContext bcontext) throws Exception {
+		Activator.osgiContext = bcontext;
+		Activator.mcontext = uAALBundleContainer.THE_CONTAINER.registerModule(new Object[] { osgiContext });
+		ContextProvider info = new ContextProvider("http://ontology.itaca.es/Reasoner.owl#ReasonerPublisher");
+		info.setType(ContextProviderType.reasoner);
+		info.setProvidedEvents(new ContextEventPattern[] { new ContextEventPattern() });
+		cpublisher = new DefaultContextPublisher(mcontext, info);
+		scaller = new CHECaller(mcontext);
 
-	// Look for MessageContentSerializer of mw.data.serialization
-	String filter = "(objectclass="
-		+ MessageContentSerializer.class.getName() + ")";
-	osgiContext.addServiceListener(this, filter);
-	ServiceReference[] references = osgiContext.getServiceReferences(null,
-		filter);
-	for (int i = 0; references != null && i < references.length; i++) {
-	    this.serviceChanged(new ServiceEvent(ServiceEvent.REGISTERED,
-		    references[i]));
+		// Look for MessageContentSerializer of mw.data.serialization
+		String filter = "(objectclass=" + MessageContentSerializer.class.getName() + ")";
+		osgiContext.addServiceListener(this, filter);
+		ServiceReference[] references = osgiContext.getServiceReferences(null, filter);
+		for (int i = 0; references != null && i < references.length; i++) {
+			this.serviceChanged(new ServiceEvent(ServiceEvent.REGISTERED, references[i]));
+		}
+		while (serializer == null)
+			Thread.sleep(100);
+
+		provider = new ReasoningProvider(mcontext);
 	}
-	while (serializer == null)
-	    Thread.sleep(100);
 
-	provider = new ReasoningProvider(mcontext);
-    }
-
-    public void stop(BundleContext arg0) throws Exception {
-	// stopIt = true;
-	osgiContext = null;
-	mcontext = null;
-	cpublisher.close();
-	scaller.close();
-	provider.saveAllData();
-	provider.deleteContextSubscriptions();
-	provider = null;
-    }
-
-    public void serviceChanged(ServiceEvent event) {
-	// Update the MessageContentSerializer
-	switch (event.getType()) {
-	case ServiceEvent.REGISTERED:
-	case ServiceEvent.MODIFIED: {
-	    serializer = (MessageContentSerializer) osgiContext
-		    .getService(event.getServiceReference());
-	    scaller.setuAALParser(serializer);
-	    break;
+	public void stop(BundleContext arg0) throws Exception {
+		// stopIt = true;
+		osgiContext = null;
+		mcontext = null;
+		cpublisher.close();
+		scaller.close();
+		provider.saveAllData();
+		provider.deleteContextSubscriptions();
+		provider = null;
 	}
-	case ServiceEvent.UNREGISTERING:
-	    scaller.setuAALParser(null);
-	    break;
-	default:
-	    break;
+
+	public void serviceChanged(ServiceEvent event) {
+		// Update the MessageContentSerializer
+		switch (event.getType()) {
+		case ServiceEvent.REGISTERED:
+		case ServiceEvent.MODIFIED: {
+			serializer = (MessageContentSerializer) osgiContext.getService(event.getServiceReference());
+			scaller.setuAALParser(serializer);
+			break;
+		}
+		case ServiceEvent.UNREGISTERING:
+			scaller.setuAALParser(null);
+			break;
+		default:
+			break;
+		}
 	}
-    }
 
 }

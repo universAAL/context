@@ -31,8 +31,7 @@ import org.drools.event.rule.ObjectRetractedEvent;
 import org.drools.event.rule.ObjectUpdatedEvent;
 import org.drools.event.rule.WorkingMemoryEventListener;
 
-public class CustomWorkingMemoryEventListener implements
-		WorkingMemoryEventListener {
+public class CustomWorkingMemoryEventListener implements WorkingMemoryEventListener {
 	private static final Logger logger = Logger.getLogger("WorkingMemory");
 	FileHandler fh;
 
@@ -55,17 +54,14 @@ public class CustomWorkingMemoryEventListener implements
 	}
 
 	public void objectInserted(ObjectInsertedEvent event) {
-		logger.info("Object Inserted: " + event.getFactHandle() + " is a "
-				+ event.getObject());
+		logger.info("Object Inserted: " + event.getFactHandle() + " is a " + event.getObject());
 	}
 
 	public void objectRetracted(ObjectRetractedEvent event) {
-		logger.info("Object Retracted: " + event.getFactHandle() + " is a "
-				+ event.getOldObject());
+		logger.info("Object Retracted: " + event.getFactHandle() + " is a " + event.getOldObject());
 	}
 
 	public void objectUpdated(ObjectUpdatedEvent event) {
-		logger.info("Object Updated: " + event.getFactHandle() + " is a "
-				+ event.getObject());
+		logger.info("Object Updated: " + event.getFactHandle() + " is a " + event.getObject());
 	}
 }

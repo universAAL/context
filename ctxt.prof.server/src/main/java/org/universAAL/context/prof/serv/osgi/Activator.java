@@ -38,92 +38,87 @@ import org.universAAL.middleware.serialization.MessageContentSerializerEx;
  * 
  */
 public class Activator implements BundleActivator, ServiceListener {
-    /**
-     * The OSGi Bundle context
-     */
-    private static BundleContext osgiContext = null;
-    /**
-     * The uAAL module context
-     */
-    private static ModuleContext context = null;
-    /**
-     * The application hub independent from OSGi.
-     */
-    private Hub hub;
+	/**
+	 * The OSGi Bundle context
+	 */
+	private static BundleContext osgiContext = null;
+	/**
+	 * The uAAL module context
+	 */
+	private static ModuleContext context = null;
+	/**
+	 * The application hub independent from OSGi.
+	 */
+	private Hub hub;
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see
-     * org.osgi.framework.BundleActivator#start(org.osgi.framework.BundleContext
-     * )
-     */
-    public void start(BundleContext bcontext) throws Exception {
-	Activator.osgiContext = bcontext;
-	Activator.context = uAALBundleContainer.THE_CONTAINER
-		.registerModule(new Object[] { bcontext });
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.osgi.framework.BundleActivator#start(org.osgi.framework.BundleContext
+	 * )
+	 */
+	public void start(BundleContext bcontext) throws Exception {
+		Activator.osgiContext = bcontext;
+		Activator.context = uAALBundleContainer.THE_CONTAINER.registerModule(new Object[] { bcontext });
 
-	// Initialize the CHE hub (needed before setting parsers)
-	this.hub = new Hub();
+		// Initialize the CHE hub (needed before setting parsers)
+		this.hub = new Hub();
 
-	String filter = "(objectclass="
-		+ MessageContentSerializerEx.class.getName() + ")";
-	osgiContext.addServiceListener(this, filter);
-	ServiceReference[] references = osgiContext.getServiceReferences((String)null,
-		filter);
-	for (int i = 0; references != null && i < references.length; i++) {
-	    this.serviceChanged(new ServiceEvent(ServiceEvent.REGISTERED,
-		    references[i]));
+		String filter = "(objectclass=" + MessageContentSerializerEx.class.getName() + ")";
+		osgiContext.addServiceListener(this, filter);
+		ServiceReference[] references = osgiContext.getServiceReferences((String) null, filter);
+		for (int i = 0; references != null && i < references.length; i++) {
+			this.serviceChanged(new ServiceEvent(ServiceEvent.REGISTERED, references[i]));
+		}
+
+		// Start the hub. May be heavy, use thread.
+		new Thread() {
+			public void run() {
+				hub.start(context);
+			}
+		}.start();
 	}
 
-	// Start the hub. May be heavy, use thread.
-	new Thread() {
-	    public void run() {
-		hub.start(context);
-	    }
-	}.start();
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see
-     * org.osgi.framework.BundleActivator#stop(org.osgi.framework.BundleContext)
-     */
-    public void stop(BundleContext arg0) throws Exception {
-	hub.stop(Activator.context);
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see
-     * org.osgi.framework.ServiceListener#serviceChanged(org.osgi.framework.
-     * ServiceEvent)
-     */
-    public void serviceChanged(ServiceEvent event) {
-	// Update the parser of Hub (& store)
-	switch (event.getType()) {
-	case ServiceEvent.REGISTERED:
-	case ServiceEvent.MODIFIED:
-	    hub.setuAALParser((MessageContentSerializerEx) osgiContext
-		    .getService(event.getServiceReference()));
-	    break;
-	case ServiceEvent.UNREGISTERING:
-	    hub.setuAALParser(null);
-	    break;
-	default:
-	    break;
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.osgi.framework.BundleActivator#stop(org.osgi.framework.BundleContext)
+	 */
+	public void stop(BundleContext arg0) throws Exception {
+		hub.stop(Activator.context);
 	}
-    }
-    
-    /**
-     * Get the uaal module context. This is only needed for integration test.
-     * 
-     * @return the module context
-     */
-    public static ModuleContext getModuleContext() {
-	return context;
-    }
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.osgi.framework.ServiceListener#serviceChanged(org.osgi.framework.
+	 * ServiceEvent)
+	 */
+	public void serviceChanged(ServiceEvent event) {
+		// Update the parser of Hub (& store)
+		switch (event.getType()) {
+		case ServiceEvent.REGISTERED:
+		case ServiceEvent.MODIFIED:
+			hub.setuAALParser((MessageContentSerializerEx) osgiContext.getService(event.getServiceReference()));
+			break;
+		case ServiceEvent.UNREGISTERING:
+			hub.setuAALParser(null);
+			break;
+		default:
+			break;
+		}
+	}
+
+	/**
+	 * Get the uaal module context. This is only needed for integration test.
+	 * 
+	 * @return the module context
+	 */
+	public static ModuleContext getModuleContext() {
+		return context;
+	}
 
 }

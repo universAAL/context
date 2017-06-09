@@ -54,8 +54,8 @@ public class CardinalityNativeStore extends NotifyingSailBase {
 
 	/**
 	 * Flag indicating whether updates should be synced to disk forcefully. This
-	 * may have a severe impact on write performance. By default, this feature is
-	 * disabled.
+	 * may have a severe impact on write performance. By default, this feature
+	 * is disabled.
 	 */
 	private volatile boolean forceSync = false;
 
@@ -103,7 +103,7 @@ public class CardinalityNativeStore extends NotifyingSailBase {
 
 	public CardinalityNativeStore(File dataDir, String tripleIndexes, boolean encrypt) {
 		this(dataDir);
-		this.encrypt=encrypt;
+		this.encrypt = encrypt;
 		setTripleIndexes(tripleIndexes);
 	}
 
@@ -116,7 +116,7 @@ public class CardinalityNativeStore extends NotifyingSailBase {
 	 * initialization.
 	 * 
 	 * @param tripleIndexes
-	 *        An index strings, e.g. <tt>spoc,posc</tt>.
+	 *            An index strings, e.g. <tt>spoc,posc</tt>.
 	 */
 	public void setTripleIndexes(String tripleIndexes) {
 		if (isInitialized()) {
@@ -132,9 +132,9 @@ public class CardinalityNativeStore extends NotifyingSailBase {
 
 	/**
 	 * Specifiec whether updates should be synced to disk forcefully, must be
-	 * called before initialization. Enabling this feature may prevent corruption
-	 * in case of events like power loss, but can have a severe impact on write
-	 * performance. By default, this feature is disabled.
+	 * called before initialization. Enabling this feature may prevent
+	 * corruption in case of events like power loss, but can have a severe
+	 * impact on write performance. By default, this feature is disabled.
 	 */
 	public void setForceSync(boolean forceSync) {
 		this.forceSync = forceSync;
@@ -164,13 +164,11 @@ public class CardinalityNativeStore extends NotifyingSailBase {
 	 * Initializes this NativeStore.
 	 * 
 	 * @exception SailException
-	 *            If this NativeStore could not be initialized using the
-	 *            parameters that have been set.
+	 *                If this NativeStore could not be initialized using the
+	 *                parameters that have been set.
 	 */
 	@Override
-	protected void initializeInternal()
-		throws SailException
-	{
+	protected void initializeInternal() throws SailException {
 		logger.debug("Initializing NativeStore...");
 
 		// Check initialization parameters
@@ -178,17 +176,14 @@ public class CardinalityNativeStore extends NotifyingSailBase {
 
 		if (dataDir == null) {
 			throw new SailException("Data dir has not been set");
-		}
-		else if (!dataDir.exists()) {
+		} else if (!dataDir.exists()) {
 			boolean success = dataDir.mkdirs();
 			if (!success) {
 				throw new SailException("Unable to create data directory: " + dataDir);
 			}
-		}
-		else if (!dataDir.isDirectory()) {
+		} else if (!dataDir.isDirectory()) {
 			throw new SailException("The specified path does not denote a directory: " + dataDir);
-		}
-		else if (!dataDir.canRead()) {
+		} else if (!dataDir.canRead()) {
 			throw new SailException("Not allowed to read from the specified directory: " + dataDir);
 		}
 
@@ -199,17 +194,15 @@ public class CardinalityNativeStore extends NotifyingSailBase {
 
 		try {
 			namespaceStore = new NamespaceStore(dataDir);
-			valueStore = new ValueStore(dataDir, forceSync, valueCacheSize, valueIDCacheSize,
-					namespaceCacheSize, namespaceIDCacheSize, encrypt);
+			valueStore = new ValueStore(dataDir, forceSync, valueCacheSize, valueIDCacheSize, namespaceCacheSize,
+					namespaceIDCacheSize, encrypt);
 			tripleStore = new TripleStore(dataDir, tripleIndexes, forceSync);
-		}
-		catch (IOException e) {
+		} catch (IOException e) {
 			// NativeStore initialization failed, release any allocated files
 			if (valueStore != null) {
 				try {
 					valueStore.close();
-				}
-				catch (IOException e1) {
+				} catch (IOException e1) {
 					logger.warn("Failed to close value store after native store initialization failure", e);
 				}
 				valueStore = null;
@@ -228,9 +221,7 @@ public class CardinalityNativeStore extends NotifyingSailBase {
 	}
 
 	@Override
-	protected void shutDownInternal()
-		throws SailException
-	{
+	protected void shutDownInternal() throws SailException {
 		logger.debug("Shutting down NativeStore...");
 
 		try {
@@ -239,11 +230,9 @@ public class CardinalityNativeStore extends NotifyingSailBase {
 			namespaceStore.close();
 
 			logger.debug("NativeStore shut down");
-		}
-		catch (IOException e) {
+		} catch (IOException e) {
 			throw new SailException(e);
-		}
-		finally {
+		} finally {
 			dirLock.release();
 		}
 	}
@@ -253,13 +242,10 @@ public class CardinalityNativeStore extends NotifyingSailBase {
 	}
 
 	@Override
-	protected NotifyingSailConnection getConnectionInternal()
-		throws SailException
-	{
+	protected NotifyingSailConnection getConnectionInternal() throws SailException {
 		try {
 			return new CardinalityNativeStoreConnection(this);
-		}
-		catch (IOException e) {
+		} catch (IOException e) {
 			throw new SailException(e);
 		}
 	}
@@ -280,20 +266,15 @@ public class CardinalityNativeStore extends NotifyingSailBase {
 		return namespaceStore;
 	}
 
-	protected Lock getTransactionLock()
-		throws SailException
-	{
+	protected Lock getTransactionLock() throws SailException {
 		try {
 			return txnLockManager.getExclusiveLock();
-		}
-		catch (InterruptedException e) {
+		} catch (InterruptedException e) {
 			throw new SailException(e);
 		}
 	}
 
-	protected List<Integer> getContextIDs(Resource... contexts)
-		throws IOException
-	{
+	protected List<Integer> getContextIDs(Resource... contexts) throws IOException {
 		assert contexts.length > 0 : "contexts must not be empty";
 
 		// Filter duplicates
@@ -305,8 +286,7 @@ public class CardinalityNativeStore extends NotifyingSailBase {
 		for (Resource context : contextSet) {
 			if (context == null) {
 				contextIDs.add(0);
-			}
-			else {
+			} else {
 				int contextID = valueStore.getID(context);
 				if (contextID != NativeValue.UNKNOWN_ID) {
 					contextIDs.add(contextID);
@@ -317,9 +297,7 @@ public class CardinalityNativeStore extends NotifyingSailBase {
 		return contextIDs;
 	}
 
-	protected CloseableIteration<Resource, IOException> getContextIDs(boolean readTransaction)
-		throws IOException
-	{
+	protected CloseableIteration<Resource, IOException> getContextIDs(boolean readTransaction) throws IOException {
 		CloseableIteration<? extends Statement, IOException> stIter;
 		CloseableIteration<Resource, IOException> ctxIter;
 		RecordIterator btreeIter;
@@ -327,8 +305,7 @@ public class CardinalityNativeStore extends NotifyingSailBase {
 		if (btreeIter == null) {
 			// Iterator over all statements
 			stIter = createStatementIterator(null, null, null, true, readTransaction);
-		}
-		else {
+		} else {
 			stIter = new NativeStatementIterator(btreeIter, valueStore);
 		}
 		// Filter statements without context resource
@@ -350,8 +327,7 @@ public class CardinalityNativeStore extends NotifyingSailBase {
 		if (btreeIter == null) {
 			// Filtering any duplicates
 			ctxIter = new DistinctIteration<Resource, IOException>(ctxIter);
-		}
-		else {
+		} else {
 			// Filtering sorted duplicates
 			ctxIter = new ReducedIteration<Resource, IOException>(ctxIter);
 		}
@@ -362,24 +338,23 @@ public class CardinalityNativeStore extends NotifyingSailBase {
 	 * Creates a statement iterator based on the supplied pattern.
 	 * 
 	 * @param subj
-	 *        The subject of the pattern, or <tt>null</tt> to indicate a
-	 *        wildcard.
+	 *            The subject of the pattern, or <tt>null</tt> to indicate a
+	 *            wildcard.
 	 * @param pred
-	 *        The predicate of the pattern, or <tt>null</tt> to indicate a
-	 *        wildcard.
+	 *            The predicate of the pattern, or <tt>null</tt> to indicate a
+	 *            wildcard.
 	 * @param obj
-	 *        The object of the pattern, or <tt>null</tt> to indicate a wildcard.
+	 *            The object of the pattern, or <tt>null</tt> to indicate a
+	 *            wildcard.
 	 * @param contexts
-	 *        The context(s) of the pattern. Note that this parameter is a vararg
-	 *        and as such is optional. If no contexts are supplied the method
-	 *        operates on the entire repository.
+	 *            The context(s) of the pattern. Note that this parameter is a
+	 *            vararg and as such is optional. If no contexts are supplied
+	 *            the method operates on the entire repository.
 	 * @return A StatementIterator that can be used to iterate over the
 	 *         statements that match the specified pattern.
 	 */
-	protected CloseableIteration<? extends Statement, IOException> createStatementIterator(Resource subj,
-			URI pred, Value obj, boolean includeInferred, boolean readTransaction, Resource... contexts)
-		throws IOException
-	{
+	protected CloseableIteration<? extends Statement, IOException> createStatementIterator(Resource subj, URI pred,
+			Value obj, boolean includeInferred, boolean readTransaction, Resource... contexts) throws IOException {
 		int subjID = NativeValue.UNKNOWN_ID;
 		if (subj != null) {
 			subjID = valueStore.getID(subj);
@@ -407,13 +382,11 @@ public class CardinalityNativeStore extends NotifyingSailBase {
 		List<Integer> contextIDList = new ArrayList<Integer>(contexts.length);
 		if (contexts.length == 0) {
 			contextIDList.add(NativeValue.UNKNOWN_ID);
-		}
-		else {
+		} else {
 			for (Resource context : contexts) {
 				if (context == null) {
 					contextIDList.add(0);
-				}
-				else {
+				} else {
 					int contextID = valueStore.getID(context);
 
 					if (contextID != NativeValue.UNKNOWN_ID) {
@@ -432,8 +405,7 @@ public class CardinalityNativeStore extends NotifyingSailBase {
 			if (includeInferred) {
 				// Get both explicit and inferred statements
 				btreeIter = tripleStore.getTriples(subjID, predID, objID, contextID, readTransaction);
-			}
-			else {
+			} else {
 				// Only get explicit statements
 				btreeIter = tripleStore.getTriples(subjID, predID, objID, contextID, true, readTransaction);
 			}
@@ -443,15 +415,12 @@ public class CardinalityNativeStore extends NotifyingSailBase {
 
 		if (perContextIterList.size() == 1) {
 			return perContextIterList.get(0);
-		}
-		else {
+		} else {
 			return new UnionIteration<Statement, IOException>(perContextIterList);
 		}
 	}
 
-	protected double cardinality(Resource subj, URI pred, Value obj, Resource context)
-		throws IOException
-	{
+	protected double cardinality(Resource subj, URI pred, Value obj, Resource context) throws IOException {
 		int subjID = NativeValue.UNKNOWN_ID;
 		if (subj != null) {
 			subjID = valueStore.getID(subj);

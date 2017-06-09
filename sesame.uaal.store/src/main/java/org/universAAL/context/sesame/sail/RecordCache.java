@@ -30,15 +30,11 @@ abstract class RecordCache {
 	 * Constructors *
 	 *--------------*/
 
-	public RecordCache()
-		throws IOException
-	{
+	public RecordCache() throws IOException {
 		this(Long.MAX_VALUE);
 	}
 
-	public RecordCache(long maxRecords)
-		throws IOException
-	{
+	public RecordCache(long maxRecords) throws IOException {
 		this.maxRecords = new AtomicLong(maxRecords);
 		this.recordCount = new AtomicLong();
 	}
@@ -62,7 +58,7 @@ abstract class RecordCache {
 	 * 
 	 * @return
 	 * @throws IllegalStateException
-	 *         If the cache is not/no longer {@link #isValid() valid}.
+	 *             If the cache is not/no longer {@link #isValid() valid}.
 	 */
 	public final long getRecordCount() {
 		if (isValid()) {
@@ -76,18 +72,15 @@ abstract class RecordCache {
 	 * Stores a record in the cache.
 	 * 
 	 * @param data
-	 *        The record to store.
+	 *            The record to store.
 	 */
-	public final void storeRecord(byte[] data)
-		throws IOException
-	{
+	public final void storeRecord(byte[] data) throws IOException {
 		long spareSlots = maxRecords.get() - recordCount.get();
 
 		if (spareSlots > 0L) {
 			storeRecordInternal(data);
 			recordCount.incrementAndGet();
-		}
-		else if (spareSlots == 0L) {
+		} else if (spareSlots == 0L) {
 			// invalidate the cache
 			recordCount.incrementAndGet();
 		}
@@ -97,11 +90,9 @@ abstract class RecordCache {
 	 * Stores the records from the supplied cache into this cache.
 	 * 
 	 * @param otherCache
-	 *        The cache to copy the records from.
+	 *            The cache to copy the records from.
 	 */
-	public final void storeRecords(RecordCache otherCache)
-		throws IOException
-	{
+	public final void storeRecords(RecordCache otherCache) throws IOException {
 		if (recordCount.get() <= maxRecords.get()) {
 			RecordIterator recIter = otherCache.getRecords();
 			try {
@@ -109,28 +100,23 @@ abstract class RecordCache {
 				while ((record = recIter.next()) != null && recordCount.incrementAndGet() <= maxRecords.get()) {
 					storeRecordInternal(record);
 				}
-			}
-			finally {
+			} finally {
 				recIter.close();
 			}
 		}
 	}
 
-	protected abstract void storeRecordInternal(byte[] data)
-		throws IOException;
+	protected abstract void storeRecordInternal(byte[] data) throws IOException;
 
 	/**
 	 * Clears the cache, deleting all stored records.
 	 */
-	public final void clear()
-		throws IOException
-	{
+	public final void clear() throws IOException {
 		clearInternal();
 		recordCount.set(0L);
 	}
 
-	protected abstract void clearInternal()
-		throws IOException;
+	protected abstract void clearInternal() throws IOException;
 
 	/**
 	 * Gets all records that are stored in the cache, throwing an
@@ -139,7 +125,7 @@ abstract class RecordCache {
 	 * 
 	 * @return An iterator over all records.
 	 * @throws IllegalStateException
-	 *         If the cache is not/no longer {@link #isValid() valid}.
+	 *             If the cache is not/no longer {@link #isValid() valid}.
 	 */
 	public final RecordIterator getRecords() {
 		if (isValid()) {
@@ -152,8 +138,8 @@ abstract class RecordCache {
 	protected abstract RecordIterator getRecordsInternal();
 
 	/**
-	 * Checks whether the cache is still valid. Caches are valid if the number of
-	 * stored records is smaller than or equal to the {@link #getMaxRecords()
+	 * Checks whether the cache is still valid. Caches are valid if the number
+	 * of stored records is smaller than or equal to the {@link #getMaxRecords()
 	 * maximum number of records}.
 	 */
 	public final boolean isValid() {
@@ -163,6 +149,5 @@ abstract class RecordCache {
 	/**
 	 * Discards the cache, deleting any allocated files.
 	 */
-	public abstract void discard()
-		throws IOException;
+	public abstract void discard() throws IOException;
 }

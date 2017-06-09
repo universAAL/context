@@ -60,24 +60,21 @@ class TxnStatusFile {
 	 * {@link TxnStatus#NONE}.
 	 * 
 	 * @param dataDir
-	 *        The directory for the transaction status file.
+	 *            The directory for the transaction status file.
 	 * @throws IOException
-	 *         If the file did not yet exist and could not be written to.
+	 *             If the file did not yet exist and could not be written to.
 	 */
-	public TxnStatusFile(File dataDir)
-		throws IOException
-	{
+	public TxnStatusFile(File dataDir) throws IOException {
 		File statusFile = new File(dataDir, FILE_NAME);
-		nioFile = new NioFile(statusFile);  // Was NioFile(statusFile,"rwd") in original code
+		nioFile = new NioFile(statusFile); // Was NioFile(statusFile,"rwd") in
+											// original code
 
 		if (nioFile.size() == 0) {
 			setTxnStatus(TxnStatus.NONE);
 		}
 	}
 
-	public void close()
-		throws IOException
-	{
+	public void close() throws IOException {
 		nioFile.close();
 	}
 
@@ -85,13 +82,11 @@ class TxnStatusFile {
 	 * Writes the specified transaction status to file.
 	 * 
 	 * @param txnStatus
-	 *        The transaction status to write.
+	 *            The transaction status to write.
 	 * @throws IOException
-	 *         If the transaction status could not be written to file.
+	 *             If the transaction status could not be written to file.
 	 */
-	public void setTxnStatus(TxnStatus txnStatus)
-		throws IOException
-	{
+	public void setTxnStatus(TxnStatus txnStatus) throws IOException {
 		byte[] bytes = txnStatus.name().getBytes(US_ASCII);
 		nioFile.truncate(bytes.length);
 		nioFile.writeBytes(bytes, 0);
@@ -100,27 +95,23 @@ class TxnStatusFile {
 	/**
 	 * Reads the transaction status from file.
 	 * 
-	 * @return The read transaction status, or {@link TxnStatus#UNKNOWN} when the
-	 *         file contains an unrecognized status string.
+	 * @return The read transaction status, or {@link TxnStatus#UNKNOWN} when
+	 *         the file contains an unrecognized status string.
 	 * @throws IOException
-	 *         If the transaction status file could not be read.
+	 *             If the transaction status file could not be read.
 	 */
-	public TxnStatus getTxnStatus()
-		throws IOException
-	{
-		byte[] bytes = nioFile.readBytes(0, (int)nioFile.size());
+	public TxnStatus getTxnStatus() throws IOException {
+		byte[] bytes = nioFile.readBytes(0, (int) nioFile.size());
 		String s = new String(bytes, US_ASCII);
 		try {
 			return TxnStatus.valueOf(s);
-		}
-		catch (IllegalArgumentException e) {
+		} catch (IllegalArgumentException e) {
 			// use platform encoding for backwards compatibility with versions
 			// older than 2.6.6:
 			s = new String(bytes);
 			try {
 				return TxnStatus.valueOf(s);
-			}
-			catch (IllegalArgumentException e2) {
+			} catch (IllegalArgumentException e2) {
 				return TxnStatus.UNKNOWN;
 			}
 		}

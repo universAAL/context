@@ -38,30 +38,29 @@ import org.universAAL.middleware.context.ContextSubscriber;
  */
 public class CSubsMulti extends ContextSubscriber {
 
-    private String theQuery;
+	private String theQuery;
 
-    /**
-     * Create the subscriber
-     * 
-     * @param mcontext
-     *            the module mcontext
-     * @param initialSubscriptions
-     *            the mcontext event pattern to react to
-     * @param query
-     *            the query to execute when receiving an event
-     */
-    protected CSubsMulti(ModuleContext context,
-	    ContextEventPattern[] initialSubscriptions, String query) {
-	super(context, initialSubscriptions);
-	theQuery = query;
-    }
+	/**
+	 * Create the subscriber
+	 * 
+	 * @param mcontext
+	 *            the module mcontext
+	 * @param initialSubscriptions
+	 *            the mcontext event pattern to react to
+	 * @param query
+	 *            the query to execute when receiving an event
+	 */
+	protected CSubsMulti(ModuleContext context, ContextEventPattern[] initialSubscriptions, String query) {
+		super(context, initialSubscriptions);
+		theQuery = query;
+	}
 
-    public void communicationChannelBroken() {
+	public void communicationChannelBroken() {
 
-    }
+	}
 
-    public void handleContextEvent(ContextEvent event) {
-	Activator.scaller.executeQuery(theQuery);
-    }
+	public void handleContextEvent(ContextEvent event) {
+		Activator.scaller.executeQuery(theQuery);
+	}
 
 }

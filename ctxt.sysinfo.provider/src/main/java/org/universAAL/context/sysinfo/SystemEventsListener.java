@@ -28,12 +28,12 @@ import org.universAAL.middleware.context.ContextEvent;
 import org.universAAL.middleware.interfaces.PeerCard;
 import org.universAAL.middleware.interfaces.space.SpaceDescriptor;
 import org.universAAL.middleware.interfaces.space.SpaceStatus;
-import org.universAAL.middleware.managers.api.AALSpaceListener;
+import org.universAAL.middleware.managers.api.SpaceListener;
 import org.universAAL.middleware.managers.api.SpaceManager;
 import org.universAAL.middleware.util.Constants;
 import org.universAAL.ontology.sysinfo.SystemInfo;
 
-public class SystemEventsListener implements SharedObjectListener, AALSpaceListener {
+public class SystemEventsListener implements SharedObjectListener, SpaceListener {
 
 	private ModuleContext context;
 	private SpaceManager aalSpaceManager;
@@ -53,7 +53,7 @@ public class SystemEventsListener implements SharedObjectListener, AALSpaceListe
 					new Object[] { SpaceManager.class.getName().toString() }, this);
 			if (aalManagers != null) {
 				aalSpaceManager = (SpaceManager) aalManagers[0];
-				aalSpaceManager.addAALSpaceListener(this);
+				aalSpaceManager.addSpaceListener(this);
 			} else {
 				logDebug("No AALSpaceManagers found");
 				initialized = false;
@@ -70,7 +70,7 @@ public class SystemEventsListener implements SharedObjectListener, AALSpaceListe
 		if (sharedObj instanceof SpaceManager) {
 			logDebug("AALSpaceManager service added detected > updating");
 			aalSpaceManager = (SpaceManager) sharedObj;
-			aalSpaceManager.addAALSpaceListener(this);
+			aalSpaceManager.addSpaceListener(this);
 		}
 	}
 
@@ -98,7 +98,7 @@ public class SystemEventsListener implements SharedObjectListener, AALSpaceListe
 		}
 	}
 
-	public void aalSpaceJoined(SpaceDescriptor spaceDescriptor) {
+	public void spaceJoined(SpaceDescriptor spaceDescriptor) {
 		logInfo("AALSPACEJOINED");
 		org.universAAL.ontology.sysinfo.AALSpaceDescriptor des = new org.universAAL.ontology.sysinfo.AALSpaceDescriptor(
 				Constants.uAAL_MIDDLEWARE_LOCAL_ID_PREFIX + spaceDescriptor.getSpaceCard().getSpaceID());
@@ -109,7 +109,7 @@ public class SystemEventsListener implements SharedObjectListener, AALSpaceListe
 			Activator.cpublisher.publish(ev);
 	}
 
-	public void aalSpaceLost(SpaceDescriptor spaceDescriptor) {
+	public void spaceLost(SpaceDescriptor spaceDescriptor) {
 		logInfo("AALSPACELOST");
 		org.universAAL.ontology.sysinfo.AALSpaceDescriptor des = new org.universAAL.ontology.sysinfo.AALSpaceDescriptor(
 				Constants.uAAL_MIDDLEWARE_LOCAL_ID_PREFIX + spaceDescriptor.getSpaceCard().getSpaceID());
@@ -120,7 +120,7 @@ public class SystemEventsListener implements SharedObjectListener, AALSpaceListe
 			Activator.cpublisher.publish(ev);
 	}
 
-	public void newPeerJoined(PeerCard peer) {
+	public void peerJoined(PeerCard peer) {
 		logInfo("PEERJOINED");
 		org.universAAL.ontology.sysinfo.PeerCardDescriptor des = new org.universAAL.ontology.sysinfo.PeerCardDescriptor(
 				Constants.uAAL_MIDDLEWARE_LOCAL_ID_PREFIX + peer.getPeerID());
@@ -143,7 +143,7 @@ public class SystemEventsListener implements SharedObjectListener, AALSpaceListe
 			Activator.cpublisher.publish(ev);
 	}
 
-	public void aalSpaceStatusChanged(SpaceStatus status) {
+	public void spaceStatusChanged(SpaceStatus status) {
 		logInfo("AALSPACECHANGED");
 		org.universAAL.ontology.sysinfo.AALSpaceStatusDescriptor des = new org.universAAL.ontology.sysinfo.AALSpaceStatusDescriptor(
 				Constants.uAAL_MIDDLEWARE_LOCAL_ID_PREFIX + status.toString());

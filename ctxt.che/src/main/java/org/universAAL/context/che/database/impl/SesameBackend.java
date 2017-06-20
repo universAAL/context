@@ -269,7 +269,7 @@ public class SesameBackend implements Backend {
 						for (int i = 0; i < scopeArray.length; i++) {
 							// Check that scope is valid URI
 							contextArray[i] = f.createURI(Resource.isQualifiedName(scopeArray[i]) ? scopeArray[i]
-									: Constants.uAAL_MIDDLEWARE_LOCAL_ID_PREFIX + scopeArray[i]);
+									: Constants.MIDDLEWARE_LOCAL_ID_PREFIX + scopeArray[i]);
 						}
 						// store with associated tenants
 						con.add(new StringReader(uAALParser.serialize(e)), e.getURI(), RDFFormat.TURTLE, contextArray);
@@ -763,7 +763,7 @@ public class SesameBackend implements Backend {
 		ValueFactory f = myRepository.getValueFactory();
 		for (String scope : scopes) {
 			ds.addDefaultGraph(f.createURI(StringUtils.startsWithURIScheme(scope) ? scope
-					: Constants.uAAL_MIDDLEWARE_LOCAL_ID_PREFIX + scope));
+					: Constants.MIDDLEWARE_LOCAL_ID_PREFIX + scope));
 		}
 		return ds;
 	}

@@ -135,7 +135,7 @@ public class SesameBackendWithConfidence extends SesameBackend {
 						for (int i = 0; i < scopeArray.length; i++) {
 							// Check that scope is valid URI
 							contextArray[i] = f.createURI(Resource.isQualifiedName(scopeArray[i]) ? scopeArray[i]
-									: Constants.uAAL_MIDDLEWARE_LOCAL_ID_PREFIX + scopeArray[i]);
+									: Constants.MIDDLEWARE_LOCAL_ID_PREFIX + scopeArray[i]);
 						}
 					}
 				}

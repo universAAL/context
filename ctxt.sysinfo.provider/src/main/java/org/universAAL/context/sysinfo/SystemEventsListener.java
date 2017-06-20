@@ -38,7 +38,7 @@ public class SystemEventsListener implements SharedObjectListener, SpaceListener
 	private ModuleContext context;
 	private SpaceManager aalSpaceManager;
 	private boolean initialized;
-	private SystemInfo sys = new SystemInfo(Constants.uAAL_MIDDLEWARE_LOCAL_ID_PREFIX + "sysInfoPublisher");
+	private SystemInfo sys = new SystemInfo(Constants.MIDDLEWARE_LOCAL_ID_PREFIX + "sysInfoPublisher");
 
 	public SystemEventsListener(ModuleContext context) {
 		this.context = context;
@@ -101,7 +101,7 @@ public class SystemEventsListener implements SharedObjectListener, SpaceListener
 	public void spaceJoined(SpaceDescriptor spaceDescriptor) {
 		logInfo("AALSPACEJOINED");
 		org.universAAL.ontology.sysinfo.AALSpaceDescriptor des = new org.universAAL.ontology.sysinfo.AALSpaceDescriptor(
-				Constants.uAAL_MIDDLEWARE_LOCAL_ID_PREFIX + spaceDescriptor.getSpaceCard().getSpaceID());
+				Constants.MIDDLEWARE_LOCAL_ID_PREFIX + spaceDescriptor.getSpaceCard().getSpaceID());
 		des.setSerializedValue(spaceDescriptor.toString());
 		sys.setSpaceJoined(des);
 		ContextEvent ev = new ContextEvent(sys, SystemInfo.PROP_SPACE_JOINED);
@@ -112,7 +112,7 @@ public class SystemEventsListener implements SharedObjectListener, SpaceListener
 	public void spaceLost(SpaceDescriptor spaceDescriptor) {
 		logInfo("AALSPACELOST");
 		org.universAAL.ontology.sysinfo.AALSpaceDescriptor des = new org.universAAL.ontology.sysinfo.AALSpaceDescriptor(
-				Constants.uAAL_MIDDLEWARE_LOCAL_ID_PREFIX + spaceDescriptor.getSpaceCard().getSpaceID());
+				Constants.MIDDLEWARE_LOCAL_ID_PREFIX + spaceDescriptor.getSpaceCard().getSpaceID());
 		des.setSerializedValue(spaceDescriptor.toString());
 		sys.setSpaceLost(des);
 		ContextEvent ev = new ContextEvent(sys, SystemInfo.PROP_SPACE_LOST);
@@ -123,7 +123,7 @@ public class SystemEventsListener implements SharedObjectListener, SpaceListener
 	public void peerJoined(PeerCard peer) {
 		logInfo("PEERJOINED");
 		org.universAAL.ontology.sysinfo.PeerCardDescriptor des = new org.universAAL.ontology.sysinfo.PeerCardDescriptor(
-				Constants.uAAL_MIDDLEWARE_LOCAL_ID_PREFIX + peer.getPeerID());
+				Constants.MIDDLEWARE_LOCAL_ID_PREFIX + peer.getPeerID());
 		des.setSerializedValue(peer.toString());
 		sys.setPeerJoined(des);
 		ContextEvent ev = new ContextEvent(sys, SystemInfo.PROP_PEER_JOINED);
@@ -135,7 +135,7 @@ public class SystemEventsListener implements SharedObjectListener, SpaceListener
 		logInfo("PEERLOST");
 
 		org.universAAL.ontology.sysinfo.PeerCardDescriptor des = new org.universAAL.ontology.sysinfo.PeerCardDescriptor(
-				Constants.uAAL_MIDDLEWARE_LOCAL_ID_PREFIX + peer.getPeerID());
+				Constants.MIDDLEWARE_LOCAL_ID_PREFIX + peer.getPeerID());
 		des.setSerializedValue(peer.toString());
 		sys.setPeerLost(des);
 		ContextEvent ev = new ContextEvent(sys, SystemInfo.PROP_PEER_LOST);
@@ -146,7 +146,7 @@ public class SystemEventsListener implements SharedObjectListener, SpaceListener
 	public void spaceStatusChanged(SpaceStatus status) {
 		logInfo("AALSPACECHANGED");
 		org.universAAL.ontology.sysinfo.AALSpaceStatusDescriptor des = new org.universAAL.ontology.sysinfo.AALSpaceStatusDescriptor(
-				Constants.uAAL_MIDDLEWARE_LOCAL_ID_PREFIX + status.toString());
+				Constants.MIDDLEWARE_LOCAL_ID_PREFIX + status.toString());
 		des.setSerializedValue(status.toString());
 		sys.setSpaceChanged(des);
 		ContextEvent ev = new ContextEvent(sys, SystemInfo.PROP_SPACE_CHANGED);

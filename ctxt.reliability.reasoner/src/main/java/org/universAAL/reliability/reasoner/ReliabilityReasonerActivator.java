@@ -24,7 +24,7 @@ import org.osgi.framework.ServiceEvent;
 import org.osgi.framework.ServiceListener;
 import org.osgi.framework.ServiceReference;
 import org.universAAL.middleware.container.ModuleContext;
-import org.universAAL.middleware.container.osgi.uAALBundleContainer;
+import org.universAAL.middleware.container.osgi.OSGiContainer;
 import org.universAAL.middleware.context.ContextPublisher;
 import org.universAAL.middleware.context.ContextSubscriber;
 import org.universAAL.middleware.context.DefaultContextPublisher;
@@ -55,7 +55,7 @@ public class ReliabilityReasonerActivator implements BundleActivator, ServiceLis
 	 */
 	public void start(BundleContext bcontext) throws Exception {
 		osgiContext = bcontext;
-		context = uAALBundleContainer.THE_CONTAINER.registerModule(new Object[] { osgiContext });
+		context = OSGiContainer.THE_CONTAINER.registerModule(new Object[] { osgiContext });
 		ContextProvider info = new ContextProvider("http://ontology.itaca.es/Reasoner.owl#ReasonerPublisher");
 		info.setType(ContextProviderType.reasoner);
 		cpublisher = new DefaultContextPublisher(context, info);

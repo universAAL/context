@@ -49,7 +49,7 @@ import org.universAAL.drools.Activator;
 import org.universAAL.drools.DevelopingRulesUI;
 import org.universAAL.drools.models.RuleModel;
 import org.universAAL.middleware.container.ModuleContext;
-import org.universAAL.middleware.container.osgi.uAALBundleContainer;
+import org.universAAL.middleware.container.osgi.OSGiContainer;
 import org.universAAL.middleware.context.ContextEvent;
 import org.universAAL.middleware.context.ContextEventPattern;
 import org.universAAL.middleware.context.ContextPublisher;
@@ -107,7 +107,7 @@ public final class RulesEngine {
 	private RulesEngine(BundleContext context) {
 		super();
 		rulesEngineBundleContext = context;
-		rulesEngineModuleContext = uAALBundleContainer.THE_CONTAINER
+		rulesEngineModuleContext = OSGiContainer.THE_CONTAINER
 				.registerModule(new Object[] { rulesEngineBundleContext });
 		try {
 			initializeDrools();

@@ -22,7 +22,7 @@ package org.universAAL.drools;
 import org.osgi.framework.BundleContext;
 import org.universAAL.drools.engine.RulesEngine;
 import org.universAAL.middleware.container.ModuleContext;
-import org.universAAL.middleware.container.osgi.uAALBundleContainer;
+import org.universAAL.middleware.container.osgi.OSGiContainer;
 import org.universAAL.middleware.container.utils.LogUtils;
 import org.universAAL.middleware.service.CallStatus;
 import org.universAAL.middleware.service.ServiceCall;
@@ -45,7 +45,7 @@ public class DroolsReasonerProvider extends ServiceCallee {
 	}
 
 	protected DroolsReasonerProvider(BundleContext context) {
-		super(uAALBundleContainer.THE_CONTAINER.registerModule(new Object[] { context }),
+		super(OSGiContainer.THE_CONTAINER.registerModule(new Object[] { context }),
 				ProvidedDroolsReasonerService.profiles);
 		bctx = context;
 	}

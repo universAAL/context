@@ -21,7 +21,7 @@ package org.universAAL.drools.engine;
 
 import org.osgi.framework.BundleContext;
 import org.universAAL.middleware.container.ModuleContext;
-import org.universAAL.middleware.container.osgi.uAALBundleContainer;
+import org.universAAL.middleware.container.osgi.OSGiContainer;
 import org.universAAL.middleware.context.ContextEvent;
 import org.universAAL.middleware.context.ContextEventPattern;
 import org.universAAL.middleware.context.ContextSubscriber;
@@ -40,9 +40,9 @@ public class Suscriber extends ContextSubscriber {
 
 	public Suscriber(BundleContext ctx, RulesEngine r) {
 		// I think this is the simplest way to subscribe to all ContextEvents
-		super(uAALBundleContainer.THE_CONTAINER.registerModule(new Object[] { ctx }),
+		super(OSGiContainer.THE_CONTAINER.registerModule(new Object[] { ctx }),
 				new ContextEventPattern[] { new ContextEventPattern() });
-		mctx = uAALBundleContainer.THE_CONTAINER.registerModule(new Object[] { ctx });
+		mctx = OSGiContainer.THE_CONTAINER.registerModule(new Object[] { ctx });
 		bctx = ctx;
 		drools = r;
 	}

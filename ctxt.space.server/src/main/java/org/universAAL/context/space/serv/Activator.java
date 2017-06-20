@@ -27,7 +27,7 @@ import org.osgi.framework.ServiceEvent;
 import org.osgi.framework.ServiceListener;
 import org.osgi.framework.ServiceReference;
 import org.universAAL.middleware.container.ModuleContext;
-import org.universAAL.middleware.container.osgi.uAALBundleContainer;
+import org.universAAL.middleware.container.osgi.OSGiContainer;
 import org.universAAL.middleware.serialization.MessageContentSerializerEx;
 
 /**
@@ -67,7 +67,7 @@ public class Activator implements BundleActivator, ServiceListener {
 	 */
 	public void start(BundleContext bcontext) throws Exception {
 		Activator.osgiContext = bcontext;
-		Activator.context = uAALBundleContainer.THE_CONTAINER.registerModule(new Object[] { bcontext });
+		Activator.context = OSGiContainer.THE_CONTAINER.registerModule(new Object[] { bcontext });
 		scallee = new SCallee(context);
 		scaller = new SCaller(context);
 		String filter = "(objectclass=" + MessageContentSerializerEx.class.getName() + ")";

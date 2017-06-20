@@ -27,7 +27,7 @@ import org.osgi.framework.ServiceReference;
 import org.universAAL.context.reasoner.CHECaller;
 import org.universAAL.context.reasoner.ReasoningProvider;
 import org.universAAL.middleware.container.ModuleContext;
-import org.universAAL.middleware.container.osgi.uAALBundleContainer;
+import org.universAAL.middleware.container.osgi.OSGiContainer;
 import org.universAAL.middleware.context.ContextEventPattern;
 import org.universAAL.middleware.context.ContextPublisher;
 import org.universAAL.middleware.context.DefaultContextPublisher;
@@ -63,7 +63,7 @@ public class Activator implements BundleActivator, ServiceListener {
 
 	public void start(BundleContext bcontext) throws Exception {
 		Activator.osgiContext = bcontext;
-		Activator.mcontext = uAALBundleContainer.THE_CONTAINER.registerModule(new Object[] { osgiContext });
+		Activator.mcontext = OSGiContainer.THE_CONTAINER.registerModule(new Object[] { osgiContext });
 		ContextProvider info = new ContextProvider("http://ontology.itaca.es/Reasoner.owl#ReasonerPublisher");
 		info.setType(ContextProviderType.reasoner);
 		info.setProvidedEvents(new ContextEventPattern[] { new ContextEventPattern() });

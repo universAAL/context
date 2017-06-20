@@ -24,7 +24,7 @@ import org.osgi.framework.BundleContext;
 import org.universAAL.drools.engine.RulesEngine;
 import org.universAAL.drools.engine.Suscriber;
 import org.universAAL.middleware.container.ModuleContext;
-import org.universAAL.middleware.container.osgi.uAALBundleContainer;
+import org.universAAL.middleware.container.osgi.OSGiContainer;
 import org.universAAL.middleware.container.utils.LogUtils;
 
 /**
@@ -41,7 +41,7 @@ public class Activator implements BundleActivator {
 
 	public void start(final BundleContext context) throws Exception {
 
-		mc = uAALBundleContainer.THE_CONTAINER.registerModule(new Object[] { context });
+		mc = OSGiContainer.THE_CONTAINER.registerModule(new Object[] { context });
 
 		// provider = new DroolsReasonerProvider(mc);
 		provider = new DroolsReasonerProvider(context);

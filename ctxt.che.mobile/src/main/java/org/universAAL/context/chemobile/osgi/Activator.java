@@ -28,7 +28,7 @@ import org.osgi.framework.ServiceListener;
 import org.osgi.framework.ServiceReference;
 import org.universAAL.context.chemobile.Hub;
 import org.universAAL.middleware.container.ModuleContext;
-import org.universAAL.middleware.container.osgi.uAALBundleContainer;
+import org.universAAL.middleware.container.osgi.OSGiContainer;
 import org.universAAL.middleware.serialization.MessageContentSerializer;
 
 /**
@@ -65,7 +65,7 @@ public class Activator implements BundleActivator, ServiceListener {
 	public void start(BundleContext context) {
 		osgiContext = context;
 		// create the context
-		moduleContext = uAALBundleContainer.THE_CONTAINER.registerModule(new Object[] { context });
+		moduleContext = OSGiContainer.THE_CONTAINER.registerModule(new Object[] { context });
 		osgiConfigPath = moduleContext.getConfigHome().getAbsolutePath();
 		hub = new Hub();
 		// Start the core

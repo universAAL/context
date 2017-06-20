@@ -24,7 +24,7 @@ package org.universAAL.context.sysinfo;
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
 import org.universAAL.middleware.container.ModuleContext;
-import org.universAAL.middleware.container.osgi.uAALBundleContainer;
+import org.universAAL.middleware.container.osgi.OSGiContainer;
 
 import org.universAAL.middleware.context.ContextEvent;
 import org.universAAL.middleware.context.ContextEventPattern;
@@ -45,7 +45,7 @@ public class Activator implements BundleActivator {
 
 	public void start(BundleContext bcontext) throws Exception {
 		Activator.osgiContext = bcontext;
-		Activator.context = uAALBundleContainer.THE_CONTAINER.registerModule(new Object[] { bcontext });
+		Activator.context = OSGiContainer.THE_CONTAINER.registerModule(new Object[] { bcontext });
 		// Provided events
 		ContextEventPattern cep = new ContextEventPattern();
 		MergedRestriction r1 = MergedRestriction.getAllValuesRestriction(ContextEvent.PROP_RDF_SUBJECT,

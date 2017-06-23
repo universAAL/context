@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE coverage SYSTEM "http://cobertura.sourceforge.net/xml/coverage-04.dtd">
 
-<coverage line-rate="0.0" branch-rate="0.0" lines-covered="0" lines-valid="421" branches-covered="0" branches-valid="74" complexity="2.0" version="2.1.1" timestamp="1497039906076">
+<coverage line-rate="0.0" branch-rate="0.0" lines-covered="0" lines-valid="421" branches-covered="0" branches-valid="74" complexity="2.0" version="2.1.1" timestamp="1498200202573">
 	<sources>
 		<source>/home/travis/build/universAAL/context/ctxt.drools.reasoner/src/main/java</source>
 		<source>--source</source>

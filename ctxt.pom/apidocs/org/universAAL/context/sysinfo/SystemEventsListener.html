@@ -95,12 +95,12 @@ var activeTableTab = "activeTableTab";
 <div class="subTitle">org.universAAL.context.sysinfo</div>
 <h2 title="Class SystemEventsListener" class="title">Class SystemEventsListener</h2>
 <map id="G" name="G">
-<area shape="rect" id="c6402" href="./SystemEventsListener.html" title="org.universAAL.context.sysinfo.SystemEventsListener" alt="" coords="102,118,255,143"/>
-<area shape="rect" id="node1" href="./SystemEventsListener.html" title="&lt;TABLE&gt;" alt="" coords="92,107,265,155"/>
+<area shape="rect" id="c6402" href="./SystemEventsListener.html" title="org.universAAL.context.sysinfo.SystemEventsListener" alt="" coords="95,118,249,143"/>
+<area shape="rect" id="node1" href="./SystemEventsListener.html" title="&lt;TABLE&gt;" alt="" coords="85,107,259,155"/>
 <area shape="rect" id="c6403" href="http://java.sun.com/j2se/1.4.2/docs/api/org/universAAL/middleware/container/SharedObjectListener.html" title="org.universAAL.middleware.container.SharedObjectListener" alt="" coords="15,11,161,53"/>
 <area shape="rect" id="node2" href="http://java.sun.com/j2se/1.4.2/docs/api/org/universAAL/middleware/container/SharedObjectListener.html" title="&lt;TABLE&gt;" alt="" coords="5,6,171,58"/>
-<area shape="rect" id="c6404" href="http://java.sun.com/j2se/1.4.2/docs/api/org/universAAL/middleware/managers/api/AALSpaceListener.html" title="org.universAAL.middleware.managers.api.AALSpaceListener" alt="" coords="205,11,334,53"/>
-<area shape="rect" id="node4" href="http://java.sun.com/j2se/1.4.2/docs/api/org/universAAL/middleware/managers/api/AALSpaceListener.html" title="&lt;TABLE&gt;" alt="" coords="195,6,344,58"/>
+<area shape="rect" id="c6404" href="http://java.sun.com/j2se/1.4.2/docs/api/org/universAAL/middleware/managers/api/SpaceListener.html" title="org.universAAL.middleware.managers.api.SpaceListener" alt="" coords="205,11,309,53"/>
+<area shape="rect" id="node4" href="http://java.sun.com/j2se/1.4.2/docs/api/org/universAAL/middleware/managers/api/SpaceListener.html" title="&lt;TABLE&gt;" alt="" coords="195,6,320,58"/>
 </map>
 <!-- UML diagram added by UMLGraph version R5_6-24-gf6e263 (http://www.umlgraph.org/) -->
 <div align="center"><img src="SystemEventsListener.png" alt="Package class diagram package SystemEventsListener" usemap="#G" border=0/></div>
@@ -119,13 +119,13 @@ var activeTableTab = "activeTableTab";
 <li class="blockList">
 <dl>
 <dt>All Implemented Interfaces:</dt>
-<dd>org.universAAL.middleware.container.SharedObjectListener, org.universAAL.middleware.managers.api.AALSpaceListener</dd>
+<dd>org.universAAL.middleware.container.SharedObjectListener, org.universAAL.middleware.managers.api.SpaceListener</dd>
 </dl>
 <hr>
 <br>
 <pre>public class <span class="typeNameLabel">SystemEventsListener</span>
 extends <a href="http://docs.oracle.com/javase/1.5.0/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</a>
-implements org.universAAL.middleware.container.SharedObjectListener, org.universAAL.middleware.managers.api.AALSpaceListener</pre>
+implements org.universAAL.middleware.container.SharedObjectListener, org.universAAL.middleware.managers.api.SpaceListener</pre>
 </li>
 </ul>
 </div>
@@ -162,37 +162,37 @@ implements org.universAAL.middleware.container.SharedObjectListener, org.univers
 <th class="colLast" scope="col">Method and Description</th>
 </tr>
 <tr id="i0" class="altColor">
-<td class="colFirst"><code>void</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/universAAL/context/sysinfo/SystemEventsListener.html#aalSpaceJoined-org.universAAL.middleware.interfaces.aalspace.AALSpaceDescriptor-">aalSpaceJoined</a></span>(org.universAAL.middleware.interfaces.aalspace.AALSpaceDescriptor&nbsp;spaceDescriptor)</code>&nbsp;</td>
-</tr>
-<tr id="i1" class="rowColor">
-<td class="colFirst"><code>void</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/universAAL/context/sysinfo/SystemEventsListener.html#aalSpaceLost-org.universAAL.middleware.interfaces.aalspace.AALSpaceDescriptor-">aalSpaceLost</a></span>(org.universAAL.middleware.interfaces.aalspace.AALSpaceDescriptor&nbsp;spaceDescriptor)</code>&nbsp;</td>
-</tr>
-<tr id="i2" class="altColor">
-<td class="colFirst"><code>void</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/universAAL/context/sysinfo/SystemEventsListener.html#aalSpaceStatusChanged-org.universAAL.middleware.interfaces.aalspace.AALSpaceStatus-">aalSpaceStatusChanged</a></span>(org.universAAL.middleware.interfaces.aalspace.AALSpaceStatus&nbsp;status)</code>&nbsp;</td>
-</tr>
-<tr id="i3" class="rowColor">
 <td class="colFirst"><code>boolean</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/universAAL/context/sysinfo/SystemEventsListener.html#init--">init</a></span>()</code>&nbsp;</td>
 </tr>
-<tr id="i4" class="altColor">
+<tr id="i1" class="rowColor">
 <td class="colFirst"><code>void</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/universAAL/context/sysinfo/SystemEventsListener.html#newPeerJoined-org.universAAL.middleware.interfaces.PeerCard-">newPeerJoined</a></span>(org.universAAL.middleware.interfaces.PeerCard&nbsp;peer)</code>&nbsp;</td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/universAAL/context/sysinfo/SystemEventsListener.html#peerJoined-org.universAAL.middleware.interfaces.PeerCard-">peerJoined</a></span>(org.universAAL.middleware.interfaces.PeerCard&nbsp;peer)</code>&nbsp;</td>
 </tr>
-<tr id="i5" class="rowColor">
+<tr id="i2" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/universAAL/context/sysinfo/SystemEventsListener.html#peerLost-org.universAAL.middleware.interfaces.PeerCard-">peerLost</a></span>(org.universAAL.middleware.interfaces.PeerCard&nbsp;peer)</code>&nbsp;</td>
 </tr>
-<tr id="i6" class="altColor">
+<tr id="i3" class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/universAAL/context/sysinfo/SystemEventsListener.html#sharedObjectAdded-java.lang.Object-java.lang.Object-">sharedObjectAdded</a></span>(<a href="http://docs.oracle.com/javase/1.5.0/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</a>&nbsp;sharedObj,
                  <a href="http://docs.oracle.com/javase/1.5.0/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</a>&nbsp;arg1)</code>&nbsp;</td>
 </tr>
-<tr id="i7" class="rowColor">
+<tr id="i4" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/universAAL/context/sysinfo/SystemEventsListener.html#sharedObjectRemoved-java.lang.Object-">sharedObjectRemoved</a></span>(<a href="http://docs.oracle.com/javase/1.5.0/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</a>&nbsp;sharedObj)</code>&nbsp;</td>
+</tr>
+<tr id="i5" class="rowColor">
+<td class="colFirst"><code>void</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/universAAL/context/sysinfo/SystemEventsListener.html#spaceJoined-org.universAAL.middleware.interfaces.space.SpaceDescriptor-">spaceJoined</a></span>(org.universAAL.middleware.interfaces.space.SpaceDescriptor&nbsp;spaceDescriptor)</code>&nbsp;</td>
+</tr>
+<tr id="i6" class="altColor">
+<td class="colFirst"><code>void</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/universAAL/context/sysinfo/SystemEventsListener.html#spaceLost-org.universAAL.middleware.interfaces.space.SpaceDescriptor-">spaceLost</a></span>(org.universAAL.middleware.interfaces.space.SpaceDescriptor&nbsp;spaceDescriptor)</code>&nbsp;</td>
+</tr>
+<tr id="i7" class="rowColor">
+<td class="colFirst"><code>void</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/universAAL/context/sysinfo/SystemEventsListener.html#spaceStatusChanged-org.universAAL.middleware.interfaces.space.SpaceStatus-">spaceStatusChanged</a></span>(org.universAAL.middleware.interfaces.space.SpaceStatus&nbsp;status)</code>&nbsp;</td>
 </tr>
 </table>
 <ul class="blockList">
@@ -269,42 +269,42 @@ implements org.universAAL.middleware.container.SharedObjectListener, org.univers
 </dl>
 </li>
 </ul>
-<a name="aalSpaceJoined-org.universAAL.middleware.interfaces.aalspace.AALSpaceDescriptor-">
+<a name="spaceJoined-org.universAAL.middleware.interfaces.space.SpaceDescriptor-">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
-<h4>aalSpaceJoined</h4>
-<pre>public&nbsp;void&nbsp;aalSpaceJoined(org.universAAL.middleware.interfaces.aalspace.AALSpaceDescriptor&nbsp;spaceDescriptor)</pre>
+<h4>spaceJoined</h4>
+<pre>public&nbsp;void&nbsp;spaceJoined(org.universAAL.middleware.interfaces.space.SpaceDescriptor&nbsp;spaceDescriptor)</pre>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code>aalSpaceJoined</code>&nbsp;in interface&nbsp;<code>org.universAAL.middleware.managers.api.AALSpaceListener</code></dd>
+<dd><code>spaceJoined</code>&nbsp;in interface&nbsp;<code>org.universAAL.middleware.managers.api.SpaceListener</code></dd>
 </dl>
 </li>
 </ul>
-<a name="aalSpaceLost-org.universAAL.middleware.interfaces.aalspace.AALSpaceDescriptor-">
+<a name="spaceLost-org.universAAL.middleware.interfaces.space.SpaceDescriptor-">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
-<h4>aalSpaceLost</h4>
-<pre>public&nbsp;void&nbsp;aalSpaceLost(org.universAAL.middleware.interfaces.aalspace.AALSpaceDescriptor&nbsp;spaceDescriptor)</pre>
+<h4>spaceLost</h4>
+<pre>public&nbsp;void&nbsp;spaceLost(org.universAAL.middleware.interfaces.space.SpaceDescriptor&nbsp;spaceDescriptor)</pre>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code>aalSpaceLost</code>&nbsp;in interface&nbsp;<code>org.universAAL.middleware.managers.api.AALSpaceListener</code></dd>
+<dd><code>spaceLost</code>&nbsp;in interface&nbsp;<code>org.universAAL.middleware.managers.api.SpaceListener</code></dd>
 </dl>
 </li>
 </ul>
-<a name="newPeerJoined-org.universAAL.middleware.interfaces.PeerCard-">
+<a name="peerJoined-org.universAAL.middleware.interfaces.PeerCard-">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
-<h4>newPeerJoined</h4>
-<pre>public&nbsp;void&nbsp;newPeerJoined(org.universAAL.middleware.interfaces.PeerCard&nbsp;peer)</pre>
+<h4>peerJoined</h4>
+<pre>public&nbsp;void&nbsp;peerJoined(org.universAAL.middleware.interfaces.PeerCard&nbsp;peer)</pre>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code>newPeerJoined</code>&nbsp;in interface&nbsp;<code>org.universAAL.middleware.managers.api.AALSpaceListener</code></dd>
+<dd><code>peerJoined</code>&nbsp;in interface&nbsp;<code>org.universAAL.middleware.managers.api.SpaceListener</code></dd>
 </dl>
 </li>
 </ul>
@@ -317,20 +317,20 @@ implements org.universAAL.middleware.container.SharedObjectListener, org.univers
 <pre>public&nbsp;void&nbsp;peerLost(org.universAAL.middleware.interfaces.PeerCard&nbsp;peer)</pre>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code>peerLost</code>&nbsp;in interface&nbsp;<code>org.universAAL.middleware.managers.api.AALSpaceListener</code></dd>
+<dd><code>peerLost</code>&nbsp;in interface&nbsp;<code>org.universAAL.middleware.managers.api.SpaceListener</code></dd>
 </dl>
 </li>
 </ul>
-<a name="aalSpaceStatusChanged-org.universAAL.middleware.interfaces.aalspace.AALSpaceStatus-">
+<a name="spaceStatusChanged-org.universAAL.middleware.interfaces.space.SpaceStatus-">
 <!--   -->
 </a>
 <ul class="blockListLast">
 <li class="blockList">
-<h4>aalSpaceStatusChanged</h4>
-<pre>public&nbsp;void&nbsp;aalSpaceStatusChanged(org.universAAL.middleware.interfaces.aalspace.AALSpaceStatus&nbsp;status)</pre>
+<h4>spaceStatusChanged</h4>
+<pre>public&nbsp;void&nbsp;spaceStatusChanged(org.universAAL.middleware.interfaces.space.SpaceStatus&nbsp;status)</pre>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code>aalSpaceStatusChanged</code>&nbsp;in interface&nbsp;<code>org.universAAL.middleware.managers.api.AALSpaceListener</code></dd>
+<dd><code>spaceStatusChanged</code>&nbsp;in interface&nbsp;<code>org.universAAL.middleware.managers.api.SpaceListener</code></dd>
 </dl>
 </li>
 </ul>

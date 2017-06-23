@@ -17,15 +17,8 @@ digraph G {
 		</table>>, URL="./SystemEventsListener.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//org.universAAL.context.sysinfo.SystemEventsListener implements org.universAAL.middleware.container.SharedObjectListener
 	c6403:p -> c6402:p [dir=back,arrowtail=empty,style=dashed];
-	//org.universAAL.context.sysinfo.SystemEventsListener implements org.universAAL.middleware.managers.api.AALSpaceListener
+	//org.universAAL.context.sysinfo.SystemEventsListener implements org.universAAL.middleware.managers.api.SpaceListener
 	c6404:p -> c6402:p [dir=back,arrowtail=empty,style=dashed];
-	// org.universAAL.middleware.managers.api.AALSpaceListener
-	c6404 [label=<<table title="org.universAAL.middleware.managers.api.AALSpaceListener" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="http://java.sun.com/j2se/1.4.2/docs/api/org/universAAL/middleware/managers/api/AALSpaceListener.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> &#171;interface&#187; </td></tr>
-<tr><td align="center" balign="center"> AALSpaceListener </td></tr>
-		</table></td></tr>
-		</table>>, URL="http://java.sun.com/j2se/1.4.2/docs/api/org/universAAL/middleware/managers/api/AALSpaceListener.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// org.universAAL.middleware.container.SharedObjectListener
 	c6403 [label=<<table title="org.universAAL.middleware.container.SharedObjectListener" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="http://java.sun.com/j2se/1.4.2/docs/api/org/universAAL/middleware/container/SharedObjectListener.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
@@ -33,5 +26,12 @@ digraph G {
 <tr><td align="center" balign="center"> SharedObjectListener </td></tr>
 		</table></td></tr>
 		</table>>, URL="http://java.sun.com/j2se/1.4.2/docs/api/org/universAAL/middleware/container/SharedObjectListener.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// org.universAAL.middleware.managers.api.SpaceListener
+	c6404 [label=<<table title="org.universAAL.middleware.managers.api.SpaceListener" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="http://java.sun.com/j2se/1.4.2/docs/api/org/universAAL/middleware/managers/api/SpaceListener.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> &#171;interface&#187; </td></tr>
+<tr><td align="center" balign="center"> SpaceListener </td></tr>
+		</table></td></tr>
+		</table>>, URL="http://java.sun.com/j2se/1.4.2/docs/api/org/universAAL/middleware/managers/api/SpaceListener.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 }
 

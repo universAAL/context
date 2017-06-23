@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE coverage SYSTEM "http://cobertura.sourceforge.net/xml/coverage-04.dtd">
 
-<coverage line-rate="0.0" branch-rate="0.0" lines-covered="0" lines-valid="4802" branches-covered="0" branches-valid="1650" complexity="3.1151315789473686" version="2.1.1" timestamp="1497039943346">
+<coverage line-rate="0.0" branch-rate="0.0" lines-covered="0" lines-valid="4802" branches-covered="0" branches-valid="1650" complexity="3.1151315789473686" version="2.1.1" timestamp="1498200279400">
 	<sources>
 		<source>/home/travis/build/universAAL/context/ctxt.che/src/main/java</source>
 		<source>/home/travis/build/universAAL/context/ctxt.drools.reasoner/src/main/java</source>
@@ -16942,57 +16942,6 @@
 								<line number="47" hits="0" branch="false"/>
 							</lines>
 						</method>
-						<method name="aalSpaceJoined" signature="(Lorg/universAAL/middleware/interfaces/aalspace/AALSpaceDescriptor;)V" line-rate="0.0" branch-rate="0.0" complexity="0">
-							<lines>
-								<line number="102" hits="0" branch="false"/>
-								<line number="103" hits="0" branch="false"/>
-								<line number="104" hits="0" branch="false"/>
-								<line number="105" hits="0" branch="false"/>
-								<line number="106" hits="0" branch="false"/>
-								<line number="107" hits="0" branch="false"/>
-								<line number="108" hits="0" branch="true" condition-coverage="0% (0/2)">
-									<conditions>
-										<condition number="0" type="jump" coverage="0%"/>
-									</conditions>
-								</line>
-								<line number="109" hits="0" branch="false"/>
-								<line number="110" hits="0" branch="false"/>
-							</lines>
-						</method>
-						<method name="aalSpaceLost" signature="(Lorg/universAAL/middleware/interfaces/aalspace/AALSpaceDescriptor;)V" line-rate="0.0" branch-rate="0.0" complexity="0">
-							<lines>
-								<line number="113" hits="0" branch="false"/>
-								<line number="114" hits="0" branch="false"/>
-								<line number="115" hits="0" branch="false"/>
-								<line number="116" hits="0" branch="false"/>
-								<line number="117" hits="0" branch="false"/>
-								<line number="118" hits="0" branch="false"/>
-								<line number="119" hits="0" branch="true" condition-coverage="0% (0/2)">
-									<conditions>
-										<condition number="0" type="jump" coverage="0%"/>
-									</conditions>
-								</line>
-								<line number="120" hits="0" branch="false"/>
-								<line number="121" hits="0" branch="false"/>
-							</lines>
-						</method>
-						<method name="aalSpaceStatusChanged" signature="(Lorg/universAAL/middleware/interfaces/aalspace/AALSpaceStatus;)V" line-rate="0.0" branch-rate="0.0" complexity="0">
-							<lines>
-								<line number="147" hits="0" branch="false"/>
-								<line number="148" hits="0" branch="false"/>
-								<line number="149" hits="0" branch="false"/>
-								<line number="150" hits="0" branch="false"/>
-								<line number="151" hits="0" branch="false"/>
-								<line number="152" hits="0" branch="false"/>
-								<line number="153" hits="0" branch="true" condition-coverage="0% (0/2)">
-									<conditions>
-										<condition number="0" type="jump" coverage="0%"/>
-									</conditions>
-								</line>
-								<line number="154" hits="0" branch="false"/>
-								<line number="155" hits="0" branch="false"/>
-							</lines>
-						</method>
 						<method name="init" signature="()Z" line-rate="0.0" branch-rate="0.0" complexity="0">
 							<lines>
 								<line number="50" hits="0" branch="true" condition-coverage="0% (0/2)">
@@ -17043,7 +16992,7 @@
 								<line number="99" hits="0" branch="false"/>
 							</lines>
 						</method>
-						<method name="newPeerJoined" signature="(Lorg/universAAL/middleware/interfaces/PeerCard;)V" line-rate="0.0" branch-rate="0.0" complexity="0">
+						<method name="peerJoined" signature="(Lorg/universAAL/middleware/interfaces/PeerCard;)V" line-rate="0.0" branch-rate="0.0" complexity="0">
 							<lines>
 								<line number="124" hits="0" branch="false"/>
 								<line number="125" hits="0" branch="false"/>
@@ -17101,6 +17050,57 @@
 								<line number="80" hits="0" branch="false"/>
 								<line number="81" hits="0" branch="false"/>
 								<line number="83" hits="0" branch="false"/>
+							</lines>
+						</method>
+						<method name="spaceJoined" signature="(Lorg/universAAL/middleware/interfaces/space/SpaceDescriptor;)V" line-rate="0.0" branch-rate="0.0" complexity="0">
+							<lines>
+								<line number="102" hits="0" branch="false"/>
+								<line number="103" hits="0" branch="false"/>
+								<line number="104" hits="0" branch="false"/>
+								<line number="105" hits="0" branch="false"/>
+								<line number="106" hits="0" branch="false"/>
+								<line number="107" hits="0" branch="false"/>
+								<line number="108" hits="0" branch="true" condition-coverage="0% (0/2)">
+									<conditions>
+										<condition number="0" type="jump" coverage="0%"/>
+									</conditions>
+								</line>
+								<line number="109" hits="0" branch="false"/>
+								<line number="110" hits="0" branch="false"/>
+							</lines>
+						</method>
+						<method name="spaceLost" signature="(Lorg/universAAL/middleware/interfaces/space/SpaceDescriptor;)V" line-rate="0.0" branch-rate="0.0" complexity="0">
+							<lines>
+								<line number="113" hits="0" branch="false"/>
+								<line number="114" hits="0" branch="false"/>
+								<line number="115" hits="0" branch="false"/>
+								<line number="116" hits="0" branch="false"/>
+								<line number="117" hits="0" branch="false"/>
+								<line number="118" hits="0" branch="false"/>
+								<line number="119" hits="0" branch="true" condition-coverage="0% (0/2)">
+									<conditions>
+										<condition number="0" type="jump" coverage="0%"/>
+									</conditions>
+								</line>
+								<line number="120" hits="0" branch="false"/>
+								<line number="121" hits="0" branch="false"/>
+							</lines>
+						</method>
+						<method name="spaceStatusChanged" signature="(Lorg/universAAL/middleware/interfaces/space/SpaceStatus;)V" line-rate="0.0" branch-rate="0.0" complexity="0">
+							<lines>
+								<line number="147" hits="0" branch="false"/>
+								<line number="148" hits="0" branch="false"/>
+								<line number="149" hits="0" branch="false"/>
+								<line number="150" hits="0" branch="false"/>
+								<line number="151" hits="0" branch="false"/>
+								<line number="152" hits="0" branch="false"/>
+								<line number="153" hits="0" branch="true" condition-coverage="0% (0/2)">
+									<conditions>
+										<condition number="0" type="jump" coverage="0%"/>
+									</conditions>
+								</line>
+								<line number="154" hits="0" branch="false"/>
+								<line number="155" hits="0" branch="false"/>
 							</lines>
 						</method>
 					</methods>

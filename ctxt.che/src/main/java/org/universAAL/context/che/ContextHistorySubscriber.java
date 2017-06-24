@@ -57,7 +57,7 @@ public class ContextHistorySubscriber extends ContextSubscriber {
 	 * Main constructor.
 	 *
 	 * @param context
-	 *            The uaal module context
+	 *            The universAAL module context
 	 * @param dbstore
 	 *            The store
 	 */

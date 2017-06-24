@@ -76,7 +76,7 @@ public class Hub implements OntologyListener, ModuleActivator {
 	 */
 	private static File confHome;
 	/**
-	 * uAAL Module context.
+	 * universAAL Module context.
 	 */
 	private static ModuleContext moduleContext = null;
 
@@ -101,9 +101,9 @@ public class Hub implements OntologyListener, ModuleActivator {
 	 */
 	private Object fileLock = new Object();
 	/**
-	 * Turtle-uAAL parser.
+	 * Turtle parser.
 	 */
-	private MessageContentSerializer uAALParser;
+	private MessageContentSerializer serializer;
 
 	/**
 	 * Flag for knowing when store is connected, used only for ontology updates
@@ -136,7 +136,7 @@ public class Hub implements OntologyListener, ModuleActivator {
 	 * To be called when application starts. Used to be Activator.start().
 	 *
 	 * @param context
-	 *            uaal module context
+	 *            universAAL module context
 	 */
 	public void start(ModuleContext context) {
 		moduleContext = context;
@@ -161,9 +161,9 @@ public class Hub implements OntologyListener, ModuleActivator {
 		} else {
 			log.warn("start", "Could not Synchronize Mobile Events!!!");
 		}
-		if (this.uAALParser != null) {
-			synchronized (this.uAALParser) {
-				this.uAALParser.notifyAll();
+		if (this.serializer != null) {
+			synchronized (this.serializer) {
+				this.serializer.notifyAll();
 			}
 		}
 	}
@@ -211,7 +211,7 @@ public class Hub implements OntologyListener, ModuleActivator {
 		try {
 			BufferedWriter out = new BufferedWriter(new FileWriter(destination, false));
 			Ontology ont = manager.getOntology(ontURI);
-			String str = this.uAALParser.serialize(ont);
+			String str = this.serializer.serialize(ont);
 			out.write(str);
 			out.close();
 		} catch (IOException e) {
@@ -238,27 +238,27 @@ public class Hub implements OntologyListener, ModuleActivator {
 	}
 
 	/**
-	 * Set the turtle-uaal parser. Make sure it's set at least once before
+	 * Set the turtle parser. Make sure it's set at least once before
 	 * start().
 	 *
 	 * @param service
 	 *            The parser
 	 */
-	public void setuAALParser(MessageContentSerializer service) {
-		this.uAALParser = service;
-		this.db.setuAALParser(service);
+	public void setSerializer(MessageContentSerializer service) {
+		this.serializer = service;
+		this.db.setSerializer(service);
 		// create a thread that waits until this.chc is not null
 		new Thread(new Runnable() {
 
 			public void run() {
-				synchronized (Hub.this.uAALParser) {
+				synchronized (Hub.this.serializer) {
 					while (Hub.this.chc == null) {
 						try {
-							Hub.this.uAALParser.wait();
+							Hub.this.serializer.wait();
 						} catch (InterruptedException e) {
 						}
 					}
-					Hub.this.chc.setUAALParser(Hub.this.uAALParser);
+					Hub.this.chc.setSerializer(Hub.this.serializer);
 				}
 
 			}
@@ -360,7 +360,7 @@ public class Hub implements OntologyListener, ModuleActivator {
 						readline = br.readLine();
 					}
 					if (turtleIn.length() > 0) {
-						ev = (ContextEvent) uAALParser.deserialize(turtleIn.toString());
+						ev = (ContextEvent) serializer.deserialize(turtleIn.toString());
 						if (lKO < ev.getTimestamp().longValue()) {
 							log.debug("synchronizeMobileTurtle",
 									"Parsed an event from Mobile " + "file, storing in DB");

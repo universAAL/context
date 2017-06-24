@@ -49,7 +49,7 @@ public class Hub {
 	 * To be called when application starts. Used to be Activator.start().
 	 *
 	 * @param context
-	 *            uaal module context
+	 *            universAAL module context
 	 * @throws Exception
 	 *             If anything goes wrong
 	 */
@@ -67,13 +67,13 @@ public class Hub {
 	}
 
 	/**
-	 * Set the turtle-uaal parser. Make sure it's called after start().
+	 * Set the turtle parser. Make sure it's called after start().
 	 *
 	 * @param service
 	 *            The parser
 	 */
-	public void setuAALParser(MessageContentSerializer service) {
-		hc.setuAALParser(service);
+	public void setSerializer(MessageContentSerializer service) {
+		hc.setSerializer(service);
 	}
 
 }

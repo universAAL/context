@@ -96,9 +96,9 @@ public class SesameBackend implements Backend {
 	 */
 	RepositoryConnection con;
 	/**
-	 * uaal-turtle parser.
+	 * turtle parser.
 	 */
-	protected MessageContentSerializer uAALParser;
+	protected MessageContentSerializer serializer;
 
 	// TODO: Remove this DEBUG
 	/**
@@ -261,7 +261,7 @@ public class SesameBackend implements Backend {
 					List scopeList = e.getScopes();
 					if (scopeList.isEmpty()) {
 						// No tenants, do as always
-						con.add(new StringReader(uAALParser.serialize(e)), e.getURI(), RDFFormat.TURTLE);
+						con.add(new StringReader(serializer.serialize(e)), e.getURI(), RDFFormat.TURTLE);
 					} else {
 						ValueFactory f = myRepository.getValueFactory();
 						String[] scopeArray = (String[]) scopeList.toArray(new String[0]);
@@ -272,11 +272,11 @@ public class SesameBackend implements Backend {
 									: Constants.MIDDLEWARE_LOCAL_ID_PREFIX + scopeArray[i]);
 						}
 						// store with associated tenants
-						con.add(new StringReader(uAALParser.serialize(e)), e.getURI(), RDFFormat.TURTLE, contextArray);
+						con.add(new StringReader(serializer.serialize(e)), e.getURI(), RDFFormat.TURTLE, contextArray);
 					}
 				} else {
 					// Not tenant-aware, store in default RDF context
-					con.add(new StringReader(uAALParser.serialize(e)), e.getURI(), RDFFormat.TURTLE);
+					con.add(new StringReader(serializer.serialize(e)), e.getURI(), RDFFormat.TURTLE);
 				}
 				log.debug("storeEvent", "Successfully added event to store");
 			} catch (IOException exc) {
@@ -311,7 +311,7 @@ public class SesameBackend implements Backend {
 				// Theres no way in Sesame to find out which type of query it is
 				// We have to find out ourselves with get
 				switch (getQueryType(input)) {
-				case SELECT:// TODO Put a selector in uAAL service for XML,
+				case SELECT:// TODO Put a selector in universAAL service for XML,
 					// because this is not possible with Turtle
 					SPARQLResultsXMLWriter selectWriter = new SPARQLResultsXMLWriter(stream);
 					TupleQuery tquery = con.prepareTupleQuery(QueryLanguage.SPARQL, input);
@@ -326,7 +326,7 @@ public class SesameBackend implements Backend {
 						bquery.setDataset(ds);
 					result = bquery.evaluate() ? "true" : "false";
 					break;
-				case CONSTRUCT:// TODO: Put a selector in uAAL service for XML
+				case CONSTRUCT:// TODO: Put a selector in universAAL service for XML
 					// results instead of Turtle
 					TurtleWriterFactory factory1 = new TurtleWriterFactory();
 					RDFWriter construtWriter = factory1.getWriter(stream);
@@ -337,7 +337,7 @@ public class SesameBackend implements Backend {
 					result = stream.toString("UTF-8");
 					factory1 = null; // Just in case...
 					break;
-				case DESCRIBE:// TODO: Put a selector in uAAL service for XML
+				case DESCRIBE:// TODO: Put a selector in universAAL service for XML
 					// results instead of Turtle
 					TurtleWriterFactory factory2 = new TurtleWriterFactory();
 					RDFWriter describeWriter = factory2.getWriter(stream);
@@ -409,7 +409,7 @@ public class SesameBackend implements Backend {
 							con.exportStatements((URI) valueOfC, null, null, true, writer);
 							// Instead of using a Converter, we parse the Turtle
 							// result
-							solution.add((ContextEvent) uAALParser.deserialize(stream.toString("UTF-8")));
+							solution.add((ContextEvent) serializer.deserialize(stream.toString("UTF-8")));
 							stream.reset();
 						} else {
 							log.error("retrieveEventsBySPARQL", "Returned value was not a Resource, "
@@ -532,11 +532,11 @@ public class SesameBackend implements Backend {
 	 * (non-Javadoc)
 	 *
 	 * @see
-	 * org.universAAL.context.che.database.Backend#setuAALParser(org.universAAL
+	 * org.universAAL.context.che.database.Backend#setSerializer(org.universAAL
 	 * .middleware.sodapop.msg.MessageContentSerializer)
 	 */
-	public void setuAALParser(MessageContentSerializer service) {
-		this.uAALParser = service;
+	public void setSerializer(MessageContentSerializer service) {
+		this.serializer = service;
 	}
 
 	// --Helper Methods---
@@ -572,7 +572,7 @@ public class SesameBackend implements Backend {
 	}
 
 	/**
-	 * Given the uAAL values of all or some of the fields of a Context Event,
+	 * Given the universAAL values of all or some of the fields of a Context Event,
 	 * prepares the appropriate SPARQL SELECT query that would return matching
 	 * events.
 	 *
@@ -752,7 +752,7 @@ public class SesameBackend implements Backend {
 	/**
 	 * Turns an array of tenant scopes into a collection of SPARQL FROM
 	 * commands. If a scope is not formatted as URI, its prepended the
-	 * Constants.uAAL_MIDDLEWARE_LOCAL_ID_PREFIX.
+	 * Constants.MIDDLEWARE_LOCAL_ID_PREFIX.
 	 *
 	 * @param scopes
 	 *            Array of scopes

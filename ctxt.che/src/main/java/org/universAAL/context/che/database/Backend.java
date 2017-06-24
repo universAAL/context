@@ -287,7 +287,7 @@ public interface Backend {
 	 *            The MessageContentSerializer service implementation found in
 	 *            OSGi
 	 */
-	void setuAALParser(MessageContentSerializer service);
+	void setSerializer(MessageContentSerializer service);
 
 	/**
 	 * Fills the initial store with the OWL data of the ontologies from the OWL

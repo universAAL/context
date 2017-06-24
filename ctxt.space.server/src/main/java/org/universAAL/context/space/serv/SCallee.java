@@ -60,21 +60,21 @@ public class SCallee extends ServiceCallee {
 	 */
 	protected static final String NAMESPACE = "http://ontology.universAAL.org/SpaceServer.owl#";
 	/**
-	 * Namespace for AALSPACE services.
+	 * Namespace for SPACE services.
 	 */
-	private static final String NAMESPACE_AALSPACE = NAMESPACE + "space";
+	private static final String NAMESPACE_SPACE = NAMESPACE + "space";
 	/**
-	 * Namespace for AALSPACE PROFILE services.
+	 * Namespace for SPACE PROFILE services.
 	 */
-	private static final String NAMESPACE_AALSPACEPROF = NAMESPACE + "profspace";
+	private static final String NAMESPACE_SPACEPROF = NAMESPACE + "profspace";
 	/**
-	 * Namespace for AALSERVICE services.
+	 * Namespace for SERVICE services.
 	 */
-	private static final String NAMESPACE_AALSERVICE = NAMESPACE + "serv";
+	private static final String NAMESPACE_SERVICE = NAMESPACE + "serv";
 	/**
-	 * Namespace for AALSERVICE PROFILE services.
+	 * Namespace for SERVICE PROFILE services.
 	 */
-	private static final String NAMESPACE_AALSERVICEPROF = NAMESPACE + "profserv";
+	private static final String NAMESPACE_SERVICEPROF = NAMESPACE + "profserv";
 	/**
 	 * Namespace for Device services.
 	 */
@@ -84,7 +84,7 @@ public class SCallee extends ServiceCallee {
 	 */
 	private static final String NAMESPACE_ONT = NAMESPACE + "ont";
 	/**
-	 * The uAAL module context.
+	 * The universAAL module context.
 	 */
 	private ModuleContext mc;
 
@@ -92,7 +92,7 @@ public class SCallee extends ServiceCallee {
 	 * Default 2-argument constructor. Must not be used.
 	 *
 	 * @param context
-	 *            uAAL module context
+	 *            universAAL module context
 	 * @param realizedServices
 	 *            provided service profiles
 	 */
@@ -106,18 +106,18 @@ public class SCallee extends ServiceCallee {
 	 * Default constructor.
 	 *
 	 * @param context
-	 *            uAAL module context
+	 *            universAAL module context
 	 */
 	protected SCallee(ModuleContext context) {
 		super(context, SCalleeProvidedService.profiles);
-		this.addNewServiceProfiles(SCalleeProvidedService.getServiceProfiles(NAMESPACE_AALSPACE,
+		this.addNewServiceProfiles(SCalleeProvidedService.getServiceProfiles(NAMESPACE_SPACE,
 				ProfilingService.MY_URI, new String[] { ProfilingService.PROP_CONTROLS }, Space.MY_URI));
-		this.addNewServiceProfiles(SCalleeProvidedService.getServiceProfiles(NAMESPACE_AALSPACEPROF,
+		this.addNewServiceProfiles(SCalleeProvidedService.getServiceProfiles(NAMESPACE_SPACEPROF,
 				ProfilingService.MY_URI, new String[] { ProfilingService.PROP_CONTROLS, Profilable.PROP_HAS_PROFILE },
 				SpaceProfile.MY_URI));
-		this.addNewServiceProfiles(SCalleeProvidedService.getServiceProfiles(NAMESPACE_AALSERVICE,
+		this.addNewServiceProfiles(SCalleeProvidedService.getServiceProfiles(NAMESPACE_SERVICE,
 				ProfilingService.MY_URI, new String[] { ProfilingService.PROP_CONTROLS }, AppService.MY_URI));
-		this.addNewServiceProfiles(SCalleeProvidedService.getServiceProfiles(NAMESPACE_AALSERVICEPROF,
+		this.addNewServiceProfiles(SCalleeProvidedService.getServiceProfiles(NAMESPACE_SERVICEPROF,
 				ProfilingService.MY_URI, new String[] { ProfilingService.PROP_CONTROLS, Profilable.PROP_HAS_PROFILE },
 				AppServiceProfile.MY_URI));
 		this.addNewServiceProfiles(
@@ -171,163 +171,163 @@ public class SCallee extends ServiceCallee {
 		// and in the client part they are parsed to the most specialized class,
 		// which is supposed to be known by the client.
 
-		// :::::::::::::AALSPACE GET/ADD/CHANGE/REMOVE:::::::::::::::::
+		// :::::::::::::SPACE GET/ADD/CHANGE/REMOVE:::::::::::::::::
 
-		if (operation.equals(NAMESPACE_AALSPACE + SCalleeProvidedService.SRV_GET_X)) {
-			Object input = call.getInputValue(NAMESPACE_AALSPACE + SCalleeProvidedService.INP_GET_X);
+		if (operation.equals(NAMESPACE_SPACE + SCalleeProvidedService.SRV_GET_X)) {
+			Object input = call.getInputValue(NAMESPACE_SPACE + SCalleeProvidedService.INP_GET_X);
 			if (input == null) {
 				return ERROR_INPUT;
 			}
-			Resource result = Activator.scaller.getAALSpace((Resource) input);
+			Resource result = Activator.scaller.getSpace((Resource) input);
 			ServiceResponse response = new ServiceResponse(CallStatus.succeeded);
-			response.addOutput(new ProcessOutput(NAMESPACE_AALSPACE + SCalleeProvidedService.OUT_GET_X, result));
+			response.addOutput(new ProcessOutput(NAMESPACE_SPACE + SCalleeProvidedService.OUT_GET_X, result));
 			return response;
 		}
 
-		if (operation.equals(NAMESPACE_AALSPACE + SCalleeProvidedService.SRV_ADD_X)) {
-			Object input = call.getInputValue(NAMESPACE_AALSPACE + SCalleeProvidedService.INP_ADD_X);
+		if (operation.equals(NAMESPACE_SPACE + SCalleeProvidedService.SRV_ADD_X)) {
+			Object input = call.getInputValue(NAMESPACE_SPACE + SCalleeProvidedService.INP_ADD_X);
 			if (input == null) {
 				return ERROR_INPUT;
 			}
-			Activator.scaller.addAALSpace((Resource) input);
+			Activator.scaller.addSpace((Resource) input);
 			return new ServiceResponse(CallStatus.succeeded);
 		}
 
-		if (operation.equals(NAMESPACE_AALSPACE + SCalleeProvidedService.SRV_CHN_X)) {
-			Object input = call.getInputValue(NAMESPACE_AALSPACE + SCalleeProvidedService.INP_CHN_X);
+		if (operation.equals(NAMESPACE_SPACE + SCalleeProvidedService.SRV_CHN_X)) {
+			Object input = call.getInputValue(NAMESPACE_SPACE + SCalleeProvidedService.INP_CHN_X);
 			if (input == null) {
 				return ERROR_INPUT;
 			}
-			Activator.scaller.changeAALSpace((Resource) input);
+			Activator.scaller.changeSpace((Resource) input);
 			return new ServiceResponse(CallStatus.succeeded);
 		}
 
-		if (operation.equals(NAMESPACE_AALSPACE + SCalleeProvidedService.SRV_REM_X)) {
-			Object input = call.getInputValue(NAMESPACE_AALSPACE + SCalleeProvidedService.INP_REM_X);
+		if (operation.equals(NAMESPACE_SPACE + SCalleeProvidedService.SRV_REM_X)) {
+			Object input = call.getInputValue(NAMESPACE_SPACE + SCalleeProvidedService.INP_REM_X);
 			if (input == null) {
 				return ERROR_INPUT;
 			}
-			Activator.scaller.removeAALSpace((Resource) input);
+			Activator.scaller.removeSpace((Resource) input);
 			return new ServiceResponse(CallStatus.succeeded);
 		}
 
-		// :::::::::::::AALSPACEPROFILE GET/ADD/CHANGE/REMOVE:::::::::::::::::
+		// :::::::::::::SPACEPROFILE GET/ADD/CHANGE/REMOVE:::::::::::::::::
 
-		if (operation.equals(NAMESPACE_AALSPACEPROF + SCalleeProvidedService.SRV_GET_X)) {
-			Object input = call.getInputValue(NAMESPACE_AALSPACEPROF + SCalleeProvidedService.INP_GET_X);
+		if (operation.equals(NAMESPACE_SPACEPROF + SCalleeProvidedService.SRV_GET_X)) {
+			Object input = call.getInputValue(NAMESPACE_SPACEPROF + SCalleeProvidedService.INP_GET_X);
 			if (input == null) {
 				return ERROR_INPUT;
 			}
-			Resource result = Activator.scaller.getAALSpaceProfile((Resource) input);
+			Resource result = Activator.scaller.getSpaceProfile((Resource) input);
 			ServiceResponse response = new ServiceResponse(CallStatus.succeeded);
-			response.addOutput(new ProcessOutput(NAMESPACE_AALSPACEPROF + SCalleeProvidedService.OUT_GET_X, result));
+			response.addOutput(new ProcessOutput(NAMESPACE_SPACEPROF + SCalleeProvidedService.OUT_GET_X, result));
 			return response;
 		}
 
-		if (operation.equals(NAMESPACE_AALSPACEPROF + SCalleeProvidedService.SRV_ADD_X)) {
-			Object input = call.getInputValue(NAMESPACE_AALSPACEPROF + SCalleeProvidedService.INP_ADD_X);
+		if (operation.equals(NAMESPACE_SPACEPROF + SCalleeProvidedService.SRV_ADD_X)) {
+			Object input = call.getInputValue(NAMESPACE_SPACEPROF + SCalleeProvidedService.INP_ADD_X);
 			if (input == null) {
 				return ERROR_INPUT;
 			}
-			Activator.scaller.addAALSpaceProfile((Resource) input);
+			Activator.scaller.addSpaceProfile((Resource) input);
 			return new ServiceResponse(CallStatus.succeeded);
 		}
 
-		if (operation.equals(NAMESPACE_AALSPACEPROF + SCalleeProvidedService.SRV_CHN_X)) {
-			Object input = call.getInputValue(NAMESPACE_AALSPACEPROF + SCalleeProvidedService.INP_CHN_X);
+		if (operation.equals(NAMESPACE_SPACEPROF + SCalleeProvidedService.SRV_CHN_X)) {
+			Object input = call.getInputValue(NAMESPACE_SPACEPROF + SCalleeProvidedService.INP_CHN_X);
 			if (input == null) {
 				return ERROR_INPUT;
 			}
-			Activator.scaller.changeAALSpaceProfile((Resource) input);
+			Activator.scaller.changeSpaceProfile((Resource) input);
 			return new ServiceResponse(CallStatus.succeeded);
 		}
 
-		if (operation.equals(NAMESPACE_AALSPACEPROF + SCalleeProvidedService.SRV_REM_X)) {
-			Object input = call.getInputValue(NAMESPACE_AALSPACEPROF + SCalleeProvidedService.INP_REM_X);
+		if (operation.equals(NAMESPACE_SPACEPROF + SCalleeProvidedService.SRV_REM_X)) {
+			Object input = call.getInputValue(NAMESPACE_SPACEPROF + SCalleeProvidedService.INP_REM_X);
 			if (input == null) {
 				return ERROR_INPUT;
 			}
-			Activator.scaller.removeAALSpaceProfile((Resource) input);
+			Activator.scaller.removeSpaceProfile((Resource) input);
 			return new ServiceResponse(CallStatus.succeeded);
 		}
 
-		// :::::::::::::AALSERVICE GET/ADD/CHANGE/REMOVE:::::::::::::::::
+		// :::::::::::::SERVICE GET/ADD/CHANGE/REMOVE:::::::::::::::::
 
-		if (operation.equals(NAMESPACE_AALSERVICE + SCalleeProvidedService.SRV_GET_X)) {
-			Object input = call.getInputValue(NAMESPACE_AALSERVICE + SCalleeProvidedService.INP_GET_X);
+		if (operation.equals(NAMESPACE_SERVICE + SCalleeProvidedService.SRV_GET_X)) {
+			Object input = call.getInputValue(NAMESPACE_SERVICE + SCalleeProvidedService.INP_GET_X);
 			if (input == null) {
 				return ERROR_INPUT;
 			}
-			Resource result = Activator.scaller.getAALService((Resource) input);
+			Resource result = Activator.scaller.getService((Resource) input);
 			ServiceResponse response = new ServiceResponse(CallStatus.succeeded);
-			response.addOutput(new ProcessOutput(NAMESPACE_AALSERVICE + SCalleeProvidedService.OUT_GET_X, result));
+			response.addOutput(new ProcessOutput(NAMESPACE_SERVICE + SCalleeProvidedService.OUT_GET_X, result));
 			return response;
 		}
 
-		if (operation.equals(NAMESPACE_AALSERVICE + SCalleeProvidedService.SRV_ADD_X)) {
-			Object input = call.getInputValue(NAMESPACE_AALSERVICE + SCalleeProvidedService.INP_ADD_X);
+		if (operation.equals(NAMESPACE_SERVICE + SCalleeProvidedService.SRV_ADD_X)) {
+			Object input = call.getInputValue(NAMESPACE_SERVICE + SCalleeProvidedService.INP_ADD_X);
 			if (input == null) {
 				return ERROR_INPUT;
 			}
-			Activator.scaller.addAALService((Resource) input);
+			Activator.scaller.addService((Resource) input);
 			return new ServiceResponse(CallStatus.succeeded);
 		}
 
-		if (operation.equals(NAMESPACE_AALSERVICE + SCalleeProvidedService.SRV_CHN_X)) {
-			Object input = call.getInputValue(NAMESPACE_AALSERVICE + SCalleeProvidedService.INP_CHN_X);
+		if (operation.equals(NAMESPACE_SERVICE + SCalleeProvidedService.SRV_CHN_X)) {
+			Object input = call.getInputValue(NAMESPACE_SERVICE + SCalleeProvidedService.INP_CHN_X);
 			if (input == null) {
 				return ERROR_INPUT;
 			}
-			Activator.scaller.changeAALService((Resource) input);
+			Activator.scaller.changeService((Resource) input);
 			return new ServiceResponse(CallStatus.succeeded);
 		}
 
-		if (operation.equals(NAMESPACE_AALSERVICE + SCalleeProvidedService.SRV_REM_X)) {
-			Object input = call.getInputValue(NAMESPACE_AALSERVICE + SCalleeProvidedService.INP_REM_X);
+		if (operation.equals(NAMESPACE_SERVICE + SCalleeProvidedService.SRV_REM_X)) {
+			Object input = call.getInputValue(NAMESPACE_SERVICE + SCalleeProvidedService.INP_REM_X);
 			if (input == null) {
 				return ERROR_INPUT;
 			}
-			Activator.scaller.removeAALService((Resource) input);
+			Activator.scaller.removeService((Resource) input);
 			return new ServiceResponse(CallStatus.succeeded);
 		}
 
-		// :::::::::::::AALSERVICEPROF GET/ADD/CHANGE/REMOVE:::::::::::::::::
+		// :::::::::::::SERVICEPROF GET/ADD/CHANGE/REMOVE:::::::::::::::::
 
-		if (operation.equals(NAMESPACE_AALSERVICEPROF + SCalleeProvidedService.SRV_GET_X)) {
-			Object input = call.getInputValue(NAMESPACE_AALSERVICEPROF + SCalleeProvidedService.INP_GET_X);
+		if (operation.equals(NAMESPACE_SERVICEPROF + SCalleeProvidedService.SRV_GET_X)) {
+			Object input = call.getInputValue(NAMESPACE_SERVICEPROF + SCalleeProvidedService.INP_GET_X);
 			if (input == null) {
 				return ERROR_INPUT;
 			}
-			Resource result = Activator.scaller.getAALServiceProf((Resource) input);
+			Resource result = Activator.scaller.getServiceProf((Resource) input);
 			ServiceResponse response = new ServiceResponse(CallStatus.succeeded);
-			response.addOutput(new ProcessOutput(NAMESPACE_AALSERVICEPROF + SCalleeProvidedService.OUT_GET_X, result));
+			response.addOutput(new ProcessOutput(NAMESPACE_SERVICEPROF + SCalleeProvidedService.OUT_GET_X, result));
 			return response;
 		}
 
-		if (operation.equals(NAMESPACE_AALSERVICEPROF + SCalleeProvidedService.SRV_ADD_X)) {
-			Object input = call.getInputValue(NAMESPACE_AALSERVICEPROF + SCalleeProvidedService.INP_ADD_X);
+		if (operation.equals(NAMESPACE_SERVICEPROF + SCalleeProvidedService.SRV_ADD_X)) {
+			Object input = call.getInputValue(NAMESPACE_SERVICEPROF + SCalleeProvidedService.INP_ADD_X);
 			if (input == null) {
 				return ERROR_INPUT;
 			}
-			Activator.scaller.addAALServiceProf((Resource) input);
+			Activator.scaller.addServiceProf((Resource) input);
 			return new ServiceResponse(CallStatus.succeeded);
 		}
 
-		if (operation.equals(NAMESPACE_AALSERVICEPROF + SCalleeProvidedService.SRV_CHN_X)) {
-			Object input = call.getInputValue(NAMESPACE_AALSERVICEPROF + SCalleeProvidedService.INP_CHN_X);
+		if (operation.equals(NAMESPACE_SERVICEPROF + SCalleeProvidedService.SRV_CHN_X)) {
+			Object input = call.getInputValue(NAMESPACE_SERVICEPROF + SCalleeProvidedService.INP_CHN_X);
 			if (input == null) {
 				return ERROR_INPUT;
 			}
-			Activator.scaller.changeAALServiceProf((Resource) input);
+			Activator.scaller.changeServiceProf((Resource) input);
 			return new ServiceResponse(CallStatus.succeeded);
 		}
 
-		if (operation.equals(NAMESPACE_AALSERVICEPROF + SCalleeProvidedService.SRV_REM_X)) {
-			Object input = call.getInputValue(NAMESPACE_AALSERVICEPROF + SCalleeProvidedService.INP_REM_X);
+		if (operation.equals(NAMESPACE_SERVICEPROF + SCalleeProvidedService.SRV_REM_X)) {
+			Object input = call.getInputValue(NAMESPACE_SERVICEPROF + SCalleeProvidedService.INP_REM_X);
 			if (input == null) {
 				return ERROR_INPUT;
 			}
-			Activator.scaller.removeAALServiceProf((Resource) input);
+			Activator.scaller.removeServiceProf((Resource) input);
 			return new ServiceResponse(CallStatus.succeeded);
 		}
 
@@ -414,14 +414,14 @@ public class SCallee extends ServiceCallee {
 		// :::::::::::::OTHER GETS:::::::::::::::::
 
 		if (operation.equals(SCalleeProvidedService.SRV_GET_SERVS)) {
-			ArrayList result = Activator.scaller.getAALServices();
+			ArrayList result = Activator.scaller.getServices();
 			ServiceResponse response = new ServiceResponse(CallStatus.succeeded);
 			response.addOutput(new ProcessOutput(SCalleeProvidedService.OUT_GET_SERVS, result));
 			return response;
 		}
 
 		if (operation.equals(SCalleeProvidedService.SRV_GET_SPACES)) {
-			ArrayList result = Activator.scaller.getAALSpaces();
+			ArrayList result = Activator.scaller.getSpaces();
 			ServiceResponse response = new ServiceResponse(CallStatus.succeeded);
 			response.addOutput(new ProcessOutput(SCalleeProvidedService.OUT_GET_SPACES, result));
 			return response;
@@ -432,7 +432,7 @@ public class SCallee extends ServiceCallee {
 			if (input == null) {
 				return ERROR_INPUT;
 			}
-			Resource result = Activator.scaller.getHROfAALService((Resource) input);
+			Resource result = Activator.scaller.getHROfService((Resource) input);
 			ServiceResponse response = new ServiceResponse(CallStatus.succeeded);
 			response.addOutput(new ProcessOutput(SCalleeProvidedService.OUT_GET_HR_OF_SERV, result));
 			return response;
@@ -443,7 +443,7 @@ public class SCallee extends ServiceCallee {
 			if (input == null) {
 				return ERROR_INPUT;
 			}
-			Resource result = Activator.scaller.getHWOfAALService((Resource) input);
+			Resource result = Activator.scaller.getHWOfService((Resource) input);
 			ServiceResponse response = new ServiceResponse(CallStatus.succeeded);
 			response.addOutput(new ProcessOutput(SCalleeProvidedService.OUT_GET_HW_OF_SERV, result));
 			return response;
@@ -454,7 +454,7 @@ public class SCallee extends ServiceCallee {
 			if (input == null) {
 				return ERROR_INPUT;
 			}
-			Resource result = Activator.scaller.getAppOfAALService((Resource) input);
+			Resource result = Activator.scaller.getAppOfService((Resource) input);
 			ServiceResponse response = new ServiceResponse(CallStatus.succeeded);
 			response.addOutput(new ProcessOutput(SCalleeProvidedService.OUT_GET_APP_OF_SERV, result));
 			return response;

@@ -100,11 +100,11 @@ public class Activator implements BundleActivator, ServiceListener {
 		case ServiceEvent.REGISTERED:
 		case ServiceEvent.MODIFIED: {
 			serializer = (MessageContentSerializer) osgiContext.getService(event.getServiceReference());
-			scaller.setuAALParser(serializer);
+			scaller.setSerializer(serializer);
 			break;
 		}
 		case ServiceEvent.UNREGISTERING:
-			scaller.setuAALParser(null);
+			scaller.setSerializer(null);
 			break;
 		default:
 			break;

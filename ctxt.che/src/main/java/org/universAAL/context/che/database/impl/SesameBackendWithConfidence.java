@@ -144,7 +144,7 @@ public class SesameBackendWithConfidence extends SesameBackend {
 						TurtleParser sesameParser = new TurtleParser();
 						StatementCollector stHandler = new StatementCollector();
 						sesameParser.setRDFHandler(stHandler);
-						sesameParser.parse(new StringReader(uAALParser.serialize(e)), e.getURI());
+						sesameParser.parse(new StringReader(serializer.serialize(e)), e.getURI());
 						Iterator<Statement> sts = stHandler.getStatements().iterator();
 						// store only stmts having event as subject
 						while (sts.hasNext()) {
@@ -160,18 +160,18 @@ public class SesameBackendWithConfidence extends SesameBackend {
 						log.info("storeEvent", "CHe: Stored a Context Event with low " + "Confidence: Not reified.");
 					} else {
 						if (contextArray != null) {
-							con.add(new StringReader(uAALParser.serialize(e)), e.getURI(), RDFFormat.TURTLE,
+							con.add(new StringReader(serializer.serialize(e)), e.getURI(), RDFFormat.TURTLE,
 									contextArray);
 						} else {
-							con.add(new StringReader(uAALParser.serialize(e)), e.getURI(), RDFFormat.TURTLE);
+							con.add(new StringReader(serializer.serialize(e)), e.getURI(), RDFFormat.TURTLE);
 						}
 						log.info("storeEvent", "CHe: Stored a Context Event with high " + "Confidence");
 					}
 				} else { // TODO: What to do if events have no confidence?
 					if (contextArray != null) {
-						con.add(new StringReader(uAALParser.serialize(e)), e.getURI(), RDFFormat.TURTLE, contextArray);
+						con.add(new StringReader(serializer.serialize(e)), e.getURI(), RDFFormat.TURTLE, contextArray);
 					} else {
-						con.add(new StringReader(uAALParser.serialize(e)), e.getURI(), RDFFormat.TURTLE);
+						con.add(new StringReader(serializer.serialize(e)), e.getURI(), RDFFormat.TURTLE);
 					}
 					log.info("storeEvent", "CHe: Stored a Context Event without Confidence");
 				}

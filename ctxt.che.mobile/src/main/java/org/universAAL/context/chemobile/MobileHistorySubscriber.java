@@ -52,11 +52,11 @@ public class MobileHistorySubscriber extends ContextSubscriber {
 	 */
 	private static Object fileLock = new Object();
 	/**
-	 * Turtle-uaal parser.
+	 * Turtle parser.
 	 */
-	private MessageContentSerializer uAALParser;
+	private MessageContentSerializer serializer;
 	/**
-	 * uaal module context.
+	 * universAAL module context.
 	 */
 	private ModuleContext moduleContext;
 
@@ -64,7 +64,7 @@ public class MobileHistorySubscriber extends ContextSubscriber {
 	 * Main constructor.
 	 *
 	 * @param context
-	 *            uaal module context
+	 *            universAAL module context
 	 */
 	protected MobileHistorySubscriber(ModuleContext context) {
 		super(context, new ContextEventPattern[] { new ContextEventPattern() });
@@ -109,7 +109,7 @@ public class MobileHistorySubscriber extends ContextSubscriber {
 		synchronized (fileLock) {
 			try {
 				BufferedWriter out = new BufferedWriter(new FileWriter(new File(Hub.confHome, FILE), true));
-				String turtleOut = uAALParser.serialize(event);
+				String turtleOut = serializer.serialize(event);
 				out.write(turtleOut);
 				out.newLine();
 				out.write("<!--CEv-->");
@@ -123,13 +123,13 @@ public class MobileHistorySubscriber extends ContextSubscriber {
 	}
 
 	/**
-	 * Sets the uaal parser.
+	 * Sets the universAAL parser.
 	 *
 	 * @param service
 	 *            the parser
 	 */
-	public void setuAALParser(MessageContentSerializer service) {
-		this.uAALParser = service;
+	public void setSerializer(MessageContentSerializer service) {
+		this.serializer = service;
 	}
 
 }

@@ -59,13 +59,13 @@ public class ContextHistoryCallee extends ServiceCallee {
 	 * The DB of the store.
 	 */
 	private Backend db;
-	private MessageContentSerializer uAALParser;
+	private MessageContentSerializer serializer;
 
 	/**
 	 * Main constructor.
 	 *
 	 * @param context
-	 *            The uaal module context
+	 *            The universAAL module context
 	 * @param dbstore
 	 *            The store
 	 */
@@ -223,7 +223,7 @@ public class ContextHistoryCallee extends ServiceCallee {
 
 		String query = "DESCRIBE <" + uri + ">";
 		String serialised = db.queryBySPARQL(query, null);
-		Object o = ((MessageContentSerializerEx) uAALParser).deserialize(serialised, uri);
+		Object o = ((MessageContentSerializerEx) serializer).deserialize(serialised, uri);
 		return reconstructResource(uri, visited);
 	}
 
@@ -246,7 +246,7 @@ public class ContextHistoryCallee extends ServiceCallee {
 		String query = "CONSTRUCT { ?b ?p ?o .} WHERE {<" + oURI + "> <" + propURI + "> ?b . ?b ?p ?o . }";
 
 		String serialised = db.queryBySPARQL(query, null);
-		Object o = uAALParser.deserialize(serialised);
+		Object o = serializer.deserialize(serialised);
 		return reconstructResource(o, visited);
 	}
 
@@ -335,8 +335,8 @@ public class ContextHistoryCallee extends ServiceCallee {
 	/**
 	 * @param service
 	 */
-	public void setUAALParser(MessageContentSerializer service) {
-		this.uAALParser = service;
+	public void setSerializer(MessageContentSerializer service) {
+		this.serializer = service;
 	}
 
 }

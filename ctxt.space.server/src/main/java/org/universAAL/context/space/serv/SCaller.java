@@ -66,7 +66,7 @@ public class SCaller {
 	 * Default constructor.
 	 *
 	 * @param context
-	 *            uAAL Module context.
+	 *            universAAL Module context.
 	 */
 	protected SCaller(ModuleContext context) {
 		defaultCaller = new DefaultServiceCaller(context);
@@ -79,7 +79,7 @@ public class SCaller {
 		defaultCaller.close();
 	}
 
-	// SPARQL UPDATE queries would include serialized uAAL data, but this
+	// SPARQL UPDATE queries would include serialized universAAL data, but this
 	// serialization is only possible currently to turtle
 	// The turtle serialization could be in theory usable into the SPARUL query
 	// as is, as long as:
@@ -95,73 +95,73 @@ public class SCaller {
 
 	// :::::::::::::SPACE GET/ADD/CHANGE/REMOVE:::::::::::::::::
 
-	protected Resource getAALSpace(Resource input) {
+	protected Resource getSpace(Resource input) {
 		return genericGet(input, Queries.GET.replace(Queries.ARGTYPE, Space.MY_URI));
 	}
 
-	protected void addAALSpace(Resource input) {
+	protected void addSpace(Resource input) {
 		genericAdd(input, Queries.ADD);
 	}
 
-	protected void changeAALSpace(Resource input) {
+	protected void changeSpace(Resource input) {
 		genericChange(input, Queries.CHANGE.replace(Queries.ARGTYPE, Space.MY_URI));
 	}
 
-	protected void removeAALSpace(Resource input) {
+	protected void removeSpace(Resource input) {
 		genericRemove(input, Queries.REMOVE.replace(Queries.ARGTYPE, Space.MY_URI));
 	}
 
 	// :::::::::::::SPACE PROFILE GET/ADD/CHANGE/REMOVE:::::::::::::::::
 
-	protected Resource getAALSpaceProfile(Resource input) {
+	protected Resource getSpaceProfile(Resource input) {
 		return genericGet(input, Queries.GET.replace(Queries.ARGTYPE, SpaceProfile.MY_URI));
 	}
 
-	protected void addAALSpaceProfile(Resource input) {
+	protected void addSpaceProfile(Resource input) {
 		genericAdd(input, Queries.ADD);
 	}
 
-	protected void changeAALSpaceProfile(Resource input) {
+	protected void changeSpaceProfile(Resource input) {
 		genericChange(input, Queries.CHANGE.replace(Queries.ARGTYPE, SpaceProfile.MY_URI));
 	}
 
-	protected void removeAALSpaceProfile(Resource input) {
+	protected void removeSpaceProfile(Resource input) {
 		genericRemove(input, Queries.REMOVE.replace(Queries.ARGTYPE, SpaceProfile.MY_URI));
 	}
 
 	// :::::::::::::SERVICE GET/ADD/CHANGE/REMOVE:::::::::::::::::
 
-	protected Resource getAALService(Resource input) {
+	protected Resource getService(Resource input) {
 		return genericGet(input, Queries.GET.replace(Queries.ARGTYPE, AppService.MY_URI));
 	}
 
-	protected void addAALService(Resource input) {
+	protected void addService(Resource input) {
 		genericAdd(input, Queries.ADD);
 	}
 
-	protected void changeAALService(Resource input) {
+	protected void changeService(Resource input) {
 		genericChange(input, Queries.CHANGE.replace(Queries.ARGTYPE, AppService.MY_URI));
 	}
 
-	protected void removeAALService(Resource input) {
+	protected void removeService(Resource input) {
 		genericRemove(input, Queries.REMOVE.replace(Queries.ARGTYPE, AppService.MY_URI));
 	}
 
 	// :::::::::::::SERVICE PROFILE GET/ADD/CHANGE/REMOVE:::::::::::::::::
 
-	public Resource getAALServiceProf(Resource input) {
+	public Resource getServiceProf(Resource input) {
 		return genericGet(input, Queries.GET.replace(Queries.ARGTYPE, AppServiceProfile.MY_URI));
 	}
 
-	public void addAALServiceProf(Resource input) {
+	public void addServiceProf(Resource input) {
 		genericAdd(input, Queries.ADD);
 	}
 
-	public void changeAALServiceProf(Resource input) {
+	public void changeServiceProf(Resource input) {
 		genericChange(input, Queries.CHANGE.replace(Queries.ARGTYPE, AppServiceProfile.MY_URI));
 	}
 
-	public void removeAALServiceProf(Resource input) {
+	public void removeServiceProf(Resource input) {
 		genericRemove(input, Queries.REMOVE.replace(Queries.ARGTYPE, AppServiceProfile.MY_URI));
 	}
 
@@ -203,29 +203,29 @@ public class SCaller {
 
 	// :::::::::::::OTHER GETS AND ADDS:::::::::::::::::
 
-	protected ArrayList getAALServices() {
+	protected ArrayList getServices() {
 		return genericGetAll(Queries.GETALL.replace(Queries.ARGTYPE, AppService.MY_URI),
 				Queries.GETALLXTRA.replace(Queries.ARGTYPE, AppService.MY_URI));
 	}
 
-	public ArrayList getAALSpaces() {
+	public ArrayList getSpaces() {
 		return genericGetAll(Queries.GETALL.replace(Queries.ARGTYPE, Space.MY_URI),
 				Queries.GETALLXTRA.replace(Queries.ARGTYPE, Space.MY_URI));
 	}
 
-	protected Resource getHROfAALService(Resource input) {
+	protected Resource getHROfService(Resource input) {
 		return genericGetOnePropOf(input,
 				Queries.GETONEOFXTRA.replace(Queries.ARGTYPE, AppServiceProfile.PROP_HUMAN_RESOURCE_SUBPROFILE),
 				Queries.GETONEOF.replace(Queries.ARGTYPE, AppServiceProfile.PROP_HUMAN_RESOURCE_SUBPROFILE));
 	}
 
-	public Resource getHWOfAALService(Resource input) {
+	public Resource getHWOfService(Resource input) {
 		return genericGetOnePropOf(input,
 				Queries.GETONEOFXTRA.replace(Queries.ARGTYPE, AppServiceProfile.PROP_HARDWARE_SUBPROFILE),
 				Queries.GETONEOF.replace(Queries.ARGTYPE, AppServiceProfile.PROP_HARDWARE_SUBPROFILE));
 	}
 
-	public Resource getAppOfAALService(Resource input) {
+	public Resource getAppOfService(Resource input) {
 		return genericGetOnePropOf(input,
 				Queries.GETONEOFXTRA.replace(Queries.ARGTYPE, AppServiceProfile.PROP_APPLICATION_SUBPROFILE),
 				Queries.GETONEOF.replace(Queries.ARGTYPE, AppServiceProfile.PROP_APPLICATION_SUBPROFILE));
@@ -396,7 +396,7 @@ public class SCaller {
 
 	/**
 	 * Gets all results from a RDF Bag resource and returns them as an ArrayList
-	 * of uAAL ontologies.
+	 * of universAAL ontologies.
 	 *
 	 * @param bag
 	 *            The RDF Bag Resource

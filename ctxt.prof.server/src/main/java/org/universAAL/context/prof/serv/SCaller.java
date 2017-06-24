@@ -60,7 +60,7 @@ public class SCaller {
 	 * Default constructor.
 	 *
 	 * @param mcontext
-	 *            uAAL Module mcontext.
+	 *            universAAL Module context.
 	 */
 	protected SCaller(ModuleContext context) {
 		defaultCaller = new DefaultServiceCaller(context);
@@ -87,7 +87,7 @@ public class SCaller {
 		return (Resource) Hub.parser.deserialize(result, input.getURI());
 	}
 
-	// SPARQL UPDATE queries would include serialized uAAL data, but this
+	// SPARQL UPDATE queries would include serialized universAAL data, but this
 	// serialization is only possible currently to turtle
 	// The turtle serialization could be in theory usable into the SPARUL query
 	// as is, as long as:
@@ -193,7 +193,7 @@ public class SCaller {
 	// format, so it will have to be processed here. It will have to use
 	// Sesame... although any RDF framework should do.
 	// First convert to framework specific, then list the results, parse each to
-	// Turtle and then to uAAL. That's 3 parses.
+	// Turtle and then to universAAL. That's 3 parses.
 	// What about: CONSTRUCT { <http://ontology.itaca.upv.es/Test.owl#testBag>
 	// <http://ontology.itaca.upv.es/Test.owl#testProp> ?y }
 	// WHERE { ?y a <http://ontology.universAAL.org/Profile.owl#User> }

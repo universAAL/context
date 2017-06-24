@@ -273,24 +273,24 @@ public final class RulesEngine {
 			// System.out.println(rulesEngineBundleContext.getBundle()
 			// .getResource("reasoner.drl").getPath());
 
-			// kbuilder.add(ResourceFactory.newUrlResource(rulesEngineBundleContext.getBundle().getResource("uAALrules.drl")),
+			// kbuilder.add(ResourceFactory.newUrlResource(rulesEngineBundleContext.getBundle().getResource("rules.drl")),
 			// ResourceType.DRL);
 
 			// System.out
 			// .println("<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<LOS PATHS DEL
-			// METAAL>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+			// META>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
 			// System.out.println(ResourceFactory
 			// .newUrlResource(rulesEngineBundleContext.getBundle()
-			// .getResource("uAALrules.drl")));
+			// .getResource("rules.drl")));
 			String home = Activator.mc.getConfigHome().getAbsolutePath();
 			// String modHome = home.replace("\\", "/");
 			// String pathToHome = "path=file:/"
 			// + modHome.substring(modHome.indexOf(":") + 1)
-			// + "/uAALrules.drl";
+			// + "/rules.drl";
 			// System.out.println(pathToHome);
 			// System.out.println(new BundleConfigHome("drools.reasoner")
 			// .getAbsolutePath());
-			kbuilder.add(ResourceFactory.newFileResource(home + "/uAALrules.drl"), ResourceType.DRL);
+			kbuilder.add(ResourceFactory.newFileResource(home + "/rules.drl"), ResourceType.DRL);
 
 		} else {
 			// props.setProperty("drools.dialect.java.compiler", "JANINO");
@@ -661,7 +661,7 @@ public final class RulesEngine {
 	// dataSource.setMaxPoolSize(3);
 	// dataSource.getDriverProperties().put("user", "root");
 	// dataSource.getDriverProperties().put("password", "Soluciones_TSB");
-	// dataSource.getDriverProperties().put("databaseName", "uaal_ltba");
+	// dataSource.getDriverProperties().put("databaseName", "universAAL_ltba");
 	// dataSource.getDriverProperties().put("serverName", "localhost");
 	//
 	//

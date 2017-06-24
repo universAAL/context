@@ -47,7 +47,7 @@ import org.universAAL.ontology.che.ContextHistoryService;
 public class CHECaller extends ServiceCaller {
 	private static final String HISTORY_CLIENT_NAMESPACE = "http://ontology.itaca.es/Reasoner.owl#";
 	private static final String OUTPUT_RESULT_STRING = HISTORY_CLIENT_NAMESPACE + "resultString";
-	private MessageContentSerializer uAALParser;
+	private MessageContentSerializer serializer;
 	/**
 	 * GENERIC_EVENT is used to identify events created by a SPARQL CONSTRUCT
 	 * query.
@@ -79,7 +79,7 @@ public class CHECaller extends ServiceCaller {
 				ContextEvent.CONTEXT_EVENT_URI_PREFIX + StringUtils.createUniqueID());
 		String ser = callDoSPARQL(query);
 		if (!ser.isEmpty()) {
-			ContextEvent event = (ContextEvent) uAALParser.deserialize(ser);
+			ContextEvent event = (ContextEvent) serializer.deserialize(ser);
 			event.setTimestamp(new Long(System.currentTimeMillis()));
 			if (event.isWellFormed() && event.getSubjectTypeURI() != null) {
 				Activator.cpublisher.publish(event);
@@ -185,8 +185,8 @@ public class CHECaller extends ServiceCaller {
 	 * @param service
 	 *            the parser
 	 */
-	public void setuAALParser(MessageContentSerializer service) {
-		this.uAALParser = service;
+	public void setSerializer(MessageContentSerializer service) {
+		this.serializer = service;
 	}
 
 }

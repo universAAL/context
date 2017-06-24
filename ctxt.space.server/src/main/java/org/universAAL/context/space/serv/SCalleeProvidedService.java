@@ -155,20 +155,20 @@ public class SCalleeProvidedService extends ProfilingService {
 
 		// STATIC NON-TYPICAL SERVICE PROFILES
 
-		// GET_AALSERVICES() -> [AALService]
-		// Gets all AAL Services present in the system.
+		// GET_SERVICES() -> [Service]
+		// Gets all Services present in the system.
 		SCalleeProvidedService prof0 = new SCalleeProvidedService(SRV_GET_SERVS);
 		prof0.addOutput(OUT_GET_SERVS, AppService.MY_URI, 0, -1, new String[] { ProfilingService.PROP_CONTROLS });
 		profiles[0] = prof0.getProfile();
 
-		// GET_AALSPACES() -> [AALSpace]
-		// Gets all AAL Spaces present in the system.
+		// GET_SPACES() -> [Space]
+		// Gets all Spaces present in the system.
 		SCalleeProvidedService prof1 = new SCalleeProvidedService(SRV_GET_SPACES);
 		prof1.addOutput(OUT_GET_SPACES, Space.MY_URI, 0, -1, new String[] { ProfilingService.PROP_CONTROLS });
 		profiles[1] = prof1.getProfile();
 
-		// GET_AALSERVICES(AALSpace) -> [AALService]
-		// Returns the AAL Services (only their URIs) installed in a AALSpace
+		// GET_SERVICES(Space) -> [Service]
+		// Returns the Services (only their URIs) installed in a Space
 		// which URI matches the one of the passed parameter
 		SCalleeProvidedService prof2 = new SCalleeProvidedService(SRV_GET_SERVS_OF_SPACE);
 		prof2.addFilteringInput(INP_GET_SERVS_OF_SPACE, Space.MY_URI, 1, 1,
@@ -177,8 +177,8 @@ public class SCalleeProvidedService extends ProfilingService {
 				Profilable.PROP_HAS_PROFILE, SpaceProfile.PROP_INSTALLED_SERVICES });
 		profiles[2] = prof2.getProfile();
 
-		// GET_DEVICES(AALSpace) -> [Device]
-		// Returns the Devices (only their URIs) installed in a AALSpace
+		// GET_DEVICES(Space) -> [Device]
+		// Returns the Devices (only their URIs) installed in a Space
 		// which URI matches the one of the passed parameter
 		SCalleeProvidedService prof3 = new SCalleeProvidedService(SRV_GET_DEVS_OF_SPACE);
 		prof3.addFilteringInput(INP_GET_DEVS_OF_SPACE, Space.MY_URI, 1, 1,
@@ -187,8 +187,8 @@ public class SCalleeProvidedService extends ProfilingService {
 				Profilable.PROP_HAS_PROFILE, SpaceProfile.PROP_INSTALLED_HARDWARE });
 		profiles[3] = prof3.getProfile();
 
-		// GET_ONTS(AALSpace) -> [Ont]
-		// Returns the Devices (only their URIs) installed in a AALSpace
+		// GET_ONTS(Space) -> [Ont]
+		// Returns the Devices (only their URIs) installed in a Space
 		// which URI matches the one of the passed parameter
 		SCalleeProvidedService prof4 = new SCalleeProvidedService(SRV_GET_ONTS_OF_SPACE);
 		prof4.addFilteringInput(INP_GET_ONTS_OF_SPACE, Space.MY_URI, 1, 1,
@@ -198,9 +198,9 @@ public class SCalleeProvidedService extends ProfilingService {
 						SpaceProfile.PROP_INSTALLED_ONTOLOGIES });
 		profiles[4] = prof4.getProfile();
 
-		// GET_HR(AALService) -> [HRSubP]
+		// GET_HR(Service) -> [HRSubP]
 		// Returns the HRSubProfile, with all its properties (that can be
-		// serialized) belonging to the AALService which URI matches the one of
+		// serialized) belonging to the Service which URI matches the one of
 		// the passed parameter
 		SCalleeProvidedService prof5 = new SCalleeProvidedService(SRV_GET_HR_OF_SERV);
 		prof5.addFilteringInput(INP_GET_HR_OF_SERV, AppService.MY_URI, 1, 1,
@@ -209,9 +209,9 @@ public class SCalleeProvidedService extends ProfilingService {
 				Profilable.PROP_HAS_PROFILE, AppServiceProfile.PROP_HUMAN_RESOURCE_SUBPROFILE });
 		profiles[5] = prof5.getProfile();
 
-		// GET_HW(AALService) -> [HWSubP]
+		// GET_HW(Service) -> [HWSubP]
 		// Returns the HWSubProfile, with all its properties (that can be
-		// serialized) belonging to the AALService which URI matches the one of
+		// serialized) belonging to the Service which URI matches the one of
 		// the passed parameter
 		SCalleeProvidedService prof6 = new SCalleeProvidedService(SRV_GET_HW_OF_SERV);
 		prof6.addFilteringInput(INP_GET_HW_OF_SERV, AppService.MY_URI, 1, 1,
@@ -220,9 +220,9 @@ public class SCalleeProvidedService extends ProfilingService {
 				Profilable.PROP_HAS_PROFILE, AppServiceProfile.PROP_HARDWARE_SUBPROFILE });
 		profiles[6] = prof6.getProfile();
 
-		// GET_APP(AALService) -> [AppSubP]
+		// GET_APP(Service) -> [AppSubP]
 		// Returns the AppSubProfile, with all its properties (that can be
-		// serialized) belonging to the AALService which URI matches the one of
+		// serialized) belonging to the Service which URI matches the one of
 		// the passed parameter
 		SCalleeProvidedService prof7 = new SCalleeProvidedService(SRV_GET_APP_OF_SERV);
 		prof7.addFilteringInput(INP_GET_APP_OF_SERV, AppService.MY_URI, 1, 1,
@@ -232,11 +232,11 @@ public class SCalleeProvidedService extends ProfilingService {
 						AppServiceProfile.PROP_APPLICATION_SUBPROFILE });
 		profiles[7] = prof7.getProfile();
 
-		// ADD_SERV(AALSpace, AALService) -> void
-		// Adds the passed AALService to the store, with all its properties
-		// (that can be serialized), and associates it to the given AALSpace.
+		// ADD_SERV(Space, Service) -> void
+		// Adds the passed Service to the store, with all its properties
+		// (that can be serialized), and associates it to the given Space.
 		// Currently works like CHANGE SERVICE, but does not remove previous
-		// value of an associated AALService to the AALSpace, if any
+		// value of an associated Service to the Space, if any
 		SCalleeProvidedService prof8 = new SCalleeProvidedService(SRV_ADD_SERV_TO_SPACE);
 		prof8.addFilteringInput(INP_ADD_SERV_TO_SPACE_WHERE, Space.MY_URI, 1, 1,
 				new String[] { ProfilingService.PROP_CONTROLS });
@@ -244,11 +244,11 @@ public class SCalleeProvidedService extends ProfilingService {
 				ProfilingService.PROP_CONTROLS, Profilable.PROP_HAS_PROFILE, SpaceProfile.PROP_INSTALLED_SERVICES });
 		profiles[8] = prof8.getProfile();
 
-		// ADD_DEV(AALSpace, Device) -> void
+		// ADD_DEV(Space, Device) -> void
 		// Adds the passed Device to the store, with all its properties
-		// (that can be serialized), and associates it to the given AALSpace.
+		// (that can be serialized), and associates it to the given Space.
 		// Currently works like CHANGE DEVICE, but does not remove previous
-		// value of an associated Device to the AALSpace, if any
+		// value of an associated Device to the Space, if any
 		SCalleeProvidedService prof9 = new SCalleeProvidedService(SRV_ADD_DEV_TO_SPACE);
 		prof9.addFilteringInput(INP_ADD_DEV_TO_SPACE_WHERE, Space.MY_URI, 1, 1,
 				new String[] { ProfilingService.PROP_CONTROLS });
@@ -256,11 +256,11 @@ public class SCalleeProvidedService extends ProfilingService {
 				ProfilingService.PROP_CONTROLS, Profilable.PROP_HAS_PROFILE, SpaceProfile.PROP_INSTALLED_HARDWARE });
 		profiles[9] = prof9.getProfile();
 
-		// ADD_ONT(AALSpace, Ont) -> void
+		// ADD_ONT(Space, Ont) -> void
 		// Adds the passed Ont to the store, with all its properties
-		// (that can be serialized), and associates it to the given AALSpace.
+		// (that can be serialized), and associates it to the given Space.
 		// Currently works like CHANGE ONT, but does not remove previous
-		// value of an associated Ont to the AALSpace, if any
+		// value of an associated Ont to the Space, if any
 		SCalleeProvidedService prof10 = new SCalleeProvidedService(SRV_ADD_ONT_TO_SPACE);
 		prof10.addFilteringInput(INP_ADD_ONT_TO_SPACE_WHERE, Space.MY_URI, 1, 1,
 				new String[] { ProfilingService.PROP_CONTROLS });
@@ -269,11 +269,11 @@ public class SCalleeProvidedService extends ProfilingService {
 						SpaceProfile.PROP_INSTALLED_ONTOLOGIES });
 		profiles[10] = prof10.getProfile();
 
-		// ADD_PROF(AALSpace, AALSpaceProf) -> void
-		// Adds the passed AALSPaceProf to the store, with all its properties
-		// (that can be serialized), and associates it to the given AALSpace.
+		// ADD_PROF(Space, SpaceProf) -> void
+		// Adds the passed SPaceProf to the store, with all its properties
+		// (that can be serialized), and associates it to the given Space.
 		// Currently works like CHANGE PROF, but does not remove previous
-		// value of an associated profile to the AALSpace, if any
+		// value of an associated profile to the Space, if any
 		SCalleeProvidedService prof11 = new SCalleeProvidedService(SRV_ADD_PROF_TO_SPACE);
 		prof11.addFilteringInput(INP_ADD_PROF_TO_SPACE_WHERE, Space.MY_URI, 1, 1,
 				new String[] { ProfilingService.PROP_CONTROLS });
@@ -281,11 +281,11 @@ public class SCalleeProvidedService extends ProfilingService {
 				new String[] { ProfilingService.PROP_CONTROLS, Profilable.PROP_HAS_PROFILE });
 		profiles[11] = prof11.getProfile();
 
-		// ADD_PROF(AALServ, AALServProf) -> void
-		// Adds the passed AALServProf to the store, with all its properties
-		// (that can be serialized), and associates it to the given AALServ.
+		// ADD_PROF(Serv, ServProf) -> void
+		// Adds the passed ServProf to the store, with all its properties
+		// (that can be serialized), and associates it to the given Serv.
 		// Currently works like CHANGE PROF, but does not remove previous
-		// value of an associated profile to the AALServ, if any
+		// value of an associated profile to the Serv, if any
 		SCalleeProvidedService prof12 = new SCalleeProvidedService(SRV_ADD_PROF_TO_SERV);
 		prof12.addFilteringInput(INP_ADD_PROF_TO_SERV_WHERE, AppService.MY_URI, 1, 1,
 				new String[] { ProfilingService.PROP_CONTROLS });
@@ -293,8 +293,8 @@ public class SCalleeProvidedService extends ProfilingService {
 				new String[] { ProfilingService.PROP_CONTROLS, Profilable.PROP_HAS_PROFILE });
 		profiles[12] = prof12.getProfile();
 
-		// GET_OWNERS(AALSpace) -> [User]
-		// Returns the Users (only their URIs) owning a AALSpace
+		// GET_OWNERS(Space) -> [User]
+		// Returns the Users (only their URIs) owning a Space
 		// which URI matches the one of the passed parameter
 		SCalleeProvidedService prof13 = new SCalleeProvidedService(SRV_GET_OWNERS_OF_SPACE);
 		prof13.addFilteringInput(INP_GET_OWNERS_OF_SPACE, Space.MY_URI, 1, 1,
@@ -303,8 +303,8 @@ public class SCalleeProvidedService extends ProfilingService {
 				Profilable.PROP_HAS_PROFILE, SpaceProfile.PROP_SPACE_OWNER });
 		profiles[13] = prof13.getProfile();
 
-		// GET_OWNERS(AALService) -> [User]
-		// Returns the Users (only their URIs) owning a AALService
+		// GET_OWNERS(Service) -> [User]
+		// Returns the Users (only their URIs) owning a Service
 		// which URI matches the one of the passed parameter
 		SCalleeProvidedService prof14 = new SCalleeProvidedService(SRV_GET_OWNERS_OF_SERV);
 		prof14.addFilteringInput(INP_GET_OWNERS_OF_SERV, AppService.MY_URI, 1, 1,
@@ -313,10 +313,10 @@ public class SCalleeProvidedService extends ProfilingService {
 				Profilable.PROP_HAS_PROFILE, AppServiceProfile.PROP_SERVICE_OWNER });
 		profiles[14] = prof14.getProfile();
 
-		// ADD_OWNER(AALSpace, User) -> void
+		// ADD_OWNER(Space, User) -> void
 		// Adds the passed User to the store, with all its properties
-		// (that can be serialized), and associates it to the given AALSpace.
-		// Does not remove previous value of an associated User to the AALSpace
+		// (that can be serialized), and associates it to the given Space.
+		// Does not remove previous value of an associated User to the Space
 		SCalleeProvidedService prof15 = new SCalleeProvidedService(SRV_ADD_OWNER_TO_SPACE);
 		prof15.addFilteringInput(INP_ADD_OWNER_TO_SPACE_WHERE, Space.MY_URI, 1, 1,
 				new String[] { ProfilingService.PROP_CONTROLS });
@@ -324,10 +324,10 @@ public class SCalleeProvidedService extends ProfilingService {
 				ProfilingService.PROP_CONTROLS, Profilable.PROP_HAS_PROFILE, SpaceProfile.PROP_SPACE_OWNER });
 		profiles[15] = prof15.getProfile();
 
-		// ADD_OWNER(AALService, User) -> void
+		// ADD_OWNER(Service, User) -> void
 		// Adds the passed User to the store, with all its properties
-		// (that can be serialized), and associates it to the given AALService.
-		// Does not remove previous value of an associated User to the AALServ
+		// (that can be serialized), and associates it to the given Service.
+		// Does not remove previous value of an associated User to the Serv
 		SCalleeProvidedService prof16 = new SCalleeProvidedService(SRV_ADD_OWNER_TO_SERV);
 		prof16.addFilteringInput(INP_ADD_OWNER_TO_SERV_WHERE, AppService.MY_URI, 1, 1,
 				new String[] { ProfilingService.PROP_CONTROLS });
@@ -335,8 +335,8 @@ public class SCalleeProvidedService extends ProfilingService {
 				ProfilingService.PROP_CONTROLS, Profilable.PROP_HAS_PROFILE, AppServiceProfile.PROP_SERVICE_OWNER });
 		profiles[16] = prof16.getProfile();
 
-		// GET_PROF(AALService) -> AALServiceProfile
-		// Returns the AALServiceProfile of a AALService
+		// GET_PROF(Service) -> ServiceProfile
+		// Returns the ServiceProfile of a Service
 		// which URI matches the one of the passed parameter
 		SCalleeProvidedService prof17 = new SCalleeProvidedService(SRV_GET_PROF_OF_SERV);
 		prof17.addFilteringInput(INP_GET_PROF_OF_SERV, AppService.MY_URI, 1, 1,
@@ -345,8 +345,8 @@ public class SCalleeProvidedService extends ProfilingService {
 				new String[] { ProfilingService.PROP_CONTROLS, Profilable.PROP_HAS_PROFILE });
 		profiles[17] = prof17.getProfile();
 
-		// GET_PROF(AALService) -> AALServiceProfile
-		// Returns the AALServiceProfile of a AALService
+		// GET_PROF(Service) -> ServiceProfile
+		// Returns the ServiceProfile of a Service
 		// which URI matches the one of the passed parameter
 		SCalleeProvidedService prof18 = new SCalleeProvidedService(SRV_GET_PROF_OF_SPACE);
 		prof18.addFilteringInput(INP_GET_PROF_OF_SPACE, Space.MY_URI, 1, 1,

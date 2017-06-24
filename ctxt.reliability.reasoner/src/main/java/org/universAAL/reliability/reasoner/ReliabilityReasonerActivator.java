@@ -232,10 +232,10 @@ public class ReliabilityReasonerActivator implements BundleActivator, ServiceLis
 		switch (event.getType()) {
 		case ServiceEvent.REGISTERED:
 		case ServiceEvent.MODIFIED:
-			scaller.setuAALParser((MessageContentSerializerEx) osgiContext.getService(event.getServiceReference()));
+			scaller.setSerializer((MessageContentSerializerEx) osgiContext.getService(event.getServiceReference()));
 			break;
 		case ServiceEvent.UNREGISTERING:
-			scaller.setuAALParser(null);
+			scaller.setSerializer(null);
 			break;
 		default:
 			break;

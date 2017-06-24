@@ -12,7 +12,7 @@
   <version>3.4.1-SNAPSHOT</version>
   <packaging>bundle</packaging>
   <name>universAAL Context System Information Provider</name>
-  <description>Publishes information about status of the AAL Space as Context events.</description>
+  <description>Publishes information about status of the Space as Context events.</description>
   <inceptionYear>2008</inceptionYear>
   <organization>
     <name>Instituto Tecnologico de Aplicaciones de Comunicacion Avanzadas - Grupo Tecnologias para la Salud y el Bienestar (TSB)</name>

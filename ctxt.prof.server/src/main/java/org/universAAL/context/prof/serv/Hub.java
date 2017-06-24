@@ -46,7 +46,7 @@ public class Hub implements ModuleActivator {
 	 */
 	protected static MessageContentSerializerEx parser = null;
 	/**
-	 * uAAL Module context.
+	 * universAAL Module context.
 	 */
 	protected static ModuleContext moduleContext = null;
 
@@ -61,7 +61,7 @@ public class Hub implements ModuleActivator {
 	 * To be called when application starts. Used to be Activator.start().
 	 *
 	 * @param context
-	 *            uaal module context
+	 *            universAAL module context
 	 */
 	public void start(ModuleContext context) {
 		moduleContext = context;
@@ -81,13 +81,13 @@ public class Hub implements ModuleActivator {
 	}
 
 	/**
-	 * Set the turtle-uaal parser. Make sure it's set at least once before
+	 * Set the turtle parser. Make sure it's set at least once before
 	 * start().
 	 *
 	 * @param service
 	 *            The parser
 	 */
-	public void setuAALParser(MessageContentSerializerEx service) {
+	public void setSerializer(MessageContentSerializerEx service) {
 		parser = service;
 	}
 

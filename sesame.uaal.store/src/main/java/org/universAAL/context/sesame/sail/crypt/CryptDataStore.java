@@ -70,7 +70,7 @@ public class CryptDataStore extends DataStore {
 		String cryptUtilInitMessage;
 		try {
 			cryptUtilInitMessage = CryptUtil.init(confHome.getAbsolutePath(), codec);
-			System.out.println("Sesame uAAL Store: " + cryptUtilInitMessage);
+			System.out.println("Sesame Store: " + cryptUtilInitMessage);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

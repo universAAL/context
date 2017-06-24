@@ -12,7 +12,7 @@
   <version>3.4.1-SNAPSHOT</version>
   <packaging>bundle</packaging>
   <name>universAAL Context Profiling Server</name>
-  <description>uAAL Profiling server providing services for profile edition</description>
+  <description>universAAL Profiling server providing services for profile edition</description>
   <inceptionYear>2012</inceptionYear>
   <organization>
     <name>Instituto Tecnologico de Aplicaciones de Comunicacion Avanzadas - Grupo Tecnologias para la Salud y el Bienestar (TSB)</name>

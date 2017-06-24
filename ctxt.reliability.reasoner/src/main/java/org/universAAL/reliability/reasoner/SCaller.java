@@ -39,7 +39,7 @@ import org.universAAL.ontology.che.ContextHistoryService;
 public class SCaller extends ServiceCaller {
 	private static final String HISTORY_CLIENT_NAMESPACE = "http://ontology.itaca.es/Reasoner.owl#";
 	private static final String OUTPUT_RESULT_STRING = HISTORY_CLIENT_NAMESPACE + "resultString";
-	private MessageContentSerializerEx uAALParser;
+	private MessageContentSerializerEx serializer;
 	private static final String GENERIC_EVENT = "urn:org.universAAL.middleware.context.rdf:ContextEvent#_:0000000000000000:00";
 
 	public SCaller(ModuleContext context) {
@@ -70,7 +70,7 @@ public class SCaller extends ServiceCaller {
 		String query = theQuery.replace(GENERIC_EVENT, newUri);
 		String ser = callSPARQL(query);
 		if (!ser.isEmpty()) {
-			ContextEvent event = (ContextEvent) uAALParser.deserialize(ser, newUri);
+			ContextEvent event = (ContextEvent) serializer.deserialize(ser, newUri);
 			if (event != null) {
 				event.setTimestamp(new Long(System.currentTimeMillis()));
 				if (event.isWellFormed() && event.getSubjectTypeURI() != null) {
@@ -179,8 +179,8 @@ public class SCaller extends ServiceCaller {
 	 * @param service
 	 *            the parser
 	 */
-	public void setuAALParser(MessageContentSerializerEx service) {
-		this.uAALParser = service;
+	public void setSerializer(MessageContentSerializerEx service) {
+		this.serializer = service;
 	}
 
 }

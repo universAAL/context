@@ -42,7 +42,7 @@ public class Activator implements BundleActivator, ServiceListener {
 	 */
 	protected static BundleContext osgiContext = null;
 	/**
-	 * The uAAL module context
+	 * The universAAL module context
 	 */
 	protected static ModuleContext context = null;
 	/**

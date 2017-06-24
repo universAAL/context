@@ -27,7 +27,7 @@ package org.universAAL.drools.samples;
  */
 public class SampleRules {
 
-	public static String SIMPL_RULE_2 = "package org.universAAL.AALapplication\r\n"
+	public static String SIMPL_RULE_2 = "package org.universAAL.application\r\n"
 
 			+ "import org.universAAL.middleware.context.ContextEvent;\n"
 			+ "import org.universAAL.drools.engine.RulesEngine;\n"

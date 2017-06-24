@@ -75,7 +75,7 @@ public class SCallee extends ServiceCallee {
 	 */
 	private static final String NAMESPACE_SUBPROFILE = NAMESPACE + "subprofile";
 	/**
-	 * The uAAL module context.
+	 * The universAAL module context.
 	 */
 	private ModuleContext mc;
 
@@ -83,7 +83,7 @@ public class SCallee extends ServiceCallee {
 	 * Default 2-argument constructor. Must not be used.
 	 *
 	 * @param context
-	 *            uAAL module context
+	 *            universAAL module context
 	 * @param realizedServices
 	 *            provided service profiles
 	 */
@@ -99,7 +99,7 @@ public class SCallee extends ServiceCallee {
 	 * Default constructor.
 	 *
 	 * @param context
-	 *            uAAL module context
+	 *            universAAL module context
 	 */
 	public SCallee(ModuleContext context) {
 		super(context, SCalleeProvidedService.profiles);

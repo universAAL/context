@@ -43,7 +43,7 @@ public class Activator implements BundleActivator, ServiceListener {
 	 */
 	private static BundleContext osgiContext = null;
 	/**
-	 * The uAAL module context
+	 * The universAAL module context
 	 */
 	private static ModuleContext context = null;
 	/**
@@ -102,10 +102,10 @@ public class Activator implements BundleActivator, ServiceListener {
 		switch (event.getType()) {
 		case ServiceEvent.REGISTERED:
 		case ServiceEvent.MODIFIED:
-			hub.setuAALParser((MessageContentSerializerEx) osgiContext.getService(event.getServiceReference()));
+			hub.setSerializer((MessageContentSerializerEx) osgiContext.getService(event.getServiceReference()));
 			break;
 		case ServiceEvent.UNREGISTERING:
-			hub.setuAALParser(null);
+			hub.setSerializer(null);
 			break;
 		default:
 			break;
@@ -113,7 +113,7 @@ public class Activator implements BundleActivator, ServiceListener {
 	}
 
 	/**
-	 * Get the uaal module context. This is only needed for integration test.
+	 * Get the universAAL module context. This is only needed for integration test.
 	 *
 	 * @return the module context
 	 */

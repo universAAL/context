@@ -33,10 +33,10 @@ import org.universAAL.middleware.service.ServiceResponse;
 import org.universAAL.middleware.service.owls.process.ProcessOutput;
 import org.universAAL.middleware.service.owls.profile.ServiceProfile;
 import org.universAAL.ontology.phThing.Device;
-import org.universAAL.ontology.profile.AALService;
-import org.universAAL.ontology.profile.AALServiceProfile;
-import org.universAAL.ontology.profile.AALSpace;
-import org.universAAL.ontology.profile.AALSpaceProfile;
+import org.universAAL.ontology.profile.AppService;
+import org.universAAL.ontology.profile.AppServiceProfile;
+import org.universAAL.ontology.profile.Space;
+import org.universAAL.ontology.profile.SpaceProfile;
 import org.universAAL.ontology.profile.OntologyEntry;
 import org.universAAL.ontology.profile.Profilable;
 import org.universAAL.ontology.profile.service.ProfilingService;
@@ -111,24 +111,24 @@ public class SCallee extends ServiceCallee {
 	protected SCallee(ModuleContext context) {
 		super(context, SCalleeProvidedService.profiles);
 		this.addNewServiceProfiles(SCalleeProvidedService.getServiceProfiles(NAMESPACE_AALSPACE,
-				ProfilingService.MY_URI, new String[] { ProfilingService.PROP_CONTROLS }, AALSpace.MY_URI));
+				ProfilingService.MY_URI, new String[] { ProfilingService.PROP_CONTROLS }, Space.MY_URI));
 		this.addNewServiceProfiles(SCalleeProvidedService.getServiceProfiles(NAMESPACE_AALSPACEPROF,
 				ProfilingService.MY_URI, new String[] { ProfilingService.PROP_CONTROLS, Profilable.PROP_HAS_PROFILE },
-				AALSpaceProfile.MY_URI));
+				SpaceProfile.MY_URI));
 		this.addNewServiceProfiles(SCalleeProvidedService.getServiceProfiles(NAMESPACE_AALSERVICE,
-				ProfilingService.MY_URI, new String[] { ProfilingService.PROP_CONTROLS }, AALService.MY_URI));
+				ProfilingService.MY_URI, new String[] { ProfilingService.PROP_CONTROLS }, AppService.MY_URI));
 		this.addNewServiceProfiles(SCalleeProvidedService.getServiceProfiles(NAMESPACE_AALSERVICEPROF,
 				ProfilingService.MY_URI, new String[] { ProfilingService.PROP_CONTROLS, Profilable.PROP_HAS_PROFILE },
-				AALServiceProfile.MY_URI));
+				AppServiceProfile.MY_URI));
 		this.addNewServiceProfiles(
 				SCalleeProvidedService
 						.getServiceProfiles(NAMESPACE_DEVICE,
 								ProfilingService.MY_URI, new String[] { ProfilingService.PROP_CONTROLS,
-										Profilable.PROP_HAS_PROFILE, AALSpaceProfile.PROP_INSTALLED_HARDWARE },
+										Profilable.PROP_HAS_PROFILE, SpaceProfile.PROP_INSTALLED_HARDWARE },
 								Device.MY_URI));
 		this.addNewServiceProfiles(SCalleeProvidedService.getServiceProfiles(
 				NAMESPACE_ONT, ProfilingService.MY_URI, new String[] { ProfilingService.PROP_CONTROLS,
-						Profilable.PROP_HAS_PROFILE, AALSpaceProfile.PROP_INSTALLED_ONTOLOGIES },
+						Profilable.PROP_HAS_PROFILE, SpaceProfile.PROP_INSTALLED_ONTOLOGIES },
 				OntologyEntry.MY_URI));
 		// this.addNewRegParams(SCalleeProvidedService.profiles);
 		ERROR_INPUT.addOutput(new ProcessOutput(ServiceResponse.PROP_SERVICE_SPECIFIC_ERROR, "Invalid input"));
@@ -523,7 +523,7 @@ public class SCallee extends ServiceCallee {
 			Resource result = Activator.scaller.getProfOfServ((Resource) input);
 			ServiceResponse response = new ServiceResponse(CallStatus.succeeded);
 			response.addOutput(
-					new ProcessOutput(SCalleeProvidedService.OUT_GET_PROF_OF_SERV, (AALServiceProfile) result));
+					new ProcessOutput(SCalleeProvidedService.OUT_GET_PROF_OF_SERV, (AppServiceProfile) result));
 			return response;
 		}
 
@@ -536,7 +536,7 @@ public class SCallee extends ServiceCallee {
 			ServiceResponse response = new ServiceResponse(CallStatus.succeeded);
 			if (result != null)//
 				response.addOutput(
-						new ProcessOutput(SCalleeProvidedService.OUT_GET_PROF_OF_SPACE, (AALSpaceProfile) result));
+						new ProcessOutput(SCalleeProvidedService.OUT_GET_PROF_OF_SPACE, (SpaceProfile) result));
 			return response;
 		}
 

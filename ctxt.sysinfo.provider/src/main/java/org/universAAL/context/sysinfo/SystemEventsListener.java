@@ -100,7 +100,7 @@ public class SystemEventsListener implements SharedObjectListener, SpaceListener
 
 	public void spaceJoined(SpaceDescriptor spaceDescriptor) {
 		logInfo("AALSPACEJOINED");
-		org.universAAL.ontology.sysinfo.AALSpaceDescriptor des = new org.universAAL.ontology.sysinfo.AALSpaceDescriptor(
+		org.universAAL.ontology.sysinfo.SpaceDescriptor des = new org.universAAL.ontology.sysinfo.SpaceDescriptor(
 				Constants.MIDDLEWARE_LOCAL_ID_PREFIX + spaceDescriptor.getSpaceCard().getSpaceID());
 		des.setSerializedValue(spaceDescriptor.toString());
 		sys.setSpaceJoined(des);
@@ -111,7 +111,7 @@ public class SystemEventsListener implements SharedObjectListener, SpaceListener
 
 	public void spaceLost(SpaceDescriptor spaceDescriptor) {
 		logInfo("AALSPACELOST");
-		org.universAAL.ontology.sysinfo.AALSpaceDescriptor des = new org.universAAL.ontology.sysinfo.AALSpaceDescriptor(
+		org.universAAL.ontology.sysinfo.SpaceDescriptor des = new org.universAAL.ontology.sysinfo.SpaceDescriptor(
 				Constants.MIDDLEWARE_LOCAL_ID_PREFIX + spaceDescriptor.getSpaceCard().getSpaceID());
 		des.setSerializedValue(spaceDescriptor.toString());
 		sys.setSpaceLost(des);
@@ -145,7 +145,7 @@ public class SystemEventsListener implements SharedObjectListener, SpaceListener
 
 	public void spaceStatusChanged(SpaceStatus status) {
 		logInfo("AALSPACECHANGED");
-		org.universAAL.ontology.sysinfo.AALSpaceStatusDescriptor des = new org.universAAL.ontology.sysinfo.AALSpaceStatusDescriptor(
+		org.universAAL.ontology.sysinfo.SpaceStatusDescriptor des = new org.universAAL.ontology.sysinfo.SpaceStatusDescriptor(
 				Constants.MIDDLEWARE_LOCAL_ID_PREFIX + status.toString());
 		des.setSerializedValue(status.toString());
 		sys.setSpaceChanged(des);

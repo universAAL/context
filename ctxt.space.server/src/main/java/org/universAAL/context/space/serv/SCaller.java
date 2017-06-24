@@ -36,10 +36,10 @@ import org.universAAL.middleware.service.ServiceResponse;
 import org.universAAL.middleware.service.owls.process.ProcessOutput;
 import org.universAAL.ontology.che.ContextHistoryService;
 import org.universAAL.ontology.phThing.Device;
-import org.universAAL.ontology.profile.AALService;
-import org.universAAL.ontology.profile.AALServiceProfile;
-import org.universAAL.ontology.profile.AALSpace;
-import org.universAAL.ontology.profile.AALSpaceProfile;
+import org.universAAL.ontology.profile.AppService;
+import org.universAAL.ontology.profile.AppServiceProfile;
+import org.universAAL.ontology.profile.Space;
+import org.universAAL.ontology.profile.SpaceProfile;
 import org.universAAL.ontology.profile.OntologyEntry;
 import org.universAAL.ontology.profile.Profilable;
 import org.universAAL.ontology.profile.User;
@@ -96,7 +96,7 @@ public class SCaller {
 	// :::::::::::::SPACE GET/ADD/CHANGE/REMOVE:::::::::::::::::
 
 	protected Resource getAALSpace(Resource input) {
-		return genericGet(input, Queries.GET.replace(Queries.ARGTYPE, AALSpace.MY_URI));
+		return genericGet(input, Queries.GET.replace(Queries.ARGTYPE, Space.MY_URI));
 	}
 
 	protected void addAALSpace(Resource input) {
@@ -104,17 +104,17 @@ public class SCaller {
 	}
 
 	protected void changeAALSpace(Resource input) {
-		genericChange(input, Queries.CHANGE.replace(Queries.ARGTYPE, AALSpace.MY_URI));
+		genericChange(input, Queries.CHANGE.replace(Queries.ARGTYPE, Space.MY_URI));
 	}
 
 	protected void removeAALSpace(Resource input) {
-		genericRemove(input, Queries.REMOVE.replace(Queries.ARGTYPE, AALSpace.MY_URI));
+		genericRemove(input, Queries.REMOVE.replace(Queries.ARGTYPE, Space.MY_URI));
 	}
 
 	// :::::::::::::SPACE PROFILE GET/ADD/CHANGE/REMOVE:::::::::::::::::
 
 	protected Resource getAALSpaceProfile(Resource input) {
-		return genericGet(input, Queries.GET.replace(Queries.ARGTYPE, AALSpaceProfile.MY_URI));
+		return genericGet(input, Queries.GET.replace(Queries.ARGTYPE, SpaceProfile.MY_URI));
 	}
 
 	protected void addAALSpaceProfile(Resource input) {
@@ -122,17 +122,17 @@ public class SCaller {
 	}
 
 	protected void changeAALSpaceProfile(Resource input) {
-		genericChange(input, Queries.CHANGE.replace(Queries.ARGTYPE, AALSpaceProfile.MY_URI));
+		genericChange(input, Queries.CHANGE.replace(Queries.ARGTYPE, SpaceProfile.MY_URI));
 	}
 
 	protected void removeAALSpaceProfile(Resource input) {
-		genericRemove(input, Queries.REMOVE.replace(Queries.ARGTYPE, AALSpaceProfile.MY_URI));
+		genericRemove(input, Queries.REMOVE.replace(Queries.ARGTYPE, SpaceProfile.MY_URI));
 	}
 
 	// :::::::::::::SERVICE GET/ADD/CHANGE/REMOVE:::::::::::::::::
 
 	protected Resource getAALService(Resource input) {
-		return genericGet(input, Queries.GET.replace(Queries.ARGTYPE, AALService.MY_URI));
+		return genericGet(input, Queries.GET.replace(Queries.ARGTYPE, AppService.MY_URI));
 	}
 
 	protected void addAALService(Resource input) {
@@ -140,17 +140,17 @@ public class SCaller {
 	}
 
 	protected void changeAALService(Resource input) {
-		genericChange(input, Queries.CHANGE.replace(Queries.ARGTYPE, AALService.MY_URI));
+		genericChange(input, Queries.CHANGE.replace(Queries.ARGTYPE, AppService.MY_URI));
 	}
 
 	protected void removeAALService(Resource input) {
-		genericRemove(input, Queries.REMOVE.replace(Queries.ARGTYPE, AALService.MY_URI));
+		genericRemove(input, Queries.REMOVE.replace(Queries.ARGTYPE, AppService.MY_URI));
 	}
 
 	// :::::::::::::SERVICE PROFILE GET/ADD/CHANGE/REMOVE:::::::::::::::::
 
 	public Resource getAALServiceProf(Resource input) {
-		return genericGet(input, Queries.GET.replace(Queries.ARGTYPE, AALServiceProfile.MY_URI));
+		return genericGet(input, Queries.GET.replace(Queries.ARGTYPE, AppServiceProfile.MY_URI));
 	}
 
 	public void addAALServiceProf(Resource input) {
@@ -158,11 +158,11 @@ public class SCaller {
 	}
 
 	public void changeAALServiceProf(Resource input) {
-		genericChange(input, Queries.CHANGE.replace(Queries.ARGTYPE, AALServiceProfile.MY_URI));
+		genericChange(input, Queries.CHANGE.replace(Queries.ARGTYPE, AppServiceProfile.MY_URI));
 	}
 
 	public void removeAALServiceProf(Resource input) {
-		genericRemove(input, Queries.REMOVE.replace(Queries.ARGTYPE, AALServiceProfile.MY_URI));
+		genericRemove(input, Queries.REMOVE.replace(Queries.ARGTYPE, AppServiceProfile.MY_URI));
 	}
 
 	// :::::::::::::DEVICE GET/ADD/CHANGE/REMOVE:::::::::::::::::
@@ -204,70 +204,70 @@ public class SCaller {
 	// :::::::::::::OTHER GETS AND ADDS:::::::::::::::::
 
 	protected ArrayList getAALServices() {
-		return genericGetAll(Queries.GETALL.replace(Queries.ARGTYPE, AALService.MY_URI),
-				Queries.GETALLXTRA.replace(Queries.ARGTYPE, AALService.MY_URI));
+		return genericGetAll(Queries.GETALL.replace(Queries.ARGTYPE, AppService.MY_URI),
+				Queries.GETALLXTRA.replace(Queries.ARGTYPE, AppService.MY_URI));
 	}
 
 	public ArrayList getAALSpaces() {
-		return genericGetAll(Queries.GETALL.replace(Queries.ARGTYPE, AALSpace.MY_URI),
-				Queries.GETALLXTRA.replace(Queries.ARGTYPE, AALSpace.MY_URI));
+		return genericGetAll(Queries.GETALL.replace(Queries.ARGTYPE, Space.MY_URI),
+				Queries.GETALLXTRA.replace(Queries.ARGTYPE, Space.MY_URI));
 	}
 
 	protected Resource getHROfAALService(Resource input) {
 		return genericGetOnePropOf(input,
-				Queries.GETONEOFXTRA.replace(Queries.ARGTYPE, AALServiceProfile.PROP_HUMAN_RESOURCE_SUBPROFILE),
-				Queries.GETONEOF.replace(Queries.ARGTYPE, AALServiceProfile.PROP_HUMAN_RESOURCE_SUBPROFILE));
+				Queries.GETONEOFXTRA.replace(Queries.ARGTYPE, AppServiceProfile.PROP_HUMAN_RESOURCE_SUBPROFILE),
+				Queries.GETONEOF.replace(Queries.ARGTYPE, AppServiceProfile.PROP_HUMAN_RESOURCE_SUBPROFILE));
 	}
 
 	public Resource getHWOfAALService(Resource input) {
 		return genericGetOnePropOf(input,
-				Queries.GETONEOFXTRA.replace(Queries.ARGTYPE, AALServiceProfile.PROP_HARDWARE_SUBPROFILE),
-				Queries.GETONEOF.replace(Queries.ARGTYPE, AALServiceProfile.PROP_HARDWARE_SUBPROFILE));
+				Queries.GETONEOFXTRA.replace(Queries.ARGTYPE, AppServiceProfile.PROP_HARDWARE_SUBPROFILE),
+				Queries.GETONEOF.replace(Queries.ARGTYPE, AppServiceProfile.PROP_HARDWARE_SUBPROFILE));
 	}
 
 	public Resource getAppOfAALService(Resource input) {
 		return genericGetOnePropOf(input,
-				Queries.GETONEOFXTRA.replace(Queries.ARGTYPE, AALServiceProfile.PROP_APPLICATION_SUBPROFILE),
-				Queries.GETONEOF.replace(Queries.ARGTYPE, AALServiceProfile.PROP_APPLICATION_SUBPROFILE));
+				Queries.GETONEOFXTRA.replace(Queries.ARGTYPE, AppServiceProfile.PROP_APPLICATION_SUBPROFILE),
+				Queries.GETONEOF.replace(Queries.ARGTYPE, AppServiceProfile.PROP_APPLICATION_SUBPROFILE));
 	}
 
 	protected ArrayList getServicesOfSpace(Resource input) {
 		return genericGetAllOf(input,
-				Queries.GETALLOF.replace(Queries.ARG2, AALSpaceProfile.PROP_INSTALLED_SERVICES).replace(Queries.ARGTYPE,
-						AALService.MY_URI),
-				Queries.GETALLOFXTRA.replace(Queries.ARG2, AALSpaceProfile.PROP_INSTALLED_SERVICES)
-						.replace(Queries.ARGTYPE, AALService.MY_URI));
+				Queries.GETALLOF.replace(Queries.ARG2, SpaceProfile.PROP_INSTALLED_SERVICES).replace(Queries.ARGTYPE,
+						AppService.MY_URI),
+				Queries.GETALLOFXTRA.replace(Queries.ARG2, SpaceProfile.PROP_INSTALLED_SERVICES)
+						.replace(Queries.ARGTYPE, AppService.MY_URI));
 	}
 
 	public ArrayList getDevicesOfSpace(Resource input) {
 		return genericGetAllOf(input,
-				Queries.GETALLOF.replace(Queries.ARG2, AALSpaceProfile.PROP_INSTALLED_HARDWARE).replace(Queries.ARGTYPE,
+				Queries.GETALLOF.replace(Queries.ARG2, SpaceProfile.PROP_INSTALLED_HARDWARE).replace(Queries.ARGTYPE,
 						Device.MY_URI),
-				Queries.GETALLOFXTRA.replace(Queries.ARG2, AALSpaceProfile.PROP_INSTALLED_HARDWARE)
+				Queries.GETALLOFXTRA.replace(Queries.ARG2, SpaceProfile.PROP_INSTALLED_HARDWARE)
 						.replace(Queries.ARGTYPE, Device.MY_URI));
 	}
 
 	public ArrayList getOntsOfSpace(Resource input) {
 		return genericGetAllOf(input,
-				Queries.GETALLOF.replace(Queries.ARG2, AALSpaceProfile.PROP_INSTALLED_ONTOLOGIES)
+				Queries.GETALLOF.replace(Queries.ARG2, SpaceProfile.PROP_INSTALLED_ONTOLOGIES)
 						.replace(Queries.ARGTYPE, OntologyEntry.MY_URI),
-				Queries.GETALLOFXTRA.replace(Queries.ARG2, AALSpaceProfile.PROP_INSTALLED_ONTOLOGIES)
+				Queries.GETALLOFXTRA.replace(Queries.ARG2, SpaceProfile.PROP_INSTALLED_ONTOLOGIES)
 						.replace(Queries.ARGTYPE, OntologyEntry.MY_URI));
 	}
 
 	public ArrayList getOwnsOfSpace(Resource input) {
 		return genericGetAllOf(input,
-				Queries.GETALLOF.replace(Queries.ARG2, AALSpaceProfile.PROP_SPACE_OWNER).replace(Queries.ARGTYPE,
+				Queries.GETALLOF.replace(Queries.ARG2, SpaceProfile.PROP_SPACE_OWNER).replace(Queries.ARGTYPE,
 						User.MY_URI),
-				Queries.GETALLOFXTRA.replace(Queries.ARG2, AALSpaceProfile.PROP_SPACE_OWNER).replace(Queries.ARGTYPE,
+				Queries.GETALLOFXTRA.replace(Queries.ARG2, SpaceProfile.PROP_SPACE_OWNER).replace(Queries.ARGTYPE,
 						User.MY_URI));
 	}
 
 	public ArrayList getOwnsOfServ(Resource input) {
 		return genericGetAllOf(input,
-				Queries.GETALLOF.replace(Queries.ARG2, AALServiceProfile.PROP_SERVICE_OWNER).replace(Queries.ARGTYPE,
+				Queries.GETALLOF.replace(Queries.ARG2, AppServiceProfile.PROP_SERVICE_OWNER).replace(Queries.ARGTYPE,
 						User.MY_URI),
-				Queries.GETALLOFXTRA.replace(Queries.ARG2, AALServiceProfile.PROP_SERVICE_OWNER)
+				Queries.GETALLOFXTRA.replace(Queries.ARG2, AppServiceProfile.PROP_SERVICE_OWNER)
 						.replace(Queries.ARGTYPE, User.MY_URI));
 	}
 
@@ -297,27 +297,27 @@ public class SCaller {
 
 	protected void addServiceToSpace(Resource input, Resource what) {
 		genericAddToSpace(input, what,
-				Queries.ADDTOPROFILABLE.replace(Queries.ARGTYPE, AALSpaceProfile.PROP_INSTALLED_SERVICES));
+				Queries.ADDTOPROFILABLE.replace(Queries.ARGTYPE, SpaceProfile.PROP_INSTALLED_SERVICES));
 	}
 
 	protected void addDeviceToSpace(Resource input, Resource what) {
 		genericAddToSpace(input, what,
-				Queries.ADDTOPROFILABLE.replace(Queries.ARGTYPE, AALSpaceProfile.PROP_INSTALLED_HARDWARE));
+				Queries.ADDTOPROFILABLE.replace(Queries.ARGTYPE, SpaceProfile.PROP_INSTALLED_HARDWARE));
 	}
 
 	protected void addOntToSpace(Resource input, Resource what) {
 		genericAddToSpace(input, what,
-				Queries.ADDTOPROFILABLE.replace(Queries.ARGTYPE, AALSpaceProfile.PROP_INSTALLED_ONTOLOGIES));
+				Queries.ADDTOPROFILABLE.replace(Queries.ARGTYPE, SpaceProfile.PROP_INSTALLED_ONTOLOGIES));
 	}
 
 	protected void addOwnToSpace(Resource input, Resource what) {
 		genericAddToSpace(input, what,
-				Queries.ADDTOPROFILABLE.replace(Queries.ARGTYPE, AALSpaceProfile.PROP_SPACE_OWNER));
+				Queries.ADDTOPROFILABLE.replace(Queries.ARGTYPE, SpaceProfile.PROP_SPACE_OWNER));
 	}
 
 	protected void addOwnToServ(Resource input, Resource what) {
 		genericAddToSpace(input, what,
-				Queries.ADDTOPROFILABLE.replace(Queries.ARGTYPE, AALServiceProfile.PROP_SERVICE_OWNER));
+				Queries.ADDTOPROFILABLE.replace(Queries.ARGTYPE, AppServiceProfile.PROP_SERVICE_OWNER));
 	}
 
 	protected void addProfToProfilable(Resource input, Resource what) {

@@ -33,31 +33,31 @@ public class MessageDelivery implements Runnable {
 	Thread initialization;
 	public static Map<Integer, Integer> m = new HashMap<Integer, Integer>();
 static String pathToLibCore = "~/error.detection.unit/libEDUCore.so";
-	
+
 	public MessageDelivery(){
-		
+
 	}
-	
+
 	public MessageDelivery (String ThreadName){
-		
+
 		initialization = new Thread (this, ThreadName);
 		initialization.start();
-		
+
 	}
-	
+
 	public void run() {
 		//Display info about this particular thread
 		System.out.println(Thread.currentThread());
 		timer_trigger();
 	}
-	
+
 	public native void timer_trigger();
 	public native static synchronized void eventHandler(int ID, boolean count);
-	
+
 	static {
 	    System.load(pathToLibCore);
 	} /**/
-	
+
 	/*public int set_msg_count_table(int msg_Id){
 		int result=0;
 		Integer count = m.get(msg_Id);
@@ -74,11 +74,11 @@ static String pathToLibCore = "~/error.detection.unit/libEDUCore.so";
 			if (count == 5)
 			result = 1;
 		}
-		
 
-		
 
-		
+
+
+
 		return result;
 	}*/
 	/**
@@ -87,7 +87,7 @@ static String pathToLibCore = "~/error.detection.unit/libEDUCore.so";
 	 * @param msg_Id
 	 * @return
 	 */
-	
+
 	public int get_first_msg (int msg_Id){
 		int x =0;
 		Integer count = m.get(msg_Id);
@@ -99,19 +99,19 @@ static String pathToLibCore = "~/error.detection.unit/libEDUCore.so";
 		}
 		else
 			x = 0;
-		
+
 		return x;
 	}
-	
+
 	/**
 	 * it receives the the event details from uAAL Comp. and delivers it
-	 * to the EDUCore. 
+	 * to the EDUCore.
 	 * @param msg_Id
 	 * @param msg
 	 */
-	
+
 	public synchronized void deliverToEDU (int msg_Id, ContextEvent msg){
-		
+
 		//check the counter of the incoming message
 		/*int msg_status;
 		msg_status = set_msg_count_table(msg_Id);
@@ -119,17 +119,17 @@ static String pathToLibCore = "~/error.detection.unit/libEDUCore.so";
 			eventHandler(msg_Id, true);
 		else if (msg_status == 2)
 			eventHandler(msg_Id, false);*/
-		
+
 		if (this.get_first_msg(msg_Id)== 1)
 			{
 			this.eventHandler(msg_Id, true);
 			}
 		else
 			this.eventHandler(msg_Id, false);
-		
-			
-		
+
+
+
 		}
-	
+
 
 }

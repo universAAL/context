@@ -81,11 +81,11 @@ public class ReliabilityReasonerSubscriber extends ContextSubscriber {
 		/*
 		 * FileInputStream fis = null; try { fis = new
 		 * FileInputStream("Query.txt"); } catch (FileNotFoundException e) {
-		 * 
+		 *
 		 * e.printStackTrace(); } try { InputStreamReader in = new
 		 * InputStreamReader(fis, "UTF-8"); } catch
 		 * (UnsupportedEncodingException e) {
-		 * 
+		 *
 		 * e.printStackTrace(); }
 		 */
 
@@ -156,10 +156,10 @@ public class ReliabilityReasonerSubscriber extends ContextSubscriber {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see
 	 * org.universAAL.middleware.context.ContextSubscriber#getAllProvisions()
-	 * 
+	 *
 	 * @Override public ContextEventPattern[] getAllProvisions() { Message m =
 	 * null; // TODO Auto-generated method stub super.handleEvent(m);
 	 * m.getSource(); return super.getAllProvisions(); }

@@ -13,7 +13,7 @@ import org.openrdf.sail.nativerdf.btree.RecordIterator;
 /**
  * A cache for fixed size byte array records. This cache uses a temporary file
  * to store the records. This file is deleted upon calling {@link #discard()}.
- * 
+ *
  * @author Arjohn Kampman
  */
 abstract class RecordCache {
@@ -55,7 +55,7 @@ abstract class RecordCache {
 	 * Gets the number of records currently stored in the cache, throwing an
 	 * {@link IllegalStateException} if the cache is no longer {@link #isValid()
 	 * valid}.
-	 * 
+	 *
 	 * @return
 	 * @throws IllegalStateException
 	 *             If the cache is not/no longer {@link #isValid() valid}.
@@ -70,7 +70,7 @@ abstract class RecordCache {
 
 	/**
 	 * Stores a record in the cache.
-	 * 
+	 *
 	 * @param data
 	 *            The record to store.
 	 */
@@ -88,7 +88,7 @@ abstract class RecordCache {
 
 	/**
 	 * Stores the records from the supplied cache into this cache.
-	 * 
+	 *
 	 * @param otherCache
 	 *            The cache to copy the records from.
 	 */
@@ -122,7 +122,7 @@ abstract class RecordCache {
 	 * Gets all records that are stored in the cache, throwing an
 	 * {@link IllegalStateException} if the cache is no longer {@link #isValid()
 	 * valid}.
-	 * 
+	 *
 	 * @return An iterator over all records.
 	 * @throws IllegalStateException
 	 *             If the cache is not/no longer {@link #isValid() valid}.

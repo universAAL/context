@@ -26,9 +26,9 @@ import org.universAAL.ontology.profile.service.ProfilingService;
 
 /**
  * Here developer's of this artifact should code their integration tests.
- * 
+ *
  * @author rotgier
- * 
+ *
  */
 public class ArtifactIT extends IntegrationTest {
 

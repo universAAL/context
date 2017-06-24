@@ -58,7 +58,7 @@ class TxnStatusFile {
 	/**
 	 * Creates a new transaction status file. New files are initialized with
 	 * {@link TxnStatus#NONE}.
-	 * 
+	 *
 	 * @param dataDir
 	 *            The directory for the transaction status file.
 	 * @throws IOException
@@ -80,7 +80,7 @@ class TxnStatusFile {
 
 	/**
 	 * Writes the specified transaction status to file.
-	 * 
+	 *
 	 * @param txnStatus
 	 *            The transaction status to write.
 	 * @throws IOException
@@ -94,7 +94,7 @@ class TxnStatusFile {
 
 	/**
 	 * Reads the transaction status from file.
-	 * 
+	 *
 	 * @return The read transaction status, or {@link TxnStatus#UNKNOWN} when
 	 *         the file contains an unrecognized status string.
 	 * @throws IOException

@@ -1,18 +1,18 @@
 /*
 	Copyright 2008-2015 ITACA-TSB, http://www.tsb.upv.es
-	Instituto Tecnologico de Aplicaciones de Comunicacion 
-	Avanzadas - Grupo Tecnologias para la Salud y el 
+	Instituto Tecnologico de Aplicaciones de Comunicacion
+	Avanzadas - Grupo Tecnologias para la Salud y el
 	Bienestar (TSB)
-	
-	See the NOTICE file distributed with this work for additional 
+
+	See the NOTICE file distributed with this work for additional
 	information regarding copyright ownership
-	
+
 	Licensed under the Apache License, Version 2.0 (the "License");
 	you may not use this file except in compliance with the License.
 	You may obtain a copy of the License at
-	
+
 	  http://www.apache.org/licenses/LICENSE-2.0
-	
+
 	Unless required by applicable law or agreed to in writing, software
 	distributed under the License is distributed on an "AS IS" BASIS,
 	WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -65,9 +65,9 @@ import org.universAAL.middleware.util.Constants;
  * <p/>
  * But if the confidence is below the threshold, the last reified statement is
  * not stored.
- * 
+ *
  * @author alfiva
- * 
+ *
  */
 public class SesameBackendWithConfidence extends SesameBackend {
 	/**
@@ -100,7 +100,7 @@ public class SesameBackendWithConfidence extends SesameBackend {
 
 	/**
 	 * Constructor with initial confidence.
-	 * 
+	 *
 	 * @param confidence
 	 *            Threshold for confidence
 	 */
@@ -111,7 +111,7 @@ public class SesameBackendWithConfidence extends SesameBackend {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see
 	 * org.universAAL.context.che.database.impl.SesameBackend#storeEvent(org
 	 * .universAAL.middleware.context.ContextEvent)
@@ -194,7 +194,7 @@ public class SesameBackendWithConfidence extends SesameBackend {
 
 	/**
 	 * Get the threshold for confidence.
-	 * 
+	 *
 	 * @return threshold
 	 */
 	public int getThreshold() {
@@ -203,7 +203,7 @@ public class SesameBackendWithConfidence extends SesameBackend {
 
 	/**
 	 * Set the threshold for confidence.
-	 * 
+	 *
 	 * @param threshold
 	 *            for confidence
 	 */

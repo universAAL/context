@@ -1,16 +1,16 @@
 /*
 	Copyright 2008-2014 TSB, http://www.tsbtecnologias.es
 	TSB - Tecnologías para la Salud y el Bienestar
-	
-	See the NOTICE file distributed with this work for additional 
+
+	See the NOTICE file distributed with this work for additional
 	information regarding copyright ownership
-	
+
 	Licensed under the Apache License, Version 2.0 (the "License");
 	you may not use this file except in compliance with the License.
 	You may obtain a copy of the License at
-	
+
 	  http://www.apache.org/licenses/LICENSE-2.0
-	
+
 	Unless required by applicable law or agreed to in writing, software
 	distributed under the License is distributed on an "AS IS" BASIS,
 	WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -75,7 +75,7 @@ import org.universAAL.ontology.phThing.Device;
  * Rules engine based on Drools technology. Provides the funcionalities of the
  * rules engine and the access to the working memory where is stored the
  * knowledge.
- * 
+ *
  * @author Miguel Llorente (mllorente)
  */
 
@@ -100,7 +100,7 @@ public final class RulesEngine {
 	/**
 	 * Private constructor. Needs a BundleContext for accessing the resources
 	 * embedded in the bundle.
-	 * 
+	 *
 	 * @param context
 	 *            The bundle context.
 	 */
@@ -157,7 +157,7 @@ public final class RulesEngine {
 	 * allows the interaction with the rules engine: insertion an retraction of
 	 * facts, rules and evens; extraction of information related to the runtime
 	 * session for monitoring proposals and consequences publication.
-	 * 
+	 *
 	 * @param context
 	 *            The bundle context.
 	 * @return Instance of the rules engine.
@@ -174,7 +174,7 @@ public final class RulesEngine {
 	 * Instance of the rules engine for using it in non-osgi environments. It
 	 * must not be used in a typical universAAL platform exectuion. (Method
 	 * created for debugging and auto-testing purposes).
-	 * 
+	 *
 	 * @return An instance of the RulesEngine ready to be used out of the OSGI
 	 *         runtime. This instance is not valid over universAAL and OSGi.
 	 */
@@ -190,7 +190,7 @@ public final class RulesEngine {
 	/**
 	 * Returns an UUID of the rules engine. Useful for validating the singleton
 	 * condition of this class.
-	 * 
+	 *
 	 * @return
 	 */
 	public static UUID getUUID() {
@@ -200,7 +200,7 @@ public final class RulesEngine {
 	/**
 	 * Performs the initialization process in order to create a stateful
 	 * knowledge session with event processing mode.
-	 * 
+	 *
 	 * @throws Exception
 	 */
 	private static void initializeDrools() throws Exception {
@@ -244,7 +244,7 @@ public final class RulesEngine {
 
 	/**
 	 * Initialize the knowledgde base using the packages method.
-	 * 
+	 *
 	 * @return Knowledge Base
 	 */
 	private static KnowledgeBase loadKnowledgeBaseFromPackages() throws Exception, Throwable {
@@ -328,7 +328,7 @@ public final class RulesEngine {
 	/**
 	 * Sends a context events to the rules engine and fire the rules to check if
 	 * any rule in the working memory fits with the new conditions.
-	 * 
+	 *
 	 * @param event
 	 *            ContextEvent to be inserted.
 	 */
@@ -359,7 +359,7 @@ public final class RulesEngine {
 	/**
 	 * Check if the rules engine was created correctly. TODO Must be improved to
 	 * offer richer information if the response is negative.
-	 * 
+	 *
 	 * @return true if the rules engine was correctly created; false if not.
 	 */
 	public boolean isWellFormed() {
@@ -369,7 +369,7 @@ public final class RulesEngine {
 
 	/**
 	 * Setter for the bundle context.
-	 * 
+	 *
 	 * @param bc
 	 *            The new bundle context.
 	 */
@@ -397,7 +397,7 @@ public final class RulesEngine {
 	 * Publishes a consequence in the ContextBus. This method must be called
 	 * from the consequence part of the rules (the part started by "THEN"
 	 * statement in the DRL language).
-	 * 
+	 *
 	 * @param uri
 	 *            URI for the new consequence
 	 * @param keys
@@ -481,7 +481,7 @@ public final class RulesEngine {
 
 	/**
 	 * Inserts a single rule from a string.
-	 * 
+	 *
 	 * @param st
 	 *            The rule codification.
 	 * @throws Exception
@@ -511,7 +511,7 @@ public final class RulesEngine {
 
 	/**
 	 * Inserts a rule from a string.
-	 * 
+	 *
 	 * @param ruleIn
 	 *            The rule codification.
 	 * @throws Exception
@@ -552,7 +552,7 @@ public final class RulesEngine {
 
 	/**
 	 * Inserts a list of rules. In any rule fails,
-	 * 
+	 *
 	 * @param rules
 	 *            ArrayList
 	 * @throws DroolsException
@@ -588,7 +588,7 @@ public final class RulesEngine {
 
 	/**
 	 * Removes a rule from a a specified package.
-	 * 
+	 *
 	 * @param name
 	 *            Name of the rule
 	 * @param pckg
@@ -605,7 +605,7 @@ public final class RulesEngine {
 
 	/**
 	 * Removes a rule from the default package.
-	 * 
+	 *
 	 * @param name
 	 *            Name of the rule
 	 */

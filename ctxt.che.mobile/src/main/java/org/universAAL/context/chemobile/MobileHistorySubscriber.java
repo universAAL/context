@@ -1,18 +1,18 @@
 /*
 	Copyright 2008-2014 ITACA-TSB, http://www.tsb.upv.es
-	Instituto Tecnologico de Aplicaciones de Comunicacion 
-	Avanzadas - Grupo Tecnologias para la Salud y el 
+	Instituto Tecnologico de Aplicaciones de Comunicacion
+	Avanzadas - Grupo Tecnologias para la Salud y el
 	Bienestar (TSB)
-	
-	See the NOTICE file distributed with this work for additional 
+
+	See the NOTICE file distributed with this work for additional
 	information regarding copyright ownership
-	
+
 	Licensed under the Apache License, Version 2.0 (the "License");
 	you may not use this file except in compliance with the License.
 	You may obtain a copy of the License at
-	
+
 	  http://www.apache.org/licenses/LICENSE-2.0
-	
+
 	Unless required by applicable law or agreed to in writing, software
 	distributed under the License is distributed on an "AS IS" BASIS,
 	WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -34,9 +34,9 @@ import org.universAAL.middleware.serialization.MessageContentSerializer;
 
 /**
  * The CHe subscriber subscribes for all context events in order to save them.
- * 
+ *
  * @author <a href="mailto:alfiva@itaca.upv.es">Alvaro Fides Valero</a>
- * 
+ *
  */
 public class MobileHistorySubscriber extends ContextSubscriber {
 	// I don't want to make this non-private so remember if you change the name
@@ -48,7 +48,7 @@ public class MobileHistorySubscriber extends ContextSubscriber {
 
 	/**
 	 * File lock to synchronize access to "store".
-	 * 
+	 *
 	 */
 	private static Object fileLock = new Object();
 	/**
@@ -62,7 +62,7 @@ public class MobileHistorySubscriber extends ContextSubscriber {
 
 	/**
 	 * Main constructor.
-	 * 
+	 *
 	 * @param context
 	 *            uaal module context
 	 */
@@ -87,7 +87,7 @@ public class MobileHistorySubscriber extends ContextSubscriber {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see org.universAAL.middleware.context.ContextSubscriber#
 	 * communicationChannelBroken()
 	 */
@@ -98,7 +98,7 @@ public class MobileHistorySubscriber extends ContextSubscriber {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see
 	 * org.universAAL.middleware.context.ContextSubscriber#handleContextEvent
 	 * (org.universAAL.middleware.context.ContextEvent)
@@ -124,7 +124,7 @@ public class MobileHistorySubscriber extends ContextSubscriber {
 
 	/**
 	 * Sets the uaal parser.
-	 * 
+	 *
 	 * @param service
 	 *            the parser
 	 */

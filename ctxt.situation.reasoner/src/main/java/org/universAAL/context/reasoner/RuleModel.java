@@ -35,9 +35,9 @@ import org.universAAL.ontology.reasoner.util.ElementModel;
  * overwritten here. Every rule that is added need to register a
  * ContextSubscriber that matches the Situation given by the rule. This
  * subscriber is created in "registerRule".
- * 
+ *
  * @author amarinc
- * 
+ *
  */
 public class RuleModel extends ElementModel<Rule> {
 
@@ -46,7 +46,7 @@ public class RuleModel extends ElementModel<Rule> {
 	private ArrayList<CSubsMulti> subs = new ArrayList<CSubsMulti>();
 
 	/**
-	 * 
+	 *
 	 * @param confFolder
 	 *            Folder where elements of this type should saved.
 	 */
@@ -76,7 +76,7 @@ public class RuleModel extends ElementModel<Rule> {
 	 * Contex-Event and optional also one for the Predicate and one for the
 	 * Object. For Subject and Object it can be either a TypeURI or the URI of
 	 * an instance.
-	 * 
+	 *
 	 * @param rule
 	 *            Rule to be registered
 	 */

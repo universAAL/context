@@ -29,7 +29,7 @@ import org.universAAL.context.sesame.sail.model.*;
 /**
  * File-based indexed storage and retrieval of RDF values. ValueStore maps RDF
  * values to integer IDs and vice-versa.
- * 
+ *
  * @author Arjohn Kampman
  */
 public class ValueStore extends ValueFactoryBase {
@@ -171,7 +171,7 @@ public class ValueStore extends ValueFactoryBase {
 
 	/**
 	 * Gets the value for the specified ID.
-	 * 
+	 *
 	 * @param id
 	 *            A value ID.
 	 * @return The value for the ID, or <tt>null</tt> no such value could be
@@ -201,7 +201,7 @@ public class ValueStore extends ValueFactoryBase {
 
 	/**
 	 * Gets the ID for the specified value.
-	 * 
+	 *
 	 * @param value
 	 *            A value.
 	 * @return The ID for the specified value, or {@link NativeValue#UNKNOWN_ID}
@@ -268,7 +268,7 @@ public class ValueStore extends ValueFactoryBase {
 	 * Stores the supplied value and returns the ID that has been assigned to
 	 * it. In case the value was already present, the value will not be stored
 	 * again and the ID of the existing value is returned.
-	 * 
+	 *
 	 * @param value
 	 *            The Value to store.
 	 * @return The ID that has been assigned to the value.
@@ -325,7 +325,7 @@ public class ValueStore extends ValueFactoryBase {
 
 	/**
 	 * Removes all values from the ValueStore.
-	 * 
+	 *
 	 * @exception IOException
 	 *                If an I/O error occurred.
 	 */
@@ -355,7 +355,7 @@ public class ValueStore extends ValueFactoryBase {
 
 	/**
 	 * Synchronizes any changes that are cached in memory to disk.
-	 * 
+	 *
 	 * @exception IOException
 	 *                If an I/O error occurred.
 	 */
@@ -366,7 +366,7 @@ public class ValueStore extends ValueFactoryBase {
 	/**
 	 * Closes the ValueStore, releasing any file references, etc. Once closed,
 	 * the ValueStore can no longer be used.
-	 * 
+	 *
 	 * @exception IOException
 	 *                If an I/O error occurred.
 	 */
@@ -599,7 +599,7 @@ public class ValueStore extends ValueFactoryBase {
 	}
 
 	/*----------------------------------------------------------------------*
-	 * Methods for converting model objects to NativeStore-specific objects * 
+	 * Methods for converting model objects to NativeStore-specific objects *
 	 *----------------------------------------------------------------------*/
 
 	public NativeValue getNativeValue(Value value) {
@@ -627,7 +627,7 @@ public class ValueStore extends ValueFactoryBase {
 	 * returns the supplied URI itself if it is already a NativeURI that has
 	 * been created by this ValueStore, which prevents unnecessary object
 	 * creations.
-	 * 
+	 *
 	 * @return A NativeURI for the specified URI.
 	 */
 	public NativeURI getNativeURI(URI uri) {
@@ -643,7 +643,7 @@ public class ValueStore extends ValueFactoryBase {
 	 * returns the supplied bnode itself if it is already a NativeBNode that has
 	 * been created by this ValueStore, which prevents unnecessary object
 	 * creations.
-	 * 
+	 *
 	 * @return A NativeBNode for the specified bnode.
 	 */
 	public NativeBNode getNativeBNode(BNode bnode) {
@@ -659,7 +659,7 @@ public class ValueStore extends ValueFactoryBase {
 	 * method returns the supplied literal itself if it is already a
 	 * NativeLiteral that has been created by this ValueStore, which prevents
 	 * unnecessary object creations.
-	 * 
+	 *
 	 * @return A NativeLiteral for the specified literal.
 	 */
 	public NativeLiteral getNativeLiteral(Literal l) {

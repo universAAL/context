@@ -1,16 +1,16 @@
 /*
 	Copyright 2008-2014 TSB, http://www.tsbtecnologias.es
 	TSB - Tecnologías para la Salud y el Bienestar
-	
-	See the NOTICE file distributed with this work for additional 
+
+	See the NOTICE file distributed with this work for additional
 	information regarding copyright ownership
-	
+
 	Licensed under the Apache License, Version 2.0 (the "License");
 	you may not use this file except in compliance with the License.
 	You may obtain a copy of the License at
-	
+
 	  http://www.apache.org/licenses/LICENSE-2.0
-	
+
 	Unless required by applicable law or agreed to in writing, software
 	distributed under the License is distributed on an "AS IS" BASIS,
 	WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -25,9 +25,9 @@ import java.util.List;
 
 /**
  * Class to parse rules and extract humanId's.
- * 
+ *
  * @author Miguel Llorente (mllorente)
- * 
+ *
  */
 public final class ParseRule {
 
@@ -39,7 +39,7 @@ public final class ParseRule {
 
 	/**
 	 * Returns the humanIds that are in the rule definition.
-	 * 
+	 *
 	 * @param ruleDefinition
 	 *            the rule definition.
 	 * @return thehumanIds that are in the rule definition.
@@ -64,7 +64,7 @@ public final class ParseRule {
 
 	/**
 	 * Returns the rule name contained in the string nextToken.
-	 * 
+	 *
 	 * @param nextToken
 	 *            the rule definition, from humanId till end.
 	 * @return the rule name contained in the string nextToken.
@@ -78,7 +78,7 @@ public final class ParseRule {
 	/**
 	 * Returns true if in the string nextToken is contained a rule humanId.
 	 * False otherwise.
-	 * 
+	 *
 	 * @param nextToken
 	 *            the rule definition, from humanId till end.
 	 * @return true if in the string nextToken is contained a rule humanId.

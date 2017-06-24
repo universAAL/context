@@ -17,7 +17,7 @@ import org.openrdf.sail.nativerdf.btree.RecordIterator;
 /**
  * A cache for fixed size byte array records. This cache uses a temporary file
  * to store the records. This file is deleted upon calling {@link #discard()}.
- * 
+ *
  * @author Arjohn Kampman
  */
 final class SequentialRecordCache extends RecordCache {

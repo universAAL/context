@@ -11,7 +11,7 @@ import java.util.Map;
 /**
  * Utility subclass of {@link LinkedHashMap} the makes it a fixed-size LRU
  * cache.
- * 
+ *
  * @author Arjohn Kampman
  */
 class LRUCache<K, V> extends LinkedHashMap<K, V> {

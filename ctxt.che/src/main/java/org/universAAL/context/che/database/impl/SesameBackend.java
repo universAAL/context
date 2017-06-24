@@ -1,18 +1,18 @@
 /*
 	Copyright 2015 ITACA-TSB, http://www.tsb.upv.es
-	Instituto Tecnologico de Aplicaciones de Comunicacion 
-	Avanzadas - Grupo Tecnologias para la Salud y el 
+	Instituto Tecnologico de Aplicaciones de Comunicacion
+	Avanzadas - Grupo Tecnologias para la Salud y el
 	Bienestar (TSB)
-	
-	See the NOTICE file distributed with this work for additional 
+
+	See the NOTICE file distributed with this work for additional
 	information regarding copyright ownership
-	
+
 	Licensed under the Apache License, Version 2.0 (the "License");
 	you may not use this file except in compliance with the License.
 	You may obtain a copy of the License at
-	
+
 	  http://www.apache.org/licenses/LICENSE-2.0
-	
+
 	Unless required by applicable law or agreed to in writing, software
 	distributed under the License is distributed on an "AS IS" BASIS,
 	WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -78,9 +78,9 @@ import org.openrdf.sail.inferencer.fc.ForwardChainingRDFSInferencer;
  * uses Sesame to store and retrieve the context events in/from an underlying
  * store server (a SAIL in Sesame). In this case it uses the Sesame native
  * Filesystem repository, interfaced with a forward chaining RDFS inferencer.
- * 
+ *
  * @author <a href="mailto:alfiva@itaca.upv.es">Alvaro Fides Valero</a>
- * 
+ *
  */
 public class SesameBackend implements Backend {
 	/**
@@ -121,7 +121,7 @@ public class SesameBackend implements Backend {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see org.universAAL.context.che.database.Backend#connect()
 	 */
 	synchronized public void connect() {
@@ -154,7 +154,7 @@ public class SesameBackend implements Backend {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see org.universAAL.context.che.database.Backend#populate()
 	 */
 	public void populate() throws RepositoryException, RDFParseException, IOException {
@@ -191,7 +191,7 @@ public class SesameBackend implements Backend {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see
 	 * org.universAAL.context.che.database.Backend#populate(java.lang.String)
 	 */
@@ -222,7 +222,7 @@ public class SesameBackend implements Backend {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see org.universAAL.context.che.database.Backend#close()
 	 */
 	public void close() {
@@ -246,7 +246,7 @@ public class SesameBackend implements Backend {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see
 	 * org.universAAL.context.che.database.Backend#storeEvent(org.universAAL
 	 * .middleware.context.ContextEvent)
@@ -293,7 +293,7 @@ public class SesameBackend implements Backend {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see org.universAAL.context.che.database.Backend#queryBySPARQL(java.lang.
 	 * String )
 	 */
@@ -379,7 +379,7 @@ public class SesameBackend implements Backend {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see
 	 * org.universAAL.context.che.database.Backend#retrieveEventsBySPARQL(java
 	 * .lang.String)
@@ -436,7 +436,7 @@ public class SesameBackend implements Backend {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see org.universAAL.context.che.database.Backend#retrieveEvent(java.lang.
 	 * String , java.lang.String, java.lang.String, java.lang.Object,
 	 * java.lang.Integer, java.lang.Long, java.lang.Object, java.lang.Long)
@@ -450,7 +450,7 @@ public class SesameBackend implements Backend {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see
 	 * org.universAAL.context.che.database.Backend#retrieveEventsBetweenTstmp
 	 * (java.lang.String, java.lang.String, java.lang.String, java.lang.Object,
@@ -468,7 +468,7 @@ public class SesameBackend implements Backend {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see
 	 * org.universAAL.context.che.database.Backend#retrieveEventsFromTstmp(java
 	 * .lang.String, java.lang.String, java.lang.String, java.lang.Object,
@@ -486,7 +486,7 @@ public class SesameBackend implements Backend {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see
 	 * org.universAAL.context.che.database.Backend#retrieveEventsToTstmp(java
 	 * .lang.String, java.lang.String, java.lang.String, java.lang.Object,
@@ -504,7 +504,7 @@ public class SesameBackend implements Backend {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see org.universAAL.context.che.database.Backend#removeOldEvents(long)
 	 */
 	synchronized public void removeOldEvents(long tst) {
@@ -530,7 +530,7 @@ public class SesameBackend implements Backend {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see
 	 * org.universAAL.context.che.database.Backend#setuAALParser(org.universAAL
 	 * .middleware.sodapop.msg.MessageContentSerializer)
@@ -543,7 +543,7 @@ public class SesameBackend implements Backend {
 
 	/**
 	 * Finds out what kind of SPARQL query the input is.
-	 * 
+	 *
 	 * @param input
 	 *            The SPARQL query to analyze
 	 * @return The value of the constant indicating the type of query. One of
@@ -575,7 +575,7 @@ public class SesameBackend implements Backend {
 	 * Given the uAAL values of all or some of the fields of a Context Event,
 	 * prepares the appropriate SPARQL SELECT query that would return matching
 	 * events.
-	 * 
+	 *
 	 * @param subject
 	 *            Subject of the event. <code>null</code> for wildacrd.
 	 * @param subjecttype
@@ -682,7 +682,7 @@ public class SesameBackend implements Backend {
 	 * Literal, its String representation for the prepared query will vary. This
 	 * method constructs the appropriate expression representation of an object
 	 * for an SPARQL query.
-	 * 
+	 *
 	 * @param obj
 	 *            The Object to get the SPARQL expression for
 	 * @return The String expression describing the Object for the query
@@ -753,7 +753,7 @@ public class SesameBackend implements Backend {
 	 * Turns an array of tenant scopes into a collection of SPARQL FROM
 	 * commands. If a scope is not formatted as URI, its prepended the
 	 * Constants.uAAL_MIDDLEWARE_LOCAL_ID_PREFIX.
-	 * 
+	 *
 	 * @param scopes
 	 *            Array of scopes
 	 * @return a String with a FROM < scope > in different lines

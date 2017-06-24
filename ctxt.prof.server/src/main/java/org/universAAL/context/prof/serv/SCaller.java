@@ -1,18 +1,18 @@
 /*
 	Copyright 2012-2016 ITACA-TSB, http://www.tsb.upv.es
-	Instituto Tecnologico de Aplicaciones de Comunicacion 
-	Avanzadas - Grupo Tecnologias para la Salud y el 
+	Instituto Tecnologico de Aplicaciones de Comunicacion
+	Avanzadas - Grupo Tecnologias para la Salud y el
 	Bienestar (TSB)
-	
-	See the NOTICE file distributed with this work for additional 
+
+	See the NOTICE file distributed with this work for additional
 	information regarding copyright ownership
-	
+
 	Licensed under the Apache License, Version 2.0 (the "License");
 	you may not use this file except in compliance with the License.
 	You may obtain a copy of the License at
-	
+
 	  http://www.apache.org/licenses/LICENSE-2.0
-	
+
 	Unless required by applicable law or agreed to in writing, software
 	distributed under the License is distributed on an "AS IS" BASIS,
 	WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -41,9 +41,9 @@ import org.universAAL.ontology.che.ContextHistoryService;
 /**
  * Takes care of asking the CHE the equivalent request to the call received by
  * the profiling server.
- * 
+ *
  * @author alfiva
- * 
+ *
  */
 public class SCaller {
 
@@ -58,7 +58,7 @@ public class SCaller {
 
 	/**
 	 * Default constructor.
-	 * 
+	 *
 	 * @param mcontext
 	 *            uAAL Module mcontext.
 	 */
@@ -370,7 +370,7 @@ public class SCaller {
 
 	/**
 	 * Prepares the call to the Do SPARQL service of CHE.
-	 * 
+	 *
 	 * @param query
 	 *            The SPARQL query
 	 * @return The prepared request
@@ -389,7 +389,7 @@ public class SCaller {
 
 	/**
 	 * Helper method to get the result from the Service Response of CHE.
-	 * 
+	 *
 	 * @param call
 	 *            The service response
 	 * @return the result SPARQL string
@@ -417,7 +417,7 @@ public class SCaller {
 	/**
 	 * Splits a Turtle serialized string into prefixes and content, so it can be
 	 * used inside SPARQL queries.
-	 * 
+	 *
 	 * @param serialized
 	 *            The turtle string
 	 * @return An array of length 2. The first item [0] is the string with the

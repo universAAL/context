@@ -37,7 +37,7 @@ import org.universAAL.context.sesame.sail.model.NativeValue;
 /**
  * A SAIL implementation using B-Tree indexing on disk for storing and querying
  * its data.
- * 
+ *
  * @author Arjohn Kampman
  * @author jeen
  */
@@ -114,7 +114,7 @@ public class CardinalityNativeStore extends NotifyingSailBase {
 	/**
 	 * Sets the triple indexes for the native store, must be called before
 	 * initialization.
-	 * 
+	 *
 	 * @param tripleIndexes
 	 *            An index strings, e.g. <tt>spoc,posc</tt>.
 	 */
@@ -162,7 +162,7 @@ public class CardinalityNativeStore extends NotifyingSailBase {
 
 	/**
 	 * Initializes this NativeStore.
-	 * 
+	 *
 	 * @exception SailException
 	 *                If this NativeStore could not be initialized using the
 	 *                parameters that have been set.
@@ -336,7 +336,7 @@ public class CardinalityNativeStore extends NotifyingSailBase {
 
 	/**
 	 * Creates a statement iterator based on the supplied pattern.
-	 * 
+	 *
 	 * @param subj
 	 *            The subject of the pattern, or <tt>null</tt> to indicate a
 	 *            wildcard.

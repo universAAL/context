@@ -1,18 +1,18 @@
 /*
 	Copyright 2015 ITACA-TSB, http://www.tsb.upv.es
-	Instituto Tecnologico de Aplicaciones de Comunicacion 
-	Avanzadas - Grupo Tecnologias para la Salud y el 
+	Instituto Tecnologico de Aplicaciones de Comunicacion
+	Avanzadas - Grupo Tecnologias para la Salud y el
 	Bienestar (TSB)
-	
-	See the NOTICE file distributed with this work for additional 
+
+	See the NOTICE file distributed with this work for additional
 	information regarding copyright ownership
-	
+
 	Licensed under the Apache License, Version 2.0 (the "License");
 	you may not use this file except in compliance with the License.
 	You may obtain a copy of the License at
-	
+
 	  http://www.apache.org/licenses/LICENSE-2.0
-	
+
 	Unless required by applicable law or agreed to in writing, software
 	distributed under the License is distributed on an "AS IS" BASIS,
 	WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -37,19 +37,19 @@ import org.universAAL.context.sesame.sail.CardinalityNativeStore;
  * as in {@link org.universAAL.context.che.database.impl.SesameBackend}.
  * Otherwise, only statements having the event as subject will be stored, but
  * not reified statements about its subject nor object.
- * 
+ *
  * Example:
- * 
+ *
  * An "event1" with "subject2" "predicate3" and "object4" with enough confidence
  * will result in having the statements in the store: "event1" "hasSubject"
  * "subject2", "event1" "hasPredicate" "predicate3", "event1" "hasObject"
  * "object4", "subject2" "predicate3" "object4"
- * 
+ *
  * But if the confidence is below the threshold, the last reified statement is
  * not stored.
- * 
+ *
  * @author alfiva
- * 
+ *
  */
 public class SesameBackendCrdCnf extends SesameBackendWithConfidence {
 	/**

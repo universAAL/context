@@ -13,7 +13,7 @@ import java.io.Serializable;
  * object needs to be equal to the concerning ValueStore's revision object. The
  * ValueStore's revision object is changed whenever values are removed from it
  * or IDs are changed.
- * 
+ *
  * @author Arjohn Kampman
  */
 public class ValueStoreRevision implements Serializable {

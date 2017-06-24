@@ -8,7 +8,7 @@ public class Snippet {
 		then
 			System.out.println("COINCIDENCE");
 	end
-	
+
 	rule "Going to bed - From normal routine"
 	salience 1
 		when
@@ -17,28 +17,28 @@ public class Snippet {
 			//not ContextEvent( this after [1ms,30s] $a, ((ManagedIndividual)RDFObject).getURI() matches "http://ontology.universAAL.org/ActivityHub.owl#motion_detected" )
 			//$ua:UserAwake()
 			$uS:UserStatus(awake == true)
-		then		
+		then
 			modify($uS){setAwake(false)}
 			//retract($ua);
 			insert (new UserAsleep());
 			RulesEngine.getInstance().publishConsequence(new String("http://www.tsbtecnologias.es/Consequence.owl#"+drools.getRule().getName()), new String[]{"ActivityType","Device"},new String[]{"GoingToBed","BEDROOM"});
 			System.out.println("GOING TO BED"+" "+$r+" "+java.util.Calendar.getInstance().getTime());
 	end
-	
+
 	rule "Awakening filter"
 		when
-		$sd:SleepDisturbance() 
+		$sd:SleepDisturbance()
 		//Number($i:intValue == 1 ) from accumulate ($sd:SleepDisturbance() over window:time(20s),count($sd))
-		
-		
+
+
 		//not (SleepDisturbance(this before[0ms,1m] $sd))
 		//not (SleepDisturbance(this before[0ms,1m] $sd))
 		then
 		//Publish awakening
 		System.out.println("There was an awakening");
-		retract($sd);		
+		retract($sd);
 	end
-	
+
 	rule "Disturbance"
 		when
 			//$c:ContextEvent( getRoom(RDFSubject.getURI())=="KITCHEN" )
@@ -53,9 +53,9 @@ public class Snippet {
 			//modify($uS){setAwake(true)}
 			//RulesEngine.getInstance().publishConsequence(new String("http://www.tsbtecnologias.es/Consequence.owl#"+drools.getRule().getName()), new String[]{"ActivityType","Device"},new String[]{"Awakening","BEDROOM"});
 			insert (new SleepDisturbance());
-			//System.out.println("AWAKENING "+java.util.Calendar.getInstance().getTime());	
+			//System.out.println("AWAKENING "+java.util.Calendar.getInstance().getTime());
 	end
-	
+
 	rule "Waking up"
 		when
 			$c:ContextEvent( getRoom(RDFSubject.getURI())=="KITCHEN" )
@@ -67,7 +67,7 @@ public class Snippet {
 			RulesEngine.getInstance().publishConsequence(new String("http://www.tsbtecnologias.es/Consequence.owl#"+drools.getRule().getName()), new String[]{"ActivityType","Device"},new String[]{"WakingUp","BEDROOM"});
 			insert(new SleepDisturbance());
 			//System.out.println("WAKE UP "+java.util.Calendar.getInstance().getTime());
-				
+
 	end
 }
 

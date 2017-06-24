@@ -1,18 +1,18 @@
 /*
 	Copyright 2008-2015 ITACA-TSB, http://www.tsb.upv.es
-	Instituto Tecnologico de Aplicaciones de Comunicacion 
-	Avanzadas - Grupo Tecnologias para la Salud y el 
+	Instituto Tecnologico de Aplicaciones de Comunicacion
+	Avanzadas - Grupo Tecnologias para la Salud y el
 	Bienestar (TSB)
-	
-	See the NOTICE file distributed with this work for additional 
+
+	See the NOTICE file distributed with this work for additional
 	information regarding copyright ownership
-	
+
 	Licensed under the Apache License, Version 2.0 (the "License");
 	you may not use this file except in compliance with the License.
 	You may obtain a copy of the License at
-	
+
 	  http://www.apache.org/licenses/LICENSE-2.0
-	
+
 	Unless required by applicable law or agreed to in writing, software
 	distributed under the License is distributed on an "AS IS" BASIS,
 	WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -33,9 +33,9 @@ import org.universAAL.middleware.serialization.MessageContentSerializer;
 /**
  * Interface that represents a store back end where the context history is
  * stored.
- * 
+ *
  * @author <a href="mailto:alfiva@itaca.upv.es">Alvaro Fides Valero</a>
- * 
+ *
  */
 public interface Backend {
 
@@ -52,7 +52,7 @@ public interface Backend {
 	/**
 	 * Stores a {@link org.universAAL.middleware.context.ContextEvent} in the
 	 * underlying store.
-	 * 
+	 *
 	 * @param e
 	 *            The context event to be stored.
 	 */
@@ -66,7 +66,7 @@ public interface Backend {
 	 * for wildcarding.
 	 * <p>
 	 * This is not used in the current version. Will probably be deprecated.
-	 * 
+	 *
 	 * @param subject
 	 *            The URI of the subject of the event to be matched
 	 * @param subjecttype
@@ -99,7 +99,7 @@ public interface Backend {
 	 * underlying store, which members are the context events that match the
 	 * parameters passed, and were received after the specified timestamp. A
 	 * parameter can be passed a value of <code>null</code> for wildcarding.
-	 * 
+	 *
 	 * @param subject
 	 *            The URI of the subject of the event to be matched
 	 * @param subjecttype
@@ -139,7 +139,7 @@ public interface Backend {
 	 * underlying store, which members are the context events that match the
 	 * parameters passed, and were received before the specified timestamp. A
 	 * parameter can be passed a value of <code>null</code> for wildcarding.
-	 * 
+	 *
 	 * @param subject
 	 *            The URI of the subject of the event to be matched
 	 * @param subjecttype
@@ -149,7 +149,7 @@ public interface Backend {
 	 * @param object
 	 *            The Object of the event to be matched. It depends on the
 	 *            implementer of this method how to match the object.
-	 * 
+	 *
 	 * @param confidence
 	 *            The confidence of the event to be matched
 	 * @param expiration
@@ -181,7 +181,7 @@ public interface Backend {
 	 * underlying store, which members are the context events that match the
 	 * parameters passed, and were received within the specified time range. A
 	 * parameter can be passed a value of <code>null</code> for wildcarding.
-	 * 
+	 *
 	 * @param subject
 	 *            The URI of the subject of the event to be matched
 	 * @param subjecttype
@@ -223,7 +223,7 @@ public interface Backend {
 	 * Retrieves a list of
 	 * {@link org.universAAL.middleware.context.ContextEvent} from the
 	 * underlying store, as a result of a SPARQL query.
-	 * 
+	 *
 	 * @param input
 	 *            The SPARQL query that defines the events to be returned. The
 	 *            variable that represents the event MUST be named
@@ -238,19 +238,19 @@ public interface Backend {
 
 	/**
 	 * Returns the result of a SPARQL query issued to the underlying store.
-	 * 
+	 *
 	 * The types of SPARQL queries allowed depend on the underlying
 	 * implementation, but these are mandated to include at least SELECT and
 	 * DESCRIBE, and encouraged to also allow CONSTRUCT and ASK. SPARQL-Update
 	 * is optional. Implementations should inform in case an unsupported query
 	 * is received.
-	 * 
+	 *
 	 * The underlying implementations should return results in RDF/XML-ABBREV
 	 * format encoded in UTF-8 in case of RDF models, and also if possible in
 	 * case of lists of bindings for SELECT queries. Results for ASK and UPDATE
 	 * queries (if implemented) should follow the format \"true\" or \"false\"
 	 * Strings in case of ASK and \"true\" in case of a successful UPDATE query.
-	 * 
+	 *
 	 * @param input
 	 *            The SPARQL query to be executed.
 	 * @param scopeArray
@@ -264,7 +264,7 @@ public interface Backend {
 	/**
 	 * Removes all events from the underlying store that were received until the
 	 * specified timestamp.
-	 * 
+	 *
 	 * @param tstamp
 	 *            The timestamp in milliseconds until which events are removed.
 	 *            A value of 0 does nothing.
@@ -277,12 +277,12 @@ public interface Backend {
 	 * might be helpful in many implementations, and allows the activator of the
 	 * CHE to look for such service in OSGi, which should be provided by the
 	 * mandatory component mw.data.serialization.
-	 * 
+	 *
 	 * There is no guarantee though that the parser is set before it is used in
 	 * the implementation, so check for nulls. If an implementation of a Backend
 	 * does not need to use such parser, leave its implementation of this method
 	 * empty.
-	 * 
+	 *
 	 * @param service
 	 *            The MessageContentSerializer service implementation found in
 	 *            OSGi
@@ -294,7 +294,7 @@ public interface Backend {
 	 * files in the config folder (or registered in the system). Also used for
 	 * updates when new ontologies are installed, so this method shall take care
 	 * of not duplicating new ontologies that are already stored.
-	 * 
+	 *
 	 * @throws RepositoryException
 	 * @throws RDFParseException
 	 * @throws IOException
@@ -305,7 +305,7 @@ public interface Backend {
 	 * Fills the store with the OWL data of a certain ontologies from the OWL
 	 * file in the config folder (or registered in the system). Also used for
 	 * updates when new ontologies are installed.
-	 * 
+	 *
 	 * @param owlFileName
 	 *            The naem of the OWL file to store
 	 * @throws RepositoryException

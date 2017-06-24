@@ -1,16 +1,16 @@
-/*	
+/*
 	Copyright 2008-2014 Fraunhofer IGD, http://www.igd.fraunhofer.de
-	Fraunhofer Gesellschaft - Institut für Graphische Datenverarbeitung 
-	
-	See the NOTICE file distributed with this work for additional 
+	Fraunhofer Gesellschaft - Institut für Graphische Datenverarbeitung
+
+	See the NOTICE file distributed with this work for additional
 	information regarding copyright ownership
-	
+
 	Licensed under the Apache License, Version 2.0 (the "License");
 	you may not use this file except in compliance with the License.
 	You may obtain a copy of the License at
-	
+
 	  http://www.apache.org/licenses/LICENSE-2.0
-	
+
 	Unless required by applicable law or agreed to in writing, software
 	distributed under the License is distributed on an "AS IS" BASIS,
 	WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -40,9 +40,9 @@ import org.universAAL.ontology.reasoner.util.ElementModel;
  * the manage objects of the kind like given by the generic attribute. To manage
  * does mean to add/remove/get objects and also save/load them at the
  * file-system.
- * 
+ *
  * @author amarinc
- * 
+ *
  */
 public class ReasoningProvider extends ServiceCallee {
 
@@ -81,13 +81,13 @@ public class ReasoningProvider extends ServiceCallee {
 	}
 
 	/**
-	 * 
+	 *
 	 * This methods seems to be some kind of strange because of the usage from
 	 * the handleRequest method. This is a result of the simple fact the all
 	 * services managed by this class are only used to add/remove/get objects of
 	 * the ontology. Since the differences here are only in the used URI's I
 	 * saved a lot of code by modularize this part.
-	 * 
+	 *
 	 */
 	@Override
 	public ServiceResponse handleCall(ServiceCall call) {
@@ -119,9 +119,9 @@ public class ReasoningProvider extends ServiceCallee {
 	}
 
 	/**
-	 * 
+	 *
 	 * @SuppressWarnings("unchecked")
-	 * 
+	 *
 	 * @param <M>
 	 *            A class based on Persistent from the Reasoner ontology
 	 * @param call
@@ -169,7 +169,7 @@ public class ReasoningProvider extends ServiceCallee {
 	/**
 	 * Creates a ServiceResponse with the given output-param and the given list
 	 * as value
-	 * 
+	 *
 	 * @param output_param
 	 *            URI of the output-paramter to be added
 	 * @param output

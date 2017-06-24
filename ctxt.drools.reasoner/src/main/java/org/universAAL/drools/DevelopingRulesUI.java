@@ -34,7 +34,7 @@ import org.universAAL.drools.engine.RulesEngine;
 public class DevelopingRulesUI extends JFrame {
 
 	/**
-	 * 
+	 *
 	 */
 	private static final long serialVersionUID = 1L;
 

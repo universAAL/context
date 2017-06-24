@@ -21,7 +21,7 @@ package org.universAAL.drools.models;
 
 /**
  * Drools rule description.
- * 
+ *
  * @author mllorente
  * @version $Rev: 1037 $ $Date: 2012-09-19 17:25:45 +0200 (mié, 19 sep 2012) $
  */
@@ -41,7 +41,7 @@ public class RuleModel {
 
 	/**
 	 * Constructor for one Rule human id.
-	 * 
+	 *
 	 * @param ruleDefinition
 	 *            string with the drools rule definition.
 	 */
@@ -51,7 +51,7 @@ public class RuleModel {
 
 	/**
 	 * Returns the rule definition. The rule itself.
-	 * 
+	 *
 	 * @return the rule definition. The rule itself.
 	 */
 	public String getRuleDefinition() {
@@ -60,7 +60,7 @@ public class RuleModel {
 
 	/**
 	 * Allows to specify the rule description.
-	 * 
+	 *
 	 * @param ruleDefinition
 	 *            the rule description.
 	 */

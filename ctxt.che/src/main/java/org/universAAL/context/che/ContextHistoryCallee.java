@@ -1,18 +1,18 @@
 /*
 	Copyright 2008-2015 ITACA-TSB, http://www.tsb.upv.es
-	Instituto Tecnologico de Aplicaciones de Comunicacion 
-	Avanzadas - Grupo Tecnologias para la Salud y el 
+	Instituto Tecnologico de Aplicaciones de Comunicacion
+	Avanzadas - Grupo Tecnologias para la Salud y el
 	Bienestar (TSB)
-	
-	See the NOTICE file distributed with this work for additional 
+
+	See the NOTICE file distributed with this work for additional
 	information regarding copyright ownership
-	
+
 	Licensed under the Apache License, Version 2.0 (the "License");
 	you may not use this file except in compliance with the License.
 	You may obtain a copy of the License at
-	
+
 	  http://www.apache.org/licenses/LICENSE-2.0
-	
+
 	Unless required by applicable law or agreed to in writing, software
 	distributed under the License is distributed on an "AS IS" BASIS,
 	WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -44,9 +44,9 @@ import org.universAAL.ontology.che.ContextEvent;
 /**
  * The CHe service callee receives all service calls issued to the CHe through
  * the service bus.
- * 
+ *
  * @author <a href="mailto:alfiva@itaca.upv.es">Alvaro Fides Valero</a>
- * 
+ *
  */
 public class ContextHistoryCallee extends ServiceCallee {
 	private static final ServiceResponse FAILURE = new ServiceResponse(CallStatus.serviceSpecificFailure);
@@ -63,7 +63,7 @@ public class ContextHistoryCallee extends ServiceCallee {
 
 	/**
 	 * Main constructor.
-	 * 
+	 *
 	 * @param context
 	 *            The uaal module context
 	 * @param dbstore
@@ -76,7 +76,7 @@ public class ContextHistoryCallee extends ServiceCallee {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see org.universAAL.middleware.service.ServiceCallee#
 	 * communicationChannelBroken ()
 	 */
@@ -87,7 +87,7 @@ public class ContextHistoryCallee extends ServiceCallee {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see
 	 * org.universAAL.middleware.service.ServiceCallee#handleCall(org.universAAL
 	 * .middleware.service.ServiceCall)
@@ -210,7 +210,7 @@ public class ContextHistoryCallee extends ServiceCallee {
 
 	/**
 	 * Get the full Resource graph of a given URI.
-	 * 
+	 *
 	 * @param uri
 	 * @param visited
 	 *            initially null, or containing the URIs to be ignored.
@@ -229,7 +229,7 @@ public class ContextHistoryCallee extends ServiceCallee {
 
 	/**
 	 * Get a blank node description from an object property.
-	 * 
+	 *
 	 * @param oURI
 	 *            The parent object URI
 	 * @param propURI
@@ -277,7 +277,7 @@ public class ContextHistoryCallee extends ServiceCallee {
 
 	/**
 	 * Perform SPARQL query.
-	 * 
+	 *
 	 * @param input
 	 *            The query
 	 * @param scopeArray
@@ -305,7 +305,7 @@ public class ContextHistoryCallee extends ServiceCallee {
 
 	/**
 	 * Perform SPARQL query.
-	 * 
+	 *
 	 * @param input
 	 *            The query
 	 * @param scopeArray

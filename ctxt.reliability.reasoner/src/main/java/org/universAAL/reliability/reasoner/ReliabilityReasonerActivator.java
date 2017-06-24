@@ -48,7 +48,7 @@ public class ReliabilityReasonerActivator implements BundleActivator, ServiceLis
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see
 	 * org.osgi.framework.BundleActivator#start(org.osgi.framework.BundleContext
 	 * )
@@ -82,7 +82,7 @@ public class ReliabilityReasonerActivator implements BundleActivator, ServiceLis
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see
 	 * org.osgi.framework.BundleActivator#stop(org.osgi.framework.BundleContext)
 	 */
@@ -213,7 +213,7 @@ public class ReliabilityReasonerActivator implements BundleActivator, ServiceLis
 
 	/**
 	 * For synchronization
-	 * 
+	 *
 	 * @return A generic object serving as lock
 	 */
 	public static Object getFileLock() {
@@ -222,7 +222,7 @@ public class ReliabilityReasonerActivator implements BundleActivator, ServiceLis
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see
 	 * org.osgi.framework.ServiceListener#serviceChanged(org.osgi.framework.
 	 * ServiceEvent)

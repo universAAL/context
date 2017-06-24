@@ -1,18 +1,18 @@
 /*
 	Copyright 2008-2014 ITACA-TSB, http://www.tsb.upv.es
-	Instituto Tecnologico de Aplicaciones de Comunicacion 
-	Avanzadas - Grupo Tecnologias para la Salud y el 
+	Instituto Tecnologico de Aplicaciones de Comunicacion
+	Avanzadas - Grupo Tecnologias para la Salud y el
 	Bienestar (TSB)
-	
-	See the NOTICE file distributed with this work for additional 
+
+	See the NOTICE file distributed with this work for additional
 	information regarding copyright ownership
-	
+
 	Licensed under the Apache License, Version 2.0 (the "License");
 	you may not use this file except in compliance with the License.
 	You may obtain a copy of the License at
-	
+
 	  http://www.apache.org/licenses/LICENSE-2.0
-	
+
 	Unless required by applicable law or agreed to in writing, software
 	distributed under the License is distributed on an "AS IS" BASIS,
 	WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -47,9 +47,9 @@ import org.universAAL.middleware.util.OntologyListener;
 /**
  * Central class that takes care of starting and stopping application. It used
  * to be the Activator class before splitting the OSGi logic.
- * 
+ *
  * @author alfiva
- * 
+ *
  */
 public class Hub implements OntologyListener, ModuleActivator {
 	/**
@@ -134,7 +134,7 @@ public class Hub implements OntologyListener, ModuleActivator {
 
 	/**
 	 * To be called when application starts. Used to be Activator.start().
-	 * 
+	 *
 	 * @param context
 	 *            uaal module context
 	 */
@@ -184,7 +184,7 @@ public class Hub implements OntologyListener, ModuleActivator {
 	 * Create the OWL file for a given ontology, and put it in the config
 	 * folder. If STORE.OVERWRITEOWL=true, the OWL file will be overwritten if
 	 * it already exists. If false nothing happens.
-	 * 
+	 *
 	 * @return
 	 */
 	private synchronized String createOWLFile(String ontURI, OntologyManagement manager) {
@@ -223,7 +223,7 @@ public class Hub implements OntologyListener, ModuleActivator {
 
 	/**
 	 * To be called when application stops. Used to be Activator.stop().
-	 * 
+	 *
 	 * @throws Exception
 	 */
 	public final void stop(ModuleContext mc) throws Exception {
@@ -240,7 +240,7 @@ public class Hub implements OntologyListener, ModuleActivator {
 	/**
 	 * Set the turtle-uaal parser. Make sure it's set at least once before
 	 * start().
-	 * 
+	 *
 	 * @param service
 	 *            The parser
 	 */
@@ -267,7 +267,7 @@ public class Hub implements OntologyListener, ModuleActivator {
 
 	/**
 	 * Sets the properties of the CHe.
-	 * 
+	 *
 	 * @param prop
 	 *            The Properties object containing ALL of the properties of the
 	 *            CHe
@@ -302,7 +302,7 @@ public class Hub implements OntologyListener, ModuleActivator {
 
 	/**
 	 * Gets the properties of the CHe.
-	 * 
+	 *
 	 * @return The properties of the CHe
 	 * @see #setProperties(Properties)
 	 */
@@ -334,7 +334,7 @@ public class Hub implements OntologyListener, ModuleActivator {
 	 * device while outside. It only works if the file from the Mobile
 	 * containing the history has already been downloaded to the CHE
 	 * configuration.
-	 * 
+	 *
 	 * @return <code>true</code> if the synchronization succeeded.
 	 */
 	private boolean synchronizeMobileTurtle() {
@@ -397,7 +397,7 @@ public class Hub implements OntologyListener, ModuleActivator {
 
 	/**
 	 * Gets a Log helper class.
-	 * 
+	 *
 	 * @param cl
 	 *            Class that asks for a logger
 	 * @return the logger
@@ -408,7 +408,7 @@ public class Hub implements OntologyListener, ModuleActivator {
 
 	/**
 	 * helper class to simplify the calls to LogUtils of MW.
-	 * 
+	 *
 	 * @author alfiva
 	 */
 	public static class Log {
@@ -419,7 +419,7 @@ public class Hub implements OntologyListener, ModuleActivator {
 
 		/**
 		 * Main constructor.
-		 * 
+		 *
 		 * @param cl
 		 *            Class that asks for a logger
 		 */
@@ -429,7 +429,7 @@ public class Hub implements OntologyListener, ModuleActivator {
 
 		/**
 		 * LogUtils.info.
-		 * 
+		 *
 		 * @param method
 		 *            Method that logs
 		 * @param msg
@@ -441,7 +441,7 @@ public class Hub implements OntologyListener, ModuleActivator {
 
 		/**
 		 * LogUtils.debug.
-		 * 
+		 *
 		 * @param method
 		 *            Method that logs
 		 * @param msg
@@ -453,7 +453,7 @@ public class Hub implements OntologyListener, ModuleActivator {
 
 		/**
 		 * LogUtils.warn.
-		 * 
+		 *
 		 * @param method
 		 *            Method that logs
 		 * @param msg
@@ -465,7 +465,7 @@ public class Hub implements OntologyListener, ModuleActivator {
 
 		/**
 		 * LogUtils.error.
-		 * 
+		 *
 		 * @param method
 		 *            Method that logs
 		 * @param msg
@@ -477,7 +477,7 @@ public class Hub implements OntologyListener, ModuleActivator {
 
 		/**
 		 * LogUtils.info.
-		 * 
+		 *
 		 * @param method
 		 *            Method that logs
 		 * @param msg
@@ -491,7 +491,7 @@ public class Hub implements OntologyListener, ModuleActivator {
 
 		/**
 		 * LogUtils.debug.
-		 * 
+		 *
 		 * @param method
 		 *            Method that logs
 		 * @param msg
@@ -505,7 +505,7 @@ public class Hub implements OntologyListener, ModuleActivator {
 
 		/**
 		 * LogUtils.warn.
-		 * 
+		 *
 		 * @param method
 		 *            Method that logs
 		 * @param msg
@@ -519,7 +519,7 @@ public class Hub implements OntologyListener, ModuleActivator {
 
 		/**
 		 * LogUtils.error.
-		 * 
+		 *
 		 * @param method
 		 *            Method that logs
 		 * @param msg

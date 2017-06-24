@@ -36,7 +36,7 @@ import org.universAAL.ontology.dependability.Fault;
  *
  */
 public class CPublisher extends ContextPublisher {
-	public static int received_faults = 0; 
+	public static int received_faults = 0;
 
     protected CPublisher(ModuleContext context, ContextProvider providerInfo) {
 	super(context, providerInfo);
@@ -62,43 +62,43 @@ public class CPublisher extends ContextPublisher {
 
     }
 
-    
+
     /**
      * this function is the publiusher of the EDU publisher,
-     * using ontologcial implication by Fault class 
+     * using ontologcial implication by Fault class
      * @param ID
      * @param judgment
      * @param timeStamp
      * @param location
      */
     public void publishContextEvent(int ID, int judgment, long timeStamp, String location) {
-	
+
 	Fault myFault = new Fault();
-	
-	
+
+
 	// setting error judgment
-	
+
 	if (judgment == 0)
 	    myFault.setFaultDecision(false);
 	else
 	    myFault.setFaultDecision(true);
-	
+
 	//calculating threshold and timestamp
 	myFault.setTimestamp(timeStamp);
-	
+
 	myFault.setLocation(location);
-	
-	
+
+
 	ContextEvent myContextEvent = new ContextEvent(myFault, Fault.PROP_FAULT_DECISION);
 	publish(myContextEvent);
 	}
-    
-    
-    
-    
+
+
+
+
     /**
      * this function should be called by EDUCore to receive the faulty message parameters,
-     * reforming the faulty message and publish it on the context bus 
+     * reforming the faulty message and publish it on the context bus
      * @param ID
      * @param judgment
      * @param process
@@ -107,10 +107,10 @@ public class CPublisher extends ContextPublisher {
      */
     public static void handleFault(int ID, int judgment, String process, String sec, String nsec){
     	++received_faults;
-    	
+
     		System.out.println("Hi there I am from haandleFault" + received_faults );
-    	
+
     }
-    
+
 
 }

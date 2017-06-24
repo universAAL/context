@@ -60,7 +60,7 @@ public class SCaller extends ServiceCaller {
 	/**
 	 * Execute a SPARQL CONSTRUCT query on the CHE that will return a reasoned
 	 * event. That event will be published.
-	 * 
+	 *
 	 * @param theQuery
 	 *            The SPARQL CONSTRUCT query
 	 */
@@ -96,7 +96,7 @@ public class SCaller extends ServiceCaller {
 
 	/**
 	 * Call the CHE service
-	 * 
+	 *
 	 * @param query
 	 *            The CONSTRUCT query
 	 * @return Serialized event constructed
@@ -124,7 +124,7 @@ public class SCaller extends ServiceCaller {
 
 	/**
 	 * Prepare the call for CHE
-	 * 
+	 *
 	 * @param query
 	 *            The CONSTRUCT query
 	 * @return The request for the call
@@ -143,7 +143,7 @@ public class SCaller extends ServiceCaller {
 
 	/**
 	 * Process service call response
-	 * 
+	 *
 	 * @param outputs
 	 *            The outputs of the response
 	 * @param expectedOutput
@@ -175,7 +175,7 @@ public class SCaller extends ServiceCaller {
 	/**
 	 * Set a MessageContentSerializer to be used when parsing the serialized
 	 * returned event
-	 * 
+	 *
 	 * @param service
 	 *            the parser
 	 */

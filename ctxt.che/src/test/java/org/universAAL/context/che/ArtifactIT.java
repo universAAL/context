@@ -27,9 +27,9 @@ import org.universAAL.ontology.che.ContextHistoryService;
 
 /**
  * Here developer's of this artifact should code their integration tests.
- * 
+ *
  * @author rotgier
- * 
+ *
  */
 public class ArtifactIT extends IntegrationTest {
 

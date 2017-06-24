@@ -1,18 +1,18 @@
 /*
 	Copyright 2008-2014 ITACA-TSB, http://www.tsb.upv.es
-	Instituto Tecnologico de Aplicaciones de Comunicacion 
-	Avanzadas - Grupo Tecnologias para la Salud y el 
+	Instituto Tecnologico de Aplicaciones de Comunicacion
+	Avanzadas - Grupo Tecnologias para la Salud y el
 	Bienestar (TSB)
-	
-	See the NOTICE file distributed with this work for additional 
+
+	See the NOTICE file distributed with this work for additional
 	information regarding copyright ownership
-	
+
 	Licensed under the Apache License, Version 2.0 (the "License");
 	you may not use this file except in compliance with the License.
 	You may obtain a copy of the License at
-	
+
 	  http://www.apache.org/licenses/LICENSE-2.0
-	
+
 	Unless required by applicable law or agreed to in writing, software
 	distributed under the License is distributed on an "AS IS" BASIS,
 	WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -32,9 +32,9 @@ import org.universAAL.context.che.Hub;
 /**
  * This class is used to remove events from the store periodically, to avoid the
  * uncontrolled growth of the history.
- * 
+ *
  * @author <a href="mailto:alfiva@itaca.upv.es">Alvaro Fides Valero</a>
- * 
+ *
  */
 public class Cleaner extends TimerTask {
 
@@ -49,7 +49,7 @@ public class Cleaner extends TimerTask {
 
 	/**
 	 * Main constructor.
-	 * 
+	 *
 	 * @param dbstore
 	 *            The store
 	 */
@@ -59,7 +59,7 @@ public class Cleaner extends TimerTask {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see java.util.TimerTask#run()
 	 */
 	public void run() {
@@ -86,7 +86,7 @@ public class Cleaner extends TimerTask {
 
 	/**
 	 * Auxiliary class used to perform the removal at a specified hour.
-	 * 
+	 *
 	 * @author alfiva
 	 */
 	private class Punctual extends TimerTask {
@@ -97,7 +97,7 @@ public class Cleaner extends TimerTask {
 
 		/**
 		 * Main constructor.
-		 * 
+		 *
 		 * @param db
 		 *            the store
 		 */
@@ -107,7 +107,7 @@ public class Cleaner extends TimerTask {
 
 		/*
 		 * (non-Javadoc)
-		 * 
+		 *
 		 * @see java.util.TimerTask#run()
 		 */
 		public void run() {

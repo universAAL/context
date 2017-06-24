@@ -1,16 +1,16 @@
-/*	
+/*
 	Copyright 2008-2014 Fraunhofer IGD, http://www.igd.fraunhofer.de
-	Fraunhofer Gesellschaft - Institut für Graphische Datenverarbeitung 
-	
-	See the NOTICE file distributed with this work for additional 
+	Fraunhofer Gesellschaft - Institut für Graphische Datenverarbeitung
+
+	See the NOTICE file distributed with this work for additional
 	information regarding copyright ownership
-	
+
 	Licensed under the Apache License, Version 2.0 (the "License");
 	you may not use this file except in compliance with the License.
 	You may obtain a copy of the License at
-	
+
 	  http://www.apache.org/licenses/LICENSE-2.0
-	
+
 	Unless required by applicable law or agreed to in writing, software
 	distributed under the License is distributed on an "AS IS" BASIS,
 	WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -39,10 +39,10 @@ import org.universAAL.ontology.che.ContextHistoryService;
 
 /**
  * This class contains methods to perform SPARQL-Requests on the CHE.
- * 
+ *
  * @author alfiva
  * @author amarinc
- * 
+ *
  */
 public class CHECaller extends ServiceCaller {
 	private static final String HISTORY_CLIENT_NAMESPACE = "http://ontology.itaca.es/Reasoner.owl#";
@@ -69,7 +69,7 @@ public class CHECaller extends ServiceCaller {
 	/**
 	 * Execute a SPARQL CONSTRUCT query on the CHE that will return a reasoned
 	 * event. That event will be published.
-	 * 
+	 *
 	 * @param theQuery
 	 *            The SPARQL CONSTRUCT query
 	 */
@@ -98,7 +98,7 @@ public class CHECaller extends ServiceCaller {
 
 	/**
 	 * Call the CHE service
-	 * 
+	 *
 	 * @param query
 	 *            The CONSTRUCT query
 	 * @return Serialized event constructed
@@ -126,7 +126,7 @@ public class CHECaller extends ServiceCaller {
 
 	/**
 	 * Prepare the call for CHE
-	 * 
+	 *
 	 * @param query
 	 *            The CONSTRUCT query
 	 * @return The request for the call
@@ -148,7 +148,7 @@ public class CHECaller extends ServiceCaller {
 	 * the value given in "expectedOutput" if such a result in the given list.
 	 * In case that there is one then more result for the same parameter the
 	 * first found will be returned.
-	 * 
+	 *
 	 * @param outputs
 	 *            List of outputs like given by a ServiceResponse
 	 * @param expectedOutput
@@ -181,7 +181,7 @@ public class CHECaller extends ServiceCaller {
 	/**
 	 * Set a MessageContentSerializer to be used when parsing the serialized
 	 * returned event
-	 * 
+	 *
 	 * @param service
 	 *            the parser
 	 */

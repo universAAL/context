@@ -19,7 +19,7 @@ import info.aduna.io.ByteArrayUtil;
 
 /**
  * Class that provides indexed storage and retrieval of arbitrary length data.
- * 
+ *
  * @author Arjohn Kampman
  */
 // Because fields are private we have to copy the whole content of DataStore
@@ -82,7 +82,7 @@ public class CryptDataStore extends DataStore {
 
 	/**
 	 * Gets the value for the specified ID.
-	 * 
+	 *
 	 * @param id
 	 *            A value ID, should be larger than 0.
 	 * @return The value for the ID, or <tt>null</tt> if no such value could be
@@ -109,7 +109,7 @@ public class CryptDataStore extends DataStore {
 
 	/**
 	 * Gets the ID for the specified value.
-	 * 
+	 *
 	 * @param queryData
 	 *            The value to get the ID for, must not be <tt>null</tt>.
 	 * @return The ID for the specified value, or <tt>-1</tt> if no such ID
@@ -148,7 +148,7 @@ public class CryptDataStore extends DataStore {
 
 	/**
 	 * Returns the maximum value-ID that is in use.
-	 * 
+	 *
 	 * @return The largest ID, or <tt>0</tt> if the store does not contain any
 	 *         values.
 	 * @throws IOException
@@ -162,7 +162,7 @@ public class CryptDataStore extends DataStore {
 	 * Stores the supplied value and returns the ID that has been assigned to
 	 * it. In case the data to store is already present, the ID of this existing
 	 * data is returned.
-	 * 
+	 *
 	 * @param data
 	 *            The data to store, must not be <tt>null</tt>.
 	 * @return The ID that has been assigned to the value.
@@ -191,7 +191,7 @@ public class CryptDataStore extends DataStore {
 
 	/**
 	 * Synchronizes any recent changes to the data to disk.
-	 * 
+	 *
 	 * @exception IOException
 	 *                If an I/O error occurred.
 	 */
@@ -203,7 +203,7 @@ public class CryptDataStore extends DataStore {
 
 	/**
 	 * Removes all values from the DataStore.
-	 * 
+	 *
 	 * @exception IOException
 	 *                If an I/O error occurred.
 	 */
@@ -217,7 +217,7 @@ public class CryptDataStore extends DataStore {
 	 * Closes the DataStore, releasing any file references, etc. In case a
 	 * transaction is currently open, it will be rolled back. Once closed, the
 	 * DataStore can no longer be used.
-	 * 
+	 *
 	 * @exception IOException
 	 *                If an I/O error occurred.
 	 */
@@ -229,7 +229,7 @@ public class CryptDataStore extends DataStore {
 
 	/**
 	 * Gets a hash code for the supplied data.
-	 * 
+	 *
 	 * @param data
 	 *            The data to calculate the hash code for.
 	 * @return A hash code for the supplied data.

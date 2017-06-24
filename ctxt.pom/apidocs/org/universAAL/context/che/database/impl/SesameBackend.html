@@ -537,13 +537,13 @@ implements <a href="../../../../../../org/universAAL/context/che/database/Backen
                             <a href="http://docs.oracle.com/javase/1.5.0/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>...&nbsp;scopeArray)</pre>
 <div class="block"><span class="descfrmTypeLabel">Description copied from interface:&nbsp;<code><a href="../../../../../../org/universAAL/context/che/database/Backend.html#queryBySPARQL-java.lang.String-java.lang.String...-">Backend</a></code></span></div>
 <div class="block">Returns the result of a SPARQL query issued to the underlying store.
- 
+
  The types of SPARQL queries allowed depend on the underlying
  implementation, but these are mandated to include at least SELECT and
  DESCRIBE, and encouraged to also allow CONSTRUCT and ASK. SPARQL-Update
  is optional. Implementations should inform in case an unsupported query
  is received.
- 
+
  The underlying implementations should return results in RDF/XML-ABBREV
  format encoded in UTF-8 in case of RDF models, and also if possible in
  case of lists of bindings for SELECT queries. Results for ASK and UPDATE
@@ -814,7 +814,7 @@ implements <a href="../../../../../../org/universAAL/context/che/database/Backen
  might be helpful in many implementations, and allows the activator of the
  CHE to look for such service in OSGi, which should be provided by the
  mandatory component mw.data.serialization.
- 
+
  There is no guarantee though that the parser is set before it is used in
  the implementation, so check for nulls. If an implementation of a Backend
  does not need to use such parser, leave its implementation of this method

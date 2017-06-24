@@ -29,7 +29,7 @@ under the License.
       <title>File: 9,
              Errors: 106,
              Warnings: 5,
-             Infos: 172
+             Infos: 16
       </title>
             <link>http://context/ctxt.che//checkstyle.html</link>
       <description>
@@ -50,7 +50,7 @@ under the License.
                   <a href="http://context/ctxt.che//checkstyle.html#org.universAAL.context.che.database.impl.SesameBackendWithConfidence.java">org/universAAL/context/che/database/impl/SesameBackendWithConfidence.java</a>
                 </td>
                 <td>
-                  14
+                  1
                 </td>
                 <td>
                   1
@@ -64,7 +64,7 @@ under the License.
                   <a href="http://context/ctxt.che//checkstyle.html#org.universAAL.context.che.Hub.java">org/universAAL/context/che/Hub.java</a>
                 </td>
                 <td>
-                  28
+                  1
                 </td>
                 <td>
                   0
@@ -78,7 +78,7 @@ under the License.
                   <a href="http://context/ctxt.che//checkstyle.html#org.universAAL.context.che.ContextHistorySubscriber.java">org/universAAL/context/che/ContextHistorySubscriber.java</a>
                 </td>
                 <td>
-                  12
+                  0
                 </td>
                 <td>
                   0
@@ -92,7 +92,7 @@ under the License.
                   <a href="http://context/ctxt.che//checkstyle.html#org.universAAL.context.che.ContextHistoryCallee.java">org/universAAL/context/che/ContextHistoryCallee.java</a>
                 </td>
                 <td>
-                  16
+                  0
                 </td>
                 <td>
                   0
@@ -106,7 +106,7 @@ under the License.
                   <a href="http://context/ctxt.che//checkstyle.html#org.universAAL.context.che.database.Cleaner.java">org/universAAL/context/che/database/Cleaner.java</a>
                 </td>
                 <td>
-                  14
+                  0
                 </td>
                 <td>
                   0
@@ -120,7 +120,7 @@ under the License.
                   <a href="http://context/ctxt.che//checkstyle.html#org.universAAL.context.che.osgi.Activator.java">org/universAAL/context/che/osgi/Activator.java</a>
                 </td>
                 <td>
-                  13
+                  0
                 </td>
                 <td>
                   0
@@ -134,7 +134,7 @@ under the License.
                   <a href="http://context/ctxt.che//checkstyle.html#org.universAAL.context.che.database.Backend.java">org/universAAL/context/che/database/Backend.java</a>
                 </td>
                 <td>
-                  28
+                  4
                 </td>
                 <td>
                   0
@@ -148,7 +148,7 @@ under the License.
                   <a href="http://context/ctxt.che//checkstyle.html#org.universAAL.context.che.ContextHistoryServices.java">org/universAAL/context/che/ContextHistoryServices.java</a>
                 </td>
                 <td>
-                  11
+                  0
                 </td>
                 <td>
                   0
@@ -162,7 +162,7 @@ under the License.
                   <a href="http://context/ctxt.che//checkstyle.html#org.universAAL.context.che.database.impl.SesameBackend.java">org/universAAL/context/che/database/impl/SesameBackend.java</a>
                 </td>
                 <td>
-                  36
+                  10
                 </td>
                 <td>
                   4

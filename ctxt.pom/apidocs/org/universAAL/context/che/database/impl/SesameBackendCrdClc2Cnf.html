@@ -140,14 +140,14 @@ extends <a href="../../../../../../org/universAAL/context/che/database/impl/Sesa
  as in <a href="../../../../../../org/universAAL/context/che/database/impl/SesameBackend.html" title="class in org.universAAL.context.che.database.impl"><code>SesameBackend</code></a>.
  Otherwise, only statements having the event as subject will be stored, but
  not reified statements about its subject nor object.
- 
+
  Example:
- 
+
  An "event1" with "subject2" "predicate3" and "object4" with enough confidence
  will result in having the statements in the store: "event1" "hasSubject"
  "subject2", "event1" "hasPredicate" "predicate3", "event1" "hasObject"
  "object4", "subject2" "predicate3" "object4"
- 
+
  But if the confidence is below the threshold, the last reified statement is
  not stored.</div>
 <dl>

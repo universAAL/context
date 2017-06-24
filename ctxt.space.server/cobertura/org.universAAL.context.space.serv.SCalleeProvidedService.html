@@ -85,15 +85,15 @@
 <tr>  <td class="numLine">&nbsp;33</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;<span class="keyword">import</span> org.universAAL.ontology.phThing.Device;</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;34</td>  <td class="nbHits">&nbsp;</td>
-  <td class="src"><pre class="src">&nbsp;<span class="keyword">import</span> org.universAAL.ontology.profile.AALAppSubProfile;</pre></td></tr>
+  <td class="src"><pre class="src">&nbsp;<span class="keyword">import</span> org.universAAL.ontology.profile.AppSubProfile;</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;35</td>  <td class="nbHits">&nbsp;</td>
-  <td class="src"><pre class="src">&nbsp;<span class="keyword">import</span> org.universAAL.ontology.profile.AALService;</pre></td></tr>
+  <td class="src"><pre class="src">&nbsp;<span class="keyword">import</span> org.universAAL.ontology.profile.AppService;</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;36</td>  <td class="nbHits">&nbsp;</td>
-  <td class="src"><pre class="src">&nbsp;<span class="keyword">import</span> org.universAAL.ontology.profile.AALServiceProfile;</pre></td></tr>
+  <td class="src"><pre class="src">&nbsp;<span class="keyword">import</span> org.universAAL.ontology.profile.AppServiceProfile;</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;37</td>  <td class="nbHits">&nbsp;</td>
-  <td class="src"><pre class="src">&nbsp;<span class="keyword">import</span> org.universAAL.ontology.profile.AALSpace;</pre></td></tr>
+  <td class="src"><pre class="src">&nbsp;<span class="keyword">import</span> org.universAAL.ontology.profile.Space;</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;38</td>  <td class="nbHits">&nbsp;</td>
-  <td class="src"><pre class="src">&nbsp;<span class="keyword">import</span> org.universAAL.ontology.profile.AALSpaceProfile;</pre></td></tr>
+  <td class="src"><pre class="src">&nbsp;<span class="keyword">import</span> org.universAAL.ontology.profile.SpaceProfile;</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;39</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;<span class="keyword">import</span> org.universAAL.ontology.profile.HRSubProfile;</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;40</td>  <td class="nbHits">&nbsp;</td>
@@ -327,326 +327,326 @@
 <tr>  <td class="numLine">&nbsp;157</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;158</td>  <td class="nbHits">&nbsp;</td>
-  <td class="src"><pre class="src">&nbsp;                <span class="comment">// GET_AALSERVICES() -&gt; [AALService]</span></pre></td></tr>
+  <td class="src"><pre class="src">&nbsp;                <span class="comment">// GET_SERVICES() -&gt; [Service]</span></pre></td></tr>
 <tr>  <td class="numLine">&nbsp;159</td>  <td class="nbHits">&nbsp;</td>
-  <td class="src"><pre class="src">&nbsp;                <span class="comment">// Gets all AAL Services present in the system.</span></pre></td></tr>
+  <td class="src"><pre class="src">&nbsp;                <span class="comment">// Gets all Services present in the system.</span></pre></td></tr>
 <tr>  <td class="numLineCover">&nbsp;160</td>  <td class="nbHitsUncovered">&nbsp;0</td>  <td class="src"><pre class="src"><span class="srcUncovered">&nbsp;                SCalleeProvidedService prof0 = <span class="keyword">new</span> SCalleeProvidedService(SRV_GET_SERVS);</span></pre></td></tr>
-<tr>  <td class="numLineCover">&nbsp;161</td>  <td class="nbHitsUncovered">&nbsp;0</td>  <td class="src"><pre class="src"><span class="srcUncovered">&nbsp;                prof0.addOutput(OUT_GET_SERVS, AALService.MY_URI, 0, -1, <span class="keyword">new</span> String[] { ProfilingService.PROP_CONTROLS });</span></pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;161</td>  <td class="nbHitsUncovered">&nbsp;0</td>  <td class="src"><pre class="src"><span class="srcUncovered">&nbsp;                prof0.addOutput(OUT_GET_SERVS, AppService.MY_URI, 0, -1, <span class="keyword">new</span> String[] { ProfilingService.PROP_CONTROLS });</span></pre></td></tr>
 <tr>  <td class="numLineCover">&nbsp;162</td>  <td class="nbHitsUncovered">&nbsp;0</td>  <td class="src"><pre class="src"><span class="srcUncovered">&nbsp;                profiles[0] = prof0.getProfile();</span></pre></td></tr>
 <tr>  <td class="numLine">&nbsp;163</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;164</td>  <td class="nbHits">&nbsp;</td>
-  <td class="src"><pre class="src">&nbsp;                <span class="comment">// GET_AALSPACES() -&gt; [AALSpace]</span></pre></td></tr>
+  <td class="src"><pre class="src">&nbsp;                <span class="comment">// GET_SPACES() -&gt; [Space]</span></pre></td></tr>
 <tr>  <td class="numLine">&nbsp;165</td>  <td class="nbHits">&nbsp;</td>
-  <td class="src"><pre class="src">&nbsp;                <span class="comment">// Gets all AAL Spaces present in the system.</span></pre></td></tr>
+  <td class="src"><pre class="src">&nbsp;                <span class="comment">// Gets all Spaces present in the system.</span></pre></td></tr>
 <tr>  <td class="numLineCover">&nbsp;166</td>  <td class="nbHitsUncovered">&nbsp;0</td>  <td class="src"><pre class="src"><span class="srcUncovered">&nbsp;                SCalleeProvidedService prof1 = <span class="keyword">new</span> SCalleeProvidedService(SRV_GET_SPACES);</span></pre></td></tr>
-<tr>  <td class="numLineCover">&nbsp;167</td>  <td class="nbHitsUncovered">&nbsp;0</td>  <td class="src"><pre class="src"><span class="srcUncovered">&nbsp;                prof1.addOutput(OUT_GET_SPACES, AALSpace.MY_URI, 0, -1, <span class="keyword">new</span> String[] { ProfilingService.PROP_CONTROLS });</span></pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;167</td>  <td class="nbHitsUncovered">&nbsp;0</td>  <td class="src"><pre class="src"><span class="srcUncovered">&nbsp;                prof1.addOutput(OUT_GET_SPACES, Space.MY_URI, 0, -1, <span class="keyword">new</span> String[] { ProfilingService.PROP_CONTROLS });</span></pre></td></tr>
 <tr>  <td class="numLineCover">&nbsp;168</td>  <td class="nbHitsUncovered">&nbsp;0</td>  <td class="src"><pre class="src"><span class="srcUncovered">&nbsp;                profiles[1] = prof1.getProfile();</span></pre></td></tr>
 <tr>  <td class="numLine">&nbsp;169</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;170</td>  <td class="nbHits">&nbsp;</td>
-  <td class="src"><pre class="src">&nbsp;                <span class="comment">// GET_AALSERVICES(AALSpace) -&gt; [AALService]</span></pre></td></tr>
+  <td class="src"><pre class="src">&nbsp;                <span class="comment">// GET_SERVICES(Space) -&gt; [Service]</span></pre></td></tr>
 <tr>  <td class="numLine">&nbsp;171</td>  <td class="nbHits">&nbsp;</td>
-  <td class="src"><pre class="src">&nbsp;                <span class="comment">// Returns the AAL Services (only their URIs) installed in a AALSpace</span></pre></td></tr>
+  <td class="src"><pre class="src">&nbsp;                <span class="comment">// Returns the Services (only their URIs) installed in a Space</span></pre></td></tr>
 <tr>  <td class="numLine">&nbsp;172</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;                <span class="comment">// which URI matches the one of the passed parameter</span></pre></td></tr>
 <tr>  <td class="numLineCover">&nbsp;173</td>  <td class="nbHitsUncovered">&nbsp;0</td>  <td class="src"><pre class="src"><span class="srcUncovered">&nbsp;                SCalleeProvidedService prof2 = <span class="keyword">new</span> SCalleeProvidedService(SRV_GET_SERVS_OF_SPACE);</span></pre></td></tr>
-<tr>  <td class="numLineCover">&nbsp;174</td>  <td class="nbHitsUncovered">&nbsp;0</td>  <td class="src"><pre class="src"><span class="srcUncovered">&nbsp;                prof2.addFilteringInput(INP_GET_SERVS_OF_SPACE, AALSpace.MY_URI, 1, 1,</span></pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;174</td>  <td class="nbHitsUncovered">&nbsp;0</td>  <td class="src"><pre class="src"><span class="srcUncovered">&nbsp;                prof2.addFilteringInput(INP_GET_SERVS_OF_SPACE, Space.MY_URI, 1, 1,</span></pre></td></tr>
 <tr>  <td class="numLine">&nbsp;175</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;                                <span class="keyword">new</span> String[] { ProfilingService.PROP_CONTROLS });</pre></td></tr>
-<tr>  <td class="numLineCover">&nbsp;176</td>  <td class="nbHitsUncovered">&nbsp;0</td>  <td class="src"><pre class="src"><span class="srcUncovered">&nbsp;                prof2.addOutput(OUT_GET_SERVS_OF_SPACE, AALService.MY_URI, 0, -1, <span class="keyword">new</span> String[] { ProfilingService.PROP_CONTROLS,</span></pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;176</td>  <td class="nbHitsUncovered">&nbsp;0</td>  <td class="src"><pre class="src"><span class="srcUncovered">&nbsp;                prof2.addOutput(OUT_GET_SERVS_OF_SPACE, AppService.MY_URI, 0, -1, <span class="keyword">new</span> String[] { ProfilingService.PROP_CONTROLS,</span></pre></td></tr>
 <tr>  <td class="numLine">&nbsp;177</td>  <td class="nbHits">&nbsp;</td>
-  <td class="src"><pre class="src">&nbsp;                                Profilable.PROP_HAS_PROFILE, AALSpaceProfile.PROP_INSTALLED_SERVICES });</pre></td></tr>
+  <td class="src"><pre class="src">&nbsp;                                Profilable.PROP_HAS_PROFILE, SpaceProfile.PROP_INSTALLED_SERVICES });</pre></td></tr>
 <tr>  <td class="numLineCover">&nbsp;178</td>  <td class="nbHitsUncovered">&nbsp;0</td>  <td class="src"><pre class="src"><span class="srcUncovered">&nbsp;                profiles[2] = prof2.getProfile();</span></pre></td></tr>
 <tr>  <td class="numLine">&nbsp;179</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;180</td>  <td class="nbHits">&nbsp;</td>
-  <td class="src"><pre class="src">&nbsp;                <span class="comment">// GET_DEVICES(AALSpace) -&gt; [Device]</span></pre></td></tr>
+  <td class="src"><pre class="src">&nbsp;                <span class="comment">// GET_DEVICES(Space) -&gt; [Device]</span></pre></td></tr>
 <tr>  <td class="numLine">&nbsp;181</td>  <td class="nbHits">&nbsp;</td>
-  <td class="src"><pre class="src">&nbsp;                <span class="comment">// Returns the Devices (only their URIs) installed in a AALSpace</span></pre></td></tr>
+  <td class="src"><pre class="src">&nbsp;                <span class="comment">// Returns the Devices (only their URIs) installed in a Space</span></pre></td></tr>
 <tr>  <td class="numLine">&nbsp;182</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;                <span class="comment">// which URI matches the one of the passed parameter</span></pre></td></tr>
 <tr>  <td class="numLineCover">&nbsp;183</td>  <td class="nbHitsUncovered">&nbsp;0</td>  <td class="src"><pre class="src"><span class="srcUncovered">&nbsp;                SCalleeProvidedService prof3 = <span class="keyword">new</span> SCalleeProvidedService(SRV_GET_DEVS_OF_SPACE);</span></pre></td></tr>
-<tr>  <td class="numLineCover">&nbsp;184</td>  <td class="nbHitsUncovered">&nbsp;0</td>  <td class="src"><pre class="src"><span class="srcUncovered">&nbsp;                prof3.addFilteringInput(INP_GET_DEVS_OF_SPACE, AALSpace.MY_URI, 1, 1,</span></pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;184</td>  <td class="nbHitsUncovered">&nbsp;0</td>  <td class="src"><pre class="src"><span class="srcUncovered">&nbsp;                prof3.addFilteringInput(INP_GET_DEVS_OF_SPACE, Space.MY_URI, 1, 1,</span></pre></td></tr>
 <tr>  <td class="numLine">&nbsp;185</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;                                <span class="keyword">new</span> String[] { ProfilingService.PROP_CONTROLS });</pre></td></tr>
 <tr>  <td class="numLineCover">&nbsp;186</td>  <td class="nbHitsUncovered">&nbsp;0</td>  <td class="src"><pre class="src"><span class="srcUncovered">&nbsp;                prof3.addOutput(OUT_GET_DEVS_OF_SPACE, Device.MY_URI, 0, -1, <span class="keyword">new</span> String[] { ProfilingService.PROP_CONTROLS,</span></pre></td></tr>
 <tr>  <td class="numLine">&nbsp;187</td>  <td class="nbHits">&nbsp;</td>
-  <td class="src"><pre class="src">&nbsp;                                Profilable.PROP_HAS_PROFILE, AALSpaceProfile.PROP_INSTALLED_HARDWARE });</pre></td></tr>
+  <td class="src"><pre class="src">&nbsp;                                Profilable.PROP_HAS_PROFILE, SpaceProfile.PROP_INSTALLED_HARDWARE });</pre></td></tr>
 <tr>  <td class="numLineCover">&nbsp;188</td>  <td class="nbHitsUncovered">&nbsp;0</td>  <td class="src"><pre class="src"><span class="srcUncovered">&nbsp;                profiles[3] = prof3.getProfile();</span></pre></td></tr>
 <tr>  <td class="numLine">&nbsp;189</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;190</td>  <td class="nbHits">&nbsp;</td>
-  <td class="src"><pre class="src">&nbsp;                <span class="comment">// GET_ONTS(AALSpace) -&gt; [Ont]</span></pre></td></tr>
+  <td class="src"><pre class="src">&nbsp;                <span class="comment">// GET_ONTS(Space) -&gt; [Ont]</span></pre></td></tr>
 <tr>  <td class="numLine">&nbsp;191</td>  <td class="nbHits">&nbsp;</td>
-  <td class="src"><pre class="src">&nbsp;                <span class="comment">// Returns the Devices (only their URIs) installed in a AALSpace</span></pre></td></tr>
+  <td class="src"><pre class="src">&nbsp;                <span class="comment">// Returns the Devices (only their URIs) installed in a Space</span></pre></td></tr>
 <tr>  <td class="numLine">&nbsp;192</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;                <span class="comment">// which URI matches the one of the passed parameter</span></pre></td></tr>
 <tr>  <td class="numLineCover">&nbsp;193</td>  <td class="nbHitsUncovered">&nbsp;0</td>  <td class="src"><pre class="src"><span class="srcUncovered">&nbsp;                SCalleeProvidedService prof4 = <span class="keyword">new</span> SCalleeProvidedService(SRV_GET_ONTS_OF_SPACE);</span></pre></td></tr>
-<tr>  <td class="numLineCover">&nbsp;194</td>  <td class="nbHitsUncovered">&nbsp;0</td>  <td class="src"><pre class="src"><span class="srcUncovered">&nbsp;                prof4.addFilteringInput(INP_GET_ONTS_OF_SPACE, AALSpace.MY_URI, 1, 1,</span></pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;194</td>  <td class="nbHitsUncovered">&nbsp;0</td>  <td class="src"><pre class="src"><span class="srcUncovered">&nbsp;                prof4.addFilteringInput(INP_GET_ONTS_OF_SPACE, Space.MY_URI, 1, 1,</span></pre></td></tr>
 <tr>  <td class="numLine">&nbsp;195</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;                                <span class="keyword">new</span> String[] { ProfilingService.PROP_CONTROLS });</pre></td></tr>
 <tr>  <td class="numLineCover">&nbsp;196</td>  <td class="nbHitsUncovered">&nbsp;0</td>  <td class="src"><pre class="src"><span class="srcUncovered">&nbsp;                prof4.addOutput(OUT_GET_ONTS_OF_SPACE, OntologyEntry.MY_URI, 0, -1,</span></pre></td></tr>
 <tr>  <td class="numLine">&nbsp;197</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;                                <span class="keyword">new</span> String[] { ProfilingService.PROP_CONTROLS, Profilable.PROP_HAS_PROFILE,</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;198</td>  <td class="nbHits">&nbsp;</td>
-  <td class="src"><pre class="src">&nbsp;                                                AALSpaceProfile.PROP_INSTALLED_ONTOLOGIES });</pre></td></tr>
+  <td class="src"><pre class="src">&nbsp;                                                SpaceProfile.PROP_INSTALLED_ONTOLOGIES });</pre></td></tr>
 <tr>  <td class="numLineCover">&nbsp;199</td>  <td class="nbHitsUncovered">&nbsp;0</td>  <td class="src"><pre class="src"><span class="srcUncovered">&nbsp;                profiles[4] = prof4.getProfile();</span></pre></td></tr>
 <tr>  <td class="numLine">&nbsp;200</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;201</td>  <td class="nbHits">&nbsp;</td>
-  <td class="src"><pre class="src">&nbsp;                <span class="comment">// GET_HR(AALService) -&gt; [HRSubP]</span></pre></td></tr>
+  <td class="src"><pre class="src">&nbsp;                <span class="comment">// GET_HR(Service) -&gt; [HRSubP]</span></pre></td></tr>
 <tr>  <td class="numLine">&nbsp;202</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;                <span class="comment">// Returns the HRSubProfile, with all its properties (that can be</span></pre></td></tr>
 <tr>  <td class="numLine">&nbsp;203</td>  <td class="nbHits">&nbsp;</td>
-  <td class="src"><pre class="src">&nbsp;                <span class="comment">// serialized) belonging to the AALService which URI matches the one of</span></pre></td></tr>
+  <td class="src"><pre class="src">&nbsp;                <span class="comment">// serialized) belonging to the Service which URI matches the one of</span></pre></td></tr>
 <tr>  <td class="numLine">&nbsp;204</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;                <span class="comment">// the passed parameter</span></pre></td></tr>
 <tr>  <td class="numLineCover">&nbsp;205</td>  <td class="nbHitsUncovered">&nbsp;0</td>  <td class="src"><pre class="src"><span class="srcUncovered">&nbsp;                SCalleeProvidedService prof5 = <span class="keyword">new</span> SCalleeProvidedService(SRV_GET_HR_OF_SERV);</span></pre></td></tr>
-<tr>  <td class="numLineCover">&nbsp;206</td>  <td class="nbHitsUncovered">&nbsp;0</td>  <td class="src"><pre class="src"><span class="srcUncovered">&nbsp;                prof5.addFilteringInput(INP_GET_HR_OF_SERV, AALService.MY_URI, 1, 1,</span></pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;206</td>  <td class="nbHitsUncovered">&nbsp;0</td>  <td class="src"><pre class="src"><span class="srcUncovered">&nbsp;                prof5.addFilteringInput(INP_GET_HR_OF_SERV, AppService.MY_URI, 1, 1,</span></pre></td></tr>
 <tr>  <td class="numLine">&nbsp;207</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;                                <span class="keyword">new</span> String[] { ProfilingService.PROP_CONTROLS });</pre></td></tr>
 <tr>  <td class="numLineCover">&nbsp;208</td>  <td class="nbHitsUncovered">&nbsp;0</td>  <td class="src"><pre class="src"><span class="srcUncovered">&nbsp;                prof5.addOutput(OUT_GET_HR_OF_SERV, HRSubProfile.MY_URI, 0, -1, <span class="keyword">new</span> String[] { ProfilingService.PROP_CONTROLS,</span></pre></td></tr>
 <tr>  <td class="numLine">&nbsp;209</td>  <td class="nbHits">&nbsp;</td>
-  <td class="src"><pre class="src">&nbsp;                                Profilable.PROP_HAS_PROFILE, AALServiceProfile.PROP_HUMAN_RESOURCE_SUBPROFILE });</pre></td></tr>
+  <td class="src"><pre class="src">&nbsp;                                Profilable.PROP_HAS_PROFILE, AppServiceProfile.PROP_HUMAN_RESOURCE_SUBPROFILE });</pre></td></tr>
 <tr>  <td class="numLineCover">&nbsp;210</td>  <td class="nbHitsUncovered">&nbsp;0</td>  <td class="src"><pre class="src"><span class="srcUncovered">&nbsp;                profiles[5] = prof5.getProfile();</span></pre></td></tr>
 <tr>  <td class="numLine">&nbsp;211</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;212</td>  <td class="nbHits">&nbsp;</td>
-  <td class="src"><pre class="src">&nbsp;                <span class="comment">// GET_HW(AALService) -&gt; [HWSubP]</span></pre></td></tr>
+  <td class="src"><pre class="src">&nbsp;                <span class="comment">// GET_HW(Service) -&gt; [HWSubP]</span></pre></td></tr>
 <tr>  <td class="numLine">&nbsp;213</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;                <span class="comment">// Returns the HWSubProfile, with all its properties (that can be</span></pre></td></tr>
 <tr>  <td class="numLine">&nbsp;214</td>  <td class="nbHits">&nbsp;</td>
-  <td class="src"><pre class="src">&nbsp;                <span class="comment">// serialized) belonging to the AALService which URI matches the one of</span></pre></td></tr>
+  <td class="src"><pre class="src">&nbsp;                <span class="comment">// serialized) belonging to the Service which URI matches the one of</span></pre></td></tr>
 <tr>  <td class="numLine">&nbsp;215</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;                <span class="comment">// the passed parameter</span></pre></td></tr>
 <tr>  <td class="numLineCover">&nbsp;216</td>  <td class="nbHitsUncovered">&nbsp;0</td>  <td class="src"><pre class="src"><span class="srcUncovered">&nbsp;                SCalleeProvidedService prof6 = <span class="keyword">new</span> SCalleeProvidedService(SRV_GET_HW_OF_SERV);</span></pre></td></tr>
-<tr>  <td class="numLineCover">&nbsp;217</td>  <td class="nbHitsUncovered">&nbsp;0</td>  <td class="src"><pre class="src"><span class="srcUncovered">&nbsp;                prof6.addFilteringInput(INP_GET_HW_OF_SERV, AALService.MY_URI, 1, 1,</span></pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;217</td>  <td class="nbHitsUncovered">&nbsp;0</td>  <td class="src"><pre class="src"><span class="srcUncovered">&nbsp;                prof6.addFilteringInput(INP_GET_HW_OF_SERV, AppService.MY_URI, 1, 1,</span></pre></td></tr>
 <tr>  <td class="numLine">&nbsp;218</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;                                <span class="keyword">new</span> String[] { ProfilingService.PROP_CONTROLS });</pre></td></tr>
 <tr>  <td class="numLineCover">&nbsp;219</td>  <td class="nbHitsUncovered">&nbsp;0</td>  <td class="src"><pre class="src"><span class="srcUncovered">&nbsp;                prof6.addOutput(OUT_GET_HW_OF_SERV, HWSubProfile.MY_URI, 0, -1, <span class="keyword">new</span> String[] { ProfilingService.PROP_CONTROLS,</span></pre></td></tr>
 <tr>  <td class="numLine">&nbsp;220</td>  <td class="nbHits">&nbsp;</td>
-  <td class="src"><pre class="src">&nbsp;                                Profilable.PROP_HAS_PROFILE, AALServiceProfile.PROP_HARDWARE_SUBPROFILE });</pre></td></tr>
+  <td class="src"><pre class="src">&nbsp;                                Profilable.PROP_HAS_PROFILE, AppServiceProfile.PROP_HARDWARE_SUBPROFILE });</pre></td></tr>
 <tr>  <td class="numLineCover">&nbsp;221</td>  <td class="nbHitsUncovered">&nbsp;0</td>  <td class="src"><pre class="src"><span class="srcUncovered">&nbsp;                profiles[6] = prof6.getProfile();</span></pre></td></tr>
 <tr>  <td class="numLine">&nbsp;222</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;223</td>  <td class="nbHits">&nbsp;</td>
-  <td class="src"><pre class="src">&nbsp;                <span class="comment">// GET_APP(AALService) -&gt; [AppSubP]</span></pre></td></tr>
+  <td class="src"><pre class="src">&nbsp;                <span class="comment">// GET_APP(Service) -&gt; [AppSubP]</span></pre></td></tr>
 <tr>  <td class="numLine">&nbsp;224</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;                <span class="comment">// Returns the AppSubProfile, with all its properties (that can be</span></pre></td></tr>
 <tr>  <td class="numLine">&nbsp;225</td>  <td class="nbHits">&nbsp;</td>
-  <td class="src"><pre class="src">&nbsp;                <span class="comment">// serialized) belonging to the AALService which URI matches the one of</span></pre></td></tr>
+  <td class="src"><pre class="src">&nbsp;                <span class="comment">// serialized) belonging to the Service which URI matches the one of</span></pre></td></tr>
 <tr>  <td class="numLine">&nbsp;226</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;                <span class="comment">// the passed parameter</span></pre></td></tr>
 <tr>  <td class="numLineCover">&nbsp;227</td>  <td class="nbHitsUncovered">&nbsp;0</td>  <td class="src"><pre class="src"><span class="srcUncovered">&nbsp;                SCalleeProvidedService prof7 = <span class="keyword">new</span> SCalleeProvidedService(SRV_GET_APP_OF_SERV);</span></pre></td></tr>
-<tr>  <td class="numLineCover">&nbsp;228</td>  <td class="nbHitsUncovered">&nbsp;0</td>  <td class="src"><pre class="src"><span class="srcUncovered">&nbsp;                prof7.addFilteringInput(INP_GET_APP_OF_SERV, AALService.MY_URI, 1, 1,</span></pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;228</td>  <td class="nbHitsUncovered">&nbsp;0</td>  <td class="src"><pre class="src"><span class="srcUncovered">&nbsp;                prof7.addFilteringInput(INP_GET_APP_OF_SERV, AppService.MY_URI, 1, 1,</span></pre></td></tr>
 <tr>  <td class="numLine">&nbsp;229</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;                                <span class="keyword">new</span> String[] { ProfilingService.PROP_CONTROLS });</pre></td></tr>
-<tr>  <td class="numLineCover">&nbsp;230</td>  <td class="nbHitsUncovered">&nbsp;0</td>  <td class="src"><pre class="src"><span class="srcUncovered">&nbsp;                prof7.addOutput(OUT_GET_APP_OF_SERV, AALAppSubProfile.MY_URI, 0, -1,</span></pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;230</td>  <td class="nbHitsUncovered">&nbsp;0</td>  <td class="src"><pre class="src"><span class="srcUncovered">&nbsp;                prof7.addOutput(OUT_GET_APP_OF_SERV, AppSubProfile.MY_URI, 0, -1,</span></pre></td></tr>
 <tr>  <td class="numLine">&nbsp;231</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;                                <span class="keyword">new</span> String[] { ProfilingService.PROP_CONTROLS, Profilable.PROP_HAS_PROFILE,</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;232</td>  <td class="nbHits">&nbsp;</td>
-  <td class="src"><pre class="src">&nbsp;                                                AALServiceProfile.PROP_APPLICATION_SUBPROFILE });</pre></td></tr>
+  <td class="src"><pre class="src">&nbsp;                                                AppServiceProfile.PROP_APPLICATION_SUBPROFILE });</pre></td></tr>
 <tr>  <td class="numLineCover">&nbsp;233</td>  <td class="nbHitsUncovered">&nbsp;0</td>  <td class="src"><pre class="src"><span class="srcUncovered">&nbsp;                profiles[7] = prof7.getProfile();</span></pre></td></tr>
 <tr>  <td class="numLine">&nbsp;234</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;235</td>  <td class="nbHits">&nbsp;</td>
-  <td class="src"><pre class="src">&nbsp;                <span class="comment">// ADD_SERV(AALSpace, AALService) -&gt; void</span></pre></td></tr>
+  <td class="src"><pre class="src">&nbsp;                <span class="comment">// ADD_SERV(Space, Service) -&gt; void</span></pre></td></tr>
 <tr>  <td class="numLine">&nbsp;236</td>  <td class="nbHits">&nbsp;</td>
-  <td class="src"><pre class="src">&nbsp;                <span class="comment">// Adds the passed AALService to the store, with all its properties</span></pre></td></tr>
+  <td class="src"><pre class="src">&nbsp;                <span class="comment">// Adds the passed Service to the store, with all its properties</span></pre></td></tr>
 <tr>  <td class="numLine">&nbsp;237</td>  <td class="nbHits">&nbsp;</td>
-  <td class="src"><pre class="src">&nbsp;                <span class="comment">// (that can be serialized), and associates it to the given AALSpace.</span></pre></td></tr>
+  <td class="src"><pre class="src">&nbsp;                <span class="comment">// (that can be serialized), and associates it to the given Space.</span></pre></td></tr>
 <tr>  <td class="numLine">&nbsp;238</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;                <span class="comment">// Currently works like CHANGE SERVICE, but does not remove previous</span></pre></td></tr>
 <tr>  <td class="numLine">&nbsp;239</td>  <td class="nbHits">&nbsp;</td>
-  <td class="src"><pre class="src">&nbsp;                <span class="comment">// value of an associated AALService to the AALSpace, if any</span></pre></td></tr>
+  <td class="src"><pre class="src">&nbsp;                <span class="comment">// value of an associated Service to the Space, if any</span></pre></td></tr>
 <tr>  <td class="numLineCover">&nbsp;240</td>  <td class="nbHitsUncovered">&nbsp;0</td>  <td class="src"><pre class="src"><span class="srcUncovered">&nbsp;                SCalleeProvidedService prof8 = <span class="keyword">new</span> SCalleeProvidedService(SRV_ADD_SERV_TO_SPACE);</span></pre></td></tr>
-<tr>  <td class="numLineCover">&nbsp;241</td>  <td class="nbHitsUncovered">&nbsp;0</td>  <td class="src"><pre class="src"><span class="srcUncovered">&nbsp;                prof8.addFilteringInput(INP_ADD_SERV_TO_SPACE_WHERE, AALSpace.MY_URI, 1, 1,</span></pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;241</td>  <td class="nbHitsUncovered">&nbsp;0</td>  <td class="src"><pre class="src"><span class="srcUncovered">&nbsp;                prof8.addFilteringInput(INP_ADD_SERV_TO_SPACE_WHERE, Space.MY_URI, 1, 1,</span></pre></td></tr>
 <tr>  <td class="numLine">&nbsp;242</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;                                <span class="keyword">new</span> String[] { ProfilingService.PROP_CONTROLS });</pre></td></tr>
-<tr>  <td class="numLineCover">&nbsp;243</td>  <td class="nbHitsUncovered">&nbsp;0</td>  <td class="src"><pre class="src"><span class="srcUncovered">&nbsp;                prof8.addInputWithAddEffect(INP_ADD_SERV_TO_SPACE_WHAT, AALService.MY_URI, 1, 1, <span class="keyword">new</span> String[] {</span></pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;243</td>  <td class="nbHitsUncovered">&nbsp;0</td>  <td class="src"><pre class="src"><span class="srcUncovered">&nbsp;                prof8.addInputWithAddEffect(INP_ADD_SERV_TO_SPACE_WHAT, AppService.MY_URI, 1, 1, <span class="keyword">new</span> String[] {</span></pre></td></tr>
 <tr>  <td class="numLine">&nbsp;244</td>  <td class="nbHits">&nbsp;</td>
-  <td class="src"><pre class="src">&nbsp;                                ProfilingService.PROP_CONTROLS, Profilable.PROP_HAS_PROFILE, AALSpaceProfile.PROP_INSTALLED_SERVICES });</pre></td></tr>
+  <td class="src"><pre class="src">&nbsp;                                ProfilingService.PROP_CONTROLS, Profilable.PROP_HAS_PROFILE, SpaceProfile.PROP_INSTALLED_SERVICES });</pre></td></tr>
 <tr>  <td class="numLineCover">&nbsp;245</td>  <td class="nbHitsUncovered">&nbsp;0</td>  <td class="src"><pre class="src"><span class="srcUncovered">&nbsp;                profiles[8] = prof8.getProfile();</span></pre></td></tr>
 <tr>  <td class="numLine">&nbsp;246</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;247</td>  <td class="nbHits">&nbsp;</td>
-  <td class="src"><pre class="src">&nbsp;                <span class="comment">// ADD_DEV(AALSpace, Device) -&gt; void</span></pre></td></tr>
+  <td class="src"><pre class="src">&nbsp;                <span class="comment">// ADD_DEV(Space, Device) -&gt; void</span></pre></td></tr>
 <tr>  <td class="numLine">&nbsp;248</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;                <span class="comment">// Adds the passed Device to the store, with all its properties</span></pre></td></tr>
 <tr>  <td class="numLine">&nbsp;249</td>  <td class="nbHits">&nbsp;</td>
-  <td class="src"><pre class="src">&nbsp;                <span class="comment">// (that can be serialized), and associates it to the given AALSpace.</span></pre></td></tr>
+  <td class="src"><pre class="src">&nbsp;                <span class="comment">// (that can be serialized), and associates it to the given Space.</span></pre></td></tr>
 <tr>  <td class="numLine">&nbsp;250</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;                <span class="comment">// Currently works like CHANGE DEVICE, but does not remove previous</span></pre></td></tr>
 <tr>  <td class="numLine">&nbsp;251</td>  <td class="nbHits">&nbsp;</td>
-  <td class="src"><pre class="src">&nbsp;                <span class="comment">// value of an associated Device to the AALSpace, if any</span></pre></td></tr>
+  <td class="src"><pre class="src">&nbsp;                <span class="comment">// value of an associated Device to the Space, if any</span></pre></td></tr>
 <tr>  <td class="numLineCover">&nbsp;252</td>  <td class="nbHitsUncovered">&nbsp;0</td>  <td class="src"><pre class="src"><span class="srcUncovered">&nbsp;                SCalleeProvidedService prof9 = <span class="keyword">new</span> SCalleeProvidedService(SRV_ADD_DEV_TO_SPACE);</span></pre></td></tr>
-<tr>  <td class="numLineCover">&nbsp;253</td>  <td class="nbHitsUncovered">&nbsp;0</td>  <td class="src"><pre class="src"><span class="srcUncovered">&nbsp;                prof9.addFilteringInput(INP_ADD_DEV_TO_SPACE_WHERE, AALSpace.MY_URI, 1, 1,</span></pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;253</td>  <td class="nbHitsUncovered">&nbsp;0</td>  <td class="src"><pre class="src"><span class="srcUncovered">&nbsp;                prof9.addFilteringInput(INP_ADD_DEV_TO_SPACE_WHERE, Space.MY_URI, 1, 1,</span></pre></td></tr>
 <tr>  <td class="numLine">&nbsp;254</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;                                <span class="keyword">new</span> String[] { ProfilingService.PROP_CONTROLS });</pre></td></tr>
 <tr>  <td class="numLineCover">&nbsp;255</td>  <td class="nbHitsUncovered">&nbsp;0</td>  <td class="src"><pre class="src"><span class="srcUncovered">&nbsp;                prof9.addInputWithAddEffect(INP_ADD_DEV_TO_SPACE_WHAT, Device.MY_URI, 1, 1, <span class="keyword">new</span> String[] {</span></pre></td></tr>
 <tr>  <td class="numLine">&nbsp;256</td>  <td class="nbHits">&nbsp;</td>
-  <td class="src"><pre class="src">&nbsp;                                ProfilingService.PROP_CONTROLS, Profilable.PROP_HAS_PROFILE, AALSpaceProfile.PROP_INSTALLED_HARDWARE });</pre></td></tr>
+  <td class="src"><pre class="src">&nbsp;                                ProfilingService.PROP_CONTROLS, Profilable.PROP_HAS_PROFILE, SpaceProfile.PROP_INSTALLED_HARDWARE });</pre></td></tr>
 <tr>  <td class="numLineCover">&nbsp;257</td>  <td class="nbHitsUncovered">&nbsp;0</td>  <td class="src"><pre class="src"><span class="srcUncovered">&nbsp;                profiles[9] = prof9.getProfile();</span></pre></td></tr>
 <tr>  <td class="numLine">&nbsp;258</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;259</td>  <td class="nbHits">&nbsp;</td>
-  <td class="src"><pre class="src">&nbsp;                <span class="comment">// ADD_ONT(AALSpace, Ont) -&gt; void</span></pre></td></tr>
+  <td class="src"><pre class="src">&nbsp;                <span class="comment">// ADD_ONT(Space, Ont) -&gt; void</span></pre></td></tr>
 <tr>  <td class="numLine">&nbsp;260</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;                <span class="comment">// Adds the passed Ont to the store, with all its properties</span></pre></td></tr>
 <tr>  <td class="numLine">&nbsp;261</td>  <td class="nbHits">&nbsp;</td>
-  <td class="src"><pre class="src">&nbsp;                <span class="comment">// (that can be serialized), and associates it to the given AALSpace.</span></pre></td></tr>
+  <td class="src"><pre class="src">&nbsp;                <span class="comment">// (that can be serialized), and associates it to the given Space.</span></pre></td></tr>
 <tr>  <td class="numLine">&nbsp;262</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;                <span class="comment">// Currently works like CHANGE ONT, but does not remove previous</span></pre></td></tr>
 <tr>  <td class="numLine">&nbsp;263</td>  <td class="nbHits">&nbsp;</td>
-  <td class="src"><pre class="src">&nbsp;                <span class="comment">// value of an associated Ont to the AALSpace, if any</span></pre></td></tr>
+  <td class="src"><pre class="src">&nbsp;                <span class="comment">// value of an associated Ont to the Space, if any</span></pre></td></tr>
 <tr>  <td class="numLineCover">&nbsp;264</td>  <td class="nbHitsUncovered">&nbsp;0</td>  <td class="src"><pre class="src"><span class="srcUncovered">&nbsp;                SCalleeProvidedService prof10 = <span class="keyword">new</span> SCalleeProvidedService(SRV_ADD_ONT_TO_SPACE);</span></pre></td></tr>
-<tr>  <td class="numLineCover">&nbsp;265</td>  <td class="nbHitsUncovered">&nbsp;0</td>  <td class="src"><pre class="src"><span class="srcUncovered">&nbsp;                prof10.addFilteringInput(INP_ADD_ONT_TO_SPACE_WHERE, AALSpace.MY_URI, 1, 1,</span></pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;265</td>  <td class="nbHitsUncovered">&nbsp;0</td>  <td class="src"><pre class="src"><span class="srcUncovered">&nbsp;                prof10.addFilteringInput(INP_ADD_ONT_TO_SPACE_WHERE, Space.MY_URI, 1, 1,</span></pre></td></tr>
 <tr>  <td class="numLine">&nbsp;266</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;                                <span class="keyword">new</span> String[] { ProfilingService.PROP_CONTROLS });</pre></td></tr>
 <tr>  <td class="numLineCover">&nbsp;267</td>  <td class="nbHitsUncovered">&nbsp;0</td>  <td class="src"><pre class="src"><span class="srcUncovered">&nbsp;                prof10.addInputWithAddEffect(INP_ADD_ONT_TO_SPACE_WHAT, OntologyEntry.MY_URI, 1, 1,</span></pre></td></tr>
 <tr>  <td class="numLine">&nbsp;268</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;                                <span class="keyword">new</span> String[] { ProfilingService.PROP_CONTROLS, Profilable.PROP_HAS_PROFILE,</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;269</td>  <td class="nbHits">&nbsp;</td>
-  <td class="src"><pre class="src">&nbsp;                                                AALSpaceProfile.PROP_INSTALLED_ONTOLOGIES });</pre></td></tr>
+  <td class="src"><pre class="src">&nbsp;                                                SpaceProfile.PROP_INSTALLED_ONTOLOGIES });</pre></td></tr>
 <tr>  <td class="numLineCover">&nbsp;270</td>  <td class="nbHitsUncovered">&nbsp;0</td>  <td class="src"><pre class="src"><span class="srcUncovered">&nbsp;                profiles[10] = prof10.getProfile();</span></pre></td></tr>
 <tr>  <td class="numLine">&nbsp;271</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;272</td>  <td class="nbHits">&nbsp;</td>
-  <td class="src"><pre class="src">&nbsp;                <span class="comment">// ADD_PROF(AALSpace, AALSpaceProf) -&gt; void</span></pre></td></tr>
+  <td class="src"><pre class="src">&nbsp;                <span class="comment">// ADD_PROF(Space, SpaceProf) -&gt; void</span></pre></td></tr>
 <tr>  <td class="numLine">&nbsp;273</td>  <td class="nbHits">&nbsp;</td>
-  <td class="src"><pre class="src">&nbsp;                <span class="comment">// Adds the passed AALSPaceProf to the store, with all its properties</span></pre></td></tr>
+  <td class="src"><pre class="src">&nbsp;                <span class="comment">// Adds the passed SPaceProf to the store, with all its properties</span></pre></td></tr>
 <tr>  <td class="numLine">&nbsp;274</td>  <td class="nbHits">&nbsp;</td>
-  <td class="src"><pre class="src">&nbsp;                <span class="comment">// (that can be serialized), and associates it to the given AALSpace.</span></pre></td></tr>
+  <td class="src"><pre class="src">&nbsp;                <span class="comment">// (that can be serialized), and associates it to the given Space.</span></pre></td></tr>
 <tr>  <td class="numLine">&nbsp;275</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;                <span class="comment">// Currently works like CHANGE PROF, but does not remove previous</span></pre></td></tr>
 <tr>  <td class="numLine">&nbsp;276</td>  <td class="nbHits">&nbsp;</td>
-  <td class="src"><pre class="src">&nbsp;                <span class="comment">// value of an associated profile to the AALSpace, if any</span></pre></td></tr>
+  <td class="src"><pre class="src">&nbsp;                <span class="comment">// value of an associated profile to the Space, if any</span></pre></td></tr>
 <tr>  <td class="numLineCover">&nbsp;277</td>  <td class="nbHitsUncovered">&nbsp;0</td>  <td class="src"><pre class="src"><span class="srcUncovered">&nbsp;                SCalleeProvidedService prof11 = <span class="keyword">new</span> SCalleeProvidedService(SRV_ADD_PROF_TO_SPACE);</span></pre></td></tr>
-<tr>  <td class="numLineCover">&nbsp;278</td>  <td class="nbHitsUncovered">&nbsp;0</td>  <td class="src"><pre class="src"><span class="srcUncovered">&nbsp;                prof11.addFilteringInput(INP_ADD_PROF_TO_SPACE_WHERE, AALSpace.MY_URI, 1, 1,</span></pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;278</td>  <td class="nbHitsUncovered">&nbsp;0</td>  <td class="src"><pre class="src"><span class="srcUncovered">&nbsp;                prof11.addFilteringInput(INP_ADD_PROF_TO_SPACE_WHERE, Space.MY_URI, 1, 1,</span></pre></td></tr>
 <tr>  <td class="numLine">&nbsp;279</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;                                <span class="keyword">new</span> String[] { ProfilingService.PROP_CONTROLS });</pre></td></tr>
-<tr>  <td class="numLineCover">&nbsp;280</td>  <td class="nbHitsUncovered">&nbsp;0</td>  <td class="src"><pre class="src"><span class="srcUncovered">&nbsp;                prof11.addInputWithAddEffect(INP_ADD_PROF_TO_SPACE_WHAT, AALSpaceProfile.MY_URI, 1, 1,</span></pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;280</td>  <td class="nbHitsUncovered">&nbsp;0</td>  <td class="src"><pre class="src"><span class="srcUncovered">&nbsp;                prof11.addInputWithAddEffect(INP_ADD_PROF_TO_SPACE_WHAT, SpaceProfile.MY_URI, 1, 1,</span></pre></td></tr>
 <tr>  <td class="numLine">&nbsp;281</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;                                <span class="keyword">new</span> String[] { ProfilingService.PROP_CONTROLS, Profilable.PROP_HAS_PROFILE });</pre></td></tr>
 <tr>  <td class="numLineCover">&nbsp;282</td>  <td class="nbHitsUncovered">&nbsp;0</td>  <td class="src"><pre class="src"><span class="srcUncovered">&nbsp;                profiles[11] = prof11.getProfile();</span></pre></td></tr>
 <tr>  <td class="numLine">&nbsp;283</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;284</td>  <td class="nbHits">&nbsp;</td>
-  <td class="src"><pre class="src">&nbsp;                <span class="comment">// ADD_PROF(AALServ, AALServProf) -&gt; void</span></pre></td></tr>
+  <td class="src"><pre class="src">&nbsp;                <span class="comment">// ADD_PROF(Serv, ServProf) -&gt; void</span></pre></td></tr>
 <tr>  <td class="numLine">&nbsp;285</td>  <td class="nbHits">&nbsp;</td>
-  <td class="src"><pre class="src">&nbsp;                <span class="comment">// Adds the passed AALServProf to the store, with all its properties</span></pre></td></tr>
+  <td class="src"><pre class="src">&nbsp;                <span class="comment">// Adds the passed ServProf to the store, with all its properties</span></pre></td></tr>
 <tr>  <td class="numLine">&nbsp;286</td>  <td class="nbHits">&nbsp;</td>
-  <td class="src"><pre class="src">&nbsp;                <span class="comment">// (that can be serialized), and associates it to the given AALServ.</span></pre></td></tr>
+  <td class="src"><pre class="src">&nbsp;                <span class="comment">// (that can be serialized), and associates it to the given Serv.</span></pre></td></tr>
 <tr>  <td class="numLine">&nbsp;287</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;                <span class="comment">// Currently works like CHANGE PROF, but does not remove previous</span></pre></td></tr>
 <tr>  <td class="numLine">&nbsp;288</td>  <td class="nbHits">&nbsp;</td>
-  <td class="src"><pre class="src">&nbsp;                <span class="comment">// value of an associated profile to the AALServ, if any</span></pre></td></tr>
+  <td class="src"><pre class="src">&nbsp;                <span class="comment">// value of an associated profile to the Serv, if any</span></pre></td></tr>
 <tr>  <td class="numLineCover">&nbsp;289</td>  <td class="nbHitsUncovered">&nbsp;0</td>  <td class="src"><pre class="src"><span class="srcUncovered">&nbsp;                SCalleeProvidedService prof12 = <span class="keyword">new</span> SCalleeProvidedService(SRV_ADD_PROF_TO_SERV);</span></pre></td></tr>
-<tr>  <td class="numLineCover">&nbsp;290</td>  <td class="nbHitsUncovered">&nbsp;0</td>  <td class="src"><pre class="src"><span class="srcUncovered">&nbsp;                prof12.addFilteringInput(INP_ADD_PROF_TO_SERV_WHERE, AALService.MY_URI, 1, 1,</span></pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;290</td>  <td class="nbHitsUncovered">&nbsp;0</td>  <td class="src"><pre class="src"><span class="srcUncovered">&nbsp;                prof12.addFilteringInput(INP_ADD_PROF_TO_SERV_WHERE, AppService.MY_URI, 1, 1,</span></pre></td></tr>
 <tr>  <td class="numLine">&nbsp;291</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;                                <span class="keyword">new</span> String[] { ProfilingService.PROP_CONTROLS });</pre></td></tr>
-<tr>  <td class="numLineCover">&nbsp;292</td>  <td class="nbHitsUncovered">&nbsp;0</td>  <td class="src"><pre class="src"><span class="srcUncovered">&nbsp;                prof12.addInputWithAddEffect(INP_ADD_PROF_TO_SERV_WHAT, AALServiceProfile.MY_URI, 1, 1,</span></pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;292</td>  <td class="nbHitsUncovered">&nbsp;0</td>  <td class="src"><pre class="src"><span class="srcUncovered">&nbsp;                prof12.addInputWithAddEffect(INP_ADD_PROF_TO_SERV_WHAT, AppServiceProfile.MY_URI, 1, 1,</span></pre></td></tr>
 <tr>  <td class="numLine">&nbsp;293</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;                                <span class="keyword">new</span> String[] { ProfilingService.PROP_CONTROLS, Profilable.PROP_HAS_PROFILE });</pre></td></tr>
 <tr>  <td class="numLineCover">&nbsp;294</td>  <td class="nbHitsUncovered">&nbsp;0</td>  <td class="src"><pre class="src"><span class="srcUncovered">&nbsp;                profiles[12] = prof12.getProfile();</span></pre></td></tr>
 <tr>  <td class="numLine">&nbsp;295</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;296</td>  <td class="nbHits">&nbsp;</td>
-  <td class="src"><pre class="src">&nbsp;                <span class="comment">// GET_OWNERS(AALSpace) -&gt; [User]</span></pre></td></tr>
+  <td class="src"><pre class="src">&nbsp;                <span class="comment">// GET_OWNERS(Space) -&gt; [User]</span></pre></td></tr>
 <tr>  <td class="numLine">&nbsp;297</td>  <td class="nbHits">&nbsp;</td>
-  <td class="src"><pre class="src">&nbsp;                <span class="comment">// Returns the Users (only their URIs) owning a AALSpace</span></pre></td></tr>
+  <td class="src"><pre class="src">&nbsp;                <span class="comment">// Returns the Users (only their URIs) owning a Space</span></pre></td></tr>
 <tr>  <td class="numLine">&nbsp;298</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;                <span class="comment">// which URI matches the one of the passed parameter</span></pre></td></tr>
 <tr>  <td class="numLineCover">&nbsp;299</td>  <td class="nbHitsUncovered">&nbsp;0</td>  <td class="src"><pre class="src"><span class="srcUncovered">&nbsp;                SCalleeProvidedService prof13 = <span class="keyword">new</span> SCalleeProvidedService(SRV_GET_OWNERS_OF_SPACE);</span></pre></td></tr>
-<tr>  <td class="numLineCover">&nbsp;300</td>  <td class="nbHitsUncovered">&nbsp;0</td>  <td class="src"><pre class="src"><span class="srcUncovered">&nbsp;                prof13.addFilteringInput(INP_GET_OWNERS_OF_SPACE, AALSpace.MY_URI, 1, 1,</span></pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;300</td>  <td class="nbHitsUncovered">&nbsp;0</td>  <td class="src"><pre class="src"><span class="srcUncovered">&nbsp;                prof13.addFilteringInput(INP_GET_OWNERS_OF_SPACE, Space.MY_URI, 1, 1,</span></pre></td></tr>
 <tr>  <td class="numLine">&nbsp;301</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;                                <span class="keyword">new</span> String[] { ProfilingService.PROP_CONTROLS });</pre></td></tr>
 <tr>  <td class="numLineCover">&nbsp;302</td>  <td class="nbHitsUncovered">&nbsp;0</td>  <td class="src"><pre class="src"><span class="srcUncovered">&nbsp;                prof13.addOutput(OUT_GET_OWNERS_OF_SPACE, User.MY_URI, 0, -1, <span class="keyword">new</span> String[] { ProfilingService.PROP_CONTROLS,</span></pre></td></tr>
 <tr>  <td class="numLine">&nbsp;303</td>  <td class="nbHits">&nbsp;</td>
-  <td class="src"><pre class="src">&nbsp;                                Profilable.PROP_HAS_PROFILE, AALSpaceProfile.PROP_SPACE_OWNER });</pre></td></tr>
+  <td class="src"><pre class="src">&nbsp;                                Profilable.PROP_HAS_PROFILE, SpaceProfile.PROP_SPACE_OWNER });</pre></td></tr>
 <tr>  <td class="numLineCover">&nbsp;304</td>  <td class="nbHitsUncovered">&nbsp;0</td>  <td class="src"><pre class="src"><span class="srcUncovered">&nbsp;                profiles[13] = prof13.getProfile();</span></pre></td></tr>
 <tr>  <td class="numLine">&nbsp;305</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;306</td>  <td class="nbHits">&nbsp;</td>
-  <td class="src"><pre class="src">&nbsp;                <span class="comment">// GET_OWNERS(AALService) -&gt; [User]</span></pre></td></tr>
+  <td class="src"><pre class="src">&nbsp;                <span class="comment">// GET_OWNERS(Service) -&gt; [User]</span></pre></td></tr>
 <tr>  <td class="numLine">&nbsp;307</td>  <td class="nbHits">&nbsp;</td>
-  <td class="src"><pre class="src">&nbsp;                <span class="comment">// Returns the Users (only their URIs) owning a AALService</span></pre></td></tr>
+  <td class="src"><pre class="src">&nbsp;                <span class="comment">// Returns the Users (only their URIs) owning a Service</span></pre></td></tr>
 <tr>  <td class="numLine">&nbsp;308</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;                <span class="comment">// which URI matches the one of the passed parameter</span></pre></td></tr>
 <tr>  <td class="numLineCover">&nbsp;309</td>  <td class="nbHitsUncovered">&nbsp;0</td>  <td class="src"><pre class="src"><span class="srcUncovered">&nbsp;                SCalleeProvidedService prof14 = <span class="keyword">new</span> SCalleeProvidedService(SRV_GET_OWNERS_OF_SERV);</span></pre></td></tr>
-<tr>  <td class="numLineCover">&nbsp;310</td>  <td class="nbHitsUncovered">&nbsp;0</td>  <td class="src"><pre class="src"><span class="srcUncovered">&nbsp;                prof14.addFilteringInput(INP_GET_OWNERS_OF_SERV, AALService.MY_URI, 1, 1,</span></pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;310</td>  <td class="nbHitsUncovered">&nbsp;0</td>  <td class="src"><pre class="src"><span class="srcUncovered">&nbsp;                prof14.addFilteringInput(INP_GET_OWNERS_OF_SERV, AppService.MY_URI, 1, 1,</span></pre></td></tr>
 <tr>  <td class="numLine">&nbsp;311</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;                                <span class="keyword">new</span> String[] { ProfilingService.PROP_CONTROLS });</pre></td></tr>
 <tr>  <td class="numLineCover">&nbsp;312</td>  <td class="nbHitsUncovered">&nbsp;0</td>  <td class="src"><pre class="src"><span class="srcUncovered">&nbsp;                prof14.addOutput(OUT_GET_OWNERS_OF_SERV, User.MY_URI, 0, -1, <span class="keyword">new</span> String[] { ProfilingService.PROP_CONTROLS,</span></pre></td></tr>
 <tr>  <td class="numLine">&nbsp;313</td>  <td class="nbHits">&nbsp;</td>
-  <td class="src"><pre class="src">&nbsp;                                Profilable.PROP_HAS_PROFILE, AALServiceProfile.PROP_SERVICE_OWNER });</pre></td></tr>
+  <td class="src"><pre class="src">&nbsp;                                Profilable.PROP_HAS_PROFILE, AppServiceProfile.PROP_SERVICE_OWNER });</pre></td></tr>
 <tr>  <td class="numLineCover">&nbsp;314</td>  <td class="nbHitsUncovered">&nbsp;0</td>  <td class="src"><pre class="src"><span class="srcUncovered">&nbsp;                profiles[14] = prof14.getProfile();</span></pre></td></tr>
 <tr>  <td class="numLine">&nbsp;315</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;316</td>  <td class="nbHits">&nbsp;</td>
-  <td class="src"><pre class="src">&nbsp;                <span class="comment">// ADD_OWNER(AALSpace, User) -&gt; void</span></pre></td></tr>
+  <td class="src"><pre class="src">&nbsp;                <span class="comment">// ADD_OWNER(Space, User) -&gt; void</span></pre></td></tr>
 <tr>  <td class="numLine">&nbsp;317</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;                <span class="comment">// Adds the passed User to the store, with all its properties</span></pre></td></tr>
 <tr>  <td class="numLine">&nbsp;318</td>  <td class="nbHits">&nbsp;</td>
-  <td class="src"><pre class="src">&nbsp;                <span class="comment">// (that can be serialized), and associates it to the given AALSpace.</span></pre></td></tr>
+  <td class="src"><pre class="src">&nbsp;                <span class="comment">// (that can be serialized), and associates it to the given Space.</span></pre></td></tr>
 <tr>  <td class="numLine">&nbsp;319</td>  <td class="nbHits">&nbsp;</td>
-  <td class="src"><pre class="src">&nbsp;                <span class="comment">// Does not remove previous value of an associated User to the AALSpace</span></pre></td></tr>
+  <td class="src"><pre class="src">&nbsp;                <span class="comment">// Does not remove previous value of an associated User to the Space</span></pre></td></tr>
 <tr>  <td class="numLineCover">&nbsp;320</td>  <td class="nbHitsUncovered">&nbsp;0</td>  <td class="src"><pre class="src"><span class="srcUncovered">&nbsp;                SCalleeProvidedService prof15 = <span class="keyword">new</span> SCalleeProvidedService(SRV_ADD_OWNER_TO_SPACE);</span></pre></td></tr>
-<tr>  <td class="numLineCover">&nbsp;321</td>  <td class="nbHitsUncovered">&nbsp;0</td>  <td class="src"><pre class="src"><span class="srcUncovered">&nbsp;                prof15.addFilteringInput(INP_ADD_OWNER_TO_SPACE_WHERE, AALSpace.MY_URI, 1, 1,</span></pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;321</td>  <td class="nbHitsUncovered">&nbsp;0</td>  <td class="src"><pre class="src"><span class="srcUncovered">&nbsp;                prof15.addFilteringInput(INP_ADD_OWNER_TO_SPACE_WHERE, Space.MY_URI, 1, 1,</span></pre></td></tr>
 <tr>  <td class="numLine">&nbsp;322</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;                                <span class="keyword">new</span> String[] { ProfilingService.PROP_CONTROLS });</pre></td></tr>
 <tr>  <td class="numLineCover">&nbsp;323</td>  <td class="nbHitsUncovered">&nbsp;0</td>  <td class="src"><pre class="src"><span class="srcUncovered">&nbsp;                prof15.addInputWithAddEffect(INP_ADD_OWNER_TO_SPACE_WHAT, User.MY_URI, 1, 1, <span class="keyword">new</span> String[] {</span></pre></td></tr>
 <tr>  <td class="numLine">&nbsp;324</td>  <td class="nbHits">&nbsp;</td>
-  <td class="src"><pre class="src">&nbsp;                                ProfilingService.PROP_CONTROLS, Profilable.PROP_HAS_PROFILE, AALSpaceProfile.PROP_SPACE_OWNER });</pre></td></tr>
+  <td class="src"><pre class="src">&nbsp;                                ProfilingService.PROP_CONTROLS, Profilable.PROP_HAS_PROFILE, SpaceProfile.PROP_SPACE_OWNER });</pre></td></tr>
 <tr>  <td class="numLineCover">&nbsp;325</td>  <td class="nbHitsUncovered">&nbsp;0</td>  <td class="src"><pre class="src"><span class="srcUncovered">&nbsp;                profiles[15] = prof15.getProfile();</span></pre></td></tr>
 <tr>  <td class="numLine">&nbsp;326</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;327</td>  <td class="nbHits">&nbsp;</td>
-  <td class="src"><pre class="src">&nbsp;                <span class="comment">// ADD_OWNER(AALService, User) -&gt; void</span></pre></td></tr>
+  <td class="src"><pre class="src">&nbsp;                <span class="comment">// ADD_OWNER(Service, User) -&gt; void</span></pre></td></tr>
 <tr>  <td class="numLine">&nbsp;328</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;                <span class="comment">// Adds the passed User to the store, with all its properties</span></pre></td></tr>
 <tr>  <td class="numLine">&nbsp;329</td>  <td class="nbHits">&nbsp;</td>
-  <td class="src"><pre class="src">&nbsp;                <span class="comment">// (that can be serialized), and associates it to the given AALService.</span></pre></td></tr>
+  <td class="src"><pre class="src">&nbsp;                <span class="comment">// (that can be serialized), and associates it to the given Service.</span></pre></td></tr>
 <tr>  <td class="numLine">&nbsp;330</td>  <td class="nbHits">&nbsp;</td>
-  <td class="src"><pre class="src">&nbsp;                <span class="comment">// Does not remove previous value of an associated User to the AALServ</span></pre></td></tr>
+  <td class="src"><pre class="src">&nbsp;                <span class="comment">// Does not remove previous value of an associated User to the Serv</span></pre></td></tr>
 <tr>  <td class="numLineCover">&nbsp;331</td>  <td class="nbHitsUncovered">&nbsp;0</td>  <td class="src"><pre class="src"><span class="srcUncovered">&nbsp;                SCalleeProvidedService prof16 = <span class="keyword">new</span> SCalleeProvidedService(SRV_ADD_OWNER_TO_SERV);</span></pre></td></tr>
-<tr>  <td class="numLineCover">&nbsp;332</td>  <td class="nbHitsUncovered">&nbsp;0</td>  <td class="src"><pre class="src"><span class="srcUncovered">&nbsp;                prof16.addFilteringInput(INP_ADD_OWNER_TO_SERV_WHERE, AALService.MY_URI, 1, 1,</span></pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;332</td>  <td class="nbHitsUncovered">&nbsp;0</td>  <td class="src"><pre class="src"><span class="srcUncovered">&nbsp;                prof16.addFilteringInput(INP_ADD_OWNER_TO_SERV_WHERE, AppService.MY_URI, 1, 1,</span></pre></td></tr>
 <tr>  <td class="numLine">&nbsp;333</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;                                <span class="keyword">new</span> String[] { ProfilingService.PROP_CONTROLS });</pre></td></tr>
 <tr>  <td class="numLineCover">&nbsp;334</td>  <td class="nbHitsUncovered">&nbsp;0</td>  <td class="src"><pre class="src"><span class="srcUncovered">&nbsp;                prof16.addInputWithAddEffect(INP_ADD_OWNER_TO_SERV_WHAT, User.MY_URI, 1, 1, <span class="keyword">new</span> String[] {</span></pre></td></tr>
 <tr>  <td class="numLine">&nbsp;335</td>  <td class="nbHits">&nbsp;</td>
-  <td class="src"><pre class="src">&nbsp;                                ProfilingService.PROP_CONTROLS, Profilable.PROP_HAS_PROFILE, AALServiceProfile.PROP_SERVICE_OWNER });</pre></td></tr>
+  <td class="src"><pre class="src">&nbsp;                                ProfilingService.PROP_CONTROLS, Profilable.PROP_HAS_PROFILE, AppServiceProfile.PROP_SERVICE_OWNER });</pre></td></tr>
 <tr>  <td class="numLineCover">&nbsp;336</td>  <td class="nbHitsUncovered">&nbsp;0</td>  <td class="src"><pre class="src"><span class="srcUncovered">&nbsp;                profiles[16] = prof16.getProfile();</span></pre></td></tr>
 <tr>  <td class="numLine">&nbsp;337</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;338</td>  <td class="nbHits">&nbsp;</td>
-  <td class="src"><pre class="src">&nbsp;                <span class="comment">// GET_PROF(AALService) -&gt; AALServiceProfile</span></pre></td></tr>
+  <td class="src"><pre class="src">&nbsp;                <span class="comment">// GET_PROF(Service) -&gt; ServiceProfile</span></pre></td></tr>
 <tr>  <td class="numLine">&nbsp;339</td>  <td class="nbHits">&nbsp;</td>
-  <td class="src"><pre class="src">&nbsp;                <span class="comment">// Returns the AALServiceProfile of a AALService</span></pre></td></tr>
+  <td class="src"><pre class="src">&nbsp;                <span class="comment">// Returns the ServiceProfile of a Service</span></pre></td></tr>
 <tr>  <td class="numLine">&nbsp;340</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;                <span class="comment">// which URI matches the one of the passed parameter</span></pre></td></tr>
 <tr>  <td class="numLineCover">&nbsp;341</td>  <td class="nbHitsUncovered">&nbsp;0</td>  <td class="src"><pre class="src"><span class="srcUncovered">&nbsp;                SCalleeProvidedService prof17 = <span class="keyword">new</span> SCalleeProvidedService(SRV_GET_PROF_OF_SERV);</span></pre></td></tr>
-<tr>  <td class="numLineCover">&nbsp;342</td>  <td class="nbHitsUncovered">&nbsp;0</td>  <td class="src"><pre class="src"><span class="srcUncovered">&nbsp;                prof17.addFilteringInput(INP_GET_PROF_OF_SERV, AALService.MY_URI, 1, 1,</span></pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;342</td>  <td class="nbHitsUncovered">&nbsp;0</td>  <td class="src"><pre class="src"><span class="srcUncovered">&nbsp;                prof17.addFilteringInput(INP_GET_PROF_OF_SERV, AppService.MY_URI, 1, 1,</span></pre></td></tr>
 <tr>  <td class="numLine">&nbsp;343</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;                                <span class="keyword">new</span> String[] { ProfilingService.PROP_CONTROLS });</pre></td></tr>
-<tr>  <td class="numLineCover">&nbsp;344</td>  <td class="nbHitsUncovered">&nbsp;0</td>  <td class="src"><pre class="src"><span class="srcUncovered">&nbsp;                prof17.addOutput(OUT_GET_PROF_OF_SERV, AALServiceProfile.MY_URI, 0, -1,</span></pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;344</td>  <td class="nbHitsUncovered">&nbsp;0</td>  <td class="src"><pre class="src"><span class="srcUncovered">&nbsp;                prof17.addOutput(OUT_GET_PROF_OF_SERV, AppServiceProfile.MY_URI, 0, -1,</span></pre></td></tr>
 <tr>  <td class="numLine">&nbsp;345</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;                                <span class="keyword">new</span> String[] { ProfilingService.PROP_CONTROLS, Profilable.PROP_HAS_PROFILE });</pre></td></tr>
 <tr>  <td class="numLineCover">&nbsp;346</td>  <td class="nbHitsUncovered">&nbsp;0</td>  <td class="src"><pre class="src"><span class="srcUncovered">&nbsp;                profiles[17] = prof17.getProfile();</span></pre></td></tr>
 <tr>  <td class="numLine">&nbsp;347</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;348</td>  <td class="nbHits">&nbsp;</td>
-  <td class="src"><pre class="src">&nbsp;                <span class="comment">// GET_PROF(AALService) -&gt; AALServiceProfile</span></pre></td></tr>
+  <td class="src"><pre class="src">&nbsp;                <span class="comment">// GET_PROF(Service) -&gt; ServiceProfile</span></pre></td></tr>
 <tr>  <td class="numLine">&nbsp;349</td>  <td class="nbHits">&nbsp;</td>
-  <td class="src"><pre class="src">&nbsp;                <span class="comment">// Returns the AALServiceProfile of a AALService</span></pre></td></tr>
+  <td class="src"><pre class="src">&nbsp;                <span class="comment">// Returns the ServiceProfile of a Service</span></pre></td></tr>
 <tr>  <td class="numLine">&nbsp;350</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;                <span class="comment">// which URI matches the one of the passed parameter</span></pre></td></tr>
 <tr>  <td class="numLineCover">&nbsp;351</td>  <td class="nbHitsUncovered">&nbsp;0</td>  <td class="src"><pre class="src"><span class="srcUncovered">&nbsp;                SCalleeProvidedService prof18 = <span class="keyword">new</span> SCalleeProvidedService(SRV_GET_PROF_OF_SPACE);</span></pre></td></tr>
-<tr>  <td class="numLineCover">&nbsp;352</td>  <td class="nbHitsUncovered">&nbsp;0</td>  <td class="src"><pre class="src"><span class="srcUncovered">&nbsp;                prof18.addFilteringInput(INP_GET_PROF_OF_SPACE, AALSpace.MY_URI, 1, 1,</span></pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;352</td>  <td class="nbHitsUncovered">&nbsp;0</td>  <td class="src"><pre class="src"><span class="srcUncovered">&nbsp;                prof18.addFilteringInput(INP_GET_PROF_OF_SPACE, Space.MY_URI, 1, 1,</span></pre></td></tr>
 <tr>  <td class="numLine">&nbsp;353</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;                                <span class="keyword">new</span> String[] { ProfilingService.PROP_CONTROLS });</pre></td></tr>
-<tr>  <td class="numLineCover">&nbsp;354</td>  <td class="nbHitsUncovered">&nbsp;0</td>  <td class="src"><pre class="src"><span class="srcUncovered">&nbsp;                prof18.addOutput(OUT_GET_PROF_OF_SPACE, AALSpaceProfile.MY_URI, 0, -1,</span></pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;354</td>  <td class="nbHitsUncovered">&nbsp;0</td>  <td class="src"><pre class="src"><span class="srcUncovered">&nbsp;                prof18.addOutput(OUT_GET_PROF_OF_SPACE, SpaceProfile.MY_URI, 0, -1,</span></pre></td></tr>
 <tr>  <td class="numLine">&nbsp;355</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;                                <span class="keyword">new</span> String[] { ProfilingService.PROP_CONTROLS, Profilable.PROP_HAS_PROFILE });</pre></td></tr>
 <tr>  <td class="numLineCover">&nbsp;356</td>  <td class="nbHitsUncovered">&nbsp;0</td>  <td class="src"><pre class="src"><span class="srcUncovered">&nbsp;                profiles[18] = prof18.getProfile();</span></pre></td></tr>
@@ -780,6 +780,6 @@
   <td class="src"><pre class="src">&nbsp;}</pre></td></tr>
 </table>
 
-<div class="footer">Report generated by <a href="http://cobertura.sourceforge.net/" target="_top">Cobertura</a> 2.1.1 on 6/24/17 9:08 AM.</div>
+<div class="footer">Report generated by <a href="http://cobertura.sourceforge.net/" target="_top">Cobertura</a> 2.1.1 on 6/24/17 11:19 PM.</div>
 </body>
 </html>

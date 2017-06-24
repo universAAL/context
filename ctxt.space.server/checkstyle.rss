@@ -19,9 +19,9 @@ under the License.
 -->
 <rss version="0.91">
   <channel>
-    <title>universAAL Context AAL Space Server - Checkstyle report</title>
+    <title>universAAL Context Space Server - Checkstyle report</title>
     <link>http://context/ctxt.space.server/</link>
-    <description>universAAL Context AAL Space Server - Checkstyle report</description>
+    <description>universAAL Context Space Server - Checkstyle report</description>
     <language>en-us</language>
     <copyright>&#169;2012 - 2017 Instituto Tecnologico de Aplicaciones de Comunicacion Avanzadas - Grupo Tecnologias para la Salud y el Bienestar (TSB)</copyright>
     <item>

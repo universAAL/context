@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE coverage SYSTEM "http://cobertura.sourceforge.net/xml/coverage-04.dtd">
 
-<coverage line-rate="0.0" branch-rate="0.0" lines-covered="0" lines-valid="4802" branches-covered="0" branches-valid="1650" complexity="3.1151315789473686" version="2.1.1" timestamp="1498295465776">
+<coverage line-rate="0.0" branch-rate="0.0" lines-covered="0" lines-valid="4802" branches-covered="0" branches-valid="1650" complexity="3.1151315789473686" version="2.1.1" timestamp="1498346483190">
 	<sources>
 		<source>/home/travis/build/universAAL/context/ctxt.che/src/main/java</source>
 		<source>/home/travis/build/universAAL/context/ctxt.drools.reasoner/src/main/java</source>
@@ -328,7 +328,7 @@
 								<line number="275" hits="0" branch="false"/>
 							</lines>
 						</method>
-						<method name="setUAALParser" signature="(Lorg/universAAL/middleware/serialization/MessageContentSerializer;)V" line-rate="0.0" branch-rate="1.0" complexity="0">
+						<method name="setSerializer" signature="(Lorg/universAAL/middleware/serialization/MessageContentSerializer;)V" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
 								<line number="339" hits="0" branch="false"/>
 								<line number="340" hits="0" branch="false"/>
@@ -1035,7 +1035,7 @@
 								<line number="290" hits="0" branch="false"/>
 							</lines>
 						</method>
-						<method name="setuAALParser" signature="(Lorg/universAAL/middleware/serialization/MessageContentSerializer;)V" line-rate="0.0" branch-rate="1.0" complexity="0">
+						<method name="setSerializer" signature="(Lorg/universAAL/middleware/serialization/MessageContentSerializer;)V" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
 								<line number="248" hits="0" branch="false"/>
 								<line number="249" hits="0" branch="false"/>
@@ -2191,7 +2191,7 @@
 								<line number="732" hits="0" branch="false"/>
 							</lines>
 						</method>
-						<method name="setuAALParser" signature="(Lorg/universAAL/middleware/serialization/MessageContentSerializer;)V" line-rate="0.0" branch-rate="1.0" complexity="0">
+						<method name="setSerializer" signature="(Lorg/universAAL/middleware/serialization/MessageContentSerializer;)V" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
 								<line number="539" hits="0" branch="false"/>
 								<line number="540" hits="0" branch="false"/>
@@ -3621,7 +3621,7 @@
 								<line number="37" hits="0" branch="false"/>
 							</lines>
 						</method>
-						<method name="setuAALParser" signature="(Lorg/universAAL/middleware/serialization/MessageContentSerializer;)V" line-rate="0.0" branch-rate="1.0" complexity="0">
+						<method name="setSerializer" signature="(Lorg/universAAL/middleware/serialization/MessageContentSerializer;)V" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
 								<line number="76" hits="0" branch="false"/>
 								<line number="77" hits="0" branch="false"/>
@@ -3706,7 +3706,7 @@
 								<line number="123" hits="0" branch="false"/>
 							</lines>
 						</method>
-						<method name="setuAALParser" signature="(Lorg/universAAL/middleware/serialization/MessageContentSerializer;)V" line-rate="0.0" branch-rate="1.0" complexity="0">
+						<method name="setSerializer" signature="(Lorg/universAAL/middleware/serialization/MessageContentSerializer;)V" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
 								<line number="132" hits="0" branch="false"/>
 								<line number="133" hits="0" branch="false"/>
@@ -3877,7 +3877,7 @@
 								<line number="58" hits="0" branch="false"/>
 							</lines>
 						</method>
-						<method name="setuAALParser" signature="(Lorg/universAAL/middleware/serialization/MessageContentSerializerEx;)V" line-rate="0.0" branch-rate="1.0" complexity="0">
+						<method name="setSerializer" signature="(Lorg/universAAL/middleware/serialization/MessageContentSerializerEx;)V" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
 								<line number="91" hits="0" branch="false"/>
 								<line number="92" hits="0" branch="false"/>
@@ -6072,7 +6072,7 @@
 								<line number="67" hits="0" branch="false"/>
 							</lines>
 						</method>
-						<method name="setuAALParser" signature="(Lorg/universAAL/middleware/serialization/MessageContentSerializer;)V" line-rate="0.0" branch-rate="1.0" complexity="0">
+						<method name="setSerializer" signature="(Lorg/universAAL/middleware/serialization/MessageContentSerializer;)V" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
 								<line number="189" hits="0" branch="false"/>
 								<line number="190" hits="0" branch="false"/>
@@ -16150,30 +16150,6 @@
 								<line number="73" hits="0" branch="false"/>
 							</lines>
 						</method>
-						<method name="addAALService" signature="(Lorg/universAAL/middleware/rdf/Resource;)V" line-rate="0.0" branch-rate="1.0" complexity="0">
-							<lines>
-								<line number="139" hits="0" branch="false"/>
-								<line number="140" hits="0" branch="false"/>
-							</lines>
-						</method>
-						<method name="addAALServiceProf" signature="(Lorg/universAAL/middleware/rdf/Resource;)V" line-rate="0.0" branch-rate="1.0" complexity="0">
-							<lines>
-								<line number="157" hits="0" branch="false"/>
-								<line number="158" hits="0" branch="false"/>
-							</lines>
-						</method>
-						<method name="addAALSpace" signature="(Lorg/universAAL/middleware/rdf/Resource;)V" line-rate="0.0" branch-rate="1.0" complexity="0">
-							<lines>
-								<line number="103" hits="0" branch="false"/>
-								<line number="104" hits="0" branch="false"/>
-							</lines>
-						</method>
-						<method name="addAALSpaceProfile" signature="(Lorg/universAAL/middleware/rdf/Resource;)V" line-rate="0.0" branch-rate="1.0" complexity="0">
-							<lines>
-								<line number="121" hits="0" branch="false"/>
-								<line number="122" hits="0" branch="false"/>
-							</lines>
-						</method>
 						<method name="addDevice" signature="(Lorg/universAAL/middleware/rdf/Resource;)V" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
 								<line number="175" hits="0" branch="false"/>
@@ -16220,6 +16196,18 @@
 								<line number="325" hits="0" branch="false"/>
 							</lines>
 						</method>
+						<method name="addService" signature="(Lorg/universAAL/middleware/rdf/Resource;)V" line-rate="0.0" branch-rate="1.0" complexity="0">
+							<lines>
+								<line number="139" hits="0" branch="false"/>
+								<line number="140" hits="0" branch="false"/>
+							</lines>
+						</method>
+						<method name="addServiceProf" signature="(Lorg/universAAL/middleware/rdf/Resource;)V" line-rate="0.0" branch-rate="1.0" complexity="0">
+							<lines>
+								<line number="157" hits="0" branch="false"/>
+								<line number="158" hits="0" branch="false"/>
+							</lines>
+						</method>
 						<method name="addServiceToSpace" signature="(Lorg/universAAL/middleware/rdf/Resource;Lorg/universAAL/middleware/rdf/Resource;)V" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
 								<line number="299" hits="0" branch="false"/>
@@ -16227,28 +16215,16 @@
 								<line number="301" hits="0" branch="false"/>
 							</lines>
 						</method>
-						<method name="changeAALService" signature="(Lorg/universAAL/middleware/rdf/Resource;)V" line-rate="0.0" branch-rate="1.0" complexity="0">
+						<method name="addSpace" signature="(Lorg/universAAL/middleware/rdf/Resource;)V" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
-								<line number="143" hits="0" branch="false"/>
-								<line number="144" hits="0" branch="false"/>
+								<line number="103" hits="0" branch="false"/>
+								<line number="104" hits="0" branch="false"/>
 							</lines>
 						</method>
-						<method name="changeAALServiceProf" signature="(Lorg/universAAL/middleware/rdf/Resource;)V" line-rate="0.0" branch-rate="1.0" complexity="0">
+						<method name="addSpaceProfile" signature="(Lorg/universAAL/middleware/rdf/Resource;)V" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
-								<line number="161" hits="0" branch="false"/>
-								<line number="162" hits="0" branch="false"/>
-							</lines>
-						</method>
-						<method name="changeAALSpace" signature="(Lorg/universAAL/middleware/rdf/Resource;)V" line-rate="0.0" branch-rate="1.0" complexity="0">
-							<lines>
-								<line number="107" hits="0" branch="false"/>
-								<line number="108" hits="0" branch="false"/>
-							</lines>
-						</method>
-						<method name="changeAALSpaceProfile" signature="(Lorg/universAAL/middleware/rdf/Resource;)V" line-rate="0.0" branch-rate="1.0" complexity="0">
-							<lines>
-								<line number="125" hits="0" branch="false"/>
-								<line number="126" hits="0" branch="false"/>
+								<line number="121" hits="0" branch="false"/>
+								<line number="122" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="changeDevice" signature="(Lorg/universAAL/middleware/rdf/Resource;)V" line-rate="0.0" branch-rate="1.0" complexity="0">
@@ -16261,6 +16237,30 @@
 							<lines>
 								<line number="197" hits="0" branch="false"/>
 								<line number="198" hits="0" branch="false"/>
+							</lines>
+						</method>
+						<method name="changeService" signature="(Lorg/universAAL/middleware/rdf/Resource;)V" line-rate="0.0" branch-rate="1.0" complexity="0">
+							<lines>
+								<line number="143" hits="0" branch="false"/>
+								<line number="144" hits="0" branch="false"/>
+							</lines>
+						</method>
+						<method name="changeServiceProf" signature="(Lorg/universAAL/middleware/rdf/Resource;)V" line-rate="0.0" branch-rate="1.0" complexity="0">
+							<lines>
+								<line number="161" hits="0" branch="false"/>
+								<line number="162" hits="0" branch="false"/>
+							</lines>
+						</method>
+						<method name="changeSpace" signature="(Lorg/universAAL/middleware/rdf/Resource;)V" line-rate="0.0" branch-rate="1.0" complexity="0">
+							<lines>
+								<line number="107" hits="0" branch="false"/>
+								<line number="108" hits="0" branch="false"/>
+							</lines>
+						</method>
+						<method name="changeSpaceProfile" signature="(Lorg/universAAL/middleware/rdf/Resource;)V" line-rate="0.0" branch-rate="1.0" complexity="0">
+							<lines>
+								<line number="125" hits="0" branch="false"/>
+								<line number="126" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="close" signature="()V" line-rate="0.0" branch-rate="1.0" complexity="0">
@@ -16343,39 +16343,7 @@
 								<line number="350" hits="0" branch="false"/>
 							</lines>
 						</method>
-						<method name="getAALService" signature="(Lorg/universAAL/middleware/rdf/Resource;)Lorg/universAAL/middleware/rdf/Resource;" line-rate="0.0" branch-rate="1.0" complexity="0">
-							<lines>
-								<line number="135" hits="0" branch="false"/>
-							</lines>
-						</method>
-						<method name="getAALServiceProf" signature="(Lorg/universAAL/middleware/rdf/Resource;)Lorg/universAAL/middleware/rdf/Resource;" line-rate="0.0" branch-rate="1.0" complexity="0">
-							<lines>
-								<line number="153" hits="0" branch="false"/>
-							</lines>
-						</method>
-						<method name="getAALServices" signature="()Ljava/util/ArrayList;" line-rate="0.0" branch-rate="1.0" complexity="0">
-							<lines>
-								<line number="207" hits="0" branch="false"/>
-								<line number="208" hits="0" branch="false"/>
-							</lines>
-						</method>
-						<method name="getAALSpace" signature="(Lorg/universAAL/middleware/rdf/Resource;)Lorg/universAAL/middleware/rdf/Resource;" line-rate="0.0" branch-rate="1.0" complexity="0">
-							<lines>
-								<line number="99" hits="0" branch="false"/>
-							</lines>
-						</method>
-						<method name="getAALSpaceProfile" signature="(Lorg/universAAL/middleware/rdf/Resource;)Lorg/universAAL/middleware/rdf/Resource;" line-rate="0.0" branch-rate="1.0" complexity="0">
-							<lines>
-								<line number="117" hits="0" branch="false"/>
-							</lines>
-						</method>
-						<method name="getAALSpaces" signature="()Ljava/util/ArrayList;" line-rate="0.0" branch-rate="1.0" complexity="0">
-							<lines>
-								<line number="212" hits="0" branch="false"/>
-								<line number="213" hits="0" branch="false"/>
-							</lines>
-						</method>
-						<method name="getAppOfAALService" signature="(Lorg/universAAL/middleware/rdf/Resource;)Lorg/universAAL/middleware/rdf/Resource;" line-rate="0.0" branch-rate="1.0" complexity="0">
+						<method name="getAppOfService" signature="(Lorg/universAAL/middleware/rdf/Resource;)Lorg/universAAL/middleware/rdf/Resource;" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
 								<line number="229" hits="0" branch="false"/>
 								<line number="230" hits="0" branch="false"/>
@@ -16405,14 +16373,14 @@
 								<line number="442" hits="0" branch="false"/>
 							</lines>
 						</method>
-						<method name="getHROfAALService" signature="(Lorg/universAAL/middleware/rdf/Resource;)Lorg/universAAL/middleware/rdf/Resource;" line-rate="0.0" branch-rate="1.0" complexity="0">
+						<method name="getHROfService" signature="(Lorg/universAAL/middleware/rdf/Resource;)Lorg/universAAL/middleware/rdf/Resource;" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
 								<line number="217" hits="0" branch="false"/>
 								<line number="218" hits="0" branch="false"/>
 								<line number="219" hits="0" branch="false"/>
 							</lines>
 						</method>
-						<method name="getHWOfAALService" signature="(Lorg/universAAL/middleware/rdf/Resource;)Lorg/universAAL/middleware/rdf/Resource;" line-rate="0.0" branch-rate="1.0" complexity="0">
+						<method name="getHWOfService" signature="(Lorg/universAAL/middleware/rdf/Resource;)Lorg/universAAL/middleware/rdf/Resource;" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
 								<line number="223" hits="0" branch="false"/>
 								<line number="224" hits="0" branch="false"/>
@@ -16550,6 +16518,22 @@
 								<line number="422" hits="0" branch="false"/>
 							</lines>
 						</method>
+						<method name="getService" signature="(Lorg/universAAL/middleware/rdf/Resource;)Lorg/universAAL/middleware/rdf/Resource;" line-rate="0.0" branch-rate="1.0" complexity="0">
+							<lines>
+								<line number="135" hits="0" branch="false"/>
+							</lines>
+						</method>
+						<method name="getServiceProf" signature="(Lorg/universAAL/middleware/rdf/Resource;)Lorg/universAAL/middleware/rdf/Resource;" line-rate="0.0" branch-rate="1.0" complexity="0">
+							<lines>
+								<line number="153" hits="0" branch="false"/>
+							</lines>
+						</method>
+						<method name="getServices" signature="()Ljava/util/ArrayList;" line-rate="0.0" branch-rate="1.0" complexity="0">
+							<lines>
+								<line number="207" hits="0" branch="false"/>
+								<line number="208" hits="0" branch="false"/>
+							</lines>
+						</method>
 						<method name="getServicesOfSpace" signature="(Lorg/universAAL/middleware/rdf/Resource;)Ljava/util/ArrayList;" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
 								<line number="235" hits="0" branch="false"/>
@@ -16558,28 +16542,20 @@
 								<line number="239" hits="0" branch="false"/>
 							</lines>
 						</method>
-						<method name="removeAALService" signature="(Lorg/universAAL/middleware/rdf/Resource;)V" line-rate="0.0" branch-rate="1.0" complexity="0">
+						<method name="getSpace" signature="(Lorg/universAAL/middleware/rdf/Resource;)Lorg/universAAL/middleware/rdf/Resource;" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
-								<line number="147" hits="0" branch="false"/>
-								<line number="148" hits="0" branch="false"/>
+								<line number="99" hits="0" branch="false"/>
 							</lines>
 						</method>
-						<method name="removeAALServiceProf" signature="(Lorg/universAAL/middleware/rdf/Resource;)V" line-rate="0.0" branch-rate="1.0" complexity="0">
+						<method name="getSpaceProfile" signature="(Lorg/universAAL/middleware/rdf/Resource;)Lorg/universAAL/middleware/rdf/Resource;" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
-								<line number="165" hits="0" branch="false"/>
-								<line number="166" hits="0" branch="false"/>
+								<line number="117" hits="0" branch="false"/>
 							</lines>
 						</method>
-						<method name="removeAALSpace" signature="(Lorg/universAAL/middleware/rdf/Resource;)V" line-rate="0.0" branch-rate="1.0" complexity="0">
+						<method name="getSpaces" signature="()Ljava/util/ArrayList;" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
-								<line number="111" hits="0" branch="false"/>
-								<line number="112" hits="0" branch="false"/>
-							</lines>
-						</method>
-						<method name="removeAALSpaceProfile" signature="(Lorg/universAAL/middleware/rdf/Resource;)V" line-rate="0.0" branch-rate="1.0" complexity="0">
-							<lines>
-								<line number="129" hits="0" branch="false"/>
-								<line number="130" hits="0" branch="false"/>
+								<line number="212" hits="0" branch="false"/>
+								<line number="213" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="removeDevice" signature="(Lorg/universAAL/middleware/rdf/Resource;)V" line-rate="0.0" branch-rate="1.0" complexity="0">
@@ -16592,6 +16568,30 @@
 							<lines>
 								<line number="201" hits="0" branch="false"/>
 								<line number="202" hits="0" branch="false"/>
+							</lines>
+						</method>
+						<method name="removeService" signature="(Lorg/universAAL/middleware/rdf/Resource;)V" line-rate="0.0" branch-rate="1.0" complexity="0">
+							<lines>
+								<line number="147" hits="0" branch="false"/>
+								<line number="148" hits="0" branch="false"/>
+							</lines>
+						</method>
+						<method name="removeServiceProf" signature="(Lorg/universAAL/middleware/rdf/Resource;)V" line-rate="0.0" branch-rate="1.0" complexity="0">
+							<lines>
+								<line number="165" hits="0" branch="false"/>
+								<line number="166" hits="0" branch="false"/>
+							</lines>
+						</method>
+						<method name="removeSpace" signature="(Lorg/universAAL/middleware/rdf/Resource;)V" line-rate="0.0" branch-rate="1.0" complexity="0">
+							<lines>
+								<line number="111" hits="0" branch="false"/>
+								<line number="112" hits="0" branch="false"/>
+							</lines>
+						</method>
+						<method name="removeSpaceProfile" signature="(Lorg/universAAL/middleware/rdf/Resource;)V" line-rate="0.0" branch-rate="1.0" complexity="0">
+							<lines>
+								<line number="129" hits="0" branch="false"/>
+								<line number="130" hits="0" branch="false"/>
 							</lines>
 						</method>
 						<method name="splitPrefixes" signature="(Ljava/lang/String;)[Ljava/lang/String;" line-rate="0.0" branch-rate="0.0" complexity="0">
@@ -19186,7 +19186,7 @@
 								<line number="58" hits="0" branch="false"/>
 							</lines>
 						</method>
-						<method name="setuAALParser" signature="(Lorg/universAAL/middleware/serialization/MessageContentSerializerEx;)V" line-rate="0.0" branch-rate="1.0" complexity="0">
+						<method name="setSerializer" signature="(Lorg/universAAL/middleware/serialization/MessageContentSerializerEx;)V" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
 								<line number="183" hits="0" branch="false"/>
 								<line number="184" hits="0" branch="false"/>

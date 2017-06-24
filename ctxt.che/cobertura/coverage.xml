@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE coverage SYSTEM "http://cobertura.sourceforge.net/xml/coverage-04.dtd">
 
-<coverage line-rate="0.0" branch-rate="0.0" lines-covered="0" lines-valid="832" branches-covered="0" branches-valid="280" complexity="3.4367816091954024" version="2.1.1" timestamp="1498295106743">
+<coverage line-rate="0.0" branch-rate="0.0" lines-covered="0" lines-valid="832" branches-covered="0" branches-valid="280" complexity="3.4367816091954024" version="2.1.1" timestamp="1498346163639">
 	<sources>
 		<source>/home/travis/build/universAAL/context/ctxt.che/src/main/java</source>
 		<source>--source</source>
@@ -318,7 +318,7 @@
 								<line number="275" hits="0" branch="false"/>
 							</lines>
 						</method>
-						<method name="setUAALParser" signature="(Lorg/universAAL/middleware/serialization/MessageContentSerializer;)V" line-rate="0.0" branch-rate="1.0" complexity="0">
+						<method name="setSerializer" signature="(Lorg/universAAL/middleware/serialization/MessageContentSerializer;)V" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
 								<line number="339" hits="0" branch="false"/>
 								<line number="340" hits="0" branch="false"/>
@@ -1025,7 +1025,7 @@
 								<line number="290" hits="0" branch="false"/>
 							</lines>
 						</method>
-						<method name="setuAALParser" signature="(Lorg/universAAL/middleware/serialization/MessageContentSerializer;)V" line-rate="0.0" branch-rate="1.0" complexity="0">
+						<method name="setSerializer" signature="(Lorg/universAAL/middleware/serialization/MessageContentSerializer;)V" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
 								<line number="248" hits="0" branch="false"/>
 								<line number="249" hits="0" branch="false"/>
@@ -2181,7 +2181,7 @@
 								<line number="732" hits="0" branch="false"/>
 							</lines>
 						</method>
-						<method name="setuAALParser" signature="(Lorg/universAAL/middleware/serialization/MessageContentSerializer;)V" line-rate="0.0" branch-rate="1.0" complexity="0">
+						<method name="setSerializer" signature="(Lorg/universAAL/middleware/serialization/MessageContentSerializer;)V" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
 								<line number="539" hits="0" branch="false"/>
 								<line number="540" hits="0" branch="false"/>

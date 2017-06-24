@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE coverage SYSTEM "http://cobertura.sourceforge.net/xml/coverage-04.dtd">
 
-<coverage line-rate="0.0" branch-rate="0.0" lines-covered="0" lines-valid="131" branches-covered="0" branches-valid="41" complexity="2.1363636363636362" version="2.1.1" timestamp="1498295339967">
+<coverage line-rate="0.0" branch-rate="0.0" lines-covered="0" lines-valid="131" branches-covered="0" branches-valid="41" complexity="2.1363636363636362" version="2.1.1" timestamp="1498346381085">
 	<sources>
 		<source>--source</source>
 		<source>/home/travis/build/universAAL/context/ctxt.reliability.reasoner/src/main/java</source>
@@ -422,7 +422,7 @@
 								<line number="58" hits="0" branch="false"/>
 							</lines>
 						</method>
-						<method name="setuAALParser" signature="(Lorg/universAAL/middleware/serialization/MessageContentSerializerEx;)V" line-rate="0.0" branch-rate="1.0" complexity="0">
+						<method name="setSerializer" signature="(Lorg/universAAL/middleware/serialization/MessageContentSerializerEx;)V" line-rate="0.0" branch-rate="1.0" complexity="0">
 							<lines>
 								<line number="183" hits="0" branch="false"/>
 								<line number="184" hits="0" branch="false"/>

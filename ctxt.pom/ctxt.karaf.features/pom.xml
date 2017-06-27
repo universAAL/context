@@ -5,10 +5,10 @@
   <parent>
     <groupId>org.universAAL.context</groupId>
     <artifactId>ctxt.pom</artifactId>
-    <version>3.4.1-SNAPSHOT</version>
+    <version>3.4.2-SNAPSHOT</version>
   </parent>
   <artifactId>ctxt.karaf.feature</artifactId>
-  <version>3.4.1-SNAPSHOT</version>
+  <version>3.4.2-SNAPSHOT</version>
   <name>universAAL Karaf Feature for Context</name>
   <properties>
     <project.build.sourceEncoding>utf-8</project.build.sourceEncoding>
@@ -23,7 +23,7 @@
       <artifactId>ont.karaf.feature</artifactId>
     </dependency>
     <dependency>
-	  <groupId>org.universAAL.support</groupId>
+      <groupId>org.universAAL.support</groupId>
       <artifactId>utilities.karaf.feature</artifactId>
     </dependency>
     <dependency>

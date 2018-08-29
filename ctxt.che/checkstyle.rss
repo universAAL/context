@@ -27,9 +27,9 @@ under the License.
     Fraunhofer-Gesellschaft - Institute of Computer Graphics Research</copyright>
     <item>
       <title>File: 9,
-             Errors: 106,
+             Errors: 107,
              Warnings: 5,
-             Infos: 16
+             Infos: 24
       </title>
             <link>http://context/ctxt.che//checkstyle.html</link>
       <description>
@@ -64,7 +64,7 @@ under the License.
                   <a href="http://context/ctxt.che//checkstyle.html#org.universAAL.context.che.Hub.java">org/universAAL/context/che/Hub.java</a>
                 </td>
                 <td>
-                  1
+                  9
                 </td>
                 <td>
                   0
@@ -84,7 +84,7 @@ under the License.
                   0
                 </td>
                 <td>
-                  4
+                  5
                 </td>
               </tr>
                           <tr>

@@ -26,9 +26,9 @@ under the License.
     <copyright>&#169;2010 - 2018 universAAL Consortium</copyright>
     <item>
       <title>File: 81,
-             Errors: 1162,
+             Errors: 1163,
              Warnings: 42,
-             Infos: 72
+             Infos: 80
       </title>
             <link>http://context/ctxt.pom//checkstyle.html</link>
       <description>
@@ -195,7 +195,7 @@ under the License.
                   0
                 </td>
                 <td>
-                  4
+                  5
                 </td>
               </tr>
                           <tr>
@@ -1001,7 +1001,7 @@ under the License.
                   <a href="http://context/ctxt.pom//checkstyle.html#org.universAAL.context.che.Hub.java">org/universAAL/context/che/Hub.java</a>
                 </td>
                 <td>
-                  1
+                  9
                 </td>
                 <td>
                   0

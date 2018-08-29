@@ -27,7 +27,7 @@ under the License.
     <item>
       <title>File: 81,
              Errors: 1162,
-             Warnings: 43,
+             Warnings: 42,
              Infos: 72
       </title>
             <link>http://context/ctxt.pom//checkstyle.html</link>
@@ -1060,7 +1060,7 @@ under the License.
                   1
                 </td>
                 <td>
-                  4
+                  3
                 </td>
                 <td>
                   44

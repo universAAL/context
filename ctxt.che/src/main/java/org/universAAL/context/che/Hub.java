@@ -30,6 +30,8 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.Properties;
 import java.util.Timer;
 
@@ -39,6 +41,7 @@ import org.universAAL.middleware.container.ModuleActivator;
 import org.universAAL.middleware.container.ModuleContext;
 import org.universAAL.middleware.container.utils.LogUtils;
 import org.universAAL.middleware.context.ContextEvent;
+import org.universAAL.middleware.context.ContextEventPattern;
 import org.universAAL.middleware.owl.Ontology;
 import org.universAAL.middleware.owl.OntologyManagement;
 import org.universAAL.middleware.serialization.MessageContentSerializer;
@@ -61,6 +64,10 @@ public class Hub implements OntologyListener, ModuleActivator {
 	 * Name of the config properties file.
 	 */
 	public static final String PROPS_FILE = "CHe.properties";
+	/**
+	 * Name of the file with the context event pattern to use by CHe.
+	 */
+	public static final String SUBS_FILE = "subscription.ttl";
 	/**
 	 * This is prepended to the above file.
 	 */
@@ -148,7 +155,16 @@ public class Hub implements OntologyListener, ModuleActivator {
 		// connect before listening, otherwise we may miss onts (but only 1st
 		// execution)
 		OntologyManagement.getInstance().addOntologyListener(context, this);
-		this.hc = new ContextHistorySubscriber(moduleContext, db);
+		ContextEventPattern cep=new ContextEventPattern();
+		try {
+		    String ser = new String(Files.readAllBytes(
+			    Paths.get(new File(confHome, SUBS_FILE).toURI())));
+		    log.debug("start", "Specific ContextEventPattern provided. Not every event will be stored");
+		    cep=(ContextEventPattern) serializer.deserialize(ser);
+		} catch (Exception e) {
+		    log.debug("start", "No specific ContextEventPattern provided. Using default (all). ["+e+"]");
+		}
+		this.hc = new ContextHistorySubscriber(moduleContext, db, cep);
 		this.chc = new ContextHistoryCallee(moduleContext, db);
 		// Every 24 hours do the "Cleaner thing" (see Cleaner class)
 		t = new Timer();

@@ -61,9 +61,8 @@ public class ContextHistorySubscriber extends ContextSubscriber {
 	 * @param dbstore
 	 *            The store
 	 */
-	public ContextHistorySubscriber(ModuleContext context, Backend dbstore) {
-		// My context event pattern is zero-restrictions (ALL)
-		super(context, new ContextEventPattern[] { new ContextEventPattern() });
+	public ContextHistorySubscriber(ModuleContext context, Backend dbstore, ContextEventPattern cep) {
+		super(context, new ContextEventPattern[] { cep });
 		this.db = dbstore;
 		log.info("init", "CHe: Subscriber Ready");
 	}

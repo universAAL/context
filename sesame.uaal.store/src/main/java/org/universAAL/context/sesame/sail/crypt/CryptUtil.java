@@ -46,7 +46,8 @@ import javax.crypto.spec.DESKeySpec;
  */
 public class CryptUtil {
 
-	private static final String cipherTransformation = "DES/ECB/PKCS5Padding";
+	private static String cipherTransformation = System.getProperty(
+		"sesame.uaal.store.cipher", "DES/ECB/PKCS5Padding");
 	private static final String keyFileName = "sodapop.key";
 	private static final String randomizationAlgorithm = "SHA1PRNG";
 	private static final String secretKeyAlgorithm = "DES";
@@ -166,6 +167,11 @@ public class CryptUtil {
 	public static String init(String dir, Codec codec) throws Exception {
 		if (CryptUtil.codec != null && CryptUtil.codec != codec)
 			throw new SecurityException("CryptUtil already initialized");
+		try {
+		    Cipher.getInstance(cipherTransformation);
+		} catch (Exception e) {
+		    cipherTransformation = "DES/ECB/PKCS5Padding"; // user setting was invalid
+		}
 		CryptUtil.codec = codec;
 		File keyFile = new File(dir + System.getProperty("file.separator") + keyFileName);
 

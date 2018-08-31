@@ -1,0 +1,77 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>org.universAAL.thirdparty</groupId>
+	<artifactId>rdf4j-runtime-osgi-uaal</artifactId>
+	<version>2.3.2</version>
+	<packaging>bundle</packaging>
+
+	<name>RDF4J: Runtime - OSGi - uAAL version</name>
+	<description>Specific OSGi Runtime dependencies for an RDF4J application: The uAAL CHe</description>
+	<!-- This is a mod of org.eclipse.rdf4j/rdf4j-runtime-osgi that makes optional 
+		those dependencies never to be used by CHe rdf4j dependencies. Original source 
+		code: https://github.com/eclipse/rdf4j-tools/tree/master/runtime-osgi -->
+	<dependencies>
+		<dependency>
+			<groupId>org.eclipse.rdf4j</groupId>
+			<artifactId>rdf4j-http-server-spring</artifactId>
+			<version>2.3.2</version>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.felix</groupId>
+				<artifactId>maven-bundle-plugin</artifactId>
+				<extensions>true</extensions>
+				<configuration>
+					<remoteOBR>NONE</remoteOBR>
+					<instructions>
+						<Bundle-SymbolicName>org.eclipse.rdf4j</Bundle-SymbolicName>
+						<Export-Package>!*text-base,!*prop-base,org.eclipse.rdf4j.*</Export-Package>
+						<Import-Package>
+							org.slf4j.*;resolution:=optional,
+							org.eclipse.rdf4j.*;version=0,
+							javax.*;resolution:=optional,
+							org.apache.commons.*,
+							org.apache.http.*;resolution:=optional,
+							org.apache.lucene.*;resolution:=optional,
+							org.apache.solr.*;resolution:=optional,
+							org.springframework.*;resolution:=optional,
+							ch.qos.logback.*;resolution:=optional,
+							com.fasterxml.jackson.*;resolution:=optional,
+							com.github.jsonldjava.*;resolution:=optional,
+							com.google.common.*,
+							com.opencsv.*;resolution:=optional,
+							com.spatial4j.*;resolution:=optional,
+							org.elasticsearch.*;resolution:=optional,
+							org.mapdb.*;resolution:=optional,
+							*
+						</Import-Package>
+						<Include-Resource>
+							{maven-resources}
+						</Include-Resource>
+						<Embed-Dependency>
+							*;
+							groupId=org.eclipse.rdf4j;
+							scope=compile|runtime;
+							type=!pom;
+							inline=true
+						</Embed-Dependency>
+						<Embed-Transitive>true</Embed-Transitive>
+					</instructions>
+				</configuration>
+				<dependencies>
+					<dependency>
+						<groupId>biz.aQute.bnd</groupId>
+						<artifactId>bndlib</artifactId>
+						<version>2.4.0</version>
+					</dependency>
+				</dependencies>
+			</plugin>
+		</plugins>
+	</build>
+</project>

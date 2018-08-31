@@ -1,8 +1,8 @@
 /*
-	Copyright 2008-2015 ITACA-TSB, http://www.tsb.upv.es
+	Copyright 2008 ITACA-SABIEN, http://www.sabien.upv.es
 	Instituto Tecnologico de Aplicaciones de Comunicacion
 	Avanzadas - Grupo Tecnologias para la Salud y el
-	Bienestar (TSB)
+	Bienestar (SABIEN)
 
 	See the NOTICE file distributed with this work for additional
 	information regarding copyright ownership
@@ -24,8 +24,8 @@ package org.universAAL.context.che.database;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import org.openrdf.repository.RepositoryException;
-import org.openrdf.rio.RDFParseException;
+import org.eclipse.rdf4j.repository.RepositoryException;
+import org.eclipse.rdf4j.rio.RDFParseException;
 import org.universAAL.middleware.context.ContextEvent;
 import org.universAAL.middleware.context.owl.ContextProvider;
 import org.universAAL.middleware.serialization.MessageContentSerializer;

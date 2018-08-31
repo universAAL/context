@@ -8,21 +8,11 @@
     <version>3.4.2-SNAPSHOT</version>
     <relativePath>../ctxt.pom/pom.xml</relativePath>
   </parent>
-  <artifactId>ctxt.che.module.cardinality</artifactId>
+  <artifactId>rdf4j.uaal.store</artifactId>
   <version>3.4.2-SNAPSHOT</version>
-  <packaging>bundle</packaging>
-  <name>universAAL Context CHE - Module for rdf4j store with cardinality</name>
-  <description>This is a bundle fragment module for ctxt.che. It allows the usage of additional store engines enabling cardinality reasoning, confidence and encryption</description>
+  <name>universAAL Context rdf4j SAIL for OWL Lite</name>
+  <description>rdf4j SAIL that realizes the cardinality of properties, according to OWL Lite</description>
   <dependencies>
-    <dependency>
-      <groupId>org.universAAL.context</groupId>
-      <artifactId>ctxt.che</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.universAAL.context</groupId>
-      <artifactId>rdf4j.uaal.store</artifactId>
-      <version>3.4.2-SNAPSHOT</version>
-    </dependency>
     <!-- rdf4j dependencies. Instead of using a "bundling" dependency, this granular 
 		approach allows later importing only the transitive deps that are really 
 		needed. -->
@@ -80,22 +70,9 @@
       <version>2.3.2</version>
       <scope>provided</scope>
     </dependency>
+    <dependency>
+      <groupId>org.bouncycastle</groupId>
+      <artifactId>jce.jdk13</artifactId>
+    </dependency>
   </dependencies>
-  <build>
-    <plugins>
-      <plugin>
-        <groupId>org.apache.felix</groupId>
-        <artifactId>maven-bundle-plugin</artifactId>
-        <extensions>true</extensions>
-        <configuration>
-          <instructions>
-            <Bundle-Name>${project.name}</Bundle-Name>
-            <Bundle-Description>${project.description}</Bundle-Description>
-            <Bundle-SymbolicName>${project.artifactId}</Bundle-SymbolicName>
-            <Fragment-Host>ctxt.che</Fragment-Host>
-          </instructions>
-        </configuration>
-      </plugin>
-    </plugins>
-  </build>
 </project>

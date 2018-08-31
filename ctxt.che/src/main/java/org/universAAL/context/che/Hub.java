@@ -1,8 +1,8 @@
 /*
-	Copyright 2008-2014 ITACA-TSB, http://www.tsb.upv.es
+	Copyright 2008 ITACA-SABIEN, http://www.sabien.upv.es
 	Instituto Tecnologico de Aplicaciones de Comunicacion
 	Avanzadas - Grupo Tecnologias para la Salud y el
-	Bienestar (TSB)
+	Bienestar (SABIEN)
 
 	See the NOTICE file distributed with this work for additional
 	information regarding copyright ownership
@@ -59,7 +59,6 @@ public class Hub implements OntologyListener, ModuleActivator {
 	 * Logger.
 	 */
 	private static Log log = Hub.getLog(Hub.class);
-
 	/**
 	 * Name of the config properties file.
 	 */
@@ -73,7 +72,6 @@ public class Hub implements OntologyListener, ModuleActivator {
 	 */
 	public static final String COMMENTS = "This file stores configuration "
 			+ "parameters for the Context History Entrepot";
-
 	/**
 	 * Milliseconds in 24 hours.
 	 */
@@ -86,7 +84,6 @@ public class Hub implements OntologyListener, ModuleActivator {
 	 * universAAL Module context.
 	 */
 	private static ModuleContext moduleContext = null;
-
 	/**
 	 * The store.
 	 */
@@ -111,7 +108,6 @@ public class Hub implements OntologyListener, ModuleActivator {
 	 * Turtle parser.
 	 */
 	private MessageContentSerializer serializer;
-
 	/**
 	 * Flag for knowing when store is connected, used only for ontology updates
 	 */
@@ -125,17 +121,20 @@ public class Hub implements OntologyListener, ModuleActivator {
 		// Instantiate the store you want
 		try {
 			String storeclass = getProperties().getProperty("STORE.IMPL",
-					"org.universAAL.context.che.database.impl.SesameBackend");
+					"org.universAAL.context.che.database.impl.RDF4JBackend");
 			this.db = (Backend) Class.forName(storeclass).getConstructor(new Class[] {}).newInstance(new Object[] {});
-		} catch (RuntimeException ex) {
-			ex.printStackTrace();
 		} catch (Exception e) {
-			// If we cannot get the Backend, abort.
-			String cause = "The store implementation passed as configuration"
-					+ " parameter could not be used. Make sure it is a " + "class that implements "
-					+ "org.universAAL.context.che.database.Backend or "
-					+ "remove that configuration parameter to use the " + "default engine.";
-			log.error("init", cause);
+			// If we cannot get that Backend, report it and use default.
+			log.error("init", "The store implementation configured in CHe.properties STORE.IMPL "
+				+ "could not be found or is not a valid class. "
+				+ "Using default: org.universAAL.context.che.database.impl.RDF4JBackend.");
+			try {
+			    this.db = (Backend) Class.
+				    forName("org.universAAL.context.che.database.impl.RDF4JBackend")
+				    .getConstructor(new Class[] {}).newInstance(new Object[] {});
+			} catch (Exception e2) {
+			    log.error("init","Unexpected error instantiating default Backend", e2);
+			}
 		}
 	}
 
@@ -307,7 +306,7 @@ public class Hub implements OntologyListener, ModuleActivator {
 
 	private static Properties getSafeProperties() {
 		Properties prop = new Properties();
-		prop.setProperty("STORE.IMPL", "org.universAAL.context.che.database.impl.SesameBackend");
+		prop.setProperty("STORE.IMPL", "org.universAAL.context.che.database.impl.RDF4JBackend");
 		prop.setProperty("MOBILE.FILE", "Mobile-Events.txt");
 		prop.setProperty("MOBILE.FLAG", "<!--CEv-->");
 		prop.setProperty("RECYCLE.KEEP", "2"); // 2 months

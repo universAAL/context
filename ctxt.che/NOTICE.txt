@@ -1,12 +1,12 @@
-Context History Entrepôt
+Context History Entrepï¿½t
 
-Copyright 2008-2014 Fraunhofer IGD, http://www.igd.fraunhofer.de
+Copyright 2008-2018 Fraunhofer IGD, http://www.igd.fraunhofer.de
 Fraunhofer-Gesellschaft - Institute of Computer Graphics Research 
 
-Copyright 2008-2014 ITACA-TSB, http://www.tsb.upv.es
+Copyright 2008-2018 ITACA-SABIEN, http://www.sabien.upv.es
 Instituto Tecnologico de Aplicaciones de Comunicacion 
 Avanzadas - Grupo Tecnologias para la Salud y el 
-Bienestar (TSB)
+Bienestar (SABIEN)
 
 I. Included Software
 
@@ -30,12 +30,12 @@ The OPS4J (http://www.ops4j.org)
 Licensed under the Apache License 2.0.
 
 This product uses software developed at
-OpenRDF (http://www.openrdf.org)
-Copyright (c) 2001 - 2011 Aduna
-Licensed under modified BSD License.
+Eclipse RDF4J (http://rdf4j.org/)
+Copyright (c) 2015 Eclipse RDF4J contributors, Aduna, and others.
+Licensed under the Eclipse Distribution License 1.0 (BSD)
 
 
 III. License Summary
 - Apache License 2.0
 - Common Public License 1.0
-- Modified BSD License
+- Eclipse Distribution License 1.0

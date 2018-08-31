@@ -1,0 +1,4 @@
+This is a mod of org.eclipse.rdf4j/rdf4j-runtime-osgi that makes optional 
+those dependencies never to be used by CHe rdf4j dependencies. Original source 
+code: https://github.com/eclipse/rdf4j-tools/tree/master/runtime-osgi 
+licensed under Eclipse License as described in src/main/resources/about.html

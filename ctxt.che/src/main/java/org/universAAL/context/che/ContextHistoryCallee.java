@@ -1,8 +1,8 @@
 /*
-	Copyright 2008-2015 ITACA-TSB, http://www.tsb.upv.es
+	Copyright 2008 ITACA-SABIEN, http://www.sabien.upv.es
 	Instituto Tecnologico de Aplicaciones de Comunicacion
 	Avanzadas - Grupo Tecnologias para la Salud y el
-	Bienestar (TSB)
+	Bienestar (SABIEN)
 
 	See the NOTICE file distributed with this work for additional
 	information regarding copyright ownership

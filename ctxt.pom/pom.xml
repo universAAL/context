@@ -19,7 +19,7 @@
     <module>../ctxt.che</module>
     <module>../ctxt.che.mobile</module>
     <module>../ctxt.che.module.cardinality</module>
-    <module>../sesame.uaal.store</module>
+    <module>../rdf4j.uaal.store</module>
     <module>../ctxt.situation.reasoner</module>
     <module>../ctxt.prof.server</module>
     <module>../ctxt.space.server</module>
@@ -104,7 +104,7 @@
       </dependency>
       <dependency>
         <groupId>org.universAAL.context</groupId>
-        <artifactId>sesame.uaal.store</artifactId>
+        <artifactId>rdf4j.uaal.store</artifactId>
         <version>3.4.2-SNAPSHOT</version>
       </dependency>
       <dependency>

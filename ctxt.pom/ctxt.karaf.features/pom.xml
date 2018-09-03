@@ -60,7 +60,7 @@
     </dependency>
     <dependency>
       <groupId>org.universAAL.context</groupId>
-      <artifactId>sesame.uaal.store</artifactId>
+      <artifactId>rdf4j.uaal.store</artifactId>
     </dependency>
   </dependencies>
   <build>

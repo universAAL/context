@@ -47,7 +47,7 @@ import javax.crypto.spec.DESKeySpec;
 public class CryptUtil {
 
 	private static String cipherTransformation = System.getProperty(
-		"sesame.uaal.store.cipher", "DES/ECB/PKCS5Padding");
+		"rdf4j.uaal.store.cipher", "DES/ECB/PKCS5Padding");
 	private static final String keyFileName = "sodapop.key";
 	private static final String randomizationAlgorithm = "SHA1PRNG";
 	private static final String secretKeyAlgorithm = "DES";

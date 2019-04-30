@@ -144,7 +144,7 @@
 <ul class="blockList">
 <li class="blockList">
 <table class="constantsSummary" border="0" cellpadding="3" cellspacing="0" summary="Constant Field Values table, listing constant fields, and values">
-<caption><span>org.universAAL.context.che.database.impl.<a href="org/universAAL/context/che/database/impl/SesameBackend.html" title="class in org.universAAL.context.che.database.impl">SesameBackend</a></span><span class="tabEnd">&nbsp;</span></caption>
+<caption><span>org.universAAL.context.che.database.impl.<a href="org/universAAL/context/che/database/impl/RDF4JBackend.html" title="class in org.universAAL.context.che.database.impl">RDF4JBackend</a></span><span class="tabEnd">&nbsp;</span></caption>
 <tr>
 <th class="colFirst" scope="col">Modifier and Type</th>
 <th scope="col">Constant Field</th>
@@ -152,10 +152,10 @@
 </tr>
 <tbody>
 <tr class="altColor">
-<td class="colFirst"><a name="org.universAAL.context.che.database.impl.SesameBackend.PRELOAD_FILE">
+<td class="colFirst"><a name="org.universAAL.context.che.database.impl.RDF4JBackend.PRELOAD_FILE">
 <!--   -->
 </a><code>public&nbsp;static&nbsp;final&nbsp;<a href="http://docs.oracle.com/javase/1.5.0/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a></code></td>
-<td><code><a href="org/universAAL/context/che/database/impl/SesameBackend.html#PRELOAD_FILE">PRELOAD_FILE</a></code></td>
+<td><code><a href="org/universAAL/context/che/database/impl/RDF4JBackend.html#PRELOAD_FILE">PRELOAD_FILE</a></code></td>
 <td class="colLast"><code>"preload.properties"</code></td>
 </tr>
 </tbody>
@@ -651,6 +651,69 @@
 <ul class="blockList">
 <li class="blockList">
 <table class="constantsSummary" border="0" cellpadding="3" cellspacing="0" summary="Constant Field Values table, listing constant fields, and values">
+<caption><span>org.universAAL.context.rdf4j.sail.<a href="org/universAAL/context/rdf4j/sail/ValueStore.html" title="class in org.universAAL.context.rdf4j.sail">ValueStore</a></span><span class="tabEnd">&nbsp;</span></caption>
+<tr>
+<th class="colFirst" scope="col">Modifier and Type</th>
+<th scope="col">Constant Field</th>
+<th class="colLast" scope="col">Value</th>
+</tr>
+<tbody>
+<tr class="altColor">
+<td class="colFirst"><a name="org.universAAL.context.rdf4j.sail.ValueStore.NAMESPACE_CACHE_SIZE">
+<!--   -->
+</a><code>public&nbsp;static&nbsp;final&nbsp;int</code></td>
+<td><code><a href="org/universAAL/context/rdf4j/sail/ValueStore.html#NAMESPACE_CACHE_SIZE">NAMESPACE_CACHE_SIZE</a></code></td>
+<td class="colLast"><code>64</code></td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><a name="org.universAAL.context.rdf4j.sail.ValueStore.NAMESPACE_ID_CACHE_SIZE">
+<!--   -->
+</a><code>public&nbsp;static&nbsp;final&nbsp;int</code></td>
+<td><code><a href="org/universAAL/context/rdf4j/sail/ValueStore.html#NAMESPACE_ID_CACHE_SIZE">NAMESPACE_ID_CACHE_SIZE</a></code></td>
+<td class="colLast"><code>32</code></td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><a name="org.universAAL.context.rdf4j.sail.ValueStore.VALUE_CACHE_SIZE">
+<!--   -->
+</a><code>public&nbsp;static&nbsp;final&nbsp;int</code></td>
+<td><code><a href="org/universAAL/context/rdf4j/sail/ValueStore.html#VALUE_CACHE_SIZE">VALUE_CACHE_SIZE</a></code></td>
+<td class="colLast"><code>512</code></td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><a name="org.universAAL.context.rdf4j.sail.ValueStore.VALUE_ID_CACHE_SIZE">
+<!--   -->
+</a><code>public&nbsp;static&nbsp;final&nbsp;int</code></td>
+<td><code><a href="org/universAAL/context/rdf4j/sail/ValueStore.html#VALUE_ID_CACHE_SIZE">VALUE_ID_CACHE_SIZE</a></code></td>
+<td class="colLast"><code>128</code></td>
+</tr>
+</tbody>
+</table>
+</li>
+</ul>
+<ul class="blockList">
+<li class="blockList">
+<table class="constantsSummary" border="0" cellpadding="3" cellspacing="0" summary="Constant Field Values table, listing constant fields, and values">
+<caption><span>org.universAAL.context.rdf4j.sail.model.<a href="org/universAAL/context/rdf4j/sail/model/NativeValue.html" title="interface in org.universAAL.context.rdf4j.sail.model">NativeValue</a></span><span class="tabEnd">&nbsp;</span></caption>
+<tr>
+<th class="colFirst" scope="col">Modifier and Type</th>
+<th scope="col">Constant Field</th>
+<th class="colLast" scope="col">Value</th>
+</tr>
+<tbody>
+<tr class="altColor">
+<td class="colFirst"><a name="org.universAAL.context.rdf4j.sail.model.NativeValue.UNKNOWN_ID">
+<!--   -->
+</a><code>public&nbsp;static&nbsp;final&nbsp;int</code></td>
+<td><code><a href="org/universAAL/context/rdf4j/sail/model/NativeValue.html#UNKNOWN_ID">UNKNOWN_ID</a></code></td>
+<td class="colLast"><code>-1</code></td>
+</tr>
+</tbody>
+</table>
+</li>
+</ul>
+<ul class="blockList">
+<li class="blockList">
+<table class="constantsSummary" border="0" cellpadding="3" cellspacing="0" summary="Constant Field Values table, listing constant fields, and values">
 <caption><span>org.universAAL.context.reasoner.<a href="org/universAAL/context/reasoner/ProvidedReasoningService.html" title="class in org.universAAL.context.reasoner">ProvidedReasoningService</a></span><span class="tabEnd">&nbsp;</span></caption>
 <tr>
 <th class="colFirst" scope="col">Modifier and Type</th>
@@ -671,69 +734,6 @@
 </a><code>public&nbsp;static&nbsp;final&nbsp;<a href="http://docs.oracle.com/javase/1.5.0/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a></code></td>
 <td><code><a href="org/universAAL/context/reasoner/ProvidedReasoningService.html#REASONER_SERVER_NAMESPACE">REASONER_SERVER_NAMESPACE</a></code></td>
 <td class="colLast"><code>"http://ontology.igd.fhg.de/ReasonerSituationService.owl#"</code></td>
-</tr>
-</tbody>
-</table>
-</li>
-</ul>
-<ul class="blockList">
-<li class="blockList">
-<table class="constantsSummary" border="0" cellpadding="3" cellspacing="0" summary="Constant Field Values table, listing constant fields, and values">
-<caption><span>org.universAAL.context.sesame.sail.<a href="org/universAAL/context/sesame/sail/ValueStore.html" title="class in org.universAAL.context.sesame.sail">ValueStore</a></span><span class="tabEnd">&nbsp;</span></caption>
-<tr>
-<th class="colFirst" scope="col">Modifier and Type</th>
-<th scope="col">Constant Field</th>
-<th class="colLast" scope="col">Value</th>
-</tr>
-<tbody>
-<tr class="altColor">
-<td class="colFirst"><a name="org.universAAL.context.sesame.sail.ValueStore.NAMESPACE_CACHE_SIZE">
-<!--   -->
-</a><code>public&nbsp;static&nbsp;final&nbsp;int</code></td>
-<td><code><a href="org/universAAL/context/sesame/sail/ValueStore.html#NAMESPACE_CACHE_SIZE">NAMESPACE_CACHE_SIZE</a></code></td>
-<td class="colLast"><code>64</code></td>
-</tr>
-<tr class="rowColor">
-<td class="colFirst"><a name="org.universAAL.context.sesame.sail.ValueStore.NAMESPACE_ID_CACHE_SIZE">
-<!--   -->
-</a><code>public&nbsp;static&nbsp;final&nbsp;int</code></td>
-<td><code><a href="org/universAAL/context/sesame/sail/ValueStore.html#NAMESPACE_ID_CACHE_SIZE">NAMESPACE_ID_CACHE_SIZE</a></code></td>
-<td class="colLast"><code>32</code></td>
-</tr>
-<tr class="altColor">
-<td class="colFirst"><a name="org.universAAL.context.sesame.sail.ValueStore.VALUE_CACHE_SIZE">
-<!--   -->
-</a><code>public&nbsp;static&nbsp;final&nbsp;int</code></td>
-<td><code><a href="org/universAAL/context/sesame/sail/ValueStore.html#VALUE_CACHE_SIZE">VALUE_CACHE_SIZE</a></code></td>
-<td class="colLast"><code>512</code></td>
-</tr>
-<tr class="rowColor">
-<td class="colFirst"><a name="org.universAAL.context.sesame.sail.ValueStore.VALUE_ID_CACHE_SIZE">
-<!--   -->
-</a><code>public&nbsp;static&nbsp;final&nbsp;int</code></td>
-<td><code><a href="org/universAAL/context/sesame/sail/ValueStore.html#VALUE_ID_CACHE_SIZE">VALUE_ID_CACHE_SIZE</a></code></td>
-<td class="colLast"><code>128</code></td>
-</tr>
-</tbody>
-</table>
-</li>
-</ul>
-<ul class="blockList">
-<li class="blockList">
-<table class="constantsSummary" border="0" cellpadding="3" cellspacing="0" summary="Constant Field Values table, listing constant fields, and values">
-<caption><span>org.universAAL.context.sesame.sail.model.<a href="org/universAAL/context/sesame/sail/model/NativeValue.html" title="interface in org.universAAL.context.sesame.sail.model">NativeValue</a></span><span class="tabEnd">&nbsp;</span></caption>
-<tr>
-<th class="colFirst" scope="col">Modifier and Type</th>
-<th scope="col">Constant Field</th>
-<th class="colLast" scope="col">Value</th>
-</tr>
-<tbody>
-<tr class="altColor">
-<td class="colFirst"><a name="org.universAAL.context.sesame.sail.model.NativeValue.UNKNOWN_ID">
-<!--   -->
-</a><code>public&nbsp;static&nbsp;final&nbsp;int</code></td>
-<td><code><a href="org/universAAL/context/sesame/sail/model/NativeValue.html#UNKNOWN_ID">UNKNOWN_ID</a></code></td>
-<td class="colLast"><code>-1</code></td>
 </tr>
 </tbody>
 </table>
@@ -1553,6 +1553,6 @@
 <!--   -->
 </a></div>
 <!-- ======== END OF BOTTOM NAVBAR ======= -->
-<p class="legalCopy"><small>Copyright &#169; 2010&#x2013;2018 <a href="http://www.universAAL.org/">universAAL Consortium</a>. All rights reserved.</small></p>
+<p class="legalCopy"><small>Copyright &#169; 2010&#x2013;2019 <a href="http://www.universAAL.org/">universAAL Consortium</a>. All rights reserved.</small></p>
 </body>
 </html>

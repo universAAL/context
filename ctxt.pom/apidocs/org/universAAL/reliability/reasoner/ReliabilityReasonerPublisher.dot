@@ -10,15 +10,15 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// org.universAAL.reliability.reasoner.ReliabilityReasonerPublisher
-	c4684 [label=<<table title="org.universAAL.reliability.reasoner.ReliabilityReasonerPublisher" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./ReliabilityReasonerPublisher.html">
+	c5750 [label=<<table title="org.universAAL.reliability.reasoner.ReliabilityReasonerPublisher" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./ReliabilityReasonerPublisher.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> ReliabilityReasonerPublisher </td></tr>
 		</table></td></tr>
 		</table>>, URL="./ReliabilityReasonerPublisher.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//org.universAAL.reliability.reasoner.ReliabilityReasonerPublisher extends org.universAAL.middleware.context.ContextPublisher
-	c4701:p -> c4684:p [dir=back,arrowtail=empty];
+	c5769:p -> c5750:p [dir=back,arrowtail=empty];
 	// org.universAAL.middleware.context.ContextPublisher
-	c4701 [label=<<table title="org.universAAL.middleware.context.ContextPublisher" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="http://java.sun.com/j2se/1.4.2/docs/api/org/universAAL/middleware/context/ContextPublisher.html">
+	c5769 [label=<<table title="org.universAAL.middleware.context.ContextPublisher" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="http://java.sun.com/j2se/1.4.2/docs/api/org/universAAL/middleware/context/ContextPublisher.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"><font face="Helvetica-Oblique"> ContextPublisher </font></td></tr>
 		</table></td></tr>

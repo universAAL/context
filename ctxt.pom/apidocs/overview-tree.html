@@ -81,11 +81,11 @@
 <li><a href="org/universAAL/context/chemobile/osgi/package-tree.html">org.universAAL.context.chemobile.osgi</a>, </li>
 <li><a href="org/universAAL/context/prof/serv/package-tree.html">org.universAAL.context.prof.serv</a>, </li>
 <li><a href="org/universAAL/context/prof/serv/osgi/package-tree.html">org.universAAL.context.prof.serv.osgi</a>, </li>
+<li><a href="org/universAAL/context/rdf4j/sail/package-tree.html">org.universAAL.context.rdf4j.sail</a>, </li>
+<li><a href="org/universAAL/context/rdf4j/sail/crypt/package-tree.html">org.universAAL.context.rdf4j.sail.crypt</a>, </li>
+<li><a href="org/universAAL/context/rdf4j/sail/model/package-tree.html">org.universAAL.context.rdf4j.sail.model</a>, </li>
 <li><a href="org/universAAL/context/reasoner/package-tree.html">org.universAAL.context.reasoner</a>, </li>
 <li><a href="org/universAAL/context/reasoner/osgi/package-tree.html">org.universAAL.context.reasoner.osgi</a>, </li>
-<li><a href="org/universAAL/context/sesame/sail/package-tree.html">org.universAAL.context.sesame.sail</a>, </li>
-<li><a href="org/universAAL/context/sesame/sail/crypt/package-tree.html">org.universAAL.context.sesame.sail.crypt</a>, </li>
-<li><a href="org/universAAL/context/sesame/sail/model/package-tree.html">org.universAAL.context.sesame.sail.model</a>, </li>
 <li><a href="org/universAAL/context/space/serv/package-tree.html">org.universAAL.context.space.serv</a>, </li>
 <li><a href="org/universAAL/context/sysinfo/package-tree.html">org.universAAL.context.sysinfo</a>, </li>
 <li><a href="org/universAAL/drools/package-tree.html">org.universAAL.drools</a>, </li>
@@ -100,6 +100,47 @@
 <ul>
 <li type="circle">java.lang.<a href="http://docs.oracle.com/javase/1.5.0/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang"><span class="typeNameLink">Object</span></a>
 <ul>
+<li type="circle">org.eclipse.rdf4j.sail.helpers.AbstractSail (implements org.eclipse.rdf4j.sail.Sail)
+<ul>
+<li type="circle">org.eclipse.rdf4j.sail.helpers.AbstractNotifyingSail (implements org.eclipse.rdf4j.sail.NotifyingSail)
+<ul>
+<li type="circle">org.universAAL.context.rdf4j.sail.<a href="org/universAAL/context/rdf4j/sail/CardinalityStore.html" title="class in org.universAAL.context.rdf4j.sail"><span class="typeNameLink">CardinalityStore</span></a> (implements org.eclipse.rdf4j.query.algebra.evaluation.federation.FederatedServiceResolverClient)</li>
+<li type="circle">org.universAAL.context.rdf4j.sail.<a href="org/universAAL/context/rdf4j/sail/Collection2Store.html" title="class in org.universAAL.context.rdf4j.sail"><span class="typeNameLink">Collection2Store</span></a> (implements org.eclipse.rdf4j.query.algebra.evaluation.federation.FederatedServiceResolverClient)</li>
+<li type="circle">org.universAAL.context.rdf4j.sail.<a href="org/universAAL/context/rdf4j/sail/CollectionStore.html" title="class in org.universAAL.context.rdf4j.sail"><span class="typeNameLink">CollectionStore</span></a> (implements org.eclipse.rdf4j.query.algebra.evaluation.federation.FederatedServiceResolverClient)</li>
+<li type="circle">org.universAAL.context.rdf4j.sail.<a href="org/universAAL/context/rdf4j/sail/NativeStore.html" title="class in org.universAAL.context.rdf4j.sail"><span class="typeNameLink">NativeStore</span></a> (implements org.eclipse.rdf4j.query.algebra.evaluation.federation.FederatedServiceResolverClient)
+<ul>
+<li type="circle">org.universAAL.context.rdf4j.sail.<a href="org/universAAL/context/rdf4j/sail/LimitedSizeNativeStore.html" title="class in org.universAAL.context.rdf4j.sail"><span class="typeNameLink">LimitedSizeNativeStore</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li type="circle">org.eclipse.rdf4j.sail.helpers.AbstractSailConnection (implements org.eclipse.rdf4j.sail.SailConnection)
+<ul>
+<li type="circle">org.eclipse.rdf4j.sail.helpers.NotifyingSailConnectionBase (implements org.eclipse.rdf4j.sail.NotifyingSailConnection)
+<ul>
+<li type="circle">org.eclipse.rdf4j.sail.base.SailSourceConnection (implements org.eclipse.rdf4j.query.algebra.evaluation.federation.FederatedServiceResolverClient, org.eclipse.rdf4j.sail.inferencer.InferencerConnection)
+<ul>
+<li type="circle">org.universAAL.context.rdf4j.sail.<a href="org/universAAL/context/rdf4j/sail/CardinalityStoreConnection.html" title="class in org.universAAL.context.rdf4j.sail"><span class="typeNameLink">CardinalityStoreConnection</span></a></li>
+<li type="circle">org.universAAL.context.rdf4j.sail.<a href="org/universAAL/context/rdf4j/sail/Collection2StoreConnection.html" title="class in org.universAAL.context.rdf4j.sail"><span class="typeNameLink">Collection2StoreConnection</span></a></li>
+<li type="circle">org.universAAL.context.rdf4j.sail.<a href="org/universAAL/context/rdf4j/sail/CollectionStoreConnection.html" title="class in org.universAAL.context.rdf4j.sail"><span class="typeNameLink">CollectionStoreConnection</span></a></li>
+<li type="circle">org.universAAL.context.rdf4j.sail.<a href="org/universAAL/context/rdf4j/sail/NativeStoreConnection.html" title="class in org.universAAL.context.rdf4j.sail"><span class="typeNameLink">NativeStoreConnection</span></a>
+<ul>
+<li type="circle">org.universAAL.context.rdf4j.sail.<a href="org/universAAL/context/rdf4j/sail/LimitedSizeNativeStoreConnection.html" title="class in org.universAAL.context.rdf4j.sail"><span class="typeNameLink">LimitedSizeNativeStoreConnection</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li type="circle">org.eclipse.rdf4j.model.impl.AbstractValueFactory (implements org.eclipse.rdf4j.model.ValueFactory)
+<ul>
+<li type="circle">org.universAAL.context.rdf4j.sail.<a href="org/universAAL/context/rdf4j/sail/ValueStore.html" title="class in org.universAAL.context.rdf4j.sail"><span class="typeNameLink">ValueStore</span></a></li>
+</ul>
+</li>
 <li type="circle">org.universAAL.context.che.osgi.<a href="org/universAAL/context/che/osgi/Activator.html" title="class in org.universAAL.context.che.osgi"><span class="typeNameLink">Activator</span></a> (implements org.osgi.framework.BundleActivator, org.osgi.framework.ServiceListener)</li>
 <li type="circle">org.universAAL.context.chemobile.osgi.<a href="org/universAAL/context/chemobile/osgi/Activator.html" title="class in org.universAAL.context.chemobile.osgi"><span class="typeNameLink">Activator</span></a> (implements org.osgi.framework.BundleActivator, org.osgi.framework.ServiceListener)</li>
 <li type="circle">org.universAAL.context.reasoner.osgi.<a href="org/universAAL/context/reasoner/osgi/Activator.html" title="class in org.universAAL.context.reasoner.osgi"><span class="typeNameLink">Activator</span></a> (implements org.osgi.framework.BundleActivator, org.osgi.framework.ServiceListener)</li>
@@ -107,11 +148,6 @@
 <li type="circle">org.universAAL.context.space.serv.<a href="org/universAAL/context/space/serv/Activator.html" title="class in org.universAAL.context.space.serv"><span class="typeNameLink">Activator</span></a> (implements org.osgi.framework.BundleActivator, org.osgi.framework.ServiceListener)</li>
 <li type="circle">org.universAAL.drools.<a href="org/universAAL/drools/Activator.html" title="class in org.universAAL.drools"><span class="typeNameLink">Activator</span></a> (implements org.osgi.framework.BundleActivator)</li>
 <li type="circle">org.universAAL.context.sysinfo.<a href="org/universAAL/context/sysinfo/Activator.html" title="class in org.universAAL.context.sysinfo"><span class="typeNameLink">Activator</span></a> (implements org.osgi.framework.BundleActivator)</li>
-<li type="circle">org.openrdf.model.impl.BNodeImpl (implements org.openrdf.model.BNode)
-<ul>
-<li type="circle">org.universAAL.context.sesame.sail.model.<a href="org/universAAL/context/sesame/sail/model/NativeBNode.html" title="class in org.universAAL.context.sesame.sail.model"><span class="typeNameLink">NativeBNode</span></a> (implements org.universAAL.context.sesame.sail.model.<a href="org/universAAL/context/sesame/sail/model/NativeResource.html" title="interface in org.universAAL.context.sesame.sail.model">NativeResource</a>)</li>
-</ul>
-</li>
 <li type="circle">org.universAAL.middleware.bus.member.BusMember
 <ul>
 <li type="circle">org.universAAL.middleware.bus.member.Callee
@@ -182,12 +218,12 @@
 </li>
 </ul>
 </li>
-<li type="circle">org.universAAL.context.sesame.sail.crypt.<a href="org/universAAL/context/sesame/sail/crypt/CryptUtil.html" title="class in org.universAAL.context.sesame.sail.crypt"><span class="typeNameLink">CryptUtil</span></a></li>
+<li type="circle">org.universAAL.context.rdf4j.sail.crypt.<a href="org/universAAL/context/rdf4j/sail/crypt/CryptUtil.html" title="class in org.universAAL.context.rdf4j.sail.crypt"><span class="typeNameLink">CryptUtil</span></a></li>
 <li type="circle">org.universAAL.drools.engine.<a href="org/universAAL/drools/engine/CustomAgendaEventListener.html" title="class in org.universAAL.drools.engine"><span class="typeNameLink">CustomAgendaEventListener</span></a> (implements org.drools.event.rule.AgendaEventListener)</li>
 <li type="circle">org.universAAL.drools.engine.<a href="org/universAAL/drools/engine/CustomWorkingMemoryEventListener.html" title="class in org.universAAL.drools.engine"><span class="typeNameLink">CustomWorkingMemoryEventListener</span></a> (implements org.drools.event.rule.WorkingMemoryEventListener)</li>
-<li type="circle">org.openrdf.sail.nativerdf.datastore.DataStore
+<li type="circle">org.eclipse.rdf4j.sail.nativerdf.datastore.DataStore (implements java.io.<a href="http://docs.oracle.com/javase/1.5.0/docs/api/java/io/Closeable.html?is-external=true" title="class or interface in java.io">Closeable</a>)
 <ul>
-<li type="circle">org.universAAL.context.sesame.sail.crypt.<a href="org/universAAL/context/sesame/sail/crypt/CryptDataStore.html" title="class in org.universAAL.context.sesame.sail.crypt"><span class="typeNameLink">CryptDataStore</span></a></li>
+<li type="circle">org.universAAL.context.rdf4j.sail.crypt.<a href="org/universAAL/context/rdf4j/sail/crypt/CryptDataStore.html" title="class in org.universAAL.context.rdf4j.sail.crypt"><span class="typeNameLink">CryptDataStore</span></a></li>
 </ul>
 </li>
 <li type="circle">org.universAAL.ontology.reasoner.util.ElementModel&lt;P&gt;
@@ -201,15 +237,23 @@
 <li type="circle">org.universAAL.context.chemobile.<a href="org/universAAL/context/chemobile/Hub.html" title="class in org.universAAL.context.chemobile"><span class="typeNameLink">Hub</span></a></li>
 <li type="circle">org.universAAL.context.prof.serv.<a href="org/universAAL/context/prof/serv/Hub.html" title="class in org.universAAL.context.prof.serv"><span class="typeNameLink">Hub</span></a> (implements org.universAAL.middleware.container.ModuleActivator)</li>
 <li type="circle">org.universAAL.context.che.<a href="org/universAAL/context/che/Hub.Log.html" title="class in org.universAAL.context.che"><span class="typeNameLink">Hub.Log</span></a></li>
-<li type="circle">org.openrdf.model.impl.LiteralImpl (implements org.openrdf.model.Literal)
-<ul>
-<li type="circle">org.universAAL.context.sesame.sail.model.<a href="org/universAAL/context/sesame/sail/model/NativeLiteral.html" title="class in org.universAAL.context.sesame.sail.model"><span class="typeNameLink">NativeLiteral</span></a> (implements org.universAAL.context.sesame.sail.model.<a href="org/universAAL/context/sesame/sail/model/NativeValue.html" title="interface in org.universAAL.context.sesame.sail.model">NativeValue</a>)</li>
-</ul>
-</li>
-<li type="circle">org.universAAL.context.sesame.sail.<a href="org/universAAL/context/sesame/sail/NativeTripleSource.html" title="class in org.universAAL.context.sesame.sail"><span class="typeNameLink">NativeTripleSource</span></a> (implements org.openrdf.query.algebra.evaluation.TripleSource)</li>
 <li type="circle">org.universAAL.drools.engine.<a href="org/universAAL/drools/engine/ParseRule.html" title="class in org.universAAL.drools.engine"><span class="typeNameLink">ParseRule</span></a></li>
 <li type="circle">org.universAAL.context.prof.serv.<a href="org/universAAL/context/prof/serv/Queries.html" title="class in org.universAAL.context.prof.serv"><span class="typeNameLink">Queries</span></a></li>
 <li type="circle">org.universAAL.context.space.serv.<a href="org/universAAL/context/space/serv/Queries.html" title="class in org.universAAL.context.space.serv"><span class="typeNameLink">Queries</span></a></li>
+<li type="circle">org.universAAL.context.che.database.impl.<a href="org/universAAL/context/che/database/impl/RDF4JBackend.html" title="class in org.universAAL.context.che.database.impl"><span class="typeNameLink">RDF4JBackend</span></a> (implements org.universAAL.context.che.database.<a href="org/universAAL/context/che/database/Backend.html" title="interface in org.universAAL.context.che.database">Backend</a>)
+<ul>
+<li type="circle">org.universAAL.context.che.database.impl.<a href="org/universAAL/context/che/database/impl/RDF4JBackendCrd.html" title="class in org.universAAL.context.che.database.impl"><span class="typeNameLink">RDF4JBackendCrd</span></a></li>
+<li type="circle">org.universAAL.context.che.database.impl.<a href="org/universAAL/context/che/database/impl/RDF4JBackendCrdClc.html" title="class in org.universAAL.context.che.database.impl"><span class="typeNameLink">RDF4JBackendCrdClc</span></a></li>
+<li type="circle">org.universAAL.context.che.database.impl.<a href="org/universAAL/context/che/database/impl/RDF4JBackendCrdClc2.html" title="class in org.universAAL.context.che.database.impl"><span class="typeNameLink">RDF4JBackendCrdClc2</span></a></li>
+<li type="circle">org.universAAL.context.che.database.impl.<a href="org/universAAL/context/che/database/impl/RDF4JBackendWithConfidence.html" title="class in org.universAAL.context.che.database.impl"><span class="typeNameLink">RDF4JBackendWithConfidence</span></a>
+<ul>
+<li type="circle">org.universAAL.context.che.database.impl.<a href="org/universAAL/context/che/database/impl/RDF4JBackendCrdClc2Cnf.html" title="class in org.universAAL.context.che.database.impl"><span class="typeNameLink">RDF4JBackendCrdClc2Cnf</span></a></li>
+<li type="circle">org.universAAL.context.che.database.impl.<a href="org/universAAL/context/che/database/impl/RDF4JBackendCrdClcCnf.html" title="class in org.universAAL.context.che.database.impl"><span class="typeNameLink">RDF4JBackendCrdClcCnf</span></a></li>
+<li type="circle">org.universAAL.context.che.database.impl.<a href="org/universAAL/context/che/database/impl/RDF4JBackendCrdCnf.html" title="class in org.universAAL.context.che.database.impl"><span class="typeNameLink">RDF4JBackendCrdCnf</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li type="circle">org.universAAL.reliability.reasoner.<a href="org/universAAL/reliability/reasoner/ReliabilityReasonerActivator.html" title="class in org.universAAL.reliability.reasoner"><span class="typeNameLink">ReliabilityReasonerActivator</span></a> (implements org.osgi.framework.BundleActivator, org.osgi.framework.ServiceListener)</li>
 <li type="circle">org.universAAL.middleware.rdf.Resource
 <ul>
@@ -250,49 +294,22 @@
 </li>
 <li type="circle">org.universAAL.drools.models.<a href="org/universAAL/drools/models/RuleModel.html" title="class in org.universAAL.drools.models"><span class="typeNameLink">RuleModel</span></a></li>
 <li type="circle">org.universAAL.drools.engine.<a href="org/universAAL/drools/engine/RulesEngine.html" title="class in org.universAAL.drools.engine"><span class="typeNameLink">RulesEngine</span></a></li>
-<li type="circle">org.openrdf.sail.helpers.SailBase (implements org.openrdf.sail.Sail)
-<ul>
-<li type="circle">org.openrdf.sail.helpers.NotifyingSailBase (implements org.openrdf.sail.NotifyingSail)
-<ul>
-<li type="circle">org.universAAL.context.sesame.sail.<a href="org/universAAL/context/sesame/sail/CardinalityNativeStore.html" title="class in org.universAAL.context.sesame.sail"><span class="typeNameLink">CardinalityNativeStore</span></a>
-<ul>
-<li type="circle">org.universAAL.context.sesame.sail.<a href="org/universAAL/context/sesame/sail/CardinCollect2NativeStore.html" title="class in org.universAAL.context.sesame.sail"><span class="typeNameLink">CardinCollect2NativeStore</span></a></li>
-<li type="circle">org.universAAL.context.sesame.sail.<a href="org/universAAL/context/sesame/sail/CardinCollectNativeStore.html" title="class in org.universAAL.context.sesame.sail"><span class="typeNameLink">CardinCollectNativeStore</span></a></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-<li type="circle">org.openrdf.sail.helpers.SailConnectionBase (implements org.openrdf.sail.SailConnection)
-<ul>
-<li type="circle">org.openrdf.sail.helpers.NotifyingSailConnectionBase (implements org.openrdf.sail.NotifyingSailConnection)
-<ul>
-<li type="circle">org.universAAL.context.sesame.sail.<a href="org/universAAL/context/sesame/sail/CardinalityNativeStoreConnection.html" title="class in org.universAAL.context.sesame.sail"><span class="typeNameLink">CardinalityNativeStoreConnection</span></a> (implements org.openrdf.sail.inferencer.InferencerConnection)
-<ul>
-<li type="circle">org.universAAL.context.sesame.sail.<a href="org/universAAL/context/sesame/sail/CardinCollect2NativeStoreConnection.html" title="class in org.universAAL.context.sesame.sail"><span class="typeNameLink">CardinCollect2NativeStoreConnection</span></a></li>
-<li type="circle">org.universAAL.context.sesame.sail.<a href="org/universAAL/context/sesame/sail/CardinCollectNativeStoreConnection.html" title="class in org.universAAL.context.sesame.sail"><span class="typeNameLink">CardinCollectNativeStoreConnection</span></a></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
 <li type="circle">org.universAAL.drools.samples.<a href="org/universAAL/drools/samples/SampleRules.html" title="class in org.universAAL.drools.samples"><span class="typeNameLink">SampleRules</span></a></li>
 <li type="circle">org.universAAL.context.prof.serv.<a href="org/universAAL/context/prof/serv/SCaller.html" title="class in org.universAAL.context.prof.serv"><span class="typeNameLink">SCaller</span></a></li>
 <li type="circle">org.universAAL.context.space.serv.<a href="org/universAAL/context/space/serv/SCaller.html" title="class in org.universAAL.context.space.serv"><span class="typeNameLink">SCaller</span></a></li>
-<li type="circle">org.universAAL.context.che.database.impl.<a href="org/universAAL/context/che/database/impl/SesameBackend.html" title="class in org.universAAL.context.che.database.impl"><span class="typeNameLink">SesameBackend</span></a> (implements org.universAAL.context.che.database.<a href="org/universAAL/context/che/database/Backend.html" title="interface in org.universAAL.context.che.database">Backend</a>)
+<li type="circle">org.eclipse.rdf4j.model.impl.SimpleBNode (implements org.eclipse.rdf4j.model.BNode)
 <ul>
-<li type="circle">org.universAAL.context.che.database.impl.<a href="org/universAAL/context/che/database/impl/SesameBackendCrd.html" title="class in org.universAAL.context.che.database.impl"><span class="typeNameLink">SesameBackendCrd</span></a></li>
-<li type="circle">org.universAAL.context.che.database.impl.<a href="org/universAAL/context/che/database/impl/SesameBackendCrdClc.html" title="class in org.universAAL.context.che.database.impl"><span class="typeNameLink">SesameBackendCrdClc</span></a></li>
-<li type="circle">org.universAAL.context.che.database.impl.<a href="org/universAAL/context/che/database/impl/SesameBackendCrdClc2.html" title="class in org.universAAL.context.che.database.impl"><span class="typeNameLink">SesameBackendCrdClc2</span></a></li>
-<li type="circle">org.universAAL.context.che.database.impl.<a href="org/universAAL/context/che/database/impl/SesameBackendWithConfidence.html" title="class in org.universAAL.context.che.database.impl"><span class="typeNameLink">SesameBackendWithConfidence</span></a>
-<ul>
-<li type="circle">org.universAAL.context.che.database.impl.<a href="org/universAAL/context/che/database/impl/SesameBackendCrdClc2Cnf.html" title="class in org.universAAL.context.che.database.impl"><span class="typeNameLink">SesameBackendCrdClc2Cnf</span></a></li>
-<li type="circle">org.universAAL.context.che.database.impl.<a href="org/universAAL/context/che/database/impl/SesameBackendCrdClcCnf.html" title="class in org.universAAL.context.che.database.impl"><span class="typeNameLink">SesameBackendCrdClcCnf</span></a></li>
-<li type="circle">org.universAAL.context.che.database.impl.<a href="org/universAAL/context/che/database/impl/SesameBackendCrdCnf.html" title="class in org.universAAL.context.che.database.impl"><span class="typeNameLink">SesameBackendCrdCnf</span></a></li>
+<li type="circle">org.universAAL.context.rdf4j.sail.model.<a href="org/universAAL/context/rdf4j/sail/model/NativeBNode.html" title="class in org.universAAL.context.rdf4j.sail.model"><span class="typeNameLink">NativeBNode</span></a> (implements org.universAAL.context.rdf4j.sail.model.<a href="org/universAAL/context/rdf4j/sail/model/NativeResource.html" title="interface in org.universAAL.context.rdf4j.sail.model">NativeResource</a>)</li>
 </ul>
 </li>
+<li type="circle">org.eclipse.rdf4j.model.impl.SimpleIRI (implements org.eclipse.rdf4j.model.IRI)
+<ul>
+<li type="circle">org.universAAL.context.rdf4j.sail.model.<a href="org/universAAL/context/rdf4j/sail/model/NativeIRI.html" title="class in org.universAAL.context.rdf4j.sail.model"><span class="typeNameLink">NativeIRI</span></a> (implements org.universAAL.context.rdf4j.sail.model.<a href="org/universAAL/context/rdf4j/sail/model/NativeResource.html" title="interface in org.universAAL.context.rdf4j.sail.model">NativeResource</a>)</li>
+</ul>
+</li>
+<li type="circle">org.eclipse.rdf4j.model.impl.SimpleLiteral (implements org.eclipse.rdf4j.model.Literal)
+<ul>
+<li type="circle">org.universAAL.context.rdf4j.sail.model.<a href="org/universAAL/context/rdf4j/sail/model/NativeLiteral.html" title="class in org.universAAL.context.rdf4j.sail.model"><span class="typeNameLink">NativeLiteral</span></a> (implements org.universAAL.context.rdf4j.sail.model.<a href="org/universAAL/context/rdf4j/sail/model/NativeValue.html" title="interface in org.universAAL.context.rdf4j.sail.model">NativeValue</a>)</li>
 </ul>
 </li>
 <li type="circle">org.universAAL.context.sysinfo.<a href="org/universAAL/context/sysinfo/SystemEventsListener.html" title="class in org.universAAL.context.sysinfo"><span class="typeNameLink">SystemEventsListener</span></a> (implements org.universAAL.middleware.container.SharedObjectListener, org.universAAL.middleware.managers.api.SpaceListener)</li>
@@ -317,48 +334,38 @@
 <li type="circle">org.universAAL.context.che.database.<a href="org/universAAL/context/che/database/Cleaner.html" title="class in org.universAAL.context.che.database"><span class="typeNameLink">Cleaner</span></a></li>
 </ul>
 </li>
-<li type="circle">org.openrdf.model.impl.URIImpl (implements org.openrdf.model.URI)
-<ul>
-<li type="circle">org.universAAL.context.sesame.sail.model.<a href="org/universAAL/context/sesame/sail/model/NativeURI.html" title="class in org.universAAL.context.sesame.sail.model"><span class="typeNameLink">NativeURI</span></a> (implements org.universAAL.context.sesame.sail.model.<a href="org/universAAL/context/sesame/sail/model/NativeResource.html" title="interface in org.universAAL.context.sesame.sail.model">NativeResource</a>)</li>
-</ul>
-</li>
-<li type="circle">org.openrdf.model.impl.ValueFactoryBase (implements org.openrdf.model.ValueFactory)
-<ul>
-<li type="circle">org.universAAL.context.sesame.sail.<a href="org/universAAL/context/sesame/sail/ValueStore.html" title="class in org.universAAL.context.sesame.sail"><span class="typeNameLink">ValueStore</span></a></li>
-</ul>
-</li>
-<li type="circle">org.universAAL.context.sesame.sail.<a href="org/universAAL/context/sesame/sail/ValueStoreRevision.html" title="class in org.universAAL.context.sesame.sail"><span class="typeNameLink">ValueStoreRevision</span></a> (implements java.io.<a href="http://docs.oracle.com/javase/1.5.0/docs/api/java/io/Serializable.html?is-external=true" title="class or interface in java.io">Serializable</a>)</li>
+<li type="circle">org.universAAL.context.rdf4j.sail.<a href="org/universAAL/context/rdf4j/sail/ValueStoreRevision.html" title="class in org.universAAL.context.rdf4j.sail"><span class="typeNameLink">ValueStoreRevision</span></a> (implements java.io.<a href="http://docs.oracle.com/javase/1.5.0/docs/api/java/io/Serializable.html?is-external=true" title="class or interface in java.io">Serializable</a>)</li>
 </ul>
 </li>
 </ul>
 <h2 title="Interface Hierarchy">Interface Hierarchy</h2>
 <ul>
 <li type="circle">org.universAAL.context.che.database.<a href="org/universAAL/context/che/database/Backend.html" title="interface in org.universAAL.context.che.database"><span class="typeNameLink">Backend</span></a></li>
-<li type="circle">org.universAAL.context.sesame.sail.crypt.<a href="org/universAAL/context/sesame/sail/crypt/Codec.html" title="interface in org.universAAL.context.sesame.sail.crypt"><span class="typeNameLink">Codec</span></a></li>
+<li type="circle">org.universAAL.context.rdf4j.sail.crypt.<a href="org/universAAL/context/rdf4j/sail/crypt/Codec.html" title="interface in org.universAAL.context.rdf4j.sail.crypt"><span class="typeNameLink">Codec</span></a></li>
 <li type="circle">java.io.<a href="http://docs.oracle.com/javase/1.5.0/docs/api/java/io/Serializable.html?is-external=true" title="class or interface in java.io"><span class="typeNameLink">Serializable</span></a>
 <ul>
-<li type="circle">org.universAAL.context.sesame.sail.model.<a href="org/universAAL/context/sesame/sail/model/NativeResource.html" title="interface in org.universAAL.context.sesame.sail.model"><span class="typeNameLink">NativeResource</span></a> (also extends org.universAAL.context.sesame.sail.model.<a href="org/universAAL/context/sesame/sail/model/NativeValue.html" title="interface in org.universAAL.context.sesame.sail.model">NativeValue</a>, org.openrdf.model.Resource)</li>
-<li type="circle">org.universAAL.context.sesame.sail.model.<a href="org/universAAL/context/sesame/sail/model/NativeValue.html" title="interface in org.universAAL.context.sesame.sail.model"><span class="typeNameLink">NativeValue</span></a>
+<li type="circle">org.universAAL.context.rdf4j.sail.model.<a href="org/universAAL/context/rdf4j/sail/model/NativeResource.html" title="interface in org.universAAL.context.rdf4j.sail.model"><span class="typeNameLink">NativeResource</span></a> (also extends org.universAAL.context.rdf4j.sail.model.<a href="org/universAAL/context/rdf4j/sail/model/NativeValue.html" title="interface in org.universAAL.context.rdf4j.sail.model">NativeValue</a>, org.eclipse.rdf4j.model.Resource)</li>
+<li type="circle">org.universAAL.context.rdf4j.sail.model.<a href="org/universAAL/context/rdf4j/sail/model/NativeValue.html" title="interface in org.universAAL.context.rdf4j.sail.model"><span class="typeNameLink">NativeValue</span></a>
 <ul>
-<li type="circle">org.universAAL.context.sesame.sail.model.<a href="org/universAAL/context/sesame/sail/model/NativeResource.html" title="interface in org.universAAL.context.sesame.sail.model"><span class="typeNameLink">NativeResource</span></a> (also extends org.openrdf.model.Resource)</li>
+<li type="circle">org.universAAL.context.rdf4j.sail.model.<a href="org/universAAL/context/rdf4j/sail/model/NativeResource.html" title="interface in org.universAAL.context.rdf4j.sail.model"><span class="typeNameLink">NativeResource</span></a> (also extends org.eclipse.rdf4j.model.Resource)</li>
 </ul>
 </li>
-<li type="circle">org.openrdf.model.Resource
+<li type="circle">org.eclipse.rdf4j.model.Resource
 <ul>
-<li type="circle">org.universAAL.context.sesame.sail.model.<a href="org/universAAL/context/sesame/sail/model/NativeResource.html" title="interface in org.universAAL.context.sesame.sail.model"><span class="typeNameLink">NativeResource</span></a> (also extends org.universAAL.context.sesame.sail.model.<a href="org/universAAL/context/sesame/sail/model/NativeValue.html" title="interface in org.universAAL.context.sesame.sail.model">NativeValue</a>)</li>
+<li type="circle">org.universAAL.context.rdf4j.sail.model.<a href="org/universAAL/context/rdf4j/sail/model/NativeResource.html" title="interface in org.universAAL.context.rdf4j.sail.model"><span class="typeNameLink">NativeResource</span></a> (also extends org.universAAL.context.rdf4j.sail.model.<a href="org/universAAL/context/rdf4j/sail/model/NativeValue.html" title="interface in org.universAAL.context.rdf4j.sail.model">NativeValue</a>)</li>
 </ul>
 </li>
-<li type="circle">org.openrdf.model.Value
+<li type="circle">org.eclipse.rdf4j.model.Value
 <ul>
-<li type="circle">org.universAAL.context.sesame.sail.model.<a href="org/universAAL/context/sesame/sail/model/NativeResource.html" title="interface in org.universAAL.context.sesame.sail.model"><span class="typeNameLink">NativeResource</span></a> (also extends org.universAAL.context.sesame.sail.model.<a href="org/universAAL/context/sesame/sail/model/NativeValue.html" title="interface in org.universAAL.context.sesame.sail.model">NativeValue</a>, org.openrdf.model.Resource)</li>
-<li type="circle">org.universAAL.context.sesame.sail.model.<a href="org/universAAL/context/sesame/sail/model/NativeValue.html" title="interface in org.universAAL.context.sesame.sail.model"><span class="typeNameLink">NativeValue</span></a>
+<li type="circle">org.universAAL.context.rdf4j.sail.model.<a href="org/universAAL/context/rdf4j/sail/model/NativeResource.html" title="interface in org.universAAL.context.rdf4j.sail.model"><span class="typeNameLink">NativeResource</span></a> (also extends org.universAAL.context.rdf4j.sail.model.<a href="org/universAAL/context/rdf4j/sail/model/NativeValue.html" title="interface in org.universAAL.context.rdf4j.sail.model">NativeValue</a>, org.eclipse.rdf4j.model.Resource)</li>
+<li type="circle">org.universAAL.context.rdf4j.sail.model.<a href="org/universAAL/context/rdf4j/sail/model/NativeValue.html" title="interface in org.universAAL.context.rdf4j.sail.model"><span class="typeNameLink">NativeValue</span></a>
 <ul>
-<li type="circle">org.universAAL.context.sesame.sail.model.<a href="org/universAAL/context/sesame/sail/model/NativeResource.html" title="interface in org.universAAL.context.sesame.sail.model"><span class="typeNameLink">NativeResource</span></a> (also extends org.openrdf.model.Resource)</li>
+<li type="circle">org.universAAL.context.rdf4j.sail.model.<a href="org/universAAL/context/rdf4j/sail/model/NativeResource.html" title="interface in org.universAAL.context.rdf4j.sail.model"><span class="typeNameLink">NativeResource</span></a> (also extends org.eclipse.rdf4j.model.Resource)</li>
 </ul>
 </li>
-<li type="circle">org.openrdf.model.Resource
+<li type="circle">org.eclipse.rdf4j.model.Resource
 <ul>
-<li type="circle">org.universAAL.context.sesame.sail.model.<a href="org/universAAL/context/sesame/sail/model/NativeResource.html" title="interface in org.universAAL.context.sesame.sail.model"><span class="typeNameLink">NativeResource</span></a> (also extends org.universAAL.context.sesame.sail.model.<a href="org/universAAL/context/sesame/sail/model/NativeValue.html" title="interface in org.universAAL.context.sesame.sail.model">NativeValue</a>)</li>
+<li type="circle">org.universAAL.context.rdf4j.sail.model.<a href="org/universAAL/context/rdf4j/sail/model/NativeResource.html" title="interface in org.universAAL.context.rdf4j.sail.model"><span class="typeNameLink">NativeResource</span></a> (also extends org.universAAL.context.rdf4j.sail.model.<a href="org/universAAL/context/rdf4j/sail/model/NativeValue.html" title="interface in org.universAAL.context.rdf4j.sail.model">NativeValue</a>)</li>
 </ul>
 </li>
 </ul>
@@ -414,6 +421,6 @@
 <!--   -->
 </a></div>
 <!-- ======== END OF BOTTOM NAVBAR ======= -->
-<p class="legalCopy"><small>Copyright &#169; 2010&#x2013;2018 <a href="http://www.universAAL.org/">universAAL Consortium</a>. All rights reserved.</small></p>
+<p class="legalCopy"><small>Copyright &#169; 2010&#x2013;2019 <a href="http://www.universAAL.org/">universAAL Consortium</a>. All rights reserved.</small></p>
 </body>
 </html>

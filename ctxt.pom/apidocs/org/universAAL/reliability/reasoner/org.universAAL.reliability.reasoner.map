@@ -1,10 +1,10 @@
 <map id="G" name="G">
 <area shape="rect" id="node1_0" href="./SCaller.html" title="org.universAAL.reliability.reasoner.SCaller" alt="" coords="16,16,80,43"/>
 <area shape="rect" id="node1" href="./SCaller.html" title="&lt;TABLE&gt;" alt="" coords="5,5,91,53"/>
-<area shape="rect" id="node2_1" href="./ReliabilityReasonerActivator.html" title="org.universAAL.reliability.reasoner.ReliabilityReasonerActivator" alt="" coords="126,16,311,43"/>
-<area shape="rect" id="node2" href="./ReliabilityReasonerActivator.html" title="&lt;TABLE&gt;" alt="" coords="115,5,322,53"/>
-<area shape="rect" id="node3_2" href="./ReliabilityReasonerSubscriber.html" title="org.universAAL.reliability.reasoner.ReliabilityReasonerSubscriber" alt="" coords="357,16,553,43"/>
-<area shape="rect" id="node3" href="./ReliabilityReasonerSubscriber.html" title="&lt;TABLE&gt;" alt="" coords="346,5,563,53"/>
-<area shape="rect" id="node4_3" href="./ReliabilityReasonerPublisher.html" title="org.universAAL.reliability.reasoner.ReliabilityReasonerPublisher" alt="" coords="598,16,786,43"/>
-<area shape="rect" id="node4" href="./ReliabilityReasonerPublisher.html" title="&lt;TABLE&gt;" alt="" coords="587,5,797,53"/>
+<area shape="rect" id="node2_1" href="./ReliabilityReasonerPublisher.html" title="org.universAAL.reliability.reasoner.ReliabilityReasonerPublisher" alt="" coords="126,16,314,43"/>
+<area shape="rect" id="node2" href="./ReliabilityReasonerPublisher.html" title="&lt;TABLE&gt;" alt="" coords="115,5,325,53"/>
+<area shape="rect" id="node3_2" href="./ReliabilityReasonerSubscriber.html" title="org.universAAL.reliability.reasoner.ReliabilityReasonerSubscriber" alt="" coords="359,16,555,43"/>
+<area shape="rect" id="node3" href="./ReliabilityReasonerSubscriber.html" title="&lt;TABLE&gt;" alt="" coords="349,5,566,53"/>
+<area shape="rect" id="node4_3" href="./ReliabilityReasonerActivator.html" title="org.universAAL.reliability.reasoner.ReliabilityReasonerActivator" alt="" coords="601,16,786,43"/>
+<area shape="rect" id="node4" href="./ReliabilityReasonerActivator.html" title="&lt;TABLE&gt;" alt="" coords="590,5,797,53"/>
 </map>

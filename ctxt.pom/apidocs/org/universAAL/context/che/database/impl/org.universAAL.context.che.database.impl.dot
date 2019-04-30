@@ -9,67 +9,67 @@ digraph G {
 	node [fontname="Helvetica",fontsize=10,shape=plaintext];
 	nodesep=0.25;
 	ranksep=0.5;
-	// org.universAAL.context.che.database.impl.SesameBackendCrdClcCnf
-	c161 [label=<<table title="org.universAAL.context.che.database.impl.SesameBackendCrdClcCnf" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./SesameBackendCrdClcCnf.html">
+	// org.universAAL.context.che.database.impl.RDF4JBackendCrdClc2Cnf
+	c248 [label=<<table title="org.universAAL.context.che.database.impl.RDF4JBackendCrdClc2Cnf" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./RDF4JBackendCrdClc2Cnf.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> SesameBackendCrdClcCnf </td></tr>
+<tr><td align="center" balign="center"> RDF4JBackendCrdClc2Cnf </td></tr>
 		</table></td></tr>
-		</table>>, URL="./SesameBackendCrdClcCnf.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// org.universAAL.context.che.database.impl.SesameBackendCrdClc
-	c162 [label=<<table title="org.universAAL.context.che.database.impl.SesameBackendCrdClc" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./SesameBackendCrdClc.html">
+		</table>>, URL="./RDF4JBackendCrdClc2Cnf.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// org.universAAL.context.che.database.impl.RDF4JBackendCrdClc
+	c249 [label=<<table title="org.universAAL.context.che.database.impl.RDF4JBackendCrdClc" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./RDF4JBackendCrdClc.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> SesameBackendCrdClc </td></tr>
+<tr><td align="center" balign="center"> RDF4JBackendCrdClc </td></tr>
 		</table></td></tr>
-		</table>>, URL="./SesameBackendCrdClc.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// org.universAAL.context.che.database.impl.SesameBackendCrdCnf
-	c163 [label=<<table title="org.universAAL.context.che.database.impl.SesameBackendCrdCnf" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./SesameBackendCrdCnf.html">
+		</table>>, URL="./RDF4JBackendCrdClc.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// org.universAAL.context.che.database.impl.RDF4JBackendCrdClcCnf
+	c250 [label=<<table title="org.universAAL.context.che.database.impl.RDF4JBackendCrdClcCnf" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./RDF4JBackendCrdClcCnf.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> SesameBackendCrdCnf </td></tr>
+<tr><td align="center" balign="center"> RDF4JBackendCrdClcCnf </td></tr>
 		</table></td></tr>
-		</table>>, URL="./SesameBackendCrdCnf.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// org.universAAL.context.che.database.impl.SesameBackendCrd
-	c164 [label=<<table title="org.universAAL.context.che.database.impl.SesameBackendCrd" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./SesameBackendCrd.html">
+		</table>>, URL="./RDF4JBackendCrdClcCnf.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// org.universAAL.context.che.database.impl.RDF4JBackendCrdClc2
+	c251 [label=<<table title="org.universAAL.context.che.database.impl.RDF4JBackendCrdClc2" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./RDF4JBackendCrdClc2.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> SesameBackendCrd </td></tr>
+<tr><td align="center" balign="center"> RDF4JBackendCrdClc2 </td></tr>
 		</table></td></tr>
-		</table>>, URL="./SesameBackendCrd.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// org.universAAL.context.che.database.impl.SesameBackendCrdClc2Cnf
-	c165 [label=<<table title="org.universAAL.context.che.database.impl.SesameBackendCrdClc2Cnf" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./SesameBackendCrdClc2Cnf.html">
+		</table>>, URL="./RDF4JBackendCrdClc2.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// org.universAAL.context.che.database.impl.RDF4JBackendCrdCnf
+	c252 [label=<<table title="org.universAAL.context.che.database.impl.RDF4JBackendCrdCnf" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./RDF4JBackendCrdCnf.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> SesameBackendCrdClc2Cnf </td></tr>
+<tr><td align="center" balign="center"> RDF4JBackendCrdCnf </td></tr>
 		</table></td></tr>
-		</table>>, URL="./SesameBackendCrdClc2Cnf.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// org.universAAL.context.che.database.impl.SesameBackendCrdClc2
-	c166 [label=<<table title="org.universAAL.context.che.database.impl.SesameBackendCrdClc2" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./SesameBackendCrdClc2.html">
+		</table>>, URL="./RDF4JBackendCrdCnf.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// org.universAAL.context.che.database.impl.RDF4JBackendCrd
+	c253 [label=<<table title="org.universAAL.context.che.database.impl.RDF4JBackendCrd" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./RDF4JBackendCrd.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> SesameBackendCrdClc2 </td></tr>
+<tr><td align="center" balign="center"> RDF4JBackendCrd </td></tr>
 		</table></td></tr>
-		</table>>, URL="./SesameBackendCrdClc2.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// org.universAAL.context.che.database.impl.SesameBackend
-	c167 [label=<<table title="org.universAAL.context.che.database.impl.SesameBackend" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./SesameBackend.html">
+		</table>>, URL="./RDF4JBackendCrd.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// org.universAAL.context.che.database.impl.RDF4JBackendWithConfidence
+	c254 [label=<<table title="org.universAAL.context.che.database.impl.RDF4JBackendWithConfidence" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./RDF4JBackendWithConfidence.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> SesameBackend </td></tr>
+<tr><td align="center" balign="center"> RDF4JBackendWithConfidence </td></tr>
 		</table></td></tr>
-		</table>>, URL="./SesameBackend.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// org.universAAL.context.che.database.impl.SesameBackendWithConfidence
-	c168 [label=<<table title="org.universAAL.context.che.database.impl.SesameBackendWithConfidence" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./SesameBackendWithConfidence.html">
+		</table>>, URL="./RDF4JBackendWithConfidence.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// org.universAAL.context.che.database.impl.RDF4JBackend
+	c255 [label=<<table title="org.universAAL.context.che.database.impl.RDF4JBackend" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./RDF4JBackend.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> SesameBackendWithConfidence </td></tr>
+<tr><td align="center" balign="center"> RDF4JBackend </td></tr>
 		</table></td></tr>
-		</table>>, URL="./SesameBackendWithConfidence.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	//org.universAAL.context.che.database.impl.SesameBackendCrdClcCnf extends org.universAAL.context.che.database.impl.SesameBackendWithConfidence
-	c168:p -> c161:p [dir=back,arrowtail=empty];
-	//org.universAAL.context.che.database.impl.SesameBackendCrdClc extends org.universAAL.context.che.database.impl.SesameBackend
-	c167:p -> c162:p [dir=back,arrowtail=empty];
-	//org.universAAL.context.che.database.impl.SesameBackendCrdCnf extends org.universAAL.context.che.database.impl.SesameBackendWithConfidence
-	c168:p -> c163:p [dir=back,arrowtail=empty];
-	//org.universAAL.context.che.database.impl.SesameBackendCrd extends org.universAAL.context.che.database.impl.SesameBackend
-	c167:p -> c164:p [dir=back,arrowtail=empty];
-	//org.universAAL.context.che.database.impl.SesameBackendCrdClc2Cnf extends org.universAAL.context.che.database.impl.SesameBackendWithConfidence
-	c168:p -> c165:p [dir=back,arrowtail=empty];
-	//org.universAAL.context.che.database.impl.SesameBackendCrdClc2 extends org.universAAL.context.che.database.impl.SesameBackend
-	c167:p -> c166:p [dir=back,arrowtail=empty];
-	//org.universAAL.context.che.database.impl.SesameBackendWithConfidence extends org.universAAL.context.che.database.impl.SesameBackend
-	c167:p -> c168:p [dir=back,arrowtail=empty];
+		</table>>, URL="./RDF4JBackend.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	//org.universAAL.context.che.database.impl.RDF4JBackendCrdClc2Cnf extends org.universAAL.context.che.database.impl.RDF4JBackendWithConfidence
+	c254:p -> c248:p [dir=back,arrowtail=empty];
+	//org.universAAL.context.che.database.impl.RDF4JBackendCrdClc extends org.universAAL.context.che.database.impl.RDF4JBackend
+	c255:p -> c249:p [dir=back,arrowtail=empty];
+	//org.universAAL.context.che.database.impl.RDF4JBackendCrdClcCnf extends org.universAAL.context.che.database.impl.RDF4JBackendWithConfidence
+	c254:p -> c250:p [dir=back,arrowtail=empty];
+	//org.universAAL.context.che.database.impl.RDF4JBackendCrdClc2 extends org.universAAL.context.che.database.impl.RDF4JBackend
+	c255:p -> c251:p [dir=back,arrowtail=empty];
+	//org.universAAL.context.che.database.impl.RDF4JBackendCrdCnf extends org.universAAL.context.che.database.impl.RDF4JBackendWithConfidence
+	c254:p -> c252:p [dir=back,arrowtail=empty];
+	//org.universAAL.context.che.database.impl.RDF4JBackendCrd extends org.universAAL.context.che.database.impl.RDF4JBackend
+	c255:p -> c253:p [dir=back,arrowtail=empty];
+	//org.universAAL.context.che.database.impl.RDF4JBackendWithConfidence extends org.universAAL.context.che.database.impl.RDF4JBackend
+	c255:p -> c254:p [dir=back,arrowtail=empty];
 }
 

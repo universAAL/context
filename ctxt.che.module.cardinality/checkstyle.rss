@@ -19,11 +19,11 @@ under the License.
 -->
 <rss version="0.91">
   <channel>
-    <title>universAAL Context CHE - Module for Sesame store with cardinality - Checkstyle report</title>
+    <title>universAAL Context CHE - Module for rdf4j store with cardinality - Checkstyle report</title>
     <link>http://context/ctxt.che.module.cardinality/</link>
-    <description>universAAL Context CHE - Module for Sesame store with cardinality - Checkstyle report</description>
+    <description>universAAL Context CHE - Module for rdf4j store with cardinality - Checkstyle report</description>
     <language>en-us</language>
-    <copyright>&#169;2010 - 2018 universAAL Consortium</copyright>
+    <copyright>&#169;2010 - 2019 universAAL Consortium</copyright>
     <item>
       <title>File: 6,
              Errors: 6,
@@ -46,21 +46,7 @@ under the License.
           <tbody>
                           <tr>
                 <td>
-                  <a href="http://context/ctxt.che.module.cardinality//checkstyle.html#org.universAAL.context.che.database.impl.SesameBackendCrd.java">org/universAAL/context/che/database/impl/SesameBackendCrd.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  1
-                </td>
-                <td>
-                  1
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="http://context/ctxt.che.module.cardinality//checkstyle.html#org.universAAL.context.che.database.impl.SesameBackendCrdClc2Cnf.java">org/universAAL/context/che/database/impl/SesameBackendCrdClc2Cnf.java</a>
+                  <a href="http://context/ctxt.che.module.cardinality//checkstyle.html#org.universAAL.context.che.database.impl.RDF4JBackendCrdClc2.java">org/universAAL/context/che/database/impl/RDF4JBackendCrdClc2.java</a>
                 </td>
                 <td>
                   0
@@ -74,7 +60,7 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="http://context/ctxt.che.module.cardinality//checkstyle.html#org.universAAL.context.che.database.impl.SesameBackendCrdClc2.java">org/universAAL/context/che/database/impl/SesameBackendCrdClc2.java</a>
+                  <a href="http://context/ctxt.che.module.cardinality//checkstyle.html#org.universAAL.context.che.database.impl.RDF4JBackendCrd.java">org/universAAL/context/che/database/impl/RDF4JBackendCrd.java</a>
                 </td>
                 <td>
                   0
@@ -88,27 +74,13 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="http://context/ctxt.che.module.cardinality//checkstyle.html#org.universAAL.context.che.database.impl.SesameBackendCrdCnf.java">org/universAAL/context/che/database/impl/SesameBackendCrdCnf.java</a>
+                  <a href="http://context/ctxt.che.module.cardinality//checkstyle.html#org.universAAL.context.che.database.impl.RDF4JBackendCrdClcCnf.java">org/universAAL/context/che/database/impl/RDF4JBackendCrdClcCnf.java</a>
                 </td>
                 <td>
                   0
                 </td>
                 <td>
-                  1
-                </td>
-                <td>
-                  1
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="http://context/ctxt.che.module.cardinality//checkstyle.html#org.universAAL.context.che.database.impl.SesameBackendCrdClcCnf.java">org/universAAL/context/che/database/impl/SesameBackendCrdClcCnf.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  1
+                  2
                 </td>
                 <td>
                   1
@@ -116,13 +88,41 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="http://context/ctxt.che.module.cardinality//checkstyle.html#org.universAAL.context.che.database.impl.SesameBackendCrdClc.java">org/universAAL/context/che/database/impl/SesameBackendCrdClc.java</a>
+                  <a href="http://context/ctxt.che.module.cardinality//checkstyle.html#org.universAAL.context.che.database.impl.RDF4JBackendCrdClc.java">org/universAAL/context/che/database/impl/RDF4JBackendCrdClc.java</a>
                 </td>
                 <td>
                   0
                 </td>
                 <td>
                   0
+                </td>
+                <td>
+                  1
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://context/ctxt.che.module.cardinality//checkstyle.html#org.universAAL.context.che.database.impl.RDF4JBackendCrdClc2Cnf.java">org/universAAL/context/che/database/impl/RDF4JBackendCrdClc2Cnf.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  1
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://context/ctxt.che.module.cardinality//checkstyle.html#org.universAAL.context.che.database.impl.RDF4JBackendCrdCnf.java">org/universAAL/context/che/database/impl/RDF4JBackendCrdCnf.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  1
                 </td>
                 <td>
                   1

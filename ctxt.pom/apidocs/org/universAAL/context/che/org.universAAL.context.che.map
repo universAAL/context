@@ -1,12 +1,12 @@
 <map id="G" name="G">
-<area shape="rect" id="node1_0" href="./ContextHistoryServices.html" title="org.universAAL.context.che.ContextHistoryServices" alt="" coords="16,16,176,43"/>
-<area shape="rect" id="node1" href="./ContextHistoryServices.html" title="&lt;TABLE&gt;" alt="" coords="5,5,187,53"/>
-<area shape="rect" id="node2_1" href="./ContextHistoryCallee.html" title="org.universAAL.context.che.ContextHistoryCallee" alt="" coords="222,16,367,43"/>
-<area shape="rect" id="node2" href="./ContextHistoryCallee.html" title="&lt;TABLE&gt;" alt="" coords="211,5,378,53"/>
-<area shape="rect" id="node3_2" href="./ContextHistorySubscriber.html" title="org.universAAL.context.che.ContextHistorySubscriber" alt="" coords="413,16,584,43"/>
-<area shape="rect" id="node3" href="./ContextHistorySubscriber.html" title="&lt;TABLE&gt;" alt="" coords="403,5,595,53"/>
-<area shape="rect" id="node4_3" href="./Hub.html" title="org.universAAL.context.che.Hub" alt="" coords="632,16,677,43"/>
-<area shape="rect" id="node4" href="./Hub.html" title="&lt;TABLE&gt;" alt="" coords="619,5,691,53"/>
-<area shape="rect" id="node5_4" href="./Hub.Log.html" title="org.universAAL.context.che.Hub.Log" alt="" coords="730,16,771,43"/>
-<area shape="rect" id="node5" href="./Hub.Log.html" title="&lt;TABLE&gt;" alt="" coords="715,5,787,53"/>
+<area shape="rect" id="node1_0" href="./ContextHistorySubscriber.html" title="org.universAAL.context.che.ContextHistorySubscriber" alt="" coords="16,16,187,43"/>
+<area shape="rect" id="node1" href="./ContextHistorySubscriber.html" title="&lt;TABLE&gt;" alt="" coords="5,5,197,53"/>
+<area shape="rect" id="node2_1" href="./ContextHistoryServices.html" title="org.universAAL.context.che.ContextHistoryServices" alt="" coords="232,16,392,43"/>
+<area shape="rect" id="node2" href="./ContextHistoryServices.html" title="&lt;TABLE&gt;" alt="" coords="221,5,403,53"/>
+<area shape="rect" id="node3_2" href="./Hub.html" title="org.universAAL.context.che.Hub" alt="" coords="440,16,485,43"/>
+<area shape="rect" id="node3" href="./Hub.html" title="&lt;TABLE&gt;" alt="" coords="427,5,499,53"/>
+<area shape="rect" id="node4_3" href="./Hub.Log.html" title="org.universAAL.context.che.Hub.Log" alt="" coords="538,16,579,43"/>
+<area shape="rect" id="node4" href="./Hub.Log.html" title="&lt;TABLE&gt;" alt="" coords="523,5,595,53"/>
+<area shape="rect" id="node5_4" href="./ContextHistoryCallee.html" title="org.universAAL.context.che.ContextHistoryCallee" alt="" coords="630,16,775,43"/>
+<area shape="rect" id="node5" href="./ContextHistoryCallee.html" title="&lt;TABLE&gt;" alt="" coords="619,5,786,53"/>
 </map>

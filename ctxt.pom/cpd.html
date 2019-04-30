@@ -53,10 +53,10 @@
                           <a href="../ctxt.che.mobile/index.html" title="universAAL Context CHE - Context History Entrepot for Mobile">universAAL Context CHE - Context History Entrepot for Mobile</a>
             </li>
                   <li class="none">
-                          <a href="../ctxt.che.module.cardinality/index.html" title="universAAL Context CHE - Module for Sesame store with cardinality">universAAL Context CHE - Module for Sesame store with cardinality</a>
+                          <a href="../ctxt.che.module.cardinality/index.html" title="universAAL Context CHE - Module for rdf4j store with cardinality">universAAL Context CHE - Module for rdf4j store with cardinality</a>
             </li>
                   <li class="none">
-                          <a href="../sesame.uaal.store/index.html" title="universAAL Context Sesame SAIL for OWL Lite">universAAL Context Sesame SAIL for OWL Lite</a>
+                          <a href="../rdf4j.uaal.store/index.html" title="universAAL Context rdf4j SAIL for OWL Lite">universAAL Context rdf4j SAIL for OWL Lite</a>
             </li>
                   <li class="none">
                           <a href="../ctxt.situation.reasoner/index.html" title="universAAL Context Situation Reasoner">universAAL Context Situation Reasoner</a>
@@ -125,6 +125,1823 @@
 <p>The following document contains the results of PMD's  <a class="externalLink" href="http://pmd.sourceforge.net/cpd.html">CPD</a> 5.6.1.</p></div>
 <div class="section">
 <h2><a name="Duplications"></a>Duplications</h2>
+<table border="0" class="bodyTable">
+<tr class="a">
+<th>File</th>
+<th>Project</th>
+<th>Line</th></tr>
+<tr class="b">
+<td>org/universAAL/context/rdf4j/sail/Collection2SailStore.java</td>
+<td>universAAL Context rdf4j SAIL for OWL Lite</td>
+<td>100</td></tr>
+<tr class="a">
+<td>org/universAAL/context/rdf4j/sail/CollectionSailStore.java</td>
+<td>universAAL Context rdf4j SAIL for OWL Lite</td>
+<td>100</td></tr>
+<tr class="b"><td colspan='3'>
+<div>
+<pre>	public Collection2SailStore(File dataDir, String tripleIndexes, boolean forceSync, int valueCacheSize,
+			int valueIDCacheSize, int namespaceCacheSize, int namespaceIDCacheSize, boolean encrypt)
+		throws IOException, SailException
+	{
+		boolean initialized = false;
+		try {
+			namespaceStore = new NamespaceStore(dataDir);
+			valueStore = new ValueStore(dataDir, forceSync, valueCacheSize, valueIDCacheSize,
+					namespaceCacheSize, namespaceIDCacheSize, encrypt);
+			tripleStore = new TripleStore(dataDir, tripleIndexes, forceSync);
+			initialized = true;
+			
+			// Preload for performance of cardinality
+			onProp = valueStore
+				.createIRI(&quot;http://www.w3.org/2002/07/owl#onProperty&quot;);
+			maxCard = valueStore
+				.createIRI(&quot;http://www.w3.org/2002/07/owl#maxCardinality&quot;);
+			exactCard = valueStore
+				.createIRI(&quot;http://www.w3.org/2002/07/owl#cardinality&quot;);
+			nonNativeInt = valueStore.createIRI(
+				&quot;http://www.w3.org/2001/XMLSchema#nonNegativeInteger&quot;);
+			one = valueStore.createLiteral(&quot;1&quot;, nonNativeInt);
+		}
+		finally {
+			if (!initialized) {
+				close();
+			}
+		}
+	}
+
+	public ValueFactory getValueFactory() {
+		return valueStore;
+	}
+
+	public void close()
+		throws SailException
+	{
+		try {
+			try {
+				if (namespaceStore != null) {
+					namespaceStore.close();
+				}
+			}
+			finally {
+				try {
+					if (valueStore != null) {
+						valueStore.close();
+					}
+				}
+				finally {
+					if (tripleStore != null) {
+						tripleStore.close();
+					}
+				}
+			}
+		}
+		catch (IOException e) {
+			logger.warn(&quot;Failed to close store&quot;, e);
+			throw new SailException(e);
+		}
+	}
+
+	public EvaluationStatistics getEvaluationStatistics() {
+		return new NativeEvaluationStatistics(valueStore, tripleStore);
+	}
+
+	public SailSource getExplicitSailSource() {
+		return new NativeSailSource(true);
+	}
+
+	public SailSource getInferredSailSource() {
+		return new NativeSailSource(false);
+	}
+
+	List&lt;Integer&gt; getContextIDs(Resource... contexts)
+		throws IOException
+	{
+		assert contexts.length &gt; 0 : &quot;contexts must not be empty&quot;;
+
+		// Filter duplicates
+		LinkedHashSet&lt;Resource&gt; contextSet = new LinkedHashSet&lt;Resource&gt;();
+		Collections.addAll(contextSet, contexts);
+
+		// Fetch IDs, filtering unknown resources from the result
+		List&lt;Integer&gt; contextIDs = new ArrayList&lt;Integer&gt;(contextSet.size());
+		for (Resource context : contextSet) {
+			if (context == null) {
+				contextIDs.add(0);
+			}
+			else {
+				int contextID = valueStore.getID(context);
+				if (contextID != NativeValue.UNKNOWN_ID) {
+					contextIDs.add(contextID);
+				}
+			}
+		}
+
+		return contextIDs;
+	}
+
+	/**
+	 * Creates a statement iterator based on the supplied pattern.
+	 * 
+	 * @param subj
+	 *        The subject of the pattern, or &lt;tt&gt;null&lt;/tt&gt; to indicate a wildcard.
+	 * @param pred
+	 *        The predicate of the pattern, or &lt;tt&gt;null&lt;/tt&gt; to indicate a wildcard.
+	 * @param obj
+	 *        The object of the pattern, or &lt;tt&gt;null&lt;/tt&gt; to indicate a wildcard.
+	 * @param contexts
+	 *        The context(s) of the pattern. Note that this parameter is a vararg and as such is optional. If
+	 *        no contexts are supplied the method operates on the entire repository.
+	 * @return A StatementIterator that can be used to iterate over the statements that match the specified
+	 *         pattern.
+	 */
+	CloseableIteration&lt;? extends Statement, SailException&gt; createStatementIterator(Resource subj, IRI pred,
+			Value obj, boolean explicit, Resource... contexts)
+		throws IOException
+	{
+		int subjID = NativeValue.UNKNOWN_ID;
+		if (subj != null) {
+			subjID = valueStore.getID(subj);
+			if (subjID == NativeValue.UNKNOWN_ID) {
+				return new EmptyIteration&lt;Statement, SailException&gt;();
+			}
+		}
+
+		int predID = NativeValue.UNKNOWN_ID;
+		if (pred != null) {
+			predID = valueStore.getID(pred);
+			if (predID == NativeValue.UNKNOWN_ID) {
+				return new EmptyIteration&lt;Statement, SailException&gt;();
+			}
+		}
+
+		int objID = NativeValue.UNKNOWN_ID;
+		if (obj != null) {
+			objID = valueStore.getID(obj);
+			if (objID == NativeValue.UNKNOWN_ID) {
+				return new EmptyIteration&lt;Statement, SailException&gt;();
+			}
+		}
+
+		List&lt;Integer&gt; contextIDList = new ArrayList&lt;Integer&gt;(contexts.length);
+		if (contexts.length == 0) {
+			contextIDList.add(NativeValue.UNKNOWN_ID);
+		}
+		else {
+			for (Resource context : contexts) {
+				if (context == null) {
+					contextIDList.add(0);
+				}
+				else {
+					int contextID = valueStore.getID(context);
+
+					if (contextID != NativeValue.UNKNOWN_ID) {
+						contextIDList.add(contextID);
+					}
+				}
+			}
+		}
+
+		ArrayList&lt;NativeStatementIterator&gt; perContextIterList = new ArrayList&lt;NativeStatementIterator&gt;(
+				contextIDList.size());
+
+		for (int contextID : contextIDList) {
+			RecordIterator btreeIter = tripleStore.getTriples(subjID, predID, objID, contextID, explicit,
+					false);
+
+			perContextIterList.add(new NativeStatementIterator(btreeIter, valueStore));
+		}
+
+		if (perContextIterList.size() == 1) {
+			return perContextIterList.get(0);
+		}
+		else {
+			return new UnionIteration&lt;Statement, SailException&gt;(perContextIterList);
+		}
+	}
+
+	double cardinality(Resource subj, IRI pred, Value obj, Resource context)
+		throws IOException
+	{
+		int subjID = NativeValue.UNKNOWN_ID;
+		if (subj != null) {
+			subjID = valueStore.getID(subj);
+			if (subjID == NativeValue.UNKNOWN_ID) {
+				return 0;
+			}
+		}
+
+		int predID = NativeValue.UNKNOWN_ID;
+		if (pred != null) {
+			predID = valueStore.getID(pred);
+			if (predID == NativeValue.UNKNOWN_ID) {
+				return 0;
+			}
+		}
+
+		int objID = NativeValue.UNKNOWN_ID;
+		if (obj != null) {
+			objID = valueStore.getID(obj);
+			if (objID == NativeValue.UNKNOWN_ID) {
+				return 0;
+			}
+		}
+
+		int contextID = NativeValue.UNKNOWN_ID;
+		if (context != null) {
+			contextID = valueStore.getID(context);
+			if (contextID == NativeValue.UNKNOWN_ID) {
+				return 0;
+			}
+		}
+
+		return tripleStore.cardinality(subjID, predID, objID, contextID);
+	}
+
+	private final class NativeSailSource extends BackingSailSource {
+
+		private final boolean explicit;
+
+		public NativeSailSource(boolean explicit) {
+			this.explicit = explicit;
+		}
+
+		@Override
+		public SailSource fork() {
+			throw new UnsupportedOperationException(&quot;This store does not support multiple datasets&quot;);
+		}
+
+		public SailSink sink(IsolationLevel level)
+			throws SailException
+		{
+			return new NativeSailSink(explicit);
+		}
+
+		public NativeSailDataset dataset(IsolationLevel level)
+			throws SailException
+		{
+			return new NativeSailDataset(explicit);
+		}
+
+	}
+
+	private final class NativeSailSink implements SailSink {
+
+		private final boolean explicit;
+
+		public NativeSailSink(boolean explicit)
+			throws SailException
+		{
+			this.explicit = explicit;
+		}
+
+		public void close() {
+			// no-op
+		}
+
+		public void prepare()
+			throws SailException
+		{
+			// serializable is not supported at this level
+		}
+
+		public synchronized void flush()
+			throws SailException
+		{
+			sinkStoreAccessLock.lock();
+			try {
+				try {
+					valueStore.sync();
+				}
+				finally {
+					try {
+						namespaceStore.sync();
+					}
+					finally {
+						if (storeTxnStarted.get()) {
+							tripleStore.commit();
+							// do not set flag to false until _after_ commit is succesfully completed.
+							storeTxnStarted.set(false);
+						}
+					}
+				}
+			}
+			catch (IOException e) {
+				logger.error(&quot;Encountered an unexpected problem while trying to commit&quot;, e);
+				throw new SailException(e);
+			}
+			catch (RuntimeException e) {
+				logger.error(&quot;Encountered an unexpected problem while trying to commit&quot;, e);
+				throw e;
+			}
+			finally {
+				sinkStoreAccessLock.unlock();
+			}
+		}
+
+		public void setNamespace(String prefix, String name)
+			throws SailException
+		{
+			sinkStoreAccessLock.lock();
+			try {
+				startTriplestoreTransaction();
+				namespaceStore.setNamespace(prefix, name);
+			}
+			finally {
+				sinkStoreAccessLock.unlock();
+			}
+		}
+
+		public void removeNamespace(String prefix)
+			throws SailException
+		{
+			sinkStoreAccessLock.lock();
+			try {
+				startTriplestoreTransaction();
+				namespaceStore.removeNamespace(prefix);
+			}
+			finally {
+				sinkStoreAccessLock.unlock();
+			}
+		}
+
+		public void clearNamespaces()
+			throws SailException
+		{
+			sinkStoreAccessLock.lock();
+			try {
+				startTriplestoreTransaction();
+				namespaceStore.clear();
+			}
+			finally {
+				sinkStoreAccessLock.unlock();
+			}
+		}
+
+		public void observe(Resource subj, IRI pred, Value obj, Resource... contexts)
+			throws SailException
+		{
+			// serializable is not supported at this level
+		}
+
+		public void clear(Resource... contexts)
+			throws SailException
+		{
+			removeStatements(null, null, null, explicit, contexts);
+		}
+
+		public void approve(Resource subj, IRI pred, Value obj, Resource ctx)
+			throws SailException
+		{
+			addStatement(subj, pred, obj, explicit, ctx);
+		}
+
+		public void deprecate(Resource subj, IRI pred, Value obj, Resource ctx)
+			throws SailException
+		{
+			removeStatements(subj, pred, obj, explicit, ctx);
+		}
+
+		/**
+		 * Starts a transaction on the triplestore, if necessary.
+		 * 
+		 * @throws SailException
+		 *         if a transaction could not be started.
+		 */
+		private synchronized void startTriplestoreTransaction()
+			throws SailException
+		{
+
+			if (storeTxnStarted.compareAndSet(false, true)) {
+				try {
+					tripleStore.startTransaction();
+				}
+				catch (IOException e) {
+					storeTxnStarted.set(false);
+					throw new SailException(e);
+				}
+			}
+		}
+
+		private boolean addStatement(Resource subj, IRI pred, Value obj, boolean explicit,
+				Resource... contexts)
+			throws SailException
+		{
+			OpenRDFUtil.verifyContextNotNull(contexts);
+			boolean result = false;
+			sinkStoreAccessLock.lock();
+			try {
+				startTriplestoreTransaction();
+				int subjID = valueStore.storeValue(subj);
+				int predID = valueStore.storeValue(pred);
+				int objID = valueStore.storeValue(obj);
+
+				if (contexts.length == 0) {
+					contexts = new Resource[] { null };
+				}
+
+				for (Resource context : contexts) {
+					int contextID = 0;
+					if (context != null) {
+						contextID = valueStore.storeValue(context);
+					}
+					// START PATCH
+					if (hasMaxCardinality1(pred, contexts)) {
+						removeStatements(subj, pred, null, true, contexts);
+					} else if (prevObjIsClosedCollection(subj, pred, contexts)) {</pre></div></td></tr></table>
+<table border="0" class="bodyTable">
+<tr class="a">
+<th>File</th>
+<th>Project</th>
+<th>Line</th></tr>
+<tr class="b">
+<td>org/universAAL/context/rdf4j/sail/CardinalitySailStore.java</td>
+<td>universAAL Context rdf4j SAIL for OWL Lite</td>
+<td>97</td></tr>
+<tr class="a">
+<td>org/universAAL/context/rdf4j/sail/Collection2SailStore.java</td>
+<td>universAAL Context rdf4j SAIL for OWL Lite</td>
+<td>100</td></tr>
+<tr class="b">
+<td>org/universAAL/context/rdf4j/sail/CollectionSailStore.java</td>
+<td>universAAL Context rdf4j SAIL for OWL Lite</td>
+<td>100</td></tr>
+<tr class="a"><td colspan='3'>
+<div>
+<pre>	public CardinalitySailStore(File dataDir, String tripleIndexes, boolean forceSync, int valueCacheSize,
+			int valueIDCacheSize, int namespaceCacheSize, int namespaceIDCacheSize, boolean encrypt)
+		throws IOException, SailException
+	{
+		boolean initialized = false;
+		try {
+			namespaceStore = new NamespaceStore(dataDir);
+			valueStore = new ValueStore(dataDir, forceSync, valueCacheSize, valueIDCacheSize,
+					namespaceCacheSize, namespaceIDCacheSize, encrypt);
+			tripleStore = new TripleStore(dataDir, tripleIndexes, forceSync);
+			initialized = true;
+			
+			// Preload for performance of cardinality
+			onProp = valueStore
+				.createIRI(&quot;http://www.w3.org/2002/07/owl#onProperty&quot;);
+			maxCard = valueStore
+				.createIRI(&quot;http://www.w3.org/2002/07/owl#maxCardinality&quot;);
+			exactCard = valueStore
+				.createIRI(&quot;http://www.w3.org/2002/07/owl#cardinality&quot;);
+			nonNativeInt = valueStore.createIRI(
+				&quot;http://www.w3.org/2001/XMLSchema#nonNegativeInteger&quot;);
+			one = valueStore.createLiteral(&quot;1&quot;, nonNativeInt);
+		}
+		finally {
+			if (!initialized) {
+				close();
+			}
+		}
+	}
+
+	public ValueFactory getValueFactory() {
+		return valueStore;
+	}
+
+	public void close()
+		throws SailException
+	{
+		try {
+			try {
+				if (namespaceStore != null) {
+					namespaceStore.close();
+				}
+			}
+			finally {
+				try {
+					if (valueStore != null) {
+						valueStore.close();
+					}
+				}
+				finally {
+					if (tripleStore != null) {
+						tripleStore.close();
+					}
+				}
+			}
+		}
+		catch (IOException e) {
+			logger.warn(&quot;Failed to close store&quot;, e);
+			throw new SailException(e);
+		}
+	}
+
+	public EvaluationStatistics getEvaluationStatistics() {
+		return new NativeEvaluationStatistics(valueStore, tripleStore);
+	}
+
+	public SailSource getExplicitSailSource() {
+		return new NativeSailSource(true);
+	}
+
+	public SailSource getInferredSailSource() {
+		return new NativeSailSource(false);
+	}
+
+	List&lt;Integer&gt; getContextIDs(Resource... contexts)
+		throws IOException
+	{
+		assert contexts.length &gt; 0 : &quot;contexts must not be empty&quot;;
+
+		// Filter duplicates
+		LinkedHashSet&lt;Resource&gt; contextSet = new LinkedHashSet&lt;Resource&gt;();
+		Collections.addAll(contextSet, contexts);
+
+		// Fetch IDs, filtering unknown resources from the result
+		List&lt;Integer&gt; contextIDs = new ArrayList&lt;Integer&gt;(contextSet.size());
+		for (Resource context : contextSet) {
+			if (context == null) {
+				contextIDs.add(0);
+			}
+			else {
+				int contextID = valueStore.getID(context);
+				if (contextID != NativeValue.UNKNOWN_ID) {
+					contextIDs.add(contextID);
+				}
+			}
+		}
+
+		return contextIDs;
+	}
+
+	/**
+	 * Creates a statement iterator based on the supplied pattern.
+	 * 
+	 * @param subj
+	 *        The subject of the pattern, or &lt;tt&gt;null&lt;/tt&gt; to indicate a wildcard.
+	 * @param pred
+	 *        The predicate of the pattern, or &lt;tt&gt;null&lt;/tt&gt; to indicate a wildcard.
+	 * @param obj
+	 *        The object of the pattern, or &lt;tt&gt;null&lt;/tt&gt; to indicate a wildcard.
+	 * @param contexts
+	 *        The context(s) of the pattern. Note that this parameter is a vararg and as such is optional. If
+	 *        no contexts are supplied the method operates on the entire repository.
+	 * @return A StatementIterator that can be used to iterate over the statements that match the specified
+	 *         pattern.
+	 */
+	CloseableIteration&lt;? extends Statement, SailException&gt; createStatementIterator(Resource subj, IRI pred,
+			Value obj, boolean explicit, Resource... contexts)
+		throws IOException
+	{
+		int subjID = NativeValue.UNKNOWN_ID;
+		if (subj != null) {
+			subjID = valueStore.getID(subj);
+			if (subjID == NativeValue.UNKNOWN_ID) {
+				return new EmptyIteration&lt;Statement, SailException&gt;();
+			}
+		}
+
+		int predID = NativeValue.UNKNOWN_ID;
+		if (pred != null) {
+			predID = valueStore.getID(pred);
+			if (predID == NativeValue.UNKNOWN_ID) {
+				return new EmptyIteration&lt;Statement, SailException&gt;();
+			}
+		}
+
+		int objID = NativeValue.UNKNOWN_ID;
+		if (obj != null) {
+			objID = valueStore.getID(obj);
+			if (objID == NativeValue.UNKNOWN_ID) {
+				return new EmptyIteration&lt;Statement, SailException&gt;();
+			}
+		}
+
+		List&lt;Integer&gt; contextIDList = new ArrayList&lt;Integer&gt;(contexts.length);
+		if (contexts.length == 0) {
+			contextIDList.add(NativeValue.UNKNOWN_ID);
+		}
+		else {
+			for (Resource context : contexts) {
+				if (context == null) {
+					contextIDList.add(0);
+				}
+				else {
+					int contextID = valueStore.getID(context);
+
+					if (contextID != NativeValue.UNKNOWN_ID) {
+						contextIDList.add(contextID);
+					}
+				}
+			}
+		}
+
+		ArrayList&lt;NativeStatementIterator&gt; perContextIterList = new ArrayList&lt;NativeStatementIterator&gt;(
+				contextIDList.size());
+
+		for (int contextID : contextIDList) {
+			RecordIterator btreeIter = tripleStore.getTriples(subjID, predID, objID, contextID, explicit,
+					false);
+
+			perContextIterList.add(new NativeStatementIterator(btreeIter, valueStore));
+		}
+
+		if (perContextIterList.size() == 1) {
+			return perContextIterList.get(0);
+		}
+		else {
+			return new UnionIteration&lt;Statement, SailException&gt;(perContextIterList);
+		}
+	}
+
+	double cardinality(Resource subj, IRI pred, Value obj, Resource context)
+		throws IOException
+	{
+		int subjID = NativeValue.UNKNOWN_ID;
+		if (subj != null) {
+			subjID = valueStore.getID(subj);
+			if (subjID == NativeValue.UNKNOWN_ID) {
+				return 0;
+			}
+		}
+
+		int predID = NativeValue.UNKNOWN_ID;
+		if (pred != null) {
+			predID = valueStore.getID(pred);
+			if (predID == NativeValue.UNKNOWN_ID) {
+				return 0;
+			}
+		}
+
+		int objID = NativeValue.UNKNOWN_ID;
+		if (obj != null) {
+			objID = valueStore.getID(obj);
+			if (objID == NativeValue.UNKNOWN_ID) {
+				return 0;
+			}
+		}
+
+		int contextID = NativeValue.UNKNOWN_ID;
+		if (context != null) {
+			contextID = valueStore.getID(context);
+			if (contextID == NativeValue.UNKNOWN_ID) {
+				return 0;
+			}
+		}
+
+		return tripleStore.cardinality(subjID, predID, objID, contextID);
+	}
+
+	private final class NativeSailSource extends BackingSailSource {
+
+		private final boolean explicit;
+
+		public NativeSailSource(boolean explicit) {
+			this.explicit = explicit;
+		}
+
+		@Override
+		public SailSource fork() {
+			throw new UnsupportedOperationException(&quot;This store does not support multiple datasets&quot;);
+		}
+
+		public SailSink sink(IsolationLevel level)
+			throws SailException
+		{
+			return new NativeSailSink(explicit);
+		}
+
+		public NativeSailDataset dataset(IsolationLevel level)
+			throws SailException
+		{
+			return new NativeSailDataset(explicit);
+		}
+
+	}
+
+	private final class NativeSailSink implements SailSink {
+
+		private final boolean explicit;
+
+		public NativeSailSink(boolean explicit)
+			throws SailException
+		{
+			this.explicit = explicit;
+		}
+
+		public void close() {
+			// no-op
+		}
+
+		public void prepare()
+			throws SailException
+		{
+			// serializable is not supported at this level
+		}
+
+		public synchronized void flush()
+			throws SailException
+		{
+			sinkStoreAccessLock.lock();
+			try {
+				try {
+					valueStore.sync();
+				}
+				finally {
+					try {
+						namespaceStore.sync();
+					}
+					finally {
+						if (storeTxnStarted.get()) {
+							tripleStore.commit();
+							// do not set flag to false until _after_ commit is succesfully completed.
+							storeTxnStarted.set(false);
+						}
+					}
+				}
+			}
+			catch (IOException e) {
+				logger.error(&quot;Encountered an unexpected problem while trying to commit&quot;, e);
+				throw new SailException(e);
+			}
+			catch (RuntimeException e) {
+				logger.error(&quot;Encountered an unexpected problem while trying to commit&quot;, e);
+				throw e;
+			}
+			finally {
+				sinkStoreAccessLock.unlock();
+			}
+		}
+
+		public void setNamespace(String prefix, String name)
+			throws SailException
+		{
+			sinkStoreAccessLock.lock();
+			try {
+				startTriplestoreTransaction();
+				namespaceStore.setNamespace(prefix, name);
+			}
+			finally {
+				sinkStoreAccessLock.unlock();
+			}
+		}
+
+		public void removeNamespace(String prefix)
+			throws SailException
+		{
+			sinkStoreAccessLock.lock();
+			try {
+				startTriplestoreTransaction();
+				namespaceStore.removeNamespace(prefix);
+			}
+			finally {
+				sinkStoreAccessLock.unlock();
+			}
+		}
+
+		public void clearNamespaces()
+			throws SailException
+		{
+			sinkStoreAccessLock.lock();
+			try {
+				startTriplestoreTransaction();
+				namespaceStore.clear();
+			}
+			finally {
+				sinkStoreAccessLock.unlock();
+			}
+		}
+
+		public void observe(Resource subj, IRI pred, Value obj, Resource... contexts)
+			throws SailException
+		{
+			// serializable is not supported at this level
+		}
+
+		public void clear(Resource... contexts)
+			throws SailException
+		{
+			removeStatements(null, null, null, explicit, contexts);
+		}
+
+		public void approve(Resource subj, IRI pred, Value obj, Resource ctx)
+			throws SailException
+		{
+			addStatement(subj, pred, obj, explicit, ctx);
+		}
+
+		public void deprecate(Resource subj, IRI pred, Value obj, Resource ctx)
+			throws SailException
+		{
+			removeStatements(subj, pred, obj, explicit, ctx);
+		}
+
+		/**
+		 * Starts a transaction on the triplestore, if necessary.
+		 * 
+		 * @throws SailException
+		 *         if a transaction could not be started.
+		 */
+		private synchronized void startTriplestoreTransaction()
+			throws SailException
+		{
+
+			if (storeTxnStarted.compareAndSet(false, true)) {
+				try {
+					tripleStore.startTransaction();
+				}
+				catch (IOException e) {
+					storeTxnStarted.set(false);
+					throw new SailException(e);
+				}
+			}
+		}
+
+		private boolean addStatement(Resource subj, IRI pred, Value obj, boolean explicit,
+				Resource... contexts)
+			throws SailException
+		{
+			OpenRDFUtil.verifyContextNotNull(contexts);
+			boolean result = false;
+			sinkStoreAccessLock.lock();
+			try {
+				startTriplestoreTransaction();
+				int subjID = valueStore.storeValue(subj);
+				int predID = valueStore.storeValue(pred);
+				int objID = valueStore.storeValue(obj);
+
+				if (contexts.length == 0) {
+					contexts = new Resource[] { null };
+				}
+
+				for (Resource context : contexts) {
+					int contextID = 0;
+					if (context != null) {
+						contextID = valueStore.storeValue(context);
+					}
+					// START PATCH CARDINALITY
+					if (hasMaxCardinality1(pred, contexts) &amp;&amp; explicit) {</pre></div></td></tr></table>
+<table border="0" class="bodyTable">
+<tr class="b">
+<th>File</th>
+<th>Project</th>
+<th>Line</th></tr>
+<tr class="a">
+<td>org/universAAL/context/rdf4j/sail/CardinalitySailStore.java</td>
+<td>universAAL Context rdf4j SAIL for OWL Lite</td>
+<td>119</td></tr>
+<tr class="b">
+<td>org/universAAL/context/rdf4j/sail/Collection2SailStore.java</td>
+<td>universAAL Context rdf4j SAIL for OWL Lite</td>
+<td>122</td></tr>
+<tr class="a">
+<td>org/universAAL/context/rdf4j/sail/CollectionSailStore.java</td>
+<td>universAAL Context rdf4j SAIL for OWL Lite</td>
+<td>122</td></tr>
+<tr class="b">
+<td>org/universAAL/context/rdf4j/sail/NativeSailStore.java</td>
+<td>universAAL Context rdf4j SAIL for OWL Lite</td>
+<td>100</td></tr>
+<tr class="a"><td colspan='3'>
+<div>
+<pre>		}
+		finally {
+			if (!initialized) {
+				close();
+			}
+		}
+	}
+
+	public ValueFactory getValueFactory() {
+		return valueStore;
+	}
+
+	public void close()
+		throws SailException
+	{
+		try {
+			try {
+				if (namespaceStore != null) {
+					namespaceStore.close();
+				}
+			}
+			finally {
+				try {
+					if (valueStore != null) {
+						valueStore.close();
+					}
+				}
+				finally {
+					if (tripleStore != null) {
+						tripleStore.close();
+					}
+				}
+			}
+		}
+		catch (IOException e) {
+			logger.warn(&quot;Failed to close store&quot;, e);
+			throw new SailException(e);
+		}
+	}
+
+	public EvaluationStatistics getEvaluationStatistics() {
+		return new NativeEvaluationStatistics(valueStore, tripleStore);
+	}
+
+	public SailSource getExplicitSailSource() {
+		return new NativeSailSource(true);
+	}
+
+	public SailSource getInferredSailSource() {
+		return new NativeSailSource(false);
+	}
+
+	List&lt;Integer&gt; getContextIDs(Resource... contexts)
+		throws IOException
+	{
+		assert contexts.length &gt; 0 : &quot;contexts must not be empty&quot;;
+
+		// Filter duplicates
+		LinkedHashSet&lt;Resource&gt; contextSet = new LinkedHashSet&lt;Resource&gt;();
+		Collections.addAll(contextSet, contexts);
+
+		// Fetch IDs, filtering unknown resources from the result
+		List&lt;Integer&gt; contextIDs = new ArrayList&lt;Integer&gt;(contextSet.size());
+		for (Resource context : contextSet) {
+			if (context == null) {
+				contextIDs.add(0);
+			}
+			else {
+				int contextID = valueStore.getID(context);
+				if (contextID != NativeValue.UNKNOWN_ID) {
+					contextIDs.add(contextID);
+				}
+			}
+		}
+
+		return contextIDs;
+	}
+
+	/**
+	 * Creates a statement iterator based on the supplied pattern.
+	 * 
+	 * @param subj
+	 *        The subject of the pattern, or &lt;tt&gt;null&lt;/tt&gt; to indicate a wildcard.
+	 * @param pred
+	 *        The predicate of the pattern, or &lt;tt&gt;null&lt;/tt&gt; to indicate a wildcard.
+	 * @param obj
+	 *        The object of the pattern, or &lt;tt&gt;null&lt;/tt&gt; to indicate a wildcard.
+	 * @param contexts
+	 *        The context(s) of the pattern. Note that this parameter is a vararg and as such is optional. If
+	 *        no contexts are supplied the method operates on the entire repository.
+	 * @return A StatementIterator that can be used to iterate over the statements that match the specified
+	 *         pattern.
+	 */
+	CloseableIteration&lt;? extends Statement, SailException&gt; createStatementIterator(Resource subj, IRI pred,
+			Value obj, boolean explicit, Resource... contexts)
+		throws IOException
+	{
+		int subjID = NativeValue.UNKNOWN_ID;
+		if (subj != null) {
+			subjID = valueStore.getID(subj);
+			if (subjID == NativeValue.UNKNOWN_ID) {
+				return new EmptyIteration&lt;Statement, SailException&gt;();
+			}
+		}
+
+		int predID = NativeValue.UNKNOWN_ID;
+		if (pred != null) {
+			predID = valueStore.getID(pred);
+			if (predID == NativeValue.UNKNOWN_ID) {
+				return new EmptyIteration&lt;Statement, SailException&gt;();
+			}
+		}
+
+		int objID = NativeValue.UNKNOWN_ID;
+		if (obj != null) {
+			objID = valueStore.getID(obj);
+			if (objID == NativeValue.UNKNOWN_ID) {
+				return new EmptyIteration&lt;Statement, SailException&gt;();
+			}
+		}
+
+		List&lt;Integer&gt; contextIDList = new ArrayList&lt;Integer&gt;(contexts.length);
+		if (contexts.length == 0) {
+			contextIDList.add(NativeValue.UNKNOWN_ID);
+		}
+		else {
+			for (Resource context : contexts) {
+				if (context == null) {
+					contextIDList.add(0);
+				}
+				else {
+					int contextID = valueStore.getID(context);
+
+					if (contextID != NativeValue.UNKNOWN_ID) {
+						contextIDList.add(contextID);
+					}
+				}
+			}
+		}
+
+		ArrayList&lt;NativeStatementIterator&gt; perContextIterList = new ArrayList&lt;NativeStatementIterator&gt;(
+				contextIDList.size());
+
+		for (int contextID : contextIDList) {
+			RecordIterator btreeIter = tripleStore.getTriples(subjID, predID, objID, contextID, explicit,
+					false);
+
+			perContextIterList.add(new NativeStatementIterator(btreeIter, valueStore));
+		}
+
+		if (perContextIterList.size() == 1) {
+			return perContextIterList.get(0);
+		}
+		else {
+			return new UnionIteration&lt;Statement, SailException&gt;(perContextIterList);
+		}
+	}
+
+	double cardinality(Resource subj, IRI pred, Value obj, Resource context)
+		throws IOException
+	{
+		int subjID = NativeValue.UNKNOWN_ID;
+		if (subj != null) {
+			subjID = valueStore.getID(subj);
+			if (subjID == NativeValue.UNKNOWN_ID) {
+				return 0;
+			}
+		}
+
+		int predID = NativeValue.UNKNOWN_ID;
+		if (pred != null) {
+			predID = valueStore.getID(pred);
+			if (predID == NativeValue.UNKNOWN_ID) {
+				return 0;
+			}
+		}
+
+		int objID = NativeValue.UNKNOWN_ID;
+		if (obj != null) {
+			objID = valueStore.getID(obj);
+			if (objID == NativeValue.UNKNOWN_ID) {
+				return 0;
+			}
+		}
+
+		int contextID = NativeValue.UNKNOWN_ID;
+		if (context != null) {
+			contextID = valueStore.getID(context);
+			if (contextID == NativeValue.UNKNOWN_ID) {
+				return 0;
+			}
+		}
+
+		return tripleStore.cardinality(subjID, predID, objID, contextID);
+	}
+
+	private final class NativeSailSource extends BackingSailSource {
+
+		private final boolean explicit;
+
+		public NativeSailSource(boolean explicit) {
+			this.explicit = explicit;
+		}
+
+		@Override
+		public SailSource fork() {
+			throw new UnsupportedOperationException(&quot;This store does not support multiple datasets&quot;);
+		}
+
+		public SailSink sink(IsolationLevel level)
+			throws SailException
+		{
+			return new NativeSailSink(explicit);
+		}
+
+		public NativeSailDataset dataset(IsolationLevel level)
+			throws SailException
+		{
+			return new NativeSailDataset(explicit);
+		}
+
+	}
+
+	private final class NativeSailSink implements SailSink {
+
+		private final boolean explicit;
+
+		public NativeSailSink(boolean explicit)
+			throws SailException
+		{
+			this.explicit = explicit;
+		}
+
+		public void close() {
+			// no-op
+		}
+
+		public void prepare()
+			throws SailException
+		{
+			// serializable is not supported at this level
+		}
+
+		public synchronized void flush()
+			throws SailException
+		{
+			sinkStoreAccessLock.lock();
+			try {
+				try {
+					valueStore.sync();
+				}
+				finally {
+					try {
+						namespaceStore.sync();
+					}
+					finally {
+						if (storeTxnStarted.get()) {
+							tripleStore.commit();
+							// do not set flag to false until _after_ commit is succesfully completed.
+							storeTxnStarted.set(false);
+						}
+					}
+				}
+			}
+			catch (IOException e) {
+				logger.error(&quot;Encountered an unexpected problem while trying to commit&quot;, e);
+				throw new SailException(e);
+			}
+			catch (RuntimeException e) {
+				logger.error(&quot;Encountered an unexpected problem while trying to commit&quot;, e);
+				throw e;
+			}
+			finally {
+				sinkStoreAccessLock.unlock();
+			}
+		}
+
+		public void setNamespace(String prefix, String name)
+			throws SailException
+		{
+			sinkStoreAccessLock.lock();
+			try {
+				startTriplestoreTransaction();
+				namespaceStore.setNamespace(prefix, name);
+			}
+			finally {
+				sinkStoreAccessLock.unlock();
+			}
+		}
+
+		public void removeNamespace(String prefix)
+			throws SailException
+		{
+			sinkStoreAccessLock.lock();
+			try {
+				startTriplestoreTransaction();
+				namespaceStore.removeNamespace(prefix);
+			}
+			finally {
+				sinkStoreAccessLock.unlock();
+			}
+		}
+
+		public void clearNamespaces()
+			throws SailException
+		{
+			sinkStoreAccessLock.lock();
+			try {
+				startTriplestoreTransaction();
+				namespaceStore.clear();
+			}
+			finally {
+				sinkStoreAccessLock.unlock();
+			}
+		}
+
+		public void observe(Resource subj, IRI pred, Value obj, Resource... contexts)
+			throws SailException
+		{
+			// serializable is not supported at this level
+		}
+
+		public void clear(Resource... contexts)
+			throws SailException
+		{
+			removeStatements(null, null, null, explicit, contexts);
+		}
+
+		public void approve(Resource subj, IRI pred, Value obj, Resource ctx)
+			throws SailException
+		{
+			addStatement(subj, pred, obj, explicit, ctx);
+		}
+
+		public void deprecate(Resource subj, IRI pred, Value obj, Resource ctx)
+			throws SailException
+		{
+			removeStatements(subj, pred, obj, explicit, ctx);
+		}
+
+		/**
+		 * Starts a transaction on the triplestore, if necessary.
+		 * 
+		 * @throws SailException
+		 *         if a transaction could not be started.
+		 */
+		private synchronized void startTriplestoreTransaction()
+			throws SailException
+		{
+
+			if (storeTxnStarted.compareAndSet(false, true)) {
+				try {
+					tripleStore.startTransaction();
+				}
+				catch (IOException e) {
+					storeTxnStarted.set(false);
+					throw new SailException(e);
+				}
+			}
+		}
+
+		private boolean addStatement(Resource subj, IRI pred, Value obj, boolean explicit,
+				Resource... contexts)
+			throws SailException
+		{
+			OpenRDFUtil.verifyContextNotNull(contexts);
+			boolean result = false;
+			sinkStoreAccessLock.lock();
+			try {
+				startTriplestoreTransaction();
+				int subjID = valueStore.storeValue(subj);
+				int predID = valueStore.storeValue(pred);
+				int objID = valueStore.storeValue(obj);
+
+				if (contexts.length == 0) {
+					contexts = new Resource[] { null };
+				}
+
+				for (Resource context : contexts) {
+					int contextID = 0;
+					if (context != null) {
+						contextID = valueStore.storeValue(context);
+					}</pre></div></td></tr></table>
+<table border="0" class="bodyTable">
+<tr class="b">
+<th>File</th>
+<th>Project</th>
+<th>Line</th></tr>
+<tr class="a">
+<td>org/universAAL/context/rdf4j/sail/CardinalitySailStore.java</td>
+<td>universAAL Context rdf4j SAIL for OWL Lite</td>
+<td>525</td></tr>
+<tr class="b">
+<td>org/universAAL/context/rdf4j/sail/Collection2SailStore.java</td>
+<td>universAAL Context rdf4j SAIL for OWL Lite</td>
+<td>564</td></tr>
+<tr class="a">
+<td>org/universAAL/context/rdf4j/sail/CollectionSailStore.java</td>
+<td>universAAL Context rdf4j SAIL for OWL Lite</td>
+<td>537</td></tr>
+<tr class="b"><td colspan='3'>
+<div>
+<pre>		}
+
+		protected boolean hasMaxCardinality1(IRI pred, Resource[] contexts)
+			    throws SailException {
+			// Get all restrictions on Property &quot;pred&quot;
+		    	try {
+			CloseableIteration&lt;? extends Statement, SailException&gt; subs = createStatementIterator(
+				null, onProp, pred, true, contexts);
+			if (!subs.hasNext()) {
+			    return false;// Property has no OWL restrictions
+			} else {
+			    try {
+				while (subs.hasNext()) {
+				    Statement st = subs.next();
+				    // For each subject (a Restriction on &quot;pred&quot;) check if it's
+				    // maxCardinality and ==1
+				    if (size(st.getSubject(), maxCard, one, true, contexts) &gt; 0
+					    || size(st.getSubject(), exactCard, one, true,
+						    contexts) &gt; 0)
+					return true;
+				}
+			    } finally {
+				subs.close();
+			    }
+			}
+			} catch (IOException e) {
+			    throw new SailException(e);
+			}
+			return false;
+		    }
+		
+		public long size(Resource subj, IRI pred, Value obj,
+			    boolean includeInferred, Resource... contexts)
+			    throws SailException {
+			OpenRDFUtil.verifyContextNotNull(contexts);
+			try {
+			    long size = 0L;
+				// Iterate over all explicit statements
+				CloseableIteration&lt;? extends Statement, SailException&gt; iter = createStatementIterator(
+					subj, pred, obj, !includeInferred, contexts);
+				try {
+				    while (iter.next() != null) {
+					size++;
+				    }
+				} finally {
+				    iter.close();
+				}
+			    return size;
+			} catch (IOException e) {
+			    throw new SailException(e);
+			}
+		    }
+		
+		private int removeStatements(Resource subj, IRI pred, Value obj, boolean explicit,
+				Resource... contexts)
+			throws SailException
+		{
+			OpenRDFUtil.verifyContextNotNull(contexts);
+
+			sinkStoreAccessLock.lock();
+			try {
+				startTriplestoreTransaction();
+				int subjID = NativeValue.UNKNOWN_ID;
+				if (subj != null) {
+					subjID = valueStore.getID(subj);
+					if (subjID == NativeValue.UNKNOWN_ID) {
+						return 0;
+					}
+				}
+				int predID = NativeValue.UNKNOWN_ID;
+				if (pred != null) {
+					predID = valueStore.getID(pred);
+					if (predID == NativeValue.UNKNOWN_ID) {
+						return 0;
+					}
+				}
+				int objID = NativeValue.UNKNOWN_ID;
+				if (obj != null) {
+					objID = valueStore.getID(obj);
+					if (objID == NativeValue.UNKNOWN_ID) {
+						return 0;
+					}
+				}
+
+				List&lt;Integer&gt; contextIDList = new ArrayList&lt;Integer&gt;(contexts.length);
+				if (contexts.length == 0) {
+					contextIDList.add(NativeValue.UNKNOWN_ID);
+				}
+				else {
+					for (Resource context : contexts) {
+						if (context == null) {
+							contextIDList.add(0);
+						}
+						else {
+							int contextID = valueStore.getID(context);
+							if (contextID != NativeValue.UNKNOWN_ID) {
+								contextIDList.add(contextID);
+							}
+						}
+					}
+				}
+
+				int removeCount = 0;
+
+				for (int i = 0; i &lt; contextIDList.size(); i++) {
+					int contextID = contextIDList.get(i);
+
+					removeCount += tripleStore.removeTriples(subjID, predID, objID, contextID, explicit);
+				}
+
+				return removeCount;
+			}
+			catch (IOException e) {
+				throw new SailException(e);
+			}
+			catch (RuntimeException e) {
+				logger.error(&quot;Encountered an unexpected problem while trying to remove statements&quot;, e);
+				throw e;
+			}
+			finally {
+				sinkStoreAccessLock.unlock();
+			}
+		}
+	}
+
+	/**
+	 * @author James Leigh
+	 */
+	private final class NativeSailDataset implements SailDataset {
+
+		private final boolean explicit;
+
+		public NativeSailDataset(boolean explicit)
+			throws SailException
+		{
+			this.explicit = explicit;
+		}
+
+		public void close() {
+			// no-op
+		}
+
+		public String getNamespace(String prefix)
+			throws SailException
+		{
+			return namespaceStore.getNamespace(prefix);
+		}
+
+		public CloseableIteration&lt;? extends Namespace, SailException&gt; getNamespaces() {
+			return new CloseableIteratorIteration&lt;Namespace, SailException&gt;(namespaceStore.iterator());
+		}
+
+		public CloseableIteration&lt;? extends Resource, SailException&gt; getContextIDs()
+			throws SailException
+		{
+			RecordIterator btreeIter = null;
+			CloseableIteration&lt;? extends Statement, SailException&gt; stIter1 = null;
+			CloseableIteration&lt;? extends Statement, SailException&gt; stIter2 = null;
+			CloseableIteration&lt;Resource, SailException&gt; ctxIter1 = null;
+			CloseableIteration&lt;Resource, SailException&gt; ctxIter2 = null;
+			ExceptionConvertingIteration&lt;Resource, SailException&gt; result = null;
+			boolean allGood = false;
+			// Which resources are used as context identifiers is not stored
+			// separately. Iterate over all statements and extract their context.
+			try {
+				btreeIter = tripleStore.getAllTriplesSortedByContext(false);
+				if (btreeIter == null) {
+					// Iterator over all statements
+					stIter1 = createStatementIterator(null, null, null, explicit);
+				}
+				else {
+					stIter1 = new NativeStatementIterator(btreeIter, valueStore);
+				}
+				// Filter statements without context resource
+				stIter2 = new FilterIteration&lt;Statement, SailException&gt;(stIter1) {
+
+					@Override
+					protected boolean accept(Statement st) {
+						return st.getContext() != null;
+					}
+				};
+				// Return the contexts of the statements
+				ctxIter1 = new ConvertingIteration&lt;Statement, Resource, SailException&gt;(stIter2) {
+
+					@Override
+					protected Resource convert(Statement st) {
+						return st.getContext();
+					}
+				};
+				if (btreeIter == null) {
+					// Filtering any duplicates
+					ctxIter2 = new DistinctIteration&lt;Resource, SailException&gt;(ctxIter1);
+				}
+				else {
+					// Filtering sorted duplicates
+					ctxIter2 = new ReducedIteration&lt;Resource, SailException&gt;(ctxIter1);
+				}
+
+				result = new ExceptionConvertingIteration&lt;Resource, SailException&gt;(ctxIter2) {
+
+					@Override
+					protected SailException convert(Exception e) {
+						if (e instanceof IOException) {
+							return new SailException(e);
+						}
+						else if (e instanceof RuntimeException) {
+							throw (RuntimeException)e;
+						}
+						else if (e == null) {
+							throw new IllegalArgumentException(&quot;e must not be null&quot;);
+						}
+						else {
+							throw new IllegalArgumentException(&quot;Unexpected exception type: &quot; + e.getClass());
+						}
+					}
+				};
+				allGood = true;
+				return result;
+			}
+			catch (IOException e) {
+				throw new SailException(e);
+			}
+			finally {
+				if (!allGood) {
+					try {
+						if (result != null) {
+							result.close();
+						}
+					}
+					finally {
+						try {
+							if (ctxIter2 != null) {
+								ctxIter2.close();
+							}
+						}
+						finally {
+							try {
+								if (ctxIter1 != null) {
+									ctxIter1.close();
+								}
+							}
+							finally {
+								try {
+									if (stIter2 != null) {
+										stIter2.close();
+									}
+								}
+								finally {
+									try {
+										if (stIter1 != null) {
+											stIter1.close();
+										}
+									}
+									finally {
+										if (btreeIter != null) {
+											try {
+												btreeIter.close();
+											}
+											catch (IOException e) {
+												throw new SailException(e);
+											}
+										}
+									}
+								}
+							}
+						}
+
+					}
+				}
+			}
+		}
+
+		public CloseableIteration&lt;? extends Statement, SailException&gt; getStatements(Resource subj, IRI pred,
+				Value obj, Resource... contexts)
+			throws SailException
+		{
+			try {
+				return createStatementIterator(subj, pred, obj, explicit, contexts);
+			}
+			catch (IOException e) {
+				throw new SailException(&quot;Unable to get statements&quot;, e);
+			}
+		}
+	}
+}</pre></div></td></tr></table>
+<table border="0" class="bodyTable">
+<tr class="a">
+<th>File</th>
+<th>Project</th>
+<th>Line</th></tr>
+<tr class="b">
+<td>org/universAAL/context/rdf4j/sail/CardinalitySailStore.java</td>
+<td>universAAL Context rdf4j SAIL for OWL Lite</td>
+<td>576</td></tr>
+<tr class="a">
+<td>org/universAAL/context/rdf4j/sail/Collection2SailStore.java</td>
+<td>universAAL Context rdf4j SAIL for OWL Lite</td>
+<td>615</td></tr>
+<tr class="b">
+<td>org/universAAL/context/rdf4j/sail/CollectionSailStore.java</td>
+<td>universAAL Context rdf4j SAIL for OWL Lite</td>
+<td>588</td></tr>
+<tr class="a">
+<td>org/universAAL/context/rdf4j/sail/NativeSailStore.java</td>
+<td>universAAL Context rdf4j SAIL for OWL Lite</td>
+<td>500</td></tr>
+<tr class="b"><td colspan='3'>
+<div>
+<pre>		    }
+		
+		private int removeStatements(Resource subj, IRI pred, Value obj, boolean explicit,
+				Resource... contexts)
+			throws SailException
+		{
+			OpenRDFUtil.verifyContextNotNull(contexts);
+
+			sinkStoreAccessLock.lock();
+			try {
+				startTriplestoreTransaction();
+				int subjID = NativeValue.UNKNOWN_ID;
+				if (subj != null) {
+					subjID = valueStore.getID(subj);
+					if (subjID == NativeValue.UNKNOWN_ID) {
+						return 0;
+					}
+				}
+				int predID = NativeValue.UNKNOWN_ID;
+				if (pred != null) {
+					predID = valueStore.getID(pred);
+					if (predID == NativeValue.UNKNOWN_ID) {
+						return 0;
+					}
+				}
+				int objID = NativeValue.UNKNOWN_ID;
+				if (obj != null) {
+					objID = valueStore.getID(obj);
+					if (objID == NativeValue.UNKNOWN_ID) {
+						return 0;
+					}
+				}
+
+				List&lt;Integer&gt; contextIDList = new ArrayList&lt;Integer&gt;(contexts.length);
+				if (contexts.length == 0) {
+					contextIDList.add(NativeValue.UNKNOWN_ID);
+				}
+				else {
+					for (Resource context : contexts) {
+						if (context == null) {
+							contextIDList.add(0);
+						}
+						else {
+							int contextID = valueStore.getID(context);
+							if (contextID != NativeValue.UNKNOWN_ID) {
+								contextIDList.add(contextID);
+							}
+						}
+					}
+				}
+
+				int removeCount = 0;
+
+				for (int i = 0; i &lt; contextIDList.size(); i++) {
+					int contextID = contextIDList.get(i);
+
+					removeCount += tripleStore.removeTriples(subjID, predID, objID, contextID, explicit);
+				}
+
+				return removeCount;
+			}
+			catch (IOException e) {
+				throw new SailException(e);
+			}
+			catch (RuntimeException e) {
+				logger.error(&quot;Encountered an unexpected problem while trying to remove statements&quot;, e);
+				throw e;
+			}
+			finally {
+				sinkStoreAccessLock.unlock();
+			}
+		}
+	}
+
+	/**
+	 * @author James Leigh
+	 */
+	private final class NativeSailDataset implements SailDataset {
+
+		private final boolean explicit;
+
+		public NativeSailDataset(boolean explicit)
+			throws SailException
+		{
+			this.explicit = explicit;
+		}
+
+		public void close() {
+			// no-op
+		}
+
+		public String getNamespace(String prefix)
+			throws SailException
+		{
+			return namespaceStore.getNamespace(prefix);
+		}
+
+		public CloseableIteration&lt;? extends Namespace, SailException&gt; getNamespaces() {
+			return new CloseableIteratorIteration&lt;Namespace, SailException&gt;(namespaceStore.iterator());
+		}
+
+		public CloseableIteration&lt;? extends Resource, SailException&gt; getContextIDs()
+			throws SailException
+		{
+			RecordIterator btreeIter = null;
+			CloseableIteration&lt;? extends Statement, SailException&gt; stIter1 = null;
+			CloseableIteration&lt;? extends Statement, SailException&gt; stIter2 = null;
+			CloseableIteration&lt;Resource, SailException&gt; ctxIter1 = null;
+			CloseableIteration&lt;Resource, SailException&gt; ctxIter2 = null;
+			ExceptionConvertingIteration&lt;Resource, SailException&gt; result = null;
+			boolean allGood = false;
+			// Which resources are used as context identifiers is not stored
+			// separately. Iterate over all statements and extract their context.
+			try {
+				btreeIter = tripleStore.getAllTriplesSortedByContext(false);
+				if (btreeIter == null) {
+					// Iterator over all statements
+					stIter1 = createStatementIterator(null, null, null, explicit);
+				}
+				else {
+					stIter1 = new NativeStatementIterator(btreeIter, valueStore);
+				}
+				// Filter statements without context resource
+				stIter2 = new FilterIteration&lt;Statement, SailException&gt;(stIter1) {
+
+					@Override
+					protected boolean accept(Statement st) {
+						return st.getContext() != null;
+					}
+				};
+				// Return the contexts of the statements
+				ctxIter1 = new ConvertingIteration&lt;Statement, Resource, SailException&gt;(stIter2) {
+
+					@Override
+					protected Resource convert(Statement st) {
+						return st.getContext();
+					}
+				};
+				if (btreeIter == null) {
+					// Filtering any duplicates
+					ctxIter2 = new DistinctIteration&lt;Resource, SailException&gt;(ctxIter1);
+				}
+				else {
+					// Filtering sorted duplicates
+					ctxIter2 = new ReducedIteration&lt;Resource, SailException&gt;(ctxIter1);
+				}
+
+				result = new ExceptionConvertingIteration&lt;Resource, SailException&gt;(ctxIter2) {
+
+					@Override
+					protected SailException convert(Exception e) {
+						if (e instanceof IOException) {
+							return new SailException(e);
+						}
+						else if (e instanceof RuntimeException) {
+							throw (RuntimeException)e;
+						}
+						else if (e == null) {
+							throw new IllegalArgumentException(&quot;e must not be null&quot;);
+						}
+						else {
+							throw new IllegalArgumentException(&quot;Unexpected exception type: &quot; + e.getClass());
+						}
+					}
+				};
+				allGood = true;
+				return result;
+			}
+			catch (IOException e) {
+				throw new SailException(e);
+			}
+			finally {
+				if (!allGood) {
+					try {
+						if (result != null) {
+							result.close();
+						}
+					}
+					finally {
+						try {
+							if (ctxIter2 != null) {
+								ctxIter2.close();
+							}
+						}
+						finally {
+							try {
+								if (ctxIter1 != null) {
+									ctxIter1.close();
+								}
+							}
+							finally {
+								try {
+									if (stIter2 != null) {
+										stIter2.close();
+									}
+								}
+								finally {
+									try {
+										if (stIter1 != null) {
+											stIter1.close();
+										}
+									}
+									finally {
+										if (btreeIter != null) {
+											try {
+												btreeIter.close();
+											}
+											catch (IOException e) {
+												throw new SailException(e);
+											}
+										}
+									}
+								}
+							}
+						}
+
+					}
+				}
+			}
+		}
+
+		public CloseableIteration&lt;? extends Statement, SailException&gt; getStatements(Resource subj, IRI pred,
+				Value obj, Resource... contexts)
+			throws SailException
+		{
+			try {
+				return createStatementIterator(subj, pred, obj, explicit, contexts);
+			}
+			catch (IOException e) {
+				throw new SailException(&quot;Unable to get statements&quot;, e);
+			}
+		}
+	}
+}</pre></div></td></tr></table>
 <table border="0" class="bodyTable">
 <tr class="a">
 <th>File</th>
@@ -232,13 +2049,594 @@
 <th>Project</th>
 <th>Line</th></tr>
 <tr class="b">
+<td>org/universAAL/context/rdf4j/sail/CardinalityStore.java</td>
+<td>universAAL Context rdf4j SAIL for OWL Lite</td>
+<td>129</td></tr>
+<tr class="a">
+<td>org/universAAL/context/rdf4j/sail/Collection2Store.java</td>
+<td>universAAL Context rdf4j SAIL for OWL Lite</td>
+<td>130</td></tr>
+<tr class="b">
+<td>org/universAAL/context/rdf4j/sail/CollectionStore.java</td>
+<td>universAAL Context rdf4j SAIL for OWL Lite</td>
+<td>130</td></tr>
+<tr class="a"><td colspan='3'>
+<div>
+<pre>	public CardinalityStore(File dataDir, String tripleIndexes, boolean encrypt) {
+		this(dataDir);
+		this.encrypt = encrypt;
+		setTripleIndexes(tripleIndexes);
+	}
+
+	/*---------*
+	 * Methods *
+	 *---------*/
+
+	/**
+	 * Sets the triple indexes for the native store, must be called before initialization.
+	 * 
+	 * @param tripleIndexes
+	 *        An index strings, e.g. &lt;tt&gt;spoc,posc&lt;/tt&gt;.
+	 */
+	public void setTripleIndexes(String tripleIndexes) {
+		if (isInitialized()) {
+			throw new IllegalStateException(&quot;sail has already been intialized&quot;);
+		}
+
+		this.tripleIndexes = tripleIndexes;
+	}
+
+	public String getTripleIndexes() {
+		return tripleIndexes;
+	}
+
+	/**
+	 * Specifiec whether updates should be synced to disk forcefully, must be called before initialization.
+	 * Enabling this feature may prevent corruption in case of events like power loss, but can have a severe
+	 * impact on write performance. By default, this feature is disabled.
+	 */
+	public void setForceSync(boolean forceSync) {
+		this.forceSync = forceSync;
+	}
+
+	public boolean getForceSync() {
+		return forceSync;
+	}
+
+	public void setValueCacheSize(int valueCacheSize) {
+		this.valueCacheSize = valueCacheSize;
+	}
+
+	public void setValueIDCacheSize(int valueIDCacheSize) {
+		this.valueIDCacheSize = valueIDCacheSize;
+	}
+
+	public void setNamespaceCacheSize(int namespaceCacheSize) {
+		this.namespaceCacheSize = namespaceCacheSize;
+	}
+
+	public void setNamespaceIDCacheSize(int namespaceIDCacheSize) {
+		this.namespaceIDCacheSize = namespaceIDCacheSize;
+	}
+
+	/**
+	 * @return Returns the {@link EvaluationStrategy}.
+	 */
+	public synchronized EvaluationStrategyFactory getEvaluationStrategyFactory() {
+		if (evalStratFactory == null) {
+			evalStratFactory = new StrictEvaluationStrategyFactory(getFederatedServiceResolver());
+		}
+		evalStratFactory.setQuerySolutionCacheThreshold(getIterationCacheSyncThreshold());
+		return evalStratFactory;
+	}
+
+	/**
+	 * Sets the {@link EvaluationStrategy} to use.
+	 */
+	public synchronized void setEvaluationStrategyFactory(EvaluationStrategyFactory factory) {
+		evalStratFactory = factory;
+	}
+
+	/**
+	 * @return Returns the SERVICE resolver.
+	 */
+	public synchronized FederatedServiceResolver getFederatedServiceResolver() {
+		if (serviceResolver == null) {
+			if (dependentServiceResolver == null) {
+				dependentServiceResolver = new SPARQLServiceResolver();
+			}
+			setFederatedServiceResolver(dependentServiceResolver);
+		}
+		return serviceResolver;
+	}
+
+	/**
+	 * Overrides the {@link FederatedServiceResolver} used by this instance, but the given resolver is not
+	 * shutDown when this instance is.
+	 * 
+	 * @param resolver
+	 *        The SERVICE resolver to set.
+	 */
+	public synchronized void setFederatedServiceResolver(FederatedServiceResolver resolver) {
+		this.serviceResolver = resolver;
+		if (resolver != null &amp;&amp; evalStratFactory instanceof FederatedServiceResolverClient) {
+			((FederatedServiceResolverClient)evalStratFactory).setFederatedServiceResolver(resolver);
+		}
+	}
+
+	/**
+	 * Initializes this NativeStore.
+	 * 
+	 * @exception SailException
+	 *            If this NativeStore could not be initialized using the parameters that have been set.
+	 */
+	@Override
+	protected void initializeInternal()
+		throws SailException
+	{
+		logger.debug(&quot;Initializing NativeStore...&quot;);
+
+		// Check initialization parameters
+		File dataDir = getDataDir();
+
+		if (dataDir == null) {
+			throw new SailException(&quot;Data dir has not been set&quot;);
+		}
+		else if (!dataDir.exists()) {
+			boolean success = dataDir.mkdirs();
+			if (!success) {
+				throw new SailException(&quot;Unable to create data directory: &quot; + dataDir);
+			}
+		}
+		else if (!dataDir.isDirectory()) {
+			throw new SailException(&quot;The specified path does not denote a directory: &quot; + dataDir);
+		}
+		else if (!dataDir.canRead()) {
+			throw new SailException(&quot;Not allowed to read from the specified directory: &quot; + dataDir);
+		}
+
+		// try to lock the directory or fail
+		dirLock = new DirectoryLockManager(dataDir).lockOrFail();
+
+		logger.debug(&quot;Data dir is &quot; + dataDir);
+
+		try {
+			File versionFile = new File(dataDir, &quot;nativerdf.ver&quot;);
+			String version = versionFile.exists() ? FileUtils.readFileToString(versionFile) : null;
+			if (!VERSION.equals(version) &amp;&amp; upgradeStore(dataDir, version)) {
+				FileUtils.writeStringToFile(versionFile, VERSION);
+			}
+			final CardinalitySailStore master = new CardinalitySailStore(dataDir, tripleIndexes, forceSync,</pre></div></td></tr></table>
+<table border="0" class="bodyTable">
+<tr class="b">
+<th>File</th>
+<th>Project</th>
+<th>Line</th></tr>
+<tr class="a">
+<td>org/universAAL/context/rdf4j/sail/CardinalityStore.java</td>
+<td>universAAL Context rdf4j SAIL for OWL Lite</td>
+<td>132</td></tr>
+<tr class="b">
+<td>org/universAAL/context/rdf4j/sail/Collection2Store.java</td>
+<td>universAAL Context rdf4j SAIL for OWL Lite</td>
+<td>133</td></tr>
+<tr class="a">
+<td>org/universAAL/context/rdf4j/sail/CollectionStore.java</td>
+<td>universAAL Context rdf4j SAIL for OWL Lite</td>
+<td>133</td></tr>
+<tr class="b">
+<td>org/universAAL/context/rdf4j/sail/NativeStore.java</td>
+<td>universAAL Context rdf4j SAIL for OWL Lite</td>
+<td>127</td></tr>
+<tr class="a"><td colspan='3'>
+<div>
+<pre>		setTripleIndexes(tripleIndexes);
+	}
+
+	/*---------*
+	 * Methods *
+	 *---------*/
+
+	/**
+	 * Sets the triple indexes for the native store, must be called before initialization.
+	 * 
+	 * @param tripleIndexes
+	 *        An index strings, e.g. &lt;tt&gt;spoc,posc&lt;/tt&gt;.
+	 */
+	public void setTripleIndexes(String tripleIndexes) {
+		if (isInitialized()) {
+			throw new IllegalStateException(&quot;sail has already been intialized&quot;);
+		}
+
+		this.tripleIndexes = tripleIndexes;
+	}
+
+	public String getTripleIndexes() {
+		return tripleIndexes;
+	}
+
+	/**
+	 * Specifiec whether updates should be synced to disk forcefully, must be called before initialization.
+	 * Enabling this feature may prevent corruption in case of events like power loss, but can have a severe
+	 * impact on write performance. By default, this feature is disabled.
+	 */
+	public void setForceSync(boolean forceSync) {
+		this.forceSync = forceSync;
+	}
+
+	public boolean getForceSync() {
+		return forceSync;
+	}
+
+	public void setValueCacheSize(int valueCacheSize) {
+		this.valueCacheSize = valueCacheSize;
+	}
+
+	public void setValueIDCacheSize(int valueIDCacheSize) {
+		this.valueIDCacheSize = valueIDCacheSize;
+	}
+
+	public void setNamespaceCacheSize(int namespaceCacheSize) {
+		this.namespaceCacheSize = namespaceCacheSize;
+	}
+
+	public void setNamespaceIDCacheSize(int namespaceIDCacheSize) {
+		this.namespaceIDCacheSize = namespaceIDCacheSize;
+	}
+
+	/**
+	 * @return Returns the {@link EvaluationStrategy}.
+	 */
+	public synchronized EvaluationStrategyFactory getEvaluationStrategyFactory() {
+		if (evalStratFactory == null) {
+			evalStratFactory = new StrictEvaluationStrategyFactory(getFederatedServiceResolver());
+		}
+		evalStratFactory.setQuerySolutionCacheThreshold(getIterationCacheSyncThreshold());
+		return evalStratFactory;
+	}
+
+	/**
+	 * Sets the {@link EvaluationStrategy} to use.
+	 */
+	public synchronized void setEvaluationStrategyFactory(EvaluationStrategyFactory factory) {
+		evalStratFactory = factory;
+	}
+
+	/**
+	 * @return Returns the SERVICE resolver.
+	 */
+	public synchronized FederatedServiceResolver getFederatedServiceResolver() {
+		if (serviceResolver == null) {
+			if (dependentServiceResolver == null) {
+				dependentServiceResolver = new SPARQLServiceResolver();
+			}
+			setFederatedServiceResolver(dependentServiceResolver);
+		}
+		return serviceResolver;
+	}
+
+	/**
+	 * Overrides the {@link FederatedServiceResolver} used by this instance, but the given resolver is not
+	 * shutDown when this instance is.
+	 * 
+	 * @param resolver
+	 *        The SERVICE resolver to set.
+	 */
+	public synchronized void setFederatedServiceResolver(FederatedServiceResolver resolver) {
+		this.serviceResolver = resolver;
+		if (resolver != null &amp;&amp; evalStratFactory instanceof FederatedServiceResolverClient) {
+			((FederatedServiceResolverClient)evalStratFactory).setFederatedServiceResolver(resolver);
+		}
+	}
+
+	/**
+	 * Initializes this NativeStore.
+	 * 
+	 * @exception SailException
+	 *            If this NativeStore could not be initialized using the parameters that have been set.
+	 */
+	@Override
+	protected void initializeInternal()
+		throws SailException
+	{
+		logger.debug(&quot;Initializing NativeStore...&quot;);
+
+		// Check initialization parameters
+		File dataDir = getDataDir();
+
+		if (dataDir == null) {
+			throw new SailException(&quot;Data dir has not been set&quot;);
+		}
+		else if (!dataDir.exists()) {
+			boolean success = dataDir.mkdirs();
+			if (!success) {
+				throw new SailException(&quot;Unable to create data directory: &quot; + dataDir);
+			}
+		}
+		else if (!dataDir.isDirectory()) {
+			throw new SailException(&quot;The specified path does not denote a directory: &quot; + dataDir);
+		}
+		else if (!dataDir.canRead()) {
+			throw new SailException(&quot;Not allowed to read from the specified directory: &quot; + dataDir);
+		}
+
+		// try to lock the directory or fail
+		dirLock = new DirectoryLockManager(dataDir).lockOrFail();
+
+		logger.debug(&quot;Data dir is &quot; + dataDir);
+
+		try {
+			File versionFile = new File(dataDir, &quot;nativerdf.ver&quot;);
+			String version = versionFile.exists() ? FileUtils.readFileToString(versionFile) : null;
+			if (!VERSION.equals(version) &amp;&amp; upgradeStore(dataDir, version)) {
+				FileUtils.writeStringToFile(versionFile, VERSION);
+			}
+			final CardinalitySailStore master = new CardinalitySailStore(dataDir, tripleIndexes, forceSync,</pre></div></td></tr></table>
+<table border="0" class="bodyTable">
+<tr class="b">
+<th>File</th>
+<th>Project</th>
+<th>Line</th></tr>
+<tr class="a">
+<td>org/universAAL/context/rdf4j/sail/CardinalityStoreConnection.java</td>
+<td>universAAL Context rdf4j SAIL for OWL Lite</td>
+<td>49</td></tr>
+<tr class="b">
+<td>org/universAAL/context/rdf4j/sail/Collection2StoreConnection.java</td>
+<td>universAAL Context rdf4j SAIL for OWL Lite</td>
+<td>50</td></tr>
+<tr class="a">
+<td>org/universAAL/context/rdf4j/sail/CollectionStoreConnection.java</td>
+<td>universAAL Context rdf4j SAIL for OWL Lite</td>
+<td>50</td></tr>
+<tr class="b">
+<td>org/universAAL/context/rdf4j/sail/NativeStoreConnection.java</td>
+<td>universAAL Context rdf4j SAIL for OWL Lite</td>
+<td>47</td></tr>
+<tr class="a"><td colspan='3'>
+<div>
+<pre>	protected CardinalityStoreConnection(CardinalityStore sail)
+		throws IOException
+	{
+		super(sail, sail.getSailStore(), sail.getEvaluationStrategyFactory());
+		this.nativeStore = sail;
+		sailChangedEvent = new DefaultSailChangedEvent(sail);
+	}
+
+	/*---------*
+	 * Methods *
+	 *---------*/
+
+	@Override
+	protected void startTransactionInternal()
+		throws SailException
+	{
+		if (!nativeStore.isWritable()) {
+			throw new SailReadOnlyException(&quot;Unable to start transaction: data file is locked or read-only&quot;);
+		}
+		boolean releaseLock = true;
+		try {
+			if (txnLock == null || !txnLock.isActive()) {
+				txnLock = nativeStore.getTransactionLock(getTransactionIsolation());
+			}
+			super.startTransactionInternal();
+		}
+		finally {
+			if (releaseLock &amp;&amp; txnLock != null) {
+				txnLock.release();
+			}
+		}
+	}
+
+	@Override
+	protected void commitInternal()
+		throws SailException
+	{
+		try {
+			super.commitInternal();
+		}
+		finally {
+			if (txnLock != null) {
+				txnLock.release();
+			}
+		}
+
+		nativeStore.notifySailChanged(sailChangedEvent);
+
+		// create a fresh event object.
+		sailChangedEvent = new DefaultSailChangedEvent(nativeStore);
+	}
+
+	@Override
+	protected void rollbackInternal()
+		throws SailException
+	{
+		try {
+			super.rollbackInternal();
+		}
+		finally {
+			if (txnLock != null) {
+				txnLock.release();
+			}
+		}
+		// create a fresh event object.
+		sailChangedEvent = new DefaultSailChangedEvent(nativeStore);
+	}
+
+	@Override
+	protected void addStatementInternal(Resource subj, IRI pred, Value obj, Resource... contexts)
+		throws SailException
+	{
+		// assume the triple is not yet present in the triple store
+		sailChangedEvent.setStatementsAdded(true);
+	}
+
+	public boolean addInferredStatement(Resource subj, IRI pred, Value obj, Resource... contexts)
+		throws SailException
+	{
+		boolean ret = super.addInferredStatement(subj, pred, obj, contexts);
+		// assume the triple is not yet present in the triple store
+		sailChangedEvent.setStatementsAdded(true);
+		return ret;
+	}
+
+	@Override
+	protected void removeStatementsInternal(Resource subj, IRI pred, Value obj, Resource... contexts)
+		throws SailException
+	{
+		sailChangedEvent.setStatementsRemoved(true);
+	}
+
+	public boolean removeInferredStatement(Resource subj, IRI pred, Value obj, Resource... contexts)
+		throws SailException
+	{
+		boolean ret = super.removeInferredStatement(subj, pred, obj, contexts);
+		sailChangedEvent.setStatementsRemoved(true);
+		return ret;
+	}
+
+	@Override
+	protected void clearInternal(Resource... contexts)
+		throws SailException
+	{
+		super.clearInternal(contexts);
+		sailChangedEvent.setStatementsRemoved(true);
+	}
+
+	public void clearInferred(Resource... contexts)
+		throws SailException
+	{
+		super.clearInferred(contexts);
+		sailChangedEvent.setStatementsRemoved(true);
+	}
+	
+	
+
+}</pre></div></td></tr></table>
+<table border="0" class="bodyTable">
+<tr class="b">
+<th>File</th>
+<th>Project</th>
+<th>Line</th></tr>
+<tr class="a">
+<td>org/universAAL/context/rdf4j/sail/CardinalityStore.java</td>
+<td>universAAL Context rdf4j SAIL for OWL Lite</td>
+<td>353</td></tr>
+<tr class="b">
+<td>org/universAAL/context/rdf4j/sail/Collection2Store.java</td>
+<td>universAAL Context rdf4j SAIL for OWL Lite</td>
+<td>354</td></tr>
+<tr class="a">
+<td>org/universAAL/context/rdf4j/sail/CollectionStore.java</td>
+<td>universAAL Context rdf4j SAIL for OWL Lite</td>
+<td>354</td></tr>
+<tr class="b"><td colspan='3'>
+<div>
+<pre>			return new CardinalityStoreConnection(this);
+		}
+		catch (IOException e) {
+			throw new SailException(e);
+		}
+	}
+
+	public ValueFactory getValueFactory() {
+		return store.getValueFactory();
+	}
+
+	/**
+	 * This call will block when {@link IsolationLevels#NONE} is provided when there are active transactions
+	 * with a higher isolation and block when a higher isolation is provided when there are active
+	 * transactions with {@link IsolationLevels#NONE} isolation. Store is either exclusively in
+	 * {@link IsolationLevels#NONE} isolation with potentially zero or more transactions, or exclusively in
+	 * higher isolation mode with potentially zero or more transactions.
+	 * 
+	 * @param level
+	 *        indicating desired mode {@link IsolationLevels#NONE} or higher
+	 * @return Lock used to prevent Store from switching isolation modes
+	 * @throws SailException
+	 */
+	protected Lock getTransactionLock(IsolationLevel level)
+		throws SailException
+	{
+		txnLockManager.lock();
+		try {
+			if (IsolationLevels.NONE.isCompatibleWith(level)) {
+				// make sure no isolated transaction are active
+				isolatedLockManager.waitForActiveLocks();
+				// mark isolation as disabled
+				return disabledIsolationLockManager.createLock(level.toString());
+			}
+			else {
+				// make sure isolation is not disabled
+				disabledIsolationLockManager.waitForActiveLocks();
+				// mark isolated transaction as active
+				return isolatedLockManager.createLock(level.toString());
+			}
+		}
+		catch (InterruptedException e) {
+			Thread.currentThread().interrupt();
+			throw new SailException(e);
+		}
+		finally {
+			txnLockManager.unlock();
+		}
+	}
+
+	/**
+	 * Checks if any {@link IsolationLevels#NONE} isolation transactions are active.
+	 * 
+	 * @return &lt;code&gt;true&lt;/code&gt; if at least one transaction has direct access to the indexes
+	 */
+	boolean isIsolationDisabled() {
+		return disabledIsolationLockManager.isActiveLock();
+	}
+
+	SailStore getSailStore() {
+		return store;
+	}
+
+	protected boolean upgradeStore(File dataDir, String version)
+		throws IOException, SailException
+	{
+		if (version == null) {
+			// either a new store or a pre-2.8.2 store
+			ValueStore valueStore = new ValueStore(dataDir);
+			try {
+				valueStore.checkConsistency();
+				return true; // good enough
+			}
+			catch (SailException e) {
+				// valueStore is not consistent - possibly contains two entries for
+				// string-literals with the same lexical value (e.g. &quot;foo&quot; and
+				// &quot;foo&quot;^^xsd:string). Log an error and indicate upgrade should
+				// not be executed.
+				logger.error(
+						&quot;VALUE INCONSISTENCY: could not automatically upgrade native store to RDF 1.1-compatibility: {}. Failure to upgrade may result in inconsistent query results when comparing literal values.&quot;,
+						e.getMessage());
+				return false;
+			}
+			finally {
+				valueStore.close();
+			}
+		}
+		else {
+			return false; // no upgrade needed
+		}
+	}
+}</pre></div></td></tr></table>
+<table border="0" class="bodyTable">
+<tr class="a">
+<th>File</th>
+<th>Project</th>
+<th>Line</th></tr>
+<tr class="b">
 <td>org/universAAL/context/prof/serv/SCaller.java</td>
 <td>universAAL Context Profiling Server</td>
-<td>272</td></tr>
+<td>271</td></tr>
 <tr class="a">
 <td>org/universAAL/context/prof/serv/SCaller.java</td>
 <td>universAAL Context Profiling Server</td>
-<td>305</td></tr>
+<td>304</td></tr>
 <tr class="b"><td colspan='3'>
 <div>
 <pre>				.call(getDoSPARQLRequest(Queries.Q_GET_SUBS_OF_USR_XTRA.replace(Queries.ARG1, user.getURI())));
@@ -274,9 +2672,101 @@
 <th>Project</th>
 <th>Line</th></tr>
 <tr class="b">
+<td>org/universAAL/context/rdf4j/sail/CardinalityStore.java</td>
+<td>universAAL Context rdf4j SAIL for OWL Lite</td>
+<td>285</td></tr>
+<tr class="a">
+<td>org/universAAL/context/rdf4j/sail/Collection2Store.java</td>
+<td>universAAL Context rdf4j SAIL for OWL Lite</td>
+<td>286</td></tr>
+<tr class="b">
+<td>org/universAAL/context/rdf4j/sail/CollectionStore.java</td>
+<td>universAAL Context rdf4j SAIL for OWL Lite</td>
+<td>286</td></tr>
+<tr class="a">
+<td>org/universAAL/context/rdf4j/sail/NativeStore.java</td>
+<td>universAAL Context rdf4j SAIL for OWL Lite</td>
+<td>280</td></tr>
+<tr class="b"><td colspan='3'>
+<div>
+<pre>							return new CardinalitySailStore(dataDir, getTripleIndexes());
+						}
+					};
+				}
+			}) {
+
+				@Override
+				public SailSource getExplicitSailSource() {
+					if (isIsolationDisabled()) {
+						// no isolation, use CardinalitySailStore directly
+						return master.getExplicitSailSource();
+					}
+					else {
+						return super.getExplicitSailSource();
+					}
+				}
+
+				@Override
+				public SailSource getInferredSailSource() {
+					if (isIsolationDisabled()) {
+						// no isolation, use CardinalitySailStore directly
+						return master.getInferredSailSource();
+					}
+					else {
+						return super.getInferredSailSource();
+					}
+				}
+			};
+		}
+		catch (Throwable e) {
+			// NativeStore initialization failed, release any allocated files
+			dirLock.release();
+
+			throw new SailException(e);
+		}
+
+		logger.debug(&quot;NativeStore initialized&quot;);
+	}
+
+	@Override
+	protected void shutDownInternal()
+		throws SailException
+	{
+		logger.debug(&quot;Shutting down NativeStore...&quot;);
+
+		try {
+			store.close();
+
+			logger.debug(&quot;NativeStore shut down&quot;);
+		}
+		finally {
+			dirLock.release();
+			if (dependentServiceResolver != null) {
+				dependentServiceResolver.shutDown();
+			}
+			logger.debug(&quot;NativeStore shut down&quot;);
+		}
+	}
+
+	public boolean isWritable() {
+		return getDataDir().canWrite();
+	}
+
+	@Override
+	protected NotifyingSailConnection getConnectionInternal()
+		throws SailException
+	{
+		try {
+			return new CardinalityStoreConnection(this);</pre></div></td></tr></table>
+<table border="0" class="bodyTable">
+<tr class="a">
+<th>File</th>
+<th>Project</th>
+<th>Line</th></tr>
+<tr class="b">
 <td>org/universAAL/context/prof/serv/SCaller.java</td>
 <td>universAAL Context Profiling Server</td>
-<td>407</td></tr>
+<td>406</td></tr>
 <tr class="a">
 <td>org/universAAL/context/space/serv/SCaller.java</td>
 <td>universAAL Context Space Server</td>
@@ -322,69 +2812,80 @@
 <th>Project</th>
 <th>Line</th></tr>
 <tr class="b">
-<td>org/universAAL/context/sesame/sail/CardinCollect2NativeStoreConnection.java</td>
-<td>universAAL Context Sesame SAIL for OWL Lite</td>
-<td>48</td></tr>
+<td>org/universAAL/context/rdf4j/sail/CardinalitySailStore.java</td>
+<td>universAAL Context rdf4j SAIL for OWL Lite</td>
+<td>277</td></tr>
 <tr class="a">
-<td>org/universAAL/context/sesame/sail/CardinCollectNativeStoreConnection.java</td>
-<td>universAAL Context Sesame SAIL for OWL Lite</td>
-<td>44</td></tr>
-<tr class="b"><td colspan='3'>
+<td>org/universAAL/context/rdf4j/sail/Collection2SailStore.java</td>
+<td>universAAL Context rdf4j SAIL for OWL Lite</td>
+<td>280</td></tr>
+<tr class="b">
+<td>org/universAAL/context/rdf4j/sail/CollectionSailStore.java</td>
+<td>universAAL Context rdf4j SAIL for OWL Lite</td>
+<td>280</td></tr>
+<tr class="a">
+<td>org/universAAL/context/rdf4j/sail/NativeEvaluationStatistics.java</td>
+<td>universAAL Context rdf4j SAIL for OWL Lite</td>
+<td>82</td></tr>
+<tr class="b">
+<td>org/universAAL/context/rdf4j/sail/NativeSailStore.java</td>
+<td>universAAL Context rdf4j SAIL for OWL Lite</td>
+<td>258</td></tr>
+<tr class="a"><td colspan='3'>
 <div>
-<pre>				} else if (prevObjIsClosedCollection(subj, pred, contexts)) {
-					removeStatements(subj, pred, null, true, contexts);
-				} else if (objIsClosedCollection(obj, contexts)) {
-					removeStatements(subj, pred, null, true, contexts);
-				}
-
-				// END PATCH
-				boolean wasNew = nativeStore.getTripleStore().storeTriple(subjID, predID, objID, contextID, explicit);
-				result |= wasNew;
-
-				if (wasNew) {
-					// The triple was not yet present in the triple store
-					sailChangedEvent.setStatementsAdded(true);
-
-					if (hasConnectionListeners()) {
-						Statement st;
-
-						if (context != null) {
-							st = valueStore.createStatement(subj, pred, obj, context);
-						} else {
-							st = valueStore.createStatement(subj, pred, obj);
-						}
-
-						notifyStatementAdded(st);
-					}
-				}
+<pre>	double cardinality(Resource subj, IRI pred, Value obj, Resource context)
+		throws IOException
+	{
+		int subjID = NativeValue.UNKNOWN_ID;
+		if (subj != null) {
+			subjID = valueStore.getID(subj);
+			if (subjID == NativeValue.UNKNOWN_ID) {
+				return 0;
 			}
-		} catch (IOException e) {
-			throw new SailException(e);
-		} catch (RuntimeException e) {
-			logger.error(&quot;Encountered an unexpected problem while trying to add a statement&quot;, e);
-			throw e;
 		}
 
-		return result;
-	}
+		int predID = NativeValue.UNKNOWN_ID;
+		if (pred != null) {
+			predID = valueStore.getID(pred);
+			if (predID == NativeValue.UNKNOWN_ID) {
+				return 0;
+			}
+		}
 
-	private boolean prevObjIsClosedCollection(Resource subj, URI pred, Resource[] contexts) throws SailException {</pre></div></td></tr></table>
+		int objID = NativeValue.UNKNOWN_ID;
+		if (obj != null) {
+			objID = valueStore.getID(obj);
+			if (objID == NativeValue.UNKNOWN_ID) {
+				return 0;
+			}
+		}
+
+		int contextID = NativeValue.UNKNOWN_ID;
+		if (context != null) {
+			contextID = valueStore.getID(context);
+			if (contextID == NativeValue.UNKNOWN_ID) {
+				return 0;
+			}
+		}
+
+		return tripleStore.cardinality(subjID, predID, objID, contextID);
+	}</pre></div></td></tr></table>
 <table border="0" class="bodyTable">
-<tr class="a">
+<tr class="b">
 <th>File</th>
 <th>Project</th>
 <th>Line</th></tr>
-<tr class="b">
-<td>org/universAAL/context/che/database/impl/SesameBackendCrdClc.java</td>
-<td>universAAL Context CHE - Module for Sesame store with cardinality</td>
-<td>49</td></tr>
 <tr class="a">
-<td>org/universAAL/context/che/database/impl/SesameBackendCrdClcCnf.java</td>
-<td>universAAL Context CHE - Module for Sesame store with cardinality</td>
+<td>org/universAAL/context/che/database/impl/RDF4JBackendCrdClc.java</td>
+<td>universAAL Context CHE - Module for rdf4j store with cardinality</td>
+<td>49</td></tr>
+<tr class="b">
+<td>org/universAAL/context/che/database/impl/RDF4JBackendCrdClcCnf.java</td>
+<td>universAAL Context CHE - Module for rdf4j store with cardinality</td>
 <td>58</td></tr>
-<tr class="b"><td colspan='3'>
+<tr class="a"><td colspan='3'>
 <div>
-<pre>	private static Log log = Hub.getLog(SesameBackendCrdClc.class);
+<pre>	private static Log log = Hub.getLog(RDF4JBackendCrdClc.class);
 
 	@Override
 	public void connect() {
@@ -400,7 +2901,7 @@
 			// TODO: Evaluate the inference, and study other reasoners, if any
 			try {
 				myRepository = new SailRepository(
-						new ForwardChainingRDFSInferencer(new CardinCollectNativeStore(dataDir, indexes, encrypt)));
+						new ForwardChainingRDFSInferencer(new CollectionStore(dataDir, indexes, encrypt)));
 				myRepository.initialize();
 				con = myRepository.getConnection();
 				if (Boolean.parseBoolean(Hub.getProperties().getProperty(&quot;STORE.PRELOAD&quot;))) {
@@ -414,21 +2915,21 @@
 			log.error(&quot;connect&quot;,
 					&quot;No location specified for the store. &quot; + &quot;Add and specify the configuration&quot;</pre></div></td></tr></table>
 <table border="0" class="bodyTable">
-<tr class="a">
+<tr class="b">
 <th>File</th>
 <th>Project</th>
 <th>Line</th></tr>
-<tr class="b">
-<td>org/universAAL/context/che/database/impl/SesameBackendCrd.java</td>
-<td>universAAL Context CHE - Module for Sesame store with cardinality</td>
+<tr class="a">
+<td>org/universAAL/context/che/database/impl/RDF4JBackendCrd.java</td>
+<td>universAAL Context CHE - Module for rdf4j store with cardinality</td>
 <td>45</td></tr>
-<tr class="a">
-<td>org/universAAL/context/che/database/impl/SesameBackendCrdCnf.java</td>
-<td>universAAL Context CHE - Module for Sesame store with cardinality</td>
+<tr class="b">
+<td>org/universAAL/context/che/database/impl/RDF4JBackendCrdCnf.java</td>
+<td>universAAL Context CHE - Module for rdf4j store with cardinality</td>
 <td>58</td></tr>
-<tr class="b"><td colspan='3'>
+<tr class="a"><td colspan='3'>
 <div>
-<pre>	private static Log log = Hub.getLog(SesameBackendCrd.class);
+<pre>	private static Log log = Hub.getLog(RDF4JBackendCrd.class);
 
 	@Override
 	public void connect() {
@@ -444,7 +2945,7 @@
 			// TODO: Evaluate the inference, and study other reasoners, if any
 			try {
 				myRepository = new SailRepository(
-						new ForwardChainingRDFSInferencer(new CardinalityNativeStore(dataDir, indexes, encrypt)));
+						new ForwardChainingRDFSInferencer(new CardinalityStore(dataDir, indexes, encrypt)));
 				myRepository.initialize();
 				con = myRepository.getConnection();
 				if (Boolean.parseBoolean(Hub.getProperties().getProperty(&quot;STORE.PRELOAD&quot;))) {
@@ -457,21 +2958,21 @@
 		} else {
 			log.error(&quot;connect&quot;,</pre></div></td></tr></table>
 <table border="0" class="bodyTable">
-<tr class="a">
+<tr class="b">
 <th>File</th>
 <th>Project</th>
 <th>Line</th></tr>
-<tr class="b">
-<td>org/universAAL/context/che/database/impl/SesameBackendCrdClc2.java</td>
-<td>universAAL Context CHE - Module for Sesame store with cardinality</td>
+<tr class="a">
+<td>org/universAAL/context/che/database/impl/RDF4JBackendCrdClc2.java</td>
+<td>universAAL Context CHE - Module for rdf4j store with cardinality</td>
 <td>53</td></tr>
-<tr class="a">
-<td>org/universAAL/context/che/database/impl/SesameBackendCrdClc2Cnf.java</td>
-<td>universAAL Context CHE - Module for Sesame store with cardinality</td>
+<tr class="b">
+<td>org/universAAL/context/che/database/impl/RDF4JBackendCrdClc2Cnf.java</td>
+<td>universAAL Context CHE - Module for rdf4j store with cardinality</td>
 <td>58</td></tr>
-<tr class="b"><td colspan='3'>
+<tr class="a"><td colspan='3'>
 <div>
-<pre>	private static Log log = Hub.getLog(SesameBackendCrdClc2.class);
+<pre>	private static Log log = Hub.getLog(RDF4JBackendCrdClc2.class);
 
 	@Override
 	public void connect() {
@@ -487,7 +2988,7 @@
 			// TODO: Evaluate the inference, and study other reasoners, if any
 			try {
 				myRepository = new SailRepository(
-						new ForwardChainingRDFSInferencer(new CardinCollect2NativeStore(dataDir, indexes, encrypt)));
+						new ForwardChainingRDFSInferencer(new Collection2Store(dataDir, indexes, encrypt)));
 				myRepository.initialize();
 				con = myRepository.getConnection();
 				if (Boolean.parseBoolean(Hub.getProperties().getProperty(&quot;STORE.PRELOAD&quot;))) {
@@ -500,19 +3001,19 @@
 		} else {
 			log.error(&quot;connect&quot;,</pre></div></td></tr></table>
 <table border="0" class="bodyTable">
-<tr class="a">
+<tr class="b">
 <th>File</th>
 <th>Project</th>
 <th>Line</th></tr>
-<tr class="b">
+<tr class="a">
 <td>org/universAAL/context/prof/serv/SCaller.java</td>
 <td>universAAL Context Profiling Server</td>
-<td>369</td></tr>
-<tr class="a">
+<td>368</td></tr>
+<tr class="b">
 <td>org/universAAL/context/space/serv/SCaller.java</td>
 <td>universAAL Context Space Server</td>
 <td>424</td></tr>
-<tr class="b"><td colspan='3'>
+<tr class="a"><td colspan='3'>
 <div>
 <pre>	}
 
@@ -552,69 +3053,70 @@
 				ProcessOutput output = (ProcessOutput) i.next();
 				if (output.getURI().equals(OUTPUT_RESULT_STRING) &amp;&amp; returnValue == null) {</pre></div></td></tr></table>
 <table border="0" class="bodyTable">
-<tr class="a">
+<tr class="b">
 <th>File</th>
 <th>Project</th>
 <th>Line</th></tr>
-<tr class="b">
-<td>org/universAAL/context/sesame/sail/CardinCollect2NativeStoreConnection.java</td>
-<td>universAAL Context Sesame SAIL for OWL Lite</td>
-<td>18</td></tr>
 <tr class="a">
-<td>org/universAAL/context/sesame/sail/CardinCollectNativeStoreConnection.java</td>
-<td>universAAL Context Sesame SAIL for OWL Lite</td>
-<td>16</td></tr>
-<tr class="b"><td colspan='3'>
+<td>org/universAAL/context/rdf4j/sail/Collection2SailStore.java</td>
+<td>universAAL Context rdf4j SAIL for OWL Lite</td>
+<td>508</td></tr>
+<tr class="b">
+<td>org/universAAL/context/rdf4j/sail/CollectionSailStore.java</td>
+<td>universAAL Context rdf4j SAIL for OWL Lite</td>
+<td>506</td></tr>
+<tr class="a"><td colspan='3'>
 <div>
-<pre>	protected CardinCollect2NativeStoreConnection(CardinalityNativeStore nativeStore) throws IOException {
-		super(nativeStore);
-	}
-
-	@Override
-	protected boolean addStatement(Resource subj, URI pred, Value obj, boolean explicit, Resource... contexts)
-			throws SailException {
-		OpenRDFUtil.verifyContextNotNull(contexts);
-
-		boolean result = false;
-
-		try {
-			ValueStore valueStore = nativeStore.getValueStore();
-			int subjID = valueStore.storeValue(subj);
-			int predID = valueStore.storeValue(pred);
-			int objID = valueStore.storeValue(obj);
-
-			if (contexts.length == 0) {
-				contexts = new Resource[] { null };
+<pre>					} else if (prevObjIsClosedCollection(subj, pred, contexts)) {
+						removeStatements(subj, pred, null, true, contexts);
+					} else if (objIsClosedCollection(obj, contexts)) {
+						removeStatements(subj, pred, null, true, contexts);
+					}
+					// END PATCH
+					boolean wasNew = tripleStore.storeTriple(subjID, predID, objID, contextID, explicit);
+					result |= wasNew;
+				}
+			}
+			catch (IOException e) {
+				throw new SailException(e);
+			}
+			catch (RuntimeException e) {
+				logger.error(&quot;Encountered an unexpected problem while trying to add a statement&quot;, e);
+				throw e;
+			}
+			finally {
+				sinkStoreAccessLock.unlock();
 			}
 
-			for (Resource context : contexts) {
-				int contextID = 0;
-				if (context != null) {
-					contextID = valueStore.storeValue(context);
-				}
-
-				// START PATCH
-				if (hasMaxCardinality1(pred, contexts)) {
-					removeStatements(subj, pred, null, true, contexts);
-				} else if (prevObjIsClosedCollection(subj, pred, contexts)) {</pre></div></td></tr></table>
+			return result;
+		}
+		
+		private boolean objIsClosedCollection(Value obj, Resource[] contexts) throws SailException {
+			if (obj instanceof BNode) {// TODO of Resource better? wait and see
+			    // ClosedCollection, if it's not blank...
+				return (size((BNode) obj, RDF.FIRST, null, true, contexts) &gt; 0);
+			} else {
+				return false;
+			}
+		}</pre></div></td></tr></table>
 <table border="0" class="bodyTable">
-<tr class="a">
+<tr class="b">
 <th>File</th>
 <th>Project</th>
 <th>Line</th></tr>
-<tr class="b">
-<td>org/universAAL/context/prof/serv/SCaller.java</td>
-<td>universAAL Context Profiling Server</td>
-<td>222</td></tr>
 <tr class="a">
 <td>org/universAAL/context/prof/serv/SCaller.java</td>
 <td>universAAL Context Profiling Server</td>
-<td>277</td></tr>
+<td>221</td></tr>
 <tr class="b">
 <td>org/universAAL/context/prof/serv/SCaller.java</td>
 <td>universAAL Context Profiling Server</td>
-<td>310</td></tr>
-<tr class="a"><td colspan='3'>
+<td>276</td></tr>
+<tr class="a">
+<td>org/universAAL/context/prof/serv/SCaller.java</td>
+<td>universAAL Context Profiling Server</td>
+<td>309</td></tr>
+<tr class="b"><td colspan='3'>
 <div>
 <pre>		Resource bag = (Resource) Hub.parser.deserialize(result + &quot; &quot; + result2, Queries.AUXBAG);
 		if (bag != null) {
@@ -639,27 +3141,112 @@
 
 	protected Resource getProfileOfUser(Resource user)</pre></div></td></tr></table>
 <table border="0" class="bodyTable">
-<tr class="b">
+<tr class="a">
 <th>File</th>
 <th>Project</th>
 <th>Line</th></tr>
+<tr class="b">
+<td>org/universAAL/context/rdf4j/sail/CardinalityStore.java</td>
+<td>universAAL Context rdf4j SAIL for OWL Lite</td>
+<td>353</td></tr>
 <tr class="a">
-<td>org/universAAL/context/prof/serv/SCaller.java</td>
-<td>universAAL Context Profiling Server</td>
-<td>223</td></tr>
+<td>org/universAAL/context/rdf4j/sail/Collection2Store.java</td>
+<td>universAAL Context rdf4j SAIL for OWL Lite</td>
+<td>354</td></tr>
+<tr class="b">
+<td>org/universAAL/context/rdf4j/sail/CollectionStore.java</td>
+<td>universAAL Context rdf4j SAIL for OWL Lite</td>
+<td>354</td></tr>
+<tr class="a">
+<td>org/universAAL/context/rdf4j/sail/NativeStore.java</td>
+<td>universAAL Context rdf4j SAIL for OWL Lite</td>
+<td>348</td></tr>
+<tr class="b"><td colspan='3'>
+<div>
+<pre>			return new CardinalityStoreConnection(this);
+		}
+		catch (IOException e) {
+			throw new SailException(e);
+		}
+	}
+
+	public ValueFactory getValueFactory() {
+		return store.getValueFactory();
+	}
+
+	/**
+	 * This call will block when {@link IsolationLevels#NONE} is provided when there are active transactions
+	 * with a higher isolation and block when a higher isolation is provided when there are active
+	 * transactions with {@link IsolationLevels#NONE} isolation. Store is either exclusively in
+	 * {@link IsolationLevels#NONE} isolation with potentially zero or more transactions, or exclusively in
+	 * higher isolation mode with potentially zero or more transactions.
+	 * 
+	 * @param level
+	 *        indicating desired mode {@link IsolationLevels#NONE} or higher
+	 * @return Lock used to prevent Store from switching isolation modes
+	 * @throws SailException
+	 */
+	protected Lock getTransactionLock(IsolationLevel level)
+		throws SailException
+	{
+		txnLockManager.lock();
+		try {
+			if (IsolationLevels.NONE.isCompatibleWith(level)) {
+				// make sure no isolated transaction are active
+				isolatedLockManager.waitForActiveLocks();
+				// mark isolation as disabled
+				return disabledIsolationLockManager.createLock(level.toString());
+			}
+			else {
+				// make sure isolation is not disabled
+				disabledIsolationLockManager.waitForActiveLocks();
+				// mark isolated transaction as active
+				return isolatedLockManager.createLock(level.toString());
+			}
+		}
+		catch (InterruptedException e) {
+			Thread.currentThread().interrupt();
+			throw new SailException(e);
+		}
+		finally {
+			txnLockManager.unlock();
+		}
+	}
+
+	/**
+	 * Checks if any {@link IsolationLevels#NONE} isolation transactions are active.
+	 * 
+	 * @return &lt;code&gt;true&lt;/code&gt; if at least one transaction has direct access to the indexes
+	 */
+	boolean isIsolationDisabled() {
+		return disabledIsolationLockManager.isActiveLock();
+	}
+
+	SailStore getSailStore() {
+		return store;
+	}</pre></div></td></tr></table>
+<table border="0" class="bodyTable">
+<tr class="a">
+<th>File</th>
+<th>Project</th>
+<th>Line</th></tr>
 <tr class="b">
 <td>org/universAAL/context/prof/serv/SCaller.java</td>
 <td>universAAL Context Profiling Server</td>
-<td>278</td></tr>
+<td>222</td></tr>
 <tr class="a">
 <td>org/universAAL/context/prof/serv/SCaller.java</td>
 <td>universAAL Context Profiling Server</td>
-<td>311</td></tr>
+<td>277</td></tr>
 <tr class="b">
+<td>org/universAAL/context/prof/serv/SCaller.java</td>
+<td>universAAL Context Profiling Server</td>
+<td>310</td></tr>
+<tr class="a">
 <td>org/universAAL/context/space/serv/SCaller.java</td>
 <td>universAAL Context Space Server</td>
 <td>406</td></tr>
-<tr class="a"><td colspan='3'>
+<tr class="b"><td colspan='3'>
 <div>
 <pre>		if (bag != null) {
 			Object content = bag.getProperty(Queries.AUXBAGPROP);
@@ -681,140 +3268,92 @@
 		}
 	}</pre></div></td></tr></table>
 <table border="0" class="bodyTable">
-<tr class="b">
+<tr class="a">
 <th>File</th>
 <th>Project</th>
 <th>Line</th></tr>
-<tr class="a">
-<td>org/universAAL/context/sesame/sail/CardinCollect2NativeStoreConnection.java</td>
-<td>universAAL Context Sesame SAIL for OWL Lite</td>
+<tr class="b">
+<td>org/universAAL/context/rdf4j/sail/CardinalityStore.java</td>
+<td>universAAL Context rdf4j SAIL for OWL Lite</td>
 <td>50</td></tr>
-<tr class="b">
-<td>org/universAAL/context/sesame/sail/CardinCollectNativeStoreConnection.java</td>
-<td>universAAL Context Sesame SAIL for OWL Lite</td>
-<td>46</td></tr>
 <tr class="a">
-<td>org/universAAL/context/sesame/sail/CardinalityNativeStoreConnection.java</td>
-<td>universAAL Context Sesame SAIL for OWL Lite</td>
-<td>428</td></tr>
-<tr class="b"><td colspan='3'>
-<div>
-<pre>				} else if (objIsClosedCollection(obj, contexts)) {
-					removeStatements(subj, pred, null, true, contexts);
-				}
-
-				// END PATCH
-				boolean wasNew = nativeStore.getTripleStore().storeTriple(subjID, predID, objID, contextID, explicit);
-				result |= wasNew;
-
-				if (wasNew) {
-					// The triple was not yet present in the triple store
-					sailChangedEvent.setStatementsAdded(true);
-
-					if (hasConnectionListeners()) {
-						Statement st;
-
-						if (context != null) {
-							st = valueStore.createStatement(subj, pred, obj, context);
-						} else {
-							st = valueStore.createStatement(subj, pred, obj);
-						}
-
-						notifyStatementAdded(st);
-					}
-				}
-			}
-		} catch (IOException e) {
-			throw new SailException(e);
-		} catch (RuntimeException e) {
-			logger.error(&quot;Encountered an unexpected problem while trying to add a statement&quot;, e);
-			throw e;
-		}
-
-		return result;
-	}</pre></div></td></tr></table>
-<table border="0" class="bodyTable">
-<tr class="a">
-<th>File</th>
-<th>Project</th>
-<th>Line</th></tr>
+<td>org/universAAL/context/rdf4j/sail/Collection2Store.java</td>
+<td>universAAL Context rdf4j SAIL for OWL Lite</td>
+<td>51</td></tr>
 <tr class="b">
-<td>org/universAAL/context/sesame/sail/CardinCollect2NativeStoreConnection.java</td>
-<td>universAAL Context Sesame SAIL for OWL Lite</td>
-<td>23</td></tr>
-<tr class="a">
-<td>org/universAAL/context/sesame/sail/CardinCollectNativeStoreConnection.java</td>
-<td>universAAL Context Sesame SAIL for OWL Lite</td>
-<td>21</td></tr>
-<tr class="b">
-<td>org/universAAL/context/sesame/sail/CardinalityNativeStoreConnection.java</td>
-<td>universAAL Context Sesame SAIL for OWL Lite</td>
-<td>405</td></tr>
+<td>org/universAAL/context/rdf4j/sail/CollectionStore.java</td>
+<td>universAAL Context rdf4j SAIL for OWL Lite</td>
+<td>51</td></tr>
 <tr class="a"><td colspan='3'>
 <div>
-<pre>	protected boolean addStatement(Resource subj, URI pred, Value obj, boolean explicit, Resource... contexts)
-			throws SailException {
-		OpenRDFUtil.verifyContextNotNull(contexts);
+<pre>public class CardinalityStore extends AbstractNotifyingSail implements FederatedServiceResolverClient {
 
-		boolean result = false;
+	/*-----------*
+	 * Variables *
+	 *-----------*/
 
-		try {
-			ValueStore valueStore = nativeStore.getValueStore();
-			int subjID = valueStore.storeValue(subj);
-			int predID = valueStore.storeValue(pred);
-			int objID = valueStore.storeValue(obj);
+	protected static final String VERSION = MavenUtil.loadVersion(&quot;org.eclipse.rdf4j&quot;, &quot;rdf4j-sail-nativerdf&quot;,
+			&quot;devel&quot;);
 
-			if (contexts.length == 0) {
-				contexts = new Resource[] { null };
-			}
+	/**
+	 * Specifies which triple indexes this native store must use.
+	 */
+	protected volatile String tripleIndexes;
 
-			for (Resource context : contexts) {
-				int contextID = 0;
-				if (context != null) {
-					contextID = valueStore.storeValue(context);
-				}
+	/**
+	 * Flag indicating whether updates should be synced to disk forcefully. This may have a severe impact on
+	 * write performance. By default, this feature is disabled.
+	 */
+	protected volatile boolean forceSync = false;
 
-				// START PATCH
-				if (hasMaxCardinality1(pred, contexts)) {</pre></div></td></tr></table>
-<table border="0" class="bodyTable">
-<tr class="b">
-<th>File</th>
-<th>Project</th>
-<th>Line</th></tr>
-<tr class="a">
-<td>org/universAAL/context/sesame/sail/CardinalityNativeStoreConnection.java</td>
-<td>universAAL Context Sesame SAIL for OWL Lite</td>
-<td>256</td></tr>
-<tr class="b">
-<td>org/universAAL/context/sesame/sail/CardinalityNativeStoreConnection.java</td>
-<td>universAAL Context Sesame SAIL for OWL Lite</td>
-<td>537</td></tr>
-<tr class="a"><td colspan='3'>
-<div>
-<pre>			ValueStore valueStore = nativeStore.getValueStore();
+	protected volatile int valueCacheSize = ValueStore.VALUE_CACHE_SIZE;
 
-			int subjID = NativeValue.UNKNOWN_ID;
-			if (subj != null) {
-				subjID = valueStore.getID(subj);
-				if (subjID == NativeValue.UNKNOWN_ID) {
-					return 0;
-				}
-			}
-			int predID = NativeValue.UNKNOWN_ID;
-			if (pred != null) {
-				predID = valueStore.getID(pred);
-				if (predID == NativeValue.UNKNOWN_ID) {
-					return 0;
-				}
-			}
-			int objID = NativeValue.UNKNOWN_ID;
-			if (obj != null) {
-				objID = valueStore.getID(obj);
-				if (objID == NativeValue.UNKNOWN_ID) {
-					return 0;
-				}
-			}
-			List&lt;Integer&gt; contextIDs;</pre></div></td></tr></table>
+	protected volatile int valueIDCacheSize = ValueStore.VALUE_ID_CACHE_SIZE;
+
+	protected volatile int namespaceCacheSize = ValueStore.NAMESPACE_CACHE_SIZE;
+
+	protected volatile int namespaceIDCacheSize = ValueStore.NAMESPACE_ID_CACHE_SIZE;
+
+	protected SailStore store;
+
+	/**
+	 * Data directory lock.
+	 */
+	protected volatile Lock dirLock;
+
+	private EvaluationStrategyFactory evalStratFactory;
+
+	/** independent life cycle */
+	private FederatedServiceResolver serviceResolver;
+
+	/** dependent life cycle */
+	private SPARQLServiceResolver dependentServiceResolver;
+
+	/**
+	 * Lock manager used to prevent concurrent {@link #getTransactionLock(IsolationLevel)} calls.
+	 */
+	private final ReentrantLock txnLockManager = new ReentrantLock();
+
+	/**
+	 * Holds locks for all isolated transactions.
+	 */
+	private final LockManager isolatedLockManager = new LockManager(debugEnabled());
+
+	/**
+	 * Holds locks for all {@link IsolationLevels#NONE} isolation transactions.
+	 */
+	private final LockManager disabledIsolationLockManager = new LockManager(debugEnabled());
+
+	protected boolean encrypt;
+	    
+	/*--------------*
+	 * Constructors *
+	 *--------------*/
+
+	/**
+	 * Creates a new NativeStore.
+	 */
+	public CardinalityStore() {</pre></div></td></tr></table>
 <table border="0" class="bodyTable">
 <tr class="b">
 <th>File</th>
@@ -847,21 +3386,23 @@
 <th>Project</th>
 <th>Line</th></tr>
 <tr class="a">
-<td>org/universAAL/context/sesame/sail/ValueStore.java</td>
-<td>universAAL Context Sesame SAIL for OWL Lite</td>
-<td>212</td></tr>
+<td>org/universAAL/context/rdf4j/sail/ValueStore.java</td>
+<td>universAAL Context rdf4j SAIL for OWL Lite</td>
+<td>223</td></tr>
 <tr class="b">
-<td>org/universAAL/context/sesame/sail/ValueStore.java</td>
-<td>universAAL Context Sesame SAIL for OWL Lite</td>
-<td>278</td></tr>
+<td>org/universAAL/context/rdf4j/sail/ValueStore.java</td>
+<td>universAAL Context rdf4j SAIL for OWL Lite</td>
+<td>298</td></tr>
 <tr class="a"><td colspan='3'>
 <div>
-<pre>	public int getID(Value value) throws IOException {
+<pre>	public int getID(Value value)
+		throws IOException
+	{
 		// Try to get the internal ID from the value itself
 		boolean isOwnValue = isOwnValue(value);
 
 		if (isOwnValue) {
-			NativeValue nativeValue = (NativeValue) value;
+			NativeValue nativeValue = (NativeValue)value;
 
 			if (revisionIsCurrent(nativeValue)) {
 				int id = nativeValue.getInternalID();
@@ -880,7 +3421,7 @@
 
 			if (isOwnValue) {
 				// Store id in value for fast access in any consecutive calls
-				((NativeValue) value).setInternalID(id, revision);
+				((NativeValue)value).setInternalID(id, revision);
 			}
 
 			return id;
@@ -894,17 +3435,41 @@
 <th>Project</th>
 <th>Line</th></tr>
 <tr class="a">
-<td>org/universAAL/context/sesame/sail/CardinalityNativeStore.java</td>
-<td>universAAL Context Sesame SAIL for OWL Lite</td>
-<td>424</td></tr>
+<td>org/universAAL/context/rdf4j/sail/CardinalitySailStore.java</td>
+<td>universAAL Context rdf4j SAIL for OWL Lite</td>
+<td>280</td></tr>
 <tr class="b">
-<td>org/universAAL/context/sesame/sail/CardinalityNativeStoreConnection.java</td>
-<td>universAAL Context Sesame SAIL for OWL Lite</td>
-<td>258</td></tr>
+<td>org/universAAL/context/rdf4j/sail/CardinalitySailStore.java</td>
+<td>universAAL Context rdf4j SAIL for OWL Lite</td>
+<td>587</td></tr>
 <tr class="a">
-<td>org/universAAL/context/sesame/sail/CardinalityNativeStoreConnection.java</td>
-<td>universAAL Context Sesame SAIL for OWL Lite</td>
-<td>539</td></tr>
+<td>org/universAAL/context/rdf4j/sail/Collection2SailStore.java</td>
+<td>universAAL Context rdf4j SAIL for OWL Lite</td>
+<td>283</td></tr>
+<tr class="b">
+<td>org/universAAL/context/rdf4j/sail/Collection2SailStore.java</td>
+<td>universAAL Context rdf4j SAIL for OWL Lite</td>
+<td>626</td></tr>
+<tr class="a">
+<td>org/universAAL/context/rdf4j/sail/CollectionSailStore.java</td>
+<td>universAAL Context rdf4j SAIL for OWL Lite</td>
+<td>283</td></tr>
+<tr class="b">
+<td>org/universAAL/context/rdf4j/sail/CollectionSailStore.java</td>
+<td>universAAL Context rdf4j SAIL for OWL Lite</td>
+<td>599</td></tr>
+<tr class="a">
+<td>org/universAAL/context/rdf4j/sail/NativeEvaluationStatistics.java</td>
+<td>universAAL Context rdf4j SAIL for OWL Lite</td>
+<td>85</td></tr>
+<tr class="b">
+<td>org/universAAL/context/rdf4j/sail/NativeSailStore.java</td>
+<td>universAAL Context rdf4j SAIL for OWL Lite</td>
+<td>261</td></tr>
+<tr class="a">
+<td>org/universAAL/context/rdf4j/sail/NativeSailStore.java</td>
+<td>universAAL Context rdf4j SAIL for OWL Lite</td>
+<td>511</td></tr>
 <tr class="b"><td colspan='3'>
 <div>
 <pre>		int subjID = NativeValue.UNKNOWN_ID;

@@ -1,0 +1,14 @@
+<map id="G" name="G">
+<area shape="rect" id="node1_0" href="../Backend.html" title="org.universAAL.context.che.database.Backend" alt="" coords="351,11,436,55"/>
+<area shape="rect" id="node1" href="../Backend.html" title="&lt;TABLE&gt;" alt="" coords="340,6,447,61"/>
+<area shape="rect" id="node6_1" href="./RDF4JBackend.html" title="org.universAAL.context.che.database.impl.RDF4JBackend" alt="" coords="337,120,450,147"/>
+<area shape="rect" id="node6" href="./RDF4JBackend.html" title="&lt;TABLE&gt;" alt="" coords="326,109,461,157"/>
+<area shape="rect" id="node2_2" href="./RDF4JBackendCrdClc.html" title="org.universAAL.context.che.database.impl.RDF4JBackendCrdClc" alt="" coords="16,216,171,243"/>
+<area shape="rect" id="node2" href="./RDF4JBackendCrdClc.html" title="&lt;TABLE&gt;" alt="" coords="5,205,181,253"/>
+<area shape="rect" id="node3_3" href="./RDF4JBackendCrdClc2.html" title="org.universAAL.context.che.database.impl.RDF4JBackendCrdClc2" alt="" coords="217,216,378,243"/>
+<area shape="rect" id="node3" href="./RDF4JBackendCrdClc2.html" title="&lt;TABLE&gt;" alt="" coords="206,205,389,253"/>
+<area shape="rect" id="node4_4" href="./RDF4JBackendCrd.html" title="org.universAAL.context.che.database.impl.RDF4JBackendCrd" alt="" coords="423,216,558,243"/>
+<area shape="rect" id="node4" href="./RDF4JBackendCrd.html" title="&lt;TABLE&gt;" alt="" coords="413,205,569,253"/>
+<area shape="rect" id="node5_5" href="./RDF4JBackendWithConfidence.html" title="org.universAAL.context.che.database.impl.RDF4JBackendWithConfidence" alt="" coords="603,216,810,243"/>
+<area shape="rect" id="node5" href="./RDF4JBackendWithConfidence.html" title="&lt;TABLE&gt;" alt="" coords="593,205,821,253"/>
+</map>

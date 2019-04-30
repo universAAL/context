@@ -1,0 +1,12 @@
+<map id="G" name="G">
+<area shape="rect" id="node1_0" href="./NativeValue.html" title="org.universAAL.context.rdf4j.sail.model.NativeValue" alt="" coords="19,11,111,55"/>
+<area shape="rect" id="node1" href="./NativeValue.html" title="&lt;TABLE&gt;" alt="" coords="9,6,122,61"/>
+<area shape="rect" id="node3_1" href="./NativeResource.html" title="org.universAAL.context.rdf4j.sail.model.NativeResource" alt="" coords="75,115,189,159"/>
+<area shape="rect" id="node3" href="./NativeResource.html" title="&lt;TABLE&gt;" alt="" coords="64,110,200,165"/>
+<area shape="rect" id="node2_2" href="./NativeBNode.html" title="org.universAAL.context.rdf4j.sail.model.NativeBNode" alt="" coords="16,224,115,251"/>
+<area shape="rect" id="node2" href="./NativeBNode.html" title="&lt;TABLE&gt;" alt="" coords="5,213,125,261"/>
+<area shape="rect" id="node4_3" href="./NativeIRI.html" title="org.universAAL.context.rdf4j.sail.model.NativeIRI" alt="" coords="160,224,237,251"/>
+<area shape="rect" id="node4" href="./NativeIRI.html" title="&lt;TABLE&gt;" alt="" coords="149,213,248,261"/>
+<area shape="rect" id="node5_4" href="http://java.sun.com/j2se/1.4.2/docs/api/org/eclipse/rdf4j/model/Resource.html" title="org.eclipse.rdf4j.model.Resource" alt="" coords="157,11,243,55"/>
+<area shape="rect" id="node5" href="http://java.sun.com/j2se/1.4.2/docs/api/org/eclipse/rdf4j/model/Resource.html" title="&lt;TABLE&gt;" alt="" coords="147,6,253,61"/>
+</map>

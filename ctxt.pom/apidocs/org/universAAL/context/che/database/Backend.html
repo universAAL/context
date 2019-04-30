@@ -95,10 +95,10 @@ var activeTableTab = "activeTableTab";
 <div class="subTitle">org.universAAL.context.che.database</div>
 <h2 title="Interface Backend" class="title">Interface Backend</h2>
 <map id="G" name="G">
-<area shape="rect" id="node1_0" href="./Backend.html" title="org.universAAL.context.che.database.Backend" alt="" coords="32,11,117,55"/>
-<area shape="rect" id="node1" href="./Backend.html" title="&lt;TABLE&gt;" alt="" coords="21,6,128,61"/>
-<area shape="rect" id="node2_1" href="./impl/SesameBackend.html" title="org.universAAL.context.che.database.impl.SesameBackend" alt="" coords="15,120,135,147"/>
-<area shape="rect" id="node2" href="./impl/SesameBackend.html" title="&lt;TABLE&gt;" alt="" coords="4,109,145,157"/>
+<area shape="rect" id="node1_0" href="./Backend.html" title="org.universAAL.context.che.database.Backend" alt="" coords="29,11,115,55"/>
+<area shape="rect" id="node1" href="./Backend.html" title="&lt;TABLE&gt;" alt="" coords="19,6,125,61"/>
+<area shape="rect" id="node2_1" href="./impl/RDF4JBackend.html" title="org.universAAL.context.che.database.impl.RDF4JBackend" alt="" coords="15,120,129,147"/>
+<area shape="rect" id="node2" href="./impl/RDF4JBackend.html" title="&lt;TABLE&gt;" alt="" coords="5,109,139,157"/>
 </map>
 <!-- UML diagram added by UMLGraph version R5_6-24-gf6e263 (http://www.umlgraph.org/) -->
 <div align="center"><img src="Backend.png" alt="Package class diagram package Backend" usemap="#G" border=0/></div>
@@ -109,7 +109,7 @@ var activeTableTab = "activeTableTab";
 <li class="blockList">
 <dl>
 <dt>All Known Implementing Classes:</dt>
-<dd><a href="../../../../../org/universAAL/context/che/database/impl/SesameBackend.html" title="class in org.universAAL.context.che.database.impl">SesameBackend</a>, <a href="../../../../../org/universAAL/context/che/database/impl/SesameBackendCrd.html" title="class in org.universAAL.context.che.database.impl">SesameBackendCrd</a>, <a href="../../../../../org/universAAL/context/che/database/impl/SesameBackendCrdClc.html" title="class in org.universAAL.context.che.database.impl">SesameBackendCrdClc</a>, <a href="../../../../../org/universAAL/context/che/database/impl/SesameBackendCrdClc2.html" title="class in org.universAAL.context.che.database.impl">SesameBackendCrdClc2</a>, <a href="../../../../../org/universAAL/context/che/database/impl/SesameBackendCrdClc2Cnf.html" title="class in org.universAAL.context.che.database.impl">SesameBackendCrdClc2Cnf</a>, <a href="../../../../../org/universAAL/context/che/database/impl/SesameBackendCrdClcCnf.html" title="class in org.universAAL.context.che.database.impl">SesameBackendCrdClcCnf</a>, <a href="../../../../../org/universAAL/context/che/database/impl/SesameBackendCrdCnf.html" title="class in org.universAAL.context.che.database.impl">SesameBackendCrdCnf</a>, <a href="../../../../../org/universAAL/context/che/database/impl/SesameBackendWithConfidence.html" title="class in org.universAAL.context.che.database.impl">SesameBackendWithConfidence</a></dd>
+<dd><a href="../../../../../org/universAAL/context/che/database/impl/RDF4JBackend.html" title="class in org.universAAL.context.che.database.impl">RDF4JBackend</a>, <a href="../../../../../org/universAAL/context/che/database/impl/RDF4JBackendCrd.html" title="class in org.universAAL.context.che.database.impl">RDF4JBackendCrd</a>, <a href="../../../../../org/universAAL/context/che/database/impl/RDF4JBackendCrdClc.html" title="class in org.universAAL.context.che.database.impl">RDF4JBackendCrdClc</a>, <a href="../../../../../org/universAAL/context/che/database/impl/RDF4JBackendCrdClc2.html" title="class in org.universAAL.context.che.database.impl">RDF4JBackendCrdClc2</a>, <a href="../../../../../org/universAAL/context/che/database/impl/RDF4JBackendCrdClc2Cnf.html" title="class in org.universAAL.context.che.database.impl">RDF4JBackendCrdClc2Cnf</a>, <a href="../../../../../org/universAAL/context/che/database/impl/RDF4JBackendCrdClcCnf.html" title="class in org.universAAL.context.che.database.impl">RDF4JBackendCrdClcCnf</a>, <a href="../../../../../org/universAAL/context/che/database/impl/RDF4JBackendCrdCnf.html" title="class in org.universAAL.context.che.database.impl">RDF4JBackendCrdCnf</a>, <a href="../../../../../org/universAAL/context/che/database/impl/RDF4JBackendWithConfidence.html" title="class in org.universAAL.context.che.database.impl">RDF4JBackendWithConfidence</a></dd>
 </dl>
 <hr>
 <br>
@@ -607,8 +607,8 @@ var activeTableTab = "activeTableTab";
 <li class="blockList">
 <h4>populate</h4>
 <pre>void&nbsp;populate()
-       throws org.openrdf.repository.RepositoryException,
-              org.openrdf.rio.RDFParseException,
+       throws org.eclipse.rdf4j.repository.RepositoryException,
+              org.eclipse.rdf4j.rio.RDFParseException,
               <a href="http://docs.oracle.com/javase/1.5.0/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</a></pre>
 <div class="block">Fills the initial store with the OWL data of the ontologies from the OWL
  files in the config folder (or registered in the system). Also used for
@@ -616,8 +616,8 @@ var activeTableTab = "activeTableTab";
  of not duplicating new ontologies that are already stored.</div>
 <dl>
 <dt><span class="throwsLabel">Throws:</span></dt>
-<dd><code>org.openrdf.repository.RepositoryException</code></dd>
-<dd><code>org.openrdf.rio.RDFParseException</code></dd>
+<dd><code>org.eclipse.rdf4j.repository.RepositoryException</code></dd>
+<dd><code>org.eclipse.rdf4j.rio.RDFParseException</code></dd>
 <dd><code><a href="http://docs.oracle.com/javase/1.5.0/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</a></code></dd>
 </dl>
 </li>
@@ -629,8 +629,8 @@ var activeTableTab = "activeTableTab";
 <li class="blockList">
 <h4>populate</h4>
 <pre>void&nbsp;populate(<a href="http://docs.oracle.com/javase/1.5.0/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;owlFileName)
-       throws org.openrdf.repository.RepositoryException,
-              org.openrdf.rio.RDFParseException,
+       throws org.eclipse.rdf4j.repository.RepositoryException,
+              org.eclipse.rdf4j.rio.RDFParseException,
               <a href="http://docs.oracle.com/javase/1.5.0/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</a></pre>
 <div class="block">Fills the store with the OWL data of a certain ontologies from the OWL
  file in the config folder (or registered in the system). Also used for
@@ -639,8 +639,8 @@ var activeTableTab = "activeTableTab";
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>owlFileName</code> - The naem of the OWL file to store</dd>
 <dt><span class="throwsLabel">Throws:</span></dt>
-<dd><code>org.openrdf.repository.RepositoryException</code></dd>
-<dd><code>org.openrdf.rio.RDFParseException</code></dd>
+<dd><code>org.eclipse.rdf4j.repository.RepositoryException</code></dd>
+<dd><code>org.eclipse.rdf4j.rio.RDFParseException</code></dd>
 <dd><code><a href="http://docs.oracle.com/javase/1.5.0/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</a></code></dd>
 </dl>
 </li>
@@ -714,6 +714,6 @@ var activeTableTab = "activeTableTab";
 <!--   -->
 </a></div>
 <!-- ======== END OF BOTTOM NAVBAR ======= -->
-<p class="legalCopy"><small>Copyright &#169; 2010&#x2013;2018 <a href="http://www.universAAL.org/">universAAL Consortium</a>. All rights reserved.</small></p>
+<p class="legalCopy"><small>Copyright &#169; 2010&#x2013;2019 <a href="http://www.universAAL.org/">universAAL Consortium</a>. All rights reserved.</small></p>
 </body>
 </html>

@@ -23,13 +23,13 @@ under the License.
     <link>http://context/ctxt.che/</link>
     <description>universAAL Context CHE - Context History Entrepot - Checkstyle report</description>
     <language>en-us</language>
-    <copyright>&#169;2008 - 2018 Instituto Tecnologico de Aplicaciones de Comunicacion Avanzadas - Grupo Tecnologias para la Salud y el Bienestar (TSB)
+    <copyright>&#169;2008 - 2019 Instituto Tecnologico de Aplicaciones de Comunicacion Avanzadas - Grupo Tecnologias para la Salud y el Bienestar (Sabien)
     Fraunhofer-Gesellschaft - Institute of Computer Graphics Research</copyright>
     <item>
       <title>File: 9,
              Errors: 107,
              Warnings: 5,
-             Infos: 24
+             Infos: 25
       </title>
             <link>http://context/ctxt.che//checkstyle.html</link>
       <description>
@@ -47,30 +47,30 @@ under the License.
           <tbody>
                           <tr>
                 <td>
-                  <a href="http://context/ctxt.che//checkstyle.html#org.universAAL.context.che.database.impl.SesameBackendWithConfidence.java">org/universAAL/context/che/database/impl/SesameBackendWithConfidence.java</a>
-                </td>
-                <td>
-                  1
-                </td>
-                <td>
-                  1
-                </td>
-                <td>
-                  2
-                </td>
-              </tr>
-                          <tr>
-                <td>
                   <a href="http://context/ctxt.che//checkstyle.html#org.universAAL.context.che.Hub.java">org/universAAL/context/che/Hub.java</a>
                 </td>
                 <td>
-                  9
+                  10
                 </td>
                 <td>
                   0
                 </td>
                 <td>
                   22
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://context/ctxt.che//checkstyle.html#org.universAAL.context.che.database.impl.RDF4JBackend.java">org/universAAL/context/che/database/impl/RDF4JBackend.java</a>
+                </td>
+                <td>
+                  10
+                </td>
+                <td>
+                  4
+                </td>
+                <td>
+                  34
                 </td>
               </tr>
                           <tr>
@@ -89,20 +89,6 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="http://context/ctxt.che//checkstyle.html#org.universAAL.context.che.ContextHistoryCallee.java">org/universAAL/context/che/ContextHistoryCallee.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  13
-                </td>
-              </tr>
-                          <tr>
-                <td>
                   <a href="http://context/ctxt.che//checkstyle.html#org.universAAL.context.che.database.Cleaner.java">org/universAAL/context/che/database/Cleaner.java</a>
                 </td>
                 <td>
@@ -113,6 +99,20 @@ under the License.
                 </td>
                 <td>
                   3
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://context/ctxt.che//checkstyle.html#org.universAAL.context.che.ContextHistoryCallee.java">org/universAAL/context/che/ContextHistoryCallee.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  13
                 </td>
               </tr>
                           <tr>
@@ -145,6 +145,20 @@ under the License.
               </tr>
                           <tr>
                 <td>
+                  <a href="http://context/ctxt.che//checkstyle.html#org.universAAL.context.che.database.impl.RDF4JBackendWithConfidence.java">org/universAAL/context/che/database/impl/RDF4JBackendWithConfidence.java</a>
+                </td>
+                <td>
+                  1
+                </td>
+                <td>
+                  1
+                </td>
+                <td>
+                  2
+                </td>
+              </tr>
+                          <tr>
+                <td>
                   <a href="http://context/ctxt.che//checkstyle.html#org.universAAL.context.che.ContextHistoryServices.java">org/universAAL/context/che/ContextHistoryServices.java</a>
                 </td>
                 <td>
@@ -155,20 +169,6 @@ under the License.
                 </td>
                 <td>
                   16
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="http://context/ctxt.che//checkstyle.html#org.universAAL.context.che.database.impl.SesameBackend.java">org/universAAL/context/che/database/impl/SesameBackend.java</a>
-                </td>
-                <td>
-                  10
-                </td>
-                <td>
-                  4
-                </td>
-                <td>
-                  34
                 </td>
               </tr>
                       </tbody>

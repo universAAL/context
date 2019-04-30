@@ -1,0 +1,26 @@
+<map id="G" name="G">
+<area shape="rect" id="node1_0" href="./CardinalityStore.html" title="org.universAAL.context.rdf4j.sail.CardinalityStore" alt="" coords="15,16,129,43"/>
+<area shape="rect" id="node1" href="./CardinalityStore.html" title="&lt;TABLE&gt;" alt="" coords="5,5,139,53"/>
+<area shape="rect" id="node2_1" href="./LimitedSizeNativeStoreConnection.html" title="org.universAAL.context.rdf4j.sail.LimitedSizeNativeStoreConnection" alt="" coords="140,112,364,139"/>
+<area shape="rect" id="node2" href="./LimitedSizeNativeStoreConnection.html" title="&lt;TABLE&gt;" alt="" coords="129,101,375,149"/>
+<area shape="rect" id="node3_2" href="./CollectionStoreConnection.html" title="org.universAAL.context.rdf4j.sail.CollectionStoreConnection" alt="" coords="376,16,552,43"/>
+<area shape="rect" id="node3" href="./CollectionStoreConnection.html" title="&lt;TABLE&gt;" alt="" coords="365,5,563,53"/>
+<area shape="rect" id="node4_3" href="./Collection2StoreConnection.html" title="org.universAAL.context.rdf4j.sail.Collection2StoreConnection" alt="" coords="598,16,781,43"/>
+<area shape="rect" id="node4" href="./Collection2StoreConnection.html" title="&lt;TABLE&gt;" alt="" coords="587,5,791,53"/>
+<area shape="rect" id="node5_4" href="./Collection2Store.html" title="org.universAAL.context.rdf4j.sail.Collection2Store" alt="" coords="827,16,944,43"/>
+<area shape="rect" id="node5" href="./Collection2Store.html" title="&lt;TABLE&gt;" alt="" coords="816,5,955,53"/>
+<area shape="rect" id="node6_5" href="./NativeStoreConnection.html" title="org.universAAL.context.rdf4j.sail.NativeStoreConnection" alt="" coords="174,16,330,43"/>
+<area shape="rect" id="node6" href="./NativeStoreConnection.html" title="&lt;TABLE&gt;" alt="" coords="163,5,341,53"/>
+<area shape="rect" id="node7_6" href="./ValueStore.html" title="org.universAAL.context.rdf4j.sail.ValueStore" alt="" coords="989,16,1075,43"/>
+<area shape="rect" id="node7" href="./ValueStore.html" title="&lt;TABLE&gt;" alt="" coords="979,5,1085,53"/>
+<area shape="rect" id="node8_7" href="./CardinalityStoreConnection.html" title="org.universAAL.context.rdf4j.sail.CardinalityStoreConnection" alt="" coords="1121,16,1301,43"/>
+<area shape="rect" id="node8" href="./CardinalityStoreConnection.html" title="&lt;TABLE&gt;" alt="" coords="1110,5,1311,53"/>
+<area shape="rect" id="node9_8" href="./ValueStoreRevision.html" title="org.universAAL.context.rdf4j.sail.ValueStoreRevision" alt="" coords="1347,16,1483,43"/>
+<area shape="rect" id="node9" href="./ValueStoreRevision.html" title="&lt;TABLE&gt;" alt="" coords="1336,5,1493,53"/>
+<area shape="rect" id="node10_9" href="./NativeStore.html" title="org.universAAL.context.rdf4j.sail.NativeStore" alt="" coords="1529,16,1618,43"/>
+<area shape="rect" id="node10" href="./NativeStore.html" title="&lt;TABLE&gt;" alt="" coords="1518,5,1629,53"/>
+<area shape="rect" id="node11_10" href="./LimitedSizeNativeStore.html" title="org.universAAL.context.rdf4j.sail.LimitedSizeNativeStore" alt="" coords="1495,112,1652,139"/>
+<area shape="rect" id="node11" href="./LimitedSizeNativeStore.html" title="&lt;TABLE&gt;" alt="" coords="1484,101,1663,149"/>
+<area shape="rect" id="node12_11" href="./CollectionStore.html" title="org.universAAL.context.rdf4j.sail.CollectionStore" alt="" coords="1664,16,1773,43"/>
+<area shape="rect" id="node12" href="./CollectionStore.html" title="&lt;TABLE&gt;" alt="" coords="1653,5,1784,53"/>
+</map>

@@ -23,7 +23,7 @@ under the License.
     <link>http://context/ctxt.drools.reasoner/</link>
     <description>universAAL Context Drools Reasoner - Checkstyle report</description>
     <language>en-us</language>
-    <copyright>&#169;2010 - 2018 universAAL Consortium</copyright>
+    <copyright>&#169;2010 - 2019 universAAL Consortium</copyright>
     <item>
       <title>File: 14,
              Errors: 112,
@@ -66,7 +66,7 @@ under the License.
                   1
                 </td>
                 <td>
-                  0
+                  1
                 </td>
                 <td>
                   2
@@ -80,7 +80,7 @@ under the License.
                   0
                 </td>
                 <td>
-                  1
+                  0
                 </td>
                 <td>
                   15
@@ -94,7 +94,7 @@ under the License.
                   0
                 </td>
                 <td>
-                  1
+                  0
                 </td>
                 <td>
                   10
@@ -130,20 +130,6 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="http://context/ctxt.drools.reasoner//checkstyle.html#org.universAAL.drools.engine.RulesEngine.java">org/universAAL/drools/engine/RulesEngine.java</a>
-                </td>
-                <td>
-                  7
-                </td>
-                <td>
-                  3
-                </td>
-                <td>
-                  21
-                </td>
-              </tr>
-                          <tr>
-                <td>
                   <a href="http://context/ctxt.drools.reasoner//checkstyle.html#org.universAAL.drools.models.RuleModel.java">org/universAAL/drools/models/RuleModel.java</a>
                 </td>
                 <td>
@@ -158,13 +144,27 @@ under the License.
               </tr>
                           <tr>
                 <td>
+                  <a href="http://context/ctxt.drools.reasoner//checkstyle.html#org.universAAL.drools.engine.RulesEngine.java">org/universAAL/drools/engine/RulesEngine.java</a>
+                </td>
+                <td>
+                  7
+                </td>
+                <td>
+                  3
+                </td>
+                <td>
+                  21
+                </td>
+              </tr>
+                          <tr>
+                <td>
                   <a href="http://context/ctxt.drools.reasoner//checkstyle.html#org.universAAL.drools.engine.CustomWorkingMemoryEventListener.java">org/universAAL/drools/engine/CustomWorkingMemoryEventListener.java</a>
                 </td>
                 <td>
                   0
                 </td>
                 <td>
-                  1
+                  2
                 </td>
                 <td>
                   11
@@ -178,7 +178,7 @@ under the License.
                   1
                 </td>
                 <td>
-                  1
+                  0
                 </td>
                 <td>
                   9
@@ -220,7 +220,7 @@ under the License.
                   0
                 </td>
                 <td>
-                  0
+                  1
                 </td>
                 <td>
                   6

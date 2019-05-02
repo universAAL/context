@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE coverage SYSTEM "http://cobertura.sourceforge.net/xml/coverage-04.dtd">
 
-<coverage line-rate="0.0" branch-rate="0.0" lines-covered="0" lines-valid="120" branches-covered="0" branches-valid="24" complexity="4.0" version="2.1.1" timestamp="1556633973422">
+<coverage line-rate="0.0" branch-rate="0.0" lines-covered="0" lines-valid="120" branches-covered="0" branches-valid="24" complexity="4.0" version="2.1.1" timestamp="1556789294890">
 	<sources>
 		<source>/home/travis/build/universAAL/context/ctxt.che.module.cardinality/src/main/java</source>
 		<source>--source</source>

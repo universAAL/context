@@ -103,13 +103,20 @@ public class Activator implements BundleActivator, ServiceListener {
 	 */
 	public void serviceChanged(ServiceEvent event) {
 		// Update the parser of Hub (& store)
+		MessageContentSerializer parser;
 		switch (event.getType()) {
 		case ServiceEvent.REGISTERED:
 		case ServiceEvent.MODIFIED:
+			parser = (MessageContentSerializer) osgiContext.getService(event.getServiceReference());
+			if(parser.getContentType().equals("text/turtle")){ // Ignore JSON LD
 			hub.setSerializer((MessageContentSerializer) osgiContext.getService(event.getServiceReference()));
+			}
 			break;
 		case ServiceEvent.UNREGISTERING:
+			parser = (MessageContentSerializer) osgiContext.getService(event.getServiceReference());
+			if(parser.getContentType().equals("text/turtle")){ // Ignore JSON LD
 			hub.setSerializer(null);
+			}
 			break;
 		default:
 			break;

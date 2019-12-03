@@ -229,13 +229,20 @@ public class ReliabilityReasonerActivator implements BundleActivator, ServiceLis
 	 */
 	public void serviceChanged(ServiceEvent event) {
 		// Update the MessageContentSerializer
+	    MessageContentSerializerEx parser;
 		switch (event.getType()) {
 		case ServiceEvent.REGISTERED:
 		case ServiceEvent.MODIFIED:
-			scaller.setSerializer((MessageContentSerializerEx) osgiContext.getService(event.getServiceReference()));
+		    parser = (MessageContentSerializerEx) osgiContext.getService(event.getServiceReference());
+		    if(parser.getContentType().equals("text/turtle")){ // Ignore JSON LD
+			scaller.setSerializer(parser);
+		    }
 			break;
 		case ServiceEvent.UNREGISTERING:
+		    parser = (MessageContentSerializerEx) osgiContext.getService(event.getServiceReference());
+		    if(parser.getContentType().equals("text/turtle")){ // Ignore JSON LD
 			scaller.setSerializer(null);
+		    }
 			break;
 		default:
 			break;

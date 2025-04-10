@@ -287,7 +287,8 @@ public class RDF4JBackend implements Backend {
 			}
 		} catch (RDF4JException exc) {
 			log.error("storeEvent", "Error trying to get connection to store: {}", exc);
-			exc.printStackTrace();
+			// exc.printStackTrace();
+			System.out.printf("\n!!!!!!!!!! %s %s %s !!!!!!!!!!\n\n", e.getRDFSubject(), e.getRDFPredicate(), e.getRDFObject());
 		}
 	}
 

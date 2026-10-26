@@ -26,6 +26,9 @@
 			<plugin>
 				<groupId>org.apache.felix</groupId>
 				<artifactId>maven-bundle-plugin</artifactId>
+				<!-- fixed version matching the bndlib 2.4.0 declared below; without it, maven takes the latest plugin
+				     (6.x needs bnd 7 and Java 17) and fails with NoSuchMethodError -->
+				<version>2.5.4</version>
 				<extensions>true</extensions>
 				<configuration>
 					<remoteOBR>NONE</remoteOBR>

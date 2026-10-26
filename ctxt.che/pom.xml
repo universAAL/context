@@ -42,55 +42,55 @@
     <dependency>
       <groupId>org.eclipse.rdf4j</groupId>
       <artifactId>rdf4j-model</artifactId>
-      <version>2.3.2</version>
+      <version>3.7.7</version>
       <scope>provided</scope>
     </dependency>
     <dependency>
       <groupId>org.eclipse.rdf4j</groupId>
       <artifactId>rdf4j-repository-api</artifactId>
-      <version>2.3.2</version>
+      <version>3.7.7</version>
       <scope>provided</scope>
     </dependency>
     <dependency>
       <groupId>org.eclipse.rdf4j</groupId>
       <artifactId>rdf4j-repository-sail</artifactId>
-      <version>2.3.2</version>
+      <version>3.7.7</version>
       <scope>provided</scope>
     </dependency>
     <dependency>
       <groupId>org.eclipse.rdf4j</groupId>
       <artifactId>rdf4j-rio-api</artifactId>
-      <version>2.3.2</version>
+      <version>3.7.7</version>
       <scope>provided</scope>
     </dependency>
         <dependency>
       <groupId>org.eclipse.rdf4j</groupId>
       <artifactId>rdf4j-rio-turtle</artifactId>
-      <version>2.3.2</version>
+      <version>3.7.7</version>
       <scope>provided</scope>
     </dependency>
     <dependency>
       <groupId>org.eclipse.rdf4j</groupId>
       <artifactId>rdf4j-query</artifactId>
-      <version>2.3.2</version>
+      <version>3.7.7</version>
       <scope>provided</scope>
     </dependency>
     <dependency>
       <groupId>org.eclipse.rdf4j</groupId>
       <artifactId>rdf4j-queryresultio-sparqlxml</artifactId>
-      <version>2.3.2</version>
+      <version>3.7.7</version>
       <scope>provided</scope>
     </dependency>
     <dependency>
       <groupId>org.eclipse.rdf4j</groupId>
       <artifactId>rdf4j-sail-nativerdf</artifactId>
-      <version>2.3.2</version>
+      <version>3.7.7</version>
       <scope>provided</scope>
     </dependency>
     <dependency>
       <groupId>org.eclipse.rdf4j</groupId>
       <artifactId>rdf4j-sail-inferencer</artifactId>
-      <version>2.3.2</version>
+      <version>3.7.7</version>
       <scope>provided</scope>
     </dependency>
     <!-- universAAL dependencies -->
@@ -176,7 +176,7 @@
         <dependency>
           <groupId>org.universAAL.thirdparty</groupId>
           <artifactId>rdf4j-runtime-osgi-uaal</artifactId>
-          <version>2.3.2</version>
+          <version>3.7.7</version>
           <scope>provided</scope>
         </dependency>
       </dependencies>

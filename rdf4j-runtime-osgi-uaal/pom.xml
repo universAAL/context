@@ -5,7 +5,7 @@
 
 	<groupId>org.universAAL.thirdparty</groupId>
 	<artifactId>rdf4j-runtime-osgi-uaal</artifactId>
-	<version>2.3.2</version>
+	<version>3.7.7</version>
 	<packaging>bundle</packaging>
 
 	<name>RDF4J: Runtime - OSGi - uAAL version</name>
@@ -17,7 +17,7 @@
 		<dependency>
 			<groupId>org.eclipse.rdf4j</groupId>
 			<artifactId>rdf4j-http-server-spring</artifactId>
-			<version>2.3.2</version>
+			<version>3.7.7</version>
 		</dependency>
 	</dependencies>
 
@@ -50,6 +50,11 @@
 							com.google.common.*,
 							com.opencsv.*;resolution:=optional,
 							com.spatial4j.*;resolution:=optional,
+							org.locationtech.*;resolution:=optional,
+							com.google.errorprone.*;resolution:=optional,
+							com.google.j2objc.*;resolution:=optional,
+							org.checkerframework.*;resolution:=optional,
+							sun.misc;resolution:=optional,
 							org.elasticsearch.*;resolution:=optional,
 							org.mapdb.*;resolution:=optional,
 							*
@@ -62,8 +67,14 @@
 							groupId=org.eclipse.rdf4j;
 							scope=compile|runtime;
 							type=!pom;
+							inline=true,
+							guava|failureaccess|commons-lang3|commons-text;
+							scope=compile|runtime;
 							inline=true
 						</Embed-Dependency>
+						<!-- rdf4j 3.x needs guava 30, commons-lang3 3.12 and commons-text 1.9; they are embedded (and not
+						     exported, see Export-Package) so that the bundle runs where only older versions are installed
+						     (e.g. guava 18) -->
 						<Embed-Transitive>true</Embed-Transitive>
 					</instructions>
 				</configuration>

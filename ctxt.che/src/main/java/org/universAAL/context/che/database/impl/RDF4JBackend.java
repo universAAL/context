@@ -41,6 +41,7 @@ import javax.xml.datatype.XMLGregorianCalendar;
 import org.universAAL.context.che.Hub;
 import org.universAAL.context.che.Hub.Log;
 import org.universAAL.context.che.database.Backend;
+import org.universAAL.context.che.database.RecycleLog;
 import org.universAAL.middleware.container.utils.StringUtils;
 import org.universAAL.middleware.context.ContextEvent;
 import org.universAAL.middleware.context.owl.ContextProvider;
@@ -118,6 +119,28 @@ public class RDF4JBackend implements Backend {
 	 * Determines if data is stored/queried in tenant-aware mode
 	 */
 	public static Boolean tenantAware = Boolean.parseBoolean(Hub.getProperties().getProperty("STORE.TENANT", "true"));
+	/**
+	 * Triple indexes of the native store.
+	 */
+	private static final String INDEXES = "spoc,posc,cosp";
+	// TODO: Change indexes (specially if we dont use contexts)
+
+	/**
+	 * Whether the store is used with the RDFS inferencer (STORE.INFERENCE,
+	 * default true). Without it, removing events is much cheaper, because the
+	 * inferencer recomputes all inferred statements after every removal.
+	 */
+	protected boolean isInference() {
+		return Boolean.parseBoolean(Hub.getProperties().getProperty("STORE.INFERENCE", "true"));
+	}
+
+	/**
+	 * Whether the native store syncs every commit to disk (STORE.FORCESYNC,
+	 * default false). Slower, but safer on power loss.
+	 */
+	protected boolean isForceSync() {
+		return Boolean.parseBoolean(Hub.getProperties().getProperty("STORE.FORCESYNC", "false"));
+	}
 
 	/*
 	 * (non-Javadoc)
@@ -129,12 +152,14 @@ public class RDF4JBackend implements Backend {
 		// I use C:/Proyectos/UNIVERSAAL/ContextStore/Stores/SAIL_FCRDFS_Native
 		if (dataPath != null) {
 			File dataDir = new File(dataPath);
-			String indexes = "spoc,posc,cosp";
-			// TODO: Change indexes (specially if we dont use contexts)
-			log.info("CHe connects to {} ", dataDir.toString());
+			boolean inference = isInference();
+			log.info("CHe connects to {} ", dataDir.toString() + (inference ? "" : " (without inference)"));
 			// TODO: Study other reasoners, if any
 			try {
-				myRepository = new SailRepository(new ForwardChainingRDFSInferencer(new NativeStore(dataDir, indexes)));
+				NativeStore ns = new NativeStore(dataDir, INDEXES);
+				ns.setForceSync(isForceSync());
+				myRepository = inference ? new SailRepository(new ForwardChainingRDFSInferencer(ns))
+						: new SailRepository(ns);
 				myRepository.initialize();
 				con = myRepository.getConnection();
 				if (Boolean.parseBoolean(Hub.getProperties().getProperty("STORE.PRELOAD"))) {
@@ -236,8 +261,13 @@ public class RDF4JBackend implements Backend {
 				} finally {
 					con.close();
 				}
+			} else if (con != null) {
+				// an open connection makes shutDown() wait 20 s before closing it
+				con.close();
 			}
-			myRepository.shutDown();
+			if (myRepository != null) {
+				myRepository.shutDown();
+			}
 		} catch (RDF4JException exc) {
 			log.error("close", "Exception trying to shutdown the store: {} ", exc);
 			exc.printStackTrace();
@@ -510,22 +540,53 @@ public class RDF4JBackend implements Backend {
 	 */
 	synchronized public void removeOldEvents(long tst) {
 		log.debug("removeOldEvents", "removeOldEvents stored before: " + tst);
-		String removeQuery = "DELETE { ?s ?p ?o } " + "WHERE" + "  { ?s "
-				+ " <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> "
-				+ " <http://ontology.universAAL.org/Context.owl#ContextEvent> ;" + "  ?p ?o ;"
-				+ "  <http://ontology.universAAL.org/Context.owl#hasTimestamp> ?t ." + " FILTER ( ?t <= \"" + tst
-				+ "\"^^<http://www.w3.org/2001/XMLSchema#decimal> )  }";
+		if (tst <= 0) {
+			return;
+		}
+		// The store is closed, recycled like at startup and opened again:
+		// removing in one big transaction on the open store is very slow, and
+		// removing in several transactions makes the inferencer recompute
+		// everything after each of them. Storing and querying wait anyway, as
+		// all methods are synchronized.
 		try {
-			// RepositoryConnection con = myRepository.getConnection();
-			try {
-				Update uquery = con.prepareUpdate(QueryLanguage.SPARQL, removeQuery);
-				uquery.execute();
-			} finally {
-				// con.close();
+			if (con != null) {
+				con.close();
 			}
+			myRepository.shutDown();
 		} catch (RDF4JException exc) {
-			log.error("removeOldEvents", "Error trying to get connection to store: {}", exc);
-			exc.printStackTrace();
+			log.error("removeOldEvents", "Error closing the store: {}", exc);
+			RecycleLog.log("ERROR closing the store for recycling", exc);
+		}
+		myRepository = null;
+		con = null;
+		removeOldEventsBeforeConnect(tst);
+		connect();
+	}
+
+	/**
+	 * Removes the events received until tst before the store is opened by
+	 * {@link #connect()}, so that the removal does not block storing and
+	 * querying (see {@link StoreRecycler#recycleOffline}).
+	 *
+	 * @param tst
+	 *            timestamp in milliseconds until which events are removed
+	 * @return true if the removal succeeded
+	 */
+	public boolean removeOldEventsBeforeConnect(long tst) {
+		String dataPath = Hub.getProperties().getProperty("STORE.LOCATION");
+		if (dataPath == null || tst <= 0) {
+			return false;
+		}
+		if (myRepository != null) {
+			throw new IllegalStateException("the store is already connected");
+		}
+		try {
+			StoreRecycler.recycleOffline(new File(dataPath), INDEXES, isForceSync(), isInference(), tst);
+			return true;
+		} catch (RuntimeException exc) {
+			log.error("removeOldEventsBeforeConnect", "Error removing old events: {}", exc);
+			RecycleLog.log("ERROR removing old events", exc);
+			return false;
 		}
 	}
 

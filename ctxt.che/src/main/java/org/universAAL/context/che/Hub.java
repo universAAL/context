@@ -37,6 +37,7 @@ import java.util.Timer;
 
 import org.universAAL.context.che.database.Backend;
 import org.universAAL.context.che.database.Cleaner;
+import org.universAAL.context.che.database.RecycleLog;
 import org.universAAL.middleware.container.ModuleActivator;
 import org.universAAL.middleware.container.ModuleContext;
 import org.universAAL.middleware.container.utils.LogUtils;
@@ -101,6 +102,10 @@ public class Hub implements OntologyListener, ModuleActivator {
 	 */
 	private Timer t;
 	/**
+	 * The autoremoval task.
+	 */
+	private Cleaner cleaner;
+	/**
 	 * Lock for sync file access.
 	 */
 	private Object fileLock = new Object();
@@ -148,6 +153,12 @@ public class Hub implements OntologyListener, ModuleActivator {
 		moduleContext = context;
 		confHome = moduleContext.getConfigHome();
 		createOWLFiles();
+		RecycleLog.init(getProperties().getProperty("STORE.LOCATION"));
+		boolean recycleOnStartup = Boolean.parseBoolean(getProperties().getProperty("RECYCLE.ON_STARTUP", "false"));
+		if (recycleOnStartup) {
+			// before the store is opened: nothing waits for it (but the start)
+			Cleaner.recycleAtStartup(db);
+		}
 		// Start the store and wrappers
 		this.db.connect();
 		this.connected = true;
@@ -165,10 +176,15 @@ public class Hub implements OntologyListener, ModuleActivator {
 		}
 		this.hc = new ContextHistorySubscriber(moduleContext, db, cep);
 		this.chc = new ContextHistoryCallee(moduleContext, db);
-		// Every 24 hours do the "Cleaner thing" (see Cleaner class)
-		t = new Timer();
-		t.scheduleAtFixedRate(new Cleaner(db), HOURS24, HOURS24);
-		log.info("start", "Removal period will be checked" + " in 24 hours from now");
+		if (recycleOnStartup) {
+			log.info("start", "Removal period is only checked when the CHe starts");
+		} else {
+			// Every 24 hours do the "Cleaner thing" (see Cleaner class)
+			t = new Timer("ctxt.che recycling check", true);
+			cleaner = new Cleaner(db);
+			t.scheduleAtFixedRate(cleaner, HOURS24, HOURS24);
+			log.info("start", "Removal period will be checked" + " in 24 hours from now");
+		}
 		// Sync Mobile Events. When platform can, sync when mobile arrives
 		log.debug("start", "Looking for mobile events to synchronize");
 		if (synchronizeMobileTurtle()) {
@@ -245,6 +261,12 @@ public class Hub implements OntologyListener, ModuleActivator {
 		// Stop the store and wrappers
 		if (moduleContext != null) {
 			OntologyManagement.getInstance().removeOntologyListener(moduleContext, this);
+		}
+		if (cleaner != null) {
+			cleaner.cancel();
+		}
+		if (t != null) {
+			t.cancel();
 		}
 		this.chc.close();
 		this.hc.close();

@@ -1,0 +1,13 @@
+# merged from the rdf4j 3.7.7 jars embedded in this bundle (each of them has its own version of this file)
+# rdf4j-queryresultio-binary
+org.eclipse.rdf4j.query.resultio.binary.BinaryQueryResultWriterFactory
+# rdf4j-queryresultio-sparqljson
+org.eclipse.rdf4j.query.resultio.sparqljson.SPARQLResultsJSONWriterFactory
+org.eclipse.rdf4j.query.resultio.sparqljson.SPARQLStarResultsJSONWriterFactory
+# rdf4j-queryresultio-sparqlxml
+org.eclipse.rdf4j.query.resultio.sparqlxml.SPARQLResultsXMLWriterFactory
+org.eclipse.rdf4j.query.resultio.sparqlxml.SPARQLStarResultsXMLWriterFactory
+# rdf4j-queryresultio-text
+org.eclipse.rdf4j.query.resultio.text.csv.SPARQLResultsCSVWriterFactory
+org.eclipse.rdf4j.query.resultio.text.tsv.SPARQLResultsTSVWriterFactory
+org.eclipse.rdf4j.query.resultio.text.tsv.SPARQLStarResultsTSVWriterFactory

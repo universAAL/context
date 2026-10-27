@@ -59,6 +59,10 @@
 							org.mapdb.*;resolution:=optional,
 							*
 						</Import-Package>
+						<!-- src/main/resources/META-INF/services has the service files that several of the embedded rdf4j
+						     jars have (SPARQL functions, parsers, writers ...), merged: otherwise only the file of one of the
+						     jars ends up in the bundle, and e.g. STRSTARTS is an unknown function. They come first and win
+						     over the embedded ones. Regenerate them when the rdf4j version changes. -->
 						<Include-Resource>
 							{maven-resources}
 						</Include-Resource>

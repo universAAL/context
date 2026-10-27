@@ -1,0 +1,5 @@
+# merged from the rdf4j 3.7.7 jars embedded in this bundle (each of them has its own version of this file)
+# rdf4j-queryparser-serql
+org.eclipse.rdf4j.query.parser.serql.SeRQLParserFactory
+# rdf4j-queryparser-sparql
+org.eclipse.rdf4j.query.parser.sparql.SPARQLParserFactory

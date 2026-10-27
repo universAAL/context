@@ -1,0 +1,25 @@
+# merged from the rdf4j 3.7.7 jars embedded in this bundle (each of them has its own version of this file)
+# rdf4j-lucene-spin
+org.eclipse.rdf4j.lucene.spin.config.LuceneSpinSailFactory
+# rdf4j-sail-elasticsearch
+org.eclipse.rdf4j.sail.elasticsearch.config.ElasticsearchSailFactory
+# rdf4j-sail-federation
+org.eclipse.rdf4j.sail.federation.config.FederationFactory
+# rdf4j-sail-inferencer
+org.eclipse.rdf4j.sail.inferencer.fc.config.SchemaCachingRDFSInferencerFactory
+org.eclipse.rdf4j.sail.inferencer.fc.config.ForwardChainingRDFSInferencerFactory
+org.eclipse.rdf4j.sail.inferencer.fc.config.DirectTypeHierarchyInferencerFactory
+org.eclipse.rdf4j.sail.inferencer.fc.config.CustomGraphQueryInferencerFactory
+org.eclipse.rdf4j.sail.inferencer.fc.config.DedupingInferencerFactory
+# rdf4j-sail-lucene
+org.eclipse.rdf4j.sail.lucene.config.LuceneSailFactory
+# rdf4j-sail-memory
+org.eclipse.rdf4j.sail.memory.config.MemoryStoreFactory
+# rdf4j-sail-nativerdf
+org.eclipse.rdf4j.sail.nativerdf.config.NativeStoreFactory
+# rdf4j-sail-solr
+org.eclipse.rdf4j.sail.solr.config.SolrSailFactory
+# rdf4j-sail-spin
+org.eclipse.rdf4j.sail.spin.config.SpinSailFactory
+# rdf4j-shacl
+org.eclipse.rdf4j.sail.shacl.config.ShaclSailFactory

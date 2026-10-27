@@ -1,0 +1,7 @@
+# merged from the rdf4j 3.7.7 jars embedded in this bundle (each of them has its own version of this file)
+# rdf4j-queryresultio-sparqljson
+org.eclipse.rdf4j.query.resultio.sparqljson.SPARQLBooleanJSONParserFactory
+# rdf4j-queryresultio-sparqlxml
+org.eclipse.rdf4j.query.resultio.sparqlxml.SPARQLBooleanXMLParserFactory
+# rdf4j-queryresultio-text
+org.eclipse.rdf4j.query.resultio.text.BooleanTextParserFactory

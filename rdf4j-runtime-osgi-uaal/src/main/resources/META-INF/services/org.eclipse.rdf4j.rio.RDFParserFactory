@@ -1,0 +1,24 @@
+# merged from the rdf4j 3.7.7 jars embedded in this bundle (each of them has its own version of this file)
+# rdf4j-rio-binary
+org.eclipse.rdf4j.rio.binary.BinaryRDFParserFactory
+# rdf4j-rio-jsonld
+org.eclipse.rdf4j.rio.jsonld.JSONLDParserFactory
+org.eclipse.rdf4j.rio.ndjsonld.NDJSONLDParserFactory
+# rdf4j-rio-n3
+org.eclipse.rdf4j.rio.n3.N3ParserFactory
+# rdf4j-rio-nquads
+org.eclipse.rdf4j.rio.nquads.NQuadsParserFactory
+# rdf4j-rio-ntriples
+org.eclipse.rdf4j.rio.ntriples.NTriplesParserFactory
+# rdf4j-rio-rdfjson
+org.eclipse.rdf4j.rio.rdfjson.RDFJSONParserFactory
+# rdf4j-rio-rdfxml
+org.eclipse.rdf4j.rio.rdfxml.RDFXMLParserFactory
+# rdf4j-rio-trig
+org.eclipse.rdf4j.rio.trig.TriGParserFactory
+org.eclipse.rdf4j.rio.trigstar.TriGStarParserFactory
+# rdf4j-rio-trix
+org.eclipse.rdf4j.rio.trix.TriXParserFactory
+# rdf4j-rio-turtle
+org.eclipse.rdf4j.rio.turtle.TurtleParserFactory
+org.eclipse.rdf4j.rio.turtlestar.TurtleStarParserFactory

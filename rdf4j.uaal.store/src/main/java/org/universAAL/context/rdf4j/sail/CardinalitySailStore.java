@@ -456,6 +456,14 @@ class CardinalitySailStore implements SailStore {
 			removeStatements(subj, pred, obj, explicit, ctx);
 		}
 
+		// abstract in rdf4j 3.x, implemented as in rdf4j's NativeSailStore
+		public void deprecate(Statement statement)
+			throws SailException
+		{
+			removeStatements(statement.getSubject(), statement.getPredicate(), statement.getObject(), explicit,
+					statement.getContext());
+		}
+
 		/**
 		 * Starts a transaction on the triplestore, if necessary.
 		 * 

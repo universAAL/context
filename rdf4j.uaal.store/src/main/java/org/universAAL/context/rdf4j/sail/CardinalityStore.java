@@ -49,6 +49,9 @@ import org.eclipse.rdf4j.sail.helpers.DirectoryLockManager;
  */
 public class CardinalityStore extends AbstractNotifyingSail implements FederatedServiceResolverClient {
 
+	// the logger of AbstractSail is private in rdf4j 3.x
+	private static final org.slf4j.Logger logger = org.slf4j.LoggerFactory.getLogger(CardinalityStore.class);
+
 	/*-----------*
 	 * Variables *
 	 *-----------*/

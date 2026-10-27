@@ -10,6 +10,8 @@
   </parent>
   <artifactId>rdf4j.uaal.store</artifactId>
   <version>3.4.2-SNAPSHOT</version>
+  <!-- an OSGi bundle itself, so that Karaf does not need wrap: and the jar can be replaced like the others -->
+  <packaging>bundle</packaging>
   <name>universAAL Context rdf4j SAIL for OWL Lite</name>
   <description>rdf4j SAIL that realizes the cardinality of properties, according to OWL Lite</description>
   <dependencies>
@@ -75,4 +77,23 @@
       <artifactId>jce.jdk13</artifactId>
     </dependency>
   </dependencies>
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.felix</groupId>
+        <artifactId>maven-bundle-plugin</artifactId>
+        <extensions>true</extensions>
+        <configuration>
+          <instructions>
+            <Bundle-Name>${project.name}</Bundle-Name>
+            <Bundle-Description>${project.description}</Bundle-Description>
+            <Bundle-SymbolicName>${project.artifactId}</Bundle-SymbolicName>
+            <Export-Package>org.universAAL.context.rdf4j.sail.*</Export-Package>
+            <!-- all optional, as with wrap: before -->
+            <Import-Package>org.apache.commons.io;version=0;resolution:=optional,org.slf4j;version=0;resolution:=optional,*;resolution:=optional</Import-Package>
+          </instructions>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
 </project>

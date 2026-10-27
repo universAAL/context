@@ -50,6 +50,9 @@ import org.eclipse.rdf4j.sail.helpers.DirectoryLockManager;
  */
 public class Collection2Store extends AbstractNotifyingSail implements FederatedServiceResolverClient {
 
+	// the logger of AbstractSail is private in rdf4j 3.x
+	private static final org.slf4j.Logger logger = org.slf4j.LoggerFactory.getLogger(Collection2Store.class);
+
 	/*-----------*
 	 * Variables *
 	 *-----------*/

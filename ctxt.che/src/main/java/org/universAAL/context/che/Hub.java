@@ -143,6 +143,24 @@ public class Hub implements OntologyListener, ModuleActivator {
 		}
 	}
 
+	private static boolean isRecycleOnStartup() {
+		return Boolean.parseBoolean(getProperties().getProperty("RECYCLE.ON_STARTUP", "false"));
+	}
+
+	/**
+	 * To be called before {@link #start(ModuleContext)}, in the thread that
+	 * starts the bundle: if RECYCLE.ON_STARTUP is set and the removal of old
+	 * events is due, the old events are removed before the store is opened.
+	 * As this blocks the start of the bundle, the bundles with a higher start
+	 * level are only started afterwards, and do not find the CHe missing.
+	 */
+	public void recycleBeforeStart() {
+		RecycleLog.init(getProperties().getProperty("STORE.LOCATION"));
+		if (isRecycleOnStartup()) {
+			Cleaner.recycleAtStartup(db);
+		}
+	}
+
 	/**
 	 * To be called when application starts. Used to be Activator.start().
 	 *
@@ -154,11 +172,7 @@ public class Hub implements OntologyListener, ModuleActivator {
 		confHome = moduleContext.getConfigHome();
 		createOWLFiles();
 		RecycleLog.init(getProperties().getProperty("STORE.LOCATION"));
-		boolean recycleOnStartup = Boolean.parseBoolean(getProperties().getProperty("RECYCLE.ON_STARTUP", "false"));
-		if (recycleOnStartup) {
-			// before the store is opened: nothing waits for it (but the start)
-			Cleaner.recycleAtStartup(db);
-		}
+		boolean recycleOnStartup = isRecycleOnStartup();
 		// Start the store and wrappers
 		this.db.connect();
 		this.connected = true;

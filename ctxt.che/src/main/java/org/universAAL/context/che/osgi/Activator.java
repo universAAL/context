@@ -76,6 +76,15 @@ public class Activator implements BundleActivator, ServiceListener {
 			this.serviceChanged(new ServiceEvent(ServiceEvent.REGISTERED, references[i]));
 		}
 
+		// Remove old events if due (RECYCLE.ON_STARTUP), not in the thread
+		// below: bundles with a higher start level wait for it
+		try {
+			hub.recycleBeforeStart();
+		} catch (Throwable t) {
+			// the CHe has to start anyway
+			org.universAAL.context.che.database.RecycleLog.log("ERROR recycling at startup", t);
+		}
+
 		// Start the CHE hub. May be heavy, use thread.
 		new Thread() {
 			public void run() {
